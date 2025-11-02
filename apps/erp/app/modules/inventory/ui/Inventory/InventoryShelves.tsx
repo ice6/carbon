@@ -78,8 +78,6 @@ const InventoryShelves = ({
   const [selectedShelfId, setSelectedShelfId] = useState<string | null>(null);
 
   const openAdjustmentModal = (shelfId?: string) => {
-    console.log(shelfId);
-    console.log(`setting selected shelf id to ${shelfId}`);
     setSelectedShelfId(shelfId || null);
     adjustmentModal.onOpen();
   };
@@ -182,7 +180,7 @@ const InventoryShelves = ({
                 quantity: quantity,
                 locationId: pickMethod.locationId,
                 shelfId: selectedShelfId || undefined,
-                adjustmentType: isSerial ? "Positive Adjmt." : "Set Quantity",
+                adjustmentType: "Set Quantity",
                 trackedEntityId: nanoid(),
               }}
               onSubmit={adjustmentModal.onClose}
