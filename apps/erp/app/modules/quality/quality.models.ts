@@ -82,6 +82,13 @@ export const gaugeCalibrationRecordValidator = z.object({
   temperature: zfd.numeric(z.number().min(-200).max(500).optional()),
   humidity: zfd.numeric(z.number().min(0).max(1).optional()),
   approvedBy: zfd.text(z.string().optional()),
+  measurementStandard: zfd.text(z.string().optional()),
+  calibrationAttempts: zfd.repeatableOfType(
+    z.object({
+      reference: zfd.numeric(z.number()),
+      actual: zfd.numeric(z.number()),
+    })
+  ),
   notes: z
     .string()
     .optional()

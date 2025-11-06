@@ -328,6 +328,8 @@ const GaugeForm = ({
             requiresAdjustment: false,
             requiresRepair: false,
             notes: "{}",
+            measurementStandard: "",
+            calibrationAttempts: [],
           }}
           type="drawer"
           open={newRecordDisclosure.isOpen}

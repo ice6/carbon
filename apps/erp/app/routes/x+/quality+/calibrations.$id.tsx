@@ -15,6 +15,7 @@ import GaugeCalibrationRecordForm from "~/modules/quality/ui/Calibrations/GaugeC
 import { getCustomFields, setCustomFields } from "~/utils/form";
 import type { Handle } from "~/utils/handle";
 import { getParams, path } from "~/utils/path";
+import type { CalibrationAttempt } from "../../../modules/quality/types";
 export const handle: Handle = {
   breadcrumb: "Gauges",
   to: path.to.gauges,
@@ -116,6 +117,9 @@ export default function GaugeCalibrationRecordRoute() {
     approvedBy: record.approvedBy ?? undefined,
     notes: JSON.stringify(record.notes),
     supplierId: record.supplierId ?? "",
+    measurementStandard: record.measurementStandard ?? "",
+    calibrationAttempts: (record.calibrationAttempts ||
+      []) as CalibrationAttempt[],
     ...getCustomFields(record.customFields),
   };
 

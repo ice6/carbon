@@ -41,7 +41,7 @@ const qualityRoutes: AuthenticatedRouteGroup[] = [
     ],
   },
   {
-    name: "Gauges",
+    name: "Calibrations",
     routes: [
       {
         name: "Gauges",
@@ -49,7 +49,7 @@ const qualityRoutes: AuthenticatedRouteGroup[] = [
         icon: <LuDraftingCompass />,
       },
       {
-        name: "Calibrations",
+        name: "Records",
         to: path.to.calibrations,
         icon: <LuCircleGauge />,
       },

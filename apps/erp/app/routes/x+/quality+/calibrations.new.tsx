@@ -112,6 +112,7 @@ export default function GaugeCalibrationRecordNewRoute() {
     humidity: undefined,
     approvedBy: undefined,
     notes: "{}",
+    calibrationAttempts: [],
   };
 
   return (

@@ -1,6 +1,12 @@
 import { useCarbon } from "@carbon/auth";
 import type { Database } from "@carbon/database";
-import { Boolean, DatePicker, Number, ValidatedForm } from "@carbon/form";
+import {
+  Boolean,
+  DatePicker,
+  Input,
+  Number,
+  ValidatedForm,
+} from "@carbon/form";
 import type { JSONContent } from "@carbon/react";
 import {
   Button,
@@ -27,7 +33,11 @@ import {
   ModalFooter,
   ModalHeader,
   ModalTitle,
+  Table,
+  Tbody,
+  Td,
   toast,
+  Tr,
   useDisclosure,
   VStack,
 } from "@carbon/react";
@@ -124,6 +134,19 @@ const GaugeCalibrationRecordForm = ({
   const [notes, setNotes] = useState<JSONContent>(
     (JSON.parse(initialValues?.notes ?? {}) as JSONContent) ?? {}
   );
+  const [numAttempts, setNumAttempts] = useState<number>(
+    initialValues?.calibrationAttempts?.length || 0
+  );
+
+  const addAttempt = () =>
+    setNumAttempts((old) => {
+      return old + 1;
+    });
+
+  const removeAttempt = () =>
+    setNumAttempts((old) => {
+      return Math.max(0, old - 1);
+    });
 
   const onUploadImage = async (file: File) => {
     const fileType = file.name.split(".").pop();
@@ -289,6 +312,50 @@ const GaugeCalibrationRecordForm = ({
                     minimumFractionDigits: 0,
                   }}
                 />
+                <Input
+                  name="measurementStandard"
+                  label="Measurement Standard"
+                />
+                <span className="text-xs font-medium text-muted-foreground">
+                  Calibration Attempts
+                </span>
+                <Card className="flex-grow px-0">
+                  <Table>
+                    <Tbody>
+                      {Array.from({ length: numAttempts }).map((_, index) => (
+                        <Tr key={index}>
+                          <Td>
+                            <Number
+                              name={`calibrationAttempts[${index}].reference`}
+                              label="Reference"
+                            />
+                          </Td>
+                          <Td>
+                            <Number
+                              name={`calibrationAttempts[${index}].actual`}
+                              label="Actual"
+                            />
+                          </Td>
+                        </Tr>
+                      ))}
+                      <Tr>
+                        <Td colSpan={2} className="text-right">
+                          <Button onClick={addAttempt} className="mr-2">
+                            Add
+                          </Button>
+                          {numAttempts > 0 ? (
+                            <Button
+                              onClick={removeAttempt}
+                              variant="destructive"
+                            >
+                              Remove
+                            </Button>
+                          ) : null}
+                        </Td>
+                      </Tr>
+                    </Tbody>
+                  </Table>
+                </Card>
                 <Employee name="approvedBy" label="Approved By" />
                 <div className="flex flex-col gap-2 w-full">
                   <Label>Notes</Label>
