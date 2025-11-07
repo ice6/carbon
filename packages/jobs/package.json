@@ -9,7 +9,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@ai-sdk/openai": "^0.0.66",
+    "@ai-sdk/openai": "^2.0.60",
     "@trigger.dev/sdk": "^4.0.6",
     "@carbon/auth": "*",
     "@carbon/database": "*",

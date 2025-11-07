@@ -2,7 +2,7 @@
   "name": "erp",
   "type": "module",
   "dependencies": {
-    "@ai-sdk/openai": "~0.0.66",
+    "@ai-sdk/openai": "^2.0.60",
     "@carbon/auth": "*",
     "@carbon/database": "*",
     "@carbon/documents": "*",

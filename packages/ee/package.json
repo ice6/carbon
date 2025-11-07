@@ -25,7 +25,7 @@
     "@carbon/auth": "*",
     "@carbon/react": "*",
     "@carbon/utils": "*",
-    "@ai-sdk/openai": "^0.0.66",
+    "@ai-sdk/openai": "^2.0.60",
     "@slack/bolt": "~4.4.0",
     "@slack/oauth": "~3.0.3",
     "@slack/web-api": "~7.10.0",
