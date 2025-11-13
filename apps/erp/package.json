@@ -87,7 +87,7 @@
     "rehype-raw": "^7.0.0",
     "rehype-sanitize": "^6.0.0",
     "remark-gfm": "^4.0.0",
-    "remix-flat-routes": "^0.6.5",
+    "remix-flat-routes": "^0.8.5",
     "spin-delay": "2.0.1",
     "tailwind-merge": "^2.2.1",
     "tailwindcss-animate": "^1.0.7",
