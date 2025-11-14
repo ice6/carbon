@@ -1,4 +1,9 @@
-import { getCarbonServiceRole, SUPABASE_URL, VERCEL_URL } from "@carbon/auth";
+import {
+  getCarbonServiceRole,
+  SUPABASE_ANON_KEY,
+  SUPABASE_URL,
+  VERCEL_URL,
+} from "@carbon/auth";
 
 import { task } from "@trigger.dev/sdk";
 
@@ -29,6 +34,7 @@ export const modelThumbnailTask = task({
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
       },
       body: JSON.stringify({ url }),
     });
