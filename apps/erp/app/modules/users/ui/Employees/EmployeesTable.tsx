@@ -72,21 +72,17 @@ const EmployeesTable = memo(
       return [
         {
           header: "User",
-          cell: ({ row }) => {
-            return row.original.active === true ? (
-              <Hyperlink
-                to={`${path.to.employeeAccount(
-                  row.original.id!
-                )}?${params.toString()}`}
-              >
-                <EmployeeAvatar size="sm" employeeId={row.original.id} />
-              </Hyperlink>
-            ) : (
-              <div className="opacity-70">
-                <EmployeeAvatar size="sm" employeeId={row.original.id} />
-              </div>
-            );
-          },
+          cell: ({ row }) => (
+            <Hyperlink
+              className={row.original.active === true ? "" : "opacity-70"}
+              to={`${path.to.employeeAccount(
+                row.original.id!
+              )}?${params.toString()}`}
+            >
+              <EmployeeAvatar size="sm" employeeId={row.original.id} />
+            </Hyperlink>
+          ),
+
           meta: {
             icon: <LuUser />,
           },
