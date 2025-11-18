@@ -48,6 +48,7 @@ export type IssueAssociationNode = {
     documentReadableId: string;
     documentLineId: string;
     type: string;
+    quantity?: number;
   }[];
 };
 

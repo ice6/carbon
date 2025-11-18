@@ -390,7 +390,7 @@ export async function getIssueInvestigationTasks(
 ) {
   let query = client
     .from("nonConformanceInvestigationTask")
-    .select("*, ...nonConformanceInvestigationType(name)")
+    .select("*, ...nonConformanceInvestigationType(name), supplier(name)")
     .eq("nonConformanceId", id)
     .eq("companyId", companyId);
 
@@ -409,7 +409,7 @@ export async function getIssueActionTasks(
   let query = client
     .from("nonConformanceActionTask")
     .select(
-      "*, ...nonConformanceRequiredAction(name), nonConformanceActionProcess(processId, ...process(name))"
+      "*, ...nonConformanceRequiredAction(name), nonConformanceActionProcess(processId, ...process(name)), supplier(name)"
     )
     .eq("nonConformanceId", id)
     .eq("companyId", companyId);
@@ -470,6 +470,8 @@ export async function getIssueAssociations(
       id,
       itemId,
       disposition,
+      quantity,
+      createdAt,
       ...item(
         readableIdWithRevision
       )
@@ -607,6 +609,8 @@ export async function getIssueAssociations(
         documentReadableId: item.readableIdWithRevision || "",
         documentLineId: "",
         disposition: item.disposition,
+        quantity: item.quantity,
+        createdAt: item.createdAt,
       })) || [],
     jobOperations:
       jobOperations.data?.map((item) => ({
@@ -1384,7 +1388,7 @@ export async function upsertIssue(
       if (salesOrderLineId) {
         const salesOrderLine = await client
           .from("salesOrderLine")
-          .select("*")
+          .select("*, salesOrder(salesOrderId)")
           .eq("id", salesOrderLineId)
           .single();
         if (salesOrderLine.data) {
@@ -1396,6 +1400,8 @@ export async function upsertIssue(
                 createdBy: nonConformance.createdBy,
                 salesOrderLineId: salesOrderLineId,
                 salesOrderId: salesOrderLine.data.salesOrderId,
+                salesOrderReadableId:
+                  salesOrderLine.data.salesOrder.salesOrderId,
                 nonConformanceId: result.data.id,
               },
             ]);

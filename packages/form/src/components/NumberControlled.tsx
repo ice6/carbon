@@ -84,7 +84,9 @@ const Number = forwardRef<HTMLInputElement, FormNumberProps>(
         )}
         <HStack spacing={0} className="w-full justify-between">
           {value !== undefined && (
-            <span className="flex-grow line-clamp-1">{value}</span>
+            <span className="flex flex-grow line-clamp-1 items-center">
+              {value}
+            </span>
           )}
           <IconButton
             icon={

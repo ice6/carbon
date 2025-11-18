@@ -1,5 +1,5 @@
 import { useCarbon } from "@carbon/auth";
-import { Combobox, Hidden, Submit, ValidatedForm } from "@carbon/form";
+import { Combobox, Hidden, Number, Submit, ValidatedForm } from "@carbon/form";
 import {
   Button,
   cn,
@@ -238,8 +238,17 @@ export function IssueAssociationItem({
                   className="flex pr-7 h-8 cursor-pointer items-center overflow-hidden rounded-sm px-1 gap-2 text-sm hover:bg-muted/90 w-full font-medium whitespace-nowrap"
                 >
                   <LevelLine isSelected={false} />
-                  {getAssociationIcon(node.key)}
-                  <span className="truncate">{child.documentReadableId}</span>
+                  <div className="flex flex-grow justify-between gap-2">
+                    <div className="flex items-center gap-2">
+                      {getAssociationIcon(node.key)}
+                      <span className="truncate">
+                        {child.documentReadableId}
+                      </span>
+                    </div>
+                    {node.key === "items" && (
+                      <Count count={child.quantity ?? 0} />
+                    )}
+                  </div>
                 </Link>
                 {permissions.can("delete", node.module) && (
                   <DropdownMenu>
@@ -323,6 +332,7 @@ function NewItemAssociation() {
         type={itemType}
         onTypeChange={onTypeChange}
       />
+      <Number name="quantity" label="Quantity" minValue={0} defaultValue={0} />
     </>
   );
 }

@@ -47,6 +47,24 @@ export async function action({ request }: ActionFunctionArgs) {
           })
           .eq("id", id)
       );
+    case "quantity":
+      const quantity = parseFloat(value || "0");
+      if (isNaN(quantity) || quantity < 0) {
+        return json({
+          error: { message: "Invalid quantity" },
+          data: null,
+        });
+      }
+      return json(
+        await client
+          .from("nonConformanceItem")
+          .update({
+            quantity,
+            updatedBy: userId,
+            updatedAt: new Date().toISOString(),
+          })
+          .eq("id", id)
+      );
     default:
       return json({
         error: { message: `Invalid field: ${field}` },

@@ -72,7 +72,9 @@ const DatePicker = ({
   const utcValue = date ? date.toString() : "";
 
   const DatePickerPreview = (
-    <span className="flex-grow line-clamp-1">{formatDate(utcValue)}</span>
+    <span className="flex flex-grow line-clamp-1 items-center">
+      {formatDate(utcValue)}
+    </span>
   );
 
   return (

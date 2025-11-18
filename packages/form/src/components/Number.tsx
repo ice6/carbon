@@ -18,6 +18,7 @@ import { useField } from "../hooks";
 
 type FormNumberProps = NumberFieldProps & {
   name: string;
+  size?: "sm" | "md" | "lg";
   label?: string;
   isConfigured?: boolean;
   isRequired?: boolean;
@@ -29,6 +30,7 @@ const Number = forwardRef<HTMLInputElement, FormNumberProps>(
   (
     {
       name,
+      size = "md",
       label,
       isConfigured = false,
       isRequired,
@@ -66,8 +68,8 @@ const Number = forwardRef<HTMLInputElement, FormNumberProps>(
           formatOptions={formatOptions}
         >
           <NumberInputGroup className="relative">
-            <NumberInput isReadOnly={isReadOnly} ref={ref} />
-            {!isReadOnly && (
+            <NumberInput isReadOnly={isReadOnly} ref={ref} size={size} />
+            {!isReadOnly && size !== "sm" && (
               <NumberInputStepper>
                 <NumberIncrementStepper>
                   <LuChevronUp size="1em" strokeWidth="3" />

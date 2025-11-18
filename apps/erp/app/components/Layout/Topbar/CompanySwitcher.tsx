@@ -5,8 +5,8 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
-  DropdownMenuItem,
   DropdownMenuIcon,
+  DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
@@ -84,7 +84,7 @@ const CompanySwitcher = () => {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="min-w-[240px]">
         <DropdownMenuItem asChild>
-          <Link to={path.to.dashboard}>
+          <Link to={path.to.authenticatedRoot}>
             <DropdownMenuIcon icon={<LuHouse />} />
             Dashboard
           </Link>

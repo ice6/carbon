@@ -8,6 +8,7 @@ import {
   getIssueActionTasks,
   getIssueApprovalTasks,
   getIssueInvestigationTasks,
+  getIssueItems,
   getIssueReviewers,
   getIssueTypes,
   getRequiredActionsList,
@@ -33,6 +34,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     reviewers,
     investigationTypes,
     actionTypes,
+    items,
   ] = await Promise.all([
     getCompany(client, companyId),
     getIssue(client, id),
@@ -43,6 +45,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     getIssueReviewers(client, id, companyId),
     getInvestigationTypesList(client, companyId),
     getRequiredActionsList(client, companyId),
+    getIssueItems(client, id, companyId),
   ]);
 
   if (company.error) {
@@ -69,13 +72,18 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     console.error(approvalTasks.error);
   }
 
+  if (items.error) {
+    console.error(items.error);
+  }
+
   if (
     company.error ||
     nonConformance.error ||
     nonConformanceTypes.error ||
     investigationTasks.error ||
     actionTasks.error ||
-    approvalTasks.error
+    approvalTasks.error ||
+    items.error
   ) {
     throw new Error("Failed to load issue");
   }
@@ -93,6 +101,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
       actionTasks={actionTasks.data ?? []}
       actionTypes={actionTypes.data ?? []}
       reviewers={reviewers.data ?? []}
+      items={items.data ?? []}
     />
   );
 

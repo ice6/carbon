@@ -94,7 +94,7 @@ const CreatableMultiSelect = forwardRef<
       >
         {isInlinePreview && Array.isArray(value) && value.length > 0 && (
           <span
-            className="flex-grow line-clamp-1 cursor-pointer"
+            className="flex flex-grow line-clamp-1 items-center cursor-pointer"
             onClick={() => setOpen(true)}
           >
             {inline(value, options, maxPreview)}

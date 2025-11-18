@@ -84,7 +84,7 @@ const MultiSelect = forwardRef<HTMLButtonElement, MultiSelectProps>(
         {isInlinePreview && Array.isArray(value) && value.length > 0 && (
           <span
             className={cn(
-              "flex-grow line-clamp-1 cursor-pointer",
+              "flex flex-grow line-clamp-1 items-center cursor-pointer",
               isReadOnly && "cursor-default opacity-50"
             )}
             onClick={isReadOnly ? undefined : () => setOpen(true)}

@@ -147,7 +147,7 @@ export const SelectBase = forwardRef<HTMLButtonElement, SelectBaseProps>(
     return (
       <HStack spacing={1}>
         {isInlinePreview && value && (
-          <span className="flex-grow line-clamp-1">
+          <span className="flex flex-grow line-clamp-1 items-center">
             {inline(value, options)}
           </span>
         )}

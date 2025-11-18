@@ -26,7 +26,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     });
   }
 
-  const { type, id, lineId } = validation.data;
+  const { type, id, lineId, quantity } = validation.data;
 
   switch (type) {
     case "items":
@@ -37,9 +37,11 @@ export async function action({ request, params }: ActionFunctionArgs) {
           nonConformanceId,
           createdBy: userId,
           companyId: companyId,
+          quantity: quantity ?? 0,
         });
 
       if (itemError) {
+        console.error(itemError);
         return json({
           success: false,
           message: "Failed to create issue item",
@@ -58,6 +60,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
         });
 
       if (customerError) {
+        console.error(customerError);
         return json({
           success: false,
           message: "Failed to create issue customer",

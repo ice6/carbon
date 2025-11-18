@@ -125,6 +125,7 @@ export const issueAssociationValidator = z
     type: z.enum(nonConformanceAssociationType),
     id: z.string(),
     lineId: zfd.text(z.string().optional()),
+    quantity: zfd.numeric(z.number().min(0).optional()),
   })
   .refine(
     (data) => {
@@ -205,6 +206,10 @@ export const issueWorkflowValidator = z.object({
   approvalRequirements: z
     .array(z.enum(nonConformanceApprovalRequirement))
     .optional(),
+});
+
+export const itemQuantityValidator = z.object({
+  quantity: zfd.numeric(z.number().min(0)),
 });
 
 export const qualityDocumentValidator = z.object({
