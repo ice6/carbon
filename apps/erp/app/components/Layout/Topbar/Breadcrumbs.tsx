@@ -76,7 +76,7 @@ const Breadcrumbs = () => {
   const logo = mode === "dark" ? company?.logoDarkIcon : company?.logoLightIcon;
 
   return (
-    <HStack className="items-center h-full -ml-2" spacing={0}>
+    <HStack className="items-center h-full hidden md:flex -ml-2" spacing={0}>
       <Button isIcon asChild variant="ghost" size="lg">
         <Link to="/">
           {logo ? (

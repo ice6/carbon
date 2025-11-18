@@ -1,9 +1,9 @@
 import { HStack, IconButton } from "@carbon/react";
 import { LuSquarePen } from "react-icons/lu";
 import { usePermissions, useUser } from "~/hooks";
-import { useFlags } from "~/hooks/useFlags";
 import AvatarMenu from "../../AvatarMenu";
 import Breadcrumbs from "./Breadcrumbs";
+import CompanySwitcher from "./CompanySwitcher";
 import CreateMenu from "./CreateMenu";
 import Feedback from "./Feedback";
 import Notifications from "./Notifications";
@@ -14,13 +14,13 @@ const Topbar = () => {
   const user = useUser();
   const notificationsKey = `${user.id}:${user.company.id}`;
 
-  const { isInternal, isControlledEnvironment } = useFlags();
-  const canAccessAgent = isInternal && !isControlledEnvironment;
-
   return (
     <div className="h-[49px] grid grid-cols-[1fr_200px_1fr] bg-background text-foreground px-4 top-0 sticky z-10 items-center">
-      <div className="flex-1">
+      <div className="flex-1 hidden md:block">
         <Breadcrumbs />
+      </div>
+      <div className="flex-1 md:hidden">
+        <CompanySwitcher />
       </div>
       <div className="flex justify-center">
         {permissions.is("employee") ? <Search /> : <div />}
@@ -38,6 +38,7 @@ const Topbar = () => {
         />
 
         <Notifications key={notificationsKey} />
+
         <AvatarMenu />
       </HStack>
     </div>
