@@ -23,21 +23,13 @@ export default $config({
           dns: false,
           cert: process.env.CERT_ARN_ERP,
         },
+        health: {
+          path: "/health",
+        },
         ports: [
           { listen: "80/http", forward: "3000/http" },
           { listen: "443/https", forward: "3000/http" },
         ],
-      },
-      health: {
-        command: [
-          "CMD-SHELL",
-          "curl -f http://localhost:3000/health || exit 1",
-        ],
-        interval: "10 seconds",
-        timeout: "5 seconds",
-        // ↑ Increase both of these dramatically for new deploys
-        startPeriod: "300 seconds", // 5 minutes grace period (key fix!)
-        retries: 6,
       },
       port: 3000,
       scaling: {
@@ -98,22 +90,15 @@ export default $config({
           dns: false,
           cert: process.env.CERT_ARN_MES,
         },
+        health: {
+          path: "/health",
+        },
         ports: [
           { listen: "80/http", forward: "3000/http" },
           { listen: "443/https", forward: "3000/http" },
         ],
       },
-      health: {
-        command: [
-          "CMD-SHELL",
-          "curl -f http://localhost:3000/health || exit 1",
-        ],
-        interval: "10 seconds",
-        timeout: "5 seconds",
-        // ↑ Increase both of these dramatically for new deploys
-        startPeriod: "300 seconds", // 5 minutes grace period (key fix!)
-        retries: 6,
-      },
+
       port: 3000,
       scaling: {
         min: 1,

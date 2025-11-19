@@ -33385,6 +33385,9 @@ export default {
             $ref: "#/parameters/rowFilter.nonConformanceItem.disposition",
           },
           {
+            $ref: "#/parameters/rowFilter.nonConformanceItem.quantity",
+          },
+          {
             $ref: "#/parameters/select",
           },
           {
@@ -33471,6 +33474,9 @@ export default {
             $ref: "#/parameters/rowFilter.nonConformanceItem.disposition",
           },
           {
+            $ref: "#/parameters/rowFilter.nonConformanceItem.quantity",
+          },
+          {
             $ref: "#/parameters/preferReturn",
           },
         ],
@@ -33509,6 +33515,9 @@ export default {
           },
           {
             $ref: "#/parameters/rowFilter.nonConformanceItem.disposition",
+          },
+          {
+            $ref: "#/parameters/rowFilter.nonConformanceItem.quantity",
           },
           {
             $ref: "#/parameters/body.nonConformanceItem",
@@ -60273,6 +60282,41 @@ export default {
         tags: ["(rpc) id"],
       },
     },
+    "/rpc/get_job_operation_step_records": {
+      post: {
+        parameters: [
+          {
+            in: "body",
+            name: "args",
+            required: true,
+            schema: {
+              properties: {
+                p_job_id: {
+                  format: "text",
+                  type: "string",
+                },
+              },
+              required: ["p_job_id"],
+              type: "object",
+            },
+          },
+          {
+            $ref: "#/parameters/preferParams",
+          },
+        ],
+        produces: [
+          "application/json",
+          "application/vnd.pgrst.object+json;nulls=stripped",
+          "application/vnd.pgrst.object+json",
+        ],
+        responses: {
+          "200": {
+            description: "OK",
+          },
+        },
+        tags: ["(rpc) get_job_operation_step_records"],
+      },
+    },
     "/rpc/get_custom_field_unique_values": {
       post: {
         parameters: [
@@ -75624,8 +75668,6 @@ export default {
           type: "string",
         },
         nonConformanceInvestigationId: {
-          description:
-            "Note:\nThis is a Foreign Key to `nonConformanceInvestigationTask.id`.<fk table='nonConformanceInvestigationTask' column='id'/>",
           format: "text",
           type: "string",
         },
@@ -76085,6 +76127,7 @@ export default {
         "companyId",
         "createdAt",
         "createdBy",
+        "quantity",
       ],
       properties: {
         id: {
@@ -76149,6 +76192,11 @@ export default {
           ],
           format: "public.disposition",
           type: "string",
+        },
+        quantity: {
+          default: 0,
+          format: "numeric",
+          type: "number",
         },
       },
       type: "object",
@@ -105080,6 +105128,12 @@ export default {
     },
     "rowFilter.nonConformanceItem.disposition": {
       name: "disposition",
+      required: false,
+      in: "query",
+      type: "string",
+    },
+    "rowFilter.nonConformanceItem.quantity": {
+      name: "quantity",
       required: false,
       in: "query",
       type: "string",

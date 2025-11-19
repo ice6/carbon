@@ -11419,13 +11419,6 @@ export type Database = {
             referencedRelation: "qualityActions"
             referencedColumns: ["id"]
           },
-          {
-            foreignKeyName: "jobOperationStep_nonConformanceInvestigationId_fkey"
-            columns: ["nonConformanceInvestigationId"]
-            isOneToOne: false
-            referencedRelation: "nonConformanceInvestigationTask"
-            referencedColumns: ["id"]
-          },
         ]
       }
       jobOperationStepRecord: {
@@ -15940,6 +15933,7 @@ export type Database = {
           id: string
           itemId: string
           nonConformanceId: string
+          quantity: number
           updatedAt: string | null
           updatedBy: string | null
         }
@@ -15951,6 +15945,7 @@ export type Database = {
           id?: string
           itemId: string
           nonConformanceId: string
+          quantity?: number
           updatedAt?: string | null
           updatedBy?: string | null
         }
@@ -15962,6 +15957,7 @@ export type Database = {
           id?: string
           itemId?: string
           nonConformanceId?: string
+          quantity?: number
           updatedAt?: string | null
           updatedBy?: string | null
         }
@@ -42196,14 +42192,14 @@ export type Database = {
           },
           {
             foreignKeyName: "partner_id_fkey"
-            columns: ["supplierLocationId"]
+            columns: ["id"]
             isOneToOne: false
             referencedRelation: "supplierLocation"
             referencedColumns: ["id"]
           },
           {
             foreignKeyName: "partner_id_fkey"
-            columns: ["id"]
+            columns: ["supplierLocationId"]
             isOneToOne: false
             referencedRelation: "supplierLocation"
             referencedColumns: ["id"]
@@ -46086,14 +46082,14 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "address_countryCode_fkey"
-            columns: ["customerCountryCode"]
+            columns: ["invoiceCountryCode"]
             isOneToOne: false
             referencedRelation: "country"
             referencedColumns: ["alpha2"]
           },
           {
             foreignKeyName: "address_countryCode_fkey"
-            columns: ["invoiceCountryCode"]
+            columns: ["customerCountryCode"]
             isOneToOne: false
             referencedRelation: "country"
             referencedColumns: ["alpha2"]
@@ -46629,14 +46625,14 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "address_countryCode_fkey"
-            columns: ["paymentCountryCode"]
+            columns: ["customerCountryCode"]
             isOneToOne: false
             referencedRelation: "country"
             referencedColumns: ["alpha2"]
           },
           {
             foreignKeyName: "address_countryCode_fkey"
-            columns: ["customerCountryCode"]
+            columns: ["paymentCountryCode"]
             isOneToOne: false
             referencedRelation: "country"
             referencedColumns: ["alpha2"]
@@ -49580,7 +49576,6 @@ export type Database = {
           numericValue: number
           operationDescription: string
           operationId: string
-          operationOrder: number
           type: Database["public"]["Enums"]["procedureStepType"]
           unitOfMeasureCode: string
           updatedAt: string
