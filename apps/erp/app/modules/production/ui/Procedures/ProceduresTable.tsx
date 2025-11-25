@@ -1,5 +1,6 @@
 import {
   Badge,
+  HStack,
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
@@ -16,6 +17,7 @@ import {
   LuEllipsisVertical,
   LuGitPullRequest,
   LuPencil,
+  LuTag,
   LuTrash,
   LuUser,
 } from "react-icons/lu";
@@ -33,10 +35,11 @@ import { ConfirmDelete } from "~/components/Modals";
 
 type ProceduresTableProps = {
   data: Procedures[];
+  tags: { name: string }[];
   count: number;
 };
 
-const ProceduresTable = memo(({ data, count }: ProceduresTableProps) => {
+const ProceduresTable = memo(({ data, tags, count }: ProceduresTableProps) => {
   const navigate = useNavigate();
   const permissions = usePermissions();
   const processes = useProcesses();
@@ -102,6 +105,30 @@ const ProceduresTable = memo(({ data, count }: ProceduresTableProps) => {
         },
       },
       {
+        accessorKey: "tags",
+        header: "Tags",
+        cell: ({ row }) => (
+          <HStack spacing={0} className="gap-1">
+            {row.original.tags?.map((tag) => (
+              <Badge key={tag} variant="secondary">
+                {tag}
+              </Badge>
+            ))}
+          </HStack>
+        ),
+        meta: {
+          filter: {
+            type: "static",
+            options: tags?.map((tag) => ({
+              value: tag.name,
+              label: <Badge variant="secondary">{tag.name}</Badge>,
+            })),
+            isArray: true,
+          },
+          icon: <LuTag />,
+        },
+      },
+      {
         id: "versions",
         header: "Versions",
         cell: ({ row }) => {
@@ -151,7 +178,7 @@ const ProceduresTable = memo(({ data, count }: ProceduresTableProps) => {
       },
     ];
     return [...defaultColumns];
-  }, [processes]);
+  }, [processes, tags]);
 
   const renderContextMenu = useCallback(
     (row: Procedures) => {

@@ -13,6 +13,7 @@ import { useState } from "react";
 import { PanelProvider, ResizablePanels } from "~/components/Layout/Panels";
 import { usePermissions, useUser } from "~/hooks";
 import { getProcedure, getProcedureVersions } from "~/modules/production";
+import { getTagsList } from "~/modules/shared";
 import ProcedureExplorer from "~/modules/production/ui/Procedures/ProcedureExplorer";
 import ProcedureHeader from "~/modules/production/ui/Procedures/ProcedureHeader";
 import ProcedureProperties from "~/modules/production/ui/Procedures/ProcedureProperties";
@@ -36,7 +37,10 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   const { id } = params;
   if (!id) throw new Error("Could not find id");
 
-  const [procedure] = await Promise.all([getProcedure(client, id)]);
+  const [procedure, tags] = await Promise.all([
+    getProcedure(client, id),
+    getTagsList(client, companyId, "procedure"),
+  ]);
 
   if (procedure.error) {
     throw redirect(
@@ -47,6 +51,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
   return defer({
     procedure: procedure.data,
+    tags: tags.data ?? [],
     versions: getProcedureVersions(client, procedure.data, companyId),
   });
 }
@@ -62,7 +67,7 @@ export default function ProcedureRoute() {
       <div className="flex flex-col h-[calc(100dvh-49px)] overflow-hidden w-full">
         <ProcedureHeader />
         <div className="flex h-[calc(100dvh-99px)] overflow-hidden w-full">
-          <div className="flex flex-grow overflow-hidden">
+          <div className="flex grow overflow-hidden">
             <ResizablePanels
               explorer={
                 <ProcedureExplorer

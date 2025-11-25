@@ -11,8 +11,8 @@ import {
 import { useFetcher, useParams } from "@remix-run/react";
 import { useCallback, useEffect } from "react";
 import { LuCopy, LuKeySquare, LuLink } from "react-icons/lu";
-import { z } from 'zod/v3';
-import { Process } from "~/components/Form";
+import { z } from "zod/v3";
+import { Process, Tags } from "~/components/Form";
 import { usePermissions, useRouteData } from "~/hooks";
 import type { action } from "~/routes/x+/items+/update";
 import { path } from "~/utils/path";
@@ -21,6 +21,7 @@ import type { Procedure } from "../../types";
 import ProcedureStatus from "./ProcedureStatus";
 import { procedureStatus } from "../../production.models";
 import Assignee, { useOptimisticAssignment } from "~/components/Assignee";
+import { useTags } from "~/hooks/useTags";
 
 const ProcedureProperties = () => {
   const { id } = useParams();
@@ -28,6 +29,7 @@ const ProcedureProperties = () => {
 
   const routeData = useRouteData<{
     procedure: Procedure;
+    tags: { name: string }[];
   }>(path.to.procedure(id));
 
   const fetcher = useFetcher<typeof action>();
@@ -64,6 +66,8 @@ const ProcedureProperties = () => {
       : routeData?.procedure?.assignee;
 
   const permissions = usePermissions();
+
+  const { onUpdateTags } = useTags({ id, table: "procedure" });
 
   return (
     <VStack
@@ -191,6 +195,25 @@ const ProcedureProperties = () => {
           onChange={(value) => {
             onUpdate("processId", value?.value ?? null);
           }}
+        />
+      </ValidatedForm>
+
+      <ValidatedForm
+        defaultValues={{
+          tags: routeData?.procedure?.tags ?? [],
+        }}
+        validator={z.object({
+          tags: z.array(z.string()).optional(),
+        })}
+        className="w-full"
+      >
+        <Tags
+          availableTags={routeData?.tags ?? []}
+          label="Tags"
+          name="tags"
+          table="procedure"
+          inline
+          onChange={onUpdateTags}
         />
       </ValidatedForm>
     </VStack>

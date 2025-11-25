@@ -4,6 +4,7 @@ import { Outlet, useLoaderData } from "@remix-run/react";
 import type { LoaderFunctionArgs } from "@vercel/remix";
 import { json } from "@vercel/remix";
 import { getProcedures } from "~/modules/production";
+import { getTagsList } from "~/modules/shared";
 import ProceduresTable from "~/modules/production/ui/Procedures/ProceduresTable";
 import type { Handle } from "~/utils/handle";
 import { path } from "~/utils/path";
@@ -26,26 +27,30 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const { limit, offset, sorts, filters } =
     getGenericQueryFilters(searchParams);
 
-  const procedures = await getProcedures(client, companyId, {
-    search,
-    limit,
-    offset,
-    sorts,
-    filters,
-  });
+  const [procedures, tags] = await Promise.all([
+    getProcedures(client, companyId, {
+      search,
+      limit,
+      offset,
+      sorts,
+      filters,
+    }),
+    getTagsList(client, companyId, "procedure"),
+  ]);
 
   return json({
     procedures: procedures.data ?? [],
+    tags: tags.data ?? [],
     count: procedures.count ?? 0,
   });
 }
 
 export default function ProceduresRoute() {
-  const { procedures, count } = useLoaderData<typeof loader>();
+  const { procedures, tags, count } = useLoaderData<typeof loader>();
 
   return (
     <VStack spacing={0} className="h-full">
-      <ProceduresTable data={procedures} count={count} />
+      <ProceduresTable data={procedures} tags={tags} count={count} />
       <Outlet />
     </VStack>
   );
