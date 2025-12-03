@@ -9,7 +9,7 @@ import type { FileObject } from "@supabase/storage-js";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@vercel/remix";
 import { json, redirect } from "@vercel/remix";
 import { nanoid } from "nanoid";
-import { useEffect, useMemo } from "react";
+import { useLayoutEffect } from "react";
 import {
   gaugeCalibrationRecordValidator,
   getQualityFiles,
@@ -30,11 +30,13 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
   if (id) {
     return json({
+      id,
       files: await getQualityFiles(client, id, companyId),
     });
   }
 
   return json({
+    id: nanoid(),
     files: [] as FileObject[],
   });
 }
@@ -89,11 +91,10 @@ export async function action({ request }: ActionFunctionArgs) {
 
 export default function GaugeCalibrationRecordNewRoute() {
   const navigate = useNavigate();
-  const { files } = useLoaderData<typeof loader>();
-  const id = useMemo(() => nanoid(), []);
+  const { files, id } = useLoaderData<typeof loader>();
   const [params, setParams] = useUrlParams();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (params.get("id") !== id) {
       setParams({
         id,
