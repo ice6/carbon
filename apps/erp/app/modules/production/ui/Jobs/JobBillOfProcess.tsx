@@ -1205,6 +1205,7 @@ function StepsForm({
             }}
             onSubmit={() => {
               setType("Value");
+              setDescription({});
             }}
             className="w-full"
           >
