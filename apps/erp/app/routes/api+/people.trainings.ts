@@ -2,9 +2,16 @@ import { requirePermissions } from "@carbon/auth/auth.server";
 import type { LoaderFunctionArgs } from "@vercel/remix";
 import { json } from "@vercel/remix";
 import { getOutstandingTrainingsForUser } from "~/modules/people";
+import { getCarbonServiceRole } from "@carbon/auth";
 
 export async function loader({ request }: LoaderFunctionArgs) {
-  const { client, companyId, userId } = await requirePermissions(request, {});
+  const { companyId, userId } = await requirePermissions(request, {});
 
-  return json(await getOutstandingTrainingsForUser(client, companyId, userId));
+  return json(
+    await getOutstandingTrainingsForUser(
+      getCarbonServiceRole(),
+      companyId,
+      userId
+    )
+  );
 }
