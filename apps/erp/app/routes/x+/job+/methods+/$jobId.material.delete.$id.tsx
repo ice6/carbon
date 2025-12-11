@@ -4,13 +4,13 @@ import { flash } from "@carbon/auth/session.server";
 import { json, type ActionFunctionArgs } from "@vercel/remix";
 import {
   deleteJobMaterial,
-  recalculateJobOperationDependencies,
+  recalculateJobOperationDependencies
 } from "~/modules/production";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    delete: "production",
+    delete: "production"
   });
 
   const { id, jobId } = params;
@@ -26,7 +26,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   if (deleteMaterial.error) {
     return json(
       {
-        id: null,
+        id: null
       },
       await flash(
         request,
@@ -40,7 +40,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     {
       jobId,
       companyId,
-      userId,
+      userId
     }
   );
 
@@ -48,7 +48,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     return json(
       {
         success: false,
-        error: "Failed to recalculate job operation dependencies",
+        error: "Failed to recalculate job operation dependencies"
       },
       { status: 400 }
     );

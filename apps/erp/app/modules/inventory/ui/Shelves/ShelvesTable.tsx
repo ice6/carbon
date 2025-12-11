@@ -6,7 +6,7 @@ import {
   MenuIcon,
   MenuItem,
   VStack,
-  useDisclosure,
+  useDisclosure
 } from "@carbon/react";
 import { Link, useNavigate } from "@remix-run/react";
 import type { ColumnDef } from "@tanstack/react-table";
@@ -17,7 +17,7 @@ import {
   LuMapPin,
   LuPencil,
   LuPlus,
-  LuTrash,
+  LuTrash
 } from "react-icons/lu";
 import { Hyperlink, Table } from "~/components";
 import { Enumerable } from "~/components/Enumerable";
@@ -63,8 +63,8 @@ const ShelvesTable = memo(({ data, count, locationId }: ShelvesTableProps) => {
           </HStack>
         ),
         meta: {
-          icon: <LuBookMarked />,
-        },
+          icon: <LuBookMarked />
+        }
       },
       {
         accessorKey: "locationId",
@@ -78,8 +78,8 @@ const ShelvesTable = memo(({ data, count, locationId }: ShelvesTableProps) => {
           );
         },
         meta: {
-          icon: <LuMapPin />,
-        },
+          icon: <LuMapPin />
+        }
       },
       {
         accessorKey: "active",
@@ -90,22 +90,22 @@ const ShelvesTable = memo(({ data, count, locationId }: ShelvesTableProps) => {
             type: "static",
             options: [
               { value: "true", label: "Active" },
-              { value: "false", label: "Inactive" },
-            ],
+              { value: "false", label: "Inactive" }
+            ]
           },
           pluralHeader: "Active Statuses",
-          icon: <LuCheck />,
-        },
-      },
+          icon: <LuCheck />
+        }
+      }
     ];
   }, [locations, params]);
 
   const defaultColumnVisibility = {
-    active: false,
+    active: false
   };
 
   const defaultColumnPinning = {
-    left: ["name"],
+    left: ["name"]
   };
 
   const actions = useMemo(() => {

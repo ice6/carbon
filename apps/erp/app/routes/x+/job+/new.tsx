@@ -14,7 +14,7 @@ import {
   calculateJobPriority,
   jobValidator,
   upsertJob,
-  upsertJobMethod,
+  upsertJobMethod
 } from "~/modules/production";
 import { JobForm } from "~/modules/production/ui/Jobs";
 import { getNextSequence } from "~/modules/settings";
@@ -26,14 +26,14 @@ import { path } from "~/utils/path";
 export const handle: Handle = {
   breadcrumb: "Jobs",
   to: path.to.jobs,
-  module: "production",
+  module: "production"
 };
 
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
     create: "production",
-    role: "employee",
+    role: "employee"
   });
 
   const formData = await request.formData();
@@ -50,7 +50,7 @@ export async function action({ request }: ActionFunctionArgs) {
   if (useNextSequence) {
     const [nextSequence, manufacturing] = await Promise.all([
       getNextSequence(client, "job", companyId),
-      getItemReplenishment(client, validation.data.itemId, companyId),
+      getItemReplenishment(client, validation.data.itemId, companyId)
     ]);
     if (nextSequence.error) {
       throw redirect(
@@ -96,7 +96,7 @@ export async function action({ request }: ActionFunctionArgs) {
     dueDate: data.dueDate ?? null,
     deadlineType: data.deadlineType,
     companyId,
-    locationId: validation.data.locationId,
+    locationId: validation.data.locationId
   });
 
   const createJob = await upsertJob(client, {
@@ -110,7 +110,7 @@ export async function action({ request }: ActionFunctionArgs) {
       : undefined,
     companyId,
     createdBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
 
   const id = createJob.data?.id!;
@@ -129,7 +129,7 @@ export async function action({ request }: ActionFunctionArgs) {
       targetId: id,
       companyId,
       userId,
-      configuration,
+      configuration
     }
   );
 
@@ -147,7 +147,7 @@ export async function action({ request }: ActionFunctionArgs) {
     type: "jobRequirements",
     id,
     companyId,
-    userId,
+    userId
   });
 
   throw redirect(path.to.job(id));
@@ -170,7 +170,7 @@ export default function JobNewRoute() {
     quantity: 1,
     scrapQuantity: 0,
     status: "Draft" as const,
-    unitOfMeasureCode: "EA",
+    unitOfMeasureCode: "EA"
   };
 
   return (

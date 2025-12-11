@@ -39,7 +39,7 @@ export class ExchangeRatesClient {
 
   getMetaData() {
     return {
-      apiUrl: this.#apiUrl,
+      apiUrl: this.#apiUrl
     };
   }
 
@@ -79,11 +79,11 @@ export class ExchangeRatesClient {
       (acc, [currency, value]) => {
         return {
           ...acc,
-          [currency]: value / baseRate,
+          [currency]: value / baseRate
         };
       },
       {
-        [baseCurrencyCode]: 1,
+        [baseCurrencyCode]: 1
       }
     );
 
@@ -98,7 +98,7 @@ export const getExchangeRatesClient = (
   return typeof apiKey === "string"
     ? new ExchangeRatesClient({
         apiKey,
-        apiUrl,
+        apiUrl
       })
     : undefined;
 };

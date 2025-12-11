@@ -17,12 +17,12 @@ import {
   type MakeMethod,
   type Material,
   type MethodOperation,
-  type ToolSummary,
+  type ToolSummary
 } from "~/modules/items";
 import {
   BillOfMaterial,
   BillOfProcess,
-  MakeMethodTools,
+  MakeMethodTools
 } from "~/modules/items/ui/Item";
 import ItemManufacturingForm from "~/modules/items/ui/Item/ItemManufacturingForm";
 import { getTagsList } from "~/modules/shared";
@@ -31,7 +31,7 @@ import { path } from "~/utils/path";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    view: "parts",
+    view: "parts"
   });
 
   const tags = await getTagsList(client, companyId, "operation");
@@ -42,7 +42,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    update: "parts",
+    update: "parts"
   });
 
   const { itemId, methodId } = params;
@@ -62,7 +62,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     ...validation.data,
     itemId,
     updatedBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
   if (updateToolManufacturing.error) {
     throw redirect(
@@ -113,7 +113,7 @@ export default function MakeMethodRoute() {
   const manufacturingInitialValues = {
     ...manufacturingRouteData?.toolManufacturing,
     lotSize: manufacturingRouteData?.toolManufacturing.lotSize ?? 0,
-    ...getCustomFields(manufacturingRouteData?.toolManufacturing.customFields),
+    ...getCustomFields(manufacturingRouteData?.toolManufacturing.customFields)
   };
 
   return (

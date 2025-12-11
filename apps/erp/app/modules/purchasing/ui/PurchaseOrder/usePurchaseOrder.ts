@@ -44,7 +44,7 @@ export const usePurchaseOrder = () => {
     edit,
     invoice,
     receive,
-    ship,
+    ship
   };
 };
 
@@ -81,7 +81,7 @@ export const usePurchaseOrderRelatedDocuments = (
               .from("shipment")
               .select("id, shipmentId, status")
               .eq("supplierInteractionId", supplierInteractionId)
-          : Promise.resolve({ data: [], error: null }),
+          : Promise.resolve({ data: [], error: null })
       ]);
 
       if (receipts.error) {
@@ -100,7 +100,7 @@ export const usePurchaseOrderRelatedDocuments = (
               ? !invoice.datePaid && new Date(invoice.dateDue) < new Date()
                 ? "Overdue"
                 : invoice.status
-              : invoice.status,
+              : invoice.status
           })) ?? []
         );
       }

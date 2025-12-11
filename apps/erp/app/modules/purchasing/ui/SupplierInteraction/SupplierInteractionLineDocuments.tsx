@@ -18,7 +18,7 @@ import {
   Th,
   Thead,
   Tr,
-  toast,
+  toast
 } from "@carbon/react";
 import { convertKbToString } from "@carbon/utils";
 import type { FileObject } from "@supabase/storage-js";
@@ -46,7 +46,7 @@ type SupportedDocument =
 const useSupplierInteractionLineDocuments = ({
   id,
   lineId,
-  type,
+  type
 }: {
   id: string;
   lineId: string;
@@ -115,7 +115,7 @@ const useSupplierInteractionLineDocuments = ({
     ({
       path: filePath,
       name,
-      size,
+      size
     }: {
       path: string;
       name: string;
@@ -132,7 +132,7 @@ const useSupplierInteractionLineDocuments = ({
         method: "post",
         action: path.to.newDocument,
         navigate: false,
-        fetcherKey: `supplier-interaction-line:${name}`,
+        fetcherKey: `supplier-interaction-line:${name}`
       });
     },
     [id, submit, type]
@@ -152,7 +152,7 @@ const useSupplierInteractionLineDocuments = ({
           .from("private")
           .upload(fileName, file, {
             cacheControl: `${12 * 60 * 60}`,
-            upsert: true,
+            upsert: true
           });
 
         if (fileUpload.error) {
@@ -161,7 +161,7 @@ const useSupplierInteractionLineDocuments = ({
           createDocumentRecord({
             path: fileUpload.data.path,
             name: file.name,
-            size: file.size,
+            size: file.size
           });
         }
       }
@@ -177,7 +177,7 @@ const useSupplierInteractionLineDocuments = ({
     download,
     getPath,
 
-    upload,
+    upload
   };
 };
 
@@ -192,13 +192,13 @@ const SupplierInteractionLineDocuments = ({
   files,
   id,
   lineId,
-  type,
+  type
 }: SupplierInteractionLineDocumentsProps) => {
   const { canDelete, download, deleteFile, getPath, upload } =
     useSupplierInteractionLineDocuments({
       id,
       lineId,
-      type,
+      type
     });
 
   const onDrop = useCallback(
@@ -350,7 +350,7 @@ type SupplierInteractionLineDocumentFormProps = {
 const SupplierInteractionLineDocumentForm = ({
   id,
   lineId,
-  type,
+  type
 }: SupplierInteractionLineDocumentFormProps) => {
   const permissions = usePermissions();
   const { upload } = useSupplierInteractionLineDocuments({ id, lineId, type });
@@ -395,8 +395,8 @@ const usePendingItems = () => {
           bucket: "private",
           metadata: {
             size,
-            mimetype: getDocumentType(name),
-          },
+            mimetype: getDocumentType(name)
+          }
         };
         return [...acc, newItem];
       }

@@ -24,8 +24,8 @@ export class LinearClient {
     this.instance = axios.create({
       baseURL: "https://api.linear.app/graphql",
       headers: {
-        "Content-Type": "application/json",
-      },
+        "Content-Type": "application/json"
+      }
     });
   }
 
@@ -43,7 +43,7 @@ export class LinearClient {
     const metadata = integration.metadata as { apiKey: string };
 
     return {
-      Authorization: metadata.apiKey,
+      Authorization: metadata.apiKey
     };
   }
 
@@ -57,8 +57,8 @@ export class LinearClient {
         method: "POST",
         headers: await this.getAuthHeaders(companyId),
         data: {
-          query,
-        },
+          query
+        }
       });
 
       return response.data.data.teams.nodes.map((el) => el);
@@ -80,9 +80,9 @@ export class LinearClient {
         data: {
           query,
           variables: {
-            term: input,
-          },
-        },
+            term: input
+          }
+        }
       });
 
       return response.data.data.searchIssues.nodes.map((el) => el);
@@ -103,8 +103,8 @@ export class LinearClient {
         headers: await this.getAuthHeaders(companyId),
         data: {
           query,
-          variables: { filter: { id: { eq: issueId } } },
-        },
+          variables: { filter: { id: { eq: issueId } } }
+        }
       });
 
       return response.data.data.issues.nodes.at(0) || null;
@@ -130,9 +130,9 @@ export class LinearClient {
       data: {
         query,
         variables: {
-          input,
-        },
-      },
+          input
+        }
+      }
     });
 
     return response.data;
@@ -149,8 +149,8 @@ export class LinearClient {
         headers: await this.getAuthHeaders(companyId),
         data: {
           query,
-          variables: { teamId },
-        },
+          variables: { teamId }
+        }
       });
 
       return response.data.data.team.members.nodes.map((el) => el);
@@ -183,9 +183,9 @@ export class LinearClient {
       data: {
         query,
         variables: {
-          input: data,
-        },
-      },
+          input: data
+        }
+      }
     });
 
     return response.data.data.issueCreate.issue;
@@ -201,8 +201,8 @@ export class LinearClient {
       headers: await this.getAuthHeaders(companyId),
       data: {
         query,
-        variables: { input: filter },
-      },
+        variables: { input: filter }
+      }
     });
 
     return response.data.data.users.edges.map((el) => el.node);
@@ -235,9 +235,9 @@ export class LinearClient {
           query,
           variables: {
             issueUpdateId: id,
-            input,
-          },
-        },
+            input
+          }
+        }
       });
 
       return response.data.data.issueUpdate.issue;
@@ -269,10 +269,10 @@ export class LinearClient {
         query,
         variables: {
           filter: {
-            type: { eq: type },
-          },
-        },
-      },
+            type: { eq: type }
+          }
+        }
+      }
     });
 
     return res.data.data.workflowStates.nodes.at(0) || null;
@@ -298,10 +298,10 @@ export class LinearClient {
           query,
           variables: {
             filter: {
-              url: { contains: url },
-            },
-          },
-        },
+              url: { contains: url }
+            }
+          }
+        }
       });
 
       return res.data.data.attachments.nodes.map((el) => el);
@@ -328,9 +328,9 @@ export class LinearClient {
         data: {
           query,
           variables: {
-            attachmentDeleteId: attachmentId,
-          },
-        },
+            attachmentDeleteId: attachmentId
+          }
+        }
       });
 
       return response.data.data.attachmentDelete.success;

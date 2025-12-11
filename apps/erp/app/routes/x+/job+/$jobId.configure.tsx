@@ -10,7 +10,7 @@ import { path, requestReferrer } from "~/utils/path";
 export async function action({ request, params }: ActionFunctionArgs) {
   const { client, companyId, userId } = await requirePermissions(request, {
     update: "production",
-    role: "employee",
+    role: "employee"
   });
   const { jobId } = params;
   if (!jobId) throw new Error("Could not find jobId");
@@ -24,10 +24,10 @@ export async function action({ request, params }: ActionFunctionArgs) {
         .update({
           configuration,
           updatedAt: new Date().toISOString(),
-          updatedBy: userId,
+          updatedBy: userId
         })
         .eq("id", jobId),
-      client.from("job").select("itemId").eq("id", jobId).single(),
+      client.from("job").select("itemId").eq("id", jobId).single()
     ]);
 
     if (result.error) {
@@ -50,7 +50,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
       targetId: jobId,
       companyId,
       userId,
-      configuration,
+      configuration
     });
 
     if (upsertMethod.error) {
@@ -64,7 +64,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
       type: "jobRequirements",
       id: jobId,
       companyId,
-      userId,
+      userId
     });
   } else {
     throw new Error("No configuration provided");

@@ -10,7 +10,7 @@ import { path } from "~/utils/path";
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    create: "people",
+    create: "people"
   });
 
   const validation = await validator(attributeValidator).validate(
@@ -26,7 +26,7 @@ export async function action({ request }: ActionFunctionArgs) {
     attributeDataTypeId,
     userAttributeCategoryId,
     listOptions,
-    canSelfManage,
+    canSelfManage
   } = validation.data;
 
   const createAttribute = await insertAttribute(client, {
@@ -35,7 +35,7 @@ export async function action({ request }: ActionFunctionArgs) {
     userAttributeCategoryId,
     listOptions,
     canSelfManage,
-    createdBy: userId,
+    createdBy: userId
   });
   if (createAttribute.error) {
     return json(

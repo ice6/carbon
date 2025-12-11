@@ -1,12 +1,12 @@
 import { assertIsPost, error, RATE_LIMIT } from "@carbon/auth";
 import {
   createEmailAuthAccount,
-  signInWithEmail,
+  signInWithEmail
 } from "@carbon/auth/auth.server";
 import {
   flash,
   getAuthSession,
-  setAuthSession,
+  setAuthSession
 } from "@carbon/auth/session.server";
 import { verifyEmailCode } from "@carbon/auth/verification.server";
 import { Hidden, InputOTP, ValidatedForm, validator } from "@carbon/form";
@@ -17,14 +17,14 @@ import {
   AlertTitle,
   Button,
   Heading,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { Link, useFetcher, useSearchParams } from "@remix-run/react";
 import { Ratelimit } from "@upstash/ratelimit";
 import type {
   ActionFunctionArgs,
   LoaderFunctionArgs,
-  MetaFunction,
+  MetaFunction
 } from "@vercel/remix";
 import { json, redirect } from "@vercel/remix";
 import crypto from "node:crypto";
@@ -41,7 +41,7 @@ export const meta: MetaFunction = () => {
 const verifyValidator = z.object({
   email: z.string().email(),
   code: z.string().length(6),
-  redirectTo: z.string().optional(),
+  redirectTo: z.string().optional()
 });
 
 export async function loader({ request }: LoaderFunctionArgs) {
@@ -56,7 +56,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 const ratelimit = new Ratelimit({
   redis,
   limiter: Ratelimit.slidingWindow(RATE_LIMIT, "1 h"),
-  analytics: true,
+  analytics: true
 });
 
 export async function action({ request }: ActionFunctionArgs): FormActionData {
@@ -115,14 +115,14 @@ export async function action({ request }: ActionFunctionArgs): FormActionData {
   }
 
   const sessionCookie = await setAuthSession(request, {
-    authSession,
+    authSession
   });
 
   // Set the authentication session
   const onboardingUrl = redirectTo || path.to.onboarding.root;
 
   return redirect(onboardingUrl, {
-    headers: [["Set-Cookie", sessionCookie]],
+    headers: [["Set-Cookie", sessionCookie]]
   });
 }
 

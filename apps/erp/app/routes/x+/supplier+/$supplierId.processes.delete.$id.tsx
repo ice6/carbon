@@ -1,12 +1,8 @@
 import { assertIsPost, error, getCarbonServiceRole } from "@carbon/auth";
 import { requirePermissions } from "@carbon/auth/auth.server";
 import { flash } from "@carbon/auth/session.server";
-import type {
-  ClientActionFunctionArgs} from "@remix-run/react";
-import {
-  useNavigate,
-  useParams,
-} from "@remix-run/react";
+import type { ClientActionFunctionArgs } from "@remix-run/react";
+import { useNavigate, useParams } from "@remix-run/react";
 import type { ActionFunctionArgs } from "@vercel/remix";
 import { redirect } from "@vercel/remix";
 import { ConfirmDelete } from "~/components/Modals";
@@ -14,7 +10,7 @@ import { useRouteData } from "~/hooks";
 import {
   deleteSupplierProcess,
   getSupplierProcessById,
-  type SupplierProcess,
+  type SupplierProcess
 } from "~/modules/purchasing";
 import { path } from "~/utils/path";
 import { supplierProcessesQuery } from "~/utils/react-query";
@@ -22,7 +18,7 @@ import { supplierProcessesQuery } from "~/utils/react-query";
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client } = await requirePermissions(request, {
-    delete: "purchasing",
+    delete: "purchasing"
   });
 
   const { supplierId, id } = params;
@@ -46,7 +42,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
 export async function clientAction({
   serverAction,
-  params,
+  params
 }: ClientActionFunctionArgs) {
   const { id } = params;
   if (id) {

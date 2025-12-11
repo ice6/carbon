@@ -15,7 +15,7 @@ import {
   Number as NumberInput,
   Select,
   Submit,
-  Supplier,
+  Supplier
 } from "~/components/Form";
 import { UserSelect } from "~/components/Selectors";
 import CustomerAvatar from "~/components/CustomerAvatar";
@@ -30,7 +30,7 @@ import {
   attributeSupplierValidator,
   attributeTextValidator,
   attributeUserValidator,
-  deleteUserAttributeValueValidator,
+  deleteUserAttributeValueValidator
 } from "../../account.models";
 import type { PublicAttributes } from "../../types";
 
@@ -81,7 +81,7 @@ const UserAttributesForm = ({ attributeCategory }: UserAttributesFormProps) => {
               ) =>
                 setOptimisticUpdates((prev) => ({
                   ...prev,
-                  [attribute.id]: value,
+                  [attribute.id]: value
                 }))
               }
               // @ts-ignore
@@ -146,7 +146,7 @@ function TypedForm(
     userAttributeValueId,
     userId,
     onSubmit,
-    onClose,
+    onClose
   } = props;
   switch (type) {
     case DataType.Boolean:
@@ -158,7 +158,7 @@ function TypedForm(
           defaultValues={{
             userAttributeId,
             userAttributeValueId,
-            value: value === true,
+            value: value === true
           }}
           fetcher={updateFetcher}
           onSubmit={(data) => onSubmit(data.value)}
@@ -193,7 +193,7 @@ function TypedForm(
           defaultValues={{
             userAttributeId,
             userAttributeValueId,
-            value: value?.toString(),
+            value: value?.toString()
           }}
           fetcher={updateFetcher}
           onSubmit={(data) => onSubmit(data.value)}
@@ -226,7 +226,7 @@ function TypedForm(
           defaultValues={{
             userAttributeId,
             userAttributeValueId,
-            value: value?.toString(),
+            value: value?.toString()
           }}
           fetcher={updateFetcher}
           onSubmit={(data) => onSubmit(data.value)}
@@ -244,7 +244,7 @@ function TypedForm(
                 options={
                   attribute.listOptions?.map((option) => ({
                     label: option,
-                    value: option,
+                    value: option
                   })) ?? []
                 }
               />
@@ -267,7 +267,7 @@ function TypedForm(
           defaultValues={{
             userAttributeId,
             userAttributeValueId,
-            value: value ? Number(value) : undefined,
+            value: value ? Number(value) : undefined
           }}
           fetcher={updateFetcher}
           onSubmit={(data) => onSubmit(data.value)}
@@ -300,7 +300,7 @@ function TypedForm(
           defaultValues={{
             userAttributeId,
             userAttributeValueId,
-            value: value?.toString(),
+            value: value?.toString()
           }}
           fetcher={updateFetcher}
           onSubmit={(data) => onSubmit(data.value)}
@@ -333,7 +333,7 @@ function TypedForm(
           defaultValues={{
             userAttributeId,
             userAttributeValueId,
-            value: value?.toString(),
+            value: value?.toString()
           }}
           fetcher={updateFetcher}
           onSubmit={(data) => onSubmit(data.value)}
@@ -366,7 +366,7 @@ function TypedForm(
           defaultValues={{
             userAttributeId,
             userAttributeValueId,
-            value: value?.toString(),
+            value: value?.toString()
           }}
           fetcher={updateFetcher}
           onSubmit={(data) => onSubmit(data.value)}
@@ -399,7 +399,7 @@ function TypedForm(
           defaultValues={{
             userAttributeId,
             userAttributeValueId,
-            value: value?.toString(),
+            value: value?.toString()
           }}
           fetcher={updateFetcher}
           onSubmit={(data) => onSubmit(data.value)}
@@ -447,7 +447,7 @@ function TypedDisplay(
     userAttributeValueId,
     value,
     onOpen,
-    setOptimisticUpdate,
+    setOptimisticUpdate
   } = props;
   switch (type) {
     case DataType.Boolean:
@@ -654,7 +654,7 @@ function getGenericProps(
     type,
     userAttributeId,
     userAttributeValueId,
-    value,
+    value
   };
 }
 
@@ -666,7 +666,7 @@ function UpdateRemoveButtons({
   userAttributeId,
   userAttributeValueId,
   onOpen,
-  onSubmit,
+  onSubmit
 }: {
   canRemove: boolean;
   canUpdate: boolean;
@@ -686,7 +686,7 @@ function UpdateRemoveButtons({
           validator={deleteUserAttributeValueValidator}
           defaultValues={{
             userAttributeId,
-            userAttributeValueId,
+            userAttributeValueId
           }}
           fetcher={updateFetcher}
           onSubmit={() => onSubmit(undefined)}

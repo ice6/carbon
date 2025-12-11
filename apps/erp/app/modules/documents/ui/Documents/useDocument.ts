@@ -5,7 +5,7 @@ import { useCallback } from "react";
 import { usePermissions, useUrlParams, useUser } from "~/hooks";
 import type {
   DocumentTransactionType,
-  Document as DocumentType,
+  Document as DocumentType
 } from "~/modules/documents";
 import { path } from "~/utils/path";
 
@@ -46,7 +46,7 @@ export const useDocument = () => {
       return carbon?.from("documentTransaction").insert({
         documentId: document.id,
         type,
-        userId: user.id,
+        userId: user.id
       });
     },
     [carbon, user?.id]
@@ -148,7 +148,7 @@ export const useDocument = () => {
             labels.map((label) => ({
               documentId: document.id!,
               label,
-              userId: user.id,
+              userId: user.id
             }))
           );
         });
@@ -205,6 +205,6 @@ export const useDocument = () => {
     view,
     makePreview,
     removeLabel,
-    setLabel,
+    setLabel
   };
 };

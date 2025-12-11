@@ -7,5 +7,5 @@ export {
   ConsumableForm,
   ConsumableHeader,
   ConsumableProperties,
-  ConsumablesTable,
+  ConsumablesTable
 };

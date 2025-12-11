@@ -28,7 +28,7 @@ import {
   Thead,
   Tr,
   useDisclosure,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { useMode } from "@carbon/remix";
 import { formatDate } from "@carbon/utils";
@@ -46,12 +46,12 @@ import { path } from "~/utils/path";
 import {
   getSupplierQuoteByExternalId,
   getSupplierQuoteLines,
-  getSupplierQuoteLinePricesByQuoteId,
+  getSupplierQuoteLinePricesByQuoteId
 } from "~/modules/purchasing/purchasing.service";
 import type {
   SupplierQuote,
   SupplierQuoteLine,
-  SupplierQuoteLinePrice,
+  SupplierQuoteLinePrice
 } from "~/modules/purchasing/types";
 import type { action } from "~/routes/api+/purchasing.digital-quote.$id";
 import { externalSupplierQuoteValidator } from "~/modules/purchasing/purchasing.models";
@@ -64,7 +64,7 @@ export const meta = () => {
 enum QuoteState {
   Valid,
   Expired,
-  NotFound,
+  NotFound
 }
 
 type SelectedLine = {
@@ -82,7 +82,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   if (!id) {
     return json({
       state: QuoteState.NotFound,
-      data: null,
+      data: null
     });
   }
 
@@ -92,7 +92,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   if (quote.error) {
     return json({
       state: QuoteState.NotFound,
-      data: null,
+      data: null
     });
   }
 
@@ -101,7 +101,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     await serviceRole
       .from("externalLink")
       .update({
-        lastAccessedAt: new Date().toISOString(),
+        lastAccessedAt: new Date().toISOString()
       } as any)
       .eq("id", quote.data.externalLinkId);
   }
@@ -113,7 +113,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   ) {
     return json({
       state: QuoteState.Expired,
-      data: null,
+      data: null
     });
   }
 
@@ -122,7 +122,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
       getCompany(serviceRole, quote.data.companyId),
       getCompanySettings(serviceRole, quote.data.companyId),
       getSupplierQuoteLines(serviceRole, quote.data.id),
-      getSupplierQuoteLinePricesByQuoteId(serviceRole, quote.data.id),
+      getSupplierQuoteLinePricesByQuoteId(serviceRole, quote.data.id)
     ]);
 
   const thumbnailPaths = quoteLines.data?.reduce<Record<string, string | null>>(
@@ -145,7 +145,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
             return getBase64ImageFromSupabase(serviceRole, path).then(
               (data) => ({
                 id,
-                data,
+                data
               })
             );
           })
@@ -166,8 +166,8 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
       companySettings: companySettings.data,
       quoteLines: quoteLines.data ?? [],
       thumbnails: thumbnails,
-      quoteLinePrices: quoteLinePrices.data ?? [],
-    },
+      quoteLinePrices: quoteLinePrices.data ?? []
+    }
   });
 }
 
@@ -213,7 +213,7 @@ const LineItems = ({
   selectedLines,
   setSelectedLines,
   quoteStatus,
-  quoteLinePrices,
+  quoteLinePrices
 }: {
   currencyCode: string;
   locale: string;
@@ -273,7 +273,7 @@ const LineItems = ({
                     <HStack spacing={4}>
                       <motion.div
                         animate={{
-                          rotate: openItems.includes(line.id!) ? 90 : 0,
+                          rotate: openItems.includes(line.id!) ? 90 : 0
                         }}
                         transition={{ duration: 0.3 }}
                       >
@@ -293,7 +293,7 @@ const LineItems = ({
               animate={openItems.includes(line.id) ? "open" : "collapsed"}
               variants={{
                 open: { opacity: 1, height: "auto", marginTop: 16 },
-                collapsed: { opacity: 0, height: 0, marginTop: 0 },
+                collapsed: { opacity: 0, height: 0, marginTop: 0 }
               }}
               transition={{ duration: 0.3 }}
               className="w-full overflow-hidden"
@@ -322,7 +322,7 @@ const LinePricing = ({
   selectedLines,
   setSelectedLines,
   quoteStatus,
-  quoteLinePrices,
+  quoteLinePrices
 }: {
   line: SupplierQuoteLine;
   currencyCode: string;
@@ -344,14 +344,14 @@ const LinePricing = ({
     Array.isArray(line.quantity) && line.quantity.length > 0
       ? line.quantity
       : pricingOptions.length > 0
-      ? pricingOptions.map((opt) => opt.quantity)
-      : [1]; // Default to showing at least one row with quantity 1
+        ? pricingOptions.map((opt) => opt.quantity)
+        : [1]; // Default to showing at least one row with quantity 1
 
   const isDisabled = !["Draft"].includes(quoteStatus || "");
 
   const formatter = new Intl.NumberFormat(locale, {
     style: "currency",
-    currency: currencyCode,
+    currency: currencyCode
   });
 
   // Get pricing data for a specific quantity
@@ -386,7 +386,7 @@ const LinePricing = ({
         supplierUnitPrice: pricing?.supplierUnitPrice ?? 0,
         leadTime: pricing?.leadTime ?? 0,
         supplierShippingCost: pricing?.supplierShippingCost ?? 0,
-        supplierTaxAmount: pricing?.supplierTaxAmount ?? 0,
+        supplierTaxAmount: pricing?.supplierTaxAmount ?? 0
       };
     });
     return initial;
@@ -408,8 +408,8 @@ const LinePricing = ({
       ...prev,
       [quantity]: {
         ...prev[quantity],
-        [field]: newValue,
-      },
+        [field]: newValue
+      }
     }));
 
     // If this quantity is selected, also update the selected line
@@ -424,9 +424,9 @@ const LinePricing = ({
             ...lineSelections,
             [quantity]: {
               ...current,
-              [field]: newValue,
-            },
-          },
+              [field]: newValue
+            }
+          }
         };
       }
 
@@ -459,9 +459,9 @@ const LinePricing = ({
             supplierTaxAmount:
               storedPricing?.supplierTaxAmount ??
               pricing?.supplierTaxAmount ??
-              0,
-          } as SelectedLine,
-        },
+              0
+          } as SelectedLine
+        }
       }));
     } else {
       setSelectedLines((prev) => {
@@ -469,7 +469,7 @@ const LinePricing = ({
         delete lineSelections[quantity];
         return {
           ...prev,
-          [line.id!]: lineSelections,
+          [line.id!]: lineSelections
         };
       });
     }
@@ -557,7 +557,7 @@ const LinePricing = ({
                         value={unitPrice}
                         formatOptions={{
                           style: "currency",
-                          currency: currencyCode,
+                          currency: currencyCode
                         }}
                         isDisabled={isDisabled || !isSelected}
                         minValue={0}
@@ -580,7 +580,7 @@ const LinePricing = ({
                         formatOptions={{
                           style: "unit",
                           unit: "day",
-                          unitDisplay: "long",
+                          unitDisplay: "long"
                         }}
                         minValue={0}
                         isDisabled={isDisabled || !isSelected}
@@ -602,7 +602,7 @@ const LinePricing = ({
                         value={shippingCost}
                         formatOptions={{
                           style: "currency",
-                          currency: currencyCode,
+                          currency: currencyCode
                         }}
                         isDisabled={isDisabled || !isSelected}
                         minValue={0}
@@ -627,7 +627,7 @@ const LinePricing = ({
                         value={taxAmount}
                         formatOptions={{
                           style: "currency",
-                          currency: currencyCode,
+                          currency: currencyCode
                         }}
                         isDisabled={isDisabled || !isSelected}
                         minValue={0}
@@ -663,7 +663,7 @@ const LinePricing = ({
 };
 
 const Quote = ({
-  data,
+  data
 }: {
   data: {
     company: Company;
@@ -892,7 +892,7 @@ const Quote = ({
 
 export const ErrorMessage = ({
   title,
-  message,
+  message
 }: {
   title: string;
   message: string;

@@ -7,7 +7,7 @@ import type { ActionFunctionArgs, LoaderFunctionArgs } from "@vercel/remix";
 import { json, redirect } from "@vercel/remix";
 import {
   supplierStatusValidator,
-  upsertSupplierStatus,
+  upsertSupplierStatus
 } from "~/modules/purchasing";
 import { SupplierStatusForm } from "~/modules/purchasing/ui/SupplierStatuses";
 import { setCustomFields } from "~/utils/form";
@@ -15,7 +15,7 @@ import { getParams, path } from "~/utils/path";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   await requirePermissions(request, {
-    create: "purchasing",
+    create: "purchasing"
   });
 
   return null;
@@ -24,7 +24,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    create: "purchasing",
+    create: "purchasing"
   });
 
   const formData = await request.formData();
@@ -44,7 +44,7 @@ export async function action({ request }: ActionFunctionArgs) {
     ...data,
     companyId,
     createdBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
   if (insertSupplierStatus.error) {
     return modal
@@ -72,7 +72,7 @@ export async function action({ request }: ActionFunctionArgs) {
 export default function NewSupplierStatusesRoute() {
   const navigate = useNavigate();
   const initialValues = {
-    name: "",
+    name: ""
   };
 
   return (

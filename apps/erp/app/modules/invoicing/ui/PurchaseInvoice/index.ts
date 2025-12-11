@@ -12,5 +12,5 @@ export {
   PurchaseInvoiceLineForm,
   PurchaseInvoiceSummary,
   PurchaseInvoicesTable,
-  PurchaseInvoicingStatus,
+  PurchaseInvoicingStatus
 };

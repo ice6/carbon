@@ -13,7 +13,7 @@ import {
   defaultIncomeAcountValidator,
   getDefaultAccounts,
   updateDefaultBalanceSheetAccounts,
-  updateDefaultIncomeAccounts,
+  updateDefaultIncomeAccounts
 } from "~/modules/accounting";
 import { AccountDefaultsForm } from "~/modules/accounting/ui/AccountDefaults";
 import type { Handle } from "~/utils/handle";
@@ -21,16 +21,16 @@ import { path } from "~/utils/path";
 
 export const handle: Handle = {
   breadcrumb: "Defaults",
-  to: path.to.accountingDefaults,
+  to: path.to.accountingDefaults
 };
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    view: "accounting",
+    view: "accounting"
   });
 
   const [defaultAccounts] = await Promise.all([
-    getDefaultAccounts(client, companyId),
+    getDefaultAccounts(client, companyId)
   ]);
 
   if (defaultAccounts.error || !defaultAccounts.data) {
@@ -44,14 +44,14 @@ export async function loader({ request }: LoaderFunctionArgs) {
   }
 
   return json({
-    defaultAccounts: defaultAccounts.data,
+    defaultAccounts: defaultAccounts.data
   });
 }
 
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    create: "accounting",
+    create: "accounting"
   });
 
   const formData = await request.formData();
@@ -69,7 +69,7 @@ export async function action({ request }: ActionFunctionArgs) {
     const updateDefaults = await updateDefaultIncomeAccounts(client, {
       ...validation.data,
       companyId,
-      updatedBy: userId,
+      updatedBy: userId
     });
     if (updateDefaults.error) {
       return json(
@@ -97,7 +97,7 @@ export async function action({ request }: ActionFunctionArgs) {
     const updateDefaults = await updateDefaultBalanceSheetAccounts(client, {
       ...validation.data,
       companyId,
-      updatedBy: userId,
+      updatedBy: userId
     });
     if (updateDefaults.error) {
       return json(

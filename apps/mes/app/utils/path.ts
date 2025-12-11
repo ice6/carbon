@@ -14,7 +14,7 @@ export const path = {
       batchNumbers: (itemId: string) =>
         generatePath(`${api}/batch-numbers?itemId=${itemId}`),
       serialNumbers: (itemId: string) =>
-        generatePath(`${api}/serial-numbers?itemId=${itemId}`),
+        generatePath(`${api}/serial-numbers?itemId=${itemId}`)
     },
     file: {
       jobTraveler: (id: string) => `${getAppUrl()}${file}/traveler/${id}.pdf`,
@@ -23,7 +23,7 @@ export const path = {
         id: string,
         {
           labelSize,
-          trackedEntityId,
+          trackedEntityId
         }: { labelSize?: string; trackedEntityId?: string } = {}
       ) => {
         let url = `${file}/operation/${id}/labels.pdf`;
@@ -41,7 +41,7 @@ export const path = {
         id: string,
         {
           labelSize,
-          trackedEntityId,
+          trackedEntityId
         }: { labelSize?: string; trackedEntityId?: string } = {}
       ) => {
         let url = `${file}/operation/${id}/labels.zpl`;
@@ -85,7 +85,7 @@ export const path = {
         if (queryString) url += `?${queryString}`;
 
         return generatePath(url);
-      },
+      }
     },
     accountSettings: `${ERP_URL}/x/account`,
     acknowledge: `${x}/acknowledge`,
@@ -133,8 +133,8 @@ export const path = {
       return parentId ? `${basePath}?parentId=${parentId}` : basePath;
     },
     workCenter: (workCenter: string) =>
-      generatePath(`${x}/operations/${workCenter}`),
-  },
+      generatePath(`${x}/operations/${workCenter}`)
+  }
 } as const;
 
 export const removeSubdomain = (url?: string): string => {

@@ -4,7 +4,7 @@ import {
   Input,
   Select,
   Submit,
-  ValidatedForm,
+  ValidatedForm
 } from "@carbon/form";
 import {
   Button,
@@ -24,7 +24,7 @@ import {
   ModalCardTitle,
   toast,
   useDisclosure,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { formatRelativeTime } from "@carbon/utils";
 import type { DragEndEvent, DragStartEvent } from "@dnd-kit/core";
@@ -35,7 +35,7 @@ import {
   MouseSensor,
   TouchSensor,
   useSensor,
-  useSensors,
+  useSensors
 } from "@dnd-kit/core";
 import { SortableContext, useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
@@ -45,7 +45,7 @@ import { createPortal } from "react-dom";
 import {
   LuCirclePlus,
   LuEllipsisVertical,
-  LuGripVertical,
+  LuGripVertical
 } from "react-icons/lu";
 import { EmployeeAvatar } from "~/components";
 import { ConfiguratorDataTypeIcon } from "~/components/Configurator/Icons";
@@ -62,7 +62,7 @@ export default function BatchPropertiesConfig({
   properties: initialProperties,
   type = "card",
   isReadOnly = false,
-  onClose,
+  onClose
 }: {
   itemId: string;
   properties: BatchProperty[];
@@ -93,7 +93,7 @@ export default function BatchPropertiesConfig({
     if (property) {
       propertiesById.set(pendingProperty.id, {
         ...property,
-        ...pendingProperty,
+        ...pendingProperty
       });
     }
   }
@@ -135,7 +135,7 @@ export default function BatchPropertiesConfig({
                     itemId: itemId,
                     label: "",
                     dataType: "text",
-                    listOptions: [],
+                    listOptions: []
                   }}
                   className="w-full"
                 >
@@ -165,7 +165,7 @@ export default function BatchPropertiesConfig({
                               {capitalize(type)}
                             </HStack>
                           ),
-                          value: type,
+                          value: type
                         }))}
                         onChange={onChangeCheckForListType}
                       />
@@ -277,12 +277,12 @@ export default function BatchPropertiesConfig({
     submit(
       {
         id: activeProperty.id,
-        sortOrder: newSortOrder,
+        sortOrder: newSortOrder
       },
       {
         method: "post",
         action: path.to.batchPropertyOrder(itemId),
-        navigate: false,
+        navigate: false
       }
     );
   }
@@ -290,7 +290,7 @@ export default function BatchPropertiesConfig({
 
 function BatchPropertyComponent({
   property,
-  isOverlay,
+  isOverlay
 }: {
   property: BatchProperty;
   isOverlay?: boolean;
@@ -308,14 +308,14 @@ function BatchPropertyComponent({
     setNodeRef,
     transform,
     transition,
-    isDragging,
+    isDragging
   } = useSortable({
-    id: property.id,
+    id: property.id
   });
 
   const style = {
     transform: CSS.Transform.toString(transform),
-    transition,
+    transition
   };
 
   useEffect(() => {
@@ -353,7 +353,7 @@ function BatchPropertyComponent({
             itemId: property.itemId,
             label: property.label,
             dataType: property.dataType,
-            listOptions: property.listOptions ?? [],
+            listOptions: property.listOptions ?? []
           }}
         >
           <Hidden name="id" />
@@ -375,7 +375,7 @@ function BatchPropertyComponent({
                       {capitalize(type)}
                     </HStack>
                   ),
-                  value: type,
+                  value: type
                 }))}
                 onChange={onChangeCheckForListType}
               />
@@ -482,7 +482,7 @@ function useBatchProperties(property?: BatchProperty) {
   return {
     isList,
     onChangeCheckForListType,
-    setIsList,
+    setIsList
   };
 }
 

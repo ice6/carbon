@@ -19,7 +19,7 @@ import {
   MenuSubTrigger,
   toast,
   useDisclosure,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { formatDate } from "@carbon/utils";
 import { useFetcher, useNavigate } from "@remix-run/react";
@@ -35,7 +35,7 @@ import {
   LuPencil,
   LuTag,
   LuTrash,
-  LuUser,
+  LuUser
 } from "react-icons/lu";
 import { RxCodesandboxLogo } from "react-icons/rx";
 import { TbTargetArrow } from "react-icons/tb";
@@ -46,7 +46,7 @@ import {
   MethodIcon,
   New,
   Table,
-  TrackingTypeIcon,
+  TrackingTypeIcon
 } from "~/components";
 import { Enumerable } from "~/components/Enumerable";
 import { ConfirmDelete } from "~/components/Modals";
@@ -58,7 +58,7 @@ import { usePeople } from "~/stores";
 import { path } from "~/utils/path";
 import {
   itemReplenishmentSystems,
-  itemTrackingTypes,
+  itemTrackingTypes
 } from "../../items.models";
 import type { Tool } from "../../types";
 
@@ -101,8 +101,8 @@ const ToolsTable = memo(({ data, tags, count }: ToolsTableProps) => {
           </HStack>
         ),
         meta: {
-          icon: <LuBookMarked />,
-        },
+          icon: <LuBookMarked />
+        }
       },
       {
         accessorKey: "description",
@@ -113,8 +113,8 @@ const ToolsTable = memo(({ data, tags, count }: ToolsTableProps) => {
           </div>
         ),
         meta: {
-          icon: <LuAlignJustify />,
-        },
+          icon: <LuAlignJustify />
+        }
       },
       {
         accessorKey: "itemTrackingType",
@@ -135,11 +135,11 @@ const ToolsTable = memo(({ data, tags, count }: ToolsTableProps) => {
                   <TrackingTypeIcon type={type} className="mr-2" />
                   <span>{type}</span>
                 </Badge>
-              ),
-            })),
+              )
+            }))
           },
-          icon: <TbTargetArrow />,
-        },
+          icon: <TbTargetArrow />
+        }
       },
 
       {
@@ -161,11 +161,11 @@ const ToolsTable = memo(({ data, tags, count }: ToolsTableProps) => {
                   <MethodIcon type={value} className="mr-2" />
                   <span>{value}</span>
                 </Badge>
-              ),
-            })),
+              )
+            }))
           },
-          icon: <RxCodesandboxLogo />,
-        },
+          icon: <RxCodesandboxLogo />
+        }
       },
       {
         accessorKey: "replenishmentSystem",
@@ -176,11 +176,11 @@ const ToolsTable = memo(({ data, tags, count }: ToolsTableProps) => {
             type: "static",
             options: itemReplenishmentSystems.map((type) => ({
               value: type,
-              label: <Enumerable value={type} />,
-            })),
+              label: <Enumerable value={type} />
+            }))
           },
-          icon: <LuLoaderCircle />,
-        },
+          icon: <LuLoaderCircle />
+        }
       },
       {
         accessorKey: "tags",
@@ -199,12 +199,12 @@ const ToolsTable = memo(({ data, tags, count }: ToolsTableProps) => {
             type: "static",
             options: tags?.map((tag) => ({
               value: tag.name,
-              label: <Badge variant="secondary">{tag.name}</Badge>,
+              label: <Badge variant="secondary">{tag.name}</Badge>
             })),
-            isArray: true,
+            isArray: true
           },
-          icon: <LuTag />,
-        },
+          icon: <LuTag />
+        }
       },
       {
         accessorKey: "active",
@@ -215,12 +215,12 @@ const ToolsTable = memo(({ data, tags, count }: ToolsTableProps) => {
             type: "static",
             options: [
               { value: "true", label: "Active" },
-              { value: "false", label: "Inactive" },
-            ],
+              { value: "false", label: "Inactive" }
+            ]
           },
           pluralHeader: "Active Statuses",
-          icon: <LuCheck />,
-        },
+          icon: <LuCheck />
+        }
       },
       // {
       //   id: "assignee",
@@ -249,19 +249,19 @@ const ToolsTable = memo(({ data, tags, count }: ToolsTableProps) => {
             type: "static",
             options: people.map((employee) => ({
               value: employee.id,
-              label: employee.name,
-            })),
+              label: employee.name
+            }))
           },
-          icon: <LuUser />,
-        },
+          icon: <LuUser />
+        }
       },
       {
         accessorKey: "createdAt",
         header: "Created At",
         cell: (item) => formatDate(item.getValue<string>()),
         meta: {
-          icon: <LuCalendar />,
-        },
+          icon: <LuCalendar />
+        }
       },
       {
         id: "updatedBy",
@@ -274,20 +274,20 @@ const ToolsTable = memo(({ data, tags, count }: ToolsTableProps) => {
             type: "static",
             options: people.map((employee) => ({
               value: employee.id,
-              label: employee.name,
-            })),
+              label: employee.name
+            }))
           },
-          icon: <LuUser />,
-        },
+          icon: <LuUser />
+        }
       },
       {
         accessorKey: "updatedAt",
         header: "Updated At",
         cell: (item) => formatDate(item.getValue<string>()),
         meta: {
-          icon: <LuCalendar />,
-        },
-      },
+          icon: <LuCalendar />
+        }
+      }
     ];
     return [...defaultColumns, ...customColumns];
   }, [customColumns, people, tags]);
@@ -313,7 +313,7 @@ const ToolsTable = memo(({ data, tags, count }: ToolsTableProps) => {
       formData.append("value", value);
       fetcher.submit(formData, {
         method: "post",
-        action: path.to.bulkUpdateItems,
+        action: path.to.bulkUpdateItems
       });
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -432,7 +432,7 @@ const ToolsTable = memo(({ data, tags, count }: ToolsTableProps) => {
         columns={columns}
         data={data}
         defaultColumnPinning={{
-          left: ["id"],
+          left: ["id"]
         }}
         defaultColumnVisibility={{
           description: false,
@@ -440,13 +440,13 @@ const ToolsTable = memo(({ data, tags, count }: ToolsTableProps) => {
           createdBy: false,
           createdAt: false,
           updatedBy: false,
-          updatedAt: false,
+          updatedAt: false
         }}
         importCSV={[
           {
             table: "tool",
-            label: "Tools",
-          },
+            label: "Tools"
+          }
         ]}
         primaryAction={
           permissions.can("create", "parts") && (

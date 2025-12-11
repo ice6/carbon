@@ -8,7 +8,7 @@ import { json, redirect } from "@vercel/remix";
 import {
   PartnersTable,
   getAbilitiesList,
-  getPartners,
+  getPartners
 } from "~/modules/resources";
 import type { Handle } from "~/utils/handle";
 import { path } from "~/utils/path";
@@ -16,14 +16,14 @@ import { getGenericQueryFilters } from "~/utils/query";
 
 export const handle: Handle = {
   breadcrumb: "Partners",
-  to: path.to.partners,
+  to: path.to.partners
 };
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
     view: "resources",
     role: "employee",
-    bypassRls: true,
+    bypassRls: true
   });
 
   const url = new URL(request.url);
@@ -38,9 +38,9 @@ export async function loader({ request }: LoaderFunctionArgs) {
       limit,
       offset,
       sorts,
-      filters,
+      filters
     }),
-    getAbilitiesList(client, companyId),
+    getAbilitiesList(client, companyId)
   ]);
 
   if (partners.error) {
@@ -52,7 +52,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
   return json({
     partners: partners.data ?? [],
-    count: partners.count ?? 0,
+    count: partners.count ?? 0
   });
 }
 

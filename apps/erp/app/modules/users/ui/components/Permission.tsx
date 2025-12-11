@@ -13,7 +13,7 @@ const labels = ["view", "create", "update", "delete"] as const;
 const PermissionCheckboxes = ({
   module,
   permissions,
-  updatePermissions,
+  updatePermissions
 }: PermissionProps) => {
   const allChecked = Object.values(permissions).every(Boolean);
   const isIndeterminate =
@@ -40,7 +40,7 @@ const PermissionCheckboxes = ({
               view: !!checked,
               create: !!checked,
               update: !!checked,
-              delete: !!checked,
+              delete: !!checked
             })
           }
         />

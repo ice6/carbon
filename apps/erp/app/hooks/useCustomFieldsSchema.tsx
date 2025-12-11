@@ -1,7 +1,7 @@
 import type { Json } from "@carbon/database";
 import { useRouteData } from "@carbon/remix";
 import { useMemo } from "react";
-import { z } from 'zod/v3';
+import { z } from "zod/v3";
 import { path } from "~/utils/path";
 
 export function useCustomFieldsSchema() {
@@ -34,7 +34,7 @@ const fieldValidator = z
       listOptions: z.array(z.string()).nullable(),
       name: z.string(),
       sortOrder: z.number(),
-      tags: z.array(z.string()).nullable(),
+      tags: z.array(z.string()).nullable()
     })
   )
   .nullable();

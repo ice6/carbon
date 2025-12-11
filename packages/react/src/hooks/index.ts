@@ -28,7 +28,7 @@ export {
   useOutsideClick,
   useRealtimeChannel,
   useShortcutKeys,
-  useThrottle,
+  useThrottle
 };
 
 export type { Shortcut, ShortcutDefinition };

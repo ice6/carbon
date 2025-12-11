@@ -7,5 +7,5 @@ export {
   AccountCategoriesTable,
   AccountCategoryDetail,
   AccountCategoryForm,
-  AccountSubcategoryForm,
+  AccountSubcategoryForm
 };

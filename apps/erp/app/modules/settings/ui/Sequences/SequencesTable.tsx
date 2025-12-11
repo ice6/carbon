@@ -9,7 +9,7 @@ import {
   LuPencil,
   LuStepForward,
   LuText,
-  LuTextCursor,
+  LuTextCursor
 } from "react-icons/lu";
 import { Hyperlink, Table } from "~/components";
 import { usePermissions, useUrlParams } from "~/hooks";
@@ -35,49 +35,49 @@ const SequencesTable = memo(({ data, count }: SequencesTableProps) => {
           <Hyperlink to={row.original.table}>{row.original.name}</Hyperlink>
         ),
         meta: {
-          icon: <LuText />,
-        },
+          icon: <LuText />
+        }
       },
       {
         accessorKey: "prefix",
         header: "Prefix",
         cell: (item) => item.getValue(),
         meta: {
-          icon: <LuTextCursor />,
-        },
+          icon: <LuTextCursor />
+        }
       },
       {
         accessorKey: "next",
         header: "Current",
         cell: (item) => item.getValue(),
         meta: {
-          icon: <LuArrowRight />,
-        },
+          icon: <LuArrowRight />
+        }
       },
       {
         accessorKey: "size",
         header: "Size",
         cell: (item) => item.getValue(),
         meta: {
-          icon: <LuMaximize />,
-        },
+          icon: <LuMaximize />
+        }
       },
       {
         accessorKey: "step",
         header: "Step",
         cell: (item) => item.getValue(),
         meta: {
-          icon: <LuStepForward />,
-        },
+          icon: <LuStepForward />
+        }
       },
       {
         accessorKey: "suffix",
         header: "Suffix",
         cell: (item) => item.getValue(),
         meta: {
-          icon: <LuHash />,
-        },
-      },
+          icon: <LuHash />
+        }
+      }
     ];
   }, []);
 

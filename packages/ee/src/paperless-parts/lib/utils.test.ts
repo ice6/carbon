@@ -14,7 +14,7 @@ describe("calculatePromisedDate", () => {
   it("should calculate ship date before cutoff time (7 AM) with 3 business days lead time", () => {
     // Mock date: August 20, 2024 at 7:00 AM (Tuesday)
     const mockDate = new Date("2024-08-20T07:00:00");
-    jest.useFakeTimers('modern');
+    jest.useFakeTimers("modern");
     jest.setSystemTime(mockDate);
 
     const holidays: Database["public"]["Tables"]["holiday"]["Row"][] = [];
@@ -35,7 +35,7 @@ describe("calculatePromisedDate", () => {
     // Mock date: Thursday August 22, 2024 at 11:00 AM
     // This matches the user's example where order after cutoff rolls to next day
     const mockDate = new Date("2024-08-22T11:00:00");
-    jest.useFakeTimers('modern');
+    jest.useFakeTimers("modern");
     jest.setSystemTime(mockDate);
 
     const holidays: Database["public"]["Tables"]["holiday"]["Row"][] = [];
@@ -57,7 +57,7 @@ describe("calculatePromisedDate", () => {
   it("should account for holidays when calculating ship date", () => {
     // Mock date: August 29, 2024 at 7:00 AM (Thursday)
     const mockDate = new Date("2024-08-29T07:00:00");
-    jest.useFakeTimers('modern');
+    jest.useFakeTimers("modern");
     jest.setSystemTime(mockDate);
 
     // Labor Day 2024 is September 2 (Monday)
@@ -73,8 +73,8 @@ describe("calculatePromisedDate", () => {
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
         createdBy: "system",
-        updatedBy: "system",
-      },
+        updatedBy: "system"
+      }
     ];
     const leadTime = 3;
 
@@ -97,7 +97,7 @@ describe("calculatePromisedDate", () => {
   it("should handle weekend rollovers correctly", () => {
     // Mock date: Friday at 9:00 AM
     const mockDate = new Date("2024-08-23T09:00:00"); // Friday
-    jest.useFakeTimers('modern');
+    jest.useFakeTimers("modern");
     jest.setSystemTime(mockDate);
 
     const holidays: Database["public"]["Tables"]["holiday"]["Row"][] = [];
@@ -118,7 +118,7 @@ describe("calculatePromisedDate", () => {
   it("should handle multiple holidays correctly", () => {
     // Mock date: August 29, 2024 at 8:00 AM
     const mockDate = new Date("2024-08-29T08:00:00");
-    jest.useFakeTimers('modern');
+    jest.useFakeTimers("modern");
     jest.setSystemTime(mockDate);
 
     const holidays: Database["public"]["Tables"]["holiday"]["Row"][] = [
@@ -133,7 +133,7 @@ describe("calculatePromisedDate", () => {
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
         createdBy: "system",
-        updatedBy: "system",
+        updatedBy: "system"
       },
       {
         id: "2",
@@ -146,8 +146,8 @@ describe("calculatePromisedDate", () => {
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
         createdBy: "system",
-        updatedBy: "system",
-      },
+        updatedBy: "system"
+      }
     ];
     const leadTime = 3;
 
@@ -169,7 +169,7 @@ describe("calculatePromisedDate", () => {
   it("should handle same-day orders before cutoff with 1 day lead time", () => {
     // Mock date: Monday at 9:00 AM
     const mockDate = new Date("2024-08-19T09:00:00");
-    jest.useFakeTimers('modern');
+    jest.useFakeTimers("modern");
     jest.setSystemTime(mockDate);
 
     const holidays: Database["public"]["Tables"]["holiday"]["Row"][] = [];
@@ -189,7 +189,7 @@ describe("calculatePromisedDate", () => {
   it("should handle orders placed on Friday after cutoff", () => {
     // Mock date: Friday at 11:00 AM
     const mockDate = new Date("2024-08-23T11:00:00");
-    jest.useFakeTimers('modern');
+    jest.useFakeTimers("modern");
     jest.setSystemTime(mockDate);
 
     const holidays: Database["public"]["Tables"]["holiday"]["Row"][] = [];
@@ -211,7 +211,7 @@ describe("calculatePromisedDate", () => {
   it("should handle exactly at cutoff time (10 AM)", () => {
     // Mock date: Tuesday at exactly 10:00 AM
     const mockDate = new Date("2024-08-20T10:00:00");
-    jest.useFakeTimers('modern');
+    jest.useFakeTimers("modern");
     jest.setSystemTime(mockDate);
 
     const holidays: Database["public"]["Tables"]["holiday"]["Row"][] = [];

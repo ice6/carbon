@@ -8,7 +8,7 @@ import { json, redirect } from "@vercel/remix";
 import {
   getItemPostingGroup,
   itemPostingGroupValidator,
-  upsertItemPostingGroup,
+  upsertItemPostingGroup
 } from "~/modules/items";
 import { ItemPostingGroupForm } from "~/modules/items/ui/ItemPostingGroups";
 import { getCustomFields, setCustomFields } from "~/utils/form";
@@ -17,7 +17,7 @@ import { getParams, path } from "~/utils/path";
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
     view: "parts",
-    role: "employee",
+    role: "employee"
   });
 
   const { groupId } = params;
@@ -26,14 +26,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   const itemPostingGroup = await getItemPostingGroup(client, groupId);
 
   return json({
-    itemPostingGroup: itemPostingGroup?.data ?? null,
+    itemPostingGroup: itemPostingGroup?.data ?? null
   });
 }
 
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    update: "parts",
+    update: "parts"
   });
 
   const { groupId } = params;
@@ -52,7 +52,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     id: groupId,
     ...validation.data,
     updatedBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
 
   if (updateItemPostingGroup.error) {
@@ -79,7 +79,7 @@ export default function EditItemPostingGroupsRoute() {
     id: itemPostingGroup?.id ?? undefined,
     name: itemPostingGroup?.name ?? "",
     description: itemPostingGroup?.description ?? "",
-    ...getCustomFields(itemPostingGroup?.customFields),
+    ...getCustomFields(itemPostingGroup?.customFields)
   };
 
   return (

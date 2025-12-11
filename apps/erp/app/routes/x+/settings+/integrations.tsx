@@ -9,7 +9,7 @@ import { path } from "~/utils/path";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    view: "settings",
+    view: "settings"
   });
 
   const integrations = await getIntegrations(client, companyId);
@@ -26,7 +26,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   return {
     installedIntegrations: (integrations.data
       .filter((i) => i.active)
-      .map((i) => i.id) ?? []) as string[],
+      .map((i) => i.id) ?? []) as string[]
   };
 }
 

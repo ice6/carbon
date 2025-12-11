@@ -11,12 +11,12 @@ export const meta: MetaFunction = () => {
 export const handle: Handle = {
   breadcrumb: "Purchasing",
   to: path.to.purchasing,
-  module: "purchasing",
+  module: "purchasing"
 };
 
 export async function loader({ request }: LoaderFunctionArgs) {
   await requirePermissions(request, {
-    view: "purchasing",
+    view: "purchasing"
   });
 
   return json({});

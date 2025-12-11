@@ -14,12 +14,12 @@ import {
   Separator,
   VStack,
   toast,
-  useMount,
+  useMount
 } from "@carbon/react";
 import { useFetcher } from "@remix-run/react";
 import type { PostgrestResponse } from "@supabase/supabase-js";
 import { useEffect } from "react";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import { Hidden, Submit } from "~/components/Form";
 import { usePermissions } from "~/hooks";
 import { path } from "~/utils/path";
@@ -36,7 +36,7 @@ type WebhookFormProps = {
 const WebhookForm = ({
   initialValues,
   open = true,
-  onClose,
+  onClose
 }: WebhookFormProps) => {
   const permissions = usePermissions();
   const fetcher = useFetcher<PostgrestResponse<{ id: string }>>();
@@ -150,7 +150,7 @@ export const useWebhookTables = () => {
 
   const options = tables.map((t) => ({
     value: t.table,
-    label: t.name,
+    label: t.name
   }));
 
   return options;

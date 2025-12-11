@@ -9,7 +9,7 @@ import { flash } from "@carbon/auth/session.server";
 import {
   accountValidator,
   getAccount,
-  upsertAccount,
+  upsertAccount
 } from "~/modules/accounting";
 import { ChartOfAccountForm } from "~/modules/accounting/ui/ChartOfAccounts";
 import { getCustomFields, setCustomFields } from "~/utils/form";
@@ -18,7 +18,7 @@ import { path } from "~/utils/path";
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
     view: "accounting",
-    role: "employee",
+    role: "employee"
   });
 
   const { accountId } = params;
@@ -27,14 +27,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   const account = await getAccount(client, accountId);
 
   return json({
-    account: account?.data ?? null,
+    account: account?.data ?? null
   });
 }
 
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    update: "accounting",
+    update: "accounting"
   });
 
   const formData = await request.formData();
@@ -51,7 +51,7 @@ export async function action({ request }: ActionFunctionArgs) {
     id,
     ...data,
     customFields: setCustomFields(formData),
-    updatedBy: userId,
+    updatedBy: userId
   });
 
   if (updateAccount.error) {
@@ -84,7 +84,7 @@ export default function EditChartOfAccountsRoute() {
     incomeBalance: account?.incomeBalance ?? "Balance Sheet",
     consolidatedRate: account?.consolidatedRate ?? "Average",
     directPosting: account?.directPosting ?? false,
-    ...getCustomFields(account?.customFields),
+    ...getCustomFields(account?.customFields)
   };
 
   return (

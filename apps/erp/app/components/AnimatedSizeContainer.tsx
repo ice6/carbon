@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import {
   type ComponentPropsWithoutRef,
   type PropsWithChildren,
-  forwardRef,
+  forwardRef
 } from "react";
 import useMeasure from "react-use-measure";
 
@@ -38,8 +38,8 @@ const AnimatedSizeContainer = forwardRef<
         ref={forwardedRef}
         className={cn("overflow-hidden p-1", className)}
         animate={{
-          width: width ? bounds?.width ?? "auto" : "auto",
-          height: height ? bounds?.height ?? "auto" : "auto",
+          width: width ? (bounds?.width ?? "auto") : "auto",
+          height: height ? (bounds?.height ?? "auto") : "auto"
         }}
         transition={transition ?? { type: "spring", duration: 0.3 }}
         {...rest}

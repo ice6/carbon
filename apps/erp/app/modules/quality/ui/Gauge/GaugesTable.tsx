@@ -17,14 +17,14 @@ import {
   LuShield,
   LuTrash,
   LuUser,
-  LuUsers,
+  LuUsers
 } from "react-icons/lu";
 import {
   EmployeeAvatar,
   Hyperlink,
   New,
   SupplierAvatar,
-  Table,
+  Table
 } from "~/components";
 
 import { flushSync } from "react-dom";
@@ -43,7 +43,7 @@ import { useSuppliers } from "~/stores/suppliers";
 import {
   gaugeCalibrationStatus,
   gaugeRole,
-  gaugeStatus,
+  gaugeStatus
 } from "../../quality.models";
 import { GaugeCalibrationStatus, GaugeRole, GaugeStatus } from "./GaugeStatus";
 
@@ -59,7 +59,7 @@ const defaultColumnVisibility = {
   createdAt: false,
   updatedAt: false,
   updatedBy: false,
-  description: false,
+  description: false
 };
 
 const GaugesTable = memo(({ data, types, count }: GaugesTableProps) => {
@@ -96,8 +96,8 @@ const GaugesTable = memo(({ data, types, count }: GaugesTableProps) => {
           </Hyperlink>
         ),
         meta: {
-          icon: <LuBookMarked />,
-        },
+          icon: <LuBookMarked />
+        }
       },
       {
         id: "supplierId",
@@ -110,11 +110,11 @@ const GaugesTable = memo(({ data, types, count }: GaugesTableProps) => {
             type: "static",
             options: suppliers?.map((supplier) => ({
               value: supplier.id,
-              label: supplier.name,
-            })),
+              label: supplier.name
+            }))
           },
-          icon: <LuContainer />,
-        },
+          icon: <LuContainer />
+        }
       },
 
       {
@@ -134,10 +134,10 @@ const GaugesTable = memo(({ data, types, count }: GaugesTableProps) => {
             type: "static",
             options: types.map((type) => ({
               label: <Enumerable value={type.name} />,
-              value: type.id,
-            })),
-          },
-        },
+              value: type.id
+            }))
+          }
+        }
       },
       {
         accessorKey: "gaugeCalibrationStatus",
@@ -153,26 +153,26 @@ const GaugesTable = memo(({ data, types, count }: GaugesTableProps) => {
             type: "static",
             options: gaugeCalibrationStatus.map((status) => ({
               label: <GaugeCalibrationStatus status={status} />,
-              value: status,
-            })),
-          },
-        },
+              value: status
+            }))
+          }
+        }
       },
       {
         accessorKey: "modelNumber",
         header: "Model Number",
         cell: ({ row }) => row.original.modelNumber,
         meta: {
-          icon: <LuHash />,
-        },
+          icon: <LuHash />
+        }
       },
       {
         accessorKey: "serialNumber",
         header: "Serial Number",
         cell: ({ row }) => row.original.serialNumber,
         meta: {
-          icon: <LuHash />,
-        },
+          icon: <LuHash />
+        }
       },
       {
         accessorKey: "gaugeRole",
@@ -184,10 +184,10 @@ const GaugesTable = memo(({ data, types, count }: GaugesTableProps) => {
             type: "static",
             options: gaugeRole.map((role) => ({
               label: <GaugeRole role={role} />,
-              value: role,
-            })),
-          },
-        },
+              value: role
+            }))
+          }
+        }
       },
       {
         accessorKey: "gaugeStatus",
@@ -199,10 +199,10 @@ const GaugesTable = memo(({ data, types, count }: GaugesTableProps) => {
             type: "static",
             options: gaugeStatus.map((status) => ({
               label: status,
-              value: status,
-            })),
-          },
-        },
+              value: status
+            }))
+          }
+        }
       },
 
       {
@@ -210,16 +210,16 @@ const GaugesTable = memo(({ data, types, count }: GaugesTableProps) => {
         header: "Next Calibration",
         cell: ({ row }) => formatDate(row.original.nextCalibrationDate),
         meta: {
-          icon: <LuCalendar />,
-        },
+          icon: <LuCalendar />
+        }
       },
       {
         accessorKey: "lastCalibrationDate",
         header: "Last Calibration",
         cell: ({ row }) => formatDate(row.original.lastCalibrationDate),
         meta: {
-          icon: <LuCalendar />,
-        },
+          icon: <LuCalendar />
+        }
       },
       {
         accessorKey: "locationId",
@@ -239,10 +239,10 @@ const GaugesTable = memo(({ data, types, count }: GaugesTableProps) => {
             type: "static",
             options: locations.map((location) => ({
               label: location.label,
-              value: location.value,
-            })),
-          },
-        },
+              value: location.value
+            }))
+          }
+        }
       },
       {
         id: "createdBy",
@@ -256,18 +256,18 @@ const GaugesTable = memo(({ data, types, count }: GaugesTableProps) => {
             type: "static",
             options: people.map((employee) => ({
               value: employee.id,
-              label: employee.name,
-            })),
-          },
-        },
+              label: employee.name
+            }))
+          }
+        }
       },
       {
         accessorKey: "createdAt",
         header: "Created At",
         cell: (item) => formatDate(item.getValue<string>()),
         meta: {
-          icon: <LuFileText />,
-        },
+          icon: <LuFileText />
+        }
       },
       {
         id: "updatedBy",
@@ -281,19 +281,19 @@ const GaugesTable = memo(({ data, types, count }: GaugesTableProps) => {
             type: "static",
             options: people.map((employee) => ({
               value: employee.id,
-              label: employee.name,
-            })),
-          },
-        },
+              label: employee.name
+            }))
+          }
+        }
       },
       {
         accessorKey: "updatedAt",
         header: "Updated At",
         cell: (item) => formatDate(item.getValue<string>()),
         meta: {
-          icon: <LuFileText />,
-        },
-      },
+          icon: <LuFileText />
+        }
+      }
     ];
     return [...defaultColumns, ...customColumns];
   }, [customColumns, locations, people, suppliers, types]);
@@ -361,7 +361,7 @@ const GaugesTable = memo(({ data, types, count }: GaugesTableProps) => {
       params,
       deactivateDisclosure,
       activateDisclosure,
-      deleteDisclosure,
+      deleteDisclosure
     ]
   );
 

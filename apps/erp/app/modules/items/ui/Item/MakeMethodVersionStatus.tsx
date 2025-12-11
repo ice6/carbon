@@ -8,7 +8,7 @@ type MakeMethodVersionStatusProps = {
 
 const MakeMethodVersionStatus = ({
   status,
-  isActive,
+  isActive
 }: MakeMethodVersionStatusProps) => {
   switch (status) {
     case "Draft":

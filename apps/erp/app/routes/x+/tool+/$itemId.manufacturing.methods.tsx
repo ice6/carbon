@@ -6,7 +6,7 @@ import { path } from "~/utils/path";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    view: "parts",
+    view: "parts"
   });
   const { itemId } = params;
   if (!itemId) throw new Error("Could not find itemId");

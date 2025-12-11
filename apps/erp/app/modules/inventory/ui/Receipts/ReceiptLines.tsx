@@ -32,7 +32,7 @@ import {
   TooltipContent,
   TooltipTrigger,
   useDisclosure,
-  VStack,
+  VStack
 } from "@carbon/react";
 import type { TrackedEntityAttributes } from "@carbon/utils";
 import { labelSizes } from "@carbon/utils";
@@ -43,7 +43,7 @@ import {
   useFetchers,
   useParams,
   useRevalidator,
-  useSubmit,
+  useSubmit
 } from "@remix-run/react";
 import type { PostgrestResponse } from "@supabase/supabase-js";
 import { Suspense, useCallback, useEffect, useRef, useState } from "react";
@@ -54,7 +54,7 @@ import {
   LuQrCode,
   LuSplit,
   LuTrash,
-  LuX,
+  LuX
 } from "react-icons/lu";
 import { DocumentPreview, Empty, ItemThumbnail } from "~/components";
 import DocumentIcon from "~/components/DocumentIcon";
@@ -70,7 +70,7 @@ import {
   type BatchProperty,
   type ItemTracking,
   type Receipt,
-  type ReceiptLine,
+  type ReceiptLine
 } from "~/modules/inventory";
 import { getDocumentType } from "~/modules/shared/shared.service";
 import type { action as receiptLinesUpdateAction } from "~/routes/x+/receipt+/lines.update";
@@ -140,10 +140,10 @@ const ReceiptLines = () => {
 
             return {
               index,
-              number: serialNumber,
+              number: serialNumber
             };
           }
-        ),
+        )
       };
     }, {});
   });
@@ -178,10 +178,10 @@ const ReceiptLines = () => {
 
               return {
                 index,
-                number: serialNumber,
+                number: serialNumber
               };
             }
-          ),
+          )
         };
       }, {})
     );
@@ -192,7 +192,7 @@ const ReceiptLines = () => {
     async ({
       lineId,
       field,
-      value,
+      value
     }:
       | {
           lineId: string;
@@ -211,7 +211,7 @@ const ReceiptLines = () => {
       formData.append("value", value.toString());
       fetcher.submit(formData, {
         method: "post",
-        action: path.to.bulkUpdateReceiptLine,
+        action: path.to.bulkUpdateReceiptLine
       });
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -255,7 +255,7 @@ const ReceiptLines = () => {
                     onSerialNumbersChange={(newSerialNumbers) => {
                       setSerialNumbersByLineId((prev) => ({
                         ...prev,
-                        [line.id!]: newSerialNumbers,
+                        [line.id!]: newSerialNumbers
                       }));
                     }}
                     batchProperties={routeData?.batchProperties}
@@ -287,7 +287,7 @@ function ReceiptLineItem({
   getPath,
   onSerialNumbersChange,
   upload,
-  deleteFile,
+  deleteFile
 }: {
   line: ReceiptLine;
   receipt?: Receipt;
@@ -304,7 +304,7 @@ function ReceiptLineItem({
   onUpdate: ({
     lineId,
     field,
-    value,
+    value
   }:
     | {
         lineId: string;
@@ -389,7 +389,7 @@ function ReceiptLineItem({
                   onUpdate({
                     lineId: line.id!,
                     field: "receivedQuantity",
-                    value: safeValue,
+                    value: safeValue
                   });
                   // Adjust serial numbers array size while preserving existing values
                   if (safeValue > serialNumbers.length) {
@@ -399,9 +399,9 @@ function ReceiptLineItem({
                         { length: safeValue - serialNumbers.length },
                         () => ({
                           index: serialNumbers.length,
-                          number: "",
+                          number: ""
                         })
-                      ),
+                      )
                     ]);
                   } else if (safeValue < serialNumbers.length) {
                     onSerialNumbersChange(serialNumbers.slice(0, safeValue));
@@ -458,7 +458,7 @@ function ReceiptLineItem({
               onUpdate({
                 lineId: line.id!,
                 field: "shelfId",
-                value: shelf,
+                value: shelf
               });
             }}
           />
@@ -558,7 +558,7 @@ function BatchForm({
   receipt,
   batchProperties,
   tracking,
-  isReadOnly,
+  isReadOnly
 }: {
   line: ReceiptLine;
   receipt?: Receipt;
@@ -584,15 +584,15 @@ function BatchForm({
                 "Shipment",
                 "Shipment Line Index",
                 "Receipt Line",
-                "Receipt",
+                "Receipt"
               ].includes(key)
           )
-          .reduce((acc, [key, value]) => ({ ...acc, [key]: value || "" }), {}),
+          .reduce((acc, [key, value]) => ({ ...acc, [key]: value || "" }), {})
       };
     }
     return {
       number: "",
-      properties: {},
+      properties: {}
     };
   });
 
@@ -613,7 +613,7 @@ function BatchForm({
         ...newValues,
         properties: Object.entries(attributes)
           .filter(([key]) => !["Batch Number", "Receipt Line"].includes(key))
-          .reduce((acc, [key, value]) => ({ ...acc, [key]: value || "" }), {}),
+          .reduce((acc, [key, value]) => ({ ...acc, [key]: value || "" }), {})
       };
 
       // Just update the local state without triggering another database write
@@ -632,14 +632,14 @@ function BatchForm({
     submit(formData, {
       method: "post",
       action: path.to.receiptLinesTracking(receipt.id),
-      navigate: false,
+      navigate: false
     });
   };
 
   const handlePropertiesChange = (newProperties: any) => {
     const newValues = {
       ...values,
-      properties: newProperties,
+      properties: newProperties
     };
     setValues(newValues);
     updateBatchNumber(newValues);
@@ -652,7 +652,7 @@ function BatchForm({
         window.location.origin +
           path.to.file.receiptLabelsZpl(receipt?.id ?? "", {
             lineId: line.id!,
-            labelSize,
+            labelSize
           }),
         "_blank"
       );
@@ -661,7 +661,7 @@ function BatchForm({
         window.location.origin +
           path.to.file.receiptLabelsPdf(receipt?.id ?? "", {
             lineId: line.id!,
-            labelSize,
+            labelSize
           }),
         "_blank"
       );
@@ -679,7 +679,7 @@ function BatchForm({
             leftIcon={<LuQrCode />}
             dropdownItems={labelSizes.map((size) => ({
               label: size.name,
-              onClick: () => navigateToLineTrackingLabels(!!size.zpl, size.id),
+              onClick: () => navigateToLineTrackingLabels(!!size.zpl, size.id)
             }))}
             onClick={() => navigateToLineTrackingLabels(false)}
             variant="secondary"
@@ -709,7 +709,7 @@ function BatchForm({
             onChange={(e) => {
               setValues((prev) => ({
                 ...prev,
-                number: e.target.value,
+                number: e.target.value
               }));
             }}
             onBlur={() => {
@@ -766,7 +766,7 @@ function SerialForm({
   batchProperties,
   serialNumbers,
   isReadOnly,
-  onSerialNumbersChange,
+  onSerialNumbersChange
 }: {
   line: ReceiptLine;
   receipt?: Receipt;
@@ -818,7 +818,7 @@ function SerialForm({
       try {
         const response = await fetch(path.to.receiptLinesTracking(receipt.id), {
           method: "POST",
-          body: formData,
+          body: formData
         });
 
         if (response.ok) {
@@ -831,14 +831,14 @@ function SerialForm({
         } else {
           setErrors((prev) => ({
             ...prev,
-            [serialNumber.index]: "Serial number already exists",
+            [serialNumber.index]: "Serial number already exists"
           }));
         }
       } catch (error) {
         if (error instanceof Error && error.message.includes("duplicate")) {
           setErrors((prev) => ({
             ...prev,
-            [serialNumber.index]: "Serial number already exists for this item",
+            [serialNumber.index]: "Serial number already exists for this item"
           }));
         }
       }
@@ -853,7 +853,7 @@ function SerialForm({
         window.location.origin +
           path.to.file.receiptLabelsZpl(receipt?.id ?? "", {
             lineId: line.id!,
-            labelSize,
+            labelSize
           }),
         "_blank"
       );
@@ -862,7 +862,7 @@ function SerialForm({
         window.location.origin +
           path.to.file.receiptLabelsPdf(receipt?.id ?? "", {
             lineId: line.id!,
-            labelSize,
+            labelSize
           }),
         "_blank"
       );
@@ -879,7 +879,7 @@ function SerialForm({
             leftIcon={<LuQrCode />}
             dropdownItems={labelSizes.map((size) => ({
               label: size.name,
-              onClick: () => navigateToLineTrackingLabels(!!size.zpl, size.id),
+              onClick: () => navigateToLineTrackingLabels(!!size.zpl, size.id)
             }))}
             onClick={() => navigateToLineTrackingLabels(false)}
             variant="secondary"
@@ -916,7 +916,7 @@ function SerialForm({
                 const newSerialNumbers = [...serialNumbers];
                 newSerialNumbers[index] = {
                   index,
-                  number: newValue,
+                  number: newValue
                 };
                 onSerialNumbersChange(newSerialNumbers);
               }}
@@ -969,7 +969,7 @@ function SerialForm({
 
 function SplitReceiptLineModal({
   line,
-  onClose,
+  onClose
 }: {
   line: ReceiptLine;
   onClose: () => void;
@@ -1032,7 +1032,7 @@ function Shelf({
   locationId,
   shelfId,
   isReadOnly,
-  onChange,
+  onChange
 }: {
   locationId: string | null;
   shelfId: string | null;
@@ -1104,7 +1104,7 @@ const usePendingReceiptLines = () => {
       if (lineId && field && value) {
         const newItem: { id: string; [key: string]: string | null } = {
           id: lineId,
-          [field]: value,
+          [field]: value
         };
         return [...acc, newItem];
       }
@@ -1143,7 +1143,7 @@ function useReceiptFiles(receiptId: string) {
           .from("private")
           .upload(fileName, file, {
             cacheControl: `${12 * 60 * 60}`,
-            upsert: true,
+            upsert: true
           });
 
         if (fileUpload.error) {
@@ -1161,7 +1161,7 @@ function useReceiptFiles(receiptId: string) {
             method: "post",
             action: path.to.newDocument,
             navigate: false,
-            fetcherKey: `${lineId}:${file.name}`,
+            fetcherKey: `${lineId}:${file.name}`
           });
         }
       }

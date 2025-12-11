@@ -17,28 +17,28 @@ const inputGroupVariants = cva(
         lg: "h-12 rounded-lg",
         md: "h-10 rounded-md",
         sm: "h-8 rounded-md",
-        xs: "h-6 rounded",
+        xs: "h-6 rounded"
       },
       isDisabled: {
         true: "opacity-50 disabled:cursor-not-allowed",
-        false: "",
+        false: ""
       },
       isInvalid: {
         true: "border-destructive focus-within:ring-destructive",
-        false: "",
+        false: ""
       },
       insetRing: {
         false:
           "ring-offset-background focus-within:outline-none focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2",
-        true: "focus-within:outline-none focus-within:box-shadow-[inset 0 0 0 2px var(--ring-color)]",
-      },
+        true: "focus-within:outline-none focus-within:box-shadow-[inset 0 0 0 2px var(--ring-color)]"
+      }
     },
     defaultVariants: {
       size: "md",
       isDisabled: false,
       isInvalid: false,
-      insetRing: false,
-    },
+      insetRing: false
+    }
   }
 );
 
@@ -73,7 +73,7 @@ const InputGroup = forwardRef<HTMLDivElement, InputGroupProps>(
         size,
         isInvalid,
         isDisabled,
-        key: index,
+        key: index
       })
     );
 
@@ -86,7 +86,7 @@ const InputGroup = forwardRef<HTMLDivElement, InputGroupProps>(
               isDisabled,
               isInvalid,
               insetRing,
-              className,
+              className
             })
           )}
           {...props}
@@ -108,54 +108,54 @@ export const inputVariants = cva(
         lg: "h-12 rounded-lg px-4 text-base",
         md: "h-10 rounded-md px-4 text-sm",
         sm: "h-8 rounded-md px-3 text-sm",
-        xs: "h-6 rounded px-2 text-sm",
+        xs: "h-6 rounded px-2 text-sm"
       },
       isInputGroup: {
         true: "h-auto outline-none focus-within:outline-none",
         false:
-          "border border-input ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed shadow-sm file:border-0 file:bg-transparent file:text-sm file:font-medium",
+          "border border-input ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed shadow-sm file:border-0 file:bg-transparent file:text-sm file:font-medium"
       },
       isFirstChild: {
         true: "",
-        false: "",
+        false: ""
       },
       isLastChild: {
         true: "",
-        false: "",
+        false: ""
       },
       isInvalid: {
         true: "border-destructive ring-destructive focus-visible:ring-destructive",
-        false: "",
+        false: ""
       },
       isReadOnly: {
         true: "bg-muted text-muted-foreground",
-        false: "",
+        false: ""
       },
       isDisabled: {
         true: "bg-muted text-muted-foreground",
-        false: "",
+        false: ""
       },
       borderless: {
         true: "border-none px-0 outline-none ring-transparent focus:ring-transparent focus:ring-offset-0 focus-visible:ring-transparent focus:outline-none focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 shadow-none",
-        false: "",
-      },
+        false: ""
+      }
     },
     compoundVariants: [
       {
         isFirstChild: false,
         isInputGroup: true,
-        class: "rounded-l-none border-l-0",
+        class: "rounded-l-none border-l-0"
       },
       {
         isLastChild: false,
         isInputGroup: true,
-        class: "rounded-r-none border-r-0",
+        class: "rounded-r-none border-r-0"
       },
       {
         isInvalid: true,
         isInputGroup: false,
-        class: "focus-visible:ring-destructive",
-      },
+        class: "focus-visible:ring-destructive"
+      }
     ],
     defaultVariants: {
       size: "md",
@@ -163,8 +163,8 @@ export const inputVariants = cva(
       isFirstChild: false,
       isLastChild: false,
       isInvalid: false,
-      borderless: false,
-    },
+      borderless: false
+    }
   }
 );
 
@@ -208,7 +208,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             isInvalid,
             isReadOnly,
             isDisabled,
-            borderless,
+            borderless
           }),
           className
         )}
@@ -229,65 +229,65 @@ const inputAddonVariants = cva(
     variants: {
       placement: {
         left: "",
-        right: "",
+        right: ""
       },
       size: {
         lg: "h-12 px-3",
         md: "h-10 px-3",
         sm: "h-8 px-2",
-        xs: "h-6 px-1",
+        xs: "h-6 px-1"
       },
       isDisabled: {
         true: "opacity-50 cursor-not-allowed bg-muted text-muted-foreground",
-        false: "",
-      },
+        false: ""
+      }
     },
     compoundVariants: [
       {
         placement: "left",
         size: "lg",
-        class: "rounded-l-lg",
+        class: "rounded-l-lg"
       },
       {
         placement: "left",
         size: "md",
-        class: "rounded-l-md",
+        class: "rounded-l-md"
       },
       {
         placement: "left",
         size: "sm",
-        class: "rounded-l",
+        class: "rounded-l"
       },
       {
         placement: "left",
         size: "xs",
-        class: "rounded-l",
+        class: "rounded-l"
       },
       {
         placement: "right",
         size: "lg",
-        class: "rounded-r-lg",
+        class: "rounded-r-lg"
       },
       {
         placement: "right",
         size: "md",
-        class: "rounded-r-md",
+        class: "rounded-r-md"
       },
       {
         placement: "right",
         size: "sm",
-        class: "rounded-r",
+        class: "rounded-r"
       },
       {
         placement: "right",
         size: "xs",
-        class: "rounded-r",
-      },
+        class: "rounded-r"
+      }
     ],
     defaultVariants: {
       size: "md",
-      isDisabled: false,
-    },
+      isDisabled: false
+    }
   }
 );
 
@@ -306,7 +306,7 @@ const InputLeftAddon = forwardRef<HTMLDivElement, InputAddonProps>(
             placement: "left",
             size,
             isDisabled,
-            className,
+            className
           })
         )}
         {...props}
@@ -326,7 +326,7 @@ const InputRightAddon = forwardRef<HTMLDivElement, InputAddonProps>(
             placement: "right",
             size,
             isDisabled,
-            className,
+            className
           })
         )}
         {...props}
@@ -345,20 +345,20 @@ const inputElementVariants = cva(
         lg: "h-12",
         md: "h-10",
         sm: "h-8",
-        xs: "h-6",
+        xs: "h-6"
       },
       placement: {
         left: "pl-2",
-        right: "pr-2",
+        right: "pr-2"
       },
       isDisabled: {
         true: "opacity-50 cursor-not-allowed",
-        false: "",
-      },
+        false: ""
+      }
     },
     defaultVariants: {
-      isDisabled: false,
-    },
+      isDisabled: false
+    }
   }
 );
 
@@ -391,7 +391,7 @@ const InputLeftElement = forwardRef<HTMLDivElement, InputElementProps>(
             size,
             placement: "left",
             isDisabled,
-            className,
+            className
           })
         )}
         {...props}
@@ -421,7 +421,7 @@ const InputRightElement = forwardRef<HTMLDivElement, InputElementProps>(
             size,
             placement: "right",
             isDisabled,
-            className,
+            className
           })
         )}
         {...props}
@@ -438,5 +438,5 @@ export {
   InputLeftAddon,
   InputLeftElement,
   InputRightAddon,
-  InputRightElement,
+  InputRightElement
 };

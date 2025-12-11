@@ -4,7 +4,7 @@ import {
   ResizablePanel,
   ResizablePanelGroup,
   cn,
-  useDebounce,
+  useDebounce
 } from "@carbon/react";
 import { useLoaderData, type Location } from "@remix-run/react";
 import type { LoaderFunctionArgs } from "@remix-run/server-runtime";
@@ -16,7 +16,7 @@ import { Gantt } from "~/components/Gantt";
 import { useReplaceLocation } from "~/hooks/useReplaceLocation";
 import {
   getResizableGanttSettings,
-  setResizableGanttSettings,
+  setResizableGanttSettings
 } from "~/utils/resizable-panels";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
@@ -42,9 +42,9 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
             isRoot: true,
             isError: false,
             style: {
-              icon: "job",
-            },
-          },
+              icon: "job"
+            }
+          }
         },
         {
           id: "2",
@@ -62,9 +62,9 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
             isError: false,
             style: {
               variant: "primary",
-              icon: "operation",
-            },
-          },
+              icon: "operation"
+            }
+          }
         },
         {
           id: "4",
@@ -87,12 +87,12 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
                 style: "person",
                 items: [
                   {
-                    text: "Anne Barbin",
-                  },
-                ],
-              },
-            },
-          },
+                    text: "Anne Barbin"
+                  }
+                ]
+              }
+            }
+          }
         },
         {
           id: "3",
@@ -110,9 +110,9 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
             isError: true,
             style: {
               variant: "primary",
-              icon: "operation",
-            },
-          },
+              icon: "operation"
+            }
+          }
         },
         {
           id: "5",
@@ -135,12 +135,12 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
                 style: "person",
                 items: [
                   {
-                    text: "Brad Barbin",
-                  },
-                ],
-              },
-            },
-          },
+                    text: "Brad Barbin"
+                  }
+                ]
+              }
+            }
+          }
         },
         {
           id: "6",
@@ -163,12 +163,12 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
                 style: "person",
                 items: [
                   {
-                    text: "Brigette Barbin",
-                  },
-                ],
-              },
-            },
-          },
+                    text: "Brigette Barbin"
+                  }
+                ]
+              }
+            }
+          }
         },
         {
           id: "7",
@@ -186,9 +186,9 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
             isError: false,
             style: {
               variant: "primary",
-              icon: "operation",
-            },
-          },
+              icon: "operation"
+            }
+          }
         },
         {
           id: "8",
@@ -211,12 +211,12 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
                 style: "person",
                 items: [
                   {
-                    text: "Anne Barbin",
-                  },
-                ],
-              },
-            },
-          },
+                    text: "Anne Barbin"
+                  }
+                ]
+              }
+            }
+          }
         },
         {
           id: "9",
@@ -234,9 +234,9 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
             isError: false,
             style: {
               variant: "primary",
-              icon: "operation",
-            },
-          },
+              icon: "operation"
+            }
+          }
         },
         {
           id: "10",
@@ -259,12 +259,12 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
                 style: "person",
                 items: [
                   {
-                    text: "Brad Barbin",
-                  },
-                ],
-              },
-            },
-          },
+                    text: "Brad Barbin"
+                  }
+                ]
+              }
+            }
+          }
         },
         {
           id: "11",
@@ -287,20 +287,20 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
                 style: "person",
                 items: [
                   {
-                    text: "Brigette Barbin",
-                  },
-                ],
-              },
-            },
-          },
-        },
+                    text: "Brigette Barbin"
+                  }
+                ]
+              }
+            }
+          }
+        }
       ] as GanttEvent[],
       parentReadableId: "",
       duration: 42000,
       rootSpanStatus: "completed" as const,
-      rootStartedAt: new Date(),
+      rootStartedAt: new Date()
     },
-    resizeSettings,
+    resizeSettings
   });
 }
 

@@ -8,7 +8,7 @@ import { path } from "~/utils/path";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   const { client, companyId, userId } = await requirePermissions(request, {
-    update: "invoicing",
+    update: "invoicing"
   });
 
   const { invoiceId } = params;
@@ -29,23 +29,23 @@ export async function action({ request, params }: ActionFunctionArgs) {
         path.to.salesInvoiceDetails(invoiceId),
         await flash(
           request,
-          error(
-            new Error("Can only void posted invoices"),
-            "Invalid operation"
-          )
+          error(new Error("Can only void posted invoices"), "Invalid operation")
         )
       );
     }
 
-    const voidInvoice = await serviceRole.functions.invoke("post-sales-invoice", {
-      body: {
-        type: "void",
-        invoiceId: invoiceId,
-        userId: userId,
-        companyId: companyId,
-      },
-      region: FunctionRegion.UsEast1,
-    });
+    const voidInvoice = await serviceRole.functions.invoke(
+      "post-sales-invoice",
+      {
+        body: {
+          type: "void",
+          invoiceId: invoiceId,
+          userId: userId,
+          companyId: companyId
+        },
+        region: FunctionRegion.UsEast1
+      }
+    );
 
     if (voidInvoice.error) {
       throw redirect(

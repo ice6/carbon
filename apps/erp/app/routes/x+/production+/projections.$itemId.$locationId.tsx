@@ -9,7 +9,7 @@ import { json, redirect } from "@vercel/remix";
 import { demandProjectionValidator } from "~/modules/production/production.models";
 import {
   getDemandProjections,
-  upsertDemandProjections,
+  upsertDemandProjections
 } from "~/modules/production/production.service";
 import DemandProjectionsForm from "~/modules/production/ui/Projection/DemandProjectionForm";
 import { getPeriods } from "~/modules/shared/shared.service";
@@ -19,7 +19,7 @@ const WEEKS_TO_PROJECT = 52;
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    view: "production",
+    view: "production"
   });
 
   const { itemId, locationId } = params;
@@ -32,7 +32,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   const endDate = startDate.add({ weeks: WEEKS_TO_PROJECT });
   const periods = await getPeriods(client, {
     startDate: startDate.toString(),
-    endDate: endDate.toString(),
+    endDate: endDate.toString()
   });
 
   if (periods.error) {
@@ -44,7 +44,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     itemId,
     locationId,
     companyId,
-    periodIds: periods.data?.map((p) => p.id) ?? [],
+    periodIds: periods.data?.map((p) => p.id) ?? []
   });
 
   // Map existing forecasts to week fields
@@ -61,19 +61,19 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   const initialValues = {
     itemId,
     locationId,
-    ...weekValues,
+    ...weekValues
   };
 
   return json({
     periods: periods.data ?? [],
-    initialValues,
+    initialValues
   });
 }
 
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    update: "production",
+    update: "production"
   });
 
   const { itemId: routeItemId, locationId: routeLocationId } = params;
@@ -109,7 +109,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
         forecastQuantity: Number(quantity) ?? 0,
         companyId,
         createdBy: userId,
-        updatedBy: userId,
+        updatedBy: userId
       });
     }
   }

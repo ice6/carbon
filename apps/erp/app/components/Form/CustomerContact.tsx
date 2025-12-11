@@ -2,7 +2,7 @@ import { useFetcher } from "@remix-run/react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type {
   CustomerContact as CustomerContactType,
-  getCustomerContacts,
+  getCustomerContacts
 } from "~/modules/sales";
 import { path } from "~/utils/path";
 
@@ -78,7 +78,7 @@ const CustomerContact = (props: CustomerContactSelectProps) => {
           initialValues={{
             email: "",
             firstName: firstName,
-            lastName: lastName.join(" "),
+            lastName: lastName.join(" ")
           }}
         />
       )}
@@ -103,7 +103,7 @@ function useCustomerContacts(customerId?: string) {
     () =>
       customerContactsFetcher.data?.data?.map((c) => ({
         value: c.id,
-        label: c.contact?.fullName ?? c.contact?.email ?? "Unknown",
+        label: c.contact?.fullName ?? c.contact?.email ?? "Unknown"
       })) ?? [],
 
     [customerContactsFetcher.data]

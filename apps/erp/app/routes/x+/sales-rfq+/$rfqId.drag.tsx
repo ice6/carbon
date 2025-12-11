@@ -12,7 +12,7 @@ import { path } from "~/utils/path";
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    create: "sales",
+    create: "sales"
   });
 
   const { rfqId } = params;
@@ -26,7 +26,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
   if (!validation.success) {
     return json({
-      error: validation.error.message,
+      error: validation.error.message
     });
   }
 
@@ -36,7 +36,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     lineId,
     path: documentPath,
     size,
-    salesRfqId,
+    salesRfqId
   } = validation.data;
 
   let targetLineId = lineId;
@@ -48,14 +48,14 @@ export async function action({ request, params }: ActionFunctionArgs) {
       customerPartId,
       quantity: [1],
       unitOfMeasureCode: "EA",
-      order: 1,
+      order: 1
     };
     const insertLine = await upsertSalesRFQLine(client, {
       ...data,
       description: "",
       companyId,
       createdBy: userId,
-      customFields: setCustomFields(formData),
+      customFields: setCustomFields(formData)
     });
     if (insertLine.error) {
       throw redirect(
@@ -94,8 +94,8 @@ export async function action({ request, params }: ActionFunctionArgs) {
         name: fileName!,
         size: size ?? 0,
         companyId,
-        createdBy: userId,
-      }),
+        createdBy: userId
+      })
     ]);
 
     if (recordUpdate.error) {
@@ -132,7 +132,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
     await tasks.trigger<typeof modelThumbnailTask>("model-thumbnail", {
       companyId,
-      modelId,
+      modelId
     });
   } else {
     newPath = `${companyId}/opportunity-line/${targetLineId}/${fileName}`;

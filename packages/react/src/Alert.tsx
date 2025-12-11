@@ -14,12 +14,12 @@ const alertVariants = cva(
           "bg-gradient-to-tr via-card to-card hover:to-muted/30 hover:via-muted/30 border-emerald-600/30 from-emerald-600/10 text-emerald-600 [&>svg]:text-emerald-600 dark:text-foreground",
         warning: "",
         destructive:
-          "bg-gradient-to-tr via-card to-card hover:to-muted/30 hover:via-muted/30 border-red-500/30 from-red-500/10 text-destructive [&>svg]:text-destructive dark:text-foreground  dark:[&>svg]:text-red-500",
-      },
+          "bg-gradient-to-tr via-card to-card hover:to-muted/30 hover:via-muted/30 border-red-500/30 from-red-500/10 text-destructive [&>svg]:text-destructive dark:text-foreground  dark:[&>svg]:text-red-500"
+      }
     },
     defaultVariants: {
-      variant: "default",
-    },
+      variant: "default"
+    }
   }
 );
 

@@ -5,14 +5,14 @@ import type { ActionFunctionArgs } from "@vercel/remix";
 import { redirect } from "@vercel/remix";
 import {
   stockTransferStatusType,
-  updateStockTransferStatus,
+  updateStockTransferStatus
 } from "~/modules/inventory";
 import { path, requestReferrer } from "~/utils/path";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    update: "inventory",
+    update: "inventory"
   });
 
   const { id } = params;
@@ -38,8 +38,8 @@ export async function action({ request, params }: ActionFunctionArgs) {
       completedAt: ["Completed"].includes(status)
         ? new Date().toISOString()
         : null,
-      updatedBy: userId,
-    }),
+      updatedBy: userId
+    })
   ]);
   if (update.error) {
     throw redirect(

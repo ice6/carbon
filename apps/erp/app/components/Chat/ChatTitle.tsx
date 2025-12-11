@@ -12,7 +12,7 @@ export function ChatTitle() {
       if (dataPart.data.title) {
         document.title = `${dataPart.data.title} - Carbon`;
       }
-    },
+    }
   });
 
   return (

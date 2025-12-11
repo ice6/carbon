@@ -11,10 +11,10 @@ import {
   FormLabel,
   HStack,
   Input as InputBase,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { useParams } from "@remix-run/react";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import { CustomFormFields, Hidden, Input, Submit } from "~/components/Form";
 import { usePermissions, useRouteData } from "~/hooks";
 import { path } from "~/utils/path";
@@ -28,7 +28,7 @@ type AccountSubcategoryFormProps = {
 
 const AccountSubcategoryForm = ({
   initialValues,
-  onClose,
+  onClose
 }: AccountSubcategoryFormProps) => {
   const params = useParams();
   const permissions = usePermissions();

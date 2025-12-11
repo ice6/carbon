@@ -23,9 +23,9 @@ const generateHTML = (content: JSONContent) => {
     Underline,
     Mention.configure({
       HTMLAttributes: {
-        class: "mention",
-      },
-    }),
+        class: "mention"
+      }
+    })
   ]);
 };
 

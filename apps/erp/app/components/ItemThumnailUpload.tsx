@@ -8,7 +8,7 @@ import { getPrivateUrl } from "~/utils/path";
 export function ItemThumbnailUpload({
   path,
   itemId,
-  modelId,
+  modelId
 }: {
   path?: string | null;
   itemId: string;
@@ -39,7 +39,7 @@ export function ItemThumbnailUpload({
     const itemResult = await carbon
       .from("item")
       .update({
-        thumbnailPath: null,
+        thumbnailPath: null
       })
       .eq("id", itemId);
 
@@ -52,7 +52,7 @@ export function ItemThumbnailUpload({
       const modelResult = await carbon
         .from("modelUpload")
         .update({
-          thumbnailPath: null,
+          thumbnailPath: null
         })
         .eq("id", modelId);
 
@@ -83,7 +83,7 @@ export function ItemThumbnailUpload({
             `${SUPABASE_URL}/functions/v1/image-resizer`,
             {
               method: "POST",
-              body: formData,
+              body: formData
             }
           );
 
@@ -94,7 +94,7 @@ export function ItemThumbnailUpload({
           const fileExtension = isJpg ? "jpg" : "png";
 
           const blob = new Blob([await response.arrayBuffer()], {
-            type: contentType,
+            type: contentType
           });
 
           const reader = new FileReader();
@@ -108,7 +108,7 @@ export function ItemThumbnailUpload({
 
           const fileName = `${nanoid()}.${fileExtension}`;
           const thumbnailFile = new File([blob], fileName, {
-            type: contentType,
+            type: contentType
           });
 
           const { data, error } = await carbon.storage
@@ -117,7 +117,7 @@ export function ItemThumbnailUpload({
               `${company.id}/thumbnails/${itemId}/${fileName}`,
               thumbnailFile,
               {
-                upsert: true,
+                upsert: true
               }
             );
 
@@ -129,7 +129,7 @@ export function ItemThumbnailUpload({
           const result = await carbon
             .from("item")
             .update({
-              thumbnailPath: data?.path,
+              thumbnailPath: data?.path
             })
             .eq("id", itemId);
 

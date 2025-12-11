@@ -8,7 +8,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { useLoaderData } from "@remix-run/react";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@vercel/remix";
@@ -17,7 +17,7 @@ import {
   accountProfileValidator,
   getAccount,
   updateAvatar,
-  updatePublicAccount,
+  updatePublicAccount
 } from "~/modules/account";
 import { ProfileForm, ProfilePhotoForm } from "~/modules/account/ui/Profile";
 import type { Handle } from "~/utils/handle";
@@ -25,7 +25,7 @@ import { path } from "~/utils/path";
 
 export const handle: Handle = {
   breadcrumb: "Profile",
-  to: path.to.profile,
+  to: path.to.profile
 };
 
 export async function loader({ request }: LoaderFunctionArgs) {
@@ -63,7 +63,7 @@ export async function action({ request }: ActionFunctionArgs) {
       id: userId,
       firstName,
       lastName,
-      about,
+      about
     });
     if (updateAccount.error)
       return json(

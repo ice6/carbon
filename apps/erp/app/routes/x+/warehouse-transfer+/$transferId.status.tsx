@@ -5,14 +5,14 @@ import type { ActionFunctionArgs } from "@vercel/remix";
 import { redirect } from "@vercel/remix";
 import {
   warehouseTransferStatusType,
-  updateWarehouseTransferStatus,
+  updateWarehouseTransferStatus
 } from "~/modules/inventory";
 import { path } from "~/utils/path";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    update: "inventory",
+    update: "inventory"
   });
 
   const { transferId: id } = params;

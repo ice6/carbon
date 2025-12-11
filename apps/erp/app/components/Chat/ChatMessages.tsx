@@ -50,7 +50,7 @@ function extractAiSdkSources(parts: UIMessage["parts"]): SourceItem[] {
       const sourcePart = part as { url: string; title?: string };
       sources.push({
         url: sourcePart.url,
-        title: sourcePart.title || sourcePart.url,
+        title: sourcePart.title || sourcePart.url
       });
     }
   }
@@ -67,7 +67,7 @@ function extractFileParts(parts: UIMessage["parts"]) {
 
 export function ChatMessages({
   messages,
-  isStreaming = false,
+  isStreaming = false
 }: ChatMessagesProps) {
   return (
     <>

@@ -6,7 +6,7 @@ import {
   IconButton,
   Input,
   InputGroup,
-  InputRightElement,
+  InputRightElement
 } from "@carbon/react";
 import { forwardRef, useState } from "react";
 import { BiHide, BiShowAlt } from "react-icons/bi";
@@ -30,7 +30,7 @@ const Password = forwardRef<HTMLInputElement, FormPasswordProps>(
           <Input
             {...getInputProps({
               id: name,
-              ...rest,
+              ...rest
             })}
             ref={ref}
             type={passwordVisible ? "text" : "password"}

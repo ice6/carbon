@@ -18,7 +18,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   if (!did) {
     return json({
       data: [],
-      error: "Document ID is required",
+      error: "Document ID is required"
     });
   }
 
@@ -26,7 +26,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   if (!vid) {
     return json({
       data: [],
-      error: "Version ID is required",
+      error: "Version ID is required"
     });
   }
 
@@ -34,7 +34,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   if (!eid) {
     return json({
       data: [],
-      error: "Element ID is required",
+      error: "Element ID is required"
     });
   }
 
@@ -43,7 +43,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   if (integration.error || !integration.data) {
     return json({
       data: [],
-      error: integration.error,
+      error: integration.error
     });
   }
 
@@ -54,14 +54,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   if (!integrationMetadata.success) {
     return json({
       data: [],
-      error: integrationMetadata.error,
+      error: integrationMetadata.error
     });
   }
 
   const onshapeClient = new OnshapeClient({
     baseUrl: integrationMetadata.data.baseUrl,
     accessKey: integrationMetadata.data.accessKey,
-    secretKey: integrationMetadata.data.secretKey,
+    secretKey: integrationMetadata.data.secretKey
   });
 
   try {
@@ -128,8 +128,8 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
             {
               itemId: item.id,
               defaultMethodType: item.defaultMethodType,
-              replenishmentSystem: item.replenishmentSystem,
-            },
+              replenishmentSystem: item.replenishmentSystem
+            }
           ])
         );
       }
@@ -171,27 +171,27 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
           defaultMethodType,
           quantity: row["Quantity"],
           level: row["Item"].toString().split(".").length,
-          data: row,
+          data: row
         };
       });
 
       // Return the transformed data instead of the raw response
       return json({
         data: {
-          rows: flattenedDataWithMetadata,
+          rows: flattenedDataWithMetadata
         },
-        error: null,
+        error: null
       });
     }
     return json({
       data: [],
-      error: "No BOM data found",
+      error: "No BOM data found"
     });
   } catch (error) {
     console.error(error);
     return json({
       data: [],
-      error: error,
+      error: error
     });
   }
 }

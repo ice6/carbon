@@ -6,8 +6,8 @@ import type { MetaFunction } from "@vercel/remix";
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "Carbon Developers | Request Access",
-    },
+      title: "Carbon Developers | Request Access"
+    }
   ];
 };
 

@@ -12,7 +12,7 @@ import {
   CommandGroup,
   CommandInput,
   CommandItem,
-  multiSelectTriggerVariants,
+  multiSelectTriggerVariants
 } from "./Command";
 import { HStack } from "./HStack";
 import { IconButton } from "./IconButton";
@@ -225,7 +225,7 @@ function VirtualizedCommand({
   label,
   search,
   setSearch,
-  showCreateOptionOnEmpty = false,
+  showCreateOptionOnEmpty = false
 }: VirtualizedCommandProps) {
   const parentRef = useRef<HTMLDivElement>(null);
 
@@ -256,8 +256,8 @@ function VirtualizedCommand({
       ...filtered,
       {
         label: `Create`,
-        value: "create",
-      },
+        value: "create"
+      }
     ];
   }, [options, search, showCreateOptionOnEmpty]);
 
@@ -265,7 +265,7 @@ function VirtualizedCommand({
     count: filteredOptions.length,
     getScrollElement: () => parentRef.current,
     estimateSize: () => itemHeight,
-    overscan: 5,
+    overscan: 5
   });
 
   const items = virtualizer.getVirtualItems();
@@ -282,7 +282,7 @@ function VirtualizedCommand({
         ref={parentRef}
         className="overflow-auto pt-1"
         style={{
-          height: `${Math.min(filteredOptions.length, 6) * itemHeight + 4}px`,
+          height: `${Math.min(filteredOptions.length, 6) * itemHeight + 4}px`
         }}
       >
         <CommandEmpty>No option found.</CommandEmpty>
@@ -290,7 +290,7 @@ function VirtualizedCommand({
           style={{
             height: `${virtualizer.getTotalSize()}px`,
             width: "100%",
-            position: "relative",
+            position: "relative"
           }}
         >
           {items.map((virtualRow) => {
@@ -326,7 +326,7 @@ function VirtualizedCommand({
                   left: 0,
                   width: "100%",
                   height: `${itemHeight}px`,
-                  transform: `translateY(${virtualRow.start}px)`,
+                  transform: `translateY(${virtualRow.start}px)`
                 }}
               >
                 <div className="flex justify-start items-center gap-1 px-2">
@@ -371,7 +371,7 @@ function SelectedOption({
   isReadOnly,
   item,
   options,
-  onUnselect,
+  onUnselect
 }: {
   isReadOnly?: boolean;
   item: string;

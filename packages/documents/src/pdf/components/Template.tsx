@@ -9,25 +9,25 @@ const Template = ({ title, meta, children }: TemplateProps) => {
     family: "Inter",
     fonts: [
       {
-        src: "https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfMZhrib2Bg-4.ttf",
+        src: "https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfMZhrib2Bg-4.ttf"
       },
       {
         src: "https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuOKfMZhrib2Bg-4.ttf",
-        fontWeight: 300,
+        fontWeight: 300
       },
       {
         src: "https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuI6fMZhrib2Bg-4.ttf",
-        fontWeight: 500,
+        fontWeight: 500
       },
       {
         src: "https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuFuYMZhrib2Bg-4.ttf",
-        fontWeight: 700,
+        fontWeight: 700
       },
       {
         src: "https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuBWYMZhrib2Bg-4.ttf",
-        fontWeight: 900,
-      },
-    ],
+        fontWeight: 900
+      }
+    ]
   });
 
   const styles = StyleSheet.create({
@@ -35,8 +35,8 @@ const Template = ({ title, meta, children }: TemplateProps) => {
       fontFamily: "Inter",
       padding: "20px 40px",
       color: "#000000",
-      backgroundColor: "#FFFFFF",
-    },
+      backgroundColor: "#FFFFFF"
+    }
   });
 
   return (

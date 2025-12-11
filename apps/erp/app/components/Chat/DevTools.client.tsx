@@ -9,8 +9,8 @@ export function DevTools() {
         streamCapture: {
           enabled: true,
           endpoint: `${getAppUrl()}${path.to.api.chat}`,
-          autoConnect: true,
-        },
+          autoConnect: true
+        }
       }}
     />
   );

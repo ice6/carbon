@@ -8,14 +8,14 @@ import {
   recalculateJobMakeMethodRequirements,
   recalculateJobOperationDependencies,
   upsertJobMaterial,
-  upsertJobMaterialMakeMethod,
+  upsertJobMaterialMakeMethod
 } from "~/modules/production";
 import { setCustomFields } from "~/utils/form";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { companyId, userId } = await requirePermissions(request, {
-    create: "production",
+    create: "production"
   });
 
   const { jobId } = params;
@@ -36,12 +36,12 @@ export async function action({ request, params }: ActionFunctionArgs) {
     jobId,
     companyId,
     createdBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
   if (insertJobMaterial.error) {
     return json(
       {
-        id: null,
+        id: null
       },
       await flash(
         request,
@@ -54,7 +54,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   if (!jobMaterialId) {
     return json(
       {
-        id: null,
+        id: null
       },
       await flash(
         request,
@@ -72,7 +72,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     if (materialMakeMethod.error) {
       return json(
         {
-          id: null,
+          id: null
         },
         await flash(
           request,
@@ -84,13 +84,13 @@ export async function action({ request, params }: ActionFunctionArgs) {
       sourceId: validation.data.itemId,
       targetId: materialMakeMethod.data?.jobMaterialMakeMethodId!,
       companyId,
-      userId,
+      userId
     });
 
     if (makeMethod.error) {
       return json(
         {
-          id: jobMaterialId,
+          id: jobMaterialId
         },
         await flash(
           request,
@@ -103,8 +103,8 @@ export async function action({ request, params }: ActionFunctionArgs) {
       recalculateJobMakeMethodRequirements(serviceRole, {
         id: validation.data.jobMakeMethodId,
         companyId,
-        userId,
-      }),
+        userId
+      })
     ];
 
     if (validation.data.jobOperationId) {
@@ -112,14 +112,13 @@ export async function action({ request, params }: ActionFunctionArgs) {
         recalculateJobOperationDependencies(serviceRole, {
           jobId,
           companyId,
-          userId,
+          userId
         })
       );
     }
 
-    const [recalculateResult, recalculateDependencies] = await Promise.all(
-      promises
-    );
+    const [recalculateResult, recalculateDependencies] =
+      await Promise.all(promises);
 
     if (recalculateResult.error) {
       return json(
@@ -151,6 +150,6 @@ export async function action({ request, params }: ActionFunctionArgs) {
   return json({
     id: jobMaterialId,
     success: true,
-    message: "Material created",
+    message: "Material created"
   });
 }

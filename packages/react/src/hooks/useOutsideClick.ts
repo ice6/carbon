@@ -10,13 +10,13 @@ export interface Props {
 export default function useOutsideClick({
   ref,
   handler,
-  enabled = true,
+  enabled = true
 }: Props) {
   const savedHandler = useCallbackRef(handler);
 
   const stateRef = useRef({
     isPointerDown: false,
-    ignoreEmulatedMouseEvents: false,
+    ignoreEmulatedMouseEvents: false
   });
 
   const state = stateRef.current;

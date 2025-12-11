@@ -24,7 +24,7 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-  useDisclosure,
+  useDisclosure
 } from "@carbon/react";
 import { formatDate } from "@carbon/utils";
 import { useNumberFormatter } from "@react-aria/i18n";
@@ -41,7 +41,7 @@ import {
   LuTable2,
   LuTag,
   LuTrash,
-  LuUser,
+  LuUser
 } from "react-icons/lu";
 import { EmployeeAvatar, Hyperlink, New, Table } from "~/components";
 import { usePermissions, useUrlParams, useUser } from "~/hooks";
@@ -83,8 +83,8 @@ const WebhooksTable = memo(({ data, count }: WebhooksTableProps) => {
           </div>
         ),
         meta: {
-          icon: <LuTag />,
-        },
+          icon: <LuTag />
+        }
       },
       {
         accessorKey: "table",
@@ -111,9 +111,9 @@ const WebhooksTable = memo(({ data, count }: WebhooksTableProps) => {
           icon: <LuDatabase />,
           filter: {
             type: "static",
-            options: webhookTables,
-          },
-        },
+            options: webhookTables
+          }
+        }
       },
       {
         accessorKey: "successCount",
@@ -125,8 +125,8 @@ const WebhooksTable = memo(({ data, count }: WebhooksTableProps) => {
           />
         ),
         meta: {
-          icon: <LuPercent />,
-        },
+          icon: <LuPercent />
+        }
       },
       {
         id: "createdBy",
@@ -140,19 +140,19 @@ const WebhooksTable = memo(({ data, count }: WebhooksTableProps) => {
             type: "static",
             options: people.map((employee) => ({
               value: employee.id,
-              label: employee.name,
-            })),
-          },
-        },
+              label: employee.name
+            }))
+          }
+        }
       },
       {
         accessorKey: "createdAt",
         header: "Created At",
         cell: (item) => formatDate(item.getValue<string>()),
         meta: {
-          icon: <LuCalendar />,
-        },
-      },
+          icon: <LuCalendar />
+        }
+      }
     ];
   }, [people, webhookTables]);
 
@@ -196,7 +196,7 @@ const WebhooksTable = memo(({ data, count }: WebhooksTableProps) => {
         count={count ?? 0}
         defaultColumnVisibility={{
           createdAt: false,
-          createdBy: false,
+          createdBy: false
         }}
         primaryAction={
           <HStack>
@@ -298,7 +298,7 @@ fetch(url, {
   },
   body: JSON.stringify(payload),
 });
-  `,
+  `
 };
 
 function WebhookDocs({ open, onClose }: WebhookDocsProps) {
@@ -449,7 +449,7 @@ function SuccessErrorBar({ successCount, errorCount }: SuccessErrorBarProps) {
   const numberFormatter = useNumberFormatter({
     maximumFractionDigits: 0,
     notation: "compact",
-    compactDisplay: "short",
+    compactDisplay: "short"
   });
 
   return (

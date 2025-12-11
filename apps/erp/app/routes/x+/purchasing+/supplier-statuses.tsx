@@ -11,13 +11,13 @@ import { getGenericQueryFilters } from "~/utils/query";
 
 export const handle: Handle = {
   breadcrumb: "Supplier Statuses",
-  to: path.to.supplierStatuses,
+  to: path.to.supplierStatuses
 };
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
     view: "purchasing",
-    role: "employee",
+    role: "employee"
   });
 
   const url = new URL(request.url);
@@ -32,7 +32,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
       limit,
       offset,
       sorts,
-      filters,
+      filters
     })
   );
 }

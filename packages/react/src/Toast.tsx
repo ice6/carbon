@@ -20,8 +20,8 @@ const Toaster = ({ ...props }: ToasterProps) => {
           success:
             "group-[.toaster]:bg-blue-700 group-[.toaster]:text-white group-[.toaster]:border-blue-700 ",
           error:
-            "group-[.toaster]:bg-red-600 group-[.toaster]:text-white group-[.toaster]:border-red-600 ",
-        },
+            "group-[.toaster]:bg-red-600 group-[.toaster]:text-white group-[.toaster]:border-red-600 "
+        }
       }}
       {...props}
     />

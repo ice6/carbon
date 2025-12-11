@@ -13,14 +13,14 @@ export const disposition = [
   // "Return to Supplier",
   "Rework",
   "Scrap",
-  "Use As Is",
+  "Use As Is"
 ] as const;
 
 export const gaugeStatus = ["Active", "Inactive"] as const;
 export const gaugeCalibrationStatus = [
   "Pending",
   "In-Calibration",
-  "Out-of-Calibration",
+  "Out-of-Calibration"
 ] as const;
 export const gaugeRole = ["Master", "Standard"] as const;
 
@@ -31,21 +31,21 @@ export const nonConformanceSource = ["Internal", "External"] as const;
 export const nonConformanceStatus = [
   "Registered",
   "In Progress",
-  "Closed",
+  "Closed"
 ] as const;
 
 export const nonConformanceTaskStatus = [
   "Pending",
   "In Progress",
   "Completed",
-  "Skipped",
+  "Skipped"
 ] as const;
 
 export const nonConformancePriority = [
   "Low",
   "Medium",
   "High",
-  "Critical",
+  "Critical"
 ] as const;
 
 export const nonConformanceAssociationType = [
@@ -57,7 +57,7 @@ export const nonConformanceAssociationType = [
   "salesOrderLines",
   "shipmentLines",
   "receiptLines",
-  "trackedEntities",
+  "trackedEntities"
 ] as const;
 
 export const qualityDocumentStatus = ["Draft", "Active", "Archived"] as const;
@@ -80,14 +80,14 @@ export const gaugeValidator = z.object({
   shelfId: zfd.text(z.string().optional()),
   calibrationIntervalInMonths: zfd.numeric(
     z.number().min(1, {
-      message: "Calibration interval is required",
+      message: "Calibration interval is required"
     })
-  ),
+  )
 });
 
 export const calibrationAttempt = z.object({
   reference: zfd.numeric(z.number()),
-  actual: zfd.numeric(z.number()),
+  actual: zfd.numeric(z.number())
 });
 
 export const gaugeCalibrationRecordValidator = z.object({
@@ -112,12 +112,12 @@ export const gaugeCalibrationRecordValidator = z.object({
       } catch (e) {
         return {};
       }
-    }),
+    })
 });
 
 export const gaugeTypeValidator = z.object({
   id: zfd.text(z.string().optional()),
-  name: z.string().min(1, { message: "Name is required" }),
+  name: z.string().min(1, { message: "Name is required" })
 });
 
 export const issueAssociationValidator = z
@@ -125,7 +125,7 @@ export const issueAssociationValidator = z
     type: z.enum(nonConformanceAssociationType),
     id: z.string(),
     lineId: zfd.text(z.string().optional()),
-    quantity: zfd.numeric(z.number().min(0).optional()),
+    quantity: zfd.numeric(z.number().min(0).optional())
   })
   .refine(
     (data) => {
@@ -141,7 +141,7 @@ export const issueAssociationValidator = z
       return true;
     },
     {
-      message: "Line ID is required",
+      message: "Line ID is required"
     }
   );
 
@@ -167,16 +167,16 @@ export const issueValidator = z.object({
   jobOperationId: z.string().optional(),
   customerId: z.string().optional(),
   salesOrderLineId: z.string().optional(),
-  operationSupplierProcessId: z.string().optional(),
+  operationSupplierProcessId: z.string().optional()
 });
 
 export const nonConformanceReviewerValidator = z.object({
-  title: z.string().min(1, { message: "Title is required" }),
+  title: z.string().min(1, { message: "Title is required" })
 });
 
 export const issueTypeValidator = z.object({
   id: zfd.text(z.string().optional()),
-  name: z.string().min(1, { message: "Name is required" }),
+  name: z.string().min(1, { message: "Name is required" })
 });
 
 export const issueWorkflowValidator = z.object({
@@ -207,11 +207,11 @@ export const issueWorkflowValidator = z.object({
     }),
   approvalRequirements: z
     .array(z.enum(nonConformanceApprovalRequirement))
-    .optional(),
+    .optional()
 });
 
 export const itemQuantityValidator = z.object({
-  quantity: zfd.numeric(z.number().min(0)),
+  quantity: zfd.numeric(z.number().min(0))
 });
 
 export const qualityDocumentValidator = z.object({
@@ -219,7 +219,7 @@ export const qualityDocumentValidator = z.object({
   name: z.string().min(1, { message: "Name is required" }),
   version: zfd.numeric(z.number().min(0)),
   content: zfd.text(z.string().optional()),
-  copyFromId: zfd.text(z.string().optional()),
+  copyFromId: zfd.text(z.string().optional())
 });
 
 export const qualityDocumentStepValidator = z
@@ -231,13 +231,13 @@ export const qualityDocumentStepValidator = z
     name: z.string().min(1, { message: "Name is required" }),
     description: zfd.text(z.string().optional()),
     type: z.enum(procedureStepType, {
-      errorMap: () => ({ message: "Type is required" }),
+      errorMap: () => ({ message: "Type is required" })
     }),
     unitOfMeasureCode: zfd.text(z.string().optional()),
     minValue: zfd.numeric(z.number().min(0).optional()),
     maxValue: zfd.numeric(z.number().min(0).optional()),
     listValues: z.array(z.string()).optional(),
-    sortOrder: zfd.numeric(z.number().min(0).optional()),
+    sortOrder: zfd.numeric(z.number().min(0).optional())
   })
   .refine(
     (data) => {
@@ -248,7 +248,7 @@ export const qualityDocumentStepValidator = z
     },
     {
       message: "Unit of measure is required",
-      path: ["unitOfMeasureCode"],
+      path: ["unitOfMeasureCode"]
     }
   )
   .refine(
@@ -264,7 +264,7 @@ export const qualityDocumentStepValidator = z
     },
     {
       message: "List options are required",
-      path: ["listOptions"],
+      path: ["listOptions"]
     }
   )
   .refine(
@@ -276,12 +276,12 @@ export const qualityDocumentStepValidator = z
     },
     {
       message: "Maximum value must be greater than or equal to minimum value",
-      path: ["maxValue"],
+      path: ["maxValue"]
     }
   );
 
 export const requiredActionValidator = z.object({
   id: zfd.text(z.string().optional()),
   name: z.string().min(1, { message: "Name is required" }),
-  active: zfd.checkbox(),
+  active: zfd.checkbox()
 });

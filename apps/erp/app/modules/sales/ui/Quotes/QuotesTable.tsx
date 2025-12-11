@@ -3,7 +3,7 @@ import {
   MenuIcon,
   MenuItem,
   Progress,
-  useDisclosure,
+  useDisclosure
 } from "@carbon/react";
 import { formatDate } from "@carbon/utils";
 import { useNavigate } from "@remix-run/react";
@@ -18,7 +18,7 @@ import {
   LuSquareUser,
   LuStar,
   LuTrash,
-  LuUser,
+  LuUser
 } from "react-icons/lu";
 import {
   CustomerAvatar,
@@ -26,7 +26,7 @@ import {
   Hyperlink,
   ItemThumbnail,
   New,
-  Table,
+  Table
 } from "~/components";
 import { Enumerable } from "~/components/Enumerable";
 import { ConfirmDelete } from "~/components/Modals";
@@ -59,7 +59,7 @@ const QuotesTable = memo(({ data, count }: QuotesTableProps) => {
   const columns = useMemo<ColumnDef<Quotation>[]>(() => {
     const employeeOptions = people.map((employee) => ({
       value: employee.id,
-      label: employee.name,
+      label: employee.name
     }));
 
     const defaultColumns: ColumnDef<Quotation>[] = [
@@ -87,8 +87,8 @@ const QuotesTable = memo(({ data, count }: QuotesTableProps) => {
           </HStack>
         ),
         meta: {
-          icon: <LuBookMarked />,
-        },
+          icon: <LuBookMarked />
+        }
       },
       {
         id: "customerId",
@@ -101,11 +101,11 @@ const QuotesTable = memo(({ data, count }: QuotesTableProps) => {
             type: "static",
             options: customers?.map((customer) => ({
               value: customer.id,
-              label: customer.name,
-            })),
+              label: customer.name
+            }))
           },
-          icon: <LuSquareUser />,
-        },
+          icon: <LuSquareUser />
+        }
       },
 
       {
@@ -130,20 +130,20 @@ const QuotesTable = memo(({ data, count }: QuotesTableProps) => {
             type: "static",
             options: quoteStatusType.map((status) => ({
               value: status,
-              label: <QuoteStatus status={status} />,
-            })),
+              label: <QuoteStatus status={status} />
+            }))
           },
           pluralHeader: "Statuses",
-          icon: <LuStar />,
-        },
+          icon: <LuStar />
+        }
       },
       {
         accessorKey: "customerReference",
         header: "Customer RFQ",
         cell: (item) => item.getValue(),
         meta: {
-          icon: <LuQrCode />,
-        },
+          icon: <LuQrCode />
+        }
       },
       {
         accessorKey: "salesPersonId",
@@ -154,10 +154,10 @@ const QuotesTable = memo(({ data, count }: QuotesTableProps) => {
         meta: {
           filter: {
             type: "static",
-            options: employeeOptions,
+            options: employeeOptions
           },
-          icon: <LuUser />,
-        },
+          icon: <LuUser />
+        }
       },
       {
         accessorKey: "estimatorId",
@@ -168,10 +168,10 @@ const QuotesTable = memo(({ data, count }: QuotesTableProps) => {
         meta: {
           filter: {
             type: "static",
-            options: employeeOptions,
+            options: employeeOptions
           },
-          icon: <LuUser />,
-        },
+          icon: <LuUser />
+        }
       },
       {
         id: "assignee",
@@ -182,26 +182,26 @@ const QuotesTable = memo(({ data, count }: QuotesTableProps) => {
         meta: {
           filter: {
             type: "static",
-            options: employeeOptions,
+            options: employeeOptions
           },
-          icon: <LuUser />,
-        },
+          icon: <LuUser />
+        }
       },
       {
         accessorKey: "dueDate",
         header: "Due Date",
         cell: (item) => formatDate(item.getValue<string>()),
         meta: {
-          icon: <LuCalendar />,
-        },
+          icon: <LuCalendar />
+        }
       },
       {
         accessorKey: "expirationDate",
         header: "Expiration Date",
         cell: (item) => formatDate(item.getValue<string>()),
         meta: {
-          icon: <LuCalendar />,
-        },
+          icon: <LuCalendar />
+        }
       },
       {
         accessorKey: "locationName",
@@ -214,11 +214,11 @@ const QuotesTable = memo(({ data, count }: QuotesTableProps) => {
             transform: (data: { id: string; name: string }[] | null) =>
               data?.map(({ name }) => ({
                 value: name,
-                label: <Enumerable value={name} />,
-              })) ?? [],
+                label: <Enumerable value={name} />
+              })) ?? []
           },
-          icon: <LuMap />,
-        },
+          icon: <LuMap />
+        }
       },
       {
         id: "createdBy",
@@ -231,19 +231,19 @@ const QuotesTable = memo(({ data, count }: QuotesTableProps) => {
             type: "static",
             options: people.map((employee) => ({
               value: employee.id,
-              label: employee.name,
-            })),
+              label: employee.name
+            }))
           },
-          icon: <LuUser />,
-        },
+          icon: <LuUser />
+        }
       },
       {
         accessorKey: "createdAt",
         header: "Created At",
         cell: (item) => formatDate(item.getValue<string>()),
         meta: {
-          icon: <LuCalendar />,
-        },
+          icon: <LuCalendar />
+        }
       },
       {
         id: "updatedBy",
@@ -256,20 +256,20 @@ const QuotesTable = memo(({ data, count }: QuotesTableProps) => {
             type: "static",
             options: people.map((employee) => ({
               value: employee.id,
-              label: employee.name,
-            })),
+              label: employee.name
+            }))
           },
-          icon: <LuUser />,
-        },
+          icon: <LuUser />
+        }
       },
       {
         accessorKey: "updatedAt",
         header: "Updated At",
         cell: (item) => formatDate(item.getValue<string>()),
         meta: {
-          icon: <LuCalendar />,
-        },
-      },
+          icon: <LuCalendar />
+        }
+      }
     ];
 
     return [...defaultColumns, ...customColumns];
@@ -305,13 +305,13 @@ const QuotesTable = memo(({ data, count }: QuotesTableProps) => {
         columns={columns}
         data={data}
         defaultColumnPinning={{
-          left: ["quoteId"],
+          left: ["quoteId"]
         }}
         defaultColumnVisibility={{
           createdAt: false,
           createdBy: false,
           updatedAt: false,
-          updatedBy: false,
+          updatedBy: false
         }}
         primaryAction={
           permissions.can("create", "sales") && (

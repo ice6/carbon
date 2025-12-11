@@ -9,13 +9,13 @@ import {
   HStack,
   Tooltip,
   TooltipContent,
-  TooltipTrigger,
+  TooltipTrigger
 } from "@carbon/react";
 import {
   convertDateStringToIsoString,
   formatDate,
   formatDurationMilliseconds,
-  formatRelativeTime,
+  formatRelativeTime
 } from "@carbon/utils";
 import { Link } from "@remix-run/react";
 import { cva } from "class-variance-authority";
@@ -23,7 +23,7 @@ import {
   LuCalendarDays,
   LuClipboardCheck,
   LuHardHat,
-  LuTimer,
+  LuTimer
 } from "react-icons/lu";
 import EmployeeAvatar from "~/components/EmployeeAvatar";
 import type { Operation, OperationSettings } from "~/services/types";
@@ -43,7 +43,7 @@ const settings = {
   showEmployee: true,
   showProgress: false,
   showStatus: true,
-  showThumbnail: true,
+  showThumbnail: true
 }; // TODO: load dynamically
 
 export function OperationsList({ operations }: OperationsListProps) {
@@ -71,12 +71,12 @@ const cardVariants = cva(
         Paused: "",
         Canceled: "opacity-50 border-red-500",
         Waiting: "opacity-50",
-        Todo: "border-border",
-      },
+        Todo: "border-border"
+      }
     },
     defaultVariants: {
-      status: "Todo",
-    },
+      status: "Todo"
+    }
   }
 );
 
@@ -89,7 +89,7 @@ function OperationCard({
   showEmployee,
   showProgress,
   showStatus,
-  showThumbnail,
+  showThumbnail
 }: OperationCardProps) {
   const isOverdue =
     operation.jobDeadlineType !== "No Deadline" && operation.jobDueDate
@@ -101,7 +101,7 @@ function OperationCard({
       className={cn(
         "shadow-sm dark:shadow-sm py-0 h-full flex flex-col",
         cardVariants({
-          status: operation.operationStatus,
+          status: operation.operationStatus
         })
       )}
     >
@@ -182,10 +182,10 @@ function OperationCard({
                       )
                         ? operation.jobDeadlineType
                         : operation.jobDueDate
-                        ? `Due ${formatRelativeTime(
-                            convertDateStringToIsoString(operation.jobDueDate)
-                          )}`
-                        : "–"}
+                          ? `Due ${formatRelativeTime(
+                              convertDateStringToIsoString(operation.jobDueDate)
+                            )}`
+                          : "–"}
                     </span>
                   </TooltipTrigger>
                   <TooltipContent side="right">

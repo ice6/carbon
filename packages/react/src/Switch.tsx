@@ -12,7 +12,7 @@ const variations = {
     root: "h-6 w-11",
     thumb:
       "h-5 w-5 data-[state=checked]:translate-x-5 data-[state=unchecked]:translate-x-0",
-    text: "text-sm",
+    text: "text-sm"
   },
   small: {
     container:
@@ -20,8 +20,8 @@ const variations = {
     root: "h-3 w-6",
     thumb:
       "h-2.5 w-2.5 data-[state=checked]:translate-x-2.5 data-[state=unchecked]:translate-x-0",
-    text: "text-xs",
-  },
+    text: "text-xs"
+  }
 };
 
 type SwitchProps = ComponentPropsWithoutRef<typeof SwitchPrimitives.Root> & {

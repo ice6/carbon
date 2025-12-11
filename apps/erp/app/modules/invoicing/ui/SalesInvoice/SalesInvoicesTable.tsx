@@ -13,7 +13,7 @@ import {
   LuQrCode,
   LuStar,
   LuTrash,
-  LuUser,
+  LuUser
 } from "react-icons/lu";
 import {
   CustomerAvatar,
@@ -21,7 +21,7 @@ import {
   Hyperlink,
   ItemThumbnail,
   New,
-  Table,
+  Table
 } from "~/components";
 import { Enumerable } from "~/components/Enumerable";
 import { ConfirmDelete } from "~/components/Modals";
@@ -72,8 +72,8 @@ const SalesInvoicesTable = memo(({ data, count }: SalesInvoicesTableProps) => {
           </HStack>
         ),
         meta: {
-          icon: <LuBookMarked />,
-        },
+          icon: <LuBookMarked />
+        }
       },
       {
         id: "customerId",
@@ -86,11 +86,11 @@ const SalesInvoicesTable = memo(({ data, count }: SalesInvoicesTableProps) => {
             type: "static",
             options: customers?.map((customer) => ({
               value: customer.id,
-              label: customer.name,
-            })),
+              label: customer.name
+            }))
           },
-          icon: <LuContainer />,
-        },
+          icon: <LuContainer />
+        }
       },
       {
         id: "invoiceCustomerId",
@@ -103,19 +103,19 @@ const SalesInvoicesTable = memo(({ data, count }: SalesInvoicesTableProps) => {
             type: "static",
             options: customers?.map((customer) => ({
               value: customer.id,
-              label: customer.name,
-            })),
+              label: customer.name
+            }))
           },
-          icon: <LuContainer />,
-        },
+          icon: <LuContainer />
+        }
       },
       {
         accessorKey: "customerReference",
         header: "Customer PO",
         cell: (item) => item.getValue(),
         meta: {
-          icon: <LuQrCode />,
-        },
+          icon: <LuQrCode />
+        }
       },
       {
         accessorKey: "status",
@@ -130,12 +130,12 @@ const SalesInvoicesTable = memo(({ data, count }: SalesInvoicesTableProps) => {
             type: "static",
             options: salesInvoiceStatusType.map((status) => ({
               value: status,
-              label: <SalesInvoiceStatus status={status} />,
-            })),
+              label: <SalesInvoiceStatus status={status} />
+            }))
           },
           pluralHeader: "Statuses",
-          icon: <LuStar />,
-        },
+          icon: <LuStar />
+        }
       },
       {
         accessorKey: "invoiceTotal",
@@ -144,8 +144,8 @@ const SalesInvoicesTable = memo(({ data, count }: SalesInvoicesTableProps) => {
         meta: {
           icon: <LuDollarSign />,
           formatter: currencyFormatter.format,
-          renderTotal: true,
-        },
+          renderTotal: true
+        }
       },
       {
         id: "assignee",
@@ -158,51 +158,51 @@ const SalesInvoicesTable = memo(({ data, count }: SalesInvoicesTableProps) => {
             type: "static",
             options: people.map((employee) => ({
               value: employee.id,
-              label: employee.name,
-            })),
+              label: employee.name
+            }))
           },
-          icon: <LuUser />,
-        },
+          icon: <LuUser />
+        }
       },
       {
         accessorKey: "dateIssued",
         header: "Issued Date",
         cell: (item) => formatDate(item.getValue<string>()),
         meta: {
-          icon: <LuCalendar />,
-        },
+          icon: <LuCalendar />
+        }
       },
       {
         accessorKey: "dateDue",
         header: "Due Date",
         cell: (item) => formatDate(item.getValue<string>()),
         meta: {
-          icon: <LuCalendar />,
-        },
+          icon: <LuCalendar />
+        }
       },
       {
         accessorKey: "datePaid",
         header: "Paid Date",
         cell: (item) => formatDate(item.getValue<string>()),
         meta: {
-          icon: <LuCalendar />,
-        },
+          icon: <LuCalendar />
+        }
       },
       {
         accessorKey: "postingDate",
         header: "Posting Date",
         cell: (item) => formatDate(item.getValue<string>()),
         meta: {
-          icon: <LuCalendar />,
-        },
+          icon: <LuCalendar />
+        }
       },
       {
         accessorKey: "paymentTermName",
         header: "Payment Method",
         cell: (item) => <Enumerable value={item.getValue<string>()} />,
         meta: {
-          icon: <LuCreditCard />,
-        },
+          icon: <LuCreditCard />
+        }
       },
       {
         id: "createdBy",
@@ -215,19 +215,19 @@ const SalesInvoicesTable = memo(({ data, count }: SalesInvoicesTableProps) => {
             type: "static",
             options: people.map((employee) => ({
               value: employee.id,
-              label: employee.name,
-            })),
+              label: employee.name
+            }))
           },
-          icon: <LuUser />,
-        },
+          icon: <LuUser />
+        }
       },
       {
         accessorKey: "createdAt",
         header: "Created At",
         cell: (item) => formatDate(item.getValue<string>()),
         meta: {
-          icon: <LuCalendar />,
-        },
+          icon: <LuCalendar />
+        }
       },
       {
         id: "updatedBy",
@@ -240,20 +240,20 @@ const SalesInvoicesTable = memo(({ data, count }: SalesInvoicesTableProps) => {
             type: "static",
             options: people.map((employee) => ({
               value: employee.id,
-              label: employee.name,
-            })),
+              label: employee.name
+            }))
           },
-          icon: <LuUser />,
-        },
+          icon: <LuUser />
+        }
       },
       {
         accessorKey: "updatedAt",
         header: "Updated At",
         cell: (item) => formatDate(item.getValue<string>()),
         meta: {
-          icon: <LuCalendar />,
-        },
-      },
+          icon: <LuCalendar />
+        }
+      }
     ];
 
     return [...defaultColumns, ...customColumns];
@@ -294,7 +294,7 @@ const SalesInvoicesTable = memo(({ data, count }: SalesInvoicesTableProps) => {
         columns={columns}
         data={data}
         defaultColumnPinning={{
-          left: ["invoiceId"],
+          left: ["invoiceId"]
         }}
         defaultColumnVisibility={{
           invoiceCustomerId: false,
@@ -305,7 +305,7 @@ const SalesInvoicesTable = memo(({ data, count }: SalesInvoicesTableProps) => {
           createdAt: false,
           createdBy: false,
           updatedAt: false,
-          updatedBy: false,
+          updatedBy: false
         }}
         primaryAction={
           permissions.can("create", "invoicing") && (

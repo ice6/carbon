@@ -11,5 +11,5 @@ export {
   PersonJob,
   PersonOvertime,
   PersonPreview,
-  PersonSidebar,
+  PersonSidebar
 };

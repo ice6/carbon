@@ -4,7 +4,7 @@
 import type {
   ComponentPropsWithoutRef,
   ElementRef,
-  PropsWithChildren,
+  PropsWithChildren
 } from "react";
 import { createContext, forwardRef, useContext } from "react";
 import {
@@ -18,7 +18,7 @@ import {
   ContextMenuShortcut,
   ContextMenuSub,
   ContextMenuSubContent,
-  ContextMenuSubTrigger,
+  ContextMenuSubTrigger
 } from "./Context";
 import type { DropdownMenuIconProps } from "./Dropdown";
 import {
@@ -33,7 +33,7 @@ import {
   DropdownMenuShortcut,
   DropdownMenuSub,
   DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
+  DropdownMenuSubTrigger
 } from "./Dropdown";
 
 const MenuTypeContext = createContext<"context" | "dropdown">("dropdown");
@@ -238,5 +238,5 @@ export {
   MenuShortcut,
   MenuSub,
   MenuSubContent,
-  MenuSubTrigger,
+  MenuSubTrigger
 };

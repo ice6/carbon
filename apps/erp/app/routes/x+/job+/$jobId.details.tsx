@@ -2,7 +2,7 @@ import {
   assertIsPost,
   error,
   getCarbonServiceRole,
-  success,
+  success
 } from "@carbon/auth";
 import { requirePermissions } from "@carbon/auth/auth.server";
 import { flash } from "@carbon/auth/session.server";
@@ -18,7 +18,7 @@ import {
   HStack,
   Spinner,
   useMount,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { Await, useLoaderData, useParams } from "@remix-run/react";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@vercel/remix";
@@ -34,7 +34,7 @@ import {
   getJobPurchaseOrderLines,
   jobValidator,
   recalculateJobRequirements,
-  upsertJob,
+  upsertJob
 } from "~/modules/production";
 import { JobDocuments, JobNotes } from "~/modules/production/ui/Jobs";
 import PurchasingStatus from "~/modules/purchasing/ui/PurchaseOrder/PurchasingStatus";
@@ -45,7 +45,7 @@ import { path } from "~/utils/path";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
-    view: "production",
+    view: "production"
   });
 
   const { jobId } = params;
@@ -61,14 +61,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
   return defer({
     notes: (job.data?.notes ?? {}) as JSONContent,
-    purchaseOrderLines: getJobPurchaseOrderLines(client, jobId),
+    purchaseOrderLines: getJobPurchaseOrderLines(client, jobId)
   });
 }
 
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    update: "production",
+    update: "production"
   });
 
   const { jobId: id } = params;
@@ -89,7 +89,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     id: id,
     jobId,
     customFields: setCustomFields(formData),
-    updatedBy: userId,
+    updatedBy: userId
   });
   if (updateJob.error) {
     throw redirect(
@@ -101,7 +101,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   const recalculate = await recalculateJobRequirements(getCarbonServiceRole(), {
     id,
     companyId,
-    userId,
+    userId
   });
   if (recalculate.error) {
     throw redirect(
@@ -177,7 +177,7 @@ export default function JobDetailsRoute() {
         isReadOnly={!permissions.can("update", "production")}
         metadata={{
           jobId: jobData?.job?.id ?? undefined,
-          itemId: jobData?.job?.itemId ?? undefined,
+          itemId: jobData?.job?.itemId ?? undefined
         }}
         modelPath={jobData?.job?.modelPath ?? null}
         title="CAD Model"
@@ -189,7 +189,7 @@ export default function JobDetailsRoute() {
 }
 
 function JobPurchaseOrderLines({
-  purchaseOrderLines,
+  purchaseOrderLines
 }: {
   purchaseOrderLines: JobPurchaseOrderLine[];
 }) {
@@ -235,22 +235,22 @@ function JobPurchaseOrderLineItem({ line }: { line: JobPurchaseOrderLine }) {
   const status = isReceived
     ? "Received"
     : isPartiallyReceived
-    ? "Partially Received"
-    : isShipped
-    ? "Shipped"
-    : isPartiallyShipped
-    ? "Partially Shipped"
-    : "To Ship";
+      ? "Partially Received"
+      : isShipped
+        ? "Shipped"
+        : isPartiallyShipped
+          ? "Partially Shipped"
+          : "To Ship";
 
   const statusColor = isReceived
     ? "green"
     : isPartiallyReceived
-    ? "yellow"
-    : isShipped
-    ? "blue"
-    : isPartiallyShipped
-    ? "orange"
-    : "gray";
+      ? "yellow"
+      : isShipped
+        ? "blue"
+        : isPartiallyShipped
+          ? "orange"
+          : "gray";
 
   return (
     <div className="flex flex-1 justify-between items-center w-full">

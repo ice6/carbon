@@ -8,13 +8,13 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
   HStack,
-  IconButton,
+  IconButton
 } from "@carbon/react";
 import {
   useFetcher,
   useFetchers,
   useParams,
-  useSubmit,
+  useSubmit
 } from "@remix-run/react";
 import type { ColumnDef } from "@tanstack/react-table";
 import { memo, useCallback, useMemo } from "react";
@@ -26,7 +26,7 @@ import {
   LuRefreshCcwDot,
   LuRotateCcw,
   LuTriangleAlert,
-  LuWrench,
+  LuWrench
 } from "react-icons/lu";
 import { Hyperlink, Table } from "~/components";
 import { EditableNumber } from "~/components/Editable";
@@ -59,13 +59,13 @@ const JobOperationsTable = memo(({ data, count }: JobOperationsTableProps) => {
       submit(
         {
           id,
-          status,
+          status
         },
         {
           method: "post",
           action: path.to.jobOperationStatus,
           navigate: false,
-          fetcherKey: `jobOperation:${id}`,
+          fetcherKey: `jobOperation:${id}`
         }
       );
     },
@@ -124,8 +124,8 @@ const JobOperationsTable = memo(({ data, count }: JobOperationsTableProps) => {
           </HStack>
         ),
         meta: {
-          icon: <LuClipboardList />,
-        },
+          icon: <LuClipboardList />
+        }
       },
       {
         id: "item",
@@ -134,8 +134,8 @@ const JobOperationsTable = memo(({ data, count }: JobOperationsTableProps) => {
           return row.original.jobMakeMethod?.item?.readableIdWithRevision;
         },
         meta: {
-          icon: <AiOutlinePartition />,
-        },
+          icon: <AiOutlinePartition />
+        }
       },
       {
         accessorKey: "operationType",
@@ -146,11 +146,11 @@ const JobOperationsTable = memo(({ data, count }: JobOperationsTableProps) => {
             type: "static",
             options: operationTypes.map((value) => ({
               value,
-              label: <Enumerable value={value ?? null} />,
-            })),
+              label: <Enumerable value={value ?? null} />
+            }))
           },
-          icon: <LuWrench />,
-        },
+          icon: <LuWrench />
+        }
       },
 
       {
@@ -158,33 +158,33 @@ const JobOperationsTable = memo(({ data, count }: JobOperationsTableProps) => {
         header: "Quantity",
         cell: (item) => item.getValue(),
         meta: {
-          icon: <LuHash />,
-        },
+          icon: <LuHash />
+        }
       },
       {
         accessorKey: "quantityComplete",
         header: "Qty. Complete",
         cell: (item) => item.getValue(),
         meta: {
-          icon: <LuCircleCheckBig />,
-        },
+          icon: <LuCircleCheckBig />
+        }
       },
       {
         accessorKey: "quantityScrapped",
         header: "Qty. Scrapped",
         cell: (item) => item.getValue(),
         meta: {
-          icon: <LuTriangleAlert />,
-        },
+          icon: <LuTriangleAlert />
+        }
       },
       {
         accessorKey: "quantityReworked",
         header: "Qty. Reworked",
         cell: (item) => item.getValue(),
         meta: {
-          icon: <LuRotateCcw />,
-        },
-      },
+          icon: <LuRotateCcw />
+        }
+      }
     ];
   }, [isPaused, jobId, onOperationStatusChange]);
 
@@ -197,7 +197,7 @@ const JobOperationsTable = memo(({ data, count }: JobOperationsTableProps) => {
         .from("jobOperation")
         .update({
           [id]: value,
-          updatedBy: userId,
+          updatedBy: userId
         })
         .eq("id", row.id!);
     },
@@ -209,7 +209,7 @@ const JobOperationsTable = memo(({ data, count }: JobOperationsTableProps) => {
       operationQuantity: EditableNumber(onCellEdit),
       quantityScrapped: EditableNumber(onCellEdit),
       quantityComplete: EditableNumber(onCellEdit),
-      quantityReworked: EditableNumber(onCellEdit),
+      quantityReworked: EditableNumber(onCellEdit)
     };
   }, [onCellEdit]);
 
@@ -224,7 +224,7 @@ const JobOperationsTable = memo(({ data, count }: JobOperationsTableProps) => {
       if (pendingItem) {
         return {
           ...item,
-          status: pendingItem.status,
+          status: pendingItem.status
         };
       }
       return item;
@@ -281,7 +281,7 @@ const usePendingItems = () => {
         if (id && status) {
           const newItem: { id: string; status: JobOperation["status"] } = {
             id,
-            status,
+            status
           };
 
           return [...acc, newItem];

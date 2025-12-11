@@ -4,7 +4,7 @@ import {
   createIssueSlackThread,
   syncIssueAssignmentToSlack,
   syncIssueStatusToSlack,
-  syncIssueTaskToSlack,
+  syncIssueTaskToSlack
 } from "../../slack/lib/service";
 import type { NotificationEvent, NotificationService } from "../types";
 
@@ -26,7 +26,7 @@ export class SlackNotificationService implements NotificationService {
           nonConformanceId: event.data.nonConformanceId,
           severity: event.data.severity,
           title: event.data.title,
-          userId: event.userId,
+          userId: event.userId
         });
         break;
 
@@ -36,7 +36,7 @@ export class SlackNotificationService implements NotificationService {
           nonConformanceId: event.data.nonConformanceId,
           newStatus: event.data.status,
           previousStatus: "", // We'll need to get this from the event data if needed
-          userId: event.userId,
+          userId: event.userId
         });
         break;
 
@@ -47,7 +47,7 @@ export class SlackNotificationService implements NotificationService {
           status: event.data.status,
           // @ts-expect-error - it's cool
           taskType: event.data.type,
-          userId: event.userId,
+          userId: event.userId
         });
         break;
 
@@ -56,7 +56,7 @@ export class SlackNotificationService implements NotificationService {
           nonConformanceId: event.data.id,
           companyId: event.companyId,
           userId: event.userId,
-          newAssignee: event.data.assignee,
+          newAssignee: event.data.assignee
         });
         break;
 

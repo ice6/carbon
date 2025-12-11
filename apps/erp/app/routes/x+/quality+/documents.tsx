@@ -12,13 +12,13 @@ import { getGenericQueryFilters } from "~/utils/query";
 
 export const handle: Handle = {
   breadcrumb: "Documents",
-  to: path.to.qualityDocuments,
+  to: path.to.qualityDocuments
 };
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
     view: "quality",
-    role: "employee",
+    role: "employee"
   });
 
   const url = new URL(request.url);
@@ -33,15 +33,15 @@ export async function loader({ request }: LoaderFunctionArgs) {
       limit,
       offset,
       sorts,
-      filters,
+      filters
     }),
-    getTagsList(client, companyId, "qualityDocument"),
+    getTagsList(client, companyId, "qualityDocument")
   ]);
 
   return json({
     qualityDocuments: qualityDocuments.data ?? [],
     count: qualityDocuments.count ?? 0,
-    tags: tags.data ?? [],
+    tags: tags.data ?? []
   });
 }
 

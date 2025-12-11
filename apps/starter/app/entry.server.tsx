@@ -15,7 +15,7 @@ export default async function (
 ) {
   const acceptLanguage = request.headers.get("accept-language");
   const locales = parseAcceptLanguage(acceptLanguage, {
-    validate: Intl.DateTimeFormat.supportedLocalesOf,
+    validate: Intl.DateTimeFormat.supportedLocalesOf
   });
 
   // get whether it's a mac or pc from the headers

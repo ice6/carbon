@@ -5,7 +5,7 @@ import { json, type ActionFunctionArgs } from "@vercel/remix";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   const { client, userId } = await requirePermissions(request, {
-    update: "quality",
+    update: "quality"
   });
 
   const formData = await request.formData();
@@ -38,7 +38,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     .from(table)
     .update({
       supplierId: supplierId || null,
-      updatedBy: userId,
+      updatedBy: userId
     })
     .eq("id", id)
     .select("id")

@@ -7,7 +7,7 @@ import {
   useFieldError,
   useInternalFormContext,
   useInternalHasBeenSubmitted,
-  useSmartValidate,
+  useSmartValidate
 } from "../hooks";
 import * as arrayUtil from "./arrayUtil";
 import { useRegisterControlledField } from "./controlledFields";
@@ -47,7 +47,7 @@ const useInternalFieldArray = (
   const resolvedValidationBehavior: FieldArrayValidationBehaviorOptions = {
     initial: "onSubmit",
     whenSubmitted: "onChange",
-    ...validationBehavior,
+    ...validationBehavior
   };
 
   const behavior = hasBeenSubmitted
@@ -121,7 +121,7 @@ const useInternalFieldArray = (
         arr.replace(field, index, value);
         keyRef.current[index] = nanoid();
         maybeValidate();
-      },
+      }
     }),
     [arr, field, maybeValidate]
   );
@@ -131,7 +131,7 @@ const useInternalFieldArray = (
     arrayValue.forEach((item, index) => {
       result[index] = {
         key: keyRef.current[index],
-        defaultValue: item,
+        defaultValue: item
       };
     });
     return result;
@@ -184,7 +184,7 @@ export function FieldArray<Item = any>({
   name,
   children,
   formId,
-  validationBehavior,
+  validationBehavior
 }: FieldArrayProps<Item>) {
   const context = useInternalFormContext(formId, "FieldArray");
   const [value, helpers, error] = useInternalFieldArray(

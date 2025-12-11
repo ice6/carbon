@@ -25,7 +25,7 @@ const Cell = <T extends object>({
   isEditing,
   isSelected,
   onClick,
-  onUpdate,
+  onUpdate
 }: CellProps<T>) => {
   const { ref, tabIndex, onFocus } = useMovingCellRef(isSelected);
   const [hasError, setHasError] = useState(false);
@@ -72,7 +72,7 @@ const Cell = <T extends object>({
                   : () => console.error("No update function provided"),
                 onError: () => {
                   setHasError(true);
-                },
+                }
               })
             : null}
         </div>

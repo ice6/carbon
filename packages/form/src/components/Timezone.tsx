@@ -11,7 +11,7 @@ import {
   SelectItem,
   SelectLabel,
   SelectTrigger,
-  SelectValue,
+  SelectValue
 } from "@carbon/react";
 import { timezones } from "@carbon/utils";
 import { LuX } from "react-icons/lu";
@@ -40,7 +40,7 @@ const Timezone = ({
       {label && <FormLabel htmlFor={name}>{label}</FormLabel>}
       <input
         {...getInputProps({
-          id: name,
+          id: name
         })}
         type="hidden"
         name={name}

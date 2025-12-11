@@ -8,7 +8,7 @@ import type { Group } from "~/modules/users";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    role: "employee",
+    role: "employee"
   });
 
   const url = new URL(request.url);
@@ -31,6 +31,6 @@ export async function loader({ request }: LoaderFunctionArgs) {
   }
 
   return json({
-    groups: arrayToTree(groups.data) as Group[],
+    groups: arrayToTree(groups.data) as Group[]
   });
 }

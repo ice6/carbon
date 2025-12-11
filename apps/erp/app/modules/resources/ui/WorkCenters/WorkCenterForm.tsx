@@ -10,12 +10,12 @@ import {
   ModalDrawerProvider,
   ModalDrawerTitle,
   VStack,
-  toast,
+  toast
 } from "@carbon/react";
 import { useFetcher } from "@remix-run/react";
 import type { PostgrestResponse } from "@supabase/supabase-js";
 import { useEffect } from "react";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import {
   // Ability,
   CustomFormFields,
@@ -26,7 +26,7 @@ import {
   Processes,
   StandardFactor,
   Submit,
-  TextArea,
+  TextArea
 } from "~/components/Form";
 import { usePermissions, useUser } from "~/hooks";
 import { workCenterValidator } from "~/modules/resources";
@@ -45,7 +45,7 @@ const WorkCenterForm = ({
   open = true,
   type = "drawer",
   showProcesses = true,
-  onClose,
+  onClose
 }: WorkCenterFormProps) => {
   const permissions = usePermissions();
   const fetcher = useFetcher<PostgrestResponse<{ id: string }>>();
@@ -113,7 +113,7 @@ const WorkCenterForm = ({
                   label="Labor Rate (Hourly)"
                   formatOptions={{
                     style: "currency",
-                    currency: baseCurrency,
+                    currency: baseCurrency
                   }}
                 />
                 <Number
@@ -121,7 +121,7 @@ const WorkCenterForm = ({
                   label="Machine Rate (Hourly)"
                   formatOptions={{
                     style: "currency",
-                    currency: baseCurrency,
+                    currency: baseCurrency
                   }}
                 />
                 <Number
@@ -129,7 +129,7 @@ const WorkCenterForm = ({
                   label="Overhead Rate (Hourly)"
                   formatOptions={{
                     style: "currency",
-                    currency: baseCurrency,
+                    currency: baseCurrency
                   }}
                 />
 

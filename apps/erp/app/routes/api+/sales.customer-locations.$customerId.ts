@@ -9,14 +9,14 @@ import { customerLocationsQuery } from "~/utils/react-query";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const authorized = await requirePermissions(request, {
-    view: "sales",
+    view: "sales"
   });
 
   const { customerId } = params;
 
   if (!customerId)
     return json({
-      data: [],
+      data: []
     });
 
   const locations = await getCustomerLocations(authorized.client, customerId);
@@ -35,7 +35,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
 export async function clientLoader({
   serverLoader,
-  params,
+  params
 }: ClientLoaderFunctionArgs) {
   const { customerId } = params;
 

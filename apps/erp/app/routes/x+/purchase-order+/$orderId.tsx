@@ -12,12 +12,12 @@ import {
   getPurchaseOrderLines,
   getSupplier,
   getSupplierInteraction,
-  getSupplierInteractionDocuments,
+  getSupplierInteractionDocuments
 } from "~/modules/purchasing";
 import {
   PurchaseOrderExplorer,
   PurchaseOrderHeader,
-  PurchaseOrderProperties,
+  PurchaseOrderProperties
 } from "~/modules/purchasing/ui/PurchaseOrder";
 
 import type { Handle } from "~/utils/handle";
@@ -26,13 +26,13 @@ import { path } from "~/utils/path";
 export const handle: Handle = {
   breadcrumb: "Orders",
   to: path.to.purchaseOrders,
-  module: "purchasing",
+  module: "purchasing"
 };
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
     view: "purchasing",
-    bypassRls: true,
+    bypassRls: true
   });
 
   const { orderId } = params;
@@ -41,7 +41,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   const [purchaseOrder, lines, purchaseOrderDelivery] = await Promise.all([
     getPurchaseOrder(client, orderId),
     getPurchaseOrderLines(client, orderId),
-    getPurchaseOrderDelivery(client, orderId),
+    getPurchaseOrderDelivery(client, orderId)
   ]);
 
   if (purchaseOrder.data?.companyId !== companyId) {
@@ -72,7 +72,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     purchaseOrder.data?.supplierId
       ? getSupplier(client, purchaseOrder.data.supplierId)
       : null,
-    getSupplierInteraction(client, purchaseOrder.data.supplierInteractionId),
+    getSupplierInteraction(client, purchaseOrder.data.supplierInteractionId)
   ]);
 
   return defer({
@@ -85,7 +85,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
       purchaseOrder.data.supplierInteractionId!
     ),
     interaction: interaction?.data,
-    supplier: supplier?.data ?? null,
+    supplier: supplier?.data ?? null
   });
 }
 

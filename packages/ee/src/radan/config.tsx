@@ -1,5 +1,5 @@
 import type { SVGProps } from "react";
-import { z } from 'zod/v3';
+import { z } from "zod/v3";
 import type { IntegrationConfig } from "../types";
 
 export const Radan: IntegrationConfig = {
@@ -20,15 +20,15 @@ export const Radan: IntegrationConfig = {
       label: "Processes",
       type: "processes",
       required: true,
-      value: [],
-    },
+      value: []
+    }
   ],
   schema: z.object({
     processes: z
       .array(z.string().min(1, { message: "Process is required" }))
       .min(1, { message: "Processes are required" })
-      .optional(),
-  }),
+      .optional()
+  })
 };
 
 function SetupInstructions({ companyId }: { companyId: string }) {

@@ -10,7 +10,7 @@ import {
   getLineDescriptionDetails,
   getLineTaxesAndFees,
   getLineTotal,
-  getTotal,
+  getTotal
 } from "../utils/sales-invoice";
 import { getCurrencyFormatter } from "../utils/shared";
 import { Header, Note, Summary, Template } from "./components";
@@ -30,16 +30,16 @@ interface SalesInvoicePDFProps extends PDF {
 const tw = createTw({
   theme: {
     fontFamily: {
-      sans: ["Helvetica", "Arial", "sans-serif"],
+      sans: ["Helvetica", "Arial", "sans-serif"]
     },
     extend: {
       colors: {
         gray: {
-          500: "#7d7d7d",
-        },
-      },
-    },
-  },
+          500: "#7d7d7d"
+        }
+      }
+    }
+  }
 });
 
 const SalesInvoicePDF = ({
@@ -54,7 +54,7 @@ const SalesInvoicePDF = ({
   paymentTerms,
   shippingMethods,
   thumbnails,
-  title = "Invoice",
+  title = "Invoice"
 }: SalesInvoicePDFProps) => {
   const {
     customerName,
@@ -70,7 +70,7 @@ const SalesInvoicePDF = ({
     invoiceCity,
     invoiceStateProvince,
     invoicePostalCode,
-    invoiceCountryName,
+    invoiceCountryName
   } = salesInvoiceLocations;
 
   const currencyCode = salesInvoice.currencyCode ?? company.baseCurrencyCode;
@@ -79,12 +79,12 @@ const SalesInvoicePDF = ({
   const summaryItems = [
     {
       label: "Date Issued",
-      value: salesInvoice?.dateIssued,
+      value: salesInvoice?.dateIssued
     },
     {
       label: "Invoice #",
-      value: salesInvoice?.invoiceId,
-    },
+      value: salesInvoice?.invoiceId
+    }
   ];
 
   if (salesInvoice?.paymentTermId) {
@@ -92,14 +92,14 @@ const SalesInvoicePDF = ({
       label: "Payment Terms",
       value: paymentTerms.find(
         (term) => term.id === salesInvoice?.paymentTermId
-      )?.name,
+      )?.name
     });
   }
 
   if (salesInvoice?.dateDue) {
     summaryItems.push({
       label: "Due Date",
-      value: salesInvoice?.dateDue,
+      value: salesInvoice?.dateDue
     });
   }
 
@@ -109,7 +109,7 @@ const SalesInvoicePDF = ({
       meta={{
         author: meta?.author ?? "Carbon",
         keywords: meta?.keywords ?? "sales invoice",
-        subject: meta?.subject ?? "Invoice",
+        subject: meta?.subject ?? "Invoice"
       }}
     >
       <View>

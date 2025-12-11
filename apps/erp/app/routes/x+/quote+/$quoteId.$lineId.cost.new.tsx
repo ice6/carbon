@@ -4,14 +4,14 @@ import { json, type ActionFunctionArgs } from "@vercel/remix";
 import { nanoid } from "nanoid";
 import {
   quoteLineAdditionalChargesValidator,
-  upsertQuoteLineAdditionalCharges,
+  upsertQuoteLineAdditionalCharges
 } from "~/modules/sales";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
 
   const { client, userId } = await requirePermissions(request, {
-    update: "sales",
+    update: "sales"
   });
 
   const { lineId } = params;
@@ -25,7 +25,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     return json(
       {
         data: null,
-        errors: { additionalCharges: "Additional charges are required" },
+        errors: { additionalCharges: "Additional charges are required" }
       },
       { status: 400 }
     );
@@ -45,10 +45,10 @@ export async function action({ request, params }: ActionFunctionArgs) {
       ...parsedCharges.data,
       [id]: {
         description: "Additional Charges",
-        amounts: {},
-      },
+        amounts: {}
+      }
     },
-    updatedBy: userId,
+    updatedBy: userId
   });
 
   if (error) {

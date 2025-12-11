@@ -5,7 +5,7 @@ import {
   KeyboardSensor,
   PointerSensor,
   useSensor,
-  useSensors,
+  useSensors
 } from "@dnd-kit/core";
 import { sortableKeyboardCoordinates } from "@dnd-kit/sortable";
 import { useFetchers, useSubmit } from "@remix-run/react";
@@ -42,7 +42,7 @@ function usePendingItems() {
       let item: { id: string; priority: number; columnId: string } = {
         id,
         priority,
-        columnId,
+        columnId
       };
       return item;
     });
@@ -91,7 +91,7 @@ const DateKanban = ({
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
-      coordinateGetter: sortableKeyboardCoordinates,
+      coordinateGetter: sortableKeyboardCoordinates
     })
   );
 
@@ -172,13 +172,13 @@ const DateKanban = ({
           {
             id: activeItem.id,
             columnId: overItem.columnId,
-            priority: newPriority,
+            priority: newPriority
           },
           {
             method: "post",
             action: path.to.scheduleDatesUpdate,
             navigate: false,
-            fetcherKey: `job:${activeItem.id}`,
+            fetcherKey: `job:${activeItem.id}`
           }
         );
         return;
@@ -190,13 +190,13 @@ const DateKanban = ({
           {
             id: activeItem.id,
             columnId: activeItem.columnId,
-            priority: newPriority,
+            priority: newPriority
           },
           {
             method: "post",
             action: path.to.scheduleDatesUpdate,
             navigate: false,
-            fetcherKey: `job:${activeItem.id}`,
+            fetcherKey: `job:${activeItem.id}`
           }
         );
       }
@@ -213,13 +213,13 @@ const DateKanban = ({
           {
             id: activeItem.id,
             columnId: newColumnId,
-            priority: activeItem.priority,
+            priority: activeItem.priority
           },
           {
             method: "post",
             action: path.to.scheduleDatesUpdate,
             navigate: false,
-            fetcherKey: `job:${activeItem.id}`,
+            fetcherKey: `job:${activeItem.id}`
           }
         );
       }
@@ -282,7 +282,7 @@ const DateKanban = ({
                       employeeIds: progressByItemId[activeItem.id]?.employees
                         ? Array.from(progressByItemId[activeItem.id].employees!)
                         : undefined,
-                      progress: progressByItemId[activeItem.id]?.progress ?? 0,
+                      progress: progressByItemId[activeItem.id]?.progress ?? 0
                     }}
                     isOverlay
                     progressByItemId={progressByItemId}

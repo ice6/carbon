@@ -8,7 +8,7 @@ import {
   LuGlobe,
   LuPencil,
   LuTrash,
-  LuTruck,
+  LuTruck
 } from "react-icons/lu";
 import { Hyperlink, New, Table } from "~/components";
 import { Enumerable } from "~/components/Enumerable";
@@ -50,8 +50,8 @@ const ShippingMethodsTable = memo(
             </Hyperlink>
           ),
           meta: {
-            icon: <LuBookMarked />,
-          },
+            icon: <LuBookMarked />
+          }
         },
         {
           accessorKey: "carrier",
@@ -62,20 +62,20 @@ const ShippingMethodsTable = memo(
               type: "static",
               options: shippingCarrierType.map((v) => ({
                 label: v,
-                value: v,
-              })),
+                value: v
+              }))
             },
-            icon: <LuTruck />,
-          },
+            icon: <LuTruck />
+          }
         },
         {
           accessorKey: "trackingUrl",
           header: "Tracking URL",
           cell: (item) => item.getValue(),
           meta: {
-            icon: <LuGlobe />,
-          },
-        },
+            icon: <LuGlobe />
+          }
+        }
       ];
       result = [...result, ...customColumns];
 
@@ -86,9 +86,9 @@ const ShippingMethodsTable = memo(
               header: "Carrier Account",
               cell: (item) => item.getValue(),
               meta: {
-                icon: <LuBanknote />,
-              },
-            },
+                icon: <LuBanknote />
+              }
+            }
           ])
         : result;
       // eslint-disable-next-line react-hooks/exhaustive-deps

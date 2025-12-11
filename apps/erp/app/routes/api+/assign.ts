@@ -62,9 +62,9 @@ export async function action({ request }: ActionFunctionArgs) {
             event: notificationEvent,
             recipient: {
               type: "user",
-              userId: assignee,
+              userId: assignee
             },
-            from: userId,
+            from: userId
           });
         } catch (err) {
           return json(

@@ -7,7 +7,7 @@ import type { ActionFunctionArgs } from "@vercel/remix";
 import { json, redirect } from "@vercel/remix";
 import {
   requiredActionValidator,
-  upsertRequiredAction,
+  upsertRequiredAction
 } from "~/modules/quality";
 import { RequiredActionForm } from "~/modules/quality/ui/RequiredActions";
 import { path } from "~/utils/path";
@@ -15,7 +15,7 @@ import { path } from "~/utils/path";
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    create: "quality",
+    create: "quality"
   });
 
   const formData = await request.formData();
@@ -33,7 +33,7 @@ export async function action({ request }: ActionFunctionArgs) {
     name,
     active: active ?? true,
     companyId,
-    createdBy: userId,
+    createdBy: userId
   });
 
   if (createResult.error) {
@@ -61,7 +61,7 @@ export default function NewRequiredActionRoute() {
       type="modal"
       initialValues={{
         name: "",
-        active: true,
+        active: true
       }}
       onClose={onClose}
     />

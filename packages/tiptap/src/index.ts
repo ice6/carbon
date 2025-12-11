@@ -14,7 +14,7 @@ export {
   type EditorInstance,
   type JSONContent,
   type MentionListProps,
-  type MentionListRef,
+  type MentionListRef
 } from "./components";
 
 // Extensions
@@ -52,7 +52,7 @@ export {
   type CreateMentionExtensionOptions,
   type CreateMentionSuggestionOptions,
   type MentionSuggestion,
-  type SuggestionItem,
+  type SuggestionItem
 } from "./extensions";
 
 // Plugins
@@ -62,7 +62,7 @@ export {
   handleImagePaste,
   UploadImagesPlugin,
   type ImageUploadOptions,
-  type UploadFn,
+  type UploadFn
 } from "./plugins";
 
 // Utils
@@ -70,7 +70,7 @@ export {
   getAllContent,
   getPrevText,
   getUrlFromString,
-  isValidUrl,
+  isValidUrl
 } from "./utils";
 
 // Store and Atoms

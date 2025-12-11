@@ -8,7 +8,7 @@ import { json, redirect } from "@vercel/remix";
 import {
   getSupplierStatus,
   supplierStatusValidator,
-  upsertSupplierStatus,
+  upsertSupplierStatus
 } from "~/modules/purchasing";
 import { SupplierStatusForm } from "~/modules/purchasing/ui/SupplierStatuses";
 import { getCustomFields, setCustomFields } from "~/utils/form";
@@ -17,7 +17,7 @@ import { getParams, path } from "~/utils/path";
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
     view: "purchasing",
-    role: "employee",
+    role: "employee"
   });
 
   const { supplierStatusId } = params;
@@ -36,14 +36,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   }
 
   return json({
-    supplierStatus: supplierStatus.data,
+    supplierStatus: supplierStatus.data
   });
 }
 
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    update: "purchasing",
+    update: "purchasing"
   });
 
   const formData = await request.formData();
@@ -62,7 +62,7 @@ export async function action({ request }: ActionFunctionArgs) {
     id,
     ...data,
     updatedBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
 
   if (updateSupplierStatus.error) {
@@ -88,7 +88,7 @@ export default function EditSupplierStatusesRoute() {
   const initialValues = {
     id: supplierStatus.id ?? undefined,
     name: supplierStatus.name ?? "",
-    ...getCustomFields(supplierStatus.customFields),
+    ...getCustomFields(supplierStatus.customFields)
   };
 
   return (

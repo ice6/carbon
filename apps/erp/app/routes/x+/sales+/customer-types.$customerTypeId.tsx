@@ -9,7 +9,7 @@ import { json, redirect } from "@vercel/remix";
 import {
   customerTypeValidator,
   getCustomerType,
-  upsertCustomerType,
+  upsertCustomerType
 } from "~/modules/sales";
 import { CustomerTypeForm } from "~/modules/sales/ui/CustomerTypes";
 import { getCustomFields, setCustomFields } from "~/utils/form";
@@ -19,7 +19,7 @@ import { customerTypesQuery, getCompanyId } from "~/utils/react-query";
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
     view: "sales",
-    role: "employee",
+    role: "employee"
   });
 
   const { customerTypeId } = params;
@@ -35,14 +35,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   }
 
   return json({
-    customerType: customerType?.data ?? null,
+    customerType: customerType?.data ?? null
   });
 }
 
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    update: "sales",
+    update: "sales"
   });
 
   const formData = await request.formData();
@@ -59,7 +59,7 @@ export async function action({ request }: ActionFunctionArgs) {
     id,
     ...data,
     updatedBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
 
   if (updateCustomerType.error) {
@@ -93,7 +93,7 @@ export default function EditCustomerTypesRoute() {
   const initialValues = {
     id: customerType?.id ?? undefined,
     name: customerType?.name ?? "",
-    ...getCustomFields(customerType?.customFields),
+    ...getCustomFields(customerType?.customFields)
   };
 
   return (

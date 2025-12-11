@@ -8,7 +8,7 @@ export function Popover(props: any) {
   useEscape(onClose);
   useOutsideClick({
     ref: popoverRef,
-    handler: onClose,
+    handler: onClose
   });
 
   return (

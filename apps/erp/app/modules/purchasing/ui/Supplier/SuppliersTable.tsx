@@ -14,14 +14,14 @@ import {
   LuShapes,
   LuStar,
   LuTag,
-  LuUser,
+  LuUser
 } from "react-icons/lu";
 import {
   EmployeeAvatar,
   Hyperlink,
   New,
   SupplierAvatar,
-  Table,
+  Table
 } from "~/components";
 import { Enumerable } from "~/components/Enumerable";
 import { useSupplierTypes } from "~/components/Form/SupplierType";
@@ -59,8 +59,8 @@ const SuppliersTable = memo(
             </div>
           ),
           meta: {
-            icon: <LuBookMarked />,
-          },
+            icon: <LuBookMarked />
+          }
         },
         {
           accessorKey: "status",
@@ -71,11 +71,11 @@ const SuppliersTable = memo(
               type: "static",
               options: supplierStatuses?.map((status) => ({
                 value: status.name,
-                label: <Enumerable value={status.name ?? ""} />,
-              })),
+                label: <Enumerable value={status.name ?? ""} />
+              }))
             },
-            icon: <LuStar />,
-          },
+            icon: <LuStar />
+          }
         },
         {
           accessorKey: "supplierTypeId",
@@ -93,10 +93,10 @@ const SuppliersTable = memo(
               type: "static",
               options: supplierTypes?.map((type) => ({
                 value: type.value,
-                label: <Enumerable value={type.label} />,
-              })),
-            },
-          },
+                label: <Enumerable value={type.label} />
+              }))
+            }
+          }
         },
         {
           id: "accountManagerId",
@@ -109,11 +109,11 @@ const SuppliersTable = memo(
               type: "static",
               options: people.map((employee) => ({
                 value: employee.id,
-                label: employee.name,
-              })),
+                label: employee.name
+              }))
             },
-            icon: <LuUser />,
-          },
+            icon: <LuUser />
+          }
         },
         {
           accessorKey: "tags",
@@ -132,12 +132,12 @@ const SuppliersTable = memo(
               type: "static",
               options: tags?.map((tag) => ({
                 value: tag.name,
-                label: <Badge variant="secondary">{tag.name}</Badge>,
+                label: <Badge variant="secondary">{tag.name}</Badge>
               })),
-              isArray: true,
+              isArray: true
             },
-            icon: <LuTag />,
-          },
+            icon: <LuTag />
+          }
         },
         // {
         //   id: "assignee",
@@ -174,32 +174,32 @@ const SuppliersTable = memo(
           header: "Currency",
           cell: (item) => item.getValue(),
           meta: {
-            icon: <LuEuro />,
-          },
+            icon: <LuEuro />
+          }
         },
         {
           accessorKey: "phone",
           header: "Phone",
           cell: (item) => item.getValue(),
           meta: {
-            icon: <LuPhone />,
-          },
+            icon: <LuPhone />
+          }
         },
         {
           accessorKey: "fax",
           header: "Fax",
           cell: (item) => item.getValue(),
           meta: {
-            icon: <LuPrinter />,
-          },
+            icon: <LuPrinter />
+          }
         },
         {
           accessorKey: "website",
           header: "Website",
           cell: (item) => item.getValue(),
           meta: {
-            icon: <LuGlobe />,
-          },
+            icon: <LuGlobe />
+          }
         },
         {
           id: "createdBy",
@@ -212,19 +212,19 @@ const SuppliersTable = memo(
               type: "static",
               options: people.map((employee) => ({
                 value: employee.id,
-                label: employee.name,
-              })),
+                label: employee.name
+              }))
             },
-            icon: <LuUser />,
-          },
+            icon: <LuUser />
+          }
         },
         {
           accessorKey: "createdAt",
           header: "Created At",
           cell: (item) => formatDate(item.getValue<string>()),
           meta: {
-            icon: <LuCalendar />,
-          },
+            icon: <LuCalendar />
+          }
         },
         {
           id: "updatedBy",
@@ -237,20 +237,20 @@ const SuppliersTable = memo(
               type: "static",
               options: people.map((employee) => ({
                 value: employee.id,
-                label: employee.name,
-              })),
+                label: employee.name
+              }))
             },
-            icon: <LuUser />,
-          },
+            icon: <LuUser />
+          }
         },
         {
           accessorKey: "updatedAt",
           header: "Updated At",
           cell: (item) => formatDate(item.getValue<string>()),
           meta: {
-            icon: <LuCalendar />,
-          },
-        },
+            icon: <LuCalendar />
+          }
+        }
       ];
 
       return [...defaultColumns, ...customColumns];
@@ -258,13 +258,12 @@ const SuppliersTable = memo(
 
     const renderContextMenu = useMemo(
       // eslint-disable-next-line react/display-name
-      () => (row: Supplier) =>
-        (
-          <MenuItem onClick={() => navigate(path.to.supplier(row.id!))}>
-            <MenuIcon icon={<LuPencil />} />
-            Edit Supplier
-          </MenuItem>
-        ),
+      () => (row: Supplier) => (
+        <MenuItem onClick={() => navigate(path.to.supplier(row.id!))}>
+          <MenuIcon icon={<LuPencil />} />
+          Edit Supplier
+        </MenuItem>
+      ),
       [navigate]
     );
 
@@ -275,7 +274,7 @@ const SuppliersTable = memo(
           columns={columns}
           data={data}
           defaultColumnPinning={{
-            left: ["name"],
+            left: ["name"]
           }}
           defaultColumnVisibility={{
             currencyCode: false,
@@ -285,17 +284,17 @@ const SuppliersTable = memo(
             createdBy: false,
             createdAt: false,
             updatedBy: false,
-            updatedAt: false,
+            updatedAt: false
           }}
           importCSV={[
             {
               table: "supplier",
-              label: "Suppliers",
+              label: "Suppliers"
             },
             {
               table: "supplierContact",
-              label: "Contacts",
-            },
+              label: "Contacts"
+            }
           ]}
           primaryAction={
             permissions.can("create", "purchasing") && (

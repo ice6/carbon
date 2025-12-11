@@ -10,14 +10,14 @@ import { validationError, validator } from "@carbon/form";
 import {
   employeeJobValidator,
   getEmployeeJob,
-  updateEmployeeJob,
+  updateEmployeeJob
 } from "~/modules/people";
 import { PersonJob } from "~/modules/people/ui/Person";
 import { getCustomFields, setCustomFields } from "~/utils/form";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    view: "people",
+    view: "people"
   });
 
   const { personId } = params;
@@ -32,14 +32,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   }
 
   return json({
-    job: job.data,
+    job: job.data
   });
 }
 
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    update: "people",
+    update: "people"
   });
   const { personId } = params;
   if (!personId) throw new Error("No person ID provided");
@@ -55,7 +55,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     ...validation.data,
     companyId,
     updatedBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
   if (updateJob.error) {
     throw redirect(
@@ -80,7 +80,7 @@ export default function PersonJobRoute() {
     locationId: job.locationId ?? "",
     shiftId: job.shiftId ?? "",
     managerId: job.managerId ?? "",
-    ...getCustomFields(job.customFields),
+    ...getCustomFields(job.customFields)
   };
 
   return <PersonJob key={personId} initialValues={initialValues} />;

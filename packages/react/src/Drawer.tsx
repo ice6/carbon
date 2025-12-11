@@ -5,7 +5,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import type {
   ComponentPropsWithoutRef,
   ElementRef,
-  HTMLAttributes,
+  HTMLAttributes
 } from "react";
 import { forwardRef } from "react";
 
@@ -25,10 +25,10 @@ const portalVariants = cva("fixed inset-0 z-50 flex", {
       top: "items-start",
       bottom: "items-end",
       left: "justify-start",
-      right: "justify-end",
-    },
+      right: "justify-end"
+    }
   },
-  defaultVariants: { position: "right" },
+  defaultVariants: { position: "right" }
 });
 
 interface DrawerPortalProps
@@ -80,8 +80,7 @@ const sheetVariants = cva(
         bottom:
           "animate-in slide-in-from-bottom w-full duration-300 rounded-t-xl",
         left: "animate-in slide-in-from-left h-full duration-300 rounded-r-xl",
-        right:
-          "animate-in slide-in-from-right h-full duration-300 rounded-l-xl",
+        right: "animate-in slide-in-from-right h-full duration-300 rounded-l-xl"
       },
       size: {
         content: "",
@@ -89,75 +88,75 @@ const sheetVariants = cva(
         md: "",
         lg: "",
         xl: "",
-        full: "",
-      },
+        full: ""
+      }
     },
     compoundVariants: [
       {
         position: ["top", "bottom"],
         size: "content",
-        class: "max-h-screen",
+        class: "max-h-screen"
       },
       {
         position: ["top", "bottom"],
         size: "md",
-        class: "h-1/3",
+        class: "h-1/3"
       },
       {
         position: ["top", "bottom"],
         size: "sm",
-        class: "h-1/4",
+        class: "h-1/4"
       },
       {
         position: ["top", "bottom"],
         size: "lg",
-        class: "h-1/2",
+        class: "h-1/2"
       },
       {
         position: ["top", "bottom"],
         size: "xl",
-        class: "h-5/6",
+        class: "h-5/6"
       },
       {
         position: ["top", "bottom"],
         size: "full",
-        class: "h-screen",
+        class: "h-screen"
       },
       {
         position: ["right", "left"],
         size: "content",
-        class: "max-w-screen",
+        class: "max-w-screen"
       },
       {
         position: ["right", "left"],
         size: "md",
-        class: "w-full lg:w-1/3",
+        class: "w-full lg:w-1/3"
       },
       {
         position: ["right", "left"],
         size: "sm",
-        class: "w-full lg:w-1/4",
+        class: "w-full lg:w-1/4"
       },
       {
         position: ["right", "left"],
         size: "lg",
-        class: "w-full lg:w-1/2",
+        class: "w-full lg:w-1/2"
       },
       {
         position: ["right", "left"],
         size: "xl",
-        class: "w-full lg:w-2/3",
+        class: "w-full lg:w-2/3"
       },
       {
         position: ["right", "left"],
         size: "full",
-        class: "w-full lg:w-screen",
-      },
+        class: "w-full lg:w-screen"
+      }
     ],
     defaultVariants: {
       position: "right",
-      size: "md",
-    },
+      size: "md"
+    }
   }
 );
 
@@ -272,5 +271,5 @@ export {
   DrawerFooter,
   DrawerHeader,
   DrawerTitle,
-  DrawerTrigger,
+  DrawerTrigger
 };

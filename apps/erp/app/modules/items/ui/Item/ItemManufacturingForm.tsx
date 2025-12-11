@@ -4,16 +4,16 @@ import {
   CardContent,
   CardFooter,
   CardHeader,
-  CardTitle,
+  CardTitle
 } from "@carbon/react";
 import { useFetcher, useParams } from "@remix-run/react";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import {
   Boolean,
   CustomFormFields,
   Hidden,
   Number,
-  Submit,
+  Submit
 } from "~/components/Form";
 import { usePermissions } from "~/hooks";
 
@@ -27,7 +27,7 @@ type ItemManufacturingFormProps = {
 
 const ItemManufacturingForm = ({
   initialValues,
-  withConfiguration = true,
+  withConfiguration = true
 }: ItemManufacturingFormProps) => {
   const fetcher = useFetcher<typeof action>();
   const permissions = usePermissions();
@@ -54,7 +54,7 @@ const ItemManufacturingForm = ({
               name="scrapPercentage"
               label="Scrap Percent"
               formatOptions={{
-                style: "percent",
+                style: "percent"
               }}
             />
             <Number name="leadTime" label="Lead Time (Days)" />

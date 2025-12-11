@@ -2,7 +2,7 @@ import {
   assertIsPost,
   error,
   getCarbonServiceRole,
-  success,
+  success
 } from "@carbon/auth";
 import { requirePermissions } from "@carbon/auth/auth.server";
 import { flash } from "@carbon/auth/session.server";
@@ -17,12 +17,12 @@ import type { Shipment, ShipmentLine } from "~/modules/inventory";
 import {
   getShipment,
   shipmentValidator,
-  upsertShipment,
+  upsertShipment
 } from "~/modules/inventory";
 import {
   ShipmentForm,
   ShipmentLines,
-  ShipmentNotes,
+  ShipmentNotes
 } from "~/modules/inventory/ui/Shipments";
 import type { Note } from "~/modules/shared";
 import { getCustomFields, setCustomFields } from "~/utils/form";
@@ -31,7 +31,7 @@ import { path } from "~/utils/path";
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    update: "inventory",
+    update: "inventory"
   });
 
   const formData = await request.formData();
@@ -73,9 +73,9 @@ export async function action({ request }: ActionFunctionArgs) {
             locationId: data.locationId,
             salesOrderId: data.sourceDocumentId,
             shipmentId: id,
-            userId: userId,
+            userId: userId
           },
-          region: FunctionRegion.UsEast1,
+          region: FunctionRegion.UsEast1
         });
         if (!salesOrderShipment.data || salesOrderShipment.error) {
           console.error(salesOrderShipment.error);
@@ -98,9 +98,9 @@ export async function action({ request }: ActionFunctionArgs) {
             locationId: data.locationId,
             purchaseOrderId: data.sourceDocumentId,
             shipmentId: id,
-            userId: userId,
+            userId: userId
           },
-          region: FunctionRegion.UsEast1,
+          region: FunctionRegion.UsEast1
         });
         if (!purchaseOrderShipment.data || purchaseOrderShipment.error) {
           console.error(purchaseOrderShipment.error);
@@ -122,9 +122,9 @@ export async function action({ request }: ActionFunctionArgs) {
             companyId,
             warehouseTransferId: data.sourceDocumentId,
             shipmentId: id,
-            userId: userId,
+            userId: userId
           },
-          region: FunctionRegion.UsEast1,
+          region: FunctionRegion.UsEast1
         });
         if (
           !warehouseTransferShipment.data ||
@@ -151,7 +151,7 @@ export async function action({ request }: ActionFunctionArgs) {
       id,
       ...data,
       updatedBy: userId,
-      customFields: setCustomFields(formData),
+      customFields: setCustomFields(formData)
     });
 
     if (updateShipment.error) {
@@ -197,7 +197,7 @@ export default function ShipmentDetailsRoute() {
     sourceDocumentReadableId:
       routeData.shipment.sourceDocumentReadableId ?? undefined,
     locationId: routeData.shipment.locationId ?? undefined,
-    ...getCustomFields(routeData.shipment.customFields),
+    ...getCustomFields(routeData.shipment.customFields)
   };
 
   return (

@@ -9,7 +9,7 @@ import { json, redirect } from "@vercel/remix";
 import {
   getMaterialType,
   materialTypeValidator,
-  upsertMaterialType,
+  upsertMaterialType
 } from "~/modules/items";
 import MaterialTypeForm from "~/modules/items/ui/MaterialTypes/MaterialTypeForm";
 import { getParams, path } from "~/utils/path";
@@ -19,7 +19,7 @@ import { getCompanyId, materialTypesQuery } from "~/utils/react-query";
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
     view: "parts",
-    role: "employee",
+    role: "employee"
   });
 
   const { id } = params;
@@ -38,14 +38,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   }
 
   return json({
-    materialType: materialType?.data ?? null,
+    materialType: materialType?.data ?? null
   });
 }
 
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client } = await requirePermissions(request, {
-    update: "parts",
+    update: "parts"
   });
 
   const { id } = params;
@@ -60,7 +60,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
   const updateMaterialType = await upsertMaterialType(client, {
     id: id,
-    ...validation.data,
+    ...validation.data
   });
 
   if (updateMaterialType.error) {
@@ -81,7 +81,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
 export async function clientAction({
   request,
-  serverAction,
+  serverAction
 }: ClientActionFunctionArgs) {
   const formData = await request.clone().formData();
   const validation = await validator(materialTypeValidator).validate(formData);
@@ -112,7 +112,7 @@ export default function EditMaterialTypesRoute() {
     name: materialType?.name ?? "",
     code: materialType?.code ?? "",
     materialSubstanceId: materialType?.materialSubstanceId ?? "",
-    materialFormId: materialType?.materialFormId ?? "",
+    materialFormId: materialType?.materialFormId ?? ""
   };
 
   return (

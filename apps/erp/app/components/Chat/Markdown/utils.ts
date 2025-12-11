@@ -1,7 +1,7 @@
 import rehypeRaw from "rehype-raw";
 import rehypeSanitize, {
   defaultSchema,
-  type Options as RehypeSanitizeOptions,
+  type Options as RehypeSanitizeOptions
 } from "rehype-sanitize";
 import remarkGfm from "remark-gfm";
 import type { PluggableList, Plugin } from "unified";
@@ -55,7 +55,7 @@ export const allowedHTMLElements = [
   "thead",
   "tr",
   "ul",
-  "var",
+  "var"
 ];
 
 const rehypeSanitizeOptions: RehypeSanitizeOptions = {
@@ -66,10 +66,10 @@ const rehypeSanitizeOptions: RehypeSanitizeOptions = {
     div: [
       ...(defaultSchema.attributes?.div ?? []),
       "data*",
-      ["className", "__boltArtifact__"],
-    ],
+      ["className", "__boltArtifact__"]
+    ]
   },
-  strip: [],
+  strip: []
 };
 
 export function remarkPlugins(limitedMarkdown: boolean) {
@@ -111,7 +111,7 @@ const limitedMarkdownPlugin: Plugin = () => {
           "emphasis",
           "table",
           "tableRow",
-          "tableCell",
+          "tableCell"
         ].includes(node.type) ||
         !node.position
       ) {
@@ -129,7 +129,7 @@ const limitedMarkdownPlugin: Plugin = () => {
 
       parent.children[index] = {
         type: "text",
-        value,
+        value
       } as any;
 
       return [SKIP, index] as const;

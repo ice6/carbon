@@ -7,11 +7,11 @@ import { z } from "zod/v3";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId, userId } = await requirePermissions(request, {
-    update: "settings",
+    update: "settings"
   });
 
   const [companies] = await Promise.all([
-    client.from("userToCompany").select("companyId").eq("userId", userId),
+    client.from("userToCompany").select("companyId").eq("userId", userId)
   ]);
 
   if (!companies.data) {
@@ -31,12 +31,12 @@ const authorizeValidator = z.object({
   client_id: z.string(),
   redirect_uri: z.string().url(),
   response_type: z.literal("code"),
-  state: z.string().optional(),
+  state: z.string().optional()
 });
 
 export async function action({ request }: ActionFunctionArgs) {
   const { client, companyId, userId } = await requirePermissions(request, {
-    update: "settings",
+    update: "settings"
   });
 
   const validation = await validator(authorizeValidator).validate(
@@ -51,7 +51,7 @@ export async function action({ request }: ActionFunctionArgs) {
 
   // Verify client_id and redirect_uri
   const [oauthClient] = await Promise.all([
-    client.from("oauthClient").select("*").eq("clientId", client_id).single(),
+    client.from("oauthClient").select("*").eq("clientId", client_id).single()
   ]);
 
   if (
@@ -72,9 +72,9 @@ export async function action({ request }: ActionFunctionArgs) {
         companyId,
         redirectUri: redirect_uri,
         createdAt: new Date().toISOString(),
-        expiresAt: new Date(Date.now() + 10 * 60 * 1000).toISOString(), // 10 minutes expiration
-      },
-    ]),
+        expiresAt: new Date(Date.now() + 10 * 60 * 1000).toISOString() // 10 minutes expiration
+      }
+    ])
   ]);
 
   if (codeResult.error) {

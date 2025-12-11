@@ -55,7 +55,7 @@ const PaymentTerm = (props: PaymentTermSelectProps) => {
             calculationMethod: "Net" as const,
             daysDue: 0,
             discountPercentage: 0,
-            daysDiscount: 0,
+            daysDiscount: 0
           }}
         />
       )}
@@ -85,7 +85,7 @@ export const usePaymentTerm = () => {
   const options = useMemo(() => {
     return (paymentTermFetcher.data?.data ?? []).map((c) => ({
       value: c.id,
-      label: c.name,
+      label: c.name
     }));
   }, [paymentTermFetcher.data?.data]);
 

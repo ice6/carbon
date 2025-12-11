@@ -10,13 +10,13 @@ import {
   Progress as ProgressComponent,
   Tooltip,
   TooltipContent,
-  TooltipTrigger,
+  TooltipTrigger
 } from "@carbon/react";
 import {
   convertDateStringToIsoString,
   formatDate,
   formatDurationMilliseconds,
-  formatRelativeTime,
+  formatRelativeTime
 } from "@carbon/utils";
 import { cva } from "class-variance-authority";
 import {
@@ -27,7 +27,7 @@ import {
   LuHardHat,
   LuSquareUser,
   LuTimer,
-  LuTrash,
+  LuTrash
 } from "react-icons/lu";
 
 import { Link } from "@remix-run/react";
@@ -67,12 +67,12 @@ const cardVariants = cva(
         Paused: "",
         Canceled: "opacity-50 border-red-500",
         Waiting: "opacity-50",
-        Todo: "border-border",
-      },
+        Todo: "border-border"
+      }
     },
     defaultVariants: {
-      status: "Todo",
-    },
+      status: "Todo"
+    }
   }
 );
 
@@ -86,7 +86,7 @@ export function ItemCard({
   showProgress,
   showStatus,
   showSalesOrder,
-  showThumbnail,
+  showThumbnail
 }: ItemCardProps) {
   const routeData = useRouteData<{
     customers: { id: string; name: string }[];
@@ -115,7 +115,7 @@ export function ItemCard({
         className={cn(
           "max-w-[330px] shadow-sm dark:shadow-sm py-0",
           cardVariants({
-            status: status,
+            status: status
           })
         )}
       >
@@ -147,8 +147,8 @@ export function ItemCard({
                     progress > (item.duration ?? 0)
                       ? "bg-red-500"
                       : status === "Paused"
-                      ? "bg-yellow-500"
-                      : ""
+                        ? "bg-yellow-500"
+                        : ""
                   }
                   numerator={
                     progress ? formatDurationMilliseconds(progress) : ""
@@ -235,10 +235,10 @@ export function ItemCard({
                     {["ASAP", "No Deadline"].includes(item.deadlineType)
                       ? item.deadlineType
                       : item.dueDate
-                      ? `Due ${formatRelativeTime(
-                          convertDateStringToIsoString(item.dueDate)
-                        )}`
-                      : "–"}
+                        ? `Due ${formatRelativeTime(
+                            convertDateStringToIsoString(item.dueDate)
+                          )}`
+                        : "–"}
                   </span>
                 </TooltipTrigger>
                 <TooltipContent side="right">

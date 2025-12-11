@@ -1,4 +1,4 @@
-import { z } from 'zod/v3';
+import { z } from "zod/v3";
 import { zfd } from "zod-form-data";
 import { address, contact } from "~/types/validators";
 import { currencyCodes } from "../accounting";
@@ -7,30 +7,30 @@ import {
   methodOperationOrders,
   methodType,
   operationTypes,
-  standardFactorType,
+  standardFactorType
 } from "../shared";
 
 export const KPIs = [
   {
     key: "quoteCount",
-    label: "Quotes",
+    label: "Quotes"
   },
   {
     key: "rfqCount",
-    label: "RFQs",
+    label: "RFQs"
   },
   {
     key: "salesFunnel",
-    label: "Sales Funnel",
+    label: "Sales Funnel"
   },
   {
     key: "salesOrderCount",
-    label: "Sales Orders",
+    label: "Sales Orders"
   },
   {
     key: "salesOrderRevenue",
-    label: "Sales Revenue",
-  },
+    label: "Sales Revenue"
+  }
   // {
   //   key: "turnaroundTime",
   //   label: "Turnaround Time",
@@ -41,25 +41,25 @@ export const salesRFQStatusType = [
   "Draft",
   "Ready for Quote",
   "Quoted",
-  "Closed",
+  "Closed"
 ] as const;
 
 export const customerAccountingValidator = z.object({
   id: zfd.text(z.string()),
   customerTypeId: zfd.text(z.string().optional()),
-  taxId: zfd.text(z.string().optional()),
+  taxId: zfd.text(z.string().optional())
 });
 
 export const customerContactValidator = z.object({
   id: zfd.text(z.string().optional()),
   ...contact,
-  customerLocationId: zfd.text(z.string().optional()),
+  customerLocationId: zfd.text(z.string().optional())
 });
 
 export const customerLocationValidator = z.object({
   id: zfd.text(z.string().optional()),
   name: zfd.text(z.string()),
-  ...address,
+  ...address
 });
 
 export const customerValidator = z.object({
@@ -74,7 +74,7 @@ export const customerValidator = z.object({
   ),
   phone: zfd.text(z.string().optional()),
   fax: zfd.text(z.string().optional()),
-  website: zfd.text(z.string().optional()),
+  website: zfd.text(z.string().optional())
 });
 
 export const customerPaymentValidator = z.object({
@@ -82,7 +82,7 @@ export const customerPaymentValidator = z.object({
   invoiceCustomerId: zfd.text(z.string().optional()),
   invoiceCustomerLocationId: zfd.text(z.string().optional()),
   invoiceCustomerContactId: zfd.text(z.string().optional()),
-  paymentTermId: zfd.text(z.string().optional()),
+  paymentTermId: zfd.text(z.string().optional())
 });
 
 export const customerShippingValidator = z.object({
@@ -91,17 +91,17 @@ export const customerShippingValidator = z.object({
   shippingCustomerLocationId: zfd.text(z.string().optional()),
   shippingCustomerContactId: zfd.text(z.string().optional()),
   // shippingTermId: zfd.text(z.string().optional()),
-  shippingMethodId: zfd.text(z.string().optional()),
+  shippingMethodId: zfd.text(z.string().optional())
 });
 
 export const customerStatusValidator = z.object({
   id: zfd.text(z.string().optional()),
-  name: z.string().min(1, { message: "Name is required" }),
+  name: z.string().min(1, { message: "Name is required" })
 });
 
 export const customerTypeValidator = z.object({
   id: zfd.text(z.string().optional()),
-  name: z.string().min(1, { message: "Name is required" }),
+  name: z.string().min(1, { message: "Name is required" })
 });
 
 export const externalQuoteValidator = z.discriminatedUnion("type", [
@@ -110,38 +110,38 @@ export const externalQuoteValidator = z.discriminatedUnion("type", [
     digitalQuoteAcceptedBy: z.string().min(1, { message: "Name is required" }),
     digitalQuoteAcceptedByEmail: z
       .string()
-      .email({ message: "Email is invalid" }),
+      .email({ message: "Email is invalid" })
   }),
   z.object({
     type: z.literal("reject"),
     digitalQuoteRejectedBy: z.string().min(1, { message: "Name is required" }),
     digitalQuoteRejectedByEmail: z
       .string()
-      .email({ message: "Email is invalid" }),
-  }),
+      .email({ message: "Email is invalid" })
+  })
 ]);
 
 export const getMethodValidator = z.object({
   type: z.enum(["item", "quoteLine", "method", "quoteToQuote"]),
   sourceId: z.string(),
-  targetId: z.string(),
+  targetId: z.string()
 });
 
 export const noQuoteReasonValidator = z.object({
   id: zfd.text(z.string().optional()),
-  name: z.string().min(1, { message: "Name is required" }),
+  name: z.string().min(1, { message: "Name is required" })
 });
 
 export const customerPortalValidator = z.object({
   id: zfd.text(z.string().optional()),
-  customerId: z.string().min(1, { message: "Customer is required" }),
+  customerId: z.string().min(1, { message: "Customer is required" })
 });
 
 export const quoteLineStatusType = [
   "Not Started",
   "In Progress",
   "Complete",
-  "No Quote",
+  "No Quote"
 ] as const;
 
 export const quoteStatusType = [
@@ -151,7 +151,7 @@ export const quoteStatusType = [
   "Partial",
   "Lost",
   "Cancelled",
-  "Expired",
+  "Expired"
 ] as const;
 
 export const quoteValidator = z.object({
@@ -173,13 +173,13 @@ export const quoteValidator = z.object({
   exchangeRate: zfd.numeric(z.number().optional()),
   exchangeRateUpdatedAt: zfd.text(z.string().optional()),
   digitalQuoteAcceptedBy: zfd.text(z.string().optional()),
-  digitalQuoteAcceptedByEmail: zfd.text(z.string().optional()),
+  digitalQuoteAcceptedByEmail: zfd.text(z.string().optional())
 });
 
 export const quoteLineAdditionalChargesValidator = z.record(
   z.object({
     description: z.string(),
-    amounts: z.record(z.number()),
+    amounts: z.record(z.number())
   })
 );
 
@@ -188,12 +188,12 @@ export const quoteLineValidator = z.object({
   quoteId: z.string(),
   itemId: z.string().min(1, { message: "Part is required" }),
   status: z.enum(quoteLineStatusType, {
-    errorMap: () => ({ message: "Status is required" }),
+    errorMap: () => ({ message: "Status is required" })
   }),
   estimatorId: zfd.text(z.string().optional()),
   description: z.string().min(1, { message: "Description is required" }),
   methodType: z.enum(methodType, {
-    errorMap: () => ({ message: "Method is required" }),
+    errorMap: () => ({ message: "Method is required" })
   }),
   customerPartId: zfd.text(z.string().optional()),
   customerPartRevision: zfd.text(z.string().optional()),
@@ -208,7 +208,7 @@ export const quoteLineValidator = z.object({
   taxPercent: zfd.numeric(
     z.number().min(0).max(1, { message: "Tax percent must be between 0 and 1" })
   ),
-  configuration: z.any().optional(),
+  configuration: z.any().optional()
 });
 
 export const quoteMaterialValidator = z
@@ -220,13 +220,13 @@ export const quoteMaterialValidator = z
     order: zfd.numeric(z.number().min(0)),
     itemType: z.enum(methodItemType, {
       errorMap: (issue, ctx) => ({
-        message: "Item type is required",
-      }),
+        message: "Item type is required"
+      })
     }),
     methodType: z.enum(methodType, {
       errorMap: (issue, ctx) => ({
-        message: "Method type is required",
-      }),
+        message: "Method type is required"
+      })
     }),
     itemId: z.string().min(1, { message: "Item is required" }),
     kit: zfd.text(z.string().optional()).transform((value) => value === "true"),
@@ -237,7 +237,7 @@ export const quoteMaterialValidator = z
     unitCost: zfd.numeric(z.number().min(0)),
     unitOfMeasureCode: z
       .string()
-      .min(1, { message: "Unit of Measure is required" }),
+      .min(1, { message: "Unit of Measure is required" })
   })
   .refine(
     (data) => {
@@ -248,7 +248,7 @@ export const quoteMaterialValidator = z
     },
     {
       message: "Part ID is required",
-      path: ["itemId"],
+      path: ["itemId"]
     }
   )
   .refine(
@@ -260,7 +260,7 @@ export const quoteMaterialValidator = z
     },
     {
       message: "Material ID is required",
-      path: ["itemId"],
+      path: ["itemId"]
     }
   )
   .refine(
@@ -272,7 +272,7 @@ export const quoteMaterialValidator = z
     },
     {
       message: "Tool ID is required",
-      path: ["itemId"],
+      path: ["itemId"]
     }
   )
   .refine(
@@ -284,7 +284,7 @@ export const quoteMaterialValidator = z
     },
     {
       message: "Consumable ID is required",
-      path: ["itemId"],
+      path: ["itemId"]
     }
   );
 
@@ -297,13 +297,13 @@ export const quoteOperationValidator = z
     order: zfd.numeric(z.number().min(0)),
     operationOrder: z.enum(methodOperationOrders, {
       errorMap: (issue, ctx) => ({
-        message: "Operation order is required",
-      }),
+        message: "Operation order is required"
+      })
     }),
     operationType: z.enum(operationTypes, {
       errorMap: (issue, ctx) => ({
-        message: "Operation type is required",
-      }),
+        message: "Operation type is required"
+      })
     }),
     processId: z.string().min(1, { message: "Process is required" }),
     procedureId: zfd.text(z.string().optional()),
@@ -313,19 +313,19 @@ export const quoteOperationValidator = z
     ),
     setupUnit: z
       .enum(standardFactorType, {
-        errorMap: () => ({ message: "Setup unit is required" }),
+        errorMap: () => ({ message: "Setup unit is required" })
       })
       .optional(),
     setupTime: zfd.numeric(z.number().min(0).optional()),
     laborUnit: z
       .enum(standardFactorType, {
-        errorMap: () => ({ message: "Labor unit is required" }),
+        errorMap: () => ({ message: "Labor unit is required" })
       })
       .optional(),
     laborTime: zfd.numeric(z.number().min(0).optional()),
     machineUnit: z
       .enum(standardFactorType, {
-        errorMap: () => ({ message: "Machine unit is required" }),
+        errorMap: () => ({ message: "Machine unit is required" })
       })
       .optional(),
     machineTime: zfd.numeric(z.number().min(0).optional()),
@@ -335,7 +335,7 @@ export const quoteOperationValidator = z
     operationSupplierProcessId: zfd.text(z.string().optional()),
     operationMinimumCost: zfd.numeric(z.number().min(0).optional()),
     operationUnitCost: zfd.numeric(z.number().min(0).optional()),
-    operationLeadTime: zfd.numeric(z.number().min(0).optional()),
+    operationLeadTime: zfd.numeric(z.number().min(0).optional())
   })
   .refine(
     (data) => {
@@ -346,7 +346,7 @@ export const quoteOperationValidator = z
     },
     {
       message: "Minimum is required",
-      path: ["operationMinimumCost"],
+      path: ["operationMinimumCost"]
     }
   )
   .refine(
@@ -358,7 +358,7 @@ export const quoteOperationValidator = z
     },
     {
       message: "Unit cost is required",
-      path: ["operationUnitCost"],
+      path: ["operationUnitCost"]
     }
   )
   .refine(
@@ -370,7 +370,7 @@ export const quoteOperationValidator = z
     },
     {
       message: "Lead time is required",
-      path: ["operationLeadTime"],
+      path: ["operationLeadTime"]
     }
   )
   .refine(
@@ -382,7 +382,7 @@ export const quoteOperationValidator = z
     },
     {
       message: "Setup unit is required",
-      path: ["setupUnit"],
+      path: ["setupUnit"]
     }
   )
   .refine(
@@ -394,7 +394,7 @@ export const quoteOperationValidator = z
     },
     {
       message: "Labor unit is required",
-      path: ["laborUnit"],
+      path: ["laborUnit"]
     }
   )
   .refine(
@@ -406,7 +406,7 @@ export const quoteOperationValidator = z
     },
     {
       message: "Machine unit is required",
-      path: ["machineUnit"],
+      path: ["machineUnit"]
     }
   )
   .refine(
@@ -418,7 +418,7 @@ export const quoteOperationValidator = z
     },
     {
       message: "Setup time is required",
-      path: ["setupTime"],
+      path: ["setupTime"]
     }
   )
   .refine(
@@ -430,7 +430,7 @@ export const quoteOperationValidator = z
     },
     {
       message: "Labor time is required",
-      path: ["laborTime"],
+      path: ["laborTime"]
     }
   )
   .refine(
@@ -442,7 +442,7 @@ export const quoteOperationValidator = z
     },
     {
       message: "Machine time is required",
-      path: ["machineTime"],
+      path: ["machineTime"]
     }
   )
   .refine(
@@ -454,7 +454,7 @@ export const quoteOperationValidator = z
     },
     {
       message: "Machine rate is required",
-      path: ["machineRate"],
+      path: ["machineRate"]
     }
   )
   .refine(
@@ -466,7 +466,7 @@ export const quoteOperationValidator = z
     },
     {
       message: "Overhead rate is required",
-      path: ["overheadRate"],
+      path: ["overheadRate"]
     }
   )
   .refine(
@@ -478,20 +478,20 @@ export const quoteOperationValidator = z
     },
     {
       message: "Labor rate is required",
-      path: ["laborRate"],
+      path: ["laborRate"]
     }
   );
 
 export const quoteFinalizeValidator = z
   .object({
     notification: z.enum(["Email", "None"]).optional(),
-    customerContact: zfd.text(z.string().optional()),
+    customerContact: zfd.text(z.string().optional())
   })
   .refine(
     (data) => (data.notification === "Email" ? data.customerContact : true),
     {
       message: "Supplier contact is required for email",
-      path: ["customerContact"], // path of error
+      path: ["customerContact"] // path of error
     }
   );
 
@@ -500,7 +500,7 @@ export const quotePaymentValidator = z.object({
   invoiceCustomerId: zfd.text(z.string().optional()),
   invoiceCustomerLocationId: zfd.text(z.string().optional()),
   invoiceCustomerContactId: zfd.text(z.string().optional()),
-  paymentTermId: zfd.text(z.string().optional()),
+  paymentTermId: zfd.text(z.string().optional())
 });
 
 export const quoteShipmentValidator = z.object({
@@ -508,7 +508,7 @@ export const quoteShipmentValidator = z.object({
   locationId: zfd.text(z.string().optional()),
   shippingMethodId: zfd.text(z.string().optional()),
   receiptRequestedDate: zfd.text(z.string().optional()),
-  shippingCost: zfd.numeric(z.number().optional()),
+  shippingCost: zfd.numeric(z.number().optional())
 });
 
 export const salesOrderLineType = [
@@ -518,7 +518,7 @@ export const salesOrderLineType = [
   "Tool",
   "Consumable",
   "Comment",
-  "Fixed Asset",
+  "Fixed Asset"
 ] as const;
 
 export const salesOrderStatusType = [
@@ -532,19 +532,19 @@ export const salesOrderStatusType = [
   "Completed",
   // "Invoiced",
   "Cancelled",
-  "Closed",
+  "Closed"
 ] as const;
 
 export const salesConfirmValidator = z
   .object({
     notification: z.enum(["Email", "None"]).optional(),
-    customerContact: zfd.text(z.string().optional()),
+    customerContact: zfd.text(z.string().optional())
   })
   .refine(
     (data) => (data.notification === "Email" ? data.customerContact : true),
     {
       message: "Customer contact is required for email",
-      path: ["customerContact"], // path of error
+      path: ["customerContact"] // path of error
     }
   );
 
@@ -565,7 +565,7 @@ export const salesOrderValidator = z.object({
   currencyCode: zfd.text(z.string()),
   exchangeRate: zfd.numeric(z.number().optional()),
   exchangeRateUpdatedAt: zfd.text(z.string().optional()),
-  salesPersonId: zfd.text(z.string().optional()),
+  salesPersonId: zfd.text(z.string().optional())
 });
 
 export const salesOrderShipmentValidator = z
@@ -584,7 +584,7 @@ export const salesOrderShipmentValidator = z
     supplierId: zfd.text(z.string().optional()),
     supplierLocationId: zfd.text(z.string().optional()),
     shippingCost: zfd.numeric(z.number().optional()),
-    notes: zfd.text(z.string().optional()),
+    notes: zfd.text(z.string().optional())
   })
   .refine(
     (data) => {
@@ -595,7 +595,7 @@ export const salesOrderShipmentValidator = z
     },
     {
       message: "Drop shipment requires supplier and location",
-      path: ["dropShipment"], // path of error
+      path: ["dropShipment"] // path of error
     }
   );
 
@@ -605,8 +605,8 @@ export const salesOrderLineValidator = z
     salesOrderId: z.string().min(1, { message: "Order is required" }),
     salesOrderLineType: z.enum(salesOrderLineType, {
       errorMap: (issue, ctx) => ({
-        message: "Type is required",
-      }),
+        message: "Type is required"
+      })
     }),
     accountNumber: zfd.text(z.string().optional()),
     shippingCost: zfd.numeric(z.number().optional()),
@@ -617,7 +617,7 @@ export const salesOrderLineValidator = z
     locationId: z.string().min(0, { message: "Location is required" }),
     methodType: z
       .enum(methodType, {
-        errorMap: () => ({ message: "Method is required" }),
+        errorMap: () => ({ message: "Method is required" })
       })
       .optional(),
     modelUploadId: zfd.text(z.string().optional()),
@@ -634,17 +634,17 @@ export const salesOrderLineValidator = z
     ),
     unitOfMeasureCode: zfd.text(z.string().optional()),
     unitPrice: zfd.numeric(z.number().optional()),
-    exchangeRate: zfd.numeric(z.number().optional()),
+    exchangeRate: zfd.numeric(z.number().optional())
   })
   .refine((data) => (data.salesOrderLineType === "Part" ? data.itemId : true), {
     message: "Part is required",
-    path: ["itemId"], // path of error
+    path: ["itemId"] // path of error
   })
   .refine(
     (data) => (data.salesOrderLineType === "Comment" ? data.description : true),
     {
       message: "Comment is required",
-      path: ["description"], // path of error
+      path: ["description"] // path of error
     }
   )
   .refine(
@@ -659,7 +659,7 @@ export const salesOrderLineValidator = z
     },
     {
       message: "Item is required for this line type",
-      path: ["itemId"],
+      path: ["itemId"]
     }
   )
   .refine(
@@ -672,7 +672,7 @@ export const salesOrderLineValidator = z
     },
     {
       message: "Method type is required",
-      path: ["methodType"],
+      path: ["methodType"]
     }
   );
 
@@ -683,19 +683,19 @@ export const salesOrderPaymentValidator = z.object({
   invoiceCustomerContactId: zfd.text(z.string().optional()),
   paymentTermId: zfd.text(z.string().optional()),
   paymentComplete: zfd.checkbox(),
-  currencyCode: z.enum(currencyCodes).optional(),
+  currencyCode: z.enum(currencyCodes).optional()
 });
 
 export const salesOrderReleaseValidator = z
   .object({
     notification: z.enum(["Email", "None"]).optional(),
-    customerContact: zfd.text(z.string().optional()),
+    customerContact: zfd.text(z.string().optional())
   })
   .refine(
     (data) => (data.notification === "Email" ? data.customerContact : true),
     {
       message: "Customer contact is required for email",
-      path: ["customerContact"], // path of error
+      path: ["customerContact"] // path of error
     }
   );
 
@@ -713,7 +713,7 @@ export const salesRfqValidator = z.object({
   locationId: zfd.text(z.string().optional()),
   rfqDate: z.string().min(1, { message: "Order Date is required" }),
   status: z.enum(salesRFQStatusType).optional(),
-  salesPersonId: zfd.text(z.string().optional()),
+  salesPersonId: zfd.text(z.string().optional())
 });
 
 export const salesRfqDragValidator = z.object({
@@ -723,7 +723,7 @@ export const salesRfqDragValidator = z.object({
   size: z.number().optional(),
   lineId: z.string().optional(),
   path: z.string(),
-  salesRfqId: z.string(),
+  salesRfqId: z.string()
 });
 
 export const salesRfqLineValidator = z.object({
@@ -740,7 +740,7 @@ export const salesRfqLineValidator = z.object({
     .string()
     .min(1, { message: "Unit of measure is required" }),
   order: zfd.numeric(z.number().min(0)),
-  modelUploadId: zfd.text(z.string().optional()),
+  modelUploadId: zfd.text(z.string().optional())
 });
 
 export const selectedLineSchema = z.object({
@@ -751,7 +751,7 @@ export const selectedLineSchema = z.object({
   leadTime: z.number(),
   netUnitPrice: z.number(),
   quantity: z.number(),
-  shippingCost: z.number(),
+  shippingCost: z.number()
 });
 
 export const selectedLinesValidator = z.record(z.string(), selectedLineSchema);

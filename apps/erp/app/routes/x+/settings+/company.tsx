@@ -10,7 +10,7 @@ import {
   CardTitle,
   Heading,
   ScrollArea,
-  VStack,
+  VStack
 } from "@carbon/react";
 import type { ActionFunctionArgs } from "@vercel/remix";
 import { json } from "@vercel/remix";
@@ -19,20 +19,20 @@ import type { Company as CompanyType } from "~/modules/settings";
 import {
   CompanyForm,
   companyValidator,
-  updateCompany,
+  updateCompany
 } from "~/modules/settings";
 import type { Handle } from "~/utils/handle";
 import { path } from "~/utils/path";
 
 export const handle: Handle = {
   breadcrumb: "Company",
-  to: path.to.company,
+  to: path.to.company
 };
 
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    update: "settings",
+    update: "settings"
   });
   const formData = await request.formData();
 
@@ -44,7 +44,7 @@ export async function action({ request }: ActionFunctionArgs) {
 
   const update = await updateCompany(client, companyId, {
     ...validation.data,
-    updatedBy: userId,
+    updatedBy: userId
   });
   if (update.error)
     return json(
@@ -75,7 +75,7 @@ export default function Company() {
     baseCurrencyCode: company.baseCurrencyCode ?? undefined,
     phone: company.phone ?? undefined,
     email: company.email ?? undefined,
-    website: company.website ?? undefined,
+    website: company.website ?? undefined
   };
 
   return (

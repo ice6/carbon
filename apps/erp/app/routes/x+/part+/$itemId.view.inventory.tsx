@@ -15,7 +15,7 @@ import {
   getItemShelfQuantities,
   getPickMethod,
   pickMethodValidator,
-  upsertPickMethod,
+  upsertPickMethod
 } from "~/modules/items";
 import { PickMethodForm } from "~/modules/items/ui/Item";
 import { getLocationsList } from "~/modules/resources";
@@ -27,7 +27,7 @@ import { path } from "~/utils/path";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId, userId } = await requirePermissions(request, {
-    view: "parts",
+    view: "parts"
   });
 
   const { itemId } = params;
@@ -67,7 +67,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   }
 
   let [partInventory] = await Promise.all([
-    getPickMethod(client, itemId, companyId, locationId),
+    getPickMethod(client, itemId, companyId, locationId)
   ]);
 
   if (partInventory.error || !partInventory.data) {
@@ -76,7 +76,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
       companyId,
       locationId,
       customFields: {},
-      createdBy: userId,
+      createdBy: userId
     });
 
     if (insertPickMethod.error) {
@@ -103,7 +103,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
   const [quantities, itemShelfQuantities] = await Promise.all([
     getItemQuantities(client, itemId, companyId, locationId),
-    getItemShelfQuantities(client, itemId, companyId, locationId),
+    getItemShelfQuantities(client, itemId, companyId, locationId)
   ]);
   if (quantities.error) {
     throw redirect(
@@ -127,14 +127,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     itemShelfQuantities: itemShelfQuantities.data,
     quantities: quantities.data,
     itemId,
-    locationId,
+    locationId
   });
 }
 
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    update: "parts",
+    update: "parts"
   });
 
   const { itemId } = params;
@@ -154,7 +154,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     ...update,
     itemId,
     customFields: setCustomFields(formData),
-    updatedBy: userId,
+    updatedBy: userId
   });
   if (updatePickMethod.error) {
     throw redirect(
@@ -190,7 +190,7 @@ export default function PartInventoryRoute() {
   const initialValues = {
     ...partInventory,
     defaultShelfId: partInventory.defaultShelfId ?? undefined,
-    ...getCustomFields(partInventory.customFields ?? {}),
+    ...getCustomFields(partInventory.customFields ?? {})
   };
 
   const [items] = useItems();

@@ -1,7 +1,7 @@
 import {
   useOptimisticLocation,
   useRouteData,
-  useUrlParams,
+  useUrlParams
 } from "@carbon/remix";
 
 import { useProgress } from "./useProgress";
@@ -12,5 +12,5 @@ export {
   useProgress,
   useRouteData,
   useUrlParams,
-  useUser,
+  useUser
 };

@@ -10,13 +10,13 @@ import { getGenericQueryFilters } from "~/utils/query";
 
 export const handle: Handle = {
   breadcrumb: "Employee Types",
-  to: path.to.employeeTypes,
+  to: path.to.employeeTypes
 };
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
     view: "users",
-    role: "employee",
+    role: "employee"
   });
 
   const url = new URL(request.url);
@@ -30,12 +30,12 @@ export async function loader({ request }: LoaderFunctionArgs) {
     limit,
     offset,
     sorts,
-    filters,
+    filters
   });
 
   return json({
     data: employeeTypes.data ?? [],
-    count: employeeTypes.count ?? 0,
+    count: employeeTypes.count ?? 0
   });
 }
 

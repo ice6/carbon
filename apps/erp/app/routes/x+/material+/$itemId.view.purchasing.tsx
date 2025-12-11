@@ -15,7 +15,7 @@ import {
   getItemCostHistory,
   getItemReplenishment,
   itemPurchasingValidator,
-  upsertItemPurchasing,
+  upsertItemPurchasing
 } from "~/modules/items";
 import { ItemPurchasingForm, SupplierParts } from "~/modules/items/ui/Item";
 import { ItemCostHistoryChart } from "~/modules/items/ui/Item/ItemCostHistoryChart";
@@ -23,7 +23,7 @@ import { path } from "~/utils/path";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    view: "parts",
+    view: "parts"
   });
 
   const { itemId } = params;
@@ -31,7 +31,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
   const [materialPurchasingResult, itemCostHistory] = await Promise.all([
     getItemReplenishment(client, itemId, companyId),
-    getItemCostHistory(client, itemId, companyId),
+    getItemCostHistory(client, itemId, companyId)
   ]);
 
   if (materialPurchasingResult.error) {
@@ -50,14 +50,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   return defer({
     materialPurchasing: materialPurchasingResult.data,
     batchProperties: getBatchProperties(client, [itemId], companyId),
-    itemCostHistory: itemCostHistory.data ?? [],
+    itemCostHistory: itemCostHistory.data ?? []
   });
 }
 
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    update: "parts",
+    update: "parts"
   });
 
   const { itemId } = params;
@@ -75,7 +75,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   const updateMaterialPurchasing = await upsertItemPurchasing(client, {
     ...validation.data,
     itemId,
-    updatedBy: userId,
+    updatedBy: userId
   });
   if (updateMaterialPurchasing.error) {
     throw redirect(
@@ -121,7 +121,7 @@ export default function MaterialPurchasingRoute() {
     purchasingBlocked: materialPurchasing?.purchasingBlocked ?? false,
     purchasingUnitOfMeasureCode:
       materialPurchasing?.purchasingUnitOfMeasureCode ?? "",
-    conversionFactor: materialPurchasing?.conversionFactor ?? 1,
+    conversionFactor: materialPurchasing?.conversionFactor ?? 1
   };
 
   return (

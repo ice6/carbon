@@ -8,7 +8,7 @@ import { splitValidator } from "~/modules/inventory";
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    update: "inventory",
+    update: "inventory"
   });
 
   const formData = await request.formData();
@@ -16,7 +16,7 @@ export async function action({ request }: ActionFunctionArgs) {
 
   if (validation.error) {
     return json({
-      success: false,
+      success: false
     });
   }
 
@@ -30,13 +30,13 @@ export async function action({ request }: ActionFunctionArgs) {
 
   if (receiptLine.error) {
     return json({
-      success: false,
+      success: false
     });
   }
 
   if (receiptLine.data.companyId !== companyId) {
     return json({
-      success: false,
+      success: false
     });
   }
 
@@ -52,14 +52,14 @@ export async function action({ request }: ActionFunctionArgs) {
       receiptId: documentId,
       receiptLineId: documentLineId,
       quantity,
-      userId: userId,
+      userId: userId
     },
-    region: FunctionRegion.UsEast1,
+    region: FunctionRegion.UsEast1
   });
 
   if (salesOrderShipment.error) {
     return json({
-      success: false,
+      success: false
     });
   }
 

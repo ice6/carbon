@@ -6,14 +6,14 @@ import type { ActionFunctionArgs } from "@vercel/remix";
 import { redirect } from "@vercel/remix";
 import {
   insertManualInventoryAdjustment,
-  inventoryAdjustmentValidator,
+  inventoryAdjustmentValidator
 } from "~/modules/inventory";
 import { path, requestReferrer } from "~/utils/path";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    create: "inventory",
+    create: "inventory"
   });
 
   const { itemId } = params;
@@ -32,7 +32,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   const itemLedger = await insertManualInventoryAdjustment(client, {
     ...data,
     companyId,
-    createdBy: userId,
+    createdBy: userId
   });
 
   if (itemLedger.error) {

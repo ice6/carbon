@@ -6,7 +6,7 @@ import {
   LuFactory,
   LuFileText,
   LuShoppingCart,
-  LuTags,
+  LuTags
 } from "react-icons/lu";
 import { usePermissions, useRouteData } from "~/hooks";
 import type { Role } from "~/types";
@@ -34,7 +34,7 @@ export function useToolNavigation() {
       name: "Details",
       to: path.to.toolDetails(itemId),
       icon: LuFileText,
-      shortcut: "Command+Shift+d",
+      shortcut: "Command+Shift+d"
     },
     {
       name: "Purchasing",
@@ -43,7 +43,7 @@ export function useToolNavigation() {
       role: ["employee", "supplier"],
       permission: "purchasing",
       icon: LuShoppingCart,
-      shortcut: "Command+Shift+p",
+      shortcut: "Command+Shift+p"
     },
     {
       name: "Manufacturing",
@@ -52,7 +52,7 @@ export function useToolNavigation() {
       role: ["employee"],
       icon: LuFactory,
       shortcut: "Command+Shift+m",
-      isActive: (pathname: string) => pathname.includes("manufacturing"),
+      isActive: (pathname: string) => pathname.includes("manufacturing")
     },
     {
       name: "Costing",
@@ -60,7 +60,7 @@ export function useToolNavigation() {
       role: ["employee"],
       permission: "purchasing",
       icon: LuTags,
-      shortcut: "Command+Shift+c",
+      shortcut: "Command+Shift+c"
     },
     {
       name: "Planning",
@@ -68,7 +68,7 @@ export function useToolNavigation() {
       isDisabled: itemTrackingType === "Non-Inventory",
       role: ["employee"],
       icon: LuChartLine,
-      shortcut: "Command+Shift+p",
+      shortcut: "Command+Shift+p"
     },
     {
       name: "Inventory",
@@ -76,8 +76,8 @@ export function useToolNavigation() {
       isDisabled: itemTrackingType === "Non-Inventory",
       role: ["employee", "supplier"],
       icon: LuBox,
-      shortcut: "Command+Shift+i",
-    },
+      shortcut: "Command+Shift+i"
+    }
   ].filter(
     (item) =>
       !item.isDisabled &&

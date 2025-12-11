@@ -14,7 +14,7 @@ import {
   ModalOverlay,
   ModalTitle,
   useDebounce,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { useFetcher, useParams } from "@remix-run/react";
 import { Reorder, useDragControls } from "framer-motion";
@@ -30,7 +30,7 @@ function ReorderableTaskItem({
   taskId,
   task,
   suppliers,
-  isDisabled,
+  isDisabled
 }: {
   taskId: string;
   task: IssueActionTask;
@@ -61,7 +61,7 @@ function ReorderableTaskItem({
 export function ActionTasksList({
   tasks,
   suppliers,
-  isDisabled,
+  isDisabled
 }: {
   tasks: IssueActionTask[];
   suppliers: { supplierId: string; externalLinkId: string | null }[];
@@ -103,7 +103,7 @@ export function ActionTasksList({
       formData.append("updates", JSON.stringify(updates));
       sortOrderFetcher.submit(formData, {
         method: "post",
-        action: path.to.issueActionTasksOrder,
+        action: path.to.issueActionTasksOrder
       });
     },
     1000,
@@ -174,7 +174,7 @@ function NewAction({ isDisabled }: { isDisabled: boolean }) {
 
     fetcher.submit(formData, {
       method: "post",
-      action: path.to.bulkUpdateIssue,
+      action: path.to.bulkUpdateIssue
     });
   }, [id, selectedActionIds, fetcher]);
 

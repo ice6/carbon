@@ -15,7 +15,7 @@ import {
   ModalCardProvider,
   ModalCardTitle,
   toast,
-  VStack,
+  VStack
 } from "@carbon/react";
 
 import { useCarbon } from "@carbon/auth";
@@ -24,7 +24,7 @@ import { getItemReadableId } from "@carbon/utils";
 import { useParams } from "@remix-run/react";
 import { useEffect, useState } from "react";
 import { LuCircleAlert } from "react-icons/lu";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import { MethodIcon } from "~/components";
 import {
   CustomFormFields,
@@ -35,14 +35,14 @@ import {
   NumberControlled,
   SelectControlled,
   Shelf,
-  Submit,
+  Submit
 } from "~/components/Form";
 import {
   useCurrencyFormatter,
   usePercentFormatter,
   usePermissions,
   useRouteData,
-  useUser,
+  useUser
 } from "~/hooks";
 import type { SalesInvoice } from "~/modules/invoicing";
 import { salesInvoiceLineValidator } from "~/modules/invoicing";
@@ -64,7 +64,7 @@ const SalesInvoiceLineForm = ({
   initialValues,
   type,
   isSalesOrderLine = false,
-  onClose,
+  onClose
 }: SalesInvoiceLineFormProps) => {
   const permissions = usePermissions();
   const { carbon } = useCarbon();
@@ -109,7 +109,7 @@ const SalesInvoiceLineForm = ({
       ((initialValues.unitPrice ?? 0) * (initialValues.quantity ?? 1) +
         (initialValues.shippingCost ?? 0)) *
       (initialValues.taxPercent ?? 0),
-    taxPercent: initialValues.taxPercent ?? 0,
+    taxPercent: initialValues.taxPercent ?? 0
   });
 
   // update tax amount when quantity or unit price changes
@@ -119,14 +119,14 @@ const SalesInvoiceLineForm = ({
     if (itemData.taxPercent !== 0) {
       setItemData((d) => ({
         ...d,
-        taxAmount: subtotal * itemData.taxPercent,
+        taxAmount: subtotal * itemData.taxPercent
       }));
     }
   }, [
     itemData.unitPrice,
     itemData.quantity,
     itemData.shippingCost,
-    itemData.taxPercent,
+    itemData.taxPercent
   ]);
 
   const isEditing = initialValues.id !== undefined;
@@ -135,10 +135,10 @@ const SalesInvoiceLineForm = ({
   const isDisabled = !isEditable
     ? true
     : hasInvalidMethodType
-    ? true
-    : isEditing
-    ? !permissions.can("update", "purchasing")
-    : !permissions.can("create", "purchasing");
+      ? true
+      : isEditing
+        ? !permissions.can("update", "purchasing")
+        : !permissions.can("create", "purchasing");
 
   const onTypeChange = (t: MethodItemType | "Item") => {
     if (t === itemType) return;
@@ -153,7 +153,7 @@ const SalesInvoiceLineForm = ({
       unitOfMeasureCode: "",
       shelfId: "",
       taxAmount: 0,
-      taxPercent: 0,
+      taxPercent: 0
     });
   };
 
@@ -181,7 +181,7 @@ const SalesInvoiceLineForm = ({
             .eq("itemId", itemId)
             .eq("companyId", company.id)
             .eq("locationId", locationId!)
-            .maybeSingle(),
+            .maybeSingle()
         ]);
 
         const itemCost = item?.data?.itemCost?.[0];
@@ -204,7 +204,7 @@ const SalesInvoiceLineForm = ({
             unitOfMeasureCode: "",
             shelfId: "",
             taxAmount: 0,
-            taxPercent: 0,
+            taxPercent: 0
           });
           return;
         }
@@ -221,7 +221,7 @@ const SalesInvoiceLineForm = ({
           unitOfMeasureCode: item.data?.unitOfMeasureCode ?? "EA",
           shelfId: inventory.data?.defaultShelfId ?? null,
           taxAmount: 0,
-          taxPercent: 0,
+          taxPercent: 0
         }));
 
         if (item.data?.type) {
@@ -253,7 +253,7 @@ const SalesInvoiceLineForm = ({
 
     setItemData((d) => ({
       ...d,
-      shelfId: shelf?.data?.defaultShelfId ?? "",
+      shelfId: shelf?.data?.defaultShelfId ?? ""
     }));
   };
 
@@ -289,7 +289,7 @@ const SalesInvoiceLineForm = ({
                 )}
               >
                 {isEditing
-                  ? getItemReadableId(items, itemData?.itemId) ?? "..."
+                  ? (getItemReadableId(items, itemData?.itemId) ?? "...")
                   : "New Sales Invoice Line"}
               </ModalCardTitle>
               <ModalCardDescription>
@@ -368,7 +368,7 @@ const SalesInvoiceLineForm = ({
                       onChange={(e) =>
                         setItemData((d) => ({
                           ...d,
-                          description: e.target.value,
+                          description: e.target.value
                         }))
                       }
                     />
@@ -390,7 +390,7 @@ const SalesInvoiceLineForm = ({
                                   {m}
                                 </span>
                               ),
-                              value: m,
+                              value: m
                             })) ?? []
                           }
                           value={itemData.methodType}
@@ -398,7 +398,7 @@ const SalesInvoiceLineForm = ({
                             if (newValue)
                               setItemData((d) => ({
                                 ...d,
-                                methodType: newValue?.value,
+                                methodType: newValue?.value
                               }));
                           }}
                         />
@@ -411,7 +411,7 @@ const SalesInvoiceLineForm = ({
                         onChange={(value) => {
                           setItemData((d) => ({
                             ...d,
-                            quantity: value,
+                            quantity: value
                           }));
                         }}
                       />
@@ -424,12 +424,12 @@ const SalesInvoiceLineForm = ({
                           style: "currency",
                           currency:
                             routeData?.salesInvoice?.currencyCode ??
-                            company.baseCurrencyCode,
+                            company.baseCurrencyCode
                         }}
                         onChange={(value) =>
                           setItemData((d) => ({
                             ...d,
-                            unitPrice: value,
+                            unitPrice: value
                           }))
                         }
                       />
@@ -442,12 +442,12 @@ const SalesInvoiceLineForm = ({
                           style: "currency",
                           currency:
                             routeData?.salesInvoice?.currencyCode ??
-                            company.baseCurrencyCode,
+                            company.baseCurrencyCode
                         }}
                         onChange={(value) =>
                           setItemData((d) => ({
                             ...d,
-                            shippingCost: value,
+                            shippingCost: value
                           }))
                         }
                       />
@@ -459,7 +459,7 @@ const SalesInvoiceLineForm = ({
                           style: "currency",
                           currency:
                             routeData?.salesInvoice?.currencyCode ??
-                            company.baseCurrencyCode,
+                            company.baseCurrencyCode
                         }}
                       />
 
@@ -471,7 +471,7 @@ const SalesInvoiceLineForm = ({
                           style: "currency",
                           currency:
                             routeData?.salesInvoice?.currencyCode ??
-                            company.baseCurrencyCode,
+                            company.baseCurrencyCode
                         }}
                         onChange={(value) => {
                           const subtotal =
@@ -480,7 +480,7 @@ const SalesInvoiceLineForm = ({
                           setItemData((d) => ({
                             ...d,
                             taxAmount: value,
-                            taxPercent: subtotal > 0 ? value / subtotal : 0,
+                            taxPercent: subtotal > 0 ? value / subtotal : 0
                           }));
                         }}
                       />
@@ -500,7 +500,7 @@ const SalesInvoiceLineForm = ({
                           if (newValue) {
                             setItemData((d) => ({
                               ...d,
-                              shelfId: newValue?.id,
+                              shelfId: newValue?.id
                             }));
                           }
                         }}
@@ -517,7 +517,7 @@ const SalesInvoiceLineForm = ({
                     formatOptions={{
                       style: "percent",
                       minimumFractionDigits: 0,
-                      maximumFractionDigits: 2,
+                      maximumFractionDigits: 2
                     }}
                     onChange={(value) => {
                       const subtotal =
@@ -526,7 +526,7 @@ const SalesInvoiceLineForm = ({
                       setItemData((d) => ({
                         ...d,
                         taxPercent: value,
-                        taxAmount: subtotal * value,
+                        taxAmount: subtotal * value
                       }));
                     }}
                   />

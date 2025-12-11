@@ -8,7 +8,7 @@ import { favoriteSchema } from "~/types/validators";
 
 export async function action({ request }: ActionFunctionArgs) {
   const { client, userId } = await requirePermissions(request, {
-    view: "sales",
+    view: "sales"
   });
 
   const validation = await validator(favoriteSchema).validate(
@@ -23,7 +23,7 @@ export async function action({ request }: ActionFunctionArgs) {
   const result = await updateSalesOrderFavorite(client, {
     id,
     favorite: favorite === "favorite",
-    userId,
+    userId
   });
 
   if (result.error) {

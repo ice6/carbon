@@ -2,14 +2,14 @@ import {
   assertIsPost,
   error,
   getCarbonServiceRole,
-  success,
+  success
 } from "@carbon/auth";
 import { requirePermissions } from "@carbon/auth/auth.server";
 import { flash } from "@carbon/auth/session.server";
 import { redirect, type ActionFunctionArgs } from "@vercel/remix";
 import {
   convertSupplierQuoteToOrder,
-  selectedLinesValidator,
+  selectedLinesValidator
 } from "~/modules/purchasing";
 import { path } from "~/utils/path";
 
@@ -18,7 +18,7 @@ import { path } from "~/utils/path";
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { companyId, userId } = await requirePermissions(request, {
-    create: "purchasing",
+    create: "purchasing"
   });
 
   const { id } = params;
@@ -53,7 +53,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     id: id,
     companyId,
     userId,
-    selectedLines,
+    selectedLines
   });
 
   if (convert.error) {

@@ -24,7 +24,7 @@ import {
   toast,
   useDisclosure,
   useMount,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { labelSizes } from "@carbon/utils";
 import {
@@ -32,7 +32,7 @@ import {
   Link,
   useFetcher,
   useLocation,
-  useParams,
+  useParams
 } from "@remix-run/react";
 import { Suspense, useEffect, useState } from "react";
 import {
@@ -42,7 +42,7 @@ import {
   LuListChecks,
   LuQrCode,
   LuSquareStack,
-  LuTriangleAlert,
+  LuTriangleAlert
 } from "react-icons/lu";
 import { RiProgress4Line } from "react-icons/ri";
 import { ConfiguratorModal } from "~/components/Configurator/ConfiguratorForm";
@@ -51,7 +51,7 @@ import type { Tree } from "~/components/TreeView";
 import { usePermissions, useRouteData, useUser } from "~/hooks";
 import type {
   ConfigurationParameter,
-  ConfigurationParameterGroup,
+  ConfigurationParameterGroup
 } from "~/modules/items";
 import { getConfigurationParameters } from "~/modules/items";
 import { getLinkToItemDetails } from "~/modules/items/ui/Item/ItemForm";
@@ -151,7 +151,7 @@ const JobMakeMethodTools = ({ makeMethod }: { makeMethod?: JobMakeMethod }) => {
     fetcher.submit(JSON.stringify(configuration), {
       method: "post",
       action: path.to.jobConfigure(jobId),
-      encType: "application/json",
+      encType: "application/json"
     });
   };
 
@@ -160,7 +160,7 @@ const JobMakeMethodTools = ({ makeMethod }: { makeMethod?: JobMakeMethod }) => {
     zpl: boolean,
     {
       labelSize,
-      trackedEntityId,
+      trackedEntityId
     }: { labelSize?: string; trackedEntityId?: string } = {}
   ) => {
     if (!window) return;
@@ -170,7 +170,7 @@ const JobMakeMethodTools = ({ makeMethod }: { makeMethod?: JobMakeMethod }) => {
       window.open(
         window.location.origin +
           path.to.file.operationLabelsZpl(makeMethodId, {
-            labelSize,
+            labelSize
           }),
         "_blank"
       );
@@ -178,7 +178,7 @@ const JobMakeMethodTools = ({ makeMethod }: { makeMethod?: JobMakeMethod }) => {
       window.open(
         window.location.origin +
           path.to.file.operationLabelsPdf(makeMethodId, {
-            labelSize,
+            labelSize
           }),
         "_blank"
       );
@@ -186,7 +186,7 @@ const JobMakeMethodTools = ({ makeMethod }: { makeMethod?: JobMakeMethod }) => {
   };
 
   const {
-    company: { id: companyId },
+    company: { id: companyId }
   } = useUser();
   const [makeMethods, setMakeMethods] = useState<
     { label: JSX.Element; value: string }[]
@@ -198,7 +198,7 @@ const JobMakeMethodTools = ({ makeMethod }: { makeMethod?: JobMakeMethod }) => {
     useState(false);
   const [
     sourceItemConfigurationParameters,
-    setSourceItemConfigurationParameters,
+    setSourceItemConfigurationParameters
   ] = useState<{
     groups: ConfigurationParameterGroup[];
     parameters: ConfigurationParameter[];
@@ -228,7 +228,7 @@ const JobMakeMethodTools = ({ makeMethod }: { makeMethod?: JobMakeMethod }) => {
             <MakeMethodVersionStatus status={status} />
           </div>
         ),
-        value: id,
+        value: id
       })) ?? []
     );
 
@@ -312,8 +312,8 @@ const JobMakeMethodTools = ({ makeMethod }: { makeMethod?: JobMakeMethod }) => {
                         label: size.name,
                         onClick: () =>
                           navigateToTrackingLabels(makeMethod.id, !!size.zpl, {
-                            labelSize: size.id,
-                          }),
+                            labelSize: size.id
+                          })
                       }))}
                       leftIcon={<LuQrCode />}
                       variant="ghost"
@@ -348,7 +348,7 @@ const JobMakeMethodTools = ({ makeMethod }: { makeMethod?: JobMakeMethod }) => {
                   e.preventDefault();
                   e.stopPropagation();
                 }
-                
+
                 const sourceId = data.sourceId as string;
                 // Get type from the form element since it's not in validated data
                 const formElement = e?.target as HTMLFormElement;
@@ -356,7 +356,11 @@ const JobMakeMethodTools = ({ makeMethod }: { makeMethod?: JobMakeMethod }) => {
                 const type = formData.get("type") as string;
 
                 // Only check configuration for "item" and "method" types, not "quoteLine"
-                if (sourceId && carbon && (type === "item" || type === "method")) {
+                if (
+                  sourceId &&
+                  carbon &&
+                  (type === "item" || type === "method")
+                ) {
                   // Store the form data for later use (include type which isn't in validated data)
                   setPendingGetMethodData({ ...data, type });
 
@@ -386,10 +390,13 @@ const JobMakeMethodTools = ({ makeMethod }: { makeMethod?: JobMakeMethod }) => {
                     configuratorModal.onOpen();
                   } else {
                     // No configuration needed, proceed with normal submission
-                    fetcher.submit({ ...data, type }, {
-                      method: "post",
-                      action: path.to.jobMethodGet,
-                    });
+                    fetcher.submit(
+                      { ...data, type },
+                      {
+                        method: "post",
+                        action: path.to.jobMethodGet
+                      }
+                    );
                     getMethodModal.onClose();
                   }
                 } else {
@@ -398,7 +405,7 @@ const JobMakeMethodTools = ({ makeMethod }: { makeMethod?: JobMakeMethod }) => {
                   const dataWithType = type ? { ...data, type } : data;
                   fetcher.submit(dataWithType, {
                     method: "post",
-                    action: path.to.jobMethodGet,
+                    action: path.to.jobMethodGet
                   });
                   getMethodModal.onClose();
                 }
@@ -505,8 +512,8 @@ const JobMakeMethodTools = ({ makeMethod }: { makeMethod?: JobMakeMethod }) => {
               defaultValues={{
                 // @ts-expect-error
                 itemId: isJobMethod
-                  ? routeData?.job?.itemId ?? undefined
-                  : undefined,
+                  ? (routeData?.job?.itemId ?? undefined)
+                  : undefined
               }}
               onSubmit={saveMethodModal.onClose}
             >
@@ -621,7 +628,7 @@ const JobMakeMethodTools = ({ makeMethod }: { makeMethod?: JobMakeMethod }) => {
                 setSourceItemRequiresConfiguration(false);
                 setSourceItemConfigurationParameters({
                   groups: [],
-                  parameters: [],
+                  parameters: []
                 });
               }}
               onSubmit={(config: Record<string, any>) => {
@@ -629,12 +636,12 @@ const JobMakeMethodTools = ({ makeMethod }: { makeMethod?: JobMakeMethod }) => {
                 if (pendingGetMethodData) {
                   const dataWithConfig = {
                     ...pendingGetMethodData,
-                    configuration: JSON.stringify(config),
+                    configuration: JSON.stringify(config)
                   };
 
                   fetcher.submit(dataWithConfig, {
                     method: "post",
-                    action: path.to.jobMethodGet,
+                    action: path.to.jobMethodGet
                   });
 
                   setPendingGetMethodData(null);
@@ -644,7 +651,7 @@ const JobMakeMethodTools = ({ makeMethod }: { makeMethod?: JobMakeMethod }) => {
                 setSourceItemRequiresConfiguration(false);
                 setSourceItemConfigurationParameters({
                   groups: [],
-                  parameters: [],
+                  parameters: []
                 });
               }}
             />

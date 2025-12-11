@@ -1,9 +1,9 @@
 import { zfd } from "zod-form-data";
-import { z } from 'zod/v3';
+import { z } from "zod/v3";
 import { months } from "~/modules/shared";
 import {
   itemLedgerDocumentTypes,
-  itemLedgerTypes,
+  itemLedgerTypes
 } from "../inventory/inventory.models";
 
 export const accountTypes = [
@@ -11,13 +11,13 @@ export const accountTypes = [
   // "Heading",
   "Total",
   "Begin Total",
-  "End Total",
+  "End Total"
 ] as const;
 
 export const consolidatedRateTypes = [
   "Average",
   "Current",
-  "Historical",
+  "Historical"
 ] as const;
 
 const costLedgerTypes = [
@@ -26,7 +26,7 @@ const costLedgerTypes = [
   "Rounding",
   "Indirect Cost",
   "Variance",
-  "Total",
+  "Total"
 ] as const;
 
 export const journalLineDocumentType = [
@@ -34,19 +34,19 @@ export const journalLineDocumentType = [
   "Invoice",
   "Credit Memo",
   "Blanket Order",
-  "Return Order",
+  "Return Order"
 ] as const;
 
 export const incomeBalanceTypes = [
   "Balance Sheet",
-  "Income Statement",
+  "Income Statement"
 ] as const;
 export const accountClassTypes = [
   "Asset",
   "Liability",
   "Equity",
   "Revenue",
-  "Expense",
+  "Expense"
 ] as const;
 
 export const accountValidator = z
@@ -56,23 +56,23 @@ export const accountValidator = z
     name: z.string().min(1, { message: "Name is required" }),
     type: z.enum(accountTypes, {
       errorMap: (issue, ctx) => ({
-        message: "Type is required",
-      }),
+        message: "Type is required"
+      })
     }),
     accountCategoryId: zfd.text(z.string().optional()),
     accountSubcategoryId: zfd.text(z.string().optional()),
     incomeBalance: z.enum(incomeBalanceTypes, {
       errorMap: (issue, ctx) => ({
-        message: "Income balance is required",
-      }),
+        message: "Income balance is required"
+      })
     }),
     class: z.enum(accountClassTypes, {
       errorMap: (issue, ctx) => ({
-        message: "Class is required",
-      }),
+        message: "Class is required"
+      })
     }),
     consolidatedRate: z.enum(consolidatedRateTypes),
-    directPosting: zfd.checkbox(),
+    directPosting: zfd.checkbox()
   })
   .refine(
     (data) => {
@@ -83,7 +83,7 @@ export const accountValidator = z
     },
     {
       message: "Asset, Liability and Equity are Balance Sheet accounts",
-      path: ["class"],
+      path: ["class"]
     }
   )
   .refine(
@@ -95,7 +95,7 @@ export const accountValidator = z
     },
     {
       message: "Revenue and Expense are Income Statement accounts",
-      path: ["class"],
+      path: ["class"]
     }
   )
   .refine(
@@ -117,7 +117,7 @@ export const accountValidator = z
     },
     {
       message: "Account number cannot start or end with a dot",
-      path: ["number"],
+      path: ["number"]
     }
   )
   .refine(
@@ -130,7 +130,7 @@ export const accountValidator = z
     },
     {
       message: "Account number cannot include two consecutive dots",
-      path: ["number"],
+      path: ["number"]
     }
   );
 
@@ -139,27 +139,27 @@ export const accountCategoryValidator = z.object({
   category: z.string().min(1, { message: "Category is required" }),
   incomeBalance: z.enum(incomeBalanceTypes, {
     errorMap: (issue, ctx) => ({
-      message: "Income balance is required",
-    }),
+      message: "Income balance is required"
+    })
   }),
   class: z.enum(accountClassTypes, {
     errorMap: (issue, ctx) => ({
-      message: "Class is required",
-    }),
-  }),
+      message: "Class is required"
+    })
+  })
 });
 
 export const fiscalYearSettingsValidator = z.object({
   startMonth: z.enum(months, {
     errorMap: (issue, ctx) => ({
-      message: "Start month is required",
-    }),
+      message: "Start month is required"
+    })
   }),
   taxStartMonth: z.enum(months, {
     errorMap: (issue, ctx) => ({
-      message: "Tax start month is required",
-    }),
-  }),
+      message: "Tax start month is required"
+    })
+  })
 });
 
 export const journalLineValidator = z.object({
@@ -169,147 +169,147 @@ export const journalLineValidator = z.object({
   amount: z.number(),
   documentType: z.union([z.enum(journalLineDocumentType), z.undefined()]),
   documentId: z.string().optional(),
-  externalDocumentId: z.string().optional(),
+  externalDocumentId: z.string().optional()
 });
 
 export const accountSubcategoryValidator = z.object({
   id: zfd.text(z.string().optional()),
   name: z.string().min(1, { message: "Name is required" }),
-  accountCategoryId: z.string().min(1, { message: "Category is required" }),
+  accountCategoryId: z.string().min(1, { message: "Category is required" })
 });
 
 export const currencyValidator = z.object({
   id: zfd.text(z.string().optional()),
   code: z.string().min(1, { message: "Code is required" }),
   decimalPlaces: zfd.numeric(z.number().min(0).max(4)),
-  exchangeRate: zfd.numeric(z.number().min(0, { message: "Rate is required" })),
+  exchangeRate: zfd.numeric(z.number().min(0, { message: "Rate is required" }))
 });
 
 export const defaultBalanceSheetAccountValidator = z.object({
   inventoryAccount: z.string().min(1, {
-    message: "Inventory account is required",
+    message: "Inventory account is required"
   }),
   inventoryInterimAccrualAccount: z.string().min(1, {
-    message: "Inventory interim accrual account is required",
+    message: "Inventory interim accrual account is required"
   }),
   inventoryReceivedNotInvoicedAccount: z.string().min(1, {
-    message: "Inventory received not invoiced account is required",
+    message: "Inventory received not invoiced account is required"
   }),
   inventoryInvoicedNotReceivedAccount: z.string().min(1, {
-    message: "Inventory invoiced not received account is required",
+    message: "Inventory invoiced not received account is required"
   }),
   inventoryShippedNotInvoicedAccount: z.string().min(1, {
-    message: "Inventory shipped not invoiced account is required",
+    message: "Inventory shipped not invoiced account is required"
   }),
   workInProgressAccount: z.string().min(1, {
-    message: "Work in progress account is required",
+    message: "Work in progress account is required"
   }),
   receivablesAccount: z.string().min(1, {
-    message: "Receivables account is required",
+    message: "Receivables account is required"
   }),
   bankCashAccount: z.string().min(1, {
-    message: "Bank cash account is required",
+    message: "Bank cash account is required"
   }),
   bankLocalCurrencyAccount: z.string().min(1, {
-    message: "Bank local currency account is required",
+    message: "Bank local currency account is required"
   }),
   bankForeignCurrencyAccount: z.string().min(1, {
-    message: "Bank foreign currency account is required",
+    message: "Bank foreign currency account is required"
   }),
   assetAquisitionCostAccount: z.string().min(1, {
-    message: "Aquisition cost account is required",
+    message: "Aquisition cost account is required"
   }),
   assetAquisitionCostOnDisposalAccount: z.string().min(1, {
-    message: "Aquisition cost on disposal account is required",
+    message: "Aquisition cost on disposal account is required"
   }),
   accumulatedDepreciationAccount: z.string().min(1, {
-    message: "Accumulated depreciation account is required",
+    message: "Accumulated depreciation account is required"
   }),
   accumulatedDepreciationOnDisposalAccount: z.string().min(1, {
-    message: "Accumulated depreciation on disposal account is required",
+    message: "Accumulated depreciation on disposal account is required"
   }),
   prepaymentAccount: z.string().min(1, {
-    message: "Prepayment account is required",
+    message: "Prepayment account is required"
   }),
   payablesAccount: z.string().min(1, {
-    message: "Payables account is required",
+    message: "Payables account is required"
   }),
   salesTaxPayableAccount: z.string().min(1, {
-    message: "Sales tax payable account is required",
+    message: "Sales tax payable account is required"
   }),
   purchaseTaxPayableAccount: z.string().min(1, {
-    message: "Purchase tax payable account is required",
+    message: "Purchase tax payable account is required"
   }),
   reverseChargeSalesTaxPayableAccount: z.string().min(1, {
-    message: "Reverse charge sales tax payable account is required",
+    message: "Reverse charge sales tax payable account is required"
   }),
   retainedEarningsAccount: z.string().min(1, {
-    message: "Retained earnings account is required",
-  }),
+    message: "Retained earnings account is required"
+  })
 });
 
 export const defaultIncomeAcountValidator = z.object({
   salesAccount: z.string().min(1, { message: "Sales account is required" }),
   salesDiscountAccount: z.string().min(1, {
-    message: "Sales discount account is required",
+    message: "Sales discount account is required"
   }),
   costOfGoodsSoldAccount: z.string().min(1, {
-    message: "Cost of goods sold account is required",
+    message: "Cost of goods sold account is required"
   }),
   purchaseAccount: z.string().min(1, {
-    message: "Purchase account is required",
+    message: "Purchase account is required"
   }),
   directCostAppliedAccount: z.string().min(1, {
-    message: "Direct cost applied account is required",
+    message: "Direct cost applied account is required"
   }),
   overheadCostAppliedAccount: z.string().min(1, {
-    message: "Overhead cost applied account is required",
+    message: "Overhead cost applied account is required"
   }),
   purchaseVarianceAccount: z.string().min(1, {
-    message: "Purchase variance account is required",
+    message: "Purchase variance account is required"
   }),
   inventoryAdjustmentVarianceAccount: z.string().min(1, {
-    message: "Inventory adjustment variance account is required",
+    message: "Inventory adjustment variance account is required"
   }),
   materialVarianceAccount: z.string().min(1, {
-    message: "Material variance account is required",
+    message: "Material variance account is required"
   }),
   capacityVarianceAccount: z.string().min(1, {
-    message: "Capacity variance account is required",
+    message: "Capacity variance account is required"
   }),
   overheadAccount: z.string().min(1, {
-    message: "Overhead account is required",
+    message: "Overhead account is required"
   }),
   maintenanceAccount: z.string().min(1, {
-    message: "Maintenance account is required",
+    message: "Maintenance account is required"
   }),
   assetDepreciationExpenseAccount: z.string().min(1, {
-    message: "Depreciation expense account is required",
+    message: "Depreciation expense account is required"
   }),
   assetGainsAndLossesAccount: z.string().min(1, {
-    message: "Gains and losses account is required",
+    message: "Gains and losses account is required"
   }),
   serviceChargeAccount: z.string().min(1, {
-    message: "Service charge account is required",
+    message: "Service charge account is required"
   }),
   interestAccount: z.string().min(1, {
-    message: "Interest account is required",
+    message: "Interest account is required"
   }),
   supplierPaymentDiscountAccount: z.string().min(1, {
-    message: "Supplier payment discount account is required",
+    message: "Supplier payment discount account is required"
   }),
   customerPaymentDiscountAccount: z.string().min(1, {
-    message: "Customer payment discount account is required",
+    message: "Customer payment discount account is required"
   }),
   roundingAccount: z.string().min(1, {
-    message: "Rounding account is required",
-  }),
+    message: "Rounding account is required"
+  })
 });
 
 export const paymentTermsCalculationMethod = [
   "Net",
   "End of Month",
-  "Day of Month",
+  "Day of Month"
 ] as const;
 
 export const paymentTermValidator = z.object({
@@ -329,17 +329,17 @@ export const paymentTermValidator = z.object({
     z
       .number()
       .min(0, {
-        message: "Discount percent must be greater than or equal to 0",
+        message: "Discount percent must be greater than or equal to 0"
       })
       .max(100, {
-        message: "Discount percent must be less than or equal to 100",
+        message: "Discount percent must be less than or equal to 100"
       })
   ),
   calculationMethod: z.enum(["Net", "End of Month", "Day of Month"], {
     errorMap: (issue, ctx) => ({
-      message: "Calculation method is required",
-    }),
-  }),
+      message: "Calculation method is required"
+    })
+  })
 });
 
 export const costLedgerValidator = z.object({
@@ -352,5 +352,5 @@ export const costLedgerValidator = z.object({
   itemId: zfd.text(z.string()),
   quantity: z.number(),
   cost: z.number(),
-  costPostedToGL: z.number(),
+  costPostedToGL: z.number()
 });

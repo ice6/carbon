@@ -8,7 +8,7 @@ import { json, redirect } from "@vercel/remix";
 import {
   EmployeesTable,
   getEmployeeTypes,
-  getEmployees,
+  getEmployees
 } from "~/modules/users";
 import type { Handle } from "~/utils/handle";
 import { path } from "~/utils/path";
@@ -16,14 +16,14 @@ import { getGenericQueryFilters } from "~/utils/query";
 
 export const handle: Handle = {
   breadcrumb: "Employees",
-  to: path.to.employeeAccounts,
+  to: path.to.employeeAccounts
 };
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
     view: "users",
     role: "employee",
-    bypassRls: true,
+    bypassRls: true
   });
 
   const url = new URL(request.url);
@@ -35,7 +35,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
   const [employees, employeeTypes] = await Promise.all([
     getEmployees(client, companyId, { search, limit, offset, sorts, filters }),
-    getEmployeeTypes(client, companyId),
+    getEmployeeTypes(client, companyId)
   ]);
 
   if (employees.error) {
@@ -58,7 +58,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
     count: employees.count ?? 0,
     employees:
       employees.data?.filter((e) => !e.email?.includes("@carbon.ms")) ?? [],
-    employeeTypes: employeeTypes.data,
+    employeeTypes: employeeTypes.data
   });
 }
 

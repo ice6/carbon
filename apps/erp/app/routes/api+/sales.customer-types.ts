@@ -7,7 +7,7 @@ import { customerTypesQuery, getCompanyId } from "~/utils/react-query";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    view: "sales",
+    view: "sales"
   });
 
   return json(await getCustomerTypesList(client, companyId));

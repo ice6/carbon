@@ -14,7 +14,7 @@ const Activity = ({
   employeeId,
   activityMessage,
   activityTime,
-  activityIcon,
+  activityIcon
 }: ActivityProps) => {
   const [people] = usePeople();
   if (!employeeId) return null;

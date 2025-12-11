@@ -19,7 +19,7 @@ import type {
   getQualityDocument,
   getQualityDocuments,
   getQualityDocumentSteps,
-  getRequiredActions,
+  getRequiredActions
 } from "./quality.service";
 
 export type Gauge = NonNullable<

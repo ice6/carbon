@@ -6,7 +6,7 @@ import {
   LinearClient,
   mapCarbonStatusToLinearStatus,
   tiptapToMarkdown,
-  type TiptapDocument,
+  type TiptapDocument
 } from "../../linear/lib";
 import type { NotificationEvent, NotificationService } from "../types";
 
@@ -43,7 +43,7 @@ export class LinearNotificationService implements NotificationService {
 
         await linear.updateIssue(event.companyId, {
           id: issue.id,
-          stateId: state.id,
+          stateId: state.id
         });
 
         break;
@@ -68,14 +68,14 @@ export class LinearNotificationService implements NotificationService {
         if (!user) return; // No assignee user
 
         const [linearUser] = await linear.getUsers(event.companyId, {
-          email: user.email,
+          email: user.email
         });
 
         if (!linearUser) return;
 
         await linear.updateIssue(event.companyId, {
           id: issue.id,
-          assigneeId: linearUser.id,
+          assigneeId: linearUser.id
         });
         break;
       }
@@ -100,7 +100,7 @@ export class LinearNotificationService implements NotificationService {
 
           await linear.updateIssue(event.companyId, {
             id: issue.id,
-            description,
+            description
           });
         } catch (e) {
           console.error("Failed to sync notes to Linear:", e);

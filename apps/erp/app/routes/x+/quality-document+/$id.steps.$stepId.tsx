@@ -11,7 +11,7 @@ import { upsertQualityDocumentStep } from "~/modules/quality/quality.service";
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    update: "quality",
+    update: "quality"
   });
 
   const { stepId } = params;
@@ -31,7 +31,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   const update = await upsertQualityDocumentStep(client, {
     id: stepId,
     ...validation.data,
-    updatedBy: userId,
+    updatedBy: userId
   });
   if (update.error) {
     return json(

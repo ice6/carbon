@@ -16,17 +16,17 @@ import {
   getSalesOrderPayment,
   getSalesOrderShipment,
   salesOrderValidator,
-  upsertSalesOrder,
+  upsertSalesOrder
 } from "~/modules/sales";
 import {
   OpportunityDocuments,
   OpportunityNotes,
-  OpportunityState,
+  OpportunityState
 } from "~/modules/sales/ui/Opportunity";
 import {
   SalesOrderPaymentForm,
   SalesOrderShipmentForm,
-  SalesOrderSummary,
+  SalesOrderSummary
 } from "~/modules/sales/ui/SalesOrder";
 import type { SalesOrderShipmentFormRef } from "~/modules/sales/ui/SalesOrder/SalesOrderShipmentForm";
 import { getCustomFields, setCustomFields } from "~/utils/form";
@@ -34,7 +34,7 @@ import { path } from "~/utils/path";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
-    view: "sales",
+    view: "sales"
   });
 
   const { orderId } = params;
@@ -43,7 +43,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   const [order, payment, shipment] = await Promise.all([
     getSalesOrder(client, orderId),
     getSalesOrderPayment(client, orderId),
-    getSalesOrderShipment(client, orderId),
+    getSalesOrderShipment(client, orderId)
   ]);
 
   if (order.error) {
@@ -74,14 +74,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     internalNotes: (order.data?.internalNotes ?? {}) as JSONContent,
     externalNotes: (order.data?.externalNotes ?? {}) as JSONContent,
     payment: payment.data || null,
-    shipment: shipment.data || null,
+    shipment: shipment.data || null
   });
 }
 
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    update: "sales",
+    update: "sales"
   });
 
   const { orderId: id } = params;
@@ -102,7 +102,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     salesOrderId,
     ...data,
     customFields: setCustomFields(formData),
-    updatedBy: userId,
+    updatedBy: userId
   });
   if (update.error) {
     throw redirect(
@@ -152,7 +152,7 @@ export default function SalesOrderDetailsRoute() {
     customerId: shipment?.customerId ?? "",
     customerLocationId: shipment?.customerLocationId ?? "",
     shippingCost: shipment?.shippingCost ?? 0,
-    ...getCustomFields(shipment?.customFields),
+    ...getCustomFields(shipment?.customFields)
   };
 
   const paymentInitialValues = {
@@ -162,7 +162,7 @@ export default function SalesOrderDetailsRoute() {
     invoiceCustomerContactId: payment?.invoiceCustomerContactId ?? "",
     paymentTermId: payment?.paymentTermId ?? "",
     paymentComplete: payment?.paymentComplete ?? undefined,
-    ...getCustomFields(payment?.customFields),
+    ...getCustomFields(payment?.customFields)
   };
 
   return (

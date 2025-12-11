@@ -7,14 +7,14 @@ import { getOutsideOperationsByJobId } from "~/modules/production";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const authorized = await requirePermissions(request, {
-    view: "production",
+    view: "production"
   });
 
   const { jobId } = params;
 
   if (!jobId)
     return json({
-      data: [],
+      data: []
     });
 
   const operations = await getOutsideOperationsByJobId(

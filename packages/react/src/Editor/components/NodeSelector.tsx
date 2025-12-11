@@ -9,7 +9,7 @@ import {
   LuHeading3,
   LuListOrdered,
   LuSquareCheck,
-  LuText,
+  LuText
 } from "react-icons/lu";
 
 import { Popover } from "@radix-ui/react-popover";
@@ -32,50 +32,50 @@ const items: SelectorItem[] = [
     isActive: (editor) =>
       editor.isActive("paragraph") &&
       !editor.isActive("bulletList") &&
-      !editor.isActive("orderedList"),
+      !editor.isActive("orderedList")
   },
   {
     name: "Heading 1",
     icon: LuHeading1,
     command: (editor) =>
       editor.chain().focus().clearNodes().toggleHeading({ level: 1 }).run(),
-    isActive: (editor) => editor.isActive("heading", { level: 1 }),
+    isActive: (editor) => editor.isActive("heading", { level: 1 })
   },
   {
     name: "Heading 2",
     icon: LuHeading2,
     command: (editor) =>
       editor.chain().focus().clearNodes().toggleHeading({ level: 2 }).run(),
-    isActive: (editor) => editor.isActive("heading", { level: 2 }),
+    isActive: (editor) => editor.isActive("heading", { level: 2 })
   },
   {
     name: "Heading 3",
     icon: LuHeading3,
     command: (editor) =>
       editor.chain().focus().clearNodes().toggleHeading({ level: 3 }).run(),
-    isActive: (editor) => editor.isActive("heading", { level: 3 }),
+    isActive: (editor) => editor.isActive("heading", { level: 3 })
   },
   {
     name: "To-do List",
     icon: LuSquareCheck,
     command: (editor) =>
       editor.chain().focus().clearNodes().toggleTaskList().run(),
-    isActive: (editor) => editor.isActive("taskItem"),
+    isActive: (editor) => editor.isActive("taskItem")
   },
   {
     name: "Bullet List",
     icon: LuListOrdered,
     command: (editor) =>
       editor.chain().focus().clearNodes().toggleBulletList().run(),
-    isActive: (editor) => editor.isActive("bulletList"),
+    isActive: (editor) => editor.isActive("bulletList")
   },
   {
     name: "Numbered List",
     icon: LuListOrdered,
     command: (editor) =>
       editor.chain().focus().clearNodes().toggleOrderedList().run(),
-    isActive: (editor) => editor.isActive("orderedList"),
-  },
+    isActive: (editor) => editor.isActive("orderedList")
+  }
   // {
   //   name: "Code",
   //   icon: LuCode,
@@ -94,7 +94,7 @@ export const NodeSelector = ({ open, onOpenChange }: NodeSelectorProps) => {
   if (!editor) return null;
 
   const activeItem = items.filter((item) => item.isActive(editor)).pop() ?? {
-    name: "Multiple",
+    name: "Multiple"
   };
 
   return (

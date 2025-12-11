@@ -14,7 +14,7 @@ import {
   TabsContent,
   TabsList,
   TabsTrigger,
-  useDisclosure,
+  useDisclosure
 } from "@carbon/react";
 import { useState } from "react";
 import type { IssueActionTask } from "~/modules/quality/types";
@@ -42,7 +42,7 @@ export const LinearIssueDialog = ({ task }: Props) => {
   const disclosure = useDisclosure({
     onClose() {
       revalidator.revalidate();
-    },
+    }
   });
 
   const { data: linked } = LinearIssueSchema.safeParse(task.externalId?.linear);

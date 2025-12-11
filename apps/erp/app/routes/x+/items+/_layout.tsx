@@ -15,7 +15,7 @@ export const meta: MetaFunction = () => {
 export const handle: Handle = {
   breadcrumb: "Items",
   to: path.to.parts,
-  module: "items",
+  module: "items"
 };
 
 export default function PartsRoute() {

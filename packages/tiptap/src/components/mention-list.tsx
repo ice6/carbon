@@ -1,14 +1,14 @@
 import { useVirtualizer } from "@tanstack/react-virtual";
 import type {
   SuggestionKeyDownProps,
-  SuggestionProps,
+  SuggestionProps
 } from "@tiptap/suggestion";
 import {
   forwardRef,
   useEffect,
   useImperativeHandle,
   useRef,
-  useState,
+  useState
 } from "react";
 import type { MentionSuggestion } from "../extensions/mention";
 
@@ -30,7 +30,7 @@ export const MentionList = forwardRef<MentionListRef, MentionListProps>(
       count: props.items.length,
       getScrollElement: () => parentRef.current,
       estimateSize: () => ITEM_HEIGHT,
-      overscan: 5,
+      overscan: 5
     });
 
     const selectItem = (index: number) => {
@@ -78,7 +78,7 @@ export const MentionList = forwardRef<MentionListRef, MentionListProps>(
         }
 
         return false;
-      },
+      }
     }));
 
     if (props.items.length === 0) {
@@ -99,14 +99,14 @@ export const MentionList = forwardRef<MentionListRef, MentionListProps>(
           style={{
             height: `${
               Math.min(props.items.length, MAX_VISIBLE_ITEMS) * ITEM_HEIGHT
-            }px`,
+            }px`
           }}
         >
           <div
             style={{
               height: `${virtualizer.getTotalSize()}px`,
               width: "100%",
-              position: "relative",
+              position: "relative"
             }}
           >
             {virtualItems.map((virtualRow) => {
@@ -123,7 +123,7 @@ export const MentionList = forwardRef<MentionListRef, MentionListProps>(
                   }`}
                   style={{
                     height: `${ITEM_HEIGHT}px`,
-                    transform: `translateY(${virtualRow.start}px)`,
+                    transform: `translateY(${virtualRow.start}px)`
                   }}
                   key={item.id}
                   onClick={() => selectItem(virtualRow.index)}

@@ -13,7 +13,7 @@ import {
   ModalHeader,
   ModalOverlay,
   ModalTitle,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { useFetcher, useNavigate } from "@remix-run/react";
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -22,7 +22,7 @@ import { Customer, Submit } from "~/components/Form";
 import { useUrlParams } from "~/hooks";
 import type {
   CustomerContact as CustomerContactType,
-  getCustomerContacts,
+  getCustomerContacts
 } from "~/modules/sales";
 import { createCustomerAccountValidator } from "~/modules/users";
 import type { Result } from "~/types";
@@ -57,7 +57,7 @@ const CreateCustomerModal = () => {
           validator={createCustomerAccountValidator}
           defaultValues={{
             id: params.get("id") ?? "",
-            customer: params.get("customer") ?? "",
+            customer: params.get("customer") ?? ""
           }}
           // @ts-ignore
           fetcher={formFetcher}
@@ -117,7 +117,7 @@ const CreateCustomerModal = () => {
 const CustomerContact = ({
   name,
   customer,
-  onChange,
+  onChange
 }: {
   name: string;
   customer?: string;
@@ -157,7 +157,7 @@ const CustomerContact = ({
         ? customerContactFetcher.data?.data.map((c) => ({
             value: c.id,
             // @ts-ignore
-            label: `${c.contact?.firstName} ${c.contact?.lastName}`,
+            label: `${c.contact?.firstName} ${c.contact?.lastName}`
           }))
         : [],
     [customerContactFetcher.data]

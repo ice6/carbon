@@ -19,7 +19,7 @@ import {
   Th,
   Thead,
   Tr,
-  toast,
+  toast
 } from "@carbon/react";
 import { convertKbToString } from "@carbon/utils";
 import { Link, useFetchers, useRevalidator, useSubmit } from "@remix-run/react";
@@ -52,7 +52,7 @@ const Documents = ({
   sourceDocumentId,
   sourceDocumentLineId,
   writeBucket,
-  writeBucketPermission,
+  writeBucketPermission
 }: DocumentsProps) => {
   const permissions = usePermissions();
   const revalidator = useRevalidator();
@@ -200,7 +200,7 @@ const Documents = ({
           .from("private")
           .upload(fileName, file, {
             cacheControl: `${12 * 60 * 60}`,
-            upsert: true,
+            upsert: true
           });
 
         if (fileUpload.error) {
@@ -222,7 +222,7 @@ const Documents = ({
             method: "post",
             action: path.to.newDocument,
             navigate: false,
-            fetcherKey: `${sourceDocument}:${file.name}`,
+            fetcherKey: `${sourceDocument}:${file.name}`
           });
         }
       }
@@ -234,7 +234,7 @@ const Documents = ({
       revalidator,
       submit,
       sourceDocument,
-      sourceDocumentId,
+      sourceDocumentId
     ]
   );
 
@@ -456,8 +456,8 @@ const usePendingItems = () => {
           bucket: "private",
           metadata: {
             size,
-            mimetype: getDocumentType(name),
-          },
+            mimetype: getDocumentType(name)
+          }
         };
         return [...acc, newItem];
       }

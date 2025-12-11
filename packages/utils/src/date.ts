@@ -2,10 +2,10 @@ import {
   getLocalTimeZone,
   parseAbsolute,
   parseDate,
-  toZoned,
+  toZoned
 } from "@internationalized/date";
 const relativeFormatter = new Intl.RelativeTimeFormat(undefined, {
-  numeric: "auto",
+  numeric: "auto"
 });
 
 const DIVISIONS: { amount: number; name: Intl.RelativeTimeFormatUnit }[] = [
@@ -15,12 +15,12 @@ const DIVISIONS: { amount: number; name: Intl.RelativeTimeFormatUnit }[] = [
   { amount: 7, name: "days" },
   { amount: 4.34524, name: "weeks" },
   { amount: 12, name: "months" },
-  { amount: Number.POSITIVE_INFINITY, name: "years" },
+  { amount: Number.POSITIVE_INFINITY, name: "years" }
 ];
 
 const defaultFormatOptions: Intl.DateTimeFormatOptions = {
   dateStyle: "medium",
-  timeZone: getLocalTimeZone(),
+  timeZone: getLocalTimeZone()
 };
 
 export function convertDateStringToIsoString(dateString: string) {

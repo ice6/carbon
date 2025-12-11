@@ -5,7 +5,7 @@ import {
   useCallback,
   useContext,
   useId,
-  useState,
+  useState
 } from "react";
 import { cn } from "../utils/cn";
 import { dataAttr } from "../utils/dom";
@@ -126,7 +126,7 @@ function useFormControlProvider(props: FormControlContextType) {
       ref: mergeRefs(forwardedRef, (node) => {
         if (!node) return;
         setHasHelpText(true);
-      }),
+      })
     }),
     [helpTextId]
   );
@@ -143,7 +143,7 @@ function useFormControlProvider(props: FormControlContextType) {
       "data-invalid": dataAttr(isInvalid),
       "data-readonly": dataAttr(isReadOnly),
       id: props.id !== undefined ? props.id : labelId,
-      htmlFor: id,
+      htmlFor: id
     }),
     [id, isDisabled, isFocused, isInvalid, isReadOnly, labelId]
   );
@@ -163,7 +163,7 @@ function useFormControlProvider(props: FormControlContextType) {
         if (!node) return;
         setHasFeedbackText(true);
       }),
-      "aria-live": "polite" as const,
+      "aria-live": "polite" as const
     }),
     [feedbackId]
   );
@@ -180,7 +180,7 @@ function useFormControlProvider(props: FormControlContextType) {
       "data-focus": dataAttr(isFocused),
       "data-disabled": dataAttr(isDisabled),
       "data-invalid": dataAttr(isInvalid),
-      "data-readonly": dataAttr(isReadOnly),
+      "data-readonly": dataAttr(isReadOnly)
     }),
     [htmlProps, isDisabled, isFocused, isInvalid, isReadOnly]
   );
@@ -205,7 +205,7 @@ function useFormControlProvider(props: FormControlContextType) {
     getHelpTextProps,
     getErrorMessageProps,
     getRootProps,
-    getLabelProps,
+    getLabelProps
   };
 }
 

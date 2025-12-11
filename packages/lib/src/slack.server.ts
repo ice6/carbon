@@ -23,7 +23,7 @@ class SlackClient {
       await this.client.chat.postMessage({
         channel,
         text,
-        blocks,
+        blocks
       });
     } catch (error) {
       console.error("Error sending Slack message:", error);

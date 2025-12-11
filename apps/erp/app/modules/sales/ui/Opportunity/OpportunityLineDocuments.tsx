@@ -24,7 +24,7 @@ import {
   Thead,
   Tr,
   VStack,
-  toast,
+  toast
 } from "@carbon/react";
 import { convertKbToString } from "@carbon/utils";
 import { Link, useFetchers, useRevalidator, useSubmit } from "@remix-run/react";
@@ -48,7 +48,7 @@ const useOpportunityLineDocuments = ({
   id,
   lineId,
   itemId,
-  type,
+  type
 }: {
   id: string;
   lineId: string;
@@ -107,7 +107,7 @@ const useOpportunityLineDocuments = ({
         salesRfqLineResult,
         quoteLineResult,
         salesOrderLineResult,
-        salesInvoiceLineResult,
+        salesInvoiceLineResult
       ] = await Promise.all([
         carbon
           .from("salesRfqLine")
@@ -124,7 +124,7 @@ const useOpportunityLineDocuments = ({
         carbon
           .from("salesInvoiceLine")
           .update({ modelUploadId: null })
-          .eq("id", lineId),
+          .eq("id", lineId)
       ]);
 
       if (salesRfqLineResult.error) {
@@ -219,7 +219,7 @@ const useOpportunityLineDocuments = ({
       path: filePath,
       name,
       size,
-      bucket = "opportunity-line",
+      bucket = "opportunity-line"
     }: {
       path: string;
       name: string;
@@ -237,7 +237,7 @@ const useOpportunityLineDocuments = ({
         method: "post",
         action: path.to.newDocument,
         navigate: false,
-        fetcherKey: `opportunity-line:${name}`,
+        fetcherKey: `opportunity-line:${name}`
       });
     },
     [id, submit, type]
@@ -265,7 +265,7 @@ const useOpportunityLineDocuments = ({
           .from("private")
           .upload(fileName, file, {
             cacheControl: `${12 * 60 * 60}`,
-            upsert: true,
+            upsert: true
           });
 
         if (fileUpload.error) {
@@ -275,7 +275,7 @@ const useOpportunityLineDocuments = ({
             path: fileUpload.data.path,
             name: file.name,
             size: file.size,
-            bucket,
+            bucket
           });
         }
       }
@@ -325,7 +325,7 @@ const useOpportunityLineDocuments = ({
           .from("private")
           .upload(targetPath, downloadData, {
             cacheControl: `${12 * 60 * 60}`,
-            upsert: true,
+            upsert: true
           });
 
         if (uploadError) {
@@ -367,7 +367,7 @@ const useOpportunityLineDocuments = ({
     getPath,
     getModelPath,
     moveFile,
-    upload,
+    upload
   };
 };
 
@@ -386,7 +386,7 @@ const OpportunityLineDocuments = ({
   lineId,
   itemId,
   modelUpload,
-  type,
+  type
 }: OpportunityLineDocumentsProps) => {
   const {
     canDelete,
@@ -398,12 +398,12 @@ const OpportunityLineDocuments = ({
     getPath,
     getModelPath,
     moveFile,
-    upload,
+    upload
   } = useOpportunityLineDocuments({
     id,
     lineId,
     itemId,
-    type,
+    type
   });
 
   const onDrop = useCallback(
@@ -664,7 +664,7 @@ const OpportunityLineDocumentForm = ({
   id,
   lineId,
   itemId,
-  type,
+  type
 }: OpportunityLineDocumentFormProps) => {
   const permissions = usePermissions();
   const { upload } = useOpportunityLineDocuments({ id, lineId, itemId, type });
@@ -712,8 +712,8 @@ const usePendingItems = () => {
           bucket: "private",
           metadata: {
             size,
-            mimetype: getDocumentType(name),
-          },
+            mimetype: getDocumentType(name)
+          }
         };
         return [...acc, newItem];
       }

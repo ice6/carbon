@@ -18,16 +18,16 @@ import type {
   MakeMethod,
   Material,
   MethodOperation,
-  PartSummary,
+  PartSummary
 } from "~/modules/items";
 import {
   itemManufacturingValidator,
-  upsertItemManufacturing,
+  upsertItemManufacturing
 } from "~/modules/items";
 import {
   BillOfMaterial,
   BillOfProcess,
-  MakeMethodTools,
+  MakeMethodTools
 } from "~/modules/items/ui/Item";
 import ItemManufacturingForm from "~/modules/items/ui/Item/ItemManufacturingForm";
 import { ConfigurationParametersForm } from "~/modules/items/ui/Parts";
@@ -37,7 +37,7 @@ import { path } from "~/utils/path";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    view: "parts",
+    view: "parts"
   });
 
   const tags = await getTagsList(client, companyId, "operation");
@@ -48,7 +48,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    update: "parts",
+    update: "parts"
   });
 
   const { itemId, methodId } = params;
@@ -70,7 +70,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     requiresConfiguration: validation.data.requiresConfiguration ?? false,
     itemId,
     updatedBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
   if (updatePartManufacturing.error) {
     throw redirect(
@@ -126,7 +126,7 @@ export default function MakeMethodRoute() {
   const manufacturingInitialValues = {
     ...manufacturingRouteData?.partManufacturing,
     lotSize: manufacturingRouteData?.partManufacturing.lotSize ?? 0,
-    ...getCustomFields(manufacturingRouteData?.partManufacturing.customFields),
+    ...getCustomFields(manufacturingRouteData?.partManufacturing.customFields)
   };
 
   return (

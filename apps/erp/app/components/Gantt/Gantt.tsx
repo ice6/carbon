@@ -20,7 +20,7 @@ import {
   shortcutKeyVariants,
   useDebounce,
   useInitialDimensions,
-  useShortcutKeys,
+  useShortcutKeys
 } from "@carbon/react";
 import { formatDurationMilliseconds, lerp } from "@carbon/utils";
 import { Link, useParams } from "@remix-run/react";
@@ -33,11 +33,11 @@ import {
   LuChevronRight,
   LuSearch,
   LuZoomIn,
-  LuZoomOut,
+  LuZoomOut
 } from "react-icons/lu";
 import {
   ShowParentIcon,
-  ShowParentIconSelected,
+  ShowParentIconSelected
 } from "~/assets/icons/ShowParentIcon";
 import tileBgPath from "~/assets/images/error-banner-tile@2x.png";
 import { GanttIcon } from "./components/GanttIcon";
@@ -49,7 +49,7 @@ import { LevelLine, TreeView, useTree } from "~/components/TreeView";
 import { setResizableGanttSettings } from "~/utils/resizable-panels";
 import {
   GanttTaskStatusIcon,
-  runStatusClassNameColor,
+  runStatusClassNameColor
 } from "./components/GanttTaskStatus";
 import { SpanTitle, eventBackgroundClassName } from "./components/SpanTitle";
 
@@ -70,7 +70,7 @@ const Gantt = ({
   onSelectedIdChanged,
   totalDuration,
   rootSpanStatus,
-  rootStartedAt,
+  rootStartedAt
 }: GanttProps) => {
   const [filterText, setFilterText] = useState("");
   const [wipOnly, setWipOnly] = useState(false);
@@ -91,7 +91,7 @@ const Gantt = ({
     collapseAllBelowDepth,
     selectNode,
     scrollToNode,
-    virtualizer,
+    virtualizer
   } = useTree({
     tree: events,
     selectedId,
@@ -113,8 +113,8 @@ const Gantt = ({
           return true;
         }
         return false;
-      },
-    },
+      }
+    }
   });
 
   return (
@@ -350,7 +350,7 @@ const GanttTimeline = ({
   getTreeProps,
   toggleNodeSelection,
   showDurations,
-  treeScrollRef,
+  treeScrollRef
 }: GanttTimelineProps) => {
   const timelineContainerRef = useRef<HTMLDivElement>(null);
   const initialTimelineDimensions = useInitialDimensions(timelineContainerRef);
@@ -408,13 +408,13 @@ const GanttTimeline = ({
                             index === 0
                               ? "ml-1"
                               : index === TICK_COUNT - 1
-                              ? "-ml-1 -translate-x-full"
-                              : "-translate-x-1/2"
+                                ? "-ml-1 -translate-x-full"
+                                : "-translate-x-1/2"
                           )}
                         >
                           {formatDurationMilliseconds(ms, {
                             style: "short",
-                            maxDecimalPoints: ms < 1000 ? 0 : 1,
+                            maxDecimalPoints: ms < 1000 ? 0 : 1
                           })}
                         </div>
                       )}
@@ -436,7 +436,7 @@ const GanttTimeline = ({
                     <div className={cn("-translate-x-1/2 whitespace-nowrap")}>
                       {formatDurationMilliseconds(ms, {
                         style: "short",
-                        maxDecimalPoints: ms < 1000 ? 0 : 1,
+                        maxDecimalPoints: ms < 1000 ? 0 : 1
                       })}
                     </div>
                   )}
@@ -505,7 +505,7 @@ const GanttTimeline = ({
                 state,
                 index,
                 virtualizer,
-                virtualItem,
+                virtualItem
               }) => {
                 return (
                   <Timeline.Row
@@ -644,7 +644,7 @@ function ShowParentLink({ ganttReadableId }: { ganttReadableId: string }) {
 }
 
 function LiveReloadingStatus({
-  rootSpanCompleted,
+  rootSpanCompleted
 }: {
   rootSpanCompleted: boolean;
 }) {
@@ -682,7 +682,7 @@ function SpanWithDuration({
             className="absolute left-0 top-0 h-full w-full animate-tile-scroll rounded-sm opacity-30"
             style={{
               backgroundImage: `url(${tileBgPath})`,
-              backgroundSize: "8px 8px",
+              backgroundSize: "8px 8px"
             }}
           />
         )}
@@ -695,7 +695,7 @@ function SpanWithDuration({
           <div className="rounded-sm px-1 py-0.5 text-xxs text-foreground">
             {formatDurationMilliseconds(props.durationMs, {
               style: "short",
-              maxDecimalPoints: props.durationMs < 1000 ? 0 : 1,
+              maxDecimalPoints: props.durationMs < 1000 ? 0 : 1
             })}
           </div>
         </div>
@@ -725,12 +725,12 @@ function CurrentTimeIndicator({ totalDuration }: { totalDuration: number }) {
                 className="absolute w-fit whitespace-nowrap rounded-sm border border-border bg-gray-700 px-1 py-0.5 text-xxs tabular-nums text-text-bright"
                 style={{
                   left: `${offset * 100}%`,
-                  transform: `translateX(-${offset * 100}%)`,
+                  transform: `translateX(-${offset * 100}%)`
                 }}
               >
                 {formatDurationMilliseconds(ms, {
                   style: "short",
-                  maxDecimalPoints: ms < 1000 ? 0 : 1,
+                  maxDecimalPoints: ms < 1000 ? 0 : 1
                 })}
               </div>
             </div>
@@ -746,7 +746,7 @@ function KeyboardShortcuts({
   expandAllBelowDepth,
   collapseAllBelowDepth,
   toggleExpandLevel,
-  setShowDurations,
+  setShowDurations
 }: {
   expandAllBelowDepth: (depth: number) => void;
   collapseAllBelowDepth: (depth: number) => void;
@@ -809,7 +809,7 @@ function ArrowKeyShortcuts() {
 function ShortcutWithAction({
   shortcut,
   title,
-  action,
+  action
 }: {
   shortcut: Shortcut;
   title: string;
@@ -817,7 +817,7 @@ function ShortcutWithAction({
 }) {
   useShortcutKeys({
     shortcut,
-    action,
+    action
   });
 
   return (
@@ -831,7 +831,7 @@ function ShortcutWithAction({
 }
 
 function NumberShortcuts({
-  toggleLevel,
+  toggleLevel
 }: {
   toggleLevel: (depth: number) => void;
 }) {

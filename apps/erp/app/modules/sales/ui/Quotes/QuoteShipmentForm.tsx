@@ -4,18 +4,18 @@ import {
   CardContent,
   CardFooter,
   CardHeader,
-  CardTitle,
+  CardTitle
 } from "@carbon/react";
 import { useFetcher, useParams } from "@remix-run/react";
 import { forwardRef, useImperativeHandle, useRef, useState } from "react";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import {
   DatePicker,
   Hidden,
   Location,
   Number,
   ShippingMethod,
-  Submit,
+  Submit
 } from "~/components/Form";
 import { usePermissions, useRouteData, useUser } from "~/hooks";
 import { path } from "~/utils/path";
@@ -49,7 +49,7 @@ const QuoteShipmentForm = forwardRef<
         cardRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
         shippingCostRef.current?.focus();
       }, 100);
-    },
+    }
   }));
 
   const isCustomer = permissions.is("customer");
@@ -92,7 +92,7 @@ const QuoteShipmentForm = forwardRef<
               label="Shipping Cost"
               formatOptions={{
                 style: "currency",
-                currency: company?.baseCurrencyCode,
+                currency: company?.baseCurrencyCode
               }}
               minValue={0}
               ref={shippingCostRef}

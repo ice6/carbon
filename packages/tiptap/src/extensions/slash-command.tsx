@@ -4,7 +4,11 @@ import { ReactRenderer } from "@tiptap/react";
 import Suggestion, { type SuggestionOptions } from "@tiptap/suggestion";
 import type { RefObject } from "react";
 import type { ReactNode } from "react";
-import tippy, { type GetReferenceClientRect, type Instance, type Props } from "tippy.js";
+import tippy, {
+  type GetReferenceClientRect,
+  type Instance,
+  type Props
+} from "tippy.js";
 import { EditorCommandOut } from "../components/editor-command";
 
 const Command = Extension.create({
@@ -15,18 +19,18 @@ const Command = Extension.create({
         char: "/",
         command: ({ editor, range, props }) => {
           props.command({ editor, range });
-        },
-      } as SuggestionOptions,
+        }
+      } as SuggestionOptions
     };
   },
   addProseMirrorPlugins() {
     return [
       Suggestion({
         editor: this.editor,
-        ...this.options.suggestion,
-      }),
+        ...this.options.suggestion
+      })
     ];
-  },
+  }
 });
 
 const renderItems = (elementRef?: RefObject<Element> | null) => {
@@ -37,7 +41,7 @@ const renderItems = (elementRef?: RefObject<Element> | null) => {
     onStart: (props: { editor: Editor; clientRect: DOMRect }) => {
       component = new ReactRenderer(EditorCommandOut, {
         props,
-        editor: props.editor,
+        editor: props.editor
       });
 
       const { selection } = props.editor.state;
@@ -57,14 +61,17 @@ const renderItems = (elementRef?: RefObject<Element> | null) => {
         showOnCreate: true,
         interactive: true,
         trigger: "manual",
-        placement: "bottom-start",
+        placement: "bottom-start"
       });
     },
-    onUpdate: (props: { editor: Editor; clientRect: GetReferenceClientRect }) => {
+    onUpdate: (props: {
+      editor: Editor;
+      clientRect: GetReferenceClientRect;
+    }) => {
       component?.updateProps(props);
 
       popup?.[0]?.setProps({
-        getReferenceClientRect: props.clientRect,
+        getReferenceClientRect: props.clientRect
       });
     },
 
@@ -81,7 +88,7 @@ const renderItems = (elementRef?: RefObject<Element> | null) => {
     onExit: () => {
       popup?.[0]?.destroy();
       component?.destroy();
-    },
+    }
   };
 };
 

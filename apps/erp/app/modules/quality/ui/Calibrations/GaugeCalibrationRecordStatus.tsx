@@ -6,7 +6,7 @@ type GaugeCalibrationRecordStatusProps = {
 };
 
 const GaugeCalibrationRecordStatus = ({
-  status,
+  status
 }: GaugeCalibrationRecordStatusProps) => {
   switch (status) {
     case "Pass":

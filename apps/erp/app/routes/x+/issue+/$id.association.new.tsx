@@ -8,7 +8,7 @@ import { issueAssociationValidator } from "~/modules/quality/quality.models";
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    update: "quality",
+    update: "quality"
   });
 
   const { id: nonConformanceId } = params;
@@ -22,7 +22,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   if (validation.error) {
     return json({
       success: false,
-      message: "Invalid form data",
+      message: "Invalid form data"
     });
   }
 
@@ -37,14 +37,14 @@ export async function action({ request, params }: ActionFunctionArgs) {
           nonConformanceId,
           createdBy: userId,
           companyId: companyId,
-          quantity: quantity ?? 0,
+          quantity: quantity ?? 0
         });
 
       if (itemError) {
         console.error(itemError);
         return json({
           success: false,
-          message: "Failed to create issue item",
+          message: "Failed to create issue item"
         });
       }
       break;
@@ -56,14 +56,14 @@ export async function action({ request, params }: ActionFunctionArgs) {
           customerId: id,
           nonConformanceId,
           createdBy: userId,
-          companyId: companyId,
+          companyId: companyId
         });
 
       if (customerError) {
         console.error(customerError);
         return json({
           success: false,
-          message: "Failed to create issue customer",
+          message: "Failed to create issue customer"
         });
       }
       break;
@@ -74,14 +74,14 @@ export async function action({ request, params }: ActionFunctionArgs) {
           supplierId: id,
           nonConformanceId,
           createdBy: userId,
-          companyId: companyId,
+          companyId: companyId
         });
 
       if (supplierError) {
         console.error(supplierError);
         return json({
           success: false,
-          message: "Failed to create issue supplier",
+          message: "Failed to create issue supplier"
         });
       }
       break;
@@ -95,7 +95,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
         console.error(job.error);
         return json({
           success: false,
-          message: "Failed to create issue job operation",
+          message: "Failed to create issue job operation"
         });
       }
 
@@ -107,14 +107,14 @@ export async function action({ request, params }: ActionFunctionArgs) {
           jobReadableId: job.data?.jobId,
           nonConformanceId,
           createdBy: userId,
-          companyId: companyId,
+          companyId: companyId
         });
 
       if (jobOperation.error) {
         console.error(jobOperation.error);
         return json({
           success: false,
-          message: "Failed to create issue job operation",
+          message: "Failed to create issue job operation"
         });
       }
       break;
@@ -128,7 +128,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
         console.error(purchaseOrder.error);
         return json({
           success: false,
-          message: "Failed to create issue purchase order line",
+          message: "Failed to create issue purchase order line"
         });
       }
 
@@ -140,14 +140,14 @@ export async function action({ request, params }: ActionFunctionArgs) {
           purchaseOrderReadableId: purchaseOrder.data?.purchaseOrderId,
           nonConformanceId,
           createdBy: userId,
-          companyId: companyId,
+          companyId: companyId
         });
 
       if (purchaseOrderLine.error) {
         console.error(purchaseOrderLine.error);
         return json({
           success: false,
-          message: "Failed to create issue purchase order line",
+          message: "Failed to create issue purchase order line"
         });
       }
       break;
@@ -161,7 +161,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
         console.error(salesOrder.error);
         return json({
           success: false,
-          message: "Failed to create issue sales order line",
+          message: "Failed to create issue sales order line"
         });
       }
 
@@ -173,14 +173,14 @@ export async function action({ request, params }: ActionFunctionArgs) {
           salesOrderReadableId: salesOrder.data?.salesOrderId,
           nonConformanceId,
           createdBy: userId,
-          companyId: companyId,
+          companyId: companyId
         });
 
       if (salesOrderLine.error) {
         console.error(salesOrderLine.error);
         return json({
           success: false,
-          message: "Failed to create issue sales order line",
+          message: "Failed to create issue sales order line"
         });
       }
       break;
@@ -194,7 +194,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
         console.error(shipment.error);
         return json({
           success: false,
-          message: "Failed to create issue shipment line",
+          message: "Failed to create issue shipment line"
         });
       }
 
@@ -206,14 +206,14 @@ export async function action({ request, params }: ActionFunctionArgs) {
           shipmentReadableId: shipment.data?.shipmentId,
           nonConformanceId,
           createdBy: userId,
-          companyId: companyId,
+          companyId: companyId
         });
 
       if (shipmentLine.error) {
         console.error(shipmentLine.error);
         return json({
           success: false,
-          message: "Failed to create issue shipment line",
+          message: "Failed to create issue shipment line"
         });
       }
       break;
@@ -227,7 +227,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
         console.error(receipt.error);
         return json({
           success: false,
-          message: "Failed to create issue receipt line",
+          message: "Failed to create issue receipt line"
         });
       }
 
@@ -239,14 +239,14 @@ export async function action({ request, params }: ActionFunctionArgs) {
           receiptReadableId: receipt.data?.receiptId,
           nonConformanceId,
           createdBy: userId,
-          companyId: companyId,
+          companyId: companyId
         });
 
       if (receiptLine.error) {
         console.error(receiptLine.error);
         return json({
           success: false,
-          message: "Failed to create issue receipt line",
+          message: "Failed to create issue receipt line"
         });
       }
       break;
@@ -257,13 +257,13 @@ export async function action({ request, params }: ActionFunctionArgs) {
           trackedEntityId: id,
           nonConformanceId,
           createdBy: userId,
-          companyId: companyId,
+          companyId: companyId
         });
 
       if (trackedEntityError) {
         return json({
           success: false,
-          message: "Failed to create issue tracked entity",
+          message: "Failed to create issue tracked entity"
         });
       }
       break;
@@ -271,6 +271,6 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
   return json({
     success: true,
-    message: "Association created",
+    message: "Association created"
   });
 }

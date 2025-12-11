@@ -27,13 +27,13 @@ import {
   Td,
   Th,
   Thead,
-  Tr,
+  Tr
 } from "@carbon/react";
 import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-  type ChartConfig,
+  type ChartConfig
 } from "@carbon/react/Chart";
 import { FunnelChart } from "@carbon/react/FunnelChart";
 import { getLocalTimeZone, parseDate, today } from "@internationalized/date";
@@ -47,12 +47,12 @@ import {
   LuArrowUpRight,
   LuChevronDown,
   LuEllipsisVertical,
-  LuFile,
+  LuFile
 } from "react-icons/lu";
 import {
   RiProgress2Line,
   RiProgress4Line,
-  RiProgress8Line,
+  RiProgress8Line
 } from "react-icons/ri";
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
 import { CustomerAvatar, Empty, Hyperlink } from "~/components";
@@ -77,21 +77,21 @@ const OPEN_SALES_ORDER_STATUSES = [
   "To Invoice",
   "Needs Approval",
   "In Progress",
-  "Draft",
+  "Draft"
 ] as const;
 
 const chartConfig = {} satisfies ChartConfig;
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, userId, companyId } = await requirePermissions(request, {
-    view: "sales",
+    view: "sales"
   });
 
   const [openSalesOrders, openQuotes, openRFQs] = await Promise.all([
     client
       .from("salesOrder")
       .select("id, salesOrderId, status, customerId, assignee, createdAt", {
-        count: "exact",
+        count: "exact"
       })
       .in("status", OPEN_SALES_ORDER_STATUSES)
       .eq("companyId", companyId)
@@ -99,7 +99,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
     client
       .from("quote")
       .select("id, quoteId, status, customerId, assignee, createdAt", {
-        count: "exact",
+        count: "exact"
       })
       .in("status", OPEN_QUOTE_STATUSES)
       .eq("companyId", companyId)
@@ -107,18 +107,18 @@ export async function loader({ request }: LoaderFunctionArgs) {
     client
       .from("salesRfq")
       .select("id, rfqId, status, customerId, assignee, createdAt", {
-        count: "exact",
+        count: "exact"
       })
       .in("status", OPEN_RFQ_STATUSES)
       .eq("companyId", companyId)
-      .limit(10),
+      .limit(10)
   ]);
 
   return defer({
     openSalesOrders: openSalesOrders,
     openQuotes: openQuotes,
     openRFQs: openRFQs,
-    assignedToMe: getSalesDocumentsAssignedToMe(client, userId, companyId),
+    assignedToMe: getSalesDocumentsAssignedToMe(client, userId, companyId)
   });
 }
 
@@ -130,10 +130,10 @@ export default function SalesDashboard() {
     const merged = [
       ...(openSalesOrders.data?.map((doc) => ({
         ...doc,
-        type: "salesOrder",
+        type: "salesOrder"
       })) ?? []),
       ...(openQuotes.data?.map((doc) => ({ ...doc, type: "quote" })) ?? []),
-      ...(openRFQs.data?.map((doc) => ({ ...doc, type: "rfq" })) ?? []),
+      ...(openRFQs.data?.map((doc) => ({ ...doc, type: "rfq" })) ?? [])
     ].sort((a, b) => (b.createdAt ?? "").localeCompare(a.createdAt ?? ""));
 
     return merged;
@@ -148,21 +148,21 @@ export default function SalesDashboard() {
         id: "rfqs",
         label: "RFQs",
         value: 0,
-        colorClassName: "text-violet-600",
+        colorClassName: "text-violet-600"
       },
       {
         id: "quotes",
         label: "Quotes",
         value: 0,
-        colorClassName: "text-blue-600",
+        colorClassName: "text-blue-600"
       },
       {
         id: "salesOrders",
         label: "Sales Orders",
         value: 0,
         additionalValue: 0,
-        colorClassName: "text-teal-500",
-      },
+        colorClassName: "text-teal-500"
+      }
     ];
 
     if (!kpiFetcher.data?.data) {
@@ -177,34 +177,34 @@ export default function SalesDashboard() {
     return [
       {
         ...defaultSteps[0],
-        value: getKpiValue("RFQs"),
+        value: getKpiValue("RFQs")
       },
       {
         ...defaultSteps[1],
-        value: getKpiValue("Quotes"),
+        value: getKpiValue("Quotes")
       },
       {
         ...defaultSteps[2],
         value: getKpiValue("Sales Orders"),
-        additionalValue: getKpiValue("Revenue"),
-      },
+        additionalValue: getKpiValue("Revenue")
+      }
     ];
   }, [kpiFetcher.data?.data]);
 
   const dateFormatter = useDateFormatter({
     month: "short",
-    day: "numeric",
+    day: "numeric"
   });
 
   const currencyCompactFormatter = useCurrencyFormatter({
     notation: "compact",
-    compactDisplay: "short",
+    compactDisplay: "short"
   });
   const currencyFormatter = useCurrencyFormatter();
   const numberFormatter = useNumberFormatter({
     maximumFractionDigits: 0,
     notation: "compact",
-    compactDisplay: "short",
+    compactDisplay: "short"
   });
 
   const [customerId, setCustomerId] = useState<string>("all");
@@ -214,8 +214,8 @@ export default function SalesDashboard() {
       { label: "All Customers", value: "all" },
       ...customers.map((customer) => ({
         label: customer.name,
-        value: customer.id,
-      })),
+        value: customer.id
+      }))
     ];
   }, [customers]);
 
@@ -274,7 +274,7 @@ export default function SalesDashboard() {
     // For other KPIs, calculate total
     return {
       value:
-        kpiFetcher.data.data.reduce((acc, curr) => acc + curr.value, 0) ?? 0,
+        kpiFetcher.data.data.reduce((acc, curr) => acc + curr.value, 0) ?? 0
     };
   }, [kpiFetcher.data?.data, selectedKpi]);
 
@@ -294,7 +294,7 @@ export default function SalesDashboard() {
         kpiFetcher.data.previousPeriodData.reduce(
           (acc, curr) => acc + curr.value,
           0
-        ) ?? 0,
+        ) ?? 0
     };
   }, [kpiFetcher.data?.previousPeriodData, selectedKpi]);
 
@@ -317,8 +317,8 @@ export default function SalesDashboard() {
         ["Name", "Value"],
         ...kpiFetcher.data.data.map((item) => [
           "name" in item ? item.name : "",
-          item.value,
-        ]),
+          item.value
+        ])
       ];
     }
 
@@ -328,11 +328,11 @@ export default function SalesDashboard() {
         "date" in item
           ? item.date
           : "month" in item
-          ? item.month
-          : // @ts-ignore
-            item.monthKey,
-        item.value,
-      ]),
+            ? item.month
+            : // @ts-ignore
+              item.monthKey,
+        item.value
+      ])
     ];
   }, [kpiFetcher.data?.data, selectedKpi]);
 
@@ -349,7 +349,7 @@ export default function SalesDashboard() {
     dateRange?.end,
     selectedKpiData.label,
     customerId,
-    customers,
+    customers
   ]);
 
   return (

@@ -8,7 +8,7 @@ import { redirect } from "@vercel/remix";
 import type { AccountClass, AccountIncomeBalance } from "~/modules/accounting";
 import {
   accountCategoryValidator,
-  upsertAccountCategory,
+  upsertAccountCategory
 } from "~/modules/accounting";
 import { AccountCategoryForm } from "~/modules/accounting/ui/AccountCategories";
 import { setCustomFields } from "~/utils/form";
@@ -17,7 +17,7 @@ import { getParams, path } from "~/utils/path";
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    update: "accounting",
+    update: "accounting"
   });
 
   const formData = await request.formData();
@@ -36,7 +36,7 @@ export async function action({ request }: ActionFunctionArgs) {
     ...data,
     companyId,
     customFields: setCustomFields(formData),
-    createdBy: userId,
+    createdBy: userId
   });
   if (createAccountCategory.error) {
     throw redirect(
@@ -61,7 +61,7 @@ export default function NewAccountCategoryRoute() {
   const initialValues = {
     category: "",
     incomeBalance: "" as AccountIncomeBalance,
-    class: "" as AccountClass,
+    class: "" as AccountClass
   };
 
   return (

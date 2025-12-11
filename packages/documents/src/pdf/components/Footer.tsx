@@ -4,9 +4,9 @@ import { createTw } from "react-pdf-tailwind";
 const tw = createTw({
   theme: {
     fontFamily: {
-      sans: ["Helvetica", "Arial", "sans-serif"],
-    },
-  },
+      sans: ["Helvetica", "Arial", "sans-serif"]
+    }
+  }
 });
 
 interface FooterProps {

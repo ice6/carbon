@@ -14,5 +14,5 @@ export {
   FilePreview,
   Hyperlink,
   OperationsList,
-  OperationStatusIcon,
+  OperationStatusIcon
 };

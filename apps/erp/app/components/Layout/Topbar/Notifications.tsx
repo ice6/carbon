@@ -13,7 +13,7 @@ import {
   Tabs,
   TabsContent,
   TabsList,
-  TabsTrigger,
+  TabsTrigger
 } from "@carbon/react";
 import { formatTimeAgo } from "@carbon/utils";
 import { Link, useFetcher } from "@remix-run/react";
@@ -31,12 +31,12 @@ import {
   LuMailCheck,
   LuMessageSquare,
   LuShieldX,
-  LuShoppingCart,
+  LuShoppingCart
 } from "react-icons/lu";
 import {
   RiProgress2Line,
   RiProgress4Line,
-  RiProgress8Line,
+  RiProgress8Line
 } from "react-icons/ri";
 import { useNotifications, useUser } from "~/hooks";
 import { usePeople } from "~/stores";
@@ -65,7 +65,7 @@ function EmptyState({ description }: { description: string }) {
 
 function TrainingItem({
   training,
-  onClose,
+  onClose
 }: {
   training: OutstandingTraining;
   onClose: () => void;
@@ -112,7 +112,7 @@ function Notification({
   createdAt,
   markMessageAsRead,
   from,
-  onClose,
+  onClose
 }: {
   icon: React.ReactNode;
   to: string;
@@ -320,7 +320,7 @@ function GenericNotification({
 const Notifications = () => {
   const {
     id: userId,
-    company: { id: companyId },
+    company: { id: companyId }
   } = useUser();
   const [isOpen, setOpen] = useState(false);
   const [activeTab, setActiveTab] = useState("inbox");
@@ -332,10 +332,10 @@ const Notifications = () => {
     notifications,
     markMessageAsRead,
     markAllMessagesAsSeen,
-    markAllMessagesAsRead,
+    markAllMessagesAsRead
   } = useNotifications({
     userId,
-    companyId,
+    companyId
   });
 
   const unreadNotifications = notifications.filter(

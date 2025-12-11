@@ -12,7 +12,7 @@ import { Button } from "./Button";
 
 const prism = {
   defaultLanguage: "js",
-  plugins: ["line-numbers", "show-language"],
+  plugins: ["line-numbers", "show-language"]
 };
 
 interface CodeBlockProps {
@@ -25,7 +25,7 @@ const CodeBlock = ({
   children,
   parentClassName,
   className: languageClassName,
-  showCopy = true,
+  showCopy = true
 }: PropsWithChildren<CodeBlockProps>) => {
   const [showCopied, setShowCopied] = useState(false);
   const target = useRef(null);

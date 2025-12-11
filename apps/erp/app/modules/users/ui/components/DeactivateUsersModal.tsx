@@ -7,7 +7,7 @@ import {
   ModalContent,
   ModalFooter,
   ModalHeader,
-  ModalTitle,
+  ModalTitle
 } from "@carbon/react";
 import { UserSelect } from "~/components/Selectors";
 import { deactivateUsersValidator } from "~/modules/users";
@@ -24,7 +24,7 @@ const DeactivateUsersModal = ({
   userIds,
   isOpen,
   redirectTo = path.to.employeeAccounts,
-  onClose,
+  onClose
 }: DeactivateUsersModalProps) => {
   const isSingleUser = userIds.length === 1;
 

@@ -7,7 +7,7 @@ import { getJobDocuments } from "~/modules/production/production.service";
 import { getCompanyIntegration } from "~/modules/settings/settings.server";
 
 const integrationMetadataParser = z.object({
-  processes: z.array(z.string()),
+  processes: z.array(z.string())
 });
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
@@ -38,7 +38,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   if (params.version === "v1") {
     const result = await client.rpc("get_radan_v1", {
       company_id: companyId,
-      processes,
+      processes
     });
 
     if (result.error) {
@@ -63,13 +63,13 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
             documents = await getJobDocuments(serviceRole, companyId, {
               id: item.jobId,
               salesOrderLineId: item.salesOrderLineId,
-              itemId: item.itemId,
+              itemId: item.itemId
             });
             jobDocumentsCache.set(item.jobId, documents);
           }
           return {
             ...item,
-            documents,
+            documents
           };
         }
         return item;
@@ -81,6 +81,6 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
   return json({
     success: false,
-    error: `version ${params.version} is invalid`,
+    error: `version ${params.version} is invalid`
   });
 }

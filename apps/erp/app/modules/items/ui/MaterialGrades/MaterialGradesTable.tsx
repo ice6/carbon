@@ -8,7 +8,7 @@ import {
   LuGlassWater,
   LuKeySquare,
   LuPencil,
-  LuTrash,
+  LuTrash
 } from "react-icons/lu";
 import { Hyperlink, New, Table } from "~/components";
 import { Enumerable } from "~/components/Enumerable";
@@ -43,10 +43,10 @@ const MaterialGradesTable = memo(
               type: "static",
               options: substances.map((substance) => ({
                 label: <Enumerable value={substance.label} />,
-                value: substance.label,
-              })),
-            },
-          },
+                value: substance.label
+              }))
+            }
+          }
         },
         {
           accessorKey: "name",
@@ -64,8 +64,8 @@ const MaterialGradesTable = memo(
               </Hyperlink>
             ),
           meta: {
-            icon: <LuBeef />,
-          },
+            icon: <LuBeef />
+          }
         },
         {
           accessorKey: "id",
@@ -77,8 +77,8 @@ const MaterialGradesTable = memo(
             </div>
           ),
           meta: {
-            icon: <LuKeySquare />,
-          },
+            icon: <LuKeySquare />
+          }
         },
         {
           accessorKey: "companyId",
@@ -91,9 +91,9 @@ const MaterialGradesTable = memo(
             );
           },
           meta: {
-            icon: <LuCircleCheck />,
-          },
-        },
+            icon: <LuCircleCheck />
+          }
+        }
       ];
       return [...defaultColumns];
     }, [params, substances]);

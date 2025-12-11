@@ -8,7 +8,7 @@ import type {
   FieldErrors,
   TouchedFields,
   ValidationResult,
-  Validator,
+  Validator
 } from "../../validation/types";
 import { requestSubmit } from "../logic/requestSubmit";
 import * as arrayUtil from "./arrayUtil";
@@ -147,9 +147,9 @@ const defaultFormState: FormState = {
       unshift: noOp,
       remove: noOp,
       pop: noOp,
-      replace: noOp,
-    },
-  },
+      replace: noOp
+    }
+  }
 };
 
 const createFormState = (
@@ -269,7 +269,7 @@ const createFormState = (
     }
 
     const {
-      error: { fieldErrors },
+      error: { fieldErrors }
     } = validationResult;
     const errorFields = new Set<string>();
     const incomingErrors = new Set<string>();
@@ -564,9 +564,9 @@ const createFormState = (
           );
         });
         get().controlledFields.kickoffValueUpdate(fieldName);
-      },
-    },
-  },
+      }
+    }
+  }
 });
 
 export const useRootFormStore = create<FormStoreState>()(
@@ -588,6 +588,6 @@ export const useRootFormStore = create<FormStoreState>()(
           () => get().forms[formId]
         ) as WritableDraft<FormState>;
       });
-    },
+    }
   }))
 );

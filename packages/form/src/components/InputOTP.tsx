@@ -5,7 +5,7 @@ import {
   FormLabel,
   InputOTP as InputOTPBase,
   InputOTPGroup,
-  InputOTPSlot,
+  InputOTPSlot
 } from "@carbon/react";
 import type { ReactNode } from "react";
 import { forwardRef, useEffect } from "react";

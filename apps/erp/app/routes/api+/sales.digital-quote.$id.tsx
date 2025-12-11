@@ -7,7 +7,7 @@ import { json } from "@vercel/remix";
 import {
   convertQuoteToOrder,
   getQuoteByExternalId,
-  selectedLinesValidator,
+  selectedLinesValidator
 } from "~/modules/sales";
 import { getCompanySettings } from "~/modules/settings";
 
@@ -27,7 +27,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     console.error("Quote not found", quote.error);
     return json({
       success: false,
-      message: "Quote not found",
+      message: "Quote not found"
     });
   }
 
@@ -76,15 +76,15 @@ export async function action({ request, params }: ActionFunctionArgs) {
           selectedLines,
           digitalQuoteAcceptedBy,
           digitalQuoteAcceptedByEmail,
-          purchaseOrderNumber,
-        }),
+          purchaseOrderNumber
+        })
       ]);
 
       if (convert.error) {
         console.error("Failed to convert quote to order", convert.error);
         return json({
           success: false,
-          message: "Failed to convert quote to order",
+          message: "Failed to convert quote to order"
         });
       }
 
@@ -92,7 +92,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
         console.error("Failed to get company settings", companySettings.error);
         return json({
           success: false,
-          message: "Failed to send notification",
+          message: "Failed to send notification"
         });
       }
 
@@ -105,14 +105,14 @@ export async function action({ request, params }: ActionFunctionArgs) {
             recipient: {
               type: "group",
               groupIds:
-                companySettings.data?.digitalQuoteNotificationGroup ?? [],
-            },
+                companySettings.data?.digitalQuoteNotificationGroup ?? []
+            }
           });
         } catch (err) {
           console.error("Failed to trigger notification", err);
           return json({
             success: false,
-            message: "Failed to send notification",
+            message: "Failed to send notification"
           });
         }
       }
@@ -128,14 +128,14 @@ export async function action({ request, params }: ActionFunctionArgs) {
           console.error("Failed to upload file", fileUpload.error);
           return json({
             success: false,
-            message: "Failed to upload file",
+            message: "Failed to upload file"
           });
         }
 
         const updateOpportunity = await serviceRole
           .from("opportunity")
           .update({
-            purchaseOrderDocumentPath,
+            purchaseOrderDocumentPath
           })
           .eq("id", quote.data.opportunityId!);
 
@@ -149,7 +149,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
       return json({
         success: true,
-        message: "Quote accepted!",
+        message: "Quote accepted!"
       });
 
     case "reject":
@@ -165,7 +165,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
         .update({
           status: "Lost",
           digitalQuoteRejectedBy,
-          digitalQuoteRejectedByEmail,
+          digitalQuoteRejectedByEmail
         })
         .eq("id", quote.data.id);
 
@@ -173,7 +173,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
         console.error("Failed to reject quote", rejectQuote.error);
         return json({
           success: false,
-          message: "Failed to reject quote",
+          message: "Failed to reject quote"
         });
       }
 
@@ -186,21 +186,21 @@ export async function action({ request, params }: ActionFunctionArgs) {
             recipient: {
               type: "group",
               groupIds:
-                companySettings.data?.digitalQuoteNotificationGroup ?? [],
-            },
+                companySettings.data?.digitalQuoteNotificationGroup ?? []
+            }
           });
         } catch (err) {
           console.error("Failed to trigger notification", err);
           return json({
             success: false,
-            message: "Failed to send notification",
+            message: "Failed to send notification"
           });
         }
       }
 
       return json({
         success: true,
-        message: "Quote rejected!",
+        message: "Quote rejected!"
       });
 
     default:

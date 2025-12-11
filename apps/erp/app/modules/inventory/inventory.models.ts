@@ -1,4 +1,4 @@
-import { z } from 'zod/v3';
+import { z } from "zod/v3";
 import { zfd } from "zod-form-data";
 import { batchPropertyDataTypes } from "../items/items.models";
 
@@ -9,7 +9,7 @@ export const itemTypes = [
   "Part",
   "Material",
   "Tool",
-  "Consumable",
+  "Consumable"
   // "Service",
 ] as const;
 
@@ -22,7 +22,7 @@ export const itemLedgerTypes = [
   "Consumption",
   "Output",
   "Assembly Consumption",
-  "Assembly Output",
+  "Assembly Output"
 ] as const;
 
 export const itemLedgerDocumentTypes = [
@@ -42,20 +42,20 @@ export const itemLedgerDocumentTypes = [
   "Posted Assembly",
   "Inventory Receipt",
   "Inventory Shipment",
-  "Direct Transfer",
+  "Direct Transfer"
 ] as const;
 
 export const trackedEntityStatus = [
   "Available",
   "Consumed",
   "On Hold",
-  "Reserved",
+  "Reserved"
 ] as const;
 
 export const replenishmentSystemTypes = [
   "Buy",
   "Make",
-  "Buy and Make",
+  "Buy and Make"
 ] as const;
 
 export const receiptSourceDocumentType = [
@@ -65,7 +65,7 @@ export const receiptSourceDocumentType = [
   "Purchase Order",
   "Purchase Invoice",
   // "Purchase Return Order",
-  "Inbound Transfer",
+  "Inbound Transfer"
   // "Outbound Transfer",
   // "Manufacturing Consumption",
   // "Manufacturing Output",
@@ -80,7 +80,7 @@ export const batchPropertyValidator = z
     label: z.string().min(1, { message: "Label is required" }),
     dataType: z.enum(batchPropertyDataTypes),
     listOptions: z.string().min(1).array().optional(),
-    configurationParameterGroupId: z.string().optional(),
+    configurationParameterGroupId: z.string().optional()
   })
   .refine(
     (data) => {
@@ -94,7 +94,7 @@ export const batchPropertyValidator = z
 
 export const batchPropertyOrderValidator = z.object({
   id: z.string().min(1, { message: "ID is required" }),
-  sortOrder: zfd.numeric(z.number().min(0)),
+  sortOrder: zfd.numeric(z.number().min(0))
 });
 
 export const inventoryAdjustmentValidator = z.object({
@@ -103,7 +103,7 @@ export const inventoryAdjustmentValidator = z.object({
   shelfId: zfd.text(z.string().optional()),
   adjustmentType: z.enum([...itemLedgerTypes, "Set Quantity"]),
   quantity: zfd.numeric(z.number()),
-  trackedEntityId: zfd.text(z.string().optional()),
+  trackedEntityId: zfd.text(z.string().optional())
 });
 
 export const itemLedgerValidator = z.object({
@@ -114,7 +114,7 @@ export const itemLedgerValidator = z.object({
   itemId: z.string().min(1, { message: "Item is required" }),
   locationId: z.string().optional(),
   shelfId: z.string().optional(),
-  quantity: z.number(),
+  quantity: z.number()
 });
 
 export const kanbanValidator = z
@@ -132,13 +132,13 @@ export const kanbanValidator = z
     shelfId: zfd.text(z.string().optional()),
     supplierId: zfd.text(z.string().optional()),
     purchaseUnitOfMeasureCode: zfd.text(z.string().optional()),
-    conversionFactor: zfd.numeric(z.number().min(0).default(1)),
+    conversionFactor: zfd.numeric(z.number().min(0).default(1))
   })
   .refine(
     (data) => (data.replenishmentSystem === "Buy" ? !!data.supplierId : true),
     {
       message: "Supplier is required",
-      path: ["supplierId"],
+      path: ["supplierId"]
     }
   );
 
@@ -152,20 +152,20 @@ export const receiptValidator = z.object({
   ),
   externalDocumentId: zfd.text(z.string().optional()),
   sourceDocumentReadableId: zfd.text(z.string().optional()),
-  supplierId: zfd.text(z.string().optional()),
+  supplierId: zfd.text(z.string().optional())
 });
 
 export const shelfValidator = z.object({
   id: zfd.text(z.string().optional()),
   name: z.string().min(1, { message: "Name is required" }),
-  locationId: z.string().min(1, { message: "Location ID is required" }),
+  locationId: z.string().min(1, { message: "Location ID is required" })
 });
 
 export const shipmentStatusType = [
   "Draft",
   "Pending",
   "Posted",
-  "Voided",
+  "Voided"
 ] as const;
 
 export const shipmentSourceDocumentType = [
@@ -176,7 +176,7 @@ export const shipmentSourceDocumentType = [
   // "Purchase Invoice",
   // "Purchase Return Order",
   // "Inbound Transfer",
-  "Outbound Transfer",
+  "Outbound Transfer"
 ] as const;
 
 export const shippingCarrierType = [
@@ -184,7 +184,7 @@ export const shippingCarrierType = [
   "FedEx",
   "USPS",
   "DHL",
-  "Other",
+  "Other"
 ] as const;
 
 export const shipmentValidator = z.object({
@@ -198,7 +198,7 @@ export const shipmentValidator = z.object({
   trackingNumber: zfd.text(z.string().optional()),
   shippingMethodId: zfd.text(z.string().optional()),
   sourceDocumentReadableId: zfd.text(z.string().optional()),
-  customerId: zfd.text(z.string().optional()),
+  customerId: zfd.text(z.string().optional())
 });
 
 export const shippingMethodValidator = z.object({
@@ -206,11 +206,11 @@ export const shippingMethodValidator = z.object({
   name: z.string().min(1, { message: "Name is required" }),
   carrier: z.enum(["UPS", "FedEx", "USPS", "DHL", "Other"], {
     errorMap: () => ({
-      message: "Carrier is required",
-    }),
+      message: "Carrier is required"
+    })
   }),
   carrierAccountId: zfd.text(z.string().optional()),
-  trackingUrl: zfd.text(z.string().optional()),
+  trackingUrl: zfd.text(z.string().optional())
 });
 
 export const splitValidator = z.object({
@@ -219,7 +219,7 @@ export const splitValidator = z.object({
     .string()
     .min(1, { message: "Document Line ID is required" }),
   locationId: z.string().min(1, { message: "Location ID is required" }),
-  quantity: zfd.numeric(z.number()),
+  quantity: zfd.numeric(z.number())
 });
 
 export const warehouseTransferStatusType = [
@@ -228,7 +228,7 @@ export const warehouseTransferStatusType = [
   "To Ship",
   "To Receive",
   "Completed",
-  "Cancelled",
+  "Cancelled"
 ] as const;
 
 export const warehouseTransferValidator = z
@@ -241,11 +241,11 @@ export const warehouseTransferValidator = z
     transferDate: zfd.text(z.string().optional()),
     expectedReceiptDate: zfd.text(z.string().optional()),
     notes: zfd.text(z.string().optional()),
-    reference: zfd.text(z.string().optional()),
+    reference: zfd.text(z.string().optional())
   })
   .refine((data) => data.fromLocationId !== data.toLocationId, {
     message: "From and To locations must be different",
-    path: ["toLocationId"],
+    path: ["toLocationId"]
   });
 
 export const warehouseTransferLineValidator = z
@@ -261,18 +261,18 @@ export const warehouseTransferLineValidator = z
     toLocationId: z.string().min(1, { message: "To Location is required" }),
     toShelfId: zfd.text(z.string().optional()),
     unitOfMeasureCode: zfd.text(z.string().optional()),
-    notes: zfd.text(z.string().optional()),
+    notes: zfd.text(z.string().optional())
   })
   .refine((data) => data.fromLocationId !== data.toLocationId, {
     message: "From and To locations must be different",
-    path: ["toLocationId"],
+    path: ["toLocationId"]
   });
 
 export const stockTransferStatusType = [
   "Draft",
   "Released",
   "In Progress",
-  "Completed",
+  "Completed"
 ] as const;
 
 export const stockTransferValidator = z.object({
@@ -289,7 +289,7 @@ export const stockTransferValidator = z.object({
             toShelfId: z.string().optional(),
             quantity: z.number().min(0).optional(),
             requiresSerialTracking: z.boolean().optional(),
-            requiresBatchTracking: z.boolean().optional(),
+            requiresBatchTracking: z.boolean().optional()
           })
         )
         .min(1, { message: "At least one line is required" })
@@ -297,11 +297,11 @@ export const stockTransferValidator = z.object({
     } catch (e) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
-        message: "Invalid JSON format for lines",
+        message: "Invalid JSON format for lines"
       });
       return z.NEVER;
     }
-  }),
+  })
 });
 
 export const stockTransferLineValidator = z.object({
@@ -321,7 +321,7 @@ export const stockTransferLineValidator = z.object({
   ),
   requiresSerialTracking: zfd.text(
     z.string().transform((val) => val === "true")
-  ),
+  )
 });
 
 export const stockTransferLineScanValidator = z.object({
@@ -331,5 +331,5 @@ export const stockTransferLineScanValidator = z.object({
   stockTransferId: z.string().min(1, { message: "Stock transfer is required" }),
   trackedEntityId: z
     .string()
-    .min(1, { message: "Tracked entity ID is required" }),
+    .min(1, { message: "Tracked entity ID is required" })
 });

@@ -11,7 +11,7 @@ import { path } from "~/utils/path";
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
     view: "resources",
-    role: "employee",
+    role: "employee"
   });
 
   const { supplierId } = params;
@@ -26,13 +26,13 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   }
 
   return json({
-    partner: partner.data,
+    partner: partner.data
   });
 }
 
 export async function action({ request, params }: ActionFunctionArgs) {
   const { client } = await requirePermissions(request, {
-    delete: "resources",
+    delete: "resources"
   });
 
   const { supplierId } = params;

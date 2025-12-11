@@ -16,7 +16,7 @@ export default function useCustomerParts() {
       return await carbon
         .from("customerPartToItem")
         .update({
-          [id]: value,
+          [id]: value
         })
         .eq("id", row.id);
     },
@@ -27,6 +27,6 @@ export default function useCustomerParts() {
     canDelete,
     canEdit,
     carbon,
-    onCellEdit,
+    onCellEdit
   };
 }

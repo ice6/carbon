@@ -4,7 +4,7 @@ import {
   Select,
   SelectControlled,
   TextArea,
-  ValidatedForm,
+  ValidatedForm
 } from "@carbon/form";
 import {
   Card,
@@ -13,7 +13,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { useState } from "react";
 import type { z } from "zod/v3";
@@ -22,7 +22,7 @@ import {
   Hidden,
   Input,
   Location,
-  Submit,
+  Submit
 } from "~/components/Form";
 import { usePermissions } from "~/hooks";
 import { useItems } from "~/stores/items";
@@ -31,7 +31,7 @@ import {
   issueValidator,
   nonConformanceApprovalRequirement,
   nonConformancePriority,
-  nonConformanceSource,
+  nonConformanceSource
 } from "../../quality.models";
 import type { IssueWorkflow } from "../../types";
 import { getPriorityIcon, getSourceIcon } from "./IssueIcons";
@@ -49,7 +49,7 @@ const IssueForm = ({
   initialValues,
   nonConformanceWorkflows,
   nonConformanceTypes,
-  requiredActions,
+  requiredActions
 }: IssueFormProps) => {
   const permissions = usePermissions();
   const isEditing = initialValues.id !== undefined;
@@ -63,7 +63,7 @@ const IssueForm = ({
     priority: initialValues.priority,
     source: initialValues.source,
     requiredActionIds: initialValues.requiredActionIds ?? [],
-    approvalRequirements: initialValues.approvalRequirements ?? [],
+    approvalRequirements: initialValues.approvalRequirements ?? []
   });
 
   const [items] = useItems();
@@ -79,7 +79,7 @@ const IssueForm = ({
           priority: selectedWorkflow.priority,
           source: selectedWorkflow.source,
           requiredActionIds: selectedWorkflow.requiredActionIds ?? [],
-          approvalRequirements: selectedWorkflow.approvalRequirements ?? [],
+          approvalRequirements: selectedWorkflow.approvalRequirements ?? []
         });
       }
     }
@@ -124,7 +124,7 @@ const IssueForm = ({
                 label="Issue Type"
                 options={nonConformanceTypes.map((type) => ({
                   label: type.name,
-                  value: type.id,
+                  value: type.id
                 }))}
               />
             </div>
@@ -135,7 +135,7 @@ const IssueForm = ({
                 label="Workflow"
                 options={nonConformanceWorkflows.map((workflow) => ({
                   label: workflow.name,
-                  value: workflow.id,
+                  value: workflow.id
                 }))}
                 onChange={onWorkflowChange}
               />
@@ -146,7 +146,7 @@ const IssueForm = ({
                 options={items.map((item) => ({
                   label: item.readableIdWithRevision,
                   value: item.id,
-                  helper: item.name,
+                  helper: item.name
                 }))}
               />
             </div>
@@ -157,13 +157,13 @@ const IssueForm = ({
                 label="Required Actions"
                 options={requiredActions.map((action) => ({
                   label: action.name,
-                  value: action.id,
+                  value: action.id
                 }))}
                 value={workflow.requiredActionIds}
                 onChange={(value) => {
                   setWorkflow({
                     ...workflow,
-                    requiredActionIds: value.map((v) => v.value),
+                    requiredActionIds: value.map((v) => v.value)
                   });
                 }}
               />
@@ -173,14 +173,14 @@ const IssueForm = ({
                 options={nonConformanceApprovalRequirement.map(
                   (requirement) => ({
                     label: requirement,
-                    value: requirement,
+                    value: requirement
                   })
                 )}
                 value={workflow.approvalRequirements}
                 onChange={(value) => {
                   setWorkflow({
                     ...workflow,
-                    approvalRequirements: value.map((v) => v.value),
+                    approvalRequirements: value.map((v) => v.value)
                   });
                 }}
               />
@@ -196,13 +196,13 @@ const IssueForm = ({
                       <span>{priority}</span>
                     </div>
                   ),
-                  value: priority,
+                  value: priority
                 }))}
                 value={workflow.priority}
                 onChange={(value) => {
                   setWorkflow({
                     ...workflow,
-                    priority: value?.value ?? "",
+                    priority: value?.value ?? ""
                   });
                 }}
               />
@@ -216,13 +216,13 @@ const IssueForm = ({
                       <span>{source}</span>
                     </div>
                   ),
-                  value: source,
+                  value: source
                 }))}
                 value={workflow.source}
                 onChange={(value) => {
                   setWorkflow({
                     ...workflow,
-                    source: value?.value ?? "",
+                    source: value?.value ?? ""
                   });
                 }}
               />

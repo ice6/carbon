@@ -3,16 +3,16 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { useLocale } from "@react-aria/i18n";
 import { LuMoveDown, LuMoveUp } from "react-icons/lu";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import type {
   ItemQuantities,
   ItemShelfQuantities,
   itemTrackingTypes,
-  pickMethodValidator,
+  pickMethodValidator
 } from "~/modules/items";
 import InventoryShelves from "./InventoryShelves";
 
@@ -31,13 +31,13 @@ const InventoryDetails = ({
   itemTrackingType,
   pickMethod,
   quantities,
-  shelves,
+  shelves
 }: InventoryDetailsProps) => {
   const { locale } = useLocale();
   const formatter = Intl.NumberFormat(locale, {
     minimumFractionDigits: 0,
     maximumFractionDigits: 2,
-    useGrouping: true,
+    useGrouping: true
   });
 
   return (

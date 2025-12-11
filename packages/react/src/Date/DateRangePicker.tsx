@@ -16,12 +16,12 @@ const iconVariants = cva("", {
     size: {
       sm: "h-3 w-3",
       md: "h-4 w-4",
-      lg: "h-5 w-5",
-    },
+      lg: "h-5 w-5"
+    }
   },
   defaultVariants: {
-    size: "md",
-  },
+    size: "md"
+  }
 });
 
 const fieldVariants = cva("flex w-full", {
@@ -29,12 +29,12 @@ const fieldVariants = cva("flex w-full", {
     size: {
       sm: "px-2 py-1",
       md: "px-4 py-2",
-      lg: "px-6 py-3",
-    },
+      lg: "px-6 py-3"
+    }
   },
   defaultVariants: {
-    size: "md",
-  },
+    size: "md"
+  }
 });
 
 const DateRangePicker = ({
@@ -45,7 +45,7 @@ const DateRangePicker = ({
 }) => {
   const state = useDateRangePickerState({
     ...props,
-    shouldCloseOnSelect: false,
+    shouldCloseOnSelect: false
   });
   const ref = useRef<HTMLDivElement>(null);
   const {
@@ -54,7 +54,7 @@ const DateRangePicker = ({
     endFieldProps,
     buttonProps,
     dialogProps,
-    calendarProps,
+    calendarProps
   } = useDateRangePicker(props, state, ref);
 
   return (

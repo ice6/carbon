@@ -63,7 +63,7 @@ const Location = ({ inline = false, ...props }: LocationSelectProps) => {
             city: "",
             stateProvince: "",
             postalCode: "",
-            countryCode: company?.countryCode ?? "",
+            countryCode: company?.countryCode ?? ""
           }}
         />
       )}
@@ -88,7 +88,7 @@ export const useLocations = () => {
       locationFetcher.data?.data
         ? locationFetcher.data?.data.map((c) => ({
             value: c.id,
-            label: c.name,
+            label: c.name
           }))
         : [],
     [locationFetcher.data]

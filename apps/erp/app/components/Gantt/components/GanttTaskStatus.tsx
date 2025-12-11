@@ -9,7 +9,7 @@ import {
   LuFlame,
   LuLayers,
   LuRefreshCcw,
-  LuSnowflake,
+  LuSnowflake
 } from "react-icons/lu";
 
 export type GanttTaskStatus =
@@ -35,7 +35,7 @@ export const allGanttTaskStatuses = [
   "COMPLETED_WITH_ERRORS",
   "CRASHED",
   "INTERRUPTED",
-  "SYSTEM_FAILURE",
+  "SYSTEM_FAILURE"
 ] as GanttTaskStatus[];
 
 const taskRunStatusDescriptions: Record<GanttTaskStatus, string> = {
@@ -49,7 +49,7 @@ const taskRunStatusDescriptions: Record<GanttTaskStatus, string> = {
   INTERRUPTED: "Task has failed because it was interrupted",
   SYSTEM_FAILURE: "Task has failed due to a system failure",
   PAUSED: "Task has been paused by the user",
-  CRASHED: "Task has crashed and won't be retried",
+  CRASHED: "Task has crashed and won't be retried"
 };
 
 export const QUEUED_STATUSES: GanttTaskStatus[] = ["PENDING"];
@@ -57,7 +57,7 @@ export const QUEUED_STATUSES: GanttTaskStatus[] = ["PENDING"];
 export const RUNNING_STATUSES: GanttTaskStatus[] = [
   "EXECUTING",
   "RETRYING_AFTER_FAILURE",
-  "WAITING_TO_RESUME",
+  "WAITING_TO_RESUME"
 ];
 
 export const FINISHED_STATUSES: GanttTaskStatus[] = [
@@ -66,7 +66,7 @@ export const FINISHED_STATUSES: GanttTaskStatus[] = [
   "COMPLETED_WITH_ERRORS",
   "INTERRUPTED",
   "SYSTEM_FAILURE",
-  "CRASHED",
+  "CRASHED"
 ];
 
 export function descriptionForGanttTaskStatus(status: GanttTaskStatus): string {
@@ -76,7 +76,7 @@ export function descriptionForGanttTaskStatus(status: GanttTaskStatus): string {
 export function GanttTaskStatusCombo({
   status,
   className,
-  iconClassName,
+  iconClassName
 }: {
   status: GanttTaskStatus;
   className?: string;
@@ -103,7 +103,7 @@ export function GanttTaskStatusLabel({ status }: { status: GanttTaskStatus }) {
 
 export function GanttTaskStatusIcon({
   status,
-  className,
+  className
 }: {
   status: GanttTaskStatus;
   className: string;

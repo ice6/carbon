@@ -6,7 +6,7 @@ import type { FileObject, StorageError } from "@supabase/storage-js";
 import {
   FunctionRegion,
   type PostgrestError,
-  type SupabaseClient,
+  type SupabaseClient
 } from "@supabase/supabase-js";
 import type { z } from "zod/v3";
 import type { StorageItem } from "~/types";
@@ -17,7 +17,7 @@ import { getDefaultShelfForJob } from "../inventory";
 import type {
   operationParameterValidator,
   operationStepValidator,
-  operationToolValidator,
+  operationToolValidator
 } from "../shared";
 import type {
   deadlineTypes,
@@ -31,7 +31,7 @@ import type {
   procedureValidator,
   productionEventValidator,
   productionQuantityValidator,
-  scrapReasonValidator,
+  scrapReasonValidator
 } from "./production.models";
 import type { Job } from "./types";
 
@@ -40,7 +40,7 @@ export async function convertSalesOrderLinesToJobs(
   {
     orderId,
     companyId,
-    userId,
+    userId
   }: {
     orderId: string;
     companyId: string;
@@ -115,7 +115,7 @@ export async function convertSalesOrderLinesToJobs(
       for await (const index of Array.from({ length: jobsToCreate }).keys()) {
         const nextSequence = await serviceRole.rpc("get_next_sequence", {
           sequence_name: "job",
-          company_id: companyId,
+          company_id: companyId
         });
 
         if (!nextSequence.data) {
@@ -174,7 +174,7 @@ export async function convertSalesOrderLinesToJobs(
           salesOrderLineId: line.id,
           scrapQuantity: 0,
           shelfId: shelfId ?? undefined,
-          unitOfMeasureCode: line.unitOfMeasureCode ?? "EA",
+          unitOfMeasureCode: line.unitOfMeasureCode ?? "EA"
         };
 
         // Calculate priority based on due date and deadline type
@@ -182,7 +182,7 @@ export async function convertSalesOrderLinesToJobs(
           dueDate: data.dueDate ?? null,
           deadlineType: data.deadlineType,
           companyId,
-          locationId: locationId!,
+          locationId: locationId!
         });
 
         const createJob = await serviceRole
@@ -193,7 +193,7 @@ export async function convertSalesOrderLinesToJobs(
             priority,
             companyId,
             createdBy: userId,
-            updatedBy: userId,
+            updatedBy: userId
           })
           .select("id")
           .single();
@@ -214,8 +214,8 @@ export async function convertSalesOrderLinesToJobs(
                 sourceId: `${quoteId}:${line.id}`,
                 targetId: createJob.data.id,
                 companyId,
-                userId,
-              },
+                userId
+              }
             }
           );
 
@@ -234,8 +234,8 @@ export async function convertSalesOrderLinesToJobs(
                 sourceId: data.itemId,
                 targetId: createJob.data.id,
                 companyId,
-                userId,
-              },
+                userId
+              }
             }
           );
 
@@ -252,8 +252,8 @@ export async function convertSalesOrderLinesToJobs(
             type: "jobRequirements",
             id: createJob.data.id,
             companyId,
-            userId,
-          },
+            userId
+          }
         });
 
         await serviceRole.functions.invoke("schedule", {
@@ -262,8 +262,8 @@ export async function convertSalesOrderLinesToJobs(
             companyId,
             userId,
             mode: "initial",
-            direction: "backward",
-          },
+            direction: "backward"
+          }
         });
 
         jobsCreated++;
@@ -280,8 +280,8 @@ export async function convertSalesOrderLinesToJobs(
           "; "
         )}`,
         details: errors.join("; "),
-        code: "JOB_CREATION_ERROR",
-      } as PostgrestError,
+        code: "JOB_CREATION_ERROR"
+      } as PostgrestError
     };
   }
 
@@ -291,8 +291,8 @@ export async function convertSalesOrderLinesToJobs(
       error: {
         message: "No jobs were created",
         details: "No Make items found on sales order lines",
-        code: "NO_JOBS_CREATED",
-      } as PostgrestError,
+        code: "NO_JOBS_CREATED"
+      } as PostgrestError
     };
   }
 
@@ -324,7 +324,7 @@ export async function calculateJobPriority(
     ASAP: 0,
     "Hard Deadline": 1,
     "Soft Deadline": 2,
-    "No Deadline": 3,
+    "No Deadline": 3
   };
 
   const currentJobPriority = deadlineTypePriority[deadlineType];
@@ -412,7 +412,7 @@ export async function deleteDemandForecasts(
 
   return {
     data: result.data,
-    error: result.error,
+    error: result.error
   };
 }
 
@@ -437,7 +437,7 @@ export async function deleteDemandProjections(
 
   return {
     data: result.data,
-    error: result.error,
+    error: result.error
   };
 }
 
@@ -576,7 +576,7 @@ export async function getActiveJobOperationsByLocation(
 ) {
   return client.rpc("get_active_job_operations_by_location", {
     location_id: locationId,
-    work_center_ids: workCenterIds,
+    work_center_ids: workCenterIds
   });
 }
 
@@ -589,7 +589,7 @@ export async function getJobsByDateRange(
   return client.rpc("get_jobs_by_date_range", {
     location_id: locationId,
     start_date: startDate,
-    end_date: endDate,
+    end_date: endDate
   });
 }
 
@@ -598,7 +598,7 @@ export async function getUnscheduledJobs(
   locationId: string
 ) {
   return client.rpc("get_unscheduled_jobs", {
-    location_id: locationId,
+    location_id: locationId
   });
 }
 
@@ -704,9 +704,9 @@ export async function getJobDocuments(
     ...(jobFiles.data?.map((f) => ({ ...f, bucket: "job" })) || []),
     ...(opportunityLineFiles?.data?.map((f) => ({
       ...f,
-      bucket: "opportunity-line",
+      bucket: "opportunity-line"
     })) || []),
-    ...(partsFiles?.data?.map((f) => ({ ...f, bucket: "parts" })) || []),
+    ...(partsFiles?.data?.map((f) => ({ ...f, bucket: "parts" })) || [])
   ];
 }
 
@@ -724,27 +724,27 @@ export async function getJobDocumentsWithItemId(
         .from("private")
         .list(`${companyId}/opportunity-line/${opportunityLine}`),
       client.storage.from("private").list(`${companyId}/job/${job.id}`),
-      client.storage.from("private").list(`${companyId}/parts/${itemId}`),
+      client.storage.from("private").list(`${companyId}/parts/${itemId}`)
     ]);
 
     // Combine and return both sets of files
     return [
       ...(opportunityLineFiles.data?.map((f) => ({
         ...f,
-        bucket: "opportunity-line",
+        bucket: "opportunity-line"
       })) || []),
       ...(jobFiles.data?.map((f) => ({ ...f, bucket: "job" })) || []),
-      ...(itemFiles.data?.map((f) => ({ ...f, bucket: "parts" })) || []),
+      ...(itemFiles.data?.map((f) => ({ ...f, bucket: "parts" })) || [])
     ];
   } else {
     const [jobFiles, itemFiles] = await Promise.all([
       client.storage.from("private").list(`${companyId}/job/${job.id}`),
-      client.storage.from("private").list(`${companyId}/parts/${itemId}`),
+      client.storage.from("private").list(`${companyId}/parts/${itemId}`)
     ]);
 
     return [
       ...(jobFiles.data?.map((f) => ({ ...f, bucket: "job" })) || []),
-      ...(itemFiles.data?.map((f) => ({ ...f, bucket: "parts" })) || []),
+      ...(itemFiles.data?.map((f) => ({ ...f, bucket: "parts" })) || [])
     ];
   }
 }
@@ -784,7 +784,7 @@ export async function getJobs(
   let query = client
     .from("jobs")
     .select("*", {
-      count: "exact",
+      count: "exact"
     })
     .eq("companyId", companyId);
 
@@ -794,7 +794,7 @@ export async function getJobs(
 
   if (args) {
     query = setGenericQueryFilters(query, args, [
-      { column: "jobId", ascending: false },
+      { column: "jobId", ascending: false }
     ]);
   }
 
@@ -849,10 +849,10 @@ export async function getJobMaterialsWithQuantityOnHand(
     {
       job_id: jobId,
       company_id: companyId,
-      location_id: locationId,
+      location_id: locationId
     },
     {
-      count: "exact",
+      count: "exact"
     }
   );
 }
@@ -868,7 +868,7 @@ export async function getJobMethodTree(
 
   return {
     data: tree,
-    error: null,
+    error: null
   };
 }
 
@@ -877,7 +877,7 @@ export async function getJobMethodTreeArray(
   jobId: string
 ) {
   return client.rpc("get_job_method", {
-    jid: jobId,
+    jid: jobId
   });
 }
 
@@ -972,7 +972,7 @@ export async function getJobOperations(
     .select(
       "*, jobMakeMethod(parentMaterialId, item(readableIdWithRevision))",
       {
-        count: "exact",
+        count: "exact"
       }
     )
     .eq("jobId", jobId);
@@ -985,7 +985,7 @@ export async function getJobOperations(
     query = setGenericQueryFilters(query, args, [
       { column: "description", ascending: true },
       { column: "order", ascending: true },
-      { column: "createdAt", ascending: false },
+      { column: "createdAt", ascending: false }
     ]);
   }
 
@@ -1071,7 +1071,7 @@ export async function getJobOperationStepRecords(
   }
 ) {
   let query = client.rpc("get_job_operation_step_records", {
-    p_job_id: jobId,
+    p_job_id: jobId
   });
 
   if (args.search) {
@@ -1081,7 +1081,7 @@ export async function getJobOperationStepRecords(
   }
 
   query = setGenericQueryFilters(query, args, [
-    { column: "type", ascending: true },
+    { column: "type", ascending: true }
   ]);
 
   return query;
@@ -1153,7 +1153,7 @@ export async function getProcedures(
   let query = client
     .from("procedures")
     .select("*", {
-      count: "exact",
+      count: "exact"
     })
     .eq("companyId", companyId);
 
@@ -1163,7 +1163,7 @@ export async function getProcedures(
 
   if (args) {
     query = setGenericQueryFilters(query, args, [
-      { column: "name", ascending: true },
+      { column: "name", ascending: true }
     ]);
   }
 
@@ -1209,7 +1209,7 @@ export async function getProductionEvents(
     .select(
       "*, jobOperation(description, jobMakeMethod(parentMaterialId, item(readableIdWithRevision)))",
       {
-        count: "exact",
+        count: "exact"
       }
     )
     .in("jobOperationId", jobOperationIds)
@@ -1221,7 +1221,7 @@ export async function getProductionEvents(
 
   if (args) {
     query = setGenericQueryFilters(query, args, [
-      { column: "createdAt", ascending: false },
+      { column: "createdAt", ascending: false }
     ]);
   }
 
@@ -1257,7 +1257,7 @@ export async function getProductionEventsPage(
     count,
     page,
     pageSize,
-    hasMore: count !== null && offset + pageSize < count,
+    hasMore: count !== null && offset + pageSize < count
   };
 }
 
@@ -1288,10 +1288,10 @@ export async function getProductionPlanning(
     {
       location_id: locationId,
       company_id: companyId,
-      periods,
+      periods
     },
     {
-      count: "exact",
+      count: "exact"
     }
   );
 
@@ -1302,7 +1302,7 @@ export async function getProductionPlanning(
   }
 
   query = setGenericQueryFilters(query, args, [
-    { column: "readableIdWithRevision", ascending: true },
+    { column: "readableIdWithRevision", ascending: true }
   ]);
 
   return query;
@@ -1322,10 +1322,10 @@ export async function getProductionProjections(
     {
       location_id: locationId,
       company_id: companyId,
-      periods,
+      periods
     },
     {
-      count: "exact",
+      count: "exact"
     }
   );
 
@@ -1336,7 +1336,7 @@ export async function getProductionProjections(
   }
 
   query = setGenericQueryFilters(query, args, [
-    { column: "readableIdWithRevision", ascending: true },
+    { column: "readableIdWithRevision", ascending: true }
   ]);
 
   return query;
@@ -1363,7 +1363,7 @@ export async function getProductionQuantities(
     .select(
       "*, jobOperation(description, jobMakeMethod(parentMaterialId, item(readableIdWithRevision)))",
       {
-        count: "exact",
+        count: "exact"
       }
     )
     .in("jobOperationId", jobOperationIds);
@@ -1374,7 +1374,7 @@ export async function getProductionQuantities(
 
   if (args) {
     query = setGenericQueryFilters(query, args, [
-      { column: "createdAt", ascending: false },
+      { column: "createdAt", ascending: false }
     ]);
   }
 
@@ -1401,13 +1401,13 @@ export async function getProductionDataByOperations(
     client
       .from("jobOperationNote")
       .select("*")
-      .in("jobOperationId", jobOperationIds),
+      .in("jobOperationId", jobOperationIds)
   ]);
 
   return {
     quantities: quantities.data ?? [],
     events: events.data ?? [],
-    notes: notes.data ?? [],
+    notes: notes.data ?? []
   };
 }
 
@@ -1449,7 +1449,7 @@ export async function getScrapReasons(
 
   if (args) {
     query = setGenericQueryFilters(query, args, [
-      { column: "name", ascending: true },
+      { column: "name", ascending: true }
     ]);
   }
 
@@ -1469,7 +1469,7 @@ export async function getTrackedEntityByJobId(
   if (jobMakeMethod.error) {
     return {
       data: null,
-      error: jobMakeMethod.error,
+      error: jobMakeMethod.error
     };
   }
 
@@ -1482,7 +1482,7 @@ export async function getTrackedEntityByJobId(
 
   return {
     data: result.data?.[0] ?? null,
-    error: result.error,
+    error: result.error
   };
 }
 
@@ -1499,7 +1499,7 @@ export async function getTrackedEntitiesByJobId(
   if (jobMakeMethod.error) {
     return {
       data: null,
-      error: jobMakeMethod.error,
+      error: jobMakeMethod.error
     };
   }
 
@@ -1528,9 +1528,9 @@ export async function recalculateJobOperationDependencies(
       companyId: params.companyId,
       userId: params.userId,
       mode: "reschedule",
-      direction: "backward",
+      direction: "backward"
     },
-    region: FunctionRegion.UsEast1,
+    region: FunctionRegion.UsEast1
   });
 }
 export async function recalculateJobRequirements(
@@ -1544,9 +1544,9 @@ export async function recalculateJobRequirements(
   return client.functions.invoke("recalculate", {
     body: {
       type: "jobRequirements",
-      ...params,
+      ...params
     },
-    region: FunctionRegion.UsEast1,
+    region: FunctionRegion.UsEast1
   });
 }
 
@@ -1561,9 +1561,9 @@ export async function recalculateJobMakeMethodRequirements(
   return client.functions.invoke("recalculate", {
     body: {
       type: "jobMakeMethodRequirements",
-      ...params,
+      ...params
     },
-    region: FunctionRegion.UsEast1,
+    region: FunctionRegion.UsEast1
   });
 }
 
@@ -1584,9 +1584,9 @@ export async function runMRP(
 ) {
   return client.functions.invoke("mrp", {
     body: {
-      ...params,
+      ...params
     },
-    region: FunctionRegion.UsEast1,
+    region: FunctionRegion.UsEast1
   });
 }
 
@@ -1614,8 +1614,8 @@ export async function updateJobBatchNumber(
     .update({
       attributes: {
         ...currentAttributes.data?.attributes,
-        "Batch Number": value,
-      },
+        "Batch Number": value
+      }
     })
     .eq("id", currentAttributes.data.id)
     .select("id, attributes")
@@ -1639,7 +1639,7 @@ export async function updateJobStatus(
       status,
       assignee,
       updatedBy,
-      updatedAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
     })
     .eq("id", id);
 }
@@ -1751,7 +1751,7 @@ export async function updateJobOperationStatus(
     .update({
       status,
       updatedBy,
-      updatedAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
     })
     .eq("id", id)
     .select()
@@ -1799,7 +1799,7 @@ export async function upsertProductionEvent(
       .update({
         ...sanitize(updateData),
         updatedBy,
-        updatedAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
       })
       .eq("id", id)
       .eq("companyId", companyId)
@@ -1823,7 +1823,7 @@ export async function updateProductionQuantity(
     .update({
       ...sanitize(updateData),
       updatedBy,
-      updatedAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
     })
     .eq("id", id)
     .eq("companyId", companyId)
@@ -1855,7 +1855,7 @@ export async function upsertJob(
       .from("job")
       .update({
         ...sanitize(job),
-        ...(status && { status }),
+        ...(status && { status })
       })
       .eq("id", job.id)
       .select("id")
@@ -1866,8 +1866,8 @@ export async function upsertJob(
       .insert([
         {
           ...job,
-          ...(status && { status }),
-        },
+          ...(status && { status })
+        }
       ])
       .select("id")
       .single();
@@ -1949,14 +1949,14 @@ export async function upsertJobOperation(
         sourceId: jobOperation.procedureId,
         targetId: operationId,
         companyId: jobOperation.companyId,
-        userId: jobOperation.createdBy,
+        userId: jobOperation.createdBy
       },
-      region: FunctionRegion.UsEast1,
+      region: FunctionRegion.UsEast1
     });
     if (error) {
       return {
         data: null,
-        error: { message: "Failed to get procedure" } as PostgrestError,
+        error: { message: "Failed to get procedure" } as PostgrestError
       };
     }
   }
@@ -2078,7 +2078,7 @@ export async function upsertJobMethod(
     sourceId: jobMethod.sourceId,
     targetId: jobMethod.targetId,
     companyId: jobMethod.companyId,
-    userId: jobMethod.userId,
+    userId: jobMethod.userId
   };
 
   // Only add configuration if it exists
@@ -2088,7 +2088,7 @@ export async function upsertJobMethod(
 
   const getMethodResult = await client.functions.invoke("get-method", {
     body,
-    region: FunctionRegion.UsEast1,
+    region: FunctionRegion.UsEast1
   });
   if (getMethodResult.error) {
     return getMethodResult;
@@ -2096,7 +2096,7 @@ export async function upsertJobMethod(
   return recalculateJobRequirements(client, {
     id: jobMethod.targetId,
     companyId: jobMethod.companyId,
-    userId: jobMethod.userId,
+    userId: jobMethod.userId
   });
 }
 
@@ -2122,7 +2122,7 @@ export async function upsertJobMaterialMakeMethod(
     sourceId: jobMaterial.sourceId,
     targetId: jobMaterial.targetId,
     companyId: jobMaterial.companyId,
-    userId: jobMaterial.userId,
+    userId: jobMaterial.userId
   };
 
   // Only add configuration if it exists
@@ -2132,13 +2132,13 @@ export async function upsertJobMaterialMakeMethod(
 
   const { error } = await client.functions.invoke("get-method", {
     body,
-    region: FunctionRegion.UsEast1,
+    region: FunctionRegion.UsEast1
   });
 
   if (error) {
     return {
       data: null,
-      error: { message: "Failed to pull method" } as PostgrestError,
+      error: { message: "Failed to pull method" } as PostgrestError
     };
   }
 
@@ -2160,9 +2160,9 @@ export async function upsertMakeMethodFromJob(
       sourceId: jobMethod.sourceId,
       targetId: jobMethod.targetId,
       companyId: jobMethod.companyId,
-      userId: jobMethod.userId,
+      userId: jobMethod.userId
     },
-    region: FunctionRegion.UsEast1,
+    region: FunctionRegion.UsEast1
   });
 }
 
@@ -2181,15 +2181,15 @@ export async function upsertMakeMethodFromJobMethod(
       sourceId: jobMethod.sourceId,
       targetId: jobMethod.targetId,
       companyId: jobMethod.companyId,
-      userId: jobMethod.userId,
+      userId: jobMethod.userId
     },
-    region: FunctionRegion.UsEast1,
+    region: FunctionRegion.UsEast1
   });
 
   if (error) {
     return {
       data: null,
-      error: { message: "Failed to save method" } as PostgrestError,
+      error: { message: "Failed to save method" } as PostgrestError
     };
   }
 
@@ -2246,7 +2246,7 @@ export async function upsertProcedure(
         client
           .from("procedure")
           .update({
-            content: workInstruction,
+            content: workInstruction
           })
           .eq("id", insert.data.id),
         attributes.length > 0
@@ -2256,7 +2256,7 @@ export async function upsertProcedure(
                 return {
                   ...rest,
                   procedureId: insert.data.id,
-                  companyId: procedure.data.companyId!,
+                  companyId: procedure.data.companyId!
                 };
               })
             )
@@ -2268,11 +2268,11 @@ export async function upsertProcedure(
                 return {
                   ...rest,
                   procedureId: insert.data.id,
-                  companyId: procedure.data.companyId!,
+                  companyId: procedure.data.companyId!
                 };
               })
             )
-          : Promise.resolve({ data: null, error: null }),
+          : Promise.resolve({ data: null, error: null })
       ]);
 
     if (updateWorkInstructions.error) {
@@ -2404,10 +2404,10 @@ export async function upsertDemandForecasts(
         toUpsert.map((f) => ({
           ...f,
           updatedBy: f.updatedBy ?? f.createdBy ?? "system",
-          updatedAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString()
         })),
         {
-          onConflict: "itemId,locationId,periodId,companyId",
+          onConflict: "itemId,locationId,periodId,companyId"
         }
       )
     );
@@ -2418,7 +2418,7 @@ export async function upsertDemandForecasts(
 
   return {
     data: hasError ? null : toUpsert,
-    error: hasError ? results.find((r) => r.error)?.error : null,
+    error: hasError ? results.find((r) => r.error)?.error : null
   };
 }
 
@@ -2460,10 +2460,10 @@ export async function upsertDemandProjections(
         toUpsert.map((f) => ({
           ...f,
           updatedBy: f.updatedBy ?? f.createdBy ?? "system",
-          updatedAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString()
         })),
         {
-          onConflict: "itemId,locationId,periodId,companyId",
+          onConflict: "itemId,locationId,periodId,companyId"
         }
       )
     );
@@ -2474,7 +2474,7 @@ export async function upsertDemandProjections(
 
   return {
     data: hasError ? null : toUpsert,
-    error: hasError ? results.find((r) => r.error)?.error : null,
+    error: hasError ? results.find((r) => r.error)?.error : null
   };
 }
 
@@ -2496,7 +2496,7 @@ export async function triggerJobSchedule(
     companyId,
     userId,
     mode,
-    direction,
+    direction
   });
 
   return { success: true, runId: handle.id };

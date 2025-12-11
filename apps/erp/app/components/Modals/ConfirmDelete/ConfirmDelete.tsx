@@ -6,7 +6,7 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
-  ModalTitle,
+  ModalTitle
 } from "@carbon/react";
 import { useFetcher } from "@remix-run/react";
 import { useEffect, useRef } from "react";
@@ -26,7 +26,7 @@ const ConfirmDelete = ({
   name,
   text,
   onCancel,
-  onSubmit,
+  onSubmit
 }: ConfirmDeleteProps) => {
   const fetcher = useFetcher<{}>();
   const submitted = useRef(false);

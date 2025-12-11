@@ -17,7 +17,7 @@ import {
   getSalesOrder,
   getSalesOrderCustomerDetails,
   getSalesOrderLines,
-  salesConfirmValidator,
+  salesConfirmValidator
 } from "~/modules/sales";
 import { getCompany } from "~/modules/settings";
 import { getUser } from "~/modules/users/users.server";
@@ -32,14 +32,14 @@ export async function action(args: ActionFunctionArgs) {
 
     const { client, companyId, userId } = await requirePermissions(request, {
       create: "sales",
-      role: "employee",
+      role: "employee"
     });
 
     const { orderId } = params;
     if (!orderId) {
       return json({
         success: false,
-        message: "Could not find orderId",
+        message: "Could not find orderId"
       });
     }
 
@@ -49,39 +49,39 @@ export async function action(args: ActionFunctionArgs) {
     const serviceRole = getCarbonServiceRole();
 
     const [salesOrder] = await Promise.all([
-      getSalesOrder(serviceRole, orderId),
+      getSalesOrder(serviceRole, orderId)
     ]);
     if (salesOrder.error) {
       return json({
         success: false,
-        message: "Failed to get sales order",
+        message: "Failed to get sales order"
       });
     }
 
     if (salesOrder.data.companyId !== companyId) {
       return json({
         success: false,
-        message: "You are not authorized to confirm this sales order",
+        message: "You are not authorized to confirm this sales order"
       });
     }
 
     const acceptLanguage = request.headers.get("accept-language");
     const locales = parseAcceptLanguage(acceptLanguage, {
-      validate: Intl.DateTimeFormat.supportedLocalesOf,
+      validate: Intl.DateTimeFormat.supportedLocalesOf
     });
 
     try {
       // Pass orderId as id for PDF generation
       const pdfArgs = {
         ...args,
-        params: { ...args.params, id: orderId },
+        params: { ...args.params, id: orderId }
       };
       const pdf = await pdfLoader(pdfArgs);
 
       if (pdf.headers.get("content-type") !== "application/pdf") {
         return json({
           success: false,
-          message: "Failed to generate PDF",
+          message: "Failed to generate PDF"
         });
       }
 
@@ -99,13 +99,13 @@ export async function action(args: ActionFunctionArgs) {
         .upload(documentFilePath, file, {
           cacheControl: `${12 * 60 * 60}`,
           contentType: "application/pdf",
-          upsert: true,
+          upsert: true
         });
 
       if (documentFileUpload.error) {
         return json({
           success: false,
-          message: "Failed to upload file",
+          message: "Failed to upload file"
         });
       }
 
@@ -118,19 +118,19 @@ export async function action(args: ActionFunctionArgs) {
         readGroups: [userId],
         writeGroups: [userId],
         createdBy: userId,
-        companyId,
+        companyId
       });
 
       if (createDocument.error) {
         return json({
           success: false,
-          message: "Failed to create document",
+          message: "Failed to create document"
         });
       }
     } catch (err) {
       return json({
         success: false,
-        message: "Failed to generate PDF",
+        message: "Failed to generate PDF"
       });
     }
 
@@ -141,7 +141,7 @@ export async function action(args: ActionFunctionArgs) {
     if (validation.error) {
       return json({
         success: false,
-        message: "Invalid form data",
+        message: "Invalid form data"
       });
     }
 
@@ -153,7 +153,7 @@ export async function action(args: ActionFunctionArgs) {
           if (!customerContact) {
             return json({
               success: false,
-              message: "Customer contact is required",
+              message: "Customer contact is required"
             });
           }
 
@@ -164,7 +164,7 @@ export async function action(args: ActionFunctionArgs) {
             salesOrderLines,
             salesOrderLocations,
             seller,
-            paymentTerms,
+            paymentTerms
           ] = await Promise.all([
             getCompany(serviceRole, companyId),
             getCustomerContact(serviceRole, customerContact),
@@ -172,44 +172,44 @@ export async function action(args: ActionFunctionArgs) {
             getSalesOrderLines(serviceRole, orderId),
             getSalesOrderCustomerDetails(serviceRole, orderId),
             getUser(serviceRole, userId),
-            getPaymentTermsList(serviceRole, companyId),
+            getPaymentTermsList(serviceRole, companyId)
           ]);
 
           if (!customer?.data?.contact) {
             return json({
               success: false,
-              message: "Failed to get customer contact",
+              message: "Failed to get customer contact"
             });
           }
           if (!company.data) {
             return json({
               success: false,
-              message: "Failed to get company",
+              message: "Failed to get company"
             });
           }
           if (!seller.data) {
             return json({
               success: false,
-              message: "Failed to get user",
+              message: "Failed to get user"
             });
           }
           if (!salesOrder.data) {
             return json({
               success: false,
-              message: "Failed to get sales order",
+              message: "Failed to get sales order"
             });
           }
           if (!salesOrderLocations.data) {
             return json({
               success: false,
-              message: "Failed to get sales order locations",
+              message: "Failed to get sales order locations"
             });
           }
 
           if (!paymentTerms.data) {
             return json({
               success: false,
-              message: "Failed to get payment terms",
+              message: "Failed to get payment terms"
             });
           }
 
@@ -222,14 +222,14 @@ export async function action(args: ActionFunctionArgs) {
             recipient: {
               email: customer.data.contact.email,
               firstName: customer.data.contact.firstName ?? undefined,
-              lastName: customer.data.contact.lastName ?? undefined,
+              lastName: customer.data.contact.lastName ?? undefined
             },
             sender: {
               email: seller.data.email,
               firstName: seller.data.firstName,
-              lastName: seller.data.lastName,
+              lastName: seller.data.lastName
             },
-            paymentTerms: paymentTerms.data,
+            paymentTerms: paymentTerms.data
           });
 
           const html = await renderAsync(emailTemplate);
@@ -244,15 +244,15 @@ export async function action(args: ActionFunctionArgs) {
             attachments: [
               {
                 content: Buffer.from(file).toString("base64"),
-                filename: fileName,
-              },
+                filename: fileName
+              }
             ],
-            companyId,
+            companyId
           });
         } catch (err) {
           return json({
             success: false,
-            message: "Failed to send email",
+            message: "Failed to send email"
           });
         }
         break;
@@ -262,7 +262,7 @@ export async function action(args: ActionFunctionArgs) {
       default:
         return json({
           success: false,
-          message: "Invalid notification type",
+          message: "Invalid notification type"
         });
     }
 
@@ -276,14 +276,14 @@ export async function action(args: ActionFunctionArgs) {
         orderDate:
           salesOrder.data.orderDate ?? today(getLocalTimeZone()).toString(),
         updatedAt: today(getLocalTimeZone()).toString(),
-        updatedBy: userId,
+        updatedBy: userId
       })
       .eq("id", orderId);
 
     if (confirm.error) {
       return json({
         success: false,
-        message: "Failed to confirm sales order",
+        message: "Failed to confirm sales order"
       });
     }
 
@@ -291,18 +291,18 @@ export async function action(args: ActionFunctionArgs) {
       type: "salesOrder",
       id: orderId,
       companyId: companyId,
-      userId: userId,
+      userId: userId
     });
 
     return json({
       success: true,
-      message: "Sales order confirmed",
+      message: "Sales order confirmed"
     });
   } catch (err) {
     return json({
       success: false,
       message:
-        err instanceof Error ? err.message : "An unexpected error occurred",
+        err instanceof Error ? err.message : "An unexpected error occurred"
     });
   }
 }

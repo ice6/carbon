@@ -10,14 +10,14 @@ import {
   getGroupMembers,
   groupValidator,
   upsertGroup,
-  upsertGroupMembers,
+  upsertGroupMembers
 } from "~/modules/users";
 import { path } from "~/utils/path";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
     view: "users",
-    role: "employee",
+    role: "employee"
   });
 
   const { groupId } = params;
@@ -50,7 +50,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
         group.memberGroupId
           ? `group_${group.memberGroupId}`
           : `user_${group.memberUserId}`
-      ) || [],
+      ) || []
   };
 
   return json({ group });
@@ -59,7 +59,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId } = await requirePermissions(request, {
-    view: "users",
+    view: "users"
   });
 
   const validation = await validator(groupValidator).validate(
@@ -74,7 +74,7 @@ export async function action({ request }: ActionFunctionArgs) {
 
   const [updateGroup, updateGroupMembers] = await Promise.all([
     upsertGroup(client, { id, name, companyId }),
-    upsertGroupMembers(client, id, selections),
+    upsertGroupMembers(client, id, selections)
   ]);
 
   if (updateGroup.error)
@@ -104,7 +104,7 @@ export default function UsersGroupRoute() {
   const initialValues = {
     id: group?.id || "",
     name: group?.name || "",
-    selections: group?.selections || [],
+    selections: group?.selections || []
   };
 
   return <GroupForm key={initialValues.id} initialValues={initialValues} />;

@@ -4,13 +4,13 @@ import { validator } from "@carbon/form";
 import { json, type ActionFunctionArgs } from "@vercel/remix";
 import {
   batchPropertyOrderValidator,
-  updateBatchPropertyOrder,
+  updateBatchPropertyOrder
 } from "~/modules/inventory";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    update: "inventory",
+    update: "inventory"
   });
 
   const { itemId } = params;
@@ -25,24 +25,24 @@ export async function action({ request, params }: ActionFunctionArgs) {
     console.error(validation.error);
     return json({
       success: false,
-      error: "Invalid form data",
+      error: "Invalid form data"
     });
   }
 
   const upsert = await updateBatchPropertyOrder(client, {
     ...validation.data,
-    updatedBy: userId,
+    updatedBy: userId
   });
 
   if (upsert.error) {
     console.error(upsert.error);
     return json({
       success: false,
-      error: upsert.error.message,
+      error: upsert.error.message
     });
   }
 
   return json({
-    success: true,
+    success: true
   });
 }

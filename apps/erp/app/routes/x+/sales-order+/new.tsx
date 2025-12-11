@@ -14,14 +14,14 @@ import { path } from "~/utils/path";
 
 export const handle: Handle = {
   breadcrumb: "Orders",
-  to: path.to.salesOrders,
+  to: path.to.salesOrders
 };
 
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
     create: "sales",
-    bypassRls: true,
+    bypassRls: true
   });
 
   const formData = await request.formData();
@@ -56,7 +56,7 @@ export async function action({ request }: ActionFunctionArgs) {
     salesOrderId,
     companyId,
     createdBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
 
   if (createSalesOrder.error || !createSalesOrder.data?.[0]) {
@@ -92,7 +92,7 @@ export default function SalesOrderNewRoute() {
     exchangeRateUpdatedAt: "",
     originatedFromQuote: false,
     digitalQuoteAcceptedBy: undefined,
-    digitalQuoteAcceptedByEmail: undefined,
+    digitalQuoteAcceptedByEmail: undefined
   };
 
   return (

@@ -14,12 +14,12 @@ import { useRouteData, useUser } from "~/hooks";
 import type {
   SalesInvoice,
   SalesInvoiceLine,
-  SalesInvoiceShipment,
+  SalesInvoiceShipment
 } from "~/modules/invoicing";
 import {
   getSalesInvoice,
   salesInvoiceValidator,
-  upsertSalesInvoice,
+  upsertSalesInvoice
 } from "~/modules/invoicing";
 import type { SalesInvoiceShipmentFormRef } from "~/modules/invoicing/ui/SalesInvoice/SalesInvoiceShipmentForm";
 import SalesInvoiceShipmentForm from "~/modules/invoicing/ui/SalesInvoice/SalesInvoiceShipmentForm";
@@ -27,14 +27,14 @@ import SalesInvoiceSummary from "~/modules/invoicing/ui/SalesInvoice/SalesInvoic
 import type { Opportunity } from "~/modules/sales";
 import {
   OpportunityDocuments,
-  OpportunityNotes,
+  OpportunityNotes
 } from "~/modules/sales/ui/Opportunity";
 import { getCustomFields, setCustomFields } from "~/utils/form";
 import { path } from "~/utils/path";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
-    view: "invoicing",
+    view: "invoicing"
   });
 
   const { invoiceId } = params;
@@ -49,14 +49,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   }
 
   return json({
-    internalNotes: (invoice.data?.internalNotes ?? {}) as JSONContent,
+    internalNotes: (invoice.data?.internalNotes ?? {}) as JSONContent
   });
 }
 
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    update: "invoicing",
+    update: "invoicing"
   });
 
   const { invoiceId: id } = params;
@@ -77,7 +77,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     invoiceId,
     ...data,
     updatedBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
   if (updateSalesInvoice.error) {
     throw redirect(
@@ -130,7 +130,7 @@ export default function SalesInvoiceBasicRoute() {
     dateIssued: salesInvoice.dateIssued ?? "",
     dateDue: salesInvoice.dateDue ?? "",
     status: salesInvoice.status ?? ("Draft" as "Draft"),
-    ...getCustomFields(salesInvoice.customFields),
+    ...getCustomFields(salesInvoice.customFields)
   };
 
   const shipmentInitialValues = {
@@ -139,7 +139,7 @@ export default function SalesInvoiceBasicRoute() {
     shippingCost: salesInvoiceShipment.shippingCost ?? 0,
     shippingMethodId: salesInvoiceShipment.shippingMethodId ?? "",
     shippingTermId: salesInvoiceShipment.shippingTermId ?? "",
-    ...getCustomFields(salesInvoiceShipment.customFields),
+    ...getCustomFields(salesInvoiceShipment.customFields)
   };
 
   const { company } = useUser();

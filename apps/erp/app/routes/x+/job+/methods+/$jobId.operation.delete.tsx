@@ -6,7 +6,7 @@ import { recalculateJobOperationDependencies } from "~/modules/production/produc
 
 export async function action({ request, params }: ActionFunctionArgs) {
   const { client, companyId, userId } = await requirePermissions(request, {
-    delete: "production",
+    delete: "production"
   });
 
   const { jobId } = params;
@@ -14,7 +14,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     return json(
       { error: "Job ID is required" },
       {
-        status: 400,
+        status: 400
       }
     );
   }
@@ -24,7 +24,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     return json(
       { error: "Operation ID is required" },
       {
-        status: 400,
+        status: 400
       }
     );
   }
@@ -35,7 +35,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     return json(
       { success: false, error: error.message },
       {
-        status: 400,
+        status: 400
       }
     );
   }
@@ -45,7 +45,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     {
       jobId,
       companyId,
-      userId,
+      userId
     }
   );
 
@@ -53,7 +53,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     return json(
       {
         success: false,
-        error: "Failed to recalculate job operation dependencies",
+        error: "Failed to recalculate job operation dependencies"
       },
       { status: 400 }
     );

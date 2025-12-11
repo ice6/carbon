@@ -5,9 +5,9 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-  HStack,
+  HStack
 } from "@carbon/react";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import { CustomerType, Hidden, Input, Submit } from "~/components/Form";
 import { usePermissions } from "~/hooks";
 import { customerAccountingValidator } from "../../sales.models";
@@ -17,7 +17,7 @@ type CustomerPaymentFormProps = {
 };
 
 const CustomerAccountingForm = ({
-  initialValues,
+  initialValues
 }: CustomerPaymentFormProps) => {
   const permissions = usePermissions();
 

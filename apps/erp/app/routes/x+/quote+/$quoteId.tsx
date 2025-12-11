@@ -22,12 +22,12 @@ import {
   getQuoteMethodTrees,
   getQuotePayment,
   getQuoteShipment,
-  getSalesOrderLines,
+  getSalesOrderLines
 } from "~/modules/sales";
 import {
   QuoteExplorer,
   QuoteHeader,
-  QuoteProperties,
+  QuoteProperties
 } from "~/modules/sales/ui/Quotes";
 import { useOptimisticDocumentDrag } from "~/modules/sales/ui/Quotes/QuoteExplorer";
 import type { Handle } from "~/utils/handle";
@@ -36,13 +36,13 @@ import { path } from "~/utils/path";
 export const handle: Handle = {
   breadcrumb: "Quotes",
   to: path.to.quotes,
-  module: "sales",
+  module: "sales"
 };
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
     view: "sales",
-    bypassRls: true,
+    bypassRls: true
   });
 
   const { quoteId } = params;
@@ -69,7 +69,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     prices,
     opportunity,
     methods,
-    opportunityDocuments,
+    opportunityDocuments
   ] = await Promise.all([
     getCustomer(client, quote.data?.customerId ?? ""),
     getQuoteShipment(client, quoteId),
@@ -78,7 +78,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     getQuoteLinePricesByQuoteId(client, quoteId),
     getOpportunity(client, quote.data?.opportunityId),
     getQuoteMethodTrees(client, quoteId),
-    getOpportunityDocuments(client, companyId, quote.data?.opportunityId ?? ""),
+    getOpportunityDocuments(client, companyId, quote.data?.opportunityId ?? "")
   ]);
 
   if (!opportunity.data) throw new Error("Failed to get opportunity record");
@@ -138,7 +138,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     payment: payment.data,
     opportunity: opportunity.data,
     exchangeRate,
-    salesOrderLines: salesOrderLines?.data ?? null,
+    salesOrderLines: salesOrderLines?.data ?? null
   });
 }
 
@@ -167,7 +167,7 @@ export default function QuoteRoute() {
       path: document.path,
       lineId: targetId.startsWith("quote-line-")
         ? targetId.replace("quote-line-", "")
-        : undefined,
+        : undefined
     };
 
     formData.append("payload", JSON.stringify(payload));
@@ -176,7 +176,7 @@ export default function QuoteRoute() {
       method: "post",
       action: path.to.quoteDrag(quoteId),
       navigate: false,
-      fetcherKey: `quote-drag:${document.name}`,
+      fetcherKey: `quote-drag:${document.name}`
     });
   };
 

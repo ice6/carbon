@@ -13,13 +13,13 @@ import { Fragment } from "react/jsx-runtime";
 import {
   getSalesInvoiceLine,
   salesInvoiceLineValidator,
-  upsertSalesInvoiceLine,
+  upsertSalesInvoiceLine
 } from "~/modules/invoicing";
 import SalesInvoiceLineForm from "~/modules/invoicing/ui/SalesInvoice/SalesInvoiceLineForm";
 import { getOpportunityLineDocuments } from "~/modules/sales";
 import {
   OpportunityLineDocuments,
-  OpportunityLineNotes,
+  OpportunityLineNotes
 } from "~/modules/sales/ui/Opportunity";
 import { useItems } from "~/stores";
 import { getCustomFields, setCustomFields } from "~/utils/form";
@@ -28,7 +28,7 @@ import { path } from "~/utils/path";
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
     view: "invoicing",
-    role: "employee",
+    role: "employee"
   });
 
   const { lineId } = params;
@@ -40,14 +40,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
   return defer({
     salesInvoiceLine: salesInvoiceLine?.data ?? null,
-    files: getOpportunityLineDocuments(client, companyId, lineId, itemId),
+    files: getOpportunityLineDocuments(client, companyId, lineId, itemId)
   });
 }
 
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    create: "invoicing",
+    create: "invoicing"
   });
 
   const { invoiceId, lineId } = params;
@@ -85,7 +85,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     id: lineId,
     ...data,
     updatedBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
 
   if (updateSalesInvoiceLine.error) {
@@ -128,7 +128,7 @@ export default function EditSalesInvoiceLineRoute() {
     exchangeRate: salesInvoiceLine?.exchangeRate ?? 1,
     unitOfMeasureCode: salesInvoiceLine?.unitOfMeasureCode ?? "",
     shelfId: salesInvoiceLine?.shelfId ?? "",
-    ...getCustomFields(salesInvoiceLine?.customFields),
+    ...getCustomFields(salesInvoiceLine?.customFields)
   };
 
   const [items] = useItems();

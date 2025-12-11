@@ -9,5 +9,5 @@ export {
   PartForm,
   PartHeader,
   PartProperties,
-  PartsTable,
+  PartsTable
 };

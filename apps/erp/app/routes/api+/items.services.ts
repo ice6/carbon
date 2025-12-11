@@ -7,7 +7,7 @@ import { getServicesList } from "~/modules/items";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    view: "parts",
+    view: "parts"
   });
 
   const services = await getServicesList(client, companyId);

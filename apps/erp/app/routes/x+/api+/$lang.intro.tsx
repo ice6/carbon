@@ -29,7 +29,7 @@ export default function Route() {
                 apiKey: "<your-api-key>",
                 publicKey: SUPABASE_ANON_KEY,
                 apiUrl: SUPABASE_URL,
-                companyId: company?.id,
+                companyId: company?.id
               })}
             />
           </article>

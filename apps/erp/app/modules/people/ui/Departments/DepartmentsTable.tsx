@@ -25,7 +25,7 @@ const DepartmentsTable = memo(({ data, count }: DepartmentsTableProps) => {
     parentDepartment:
       (Array.isArray(row.department)
         ? row.department.map((d) => d.name).join(", ")
-        : row.department?.name) ?? "",
+        : row.department?.name) ?? ""
   }));
 
   const customColumns = useCustomColumns<(typeof rows)[number]>("department");
@@ -40,8 +40,8 @@ const DepartmentsTable = memo(({ data, count }: DepartmentsTableProps) => {
           </Hyperlink>
         ),
         meta: {
-          icon: <LuBuilding />,
-        },
+          icon: <LuBuilding />
+        }
       },
       {
         header: "Sub-Departments",
@@ -53,9 +53,9 @@ const DepartmentsTable = memo(({ data, count }: DepartmentsTableProps) => {
           </HStack>
         ),
         meta: {
-          icon: <LuBuilding />,
-        },
-      },
+          icon: <LuBuilding />
+        }
+      }
     ];
     return [...defaultColumns, ...customColumns];
   }, [customColumns]);

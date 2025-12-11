@@ -34,5 +34,5 @@ export class Logger {
 }
 
 export default {
-  create: (name?: string) => new Logger(name),
+  create: (name?: string) => new Logger(name)
 };

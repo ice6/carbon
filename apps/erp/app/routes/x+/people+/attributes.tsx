@@ -7,7 +7,7 @@ import type { LoaderFunctionArgs } from "@vercel/remix";
 import { json, redirect } from "@vercel/remix";
 import {
   getAttributeCategories,
-  getAttributeDataTypes,
+  getAttributeDataTypes
 } from "~/modules/people";
 import { AttributeCategoriesTable } from "~/modules/people/ui/Attributes";
 import type { Handle } from "~/utils/handle";
@@ -16,13 +16,13 @@ import { getGenericQueryFilters } from "~/utils/query";
 
 export const handle: Handle = {
   breadcrumb: "Attributes",
-  to: path.to.attributes,
+  to: path.to.attributes
 };
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
     view: "people",
-    role: "employee",
+    role: "employee"
   });
 
   const url = new URL(request.url);
@@ -37,9 +37,9 @@ export async function loader({ request }: LoaderFunctionArgs) {
       limit,
       offset,
       sorts,
-      filters,
+      filters
     }),
-    getAttributeDataTypes(client),
+    getAttributeDataTypes(client)
   ]);
 
   if (categories.error) {
@@ -55,7 +55,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   return json({
     count: categories.count ?? 0,
     categories: categories.data ?? [],
-    dataTypes: dataTypes.data ?? [],
+    dataTypes: dataTypes.data ?? []
   });
 }
 

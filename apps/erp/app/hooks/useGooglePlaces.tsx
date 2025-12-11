@@ -69,14 +69,14 @@ export const useGooglePlaces = () => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "X-Goog-Api-Key": GOOGLE_PLACES_API_KEY,
+            "X-Goog-Api-Key": GOOGLE_PLACES_API_KEY
           },
           body: JSON.stringify({
             input,
             includedPrimaryTypes: ["street_address"],
             languageCode: "en",
-            sessionToken: sessionTokenRef.current,
-          }),
+            sessionToken: sessionTokenRef.current
+          })
         }
       );
 
@@ -93,7 +93,7 @@ export const useGooglePlaces = () => {
 
           return {
             placeId: prediction.placeId,
-            text: prediction.text.text,
+            text: prediction.text.text
           };
         })
         .filter(
@@ -126,7 +126,7 @@ export const useGooglePlaces = () => {
         city: "",
         stateProvince: "",
         postalCode: "",
-        countryCode: "",
+        countryCode: ""
       };
     }
 
@@ -169,7 +169,7 @@ export const useGooglePlaces = () => {
       city: addressMap.city || addressMap.sublocality || "",
       stateProvince: addressMap.stateProvince || "",
       postalCode: addressMap.postalCode || "",
-      countryCode: addressMap.countryCode || "",
+      countryCode: addressMap.countryCode || ""
     };
   };
 
@@ -190,8 +190,8 @@ export const useGooglePlaces = () => {
         {
           headers: {
             "X-Goog-Api-Key": GOOGLE_PLACES_API_KEY,
-            "X-Goog-FieldMask": "addressComponents",
-          },
+            "X-Goog-FieldMask": "addressComponents"
+          }
         }
       );
 
@@ -242,6 +242,6 @@ export const useGooglePlaces = () => {
     error,
     getSuggestions,
     selectPlace,
-    clearSuggestions,
+    clearSuggestions
   };
 };

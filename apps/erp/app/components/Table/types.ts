@@ -9,7 +9,15 @@ declare module "@tanstack/react-table" {
     pluralHeader?: string;
     icon?: ReactElement;
     renderTotal?: boolean;
-    formatter?: (val: number | bigint | `${number}` | "Infinity" | "-Infinity" | "+Infinity") => string
+    formatter?: (
+      val:
+        | number
+        | bigint
+        | `${number}`
+        | "Infinity"
+        | "-Infinity"
+        | "+Infinity"
+    ) => string;
   }
 }
 

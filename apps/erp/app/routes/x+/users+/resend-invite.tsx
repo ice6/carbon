@@ -3,7 +3,7 @@ import {
   getAppUrl,
   getCarbonServiceRole,
   RESEND_DOMAIN,
-  success,
+  success
 } from "@carbon/auth";
 import { requirePermissions } from "@carbon/auth/auth.server";
 import { flash } from "@carbon/auth/session.server";
@@ -19,7 +19,7 @@ import { resendInviteValidator } from "~/modules/users";
 
 export async function action({ request }: ActionFunctionArgs) {
   const { companyId } = await requirePermissions(request, {
-    create: "users",
+    create: "users"
   });
 
   const validation = await validator(resendInviteValidator).validate(
@@ -43,7 +43,7 @@ export async function action({ request }: ActionFunctionArgs) {
         .from("user")
         .select("email, fullName")
         .eq("id", userId)
-        .single(),
+        .single()
     ]);
 
     if (!company.data || !user.data) {
@@ -73,7 +73,7 @@ export async function action({ request }: ActionFunctionArgs) {
       to: user.data.email,
       subject: `You have been invited to join ${company.data?.name} on Carbon`,
       headers: {
-        "X-Entity-Ref-ID": nanoid(),
+        "X-Entity-Ref-ID": nanoid()
       },
       html: await render(
         InviteEmail({
@@ -83,9 +83,9 @@ export async function action({ request }: ActionFunctionArgs) {
           companyName: company.data.name,
           inviteLink: `${getAppUrl()}/invite/${invite.data.code}`,
           ip,
-          location,
+          location
         })
-      ),
+      )
     });
 
     console.log(invitationEmail);
@@ -102,8 +102,8 @@ export async function action({ request }: ActionFunctionArgs) {
           payload: {
             id,
             type: "resend",
-            companyId,
-          },
+            companyId
+          }
         }))
       );
       return json(

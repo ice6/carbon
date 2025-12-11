@@ -2,7 +2,7 @@ import {
   IconButton,
   Tooltip,
   TooltipContent,
-  TooltipTrigger,
+  TooltipTrigger
 } from "@carbon/react";
 import { LuDownload } from "react-icons/lu";
 import { json2csv } from "json-2-csv";

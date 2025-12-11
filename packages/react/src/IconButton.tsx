@@ -15,7 +15,7 @@ export interface IconButtonProps
 const iconSizes = {
   sm: "size-3 flex-shrink-0",
   md: "size-4 flex-shrink-0",
-  lg: "size-5 flex-shrink-0",
+  lg: "size-5 flex-shrink-0"
 } as const;
 
 const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
@@ -31,7 +31,7 @@ const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
       ? cloneElement(element as any, {
           "aria-hidden": true,
           focusable: false,
-          className: cn(iconSizes[size], icon.props?.className),
+          className: cn(iconSizes[size], icon.props?.className)
         })
       : null;
 

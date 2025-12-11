@@ -10,7 +10,7 @@ import { useUser } from "~/hooks";
 import type { SalesInvoice } from "~/modules/invoicing";
 import {
   salesInvoiceLineValidator,
-  upsertSalesInvoiceLine,
+  upsertSalesInvoiceLine
 } from "~/modules/invoicing";
 import SalesInvoiceLineForm from "~/modules/invoicing/ui/SalesInvoice/SalesInvoiceLineForm";
 import type { MethodItemType } from "~/modules/shared";
@@ -20,7 +20,7 @@ import { path } from "~/utils/path";
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    create: "invoicing",
+    create: "invoicing"
   });
 
   const { invoiceId } = params;
@@ -41,7 +41,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     ...data,
     companyId,
     createdBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
 
   if (createSalesInvoiceLine.error) {
@@ -81,7 +81,7 @@ export default function NewSalesInvoiceLineRoute() {
     shippingCost: 0,
     addOnCost: 0,
     taxPercent: 0,
-    exchangeRate: salesInvoiceData?.salesInvoice?.exchangeRate ?? 1,
+    exchangeRate: salesInvoiceData?.salesInvoice?.exchangeRate ?? 1
   };
 
   return <SalesInvoiceLineForm initialValues={initialValues} />;

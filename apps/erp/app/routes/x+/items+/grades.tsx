@@ -14,13 +14,13 @@ import { getGenericQueryFilters } from "~/utils/query";
 
 export const handle: Handle = {
   breadcrumb: "Grades",
-  to: path.to.materialGrades,
+  to: path.to.materialGrades
 };
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
     view: "parts",
-    role: "employee",
+    role: "employee"
   });
 
   const url = new URL(request.url);
@@ -35,8 +35,8 @@ export async function loader({ request }: LoaderFunctionArgs) {
       offset,
       sorts,
       search,
-      filters,
-    }),
+      filters
+    })
   ]);
 
   if (materialGrades.error) {
@@ -49,7 +49,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
   return json({
     materialGrades: materialGrades.data ?? [],
-    count: materialGrades.count ?? 0,
+    count: materialGrades.count ?? 0
   });
 }
 

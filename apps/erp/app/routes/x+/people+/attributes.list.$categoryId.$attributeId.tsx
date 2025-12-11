@@ -13,7 +13,7 @@ import { path } from "~/utils/path";
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
     view: "people",
-    role: "employee",
+    role: "employee"
   });
 
   const { categoryId, attributeId } = params;
@@ -29,7 +29,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   }
 
   return json({
-    attribute: attribute.data,
+    attribute: attribute.data
   });
 }
 
@@ -55,7 +55,7 @@ export default function EditAttributeRoute() {
         attributeDataTypeId: attribute?.attributeDataTypeId.toString(),
         userAttributeCategoryId: attribute?.userAttributeCategoryId,
         canSelfManage: attribute.canSelfManage ?? true,
-        listOptions: attribute?.listOptions ?? [],
+        listOptions: attribute?.listOptions ?? []
       }}
       dataTypes={attributesRouteData?.dataTypes ?? []}
       onClose={onClose}

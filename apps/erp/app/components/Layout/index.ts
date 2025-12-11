@@ -6,7 +6,7 @@ import {
   DetailSidebar,
   DetailsTopbar,
   GroupedContentSidebar,
-  PrimaryNavigation,
+  PrimaryNavigation
 } from "./Navigation";
 import { PanelProvider, ResizablePanels, usePanels } from "./Panels";
 
@@ -23,5 +23,5 @@ export {
   PrimaryNavigation,
   ResizablePanels,
   Topbar,
-  usePanels,
+  usePanels
 };

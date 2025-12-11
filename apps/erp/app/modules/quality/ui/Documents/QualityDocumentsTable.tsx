@@ -8,7 +8,7 @@ import {
   MenuIcon,
   MenuItem,
   toast,
-  useDisclosure,
+  useDisclosure
 } from "@carbon/react";
 import { useFetcher, useNavigate } from "@remix-run/react";
 import type { ColumnDef } from "@tanstack/react-table";
@@ -22,7 +22,7 @@ import {
   LuPencil,
   LuTag,
   LuTrash,
-  LuUser,
+  LuUser
 } from "react-icons/lu";
 import { EmployeeAvatar, Hyperlink, New, Table } from "~/components";
 
@@ -74,8 +74,8 @@ const QualityDocumentsTable = memo(
             </div>
           ),
           meta: {
-            icon: <LuBookMarked />,
-          },
+            icon: <LuBookMarked />
+          }
         },
 
         {
@@ -85,8 +85,8 @@ const QualityDocumentsTable = memo(
             <QualityDocumentStatus status={row.original.status} />
           ),
           meta: {
-            icon: <LuCalendar />,
-          },
+            icon: <LuCalendar />
+          }
         },
         {
           accessorKey: "assignee",
@@ -95,8 +95,8 @@ const QualityDocumentsTable = memo(
             <EmployeeAvatar employeeId={row.original.assignee} />
           ),
           meta: {
-            icon: <LuUser />,
-          },
+            icon: <LuUser />
+          }
         },
         {
           accessorKey: "tags",
@@ -115,12 +115,12 @@ const QualityDocumentsTable = memo(
               type: "static",
               options: tags.map((tag) => ({
                 value: tag.name,
-                label: <Badge variant="secondary">{tag.name}</Badge>,
+                label: <Badge variant="secondary">{tag.name}</Badge>
               })),
-              isArray: true,
+              isArray: true
             },
-            icon: <LuTag />,
-          },
+            icon: <LuTag />
+          }
         },
         {
           id: "versions",
@@ -167,9 +167,9 @@ const QualityDocumentsTable = memo(
             );
           },
           meta: {
-            icon: <LuGitPullRequest />,
-          },
-        },
+            icon: <LuGitPullRequest />
+          }
+        }
       ];
       return [...defaultColumns];
     }, [tags]);

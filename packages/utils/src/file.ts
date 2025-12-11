@@ -28,5 +28,5 @@ export const supportedModelTypes = [
   "ply",
   "step",
   "stl",
-  "stp",
+  "stp"
 ];

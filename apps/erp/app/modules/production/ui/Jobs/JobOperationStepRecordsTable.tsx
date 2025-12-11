@@ -12,7 +12,7 @@ import {
   LuList,
   LuPaperclip,
   LuSettings,
-  LuUser,
+  LuUser
 } from "react-icons/lu";
 import { EmployeeAvatar, Table } from "~/components";
 import { useUnitOfMeasure } from "~/components/Form/UnitOfMeasure";
@@ -67,16 +67,16 @@ const JobOperationStepRecordsTable = memo(
           header: "Operation",
           cell: ({ row }) => row.original.operationDescription,
           meta: {
-            icon: <LuSettings />,
-          },
+            icon: <LuSettings />
+          }
         },
         {
           accessorKey: "name",
           header: "Step",
           cell: ({ row }) => row.original.name,
           meta: {
-            icon: <LuClipboardList />,
-          },
+            icon: <LuClipboardList />
+          }
         },
         {
           id: "value",
@@ -170,8 +170,8 @@ const JobOperationStepRecordsTable = memo(
             }
           },
           meta: {
-            icon: <LuFileText />,
-          },
+            icon: <LuFileText />
+          }
         },
         {
           id: "type",
@@ -193,10 +193,10 @@ const JobOperationStepRecordsTable = memo(
                     <ProcedureStepTypeIcon type={type} />
                     {type}
                   </div>
-                ),
-              })),
-            },
-          },
+                )
+              }))
+            }
+          }
         },
         {
           accessorKey: "createdBy",
@@ -208,17 +208,17 @@ const JobOperationStepRecordsTable = memo(
             />
           ),
           meta: {
-            icon: <LuUser />,
-          },
+            icon: <LuUser />
+          }
         },
         {
           accessorKey: "createdAt",
           header: "Created At",
           cell: ({ row }) => formatDateTime(row.original.createdAt ?? ""),
           meta: {
-            icon: <LuCalendar />,
-          },
-        },
+            icon: <LuCalendar />
+          }
+        }
       ];
     }, [numberFormatter, unitOfMeasures, employees]);
 

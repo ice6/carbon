@@ -12,12 +12,12 @@ import { getGenericQueryFilters } from "~/utils/query";
 
 export const handle: Handle = {
   breadcrumb: "Receipts",
-  to: path.to.receipts,
+  to: path.to.receipts
 };
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    view: "inventory",
+    view: "inventory"
   });
 
   const url = new URL(request.url);
@@ -32,8 +32,8 @@ export async function loader({ request }: LoaderFunctionArgs) {
       limit,
       offset,
       sorts,
-      filters,
-    }),
+      filters
+    })
   ]);
 
   if (receipts.error) {
@@ -45,7 +45,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
   return json({
     receipts: receipts.data ?? [],
-    count: receipts.count ?? 0,
+    count: receipts.count ?? 0
   });
 }
 

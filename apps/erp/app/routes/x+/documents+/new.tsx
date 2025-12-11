@@ -25,7 +25,7 @@ export async function action({ request }: ActionFunctionArgs) {
   if (sourceDocument && sourceDocumentId) {
     source = {
       sourceDocument,
-      sourceDocumentId,
+      sourceDocumentId
     };
   }
 
@@ -37,7 +37,7 @@ export async function action({ request }: ActionFunctionArgs) {
     readGroups: [userId],
     writeGroups: [userId],
     createdBy: userId,
-    companyId,
+    companyId
   });
   if (createDocument.error) {
     throw redirect(

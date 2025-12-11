@@ -33,7 +33,7 @@ import {
   TooltipContent,
   TooltipTrigger,
   useDisclosure,
-  VStack,
+  VStack
 } from "@carbon/react";
 import type { TrackedEntityAttributes } from "@carbon/utils";
 import { getItemReadableId, labelSizes } from "@carbon/utils";
@@ -42,7 +42,7 @@ import {
   useFetcher,
   useFetchers,
   useParams,
-  useSubmit,
+  useSubmit
 } from "@remix-run/react";
 import { useCallback, useEffect, useState } from "react";
 import {
@@ -52,7 +52,7 @@ import {
   LuGroup,
   LuQrCode,
   LuSplit,
-  LuTrash,
+  LuTrash
 } from "react-icons/lu";
 import { Empty, ItemThumbnail } from "~/components";
 import { Enumerable } from "~/components/Enumerable";
@@ -66,7 +66,7 @@ import type {
   ItemTracking,
   Shipment,
   ShipmentLine,
-  ShipmentLineTracking,
+  ShipmentLineTracking
 } from "~/modules/inventory";
 import { splitValidator } from "~/modules/inventory";
 import type { action as shipmentLinesUpdateAction } from "~/routes/x+/shipment+/lines.update";
@@ -102,7 +102,7 @@ const ShipmentLines = () => {
 
   const shipmentLines = Array.from(shipmentsById.values()).map((line) => ({
     ...line,
-    shippedQuantity: line.shippedQuantity ?? 0,
+    shippedQuantity: line.shippedQuantity ?? 0
   }));
 
   const [serialNumbersByLineId, setSerialNumbersByLineId] = useState<
@@ -133,10 +133,10 @@ const ShipmentLines = () => {
 
             return {
               index,
-              id: serialNumber,
+              id: serialNumber
             };
           }
-        ),
+        )
       };
     }, {});
   });
@@ -168,10 +168,10 @@ const ShipmentLines = () => {
 
               return {
                 index,
-                id: serialNumber,
+                id: serialNumber
               };
             }
-          ),
+          )
         };
       }, {})
     );
@@ -182,7 +182,7 @@ const ShipmentLines = () => {
     async ({
       lineId,
       field,
-      value,
+      value
     }:
       | {
           lineId: string;
@@ -201,7 +201,7 @@ const ShipmentLines = () => {
       formData.append("value", value.toString());
       fetcher.submit(formData, {
         method: "post",
-        action: path.to.bulkUpdateShipmentLine,
+        action: path.to.bulkUpdateShipmentLine
       });
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -229,7 +229,7 @@ const ShipmentLines = () => {
               shipmentLines
                 .map((line) => ({
                   ...line,
-                  itemReadableId: getItemReadableId(items, line.itemId) ?? "",
+                  itemReadableId: getItemReadableId(items, line.itemId) ?? ""
                 }))
                 .sort((a, b) =>
                   a.itemReadableId.localeCompare(b.itemReadableId)
@@ -266,7 +266,7 @@ const ShipmentLines = () => {
                       onSerialNumbersChange={(newSerialNumbers) => {
                         setSerialNumbersByLineId((prev) => ({
                           ...prev,
-                          [line.id!]: newSerialNumbers,
+                          [line.id!]: newSerialNumbers
                         }));
                       }}
                       tracking={tracking}
@@ -291,7 +291,7 @@ function ShipmentLineItem({
   tracking,
   serialNumbers,
   onUpdate,
-  onSerialNumbersChange,
+  onSerialNumbersChange
 }: {
   line: ShipmentLine;
   shipment?: Shipment;
@@ -306,7 +306,7 @@ function ShipmentLineItem({
   onUpdate: ({
     lineId,
     field,
-    value,
+    value
   }:
     | {
         lineId: string;
@@ -429,7 +429,7 @@ function ShipmentLineItem({
                   onUpdate({
                     lineId: line.id!,
                     field: "shippedQuantity",
-                    value: safeValue,
+                    value: safeValue
                   });
                   // Adjust serial numbers array size while preserving existing values
                   if (safeValue > serialNumbers.length) {
@@ -439,9 +439,9 @@ function ShipmentLineItem({
                         { length: safeValue - serialNumbers.length },
                         (_, i) => ({
                           index: i,
-                          id: "",
+                          id: ""
                         })
-                      ),
+                      )
                     ]);
                   } else if (safeValue < serialNumbers.length) {
                     onSerialNumbersChange(serialNumbers.slice(0, safeValue));
@@ -503,7 +503,7 @@ function ShipmentLineItem({
                   onUpdate({
                     lineId: line.id!,
                     field: "shelfId",
-                    value: shelf,
+                    value: shelf
                   });
                 }}
               />
@@ -551,7 +551,7 @@ function BatchForm({
   hasTrackingLabel,
   tracking,
   isReadOnly,
-  onUpdate,
+  onUpdate
 }: {
   line: ShipmentLine;
   shipment?: Shipment;
@@ -561,7 +561,7 @@ function BatchForm({
   onUpdate: ({
     lineId,
     field,
-    value,
+    value
   }: {
     lineId: string;
     field: "shelfId";
@@ -587,15 +587,15 @@ function BatchForm({
                 "Shipment",
                 "Shipment Line Index",
                 "Receipt Line",
-                "Receipt",
+                "Receipt"
               ].includes(key)
           )
-          .reduce((acc, [key, value]) => ({ ...acc, [key]: value || "" }), {}),
+          .reduce((acc, [key, value]) => ({ ...acc, [key]: value || "" }), {})
       };
     }
     return {
       number: "",
-      properties: {},
+      properties: {}
     };
   });
 
@@ -626,7 +626,7 @@ function BatchForm({
       ) {
         setValues({
           ...values,
-          number: "",
+          number: ""
         });
       }
     }
@@ -647,7 +647,7 @@ function BatchForm({
       onUpdate({
         lineId: line.id!,
         field: "shelfId",
-        value: response.data.shelfId,
+        value: response.data.shelfId
       });
     }
   };
@@ -677,7 +677,7 @@ function BatchForm({
         ...newValues,
         properties: Object.entries(attributes)
           .filter(([key]) => !["Batch Number", "Receipt Line"].includes(key))
-          .reduce((acc, [key, value]) => ({ ...acc, [key]: value || "" }), {}),
+          .reduce((acc, [key, value]) => ({ ...acc, [key]: value || "" }), {})
       };
 
       // Just update the local state without triggering another database write
@@ -693,7 +693,7 @@ function BatchForm({
       setError(`Batch number is ${batchNumber.status}`);
       setValues({
         ...valuesToSubmit,
-        number: "",
+        number: ""
       });
       return;
     } else if (!batchNumber && valuesToSubmit.number.trim()) {
@@ -711,7 +711,7 @@ function BatchForm({
       );
       setValues({
         ...valuesToSubmit,
-        number: "",
+        number: ""
       });
       return;
     }
@@ -725,7 +725,7 @@ function BatchForm({
         setError("Batch number is already used on another shipment line");
         setValues({
           ...valuesToSubmit,
-          number: "",
+          number: ""
         });
       }
     }
@@ -742,7 +742,7 @@ function BatchForm({
     submit(formData, {
       method: "post",
       action: path.to.shipmentLinesTracking(shipment.id),
-      navigate: false,
+      navigate: false
     });
   };
 
@@ -753,7 +753,7 @@ function BatchForm({
         window.location.origin +
           path.to.file.shipmentLabelsZpl(shipment?.id ?? "", {
             lineId: line.id!,
-            labelSize,
+            labelSize
           }),
         "_blank"
       );
@@ -762,7 +762,7 @@ function BatchForm({
         window.location.origin +
           path.to.file.shipmentLabelsPdf(shipment?.id ?? "", {
             lineId: line.id!,
-            labelSize,
+            labelSize
           }),
         "_blank"
       );
@@ -779,7 +779,7 @@ function BatchForm({
             leftIcon={<LuQrCode />}
             dropdownItems={labelSizes.map((size) => ({
               label: size.name,
-              onClick: () => navigateToLineTrackingLabels(!!size.zpl, size.id),
+              onClick: () => navigateToLineTrackingLabels(!!size.zpl, size.id)
             }))}
             onClick={() => navigateToLineTrackingLabels(false)}
             variant="primary"
@@ -802,7 +802,7 @@ function BatchForm({
                 onChange={(e) => {
                   setValues({
                     ...values,
-                    number: e.target.value,
+                    number: e.target.value
                   });
                 }}
                 onBlur={() => {
@@ -850,7 +850,7 @@ function SerialForm({
   shipment,
   serialNumbers,
   isReadOnly,
-  onSerialNumbersChange,
+  onSerialNumbersChange
 }: {
   line: ShipmentLine;
   shipment?: Shipment;
@@ -910,7 +910,7 @@ function SerialForm({
         const newSerialNumbers = [...serialNumbers];
         newSerialNumbers[serialNumber.index] = {
           index: serialNumber.index,
-          id: "",
+          id: ""
         };
         onSerialNumbersChange(newSerialNumbers);
         return;
@@ -929,7 +929,7 @@ function SerialForm({
           path.to.shipmentLinesTracking(shipment.id),
           {
             method: "POST",
-            body: formData,
+            body: formData
           }
         );
 
@@ -947,14 +947,14 @@ function SerialForm({
 
           setErrors((prev) => ({
             ...prev,
-            [serialNumber.index]: errorMessage,
+            [serialNumber.index]: errorMessage
           }));
 
           // Clear the input value but keep the error message
           const newSerialNumbers = [...serialNumbers];
           newSerialNumbers[serialNumber.index] = {
             index: serialNumber.index,
-            id: "",
+            id: ""
           };
           onSerialNumbersChange(newSerialNumbers);
         }
@@ -962,14 +962,14 @@ function SerialForm({
         if (error instanceof Error && error.message.includes("available")) {
           setErrors((prev) => ({
             ...prev,
-            [serialNumber.index]: "Serial number is not available",
+            [serialNumber.index]: "Serial number is not available"
           }));
 
           // Clear the input value but keep the error message
           const newSerialNumbers = [...serialNumbers];
           newSerialNumbers[serialNumber.index] = {
             index: serialNumber.index,
-            id: "",
+            id: ""
           };
           onSerialNumbersChange(newSerialNumbers);
         }
@@ -981,7 +981,7 @@ function SerialForm({
       shipment?.id,
       validateSerialNumber,
       serialNumbers,
-      onSerialNumbersChange,
+      onSerialNumbersChange
     ]
   );
 
@@ -1012,7 +1012,7 @@ function SerialForm({
                     const newSerialNumbers = [...serialNumbers];
                     newSerialNumbers[index] = {
                       index,
-                      id: newValue,
+                      id: newValue
                     };
                     onSerialNumbersChange(newSerialNumbers);
                   }}
@@ -1033,14 +1033,14 @@ function SerialForm({
                     if (!error) {
                       updateSerialNumber({
                         index,
-                        id: newValue,
+                        id: newValue
                       });
                     } else {
                       // Clear the input value but keep the error message
                       const newSerialNumbers = [...serialNumbers];
                       newSerialNumbers[index] = {
                         index,
-                        id: "",
+                        id: ""
                       };
                       onSerialNumbersChange(newSerialNumbers);
                     }
@@ -1070,7 +1070,7 @@ function SerialForm({
 
 function SplitShipmentLineModal({
   line,
-  onClose,
+  onClose
 }: {
   line: ShipmentLine;
   onClose: () => void;
@@ -1130,7 +1130,7 @@ function Shelf({
   shelfId,
   itemId,
   isReadOnly,
-  onChange,
+  onChange
 }: {
   locationId: string | null;
   shelfId: string | null;
@@ -1180,7 +1180,7 @@ const usePendingShipmentLines = () => {
       if (lineId && field && value) {
         const newItem: { id: string; [key: string]: string | null } = {
           id: lineId,
-          [field]: value,
+          [field]: value
         };
         return [...acc, newItem];
       }

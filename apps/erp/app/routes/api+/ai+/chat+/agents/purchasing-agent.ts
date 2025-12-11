@@ -11,7 +11,7 @@ export const config: AgentConfig = {
   name: "purchasing",
   displayName: "Purchasing Agent",
   description: "Creates purchase orders and gets quotes from suppliers",
-  executingMessage: "Calling the purchasing agent...",
+  executingMessage: "Calling the purchasing agent..."
 };
 
 export const purchasingAgent = createAgent({
@@ -68,8 +68,8 @@ ${COMMON_AGENT_RULES}
     getPart: getPartTool,
     getSupplierForParts: getSupplierForPartsTool,
     getSupplier: getSupplierTool,
-    createPurchaseOrder: createPurchaseOrderTool,
+    createPurchaseOrder: createPurchaseOrderTool
   },
   handoffs: [],
-  maxTurns: 10,
+  maxTurns: 10
 });

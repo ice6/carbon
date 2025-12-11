@@ -5,7 +5,7 @@ import { getJobsList } from "~/modules/production";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    view: "production",
+    view: "production"
   });
 
   return json(await getJobsList(client, companyId));

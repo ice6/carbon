@@ -9,19 +9,19 @@ import {
   Preview,
   Row,
   Section,
-  Text,
+  Text
 } from "@react-email/components";
 import type { Email } from "../types";
 import {
   getLineDescription,
   getLineDescriptionDetails,
-  getTotal,
+  getTotal
 } from "../utils/purchase-order";
 import { getCurrencyFormatter } from "../utils/shared";
 import {
   EmailThemeProvider,
   getEmailInlineStyles,
-  getEmailThemeClasses,
+  getEmailThemeClasses
 } from "./components/Theme";
 
 interface PurchaseOrderEmailProps extends Email {
@@ -39,7 +39,7 @@ const PurchaseOrderEmail = ({
   purchaseOrderLocations,
   recipient,
   sender,
-  paymentTerms,
+  paymentTerms
 }: PurchaseOrderEmailProps) => {
   const {
     deliveryName,
@@ -56,7 +56,7 @@ const PurchaseOrderEmail = ({
     customerCity,
     customerStateProvince,
     customerPostalCode,
-    customerCountryName,
+    customerCountryName
   } = purchaseOrderLocations;
 
   const formatter = getCurrencyFormatter(company.baseCurrencyCode, locale);
@@ -81,7 +81,7 @@ const PurchaseOrderEmail = ({
           style={{
             borderStyle: "solid",
             borderWidth: "1px",
-            borderColor: lightStyles.container.borderColor,
+            borderColor: lightStyles.container.borderColor
           }}
         >
           <Section>
@@ -249,8 +249,8 @@ const PurchaseOrderEmail = ({
                     {line.purchaseOrderLineType === "Comment"
                       ? "-"
                       : line.unitPrice
-                      ? formatter.format(line.unitPrice)
-                      : "-"}
+                        ? formatter.format(line.unitPrice)
+                        : "-"}
                   </Text>
                 </Column>
               </Row>

@@ -2,14 +2,14 @@ import {
   DateTimePicker as DateTimePickerBase,
   FormControl,
   FormErrorMessage,
-  FormLabel,
+  FormLabel
 } from "@carbon/react";
 import type { CalendarDateTime } from "@internationalized/date";
 import {
   getLocalTimeZone,
   parseAbsolute,
   toCalendarDateTime,
-  toZoned,
+  toZoned
 } from "@internationalized/date";
 import { useState } from "react";
 import { useField } from "../hooks";
@@ -29,7 +29,7 @@ const DateTimePicker = ({
   isDisabled = false,
   minValue,
   maxValue,
-  onChange,
+  onChange
 }: DateTimePickerProps) => {
   const { error, defaultValue, validate } = useField(name);
   const [date, setDate] = useState<CalendarDateTime | undefined>(

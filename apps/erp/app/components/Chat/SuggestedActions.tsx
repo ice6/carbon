@@ -27,9 +27,9 @@ export function SuggestedActions() {
       metadata: {
         toolCall: {
           toolName: params.toolName,
-          toolParams: params.toolParams,
-        },
-      },
+          toolParams: params.toolParams
+        }
+      }
     });
   };
 
@@ -74,7 +74,7 @@ export function SuggestedActions() {
                 handleToolCall({
                   toolName: action.toolName,
                   toolParams: action.toolParams,
-                  text: description,
+                  text: description
                 });
               }}
             >

@@ -15,6 +15,6 @@ export function useFlags() {
     isCloud: edition === Edition.Cloud,
     isCommunity: edition === Edition.Community,
     isEnterprise: edition === Edition.Enterprise,
-    isControlledEnvironment: CONTROLLED_ENVIRONMENT,
+    isControlledEnvironment: CONTROLLED_ENVIRONMENT
   };
 }

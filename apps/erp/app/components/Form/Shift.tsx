@@ -12,7 +12,7 @@ type ShiftSelectProps = Omit<SelectProps, "options"> & {
 
 const Shift = (props: ShiftSelectProps) => {
   const options = useShifts({
-    location: props.location,
+    location: props.location
   });
 
   return (
@@ -36,7 +36,7 @@ export const useShifts = (props?: { location?: string }) => {
     () =>
       shiftFetcher.data?.data?.map((c) => ({
         value: c.id,
-        label: c.name,
+        label: c.name
       })) ?? [],
 
     [shiftFetcher.data]

@@ -2,7 +2,7 @@ import {
   assertIsPost,
   error,
   getCarbonServiceRole,
-  success,
+  success
 } from "@carbon/auth";
 import type { JSONContent } from "@carbon/react";
 import {
@@ -17,7 +17,7 @@ import {
   IconButton,
   useDebounce,
   useDisclosure,
-  VStack,
+  VStack
 } from "@carbon/react";
 
 import { flash } from "@carbon/auth/session.server";
@@ -28,7 +28,7 @@ import {
   useFetcher,
   useLoaderData,
   useParams,
-  useSubmit,
+  useSubmit
 } from "@remix-run/react";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@vercel/remix";
 import { json } from "@vercel/remix";
@@ -43,7 +43,7 @@ import {
   getIssueFromExternalLink,
   nonConformanceTaskStatus,
   updateIssueTaskContent,
-  updateIssueTaskStatus,
+  updateIssueTaskStatus
 } from "~/modules/quality";
 import { statusActions, TaskProgress } from "~/modules/quality/ui/Issue";
 import IssueStatus from "~/modules/quality/ui/Issue/IssueStatus";
@@ -58,25 +58,25 @@ export const meta = () => {
 
 enum IssueState {
   Valid,
-  NotFound,
+  NotFound
 }
 
 const translations = {
   en: {
     "Issue not found": "Issue not found",
     "Oops! The link you're trying to access is not valid.":
-      "Oops! The link you're trying to access is not valid.",
+      "Oops! The link you're trying to access is not valid."
   },
   es: {
     "Issue not found": "No se encontró el problema",
     "Oops! The link you're trying to access is not valid.":
-      "¡Ups! El enlace al que intenta acceder no es válido.",
+      "¡Ups! El enlace al que intenta acceder no es válido."
   },
   de: {
     "Issue not found": "Problem nicht gefunden",
     "Oops! The link you're trying to access is not valid.":
-      "Ups! Der Link, den Sie aufrufen möchten, ist nicht gültig.",
-  },
+      "Ups! Der Link, den Sie aufrufen möchten, ist nicht gültig."
+  }
 };
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
@@ -85,7 +85,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     return json({
       state: IssueState.NotFound,
       data: null,
-      strings: translations.en,
+      strings: translations.en
     });
   }
   const locale = (request.headers.get("Accept-Language") || "en-US").substring(
@@ -101,7 +101,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     return json({
       state: IssueState.NotFound,
       data: null,
-      strings,
+      strings
     });
   }
 
@@ -113,7 +113,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     return json({
       state: IssueState.NotFound,
       data: null,
-      strings,
+      strings
     });
   }
 
@@ -125,7 +125,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
       issue.data.nonConformanceId,
       externalLink.data.companyId,
       issue.data.supplierId
-    ),
+    )
   ]);
 
   return json({
@@ -134,9 +134,9 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
       issue: issue.data.nonConformance,
       company: company.data,
       supplier: supplier.data,
-      actionTasks: actionTasks.data,
+      actionTasks: actionTasks.data
     },
-    strings,
+    strings
   });
 }
 
@@ -158,7 +158,7 @@ export const scarValidator = z.object({
         ctx.addIssue({ code: "custom", message: "Invalid JSON" });
         return z.NEVER;
       }
-    }),
+    })
 });
 
 export async function action({ request, params }: ActionFunctionArgs) {
@@ -207,13 +207,13 @@ export async function action({ request, params }: ActionFunctionArgs) {
     const statusUpdate = await updateIssueTaskStatus(serviceRole, {
       id: validation.data.taskId,
       status: validation.data.status,
-      type: validation.data.type,
+      type: validation.data.type
     });
 
     if (statusUpdate.error) {
       return json(
         {
-          success: false,
+          success: false
         },
         await flash(
           request,
@@ -224,7 +224,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
     return json(
       {
-        success: true,
+        success: true
       },
       await flash(request, success("Updated task status"))
     );
@@ -234,13 +234,13 @@ export async function action({ request, params }: ActionFunctionArgs) {
     const contentUpdate = await updateIssueTaskContent(serviceRole, {
       id: validation.data.taskId,
       content: validation.data.content,
-      type: validation.data.type,
+      type: validation.data.type
     });
 
     if (contentUpdate.error) {
       return json(
         {
-          success: false,
+          success: false
         },
         await flash(
           request,
@@ -253,14 +253,14 @@ export async function action({ request, params }: ActionFunctionArgs) {
   }
 
   return json({
-    success: true,
+    success: true
   });
 }
 
 const Header = ({
   company,
   issue,
-  supplier,
+  supplier
 }: {
   company: IssueData["company"];
   issue: IssueData["issue"];
@@ -294,7 +294,7 @@ const Header = ({
 function useTaskStatus({
   task,
   type,
-  onChange,
+  onChange
 }: {
   task: {
     id?: string;
@@ -317,13 +317,13 @@ function useTaskStatus({
           taskId,
           status,
           type,
-          supplierId: task.supplierId ?? "",
+          supplierId: task.supplierId ?? ""
         },
         {
           method: "post",
           action: path.to.externalScar(id),
           navigate: false,
-          fetcherKey: `externalScar:${id}`,
+          fetcherKey: `externalScar:${id}`
         }
       );
     },
@@ -334,7 +334,7 @@ function useTaskStatus({
 
   return {
     currentStatus,
-    onOperationStatusChange,
+    onOperationStatusChange
   };
 }
 
@@ -342,7 +342,7 @@ function useTaskNotes({
   initialContent,
   taskId,
   supplierId,
-  type,
+  type
 }: {
   initialContent: JSONContent;
   taskId: string;
@@ -369,14 +369,14 @@ function useTaskNotes({
   return {
     content,
     setContent,
-    onUpdateContent,
+    onUpdateContent
   };
 }
 
 export function TaskItem({
   task,
   type,
-  isDisabled = false,
+  isDisabled = false
 }: {
   task: IssueActionTask;
   type: "action" | "review";
@@ -385,18 +385,18 @@ export function TaskItem({
 }) {
   // const permissions = usePermissions();
   const disclosure = useDisclosure({
-    defaultIsOpen: true,
+    defaultIsOpen: true
   });
   const { currentStatus, onOperationStatusChange } = useTaskStatus({
     task,
-    type,
+    type
   });
   const statusAction = statusActions[currentStatus];
   const { content, setContent, onUpdateContent } = useTaskNotes({
     initialContent: (task.notes ?? {}) as JSONContent,
     taskId: task.id!,
     type,
-    supplierId: task.supplierId ?? "",
+    supplierId: task.supplierId ?? ""
   });
 
   const hasStartedRef = useRef(false);
@@ -445,7 +445,7 @@ export function TaskItem({
             <div
               className="prose dark:prose-invert"
               dangerouslySetInnerHTML={{
-                __html: generateHTML(content as JSONContent),
+                __html: generateHTML(content as JSONContent)
               }}
             />
           )}
@@ -473,7 +473,7 @@ export function TaskItem({
 export function TaskList({
   tasks,
   isDisabled,
-  strings,
+  strings
 }: {
   tasks: IssueActionTask[];
   isDisabled: boolean;
@@ -505,7 +505,7 @@ export function TaskList({
 
 const Issue = ({
   data,
-  strings,
+  strings
 }: {
   data: IssueData;
   strings: (typeof translations)["en"];

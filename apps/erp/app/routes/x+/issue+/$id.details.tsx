@@ -14,13 +14,13 @@ import {
   getIssueActionTasks,
   getIssueReviewers,
   issueValidator,
-  upsertIssue,
+  upsertIssue
 } from "~/modules/quality";
 import {
   ActionTasksList,
   AssociatedItemsList,
   IssueContent,
-  ReviewersList,
+  ReviewersList
 } from "~/modules/quality/ui/Issue";
 import type { StorageItem } from "~/types";
 import { setCustomFields } from "~/utils/form";
@@ -29,7 +29,7 @@ import { path } from "~/utils/path";
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
     view: "quality",
-    bypassRls: true,
+    bypassRls: true
   });
 
   const { id } = params;
@@ -48,14 +48,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   return defer({
     nonConformance: nonConformance.data,
     actionTasks: getIssueActionTasks(client, id, companyId),
-    reviewers: getIssueReviewers(client, id, companyId),
+    reviewers: getIssueReviewers(client, id, companyId)
   });
 }
 
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    update: "quality",
+    update: "quality"
   });
 
   const { id } = params;
@@ -82,7 +82,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     id: id,
     nonConformanceId: nonConformanceId,
     customFields: setCustomFields(formData),
-    updatedBy: userId,
+    updatedBy: userId
   });
   if (updateIssue.error) {
     throw redirect(

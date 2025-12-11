@@ -52,7 +52,7 @@ const ChartOfAccountsTable = memo(({ data }: ChartOfAccountsTableProps) => {
               </div>
             </HStack>
           );
-        },
+        }
       },
       {
         accessorKey: "name",
@@ -67,7 +67,7 @@ const ChartOfAccountsTable = memo(({ data }: ChartOfAccountsTableProps) => {
               {row.original.name}
             </div>
           );
-        },
+        }
       },
       {
         accessorKey: "netChange",
@@ -77,7 +77,7 @@ const ChartOfAccountsTable = memo(({ data }: ChartOfAccountsTableProps) => {
             row.original.type
           );
           return hasValue ? (row.original.netChange ?? 0).toFixed(2) : null;
-        },
+        }
       },
       {
         accessorKey: "balanceAtDate",
@@ -87,7 +87,7 @@ const ChartOfAccountsTable = memo(({ data }: ChartOfAccountsTableProps) => {
             row.original.type
           );
           return hasValue ? (row.original.balanceAtDate ?? 0).toFixed(2) : null;
-        },
+        }
       },
       {
         accessorKey: "balance",
@@ -97,38 +97,38 @@ const ChartOfAccountsTable = memo(({ data }: ChartOfAccountsTableProps) => {
             row.original.type
           );
           return hasValue ? (row.original.balance ?? 0).toFixed(2) : null;
-        },
+        }
       },
       {
         accessorKey: "incomeBalance",
         header: "Income/Balance",
-        cell: (item) => <Enumerable value={item.getValue<string>()} />,
+        cell: (item) => <Enumerable value={item.getValue<string>()} />
       },
       {
         accessorKey: "type",
         header: "Account Type",
-        cell: (item) => <Enumerable value={item.getValue<string>()} />,
+        cell: (item) => <Enumerable value={item.getValue<string>()} />
       },
       {
         accessorKey: "totaling",
         header: "Totaling",
-        cell: ({ row }) => row.original.totaling ?? "",
+        cell: ({ row }) => row.original.totaling ?? ""
       },
       {
         accessorKey: "accountCategory",
         header: "Account Category",
-        cell: (item) => <Enumerable value={item.getValue<string>()} />,
+        cell: (item) => <Enumerable value={item.getValue<string>()} />
       },
       {
         accessorKey: "accountSubCategory",
         header: "Account Subcategory",
-        cell: (item) => <Enumerable value={item.getValue<string>()} />,
+        cell: (item) => <Enumerable value={item.getValue<string>()} />
       },
       {
         accessorKey: "directPosting",
         header: "Direct Posting",
-        cell: (item) => <Checkbox isChecked={item.getValue<boolean>()} />,
-      },
+        cell: (item) => <Checkbox isChecked={item.getValue<boolean>()} />
+      }
     ];
 
     return [...defaultColumns, ...customColumns];

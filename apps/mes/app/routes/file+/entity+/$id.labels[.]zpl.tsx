@@ -15,7 +15,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
   const [companySettings, trackedEntity] = await Promise.all([
     getCompanySettings(client, companyId),
-    getTrackedEntity(client, id),
+    getTrackedEntity(client, id)
   ]);
 
   // Get the label size from query params or default to zebra2x1
@@ -35,7 +35,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   if (!labelSize.zpl) {
     throw redirect(
       path.to.file.trackedEntityLabelPdf(id, {
-        labelSize: labelSize.id,
+        labelSize: labelSize.id
       })
     );
   }
@@ -59,8 +59,8 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
         ] ?? "",
       trackedEntityId: id,
       quantity: trackedEntity.data?.quantity ?? 1,
-      trackingType: "Batch",
-    },
+      trackingType: "Batch"
+    }
   ];
 
   // Generate ZPL for each item
@@ -71,7 +71,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
   const headers = new Headers({
     "Content-Type": "application/zpl",
-    "Content-Disposition": `attachment; filename="labels-${id}.zpl"`,
+    "Content-Disposition": `attachment; filename="labels-${id}.zpl"`
   });
 
   return new Response(zplOutput, { status: 200, headers });

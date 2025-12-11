@@ -19,7 +19,7 @@ export type StockTransferSessionState = {
 };
 
 const $sessionStore = atom<StockTransferSessionState>({
-  items: [],
+  items: []
 });
 
 const $sessionItemsCount = computed(
@@ -57,7 +57,7 @@ export const addToStockTransferSession = (item: StockTransferSessionItem) => {
     const updatedItems = [...currentStockTransferSession.items];
     updatedItems[existingItemIndex] = {
       ...updatedItems[existingItemIndex],
-      ...item,
+      ...item
     };
     $sessionStore.set({ items: updatedItems });
   } else {
@@ -114,7 +114,7 @@ export type StockTransferWizardState = {
 
 const $wizardStore = atom<StockTransferWizardState>({
   selectedToItemShelfIds: new Set(),
-  lines: [],
+  lines: []
 });
 
 const $wizardLinesCount = computed(
@@ -143,13 +143,13 @@ export const toggleToItemShelfSelection = (itemId: string, shelfId: string) => {
     );
     $wizardStore.set({
       selectedToItemShelfIds: newSelectedToItemShelfIds,
-      lines: updatedLines,
+      lines: updatedLines
     });
   } else {
     newSelectedToItemShelfIds.add(compositeKey);
     $wizardStore.set({
       ...currentWizard,
-      selectedToItemShelfIds: newSelectedToItemShelfIds,
+      selectedToItemShelfIds: newSelectedToItemShelfIds
     });
   }
 };
@@ -176,14 +176,14 @@ export const addTransferLine = (line: StockTransferWizardLine) => {
     const updatedLines = [...currentWizard.lines];
     updatedLines[existingLineIndex] = {
       ...updatedLines[existingLineIndex],
-      ...line,
+      ...line
     };
     $wizardStore.set({ ...currentWizard, lines: updatedLines });
   } else {
     // Add new line
     $wizardStore.set({
       ...currentWizard,
-      lines: [...currentWizard.lines, line],
+      lines: [...currentWizard.lines, line]
     });
   }
 };
@@ -250,7 +250,7 @@ export const updateTransferLineQuantity = (
     const updatedLines = [...currentWizard.lines];
     updatedLines[lineIndex] = {
       ...updatedLines[lineIndex],
-      quantity,
+      quantity
     };
     $wizardStore.set({ ...currentWizard, lines: updatedLines });
   }
@@ -259,7 +259,7 @@ export const updateTransferLineQuantity = (
 export const clearStockTransferWizard = () => {
   $wizardStore.set({
     selectedToItemShelfIds: new Set(),
-    lines: [],
+    lines: []
   });
 };
 
@@ -267,6 +267,6 @@ export const clearSelectedToItemShelves = () => {
   const currentWizard = $wizardStore.get();
   $wizardStore.set({
     ...currentWizard,
-    selectedToItemShelfIds: new Set(),
+    selectedToItemShelfIds: new Set()
   });
 };

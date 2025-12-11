@@ -5,13 +5,13 @@ import { json, redirect, type ActionFunctionArgs } from "@vercel/remix";
 import {
   getMethodValidator,
   upsertMakeMethodFromQuoteLine,
-  upsertMakeMethodFromQuoteMethod,
+  upsertMakeMethodFromQuoteMethod
 } from "~/modules/sales";
 import { path, requestReferrer } from "~/utils/path";
 
 export async function action({ request }: ActionFunctionArgs) {
   const { companyId, userId } = await requirePermissions(request, {
-    update: "sales",
+    update: "sales"
   });
 
   const formData = await request.formData();
@@ -33,13 +33,13 @@ export async function action({ request }: ActionFunctionArgs) {
       quoteLineId,
       itemId,
       companyId,
-      userId,
+      userId
     });
 
     return json({
       error: lineMethod.error
         ? "Failed to save quote method to make method"
-        : null,
+        : null
     });
   }
 
@@ -52,14 +52,14 @@ export async function action({ request }: ActionFunctionArgs) {
     const makeMethod = await upsertMakeMethodFromQuoteMethod(serviceRole, {
       ...validation.data,
       companyId,
-      userId,
+      userId
     });
 
     if (makeMethod.error) {
       return json({
         error: makeMethod.error
           ? "Failed to save quote method to make method"
-          : null,
+          : null
       });
     }
 

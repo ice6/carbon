@@ -10,14 +10,14 @@ import {
   getIssueItems,
   getIssueReviewers,
   getIssueTypes,
-  getRequiredActionsList,
+  getRequiredActionsList
 } from "~/modules/quality";
 import { getCompany } from "~/modules/settings";
 import { getLocale } from "~/utils/request";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    view: "quality",
+    view: "quality"
   });
 
   const { id } = params;
@@ -31,7 +31,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     approvalTasks,
     reviewers,
     requiredActions,
-    items,
+    items
   ] = await Promise.all([
     getCompany(client, companyId),
     getIssue(client, id),
@@ -40,7 +40,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     getIssueApprovalTasks(client, id, companyId),
     getIssueReviewers(client, id, companyId),
     getRequiredActionsList(client, companyId),
-    getIssueItems(client, id, companyId),
+    getIssueItems(client, id, companyId)
   ]);
 
   // Get associations separately (returns plain object, not wrapped in { data })
@@ -187,7 +187,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
   const headers = new Headers({
     "Content-Type": "application/pdf",
-    "Content-Disposition": `inline; filename="${nonConformance.data.nonConformanceId}.pdf"`,
+    "Content-Disposition": `inline; filename="${nonConformance.data.nonConformanceId}.pdf"`
   });
   return new Response(body, { status: 200, headers });
 }

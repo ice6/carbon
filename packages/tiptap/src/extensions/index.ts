@@ -27,16 +27,16 @@ const PlaceholderExtension = Placeholder.configure({
     }
     return "Press '/' for commands";
   },
-  includeChildren: true,
+  includeChildren: true
 });
 
 const HighlightExtension = Highlight.configure({
-  multicolor: true,
+  multicolor: true
 });
 
 const MarkdownExtension = Markdown.configure({
   html: false,
-  transformCopiedText: true,
+  transformCopiedText: true
 });
 
 const Horizontal = HorizontalRule.extend({
@@ -55,10 +55,10 @@ const Horizontal = HorizontalRule.extend({
             tr.mapping.map(start),
             tr.mapping.map(end)
           );
-        },
-      }),
+        }
+      })
     ];
-  },
+  }
 });
 
 export * from "./ai-highlight";
@@ -84,5 +84,5 @@ export {
   TiptapLink,
   TiptapUnderline,
   UpdatedImage,
-  Youtube,
+  Youtube
 };

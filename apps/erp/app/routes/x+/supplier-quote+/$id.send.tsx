@@ -9,7 +9,7 @@ import {
   getSupplierContact,
   getSupplierQuote,
   sendSupplierQuote,
-  supplierQuoteFinalizeValidator,
+  supplierQuoteFinalizeValidator
 } from "~/modules/purchasing";
 import { getCompany, getCompanySettings } from "~/modules/settings";
 import { upsertExternalLink } from "~/modules/shared";
@@ -23,7 +23,7 @@ export async function action(args: ActionFunctionArgs) {
   const { client, companyId, userId } = await requirePermissions(request, {
     create: "purchasing",
     role: "employee",
-    bypassRls: true,
+    bypassRls: true
   });
 
   const { id } = params;
@@ -45,15 +45,15 @@ export async function action(args: ActionFunctionArgs) {
       documentId: id,
       supplierId: quote.data.supplierId,
       expiresAt: quote.data.expirationDate,
-      companyId,
-    }),
+      companyId
+    })
   ]);
 
   if (externalLink.data && quote.data.externalLinkId !== externalLink.data.id) {
     await client
       .from("supplierQuote")
       .update({
-        externalLinkId: externalLink.data.id,
+        externalLinkId: externalLink.data.id
       })
       .eq("id", id);
   }
@@ -95,7 +95,7 @@ export async function action(args: ActionFunctionArgs) {
             getCompanySettings(client, companyId),
             getSupplierContact(client, supplierContactId),
             getSupplierQuote(client, id),
-            getUser(client, userId),
+            getUser(client, userId)
           ]);
 
         if (!company.data) throw new Error("Failed to get company");
@@ -130,7 +130,7 @@ export async function action(args: ActionFunctionArgs) {
             "<br>"
           )}`,
           text: `${emailBody}\n\n${externalQuoteUrl}\n\n${emailSignature}`,
-          companyId,
+          companyId
         });
       } catch (err) {
         throw redirect(

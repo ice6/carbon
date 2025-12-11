@@ -5,7 +5,7 @@ import type { LoaderFunctionArgs } from "@vercel/remix";
 import { json } from "@vercel/remix";
 import {
   getGaugeCalibrationRecords,
-  getGaugeTypesList,
+  getGaugeTypesList
 } from "~/modules/quality";
 import GaugeCalibrationRecordsTable from "~/modules/quality/ui/Calibrations/GaugeCalibrationRecordsTable";
 import { getCompanySettings } from "~/modules/settings";
@@ -15,13 +15,13 @@ import { getGenericQueryFilters } from "~/utils/query";
 
 export const handle: Handle = {
   breadcrumb: "Calibrations",
-  to: path.to.gauges,
+  to: path.to.gauges
 };
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
     view: "quality",
-    role: "employee",
+    role: "employee"
   });
 
   const url = new URL(request.url);
@@ -37,17 +37,17 @@ export async function loader({ request }: LoaderFunctionArgs) {
         limit,
         offset,
         sorts,
-        filters,
+        filters
       }),
       getGaugeTypesList(client, companyId),
-      getCompanySettings(client, companyId),
+      getCompanySettings(client, companyId)
     ]);
 
   return json({
     gaugeCalibrationRecords: gaugeCalibrationRecords.data ?? [],
     count: gaugeCalibrationRecords.count ?? 0,
     gaugeTypes: gaugeTypes.data ?? [],
-    useMetric: companySettings.data?.useMetric ?? false,
+    useMetric: companySettings.data?.useMetric ?? false
   });
 }
 

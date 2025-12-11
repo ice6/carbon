@@ -10,7 +10,7 @@ import {
   FormErrorMessage,
   FormLabel,
   useDebounce,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useGooglePlaces } from "~/hooks/useGooglePlaces";
@@ -21,7 +21,7 @@ type AddressAutocompleteProps = {
 };
 
 const AddressAutocomplete = ({
-  variant = "vertical",
+  variant = "vertical"
 }: AddressAutocompleteProps) => {
   const address1Field = "addressLine1";
 
@@ -44,7 +44,7 @@ const AddressAutocomplete = ({
     loading,
     getSuggestions,
     selectPlace,
-    clearSuggestions,
+    clearSuggestions
   } = useGooglePlaces();
 
   const handleInputChange = useCallback(

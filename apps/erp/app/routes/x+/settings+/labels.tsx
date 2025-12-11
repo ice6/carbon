@@ -8,7 +8,7 @@ import {
   Heading,
   ScrollArea,
   toast,
-  VStack,
+  VStack
 } from "@carbon/react";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@vercel/remix";
 import { json, redirect } from "@vercel/remix";
@@ -20,24 +20,25 @@ import { Select, Submit, ValidatedForm, validator } from "@carbon/form";
 import { labelSizes } from "@carbon/utils";
 import { useFetcher, useLoaderData } from "@remix-run/react";
 import { useEffect } from "react";
-import { getCompanySettings ,
+import {
+  getCompanySettings,
   productLabelSizeValidator,
-  updateProductLabelSize,
+  updateProductLabelSize
 } from "~/modules/settings";
 import type { Handle } from "~/utils/handle";
 import { path } from "~/utils/path";
 export const handle: Handle = {
   breadcrumb: "Labels",
-  to: path.to.labelsSettings,
+  to: path.to.labelsSettings
 };
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    view: "settings",
+    view: "settings"
   });
 
   const [companySettings] = await Promise.all([
-    getCompanySettings(client, companyId),
+    getCompanySettings(client, companyId)
   ]);
   if (!companySettings.data)
     throw redirect(
@@ -52,7 +53,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
 export async function action({ request }: ActionFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    update: "settings",
+    update: "settings"
   });
 
   const formData = await request.formData();
@@ -76,7 +77,7 @@ export async function action({ request }: ActionFunctionArgs) {
       if (productLabelSize.error)
         return json({
           success: false,
-          message: productLabelSize.error.message,
+          message: productLabelSize.error.message
         });
   }
 
@@ -109,7 +110,7 @@ export default function SalesSettingsRoute() {
             method="post"
             validator={productLabelSizeValidator}
             defaultValues={{
-              productLabelSize: companySettings.productLabelSize ?? "avery5160",
+              productLabelSize: companySettings.productLabelSize ?? "avery5160"
             }}
             fetcher={fetcher}
           >
@@ -131,7 +132,7 @@ export default function SalesSettingsRoute() {
                     label="Product Label Size"
                     options={labelSizes.map((size) => ({
                       value: size.id,
-                      label: size.name,
+                      label: size.name
                     }))}
                   />
                 </div>

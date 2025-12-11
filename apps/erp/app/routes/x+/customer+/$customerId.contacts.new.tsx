@@ -3,7 +3,7 @@ import {
   error,
   getCarbonServiceRole,
   notFound,
-  success,
+  success
 } from "@carbon/auth";
 import { requirePermissions } from "@carbon/auth/auth.server";
 import { flash } from "@carbon/auth/session.server";
@@ -14,7 +14,7 @@ import type { ActionFunctionArgs } from "@vercel/remix";
 import { json, redirect } from "@vercel/remix";
 import {
   customerContactValidator,
-  insertCustomerContact,
+  insertCustomerContact
 } from "~/modules/sales";
 import { CustomerContactForm } from "~/modules/sales/ui/Customer";
 import { setCustomFields } from "~/utils/form";
@@ -24,7 +24,7 @@ import { customerContactsQuery } from "~/utils/react-query";
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { companyId } = await requirePermissions(request, {
-    create: "sales",
+    create: "sales"
   });
 
   // RLS doesn't work for selecting a contact with no customer
@@ -51,7 +51,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     companyId,
     contact,
     customerLocationId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
   if (createCustomerContact.error) {
     let errorMessage = "Failed to create customer contact";
@@ -111,7 +111,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
 export async function clientAction({
   serverAction,
-  params,
+  params
 }: ClientActionFunctionArgs) {
   const { customerId } = params;
 
@@ -132,7 +132,7 @@ export default function CustomerContactsNewRoute() {
   const initialValues = {
     firstName: "",
     lastName: "",
-    email: "",
+    email: ""
   };
 
   return (

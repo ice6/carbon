@@ -12,7 +12,7 @@ import {
   getReceipt,
   getReceiptFiles,
   getReceiptTracking,
-  getReceiptLines,
+  getReceiptLines
 } from "~/modules/inventory";
 import { getCompanySettings } from "~/modules/settings";
 import type { Handle } from "~/utils/handle";
@@ -20,12 +20,12 @@ import { path } from "~/utils/path";
 
 export const handle: Handle = {
   breadcrumb: "Receipts",
-  to: path.to.receipts,
+  to: path.to.receipts
 };
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { companyId } = await requirePermissions(request, {
-    view: "inventory",
+    view: "inventory"
   });
 
   const serviceRole = await getCarbonServiceRole();
@@ -36,7 +36,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   const [receipt, receiptLines, receiptLineTracking] = await Promise.all([
     getReceipt(serviceRole, receiptId),
     getReceiptLines(serviceRole, receiptId),
-    getReceiptTracking(serviceRole, receiptId, companyId),
+    getReceiptTracking(serviceRole, receiptId, companyId)
   ]);
 
   if (receipt.error) {
@@ -69,7 +69,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     batchProperties:
       getBatchProperties(serviceRole, itemsWithBatchProperties, companyId) ??
       [],
-    companySettings: getCompanySettings(serviceRole, companyId),
+    companySettings: getCompanySettings(serviceRole, companyId)
   });
 }
 

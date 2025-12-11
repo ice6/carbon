@@ -14,23 +14,23 @@ import type {
   PurchaseOrder,
   PurchaseOrderDelivery,
   PurchaseOrderLine,
-  SupplierInteraction,
+  SupplierInteraction
 } from "~/modules/purchasing";
 import {
   getPurchaseOrder,
   getPurchaseOrderPayment,
   purchaseOrderValidator,
-  upsertPurchaseOrder,
+  upsertPurchaseOrder
 } from "~/modules/purchasing";
 import {
   PurchaseOrderDeliveryForm,
   PurchaseOrderPaymentForm,
-  PurchaseOrderSummary,
+  PurchaseOrderSummary
 } from "~/modules/purchasing/ui/PurchaseOrder";
 import type { PurchaseOrderDeliveryFormRef } from "~/modules/purchasing/ui/PurchaseOrder/PurchaseOrderDeliveryForm";
 import {
   SupplierInteractionDocuments,
-  SupplierInteractionNotes,
+  SupplierInteractionNotes
 } from "~/modules/purchasing/ui/SupplierInteraction";
 import SupplierInteractionState from "~/modules/purchasing/ui/SupplierInteraction/SupplierInteractionState";
 import { getCustomFields, setCustomFields } from "~/utils/form";
@@ -38,7 +38,7 @@ import { path } from "~/utils/path";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
-    view: "purchasing",
+    view: "purchasing"
   });
 
   const { orderId } = params;
@@ -46,7 +46,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
   const [purchaseOrder, purchaseOrderPayment] = await Promise.all([
     getPurchaseOrder(client, orderId),
-    getPurchaseOrderPayment(client, orderId),
+    getPurchaseOrderPayment(client, orderId)
   ]);
 
   if (purchaseOrderPayment.error) {
@@ -65,14 +65,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   return json({
     purchaseOrderPayment: purchaseOrderPayment.data,
     internalNotes: (purchaseOrder.data?.internalNotes ?? {}) as JSONContent,
-    externalNotes: (purchaseOrder.data?.externalNotes ?? {}) as JSONContent,
+    externalNotes: (purchaseOrder.data?.externalNotes ?? {}) as JSONContent
   });
 }
 
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    update: "purchasing",
+    update: "purchasing"
   });
 
   const { orderId } = params;
@@ -93,7 +93,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     purchaseOrderId,
     ...data,
     updatedBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
   if (updatePurchaseOrder.error) {
     throw redirect(
@@ -145,7 +145,7 @@ export default function PurchaseOrderBasicRoute() {
     receiptRequestedDate: orderData?.purchaseOrder?.receiptRequestedDate ?? "",
     receiptPromisedDate: orderData?.purchaseOrder?.receiptPromisedDate ?? "",
     currencyCode: orderData?.purchaseOrder?.currencyCode ?? "",
-    ...getCustomFields(orderData?.purchaseOrder?.customFields),
+    ...getCustomFields(orderData?.purchaseOrder?.customFields)
   };
 
   const deliveryInitialValues = {
@@ -166,7 +166,7 @@ export default function PurchaseOrderBasicRoute() {
     customerId: orderData?.purchaseOrderDelivery.customerId ?? "",
     customerLocationId:
       orderData?.purchaseOrderDelivery.customerLocationId ?? "",
-    ...getCustomFields(orderData?.purchaseOrderDelivery.customFields),
+    ...getCustomFields(orderData?.purchaseOrderDelivery.customFields)
   };
   const paymentInitialValues = {
     id: purchaseOrderPayment.id,
@@ -177,7 +177,7 @@ export default function PurchaseOrderBasicRoute() {
       purchaseOrderPayment.invoiceSupplierContactId ?? undefined,
     paymentTermId: purchaseOrderPayment.paymentTermId ?? undefined,
     paymentComplete: purchaseOrderPayment.paymentComplete ?? undefined,
-    ...getCustomFields(purchaseOrderPayment.customFields),
+    ...getCustomFields(purchaseOrderPayment.customFields)
   };
 
   const { company } = useUser();

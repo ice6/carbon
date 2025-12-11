@@ -9,7 +9,7 @@ export async function loader({ params }: LoaderFunctionArgs) {
   const url = path.to.newShipment;
   const searchParams = new URLSearchParams({
     sourceDocument: "Outbound Transfer",
-    sourceDocumentId: transferId,
+    sourceDocumentId: transferId
   });
 
   throw redirect(`${url}?${searchParams.toString()}`);

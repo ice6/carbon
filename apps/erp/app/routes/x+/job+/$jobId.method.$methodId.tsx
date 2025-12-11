@@ -5,7 +5,7 @@ import {
   defer,
   redirect,
   useLoaderData,
-  useParams,
+  useParams
 } from "@remix-run/react";
 import type { LoaderFunctionArgs } from "@vercel/remix";
 
@@ -22,12 +22,12 @@ import {
   getJobMakeMethodById,
   getJobMaterialsByMethodId,
   getJobOperationsByMethodId,
-  getProductionDataByOperations,
+  getProductionDataByOperations
 } from "~/modules/production";
 import {
   JobBillOfMaterial,
   JobBillOfProcess,
-  JobEstimatesVsActuals,
+  JobEstimatesVsActuals
 } from "~/modules/production/ui/Jobs";
 import JobMakeMethodTools from "~/modules/production/ui/Jobs/JobMakeMethodTools";
 import { getTagsList } from "~/modules/shared";
@@ -36,7 +36,7 @@ import { path } from "~/utils/path";
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
     view: "production",
-    bypassRls: true,
+    bypassRls: true
   });
 
   const { jobId, methodId } = params;
@@ -48,7 +48,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     getJobMaterialsByMethodId(client, methodId),
     getJobOperationsByMethodId(client, methodId),
     getTagsList(client, companyId, "operation"),
-    getJobMakeMethodById(client, methodId, companyId),
+    getJobMakeMethodById(client, methodId, companyId)
   ]);
 
   if (job.error) {
@@ -95,7 +95,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
         ...m,
         itemType: m.itemType as "Part",
         unitOfMeasureCode: m.unitOfMeasureCode ?? "",
-        jobOperationId: m.jobOperationId ?? undefined,
+        jobOperationId: m.jobOperationId ?? undefined
       })) ?? [],
     operations:
       operations.data?.map((o) => ({
@@ -106,14 +106,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
         machineRate: o.machineRate ?? 0,
         operationSupplierProcessId: o.operationSupplierProcessId ?? undefined,
         jobMakeMethodId: o.jobMakeMethodId ?? methodId,
-        workInstruction: o.workInstruction as JSONContent,
+        workInstruction: o.workInstruction as JSONContent
       })) ?? [],
     makeMethod: makeMethod.data,
     productionData: getProductionDataByOperations(
       client,
       operations?.data?.map((o) => o.id)
     ),
-    tags: tags.data ?? [],
+    tags: tags.data ?? []
   });
 }
 
@@ -186,7 +186,7 @@ export default function JobMakeMethodRoute() {
           isReadOnly={!permissions.can("update", "production")}
           metadata={{
             jobId: routeData?.job?.id ?? undefined,
-            itemId: routeData?.job?.itemId ?? undefined,
+            itemId: routeData?.job?.itemId ?? undefined
           }}
           modelPath={routeData?.job?.modelPath ?? null}
           title="CAD Model"

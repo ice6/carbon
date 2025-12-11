@@ -37,7 +37,7 @@ const ItemPostingGroup = (props: ItemPostingGroupSelectProps) => {
             triggerRef.current?.click();
           }}
           initialValues={{
-            name: created,
+            name: created
           }}
         />
       )}
@@ -62,7 +62,7 @@ export const useItemPostingGroups = () => {
       itemGroupFetcher.data?.data
         ? itemGroupFetcher.data?.data.map((c) => ({
             value: c.id,
-            label: c.name,
+            label: c.name
           }))
         : [],
     [itemGroupFetcher.data]

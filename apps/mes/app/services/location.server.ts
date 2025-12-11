@@ -11,14 +11,14 @@ export function getCompanySettings(request: Request, companyId: string) {
     return { location: parsed };
   }
   return {
-    location: undefined,
+    location: undefined
   };
 }
 
 export function setLocation(companyId: string, locationId: string) {
   return cookie.serialize(companyId, locationId, {
     path: "/",
-    maxAge: 31536000,
+    maxAge: 31536000
   });
 }
 

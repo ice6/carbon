@@ -11,7 +11,7 @@ import { path, requestReferrer } from "~/utils/path";
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId, companyId } = await requirePermissions(request, {
-    update: "quality",
+    update: "quality"
   });
 
   const { id } = params;
@@ -35,8 +35,8 @@ export async function action({ request, params }: ActionFunctionArgs) {
       status,
       assignee: ["Closed"].includes(status) ? null : undefined,
       closeDate: ["Closed"].includes(status) ? new Date().toISOString() : null,
-      updatedBy: userId,
-    }),
+      updatedBy: userId
+    })
   ]);
   if (update.error) {
     throw redirect(
@@ -56,8 +56,8 @@ export async function action({ request, params }: ActionFunctionArgs) {
         id,
         status,
         nonConformanceId: id,
-        title: "", // We might need to get the title from the issue data
-      },
+        title: "" // We might need to get the title from the issue data
+      }
     });
   } catch (error) {
     console.error("Failed to send notifications:", error);

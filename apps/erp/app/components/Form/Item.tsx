@@ -23,7 +23,7 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-  useDisclosure,
+  useDisclosure
 } from "@carbon/react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { LuFilter } from "react-icons/lu";
@@ -101,7 +101,7 @@ const Item = ({
       .map((item) => ({
         value: item.id,
         label: item.readableIdWithRevision,
-        helper: item.name,
+        helper: item.name
       }));
 
     if (props.disabledItems) {
@@ -117,7 +117,7 @@ const Item = ({
     props?.includeInactive,
     props.disabledItems,
     props.replenishmentSystem,
-    type,
+    type
   ]);
 
   const selectTypeModal = useDisclosure();
@@ -159,7 +159,7 @@ const Item = ({
         )}
         <input
           {...getInputProps({
-            id: name,
+            id: name
           })}
           type="hidden"
           name={name}
@@ -344,7 +344,7 @@ const Item = ({
               props?.replenishmentSystem === "Buy" ? "Pick" : "Make",
             unitCost: 0,
             lotSize: 0,
-            tags: [],
+            tags: []
           }}
         />
       )}
@@ -365,7 +365,7 @@ const Item = ({
             replenishmentSystem: "Buy",
             defaultMethodType: "Buy",
             unitCost: 0,
-            tags: [],
+            tags: []
           }}
         />
       )}
@@ -388,7 +388,7 @@ const Item = ({
             replenishmentSystem: "Buy",
             defaultMethodType: "Buy",
             unitCost: 0,
-            tags: [],
+            tags: []
           }}
         />
       )}
@@ -412,7 +412,7 @@ const Item = ({
             defaultMethodType:
               props?.replenishmentSystem === "Buy" ? "Pick" : "Make",
             unitCost: 0,
-            tags: [],
+            tags: []
           }}
         />
       )}

@@ -25,7 +25,7 @@ import {
   toast,
   useDisclosure,
   useMount,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { getItemReadableId } from "@carbon/utils";
 import { Link, useFetcher, useParams } from "@remix-run/react";
@@ -45,7 +45,7 @@ import {
   LuShoppingCart,
   LuSquareUser,
   LuTrash,
-  LuTruck,
+  LuTruck
 } from "react-icons/lu";
 import { RiProgress8Line } from "react-icons/ri";
 import { Customer, Item, Supplier } from "~/components/Form";
@@ -73,7 +73,7 @@ export function IssueAssociationsSkeleton() {
 export function IssueAssociationsTree({
   tree,
   nonConformanceId,
-  items,
+  items
 }: {
   tree: IssueAssociationNode[];
   nonConformanceId: string;
@@ -160,7 +160,7 @@ export function IssueAssociationItem({
   filterText,
   nonConformanceId,
   items,
-  onDelete,
+  onDelete
 }: {
   node: IssueAssociationNode;
   filterText: string;
@@ -460,7 +460,7 @@ function NewPurchaseOrderLineAssociation({ items }: { items?: string[] }) {
     setPurchaseOrders(
       data?.map((po) => ({
         label: po.purchaseOrderId ?? "",
-        value: po.id,
+        value: po.id
       })) ?? []
     );
     setPurchaseOrdersAreLoading(false);
@@ -496,7 +496,7 @@ function NewPurchaseOrderLineAssociation({ items }: { items?: string[] }) {
     setPurchaseOrderLines(
       data?.map((line) => ({
         label: line.item?.name ?? `Line ${line.id}`,
-        value: line.id,
+        value: line.id
       })) ?? []
     );
     setPurchaseOrderLinesAreLoading(false);
@@ -562,7 +562,7 @@ function NewSalesOrderLineAssociation({ items }: { items?: string[] }) {
     setSalesOrders(
       data?.map((order) => ({
         label: order.salesOrderId ?? "",
-        value: order.id,
+        value: order.id
       })) ?? []
     );
     setSalesOrdersAreLoading(false);
@@ -598,7 +598,7 @@ function NewSalesOrderLineAssociation({ items }: { items?: string[] }) {
     setSalesOrderLines(
       data?.map((line) => ({
         label: line.item?.name ?? `Line ${line.id}`,
-        value: line.id,
+        value: line.id
       })) ?? []
     );
     setSalesOrderLinesAreLoading(false);
@@ -664,7 +664,7 @@ function NewShipmentLineAssociation({ items }: { items?: string[] }) {
     setShipments(
       data?.map((shipment) => ({
         label: `Shipment ${shipment.shipmentId}`,
-        value: shipment.id,
+        value: shipment.id
       })) ?? []
     );
     setShipmentsAreLoading(false);
@@ -694,7 +694,7 @@ function NewShipmentLineAssociation({ items }: { items?: string[] }) {
     setShipmentLines(
       data?.map((line) => ({
         label: getItemReadableId(storedItems, line.itemId) ?? `Line ${line.id}`,
-        value: line.id,
+        value: line.id
       })) ?? []
     );
     setShipmentLinesAreLoading(false);
@@ -760,7 +760,7 @@ function NewReceiptLineAssociation({ items }: { items?: string[] }) {
     setReceipts(
       data?.map((receipt) => ({
         label: `Receipt ${receipt.receiptId}`,
-        value: receipt.id,
+        value: receipt.id
       })) ?? []
     );
     setReceiptsAreLoading(false);
@@ -790,7 +790,7 @@ function NewReceiptLineAssociation({ items }: { items?: string[] }) {
     setReceiptLines(
       data?.map((line) => ({
         label: getItemReadableId(storedItems, line.itemId) ?? `Line ${line.id}`,
-        value: line.id,
+        value: line.id
       })) ?? []
     );
     setReceiptLinesAreLoading(false);
@@ -859,7 +859,7 @@ function NewTrackedEntityAssociation({ items }: { items?: string[] }) {
     setTrackedEntities(
       data?.map((entity) => ({
         label: entity.id,
-        value: entity.id,
+        value: entity.id
       })) ?? []
     );
     setTrackedEntitiesAreLoading(false);
@@ -880,7 +880,7 @@ function NewAssociationModal({
   onClose,
   type,
   name,
-  items,
+  items
 }: {
   open: boolean;
   onClose: () => void;

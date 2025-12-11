@@ -10,12 +10,12 @@ import {
   ModalCardProvider,
   ModalCardTitle,
   cn,
-  toast,
+  toast
 } from "@carbon/react";
 import { useFetcher } from "@remix-run/react";
 import type { PostgrestResponse } from "@supabase/supabase-js";
 import { useEffect } from "react";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import {
   Currency,
   CustomFormFields,
@@ -24,7 +24,7 @@ import {
   Input,
   Submit,
   SupplierStatus,
-  SupplierType,
+  SupplierType
 } from "~/components/Form";
 import { usePermissions } from "~/hooks";
 import type { Supplier } from "~/modules/purchasing";
@@ -40,7 +40,7 @@ type SupplierFormProps = {
 const SupplierForm = ({
   initialValues,
   type = "card",
-  onClose,
+  onClose
 }: SupplierFormProps) => {
   const permissions = usePermissions();
   const fetcher = useFetcher<PostgrestResponse<Supplier>>();
@@ -94,8 +94,8 @@ const SupplierForm = ({
                     type === "modal"
                       ? "grid-cols-1"
                       : isEditing
-                      ? "grid-cols-1 lg:grid-cols-3"
-                      : "grid-cols-1 md:grid-cols-2"
+                        ? "grid-cols-1 lg:grid-cols-3"
+                        : "grid-cols-1 md:grid-cols-2"
                   )}
                 >
                   <Input autoFocus={!isEditing} name="name" label="Name" />

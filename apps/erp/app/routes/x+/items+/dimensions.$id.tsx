@@ -8,7 +8,7 @@ import { json, redirect } from "@vercel/remix";
 import {
   getMaterialDimension,
   materialDimensionValidator,
-  upsertMaterialDimension,
+  upsertMaterialDimension
 } from "~/modules/items";
 import MaterialDimensionForm from "~/modules/items/ui/MaterialDimensions/MaterialDimensionForm";
 
@@ -17,7 +17,7 @@ import { getParams, path } from "~/utils/path";
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
     view: "parts",
-    role: "employee",
+    role: "employee"
   });
 
   const { id } = params;
@@ -36,14 +36,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   }
 
   return json({
-    materialDimension: materialDimension?.data ?? null,
+    materialDimension: materialDimension?.data ?? null
   });
 }
 
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client } = await requirePermissions(request, {
-    update: "parts",
+    update: "parts"
   });
 
   const { id } = params;
@@ -60,7 +60,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
   const updateMaterialDimension = await upsertMaterialDimension(client, {
     id: id,
-    ...validation.data,
+    ...validation.data
   });
 
   if (updateMaterialDimension.error) {
@@ -86,7 +86,7 @@ export default function EditMaterialDimensionsRoute() {
   const initialValues = {
     id: materialDimension?.id ?? undefined,
     name: materialDimension?.name ?? "",
-    materialFormId: materialDimension?.materialFormId ?? "",
+    materialFormId: materialDimension?.materialFormId ?? ""
   };
 
   return (

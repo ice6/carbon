@@ -10,7 +10,7 @@ import type {
   processValidator,
   trainingQuestionValidator,
   trainingValidator,
-  workCenterValidator,
+  workCenterValidator
 } from "./resources.models";
 
 export async function activateWorkCenter(
@@ -117,7 +117,7 @@ export async function getAbilities(
   let query = client
     .from("ability")
     .select(`*, employeeAbility(employeeId)`, {
-      count: "exact",
+      count: "exact"
     })
     .eq("companyId", companyId)
     .eq("active", true)
@@ -128,7 +128,7 @@ export async function getAbilities(
   }
 
   query = setGenericQueryFilters(query, args, [
-    { column: "name", ascending: true },
+    { column: "name", ascending: true }
   ]);
   return query;
 }
@@ -153,7 +153,7 @@ export async function getAbility(
     .select(
       `*, employeeAbility(id, employeeId, lastTrainingDate, trainingDays, trainingCompleted)`,
       {
-        count: "exact",
+        count: "exact"
       }
     )
     .eq("id", abilityId)
@@ -192,7 +192,7 @@ export async function getContractors(
 
   if (args) {
     query = setGenericQueryFilters(query, args, [
-      { column: "lastName", ascending: true },
+      { column: "lastName", ascending: true }
     ]);
   }
 
@@ -233,7 +233,7 @@ export async function getLocations(
 
   if (args) {
     query = setGenericQueryFilters(query, args, [
-      { column: "name", ascending: true },
+      { column: "name", ascending: true }
     ]);
   }
 
@@ -257,7 +257,7 @@ export async function getOutstandingTrainingsForUser(
   employeeId: string
 ) {
   const { data, error } = await client.rpc("get_training_assignment_status", {
-    p_company_id: companyId,
+    p_company_id: companyId
   });
 
   if (error) return { data: null, error };
@@ -320,7 +320,7 @@ export async function getPartners(
 
   if (args) {
     query = setGenericQueryFilters(query, args, [
-      { column: "supplierName", ascending: true },
+      { column: "supplierName", ascending: true }
     ]);
   }
 
@@ -350,7 +350,7 @@ export async function getProcesses(
 
   if (args) {
     query = setGenericQueryFilters(query, args, [
-      { column: "name", ascending: true },
+      { column: "name", ascending: true }
     ]);
   }
 
@@ -441,7 +441,7 @@ export async function getTrainingAssignmentStatus(
   } & GenericQueryFilters
 ) {
   const { data, error } = await client.rpc("get_training_assignment_status", {
-    p_company_id: companyId,
+    p_company_id: companyId
   });
 
   if (error) return { data: null, error, count: null };
@@ -490,7 +490,7 @@ export async function getTrainingAssignmentSummary(
   companyId: string
 ) {
   return client.rpc("get_training_assignment_summary", {
-    p_company_id: companyId,
+    p_company_id: companyId
   });
 }
 
@@ -513,7 +513,7 @@ export async function getTrainings(
   let query = client
     .from("trainings")
     .select("*", {
-      count: "exact",
+      count: "exact"
     })
     .eq("companyId", companyId);
 
@@ -523,7 +523,7 @@ export async function getTrainings(
 
   if (args) {
     query = setGenericQueryFilters(query, args, [
-      { column: "name", ascending: true },
+      { column: "name", ascending: true }
     ]);
   }
 
@@ -562,7 +562,7 @@ export async function getWorkCenters(
   let query = client
     .from("workCenters")
     .select("*", {
-      count: "exact",
+      count: "exact"
     })
     .eq("companyId", companyId);
 
@@ -572,7 +572,7 @@ export async function getWorkCenters(
 
   if (args) {
     query = setGenericQueryFilters(query, args, [
-      { column: "name", ascending: true },
+      { column: "name", ascending: true }
     ]);
   }
 
@@ -630,7 +630,7 @@ export async function insertEmployeeAbilities(
     abilityId,
     employeeId,
     companyId,
-    trainingCompleted: true,
+    trainingCompleted: true
   }));
 
   return client
@@ -655,7 +655,7 @@ export async function insertTrainingCompletion(
     .from("trainingCompletion")
     .insert({
       ...completion,
-      completedAt: new Date().toISOString(),
+      completedAt: new Date().toISOString()
     })
     .select("id")
     .single();
@@ -744,7 +744,7 @@ export async function upsertContractor(
       contractorId: contractor.id,
       abilityId: ability,
       createdBy:
-        "createdBy" in contractor ? contractor.createdBy : contractor.updatedBy,
+        "createdBy" in contractor ? contractor.createdBy : contractor.updatedBy
     };
   });
 
@@ -858,9 +858,8 @@ export async function upsertProcess(
       .insert([
         {
           ...insert,
-          defaultStandardFactor:
-            insert.defaultStandardFactor ?? "Minutes/Piece",
-        },
+          defaultStandardFactor: insert.defaultStandardFactor ?? "Minutes/Piece"
+        }
       ])
       .select("id")
       .single();
@@ -872,7 +871,7 @@ export async function upsertProcess(
       workCenterId,
       processId,
       companyId: insert.companyId,
-      createdBy: insert.createdBy,
+      createdBy: insert.createdBy
     }));
 
     if (processProcesses) {
@@ -909,7 +908,7 @@ export async function upsertProcess(
     processId: process.id,
     workCenterId,
     companyId: update.companyId,
-    createdBy: update.updatedBy,
+    createdBy: update.updatedBy
   }));
 
   if (processProcesses) {
@@ -964,7 +963,7 @@ export async function upsertTrainingAssignment(
       .from("trainingAssignment")
       .update({
         groupIds: assignment.groupIds,
-        updatedBy: assignment.updatedBy,
+        updatedBy: assignment.updatedBy
       })
       .eq("id", assignment.id)
       .select("id")
@@ -976,7 +975,7 @@ export async function upsertTrainingAssignment(
       trainingId: assignment.trainingId,
       groupIds: assignment.groupIds,
       companyId: assignment.companyId,
-      createdBy: assignment.createdBy!,
+      createdBy: assignment.createdBy!
     })
     .select("id")
     .single();
@@ -1039,7 +1038,7 @@ export async function upsertWorkCenter(
       workCenterId,
       processId: process,
       companyId: insert.companyId,
-      createdBy: insert.createdBy,
+      createdBy: insert.createdBy
     }));
 
     if (workCenterProcesses) {
@@ -1076,7 +1075,7 @@ export async function upsertWorkCenter(
     workCenterId: workCenter.id,
     processId: process,
     companyId: update.companyId,
-    createdBy: update.updatedBy,
+    createdBy: update.updatedBy
   }));
 
   if (workCenterProcesses) {

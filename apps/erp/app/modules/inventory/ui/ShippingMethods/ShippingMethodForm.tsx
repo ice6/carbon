@@ -9,23 +9,23 @@ import {
   ModalDrawerProvider,
   ModalDrawerTitle,
   VStack,
-  toast,
+  toast
 } from "@carbon/react";
 import { useFetcher } from "@remix-run/react";
 import type { PostgrestResponse } from "@supabase/supabase-js";
 import { useEffect } from "react";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import {
   CustomFormFields,
   Hidden,
   Input,
   Select,
-  Submit,
+  Submit
 } from "~/components/Form";
 import { usePermissions } from "~/hooks";
 import {
   shippingCarrierType,
-  shippingMethodValidator,
+  shippingMethodValidator
 } from "~/modules/inventory";
 import { path } from "~/utils/path";
 
@@ -40,7 +40,7 @@ const ShippingMethodForm = ({
   initialValues,
   open = true,
   type = "drawer",
-  onClose,
+  onClose
 }: ShippingMethodFormProps) => {
   const permissions = usePermissions();
   const fetcher = useFetcher<PostgrestResponse<{ id: string }>>();
@@ -65,7 +65,7 @@ const ShippingMethodForm = ({
 
   const shippingCarrierOptions = shippingCarrierType.map((v) => ({
     label: v,
-    value: v,
+    value: v
   }));
 
   return (

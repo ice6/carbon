@@ -1,6 +1,6 @@
 import type { Database } from "@carbon/database";
 import type { SupabaseClient } from "@supabase/supabase-js";
-import { z } from 'zod/v3';
+import { z } from "zod/v3";
 import { zfd } from "zod-form-data";
 
 export const inventoryAdjustmentValidator = z.object({
@@ -8,7 +8,7 @@ export const inventoryAdjustmentValidator = z.object({
   locationId: z.string().min(1, { message: "Location is required" }),
   shelfId: zfd.text(z.string().optional()),
   entryType: z.enum(["Positive Adjmt.", "Negative Adjmt."]),
-  quantity: zfd.numeric(z.number().min(1, { message: "Quantity is required" })),
+  quantity: zfd.numeric(z.number().min(1, { message: "Quantity is required" }))
 });
 
 export async function getBatchNumbersForItem(

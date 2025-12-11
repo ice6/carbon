@@ -16,13 +16,13 @@ import {
   useLocalStorage,
   useMount,
   useRealtimeChannel,
-  VStack,
+  VStack
 } from "@carbon/react";
 import {
   getLocalTimeZone,
   now,
   parseAbsolute,
-  toZoned,
+  toZoned
 } from "@internationalized/date";
 import { json, redirect, useLoaderData } from "@remix-run/react";
 import type { LoaderFunctionArgs } from "@vercel/remix";
@@ -41,7 +41,7 @@ import {
   getActiveJobOperationsByLocation,
   getCustomers,
   getProcessesList,
-  getWorkCentersByLocation,
+  getWorkCentersByLocation
 } from "~/services/operations.service";
 import { usePeople } from "~/stores";
 import { makeDurations } from "~/utils/durations";
@@ -133,7 +133,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
   const { location } = await getLocation(request, serviceRole, {
     companyId,
-    userId,
+    userId
   });
 
   const [workCenters, processes, operations] = await Promise.all([
@@ -143,7 +143,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
       serviceRole,
       location,
       selectedWorkCenterIds
-    ),
+    )
   ]);
 
   const activeWorkCenters = new Set();
@@ -154,10 +154,10 @@ export async function loader({ request }: LoaderFunctionArgs) {
   });
 
   let filteredOperations = selectedWorkCenterIds.length
-    ? operations.data?.filter((op) =>
+    ? (operations.data?.filter((op) =>
         selectedWorkCenterIds.includes(op.workCenterId)
-      ) ?? []
-    : operations.data ?? [];
+      ) ?? [])
+    : (operations.data ?? []);
 
   if (selectedSalesOrderIds.length) {
     filteredOperations = filteredOperations.filter((op) =>
@@ -220,7 +220,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
           id: wc.id!,
           title: wc.name!,
           type: wc.processes ?? [],
-          active: activeWorkCenters.has(wc.id),
+          active: activeWorkCenters.has(wc.id)
         }))
         .sort((a, b) => a.title.localeCompare(b.title)) satisfies Column[],
       items: (filteredOperations.map((op) => {
@@ -255,13 +255,13 @@ export async function loader({ request }: LoaderFunctionArgs) {
           quantityScrapped: op.quantityScrapped,
           setupDuration: operation.setupDuration,
           laborDuration: operation.laborDuration,
-          machineDuration: operation.machineDuration,
+          machineDuration: operation.machineDuration
         };
       }) ?? []) satisfies Item[],
       processes: processes.data ?? [],
       workCenters: workCenters.data ?? [],
       customers: customers.data ?? [],
-      availableTags,
+      availableTags
     },
     { headers }
   );
@@ -290,7 +290,7 @@ const defaultDisplaySettings: DisplaySettings = {
   showProgress: true,
   showStatus: true,
   showSalesOrder: true,
-  showThumbnail: true,
+  showThumbnail: true
 };
 
 const DISPLAY_SETTINGS_KEY = "kanban-schedule-display-settings";
@@ -301,7 +301,7 @@ function KanbanSchedule() {
     items: initialItems,
     processes,
     workCenters,
-    availableTags,
+    availableTags
   } = useLoaderData<typeof loader>();
   const [items, setItems] = useState<Item[]>(initialItems);
   const [displaySettings, setDisplaySettings] = useLocalStorage(
@@ -332,9 +332,9 @@ function KanbanSchedule() {
           type: "static",
           options: workCenters.map((col) => ({
             label: col.name!,
-            value: col.id!,
-          })),
-        },
+            value: col.id!
+          }))
+        }
       },
       {
         accessorKey: "processId",
@@ -349,9 +349,9 @@ function KanbanSchedule() {
             )
             .map((p) => ({
               label: p.name,
-              value: p.id,
-            })),
-        },
+              value: p.id
+            }))
+        }
       },
       {
         accessorKey: "tag",
@@ -360,9 +360,9 @@ function KanbanSchedule() {
           type: "static",
           options: availableTags.map((tag) => ({
             label: tag,
-            value: tag,
-          })),
-        },
+            value: tag
+          }))
+        }
       },
       {
         accessorKey: "assignee",
@@ -371,10 +371,10 @@ function KanbanSchedule() {
           type: "static",
           options: people.map((person) => ({
             label: person.name,
-            value: person.id,
-          })),
-        },
-      },
+            value: person.id
+          }))
+        }
+      }
     ];
   }, [processes, workCenters, availableTags, people]);
 
@@ -413,7 +413,7 @@ function KanbanSchedule() {
                   { key: "showProgress", label: "Progress" },
                   { key: "showStatus", label: "Status" },
                   { key: "showSalesOrder", label: "Sales Order" },
-                  { key: "showThumbnail", label: "Thumbnail" },
+                  { key: "showThumbnail", label: "Thumbnail" }
                 ].map(({ key, label }) => (
                   <Switch
                     key={key}
@@ -423,7 +423,7 @@ function KanbanSchedule() {
                     onCheckedChange={(checked) =>
                       setDisplaySettings((prev) => ({
                         ...prev,
-                        [key]: checked,
+                        [key]: checked
                       }))
                     }
                   />
@@ -498,7 +498,7 @@ function useProgressByOperation(
   sortItems: (items: Item[]) => Item[]
 ) {
   const {
-    company: { id: companyId },
+    company: { id: companyId }
   } = useUser();
   const { carbon, accessToken } = useCarbon();
 
@@ -530,7 +530,7 @@ function useProgressByOperation(
           data.reduce<Record<string, Event[]>>((acc, event) => {
             acc[event.jobOperationId] = [
               ...(acc[event.jobOperationId] ?? []),
-              event,
+              event
             ];
             return acc;
           }, {})
@@ -585,7 +585,7 @@ function useProgressByOperation(
           totalDuration,
           progress: currentProgress,
           active,
-          employees,
+          employees
         };
       }
     );
@@ -618,7 +618,7 @@ function useProgressByOperation(
             event: "*",
             schema: "public",
             table: "jobOperation",
-            filter: `id=in.(${items.map((item) => item.id).join(",")})`,
+            filter: `id=in.(${items.map((item) => item.id).join(",")})`
           },
           (payload) => {
             switch (payload.eventType) {
@@ -631,7 +631,7 @@ function useProgressByOperation(
                         return {
                           ...item,
                           columnId: updated.workCenterId,
-                          priority: updated.priority,
+                          priority: updated.priority
                         };
                       }
                       return item;
@@ -658,7 +658,7 @@ function useProgressByOperation(
             event: "*",
             schema: "public",
             table: "productionEvent",
-            filter: `companyId=eq.${companyId}`,
+            filter: `companyId=eq.${companyId}`
           },
           (payload) => {
             if (payload.new) {
@@ -668,8 +668,8 @@ function useProgressByOperation(
                   ...prev,
                   [event.jobOperationId]: [
                     ...(prev[event.jobOperationId] ?? []),
-                    event,
-                  ],
+                    event
+                  ]
                 }));
               }
             } else if (payload.old) {
@@ -679,13 +679,13 @@ function useProgressByOperation(
                   ...prev,
                   [event.jobOperationId]: (
                     prev[event.jobOperationId] ?? []
-                  ).filter((e) => e.id !== event.id),
+                  ).filter((e) => e.id !== event.id)
                 }));
               }
             }
           }
         );
-    },
+    }
   });
 
   return { progressByOperation };

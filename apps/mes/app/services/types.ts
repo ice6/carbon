@@ -12,7 +12,7 @@ import type {
   getProductionQuantitiesForJobOperation,
   getRecentJobOperationsByEmployee,
   getTrackedEntitiesByMakeMethodId,
-  getTrackedInputs,
+  getTrackedInputs
 } from "./operations.service";
 
 export type BaseOperation = NonNullable<

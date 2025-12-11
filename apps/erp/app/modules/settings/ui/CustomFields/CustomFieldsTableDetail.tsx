@@ -13,7 +13,7 @@ import {
   MenuIcon,
   MenuItem,
   useDebounce,
-  useDisclosure,
+  useDisclosure
 } from "@carbon/react";
 import { Link, useFetcher, useParams } from "@remix-run/react";
 import { Reorder } from "framer-motion";
@@ -27,7 +27,7 @@ import {
   LuGripVertical,
   LuPencil,
   LuSquareUser,
-  LuTrash,
+  LuTrash
 } from "react-icons/lu";
 import { New } from "~/components";
 import { ConfirmDelete } from "~/components/Modals";
@@ -49,7 +49,7 @@ type CustomFieldAndDataType = CustomField & {
 const CustomFieldCategoryDetail = ({
   customFieldTable,
   dataTypes,
-  onClose,
+  onClose
 }: CustomFieldCategoryDetailProps) => {
   const sortOrderFetcher = useFetcher<{}>();
   const { table } = useParams();
@@ -76,8 +76,8 @@ const CustomFieldCategoryDetail = ({
               ...acc,
               [customField.id]: {
                 ...customField,
-                dataType: getAttributeDataType(customField.dataTypeId),
-              },
+                dataType: getAttributeDataType(customField.dataTypeId)
+              }
             };
           }, {})
         : {},
@@ -244,7 +244,7 @@ function getIcon(props: AttributeDataType) {
     isText,
     isUser,
     isCustomer,
-    isSupplier,
+    isSupplier
   } = props;
   if (isBoolean) return <BsToggleOn />;
   if (isDate) return <BsCalendarDate />;

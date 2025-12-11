@@ -16,7 +16,7 @@ import {
   Thead,
   toast,
   Tr,
-  VStack,
+  VStack
 } from "@carbon/react";
 
 import type { FetcherWithComponents } from "@remix-run/react";
@@ -48,7 +48,7 @@ const SalesInvoicePostModal = ({
   invoiceId,
   linesToShip,
   customerId,
-  customerContactId,
+  customerContactId
 }: SalesInvoicePostModalProps) => {
   const hasLinesToShip = linesToShip.length > 0;
   const integrations = useIntegrations();
@@ -81,7 +81,7 @@ const SalesInvoicePostModal = ({
           action={path.to.salesInvoicePost(invoiceId)}
           defaultValues={{
             notification: notificationType as "Email" | "None",
-            customerContact: customerContactId ?? undefined,
+            customerContact: customerContactId ?? undefined
           }}
           fetcher={fetcher}
         >
@@ -137,12 +137,12 @@ const SalesInvoicePostModal = ({
                   options={[
                     {
                       label: "None",
-                      value: "None",
+                      value: "None"
                     },
                     {
                       label: "Email",
-                      value: "Email",
-                    },
+                      value: "Email"
+                    }
                   ]}
                   value={notificationType}
                   onChange={(t) => {

@@ -1,13 +1,13 @@
 import { useCallback, useMemo } from "react";
 import {
   useInternalFormContext,
-  useRegisterReceiveFocus,
+  useRegisterReceiveFocus
 } from "./internal/hooks";
 import { useFormHelpers, useFormState } from "./state/formStateHooks";
 import type {
   FieldErrors,
   TouchedFields,
-  ValidationResult,
+  ValidationResult
 } from "./validation/types";
 
 export type FormContextValue = {
@@ -104,7 +104,7 @@ export const useFormContext = (formId?: string): FormContextValue => {
     validate,
     reset,
     submit,
-    getValues,
+    getValues
   } = useFormHelpers(formId);
 
   const registerReceiveFocus = useRegisterReceiveFocus(context.formId);
@@ -129,7 +129,7 @@ export const useFormContext = (formId?: string): FormContextValue => {
       validate,
       reset,
       submit,
-      getValues,
+      getValues
     }),
     [
       clearAllErrors,
@@ -141,7 +141,7 @@ export const useFormContext = (formId?: string): FormContextValue => {
       submit,
       validate,
       validateField,
-      getValues,
+      getValues
     ]
   );
 };

@@ -10,7 +10,7 @@ import { path } from "~/utils/path";
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    create: "parts",
+    create: "parts"
   });
 
   const formData = await request.formData();
@@ -23,7 +23,7 @@ export async function action({ request }: ActionFunctionArgs) {
   if (!validation.data.copyFromId) {
     return json({
       success: false,
-      error: "Copy from ID is required for a new revision",
+      error: "Copy from ID is required for a new revision"
     });
   }
 
@@ -36,7 +36,7 @@ export async function action({ request }: ActionFunctionArgs) {
   const result = await createRevision(getCarbonServiceRole(), {
     item: currentItem.data,
     revision: validation.data.revision,
-    createdBy: userId,
+    createdBy: userId
   });
 
   if (result.error) {
@@ -49,19 +49,19 @@ export async function action({ request }: ActionFunctionArgs) {
     case "Material":
       return json({
         success: true,
-        link: path.to.materialDetails(result.data.id),
+        link: path.to.materialDetails(result.data.id)
       });
     case "Tool":
       return json({ success: true, link: path.to.toolDetails(result.data.id) });
     case "Consumable":
       return json({
         success: true,
-        link: path.to.consumableDetails(result.data.id),
+        link: path.to.consumableDetails(result.data.id)
       });
     case "Service":
       return json({
         success: true,
-        link: path.to.serviceDetails(result.data.id),
+        link: path.to.serviceDetails(result.data.id)
       });
     default:
       return json({ success: true, link: path.to.items });

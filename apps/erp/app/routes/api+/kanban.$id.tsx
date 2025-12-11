@@ -18,11 +18,11 @@ import {
   runMRP,
   updateKanbanJob,
   upsertJob,
-  upsertJobMethod,
+  upsertJobMethod
 } from "~/modules/production";
 import {
   upsertPurchaseOrder,
-  upsertPurchaseOrderLine,
+  upsertPurchaseOrderLine
 } from "~/modules/purchasing";
 import { getNextSequence } from "~/modules/settings";
 import { path } from "~/utils/path";
@@ -31,7 +31,7 @@ async function handleKanban({
   client,
   companyId,
   userId,
-  id,
+  id
 }: {
   client: SupabaseClient<Database>;
   companyId: string;
@@ -45,21 +45,21 @@ async function handleKanban({
   ) {
     return {
       data: path.to.api.kanbanCollision(id),
-      error: null,
+      error: null
     };
   }
 
   if (kanban.error || !kanban.data) {
     return {
       data: null,
-      error: "Kanban is not active",
+      error: "Kanban is not active"
     };
   }
 
   if (kanban.data.companyId !== companyId) {
     return {
       data: null,
-      error: "Kanban is not active",
+      error: "Kanban is not active"
     };
   }
 
@@ -67,7 +67,7 @@ async function handleKanban({
     if (!kanban.data.itemId) {
       return {
         data: null,
-        error: "Failed to create job",
+        error: "Failed to create job"
       };
     }
 
@@ -79,14 +79,14 @@ async function handleKanban({
         kanban.data.itemId!,
         kanban.data.locationId!,
         companyId
-      ),
+      )
     ]);
 
     if (nextSequence.error) {
       console.error(nextSequence.error);
       return {
         data: null,
-        error: "Failed to create job",
+        error: "Failed to create job"
       };
     }
 
@@ -100,7 +100,7 @@ async function handleKanban({
       console.error("Failed to get next job id");
       return {
         data: null,
-        error: "Failed to create job",
+        error: "Failed to create job"
       };
     }
 
@@ -119,7 +119,7 @@ async function handleKanban({
       startDate: startDate.toString(),
       dueDate,
       companyId,
-      createdBy: userId,
+      createdBy: userId
     });
 
     const id = createdJob.data?.id!;
@@ -127,7 +127,7 @@ async function handleKanban({
       console.error(createdJob.error);
       return {
         data: null,
-        error: "Failed to create job",
+        error: "Failed to create job"
       };
     }
 
@@ -139,21 +139,21 @@ async function handleKanban({
         targetId: id,
         companyId,
         userId,
-        configuration: undefined,
+        configuration: undefined
       }),
       updateKanbanJob(serviceRole, {
         id: kanban.data.id!,
         jobId: id,
         companyId,
-        userId,
-      }),
+        userId
+      })
     ]);
 
     if (associateKanban.error) {
       console.error(associateKanban.error);
       return {
         data: null,
-        error: "Failed to associate kanban with job",
+        error: "Failed to associate kanban with job"
       };
     }
 
@@ -163,13 +163,13 @@ async function handleKanban({
           type: "jobRequirements",
           id,
           companyId,
-          userId,
+          userId
         }),
         runMRP(serviceRole, {
           type: "job",
           id,
           companyId,
-          userId,
+          userId
         }),
         serviceRole.functions.invoke("schedule", {
           body: {
@@ -177,16 +177,16 @@ async function handleKanban({
             companyId,
             userId,
             mode: "initial",
-            direction: "backward",
+            direction: "backward"
           },
-          region: FunctionRegion.UsEast1,
+          region: FunctionRegion.UsEast1
         }),
         serviceRole
           .from("job")
           .update({
-            status: "Ready",
+            status: "Ready"
           })
-          .eq("id", jobReadableId),
+          .eq("id", jobReadableId)
       ]);
     } else if (upsertMethod.error) {
       console.error(upsertMethod.error);
@@ -221,13 +221,13 @@ async function handleKanban({
 
       return {
         data: redirectUrl,
-        error: null,
+        error: null
       };
     }
 
     return {
       data: redirectUrl,
-      error: null,
+      error: null
     };
   } else if (kanban.data.replenishmentSystem === "Buy") {
     const existingPurchaseOrder = await client
@@ -250,7 +250,7 @@ async function handleKanban({
         console.error(nextSequence.error);
         return {
           data: null,
-          error: "Failed to get next purchase order sequence",
+          error: "Failed to get next purchase order sequence"
         };
       }
 
@@ -260,14 +260,14 @@ async function handleKanban({
         status: "Draft",
         purchaseOrderType: "Purchase",
         companyId,
-        createdBy: userId,
+        createdBy: userId
       });
 
       if (newPurchaseOrder.error || !newPurchaseOrder.data?.[0]) {
         console.error(newPurchaseOrder.error);
         return {
           data: null,
-          error: "Failed to create purchase order",
+          error: "Failed to create purchase order"
         };
       }
 
@@ -296,7 +296,7 @@ async function handleKanban({
         .eq("itemId", kanban.data.itemId!)
         .eq("companyId", companyId)
         .eq("locationId", kanban.data.locationId!)
-        .maybeSingle(),
+        .maybeSingle()
     ]);
 
     const itemCost = item?.data?.itemCost?.[0];
@@ -306,7 +306,7 @@ async function handleKanban({
       console.error(item.error);
       return {
         data: null,
-        error: "Failed to get item",
+        error: "Failed to get item"
       };
     }
 
@@ -333,25 +333,25 @@ async function handleKanban({
       shelfId:
         kanban.data.shelfId || inventory.data?.defaultShelfId || undefined,
       companyId,
-      createdBy: userId,
+      createdBy: userId
     });
 
     if (createPurchaseOrderLine.error) {
       console.error(createPurchaseOrderLine.error);
       return {
         data: null,
-        error: "Failed to create purchase order line",
+        error: "Failed to create purchase order line"
       };
     }
 
     return {
       data: path.to.purchaseOrder(purchaseOrderId!),
-      error: null,
+      error: null
     };
   } else {
     return {
       data: null,
-      error: `${kanban.data.replenishmentSystem} is not supported`,
+      error: `${kanban.data.replenishmentSystem} is not supported`
     };
   }
 }

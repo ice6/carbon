@@ -2,7 +2,7 @@ import {
   SLACK_CLIENT_ID,
   SLACK_CLIENT_SECRET,
   SLACK_OAUTH_REDIRECT_URL,
-  VERCEL_URL,
+  VERCEL_URL
 } from "@carbon/auth";
 import { requirePermissions } from "@carbon/auth/auth.server";
 import { Slack } from "@carbon/ee";
@@ -10,7 +10,7 @@ import {
   createSlackApp,
   getSlackInstaller,
   slackOAuthCallbackSchema,
-  slackOAuthTokenResponseSchema,
+  slackOAuthTokenResponseSchema
 } from "@carbon/ee/slack.server";
 import { json, redirect, type LoaderFunctionArgs } from "@vercel/remix";
 import { z } from "zod/v3";
@@ -19,7 +19,7 @@ import { path } from "~/utils/path";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, userId, companyId } = await requirePermissions(request, {
-    update: "settings",
+    update: "settings"
   });
 
   const url = new URL(request.url);
@@ -40,7 +40,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const parsedMetadata = z
     .object({
       companyId: z.string(),
-      userId: z.string(),
+      userId: z.string()
     })
     .safeParse(JSON.parse(veryfiedState?.metadata ?? "{}"));
 
@@ -66,15 +66,15 @@ export async function loader({ request }: LoaderFunctionArgs) {
       client_id: SLACK_CLIENT_ID,
       client_secret: SLACK_CLIENT_SECRET,
       code: data.code,
-      redirect_uri: SLACK_OAUTH_REDIRECT_URL,
+      redirect_uri: SLACK_OAUTH_REDIRECT_URL
     });
 
     const response = await fetch("https://slack.com/api/oauth.v2.access", {
       method: "POST",
       headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type": "application/x-www-form-urlencoded"
       },
-      body: body.toString(),
+      body: body.toString()
     });
 
     if (!response.ok) {
@@ -126,18 +126,18 @@ export async function loader({ request }: LoaderFunctionArgs) {
           channel: tokenData.incoming_webhook.channel,
           channel_id: tokenData.incoming_webhook.channel_id,
           slack_configuration_url: tokenData.incoming_webhook.configuration_url,
-          url: tokenData.incoming_webhook.url,
+          url: tokenData.incoming_webhook.url
         }),
-        bot_user_id: tokenData.bot_user_id,
+        bot_user_id: tokenData.bot_user_id
       },
       updatedBy: userId,
-      companyId: companyId,
+      companyId: companyId
     });
 
     if (createdSlackIntegration?.data?.metadata) {
       const slackApp = createSlackApp({
         token: tokenData.access_token,
-        botId: tokenData.bot_user_id,
+        botId: tokenData.bot_user_id
       });
 
       // Only try to post a message if we have webhook configuration
@@ -152,10 +152,10 @@ export async function loader({ request }: LoaderFunctionArgs) {
                 type: "section",
                 text: {
                   type: "mrkdwn",
-                  text: "Ahoy maties! 🦜🏴‍☠️ Here be your new Cargh-bon bot. Use `/` to get started.",
-                },
-              },
-            ],
+                  text: "Ahoy maties! 🦜🏴‍☠️ Here be your new Cargh-bon bot. Use `/` to get started."
+                }
+              }
+            ]
           });
         } catch (err) {
           // Silently fail if welcome message can't be posted

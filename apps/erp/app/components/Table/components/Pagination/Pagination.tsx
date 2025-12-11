@@ -12,7 +12,7 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-  useKeyboardShortcuts,
+  useKeyboardShortcuts
 } from "@carbon/react";
 import { prettifyKeyboardShortcut } from "@carbon/utils";
 import { useCallback, useRef } from "react";
@@ -87,7 +87,7 @@ export const PaginationButtons = ({
   nextPage,
   offset,
   pageSize,
-  previousPage,
+  previousPage
 }: PaginationProps & { condensed?: boolean }) => {
   const nextButtonRef = useRef<HTMLButtonElement>(null);
   const previousButtonRef = useRef<HTMLButtonElement>(null);
@@ -116,7 +116,7 @@ export const PaginationButtons = ({
     ArrowLeft: (event: KeyboardEvent) => {
       event.stopPropagation();
       previousButtonRef.current?.click();
-    },
+    }
   });
 
   return (

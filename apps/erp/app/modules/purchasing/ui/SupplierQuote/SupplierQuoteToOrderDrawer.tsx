@@ -19,13 +19,13 @@ import {
   Th,
   Thead,
   Tr,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { Form, useNavigation, useParams } from "@remix-run/react";
 import type { Dispatch, SetStateAction } from "react";
 import { useEffect, useMemo, useState } from "react";
 import { LuImage } from "react-icons/lu";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import { useUser } from "~/hooks";
 import { useCurrencyFormatter } from "~/hooks/useCurrencyFormatter";
 import { getPrivateUrl, path } from "~/utils/path";
@@ -33,7 +33,7 @@ import type { selectedLineSchema } from "../../purchasing.models";
 import type {
   SupplierQuote,
   SupplierQuoteLine,
-  SupplierQuoteLinePrice,
+  SupplierQuoteLinePrice
 } from "../../types";
 
 type SupplierQuoteToOrderDrawerProps = {
@@ -51,7 +51,7 @@ const SupplierQuoteToOrderDrawer = ({
   quote,
   lines,
   pricing,
-  onClose,
+  onClose
 }: SupplierQuoteToOrderDrawerProps) => {
   const [step] = useState(0);
   const [selectedLines, setSelectedLines] = useState<
@@ -68,7 +68,7 @@ const SupplierQuoteToOrderDrawer = ({
   const quoteCurrency = quote.currencyCode ?? baseCurrency;
   const formatter = useCurrencyFormatter({ currency: baseCurrency });
   const presentationCurrencyFormatter = useCurrencyFormatter({
-    currency: quoteCurrency,
+    currency: quoteCurrency
   });
 
   const renderStep = () => {
@@ -153,7 +153,7 @@ const LinePricingForm = ({
   pricing,
   formatter,
   presentationCurrencyFormatter,
-  setSelectedLines,
+  setSelectedLines
 }: LinePricingFormProps) => {
   const pricingByLine = useMemo(
     () =>
@@ -229,7 +229,7 @@ const LinePricingOptions = ({
   quoteCurrency,
   quoteExchangeRate,
   presentationCurrencyFormatter,
-  setSelectedLines,
+  setSelectedLines
 }: LinePricingOptionsProps) => {
   const [selectedValue, setSelectedValue] = useState("");
   const [showOverride, setShowOverride] = useState(false);
@@ -240,7 +240,7 @@ const LinePricingOptions = ({
     supplierUnitPrice: 0,
     supplierShippingCost: 0,
     shippingCost: 0,
-    supplierTaxAmount: 0,
+    supplierTaxAmount: 0
   });
 
   useEffect(() => {
@@ -254,8 +254,8 @@ const LinePricingOptions = ({
           supplierShippingCost: overridePricing.supplierShippingCost,
           shippingCost: overridePricing.shippingCost,
           leadTime: overridePricing.leadTime,
-          supplierTaxAmount: overridePricing.supplierTaxAmount,
-        },
+          supplierTaxAmount: overridePricing.supplierTaxAmount
+        }
       }));
     }
   }, [
@@ -263,7 +263,7 @@ const LinePricingOptions = ({
     overridePricing,
     selectedValue,
     setSelectedLines,
-    quoteExchangeRate,
+    quoteExchangeRate
   ]);
 
   return (
@@ -287,8 +287,8 @@ const LinePricingOptions = ({
                 supplierShippingCost: selectedOption.supplierShippingCost ?? 0,
                 shippingCost: selectedOption.shippingCost ?? 0,
                 leadTime: selectedOption.leadTime,
-                supplierTaxAmount: selectedOption.supplierTaxAmount ?? 0,
-              },
+                supplierTaxAmount: selectedOption.supplierTaxAmount ?? 0
+              }
             }));
             setSelectedValue(value);
           }
@@ -374,7 +374,7 @@ const LinePricingOptions = ({
                     onChange={(quantity) =>
                       setOverridePricing((v) => ({
                         ...v,
-                        quantity,
+                        quantity
                       }))
                     }
                   >
@@ -390,13 +390,13 @@ const LinePricingOptions = ({
                     value={overridePricing.supplierUnitPrice}
                     formatOptions={{
                       style: "currency",
-                      currency: quoteCurrency,
+                      currency: quoteCurrency
                     }}
                     onChange={(unitPrice) =>
                       setOverridePricing((v) => ({
                         ...v,
                         supplierUnitPrice: unitPrice,
-                        unitPrice: unitPrice * quoteExchangeRate,
+                        unitPrice: unitPrice * quoteExchangeRate
                       }))
                     }
                   >
@@ -412,13 +412,13 @@ const LinePricingOptions = ({
                     value={overridePricing.supplierShippingCost}
                     formatOptions={{
                       style: "currency",
-                      currency: quoteCurrency,
+                      currency: quoteCurrency
                     }}
                     onChange={(shippingCost) =>
                       setOverridePricing((v) => ({
                         ...v,
                         shippingCost: shippingCost * quoteExchangeRate,
-                        supplierShippingCost: shippingCost,
+                        supplierShippingCost: shippingCost
                       }))
                     }
                   >
@@ -435,13 +435,13 @@ const LinePricingOptions = ({
                     formatOptions={{
                       style: "unit",
                       unit: "day",
-                      unitDisplay: "long",
+                      unitDisplay: "long"
                     }}
                     value={overridePricing.leadTime}
                     onChange={(leadTime) =>
                       setOverridePricing((v) => ({
                         ...v,
-                        leadTime,
+                        leadTime
                       }))
                     }
                   >
@@ -457,12 +457,12 @@ const LinePricingOptions = ({
                     value={overridePricing.supplierTaxAmount}
                     formatOptions={{
                       style: "currency",
-                      currency: quoteCurrency,
+                      currency: quoteCurrency
                     }}
                     onChange={(taxAmount) =>
                       setOverridePricing((v) => ({
                         ...v,
-                        supplierTaxAmount: taxAmount,
+                        supplierTaxAmount: taxAmount
                       }))
                     }
                   >

@@ -45,13 +45,13 @@ import {
   useDisclosure,
   useMount,
   useRealtimeChannel,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { Editor } from "@carbon/react/Editor";
 import {
   formatDateTime,
   formatDurationMilliseconds,
-  formatRelativeTime,
+  formatRelativeTime
 } from "@carbon/utils";
 import { getLocalTimeZone, today } from "@internationalized/date";
 import { Link, useFetcher, useFetchers, useParams } from "@remix-run/react";
@@ -78,7 +78,7 @@ import {
   LuSettings2,
   LuShieldX,
   LuTriangleAlert,
-  LuX,
+  LuX
 } from "react-icons/lu";
 import type { z } from "zod/v3";
 import {
@@ -86,7 +86,7 @@ import {
   DirectionAwareTabs,
   EmployeeAvatar,
   Empty,
-  TimeTypeIcon,
+  TimeTypeIcon
 } from "~/components";
 import Activity from "~/components/Activity";
 import {
@@ -102,7 +102,7 @@ import {
   SupplierProcess,
   Tool,
   UnitHint,
-  WorkCenter,
+  WorkCenter
 } from "~/components/Form";
 import { getUnitHint } from "~/components/Form/UnitHint";
 import InfiniteScroll from "~/components/InfiniteScroll";
@@ -113,7 +113,7 @@ import { usePermissions, useRouteData, useUrlParams, useUser } from "~/hooks";
 import type {
   OperationParameter,
   OperationStep,
-  OperationTool,
+  OperationTool
 } from "~/modules/shared";
 import {
   methodOperationOrders,
@@ -121,7 +121,7 @@ import {
   operationStepValidator,
   operationToolValidator,
   operationTypes,
-  procedureStepType,
+  procedureStepType
 } from "~/modules/shared";
 
 import type { action as editJobOperationParameterAction } from "~/routes/x+/job+/methods+/operation.parameter.$id";
@@ -134,7 +134,7 @@ import { useNumberFormatter } from "@react-aria/i18n";
 import Procedure from "~/components/Form/Procedure";
 import { SupplierProcessPreview } from "~/components/Form/SupplierProcess";
 import UnitOfMeasure, {
-  useUnitOfMeasure,
+  useUnitOfMeasure
 } from "~/components/Form/UnitOfMeasure";
 import { ProcedureStepTypeIcon } from "~/components/Icons";
 import { useItems, usePeople, useTools } from "~/stores";
@@ -142,7 +142,7 @@ import { getPrivateUrl, path } from "~/utils/path";
 import {
   jobOperationValidator,
   jobOperationValidatorForReleasedJob,
-  procedureSyncValidator,
+  procedureSyncValidator
 } from "../../production.models";
 import { getProductionEventsPage } from "../../production.service";
 import type { Job, JobOperation } from "../../types";
@@ -267,7 +267,7 @@ function makeItem(
                   jobOperationId: operation.id,
                   operationSupplierProcessId:
                     operation.operationSupplierProcessId ?? "",
-                  ...urlParams,
+                  ...urlParams
                 }).toString()}`}
                 title="Create Issue"
               >
@@ -286,7 +286,7 @@ function makeItem(
         </HStack>
       </HStack>
     ),
-    data: operation,
+    data: operation
   };
 }
 
@@ -314,7 +314,7 @@ const initialOperation: Omit<
   status: "Todo",
   tags: [],
   workCenterId: "",
-  workInstruction: {},
+  workInstruction: {}
 };
 
 type PendingWorkInstructions = {
@@ -369,7 +369,7 @@ const JobBillOfProcess = ({
   tags,
   itemId,
   salesOrderLineId,
-  customerId,
+  customerId
 }: JobBillOfProcessProps) => {
   const { carbon, accessToken } = useCarbon();
   const sortOrderFetcher = useFetcher<{}>();
@@ -377,7 +377,7 @@ const JobBillOfProcess = ({
   const permissions = usePermissions();
   const {
     id: userId,
-    company: { id: companyId },
+    company: { id: companyId }
   } = useUser();
 
   const [params] = useUrlParams();
@@ -430,12 +430,12 @@ const JobBillOfProcess = ({
         status: "Todo",
         workInstruction: {},
         jobOperationTool: [],
-        tags: [],
+        tags: []
       });
     } else {
       operationsById.set(pendingOperation.id, {
         ...operationsById.get(pendingOperation.id)!,
-        ...pendingOperation,
+        ...pendingOperation
       });
     }
   });
@@ -444,7 +444,7 @@ const JobBillOfProcess = ({
   Object.entries(temporaryItems).forEach(([id, operation]) => {
     operationsById.set(id, {
       ...operation,
-      jobOperationTool: [],
+      jobOperationTool: []
     });
   });
 
@@ -455,10 +455,10 @@ const JobBillOfProcess = ({
   const items = makeItems(operations, tags, temporaryItems, {
     itemId,
     salesOrderLineId,
-    customerId,
+    customerId
   }).map((item) => ({
     ...item,
-    checked: checkedState[item.id] ?? false,
+    checked: checkedState[item.id] ?? false
   }));
 
   const isDisabled = ["Completed", "Cancelled"].includes(
@@ -469,7 +469,7 @@ const JobBillOfProcess = ({
     if (!permissions.can("update", "parts")) return;
     setCheckedState((prev) => ({
       ...prev,
-      [id]: !prev[id],
+      [id]: !prev[id]
     }));
   };
 
@@ -485,12 +485,12 @@ const JobBillOfProcess = ({
       ...initialOperation,
       id: operationId,
       order: newOrder,
-      jobMakeMethodId,
+      jobMakeMethodId
     };
 
     setTemporaryItems((prev) => ({
       ...prev,
-      [operationId]: newOperation,
+      [operationId]: newOperation
     }));
     setSelectedItemId(operationId);
   };
@@ -511,7 +511,7 @@ const JobBillOfProcess = ({
         { id },
         {
           method: "post",
-          action: path.to.jobOperationsDelete(jobId),
+          action: path.to.jobOperationsDelete(jobId)
         }
       );
     }
@@ -529,8 +529,8 @@ const JobBillOfProcess = ({
       ...item,
       data: {
         ...item.data,
-        order: index + 1,
-      },
+        order: index + 1
+      }
     }));
     const updates = newItems.reduce<Record<string, number>>((acc, item) => {
       if (!temporaryItems[item.id]) {
@@ -541,7 +541,7 @@ const JobBillOfProcess = ({
 
     setOrderState((prev) => ({
       ...prev,
-      ...updates,
+      ...updates
     }));
     updateSortOrder(updates);
   };
@@ -552,7 +552,7 @@ const JobBillOfProcess = ({
       formData.append("updates", JSON.stringify(updates));
       sortOrderFetcher.submit(formData, {
         method: "post",
-        action: path.to.jobOperationsOrder(jobId),
+        action: path.to.jobOperationsOrder(jobId)
       });
     },
     1000,
@@ -571,7 +571,7 @@ const JobBillOfProcess = ({
           .update({
             workInstruction: content,
             updatedAt: today(getLocalTimeZone()).toString(),
-            updatedBy: userId,
+            updatedBy: userId
           })
           .eq("id", selectedItemId!);
     },
@@ -615,7 +615,7 @@ const JobBillOfProcess = ({
           event: "*",
           schema: "public",
           table: "productionEvent",
-          filter: `jobOperationId=eq.${selectedItemId}`,
+          filter: `jobOperationId=eq.${selectedItemId}`
         },
         (payload) => {
           switch (payload.eventType) {
@@ -623,7 +623,7 @@ const JobBillOfProcess = ({
               const { new: inserted } = payload;
               setProductionEvents((prevEvents) => [
                 ...prevEvents,
-                inserted as Database["public"]["Tables"]["productionEvent"]["Row"],
+                inserted as Database["public"]["Tables"]["productionEvent"]["Row"]
               ]);
               break;
             case "UPDATE":
@@ -647,7 +647,7 @@ const JobBillOfProcess = ({
           }
         }
       );
-    },
+    }
   });
 
   const loadMoreProductionEvents = useCallback(async () => {
@@ -693,7 +693,7 @@ const JobBillOfProcess = ({
     items,
     order,
     onToggleItem,
-    onRemoveItem,
+    onRemoveItem
   }: SortableItemRenderProps<ItemWithData>) => {
     const isOpen = item.id === selectedItemId;
 
@@ -718,7 +718,7 @@ const JobBillOfProcess = ({
                 type: "spring",
                 bounce: 0.2,
                 duration: 0.75,
-                delay: 0.15,
+                delay: 0.15
               }}
             >
               <OperationForm
@@ -736,13 +736,13 @@ const JobBillOfProcess = ({
                   addOperationButtonRef.current?.scrollIntoView({
                     behavior: "smooth",
                     block: "nearest",
-                    inline: "center",
+                    inline: "center"
                   });
                 }}
               />
             </motion.div>
           </div>
-        ),
+        )
       },
       {
         id: 1,
@@ -762,7 +762,7 @@ const JobBillOfProcess = ({
                     if (!permissions.can("update", "production")) return;
                     setWorkInstructions((prev) => ({
                       ...prev,
-                      [item.id]: content,
+                      [item.id]: content
                     }));
                     onUpdateWorkInstruction(content);
                   }}
@@ -774,13 +774,13 @@ const JobBillOfProcess = ({
                   dangerouslySetInnerHTML={{
                     __html: generateHTML(
                       item.data.workInstruction ?? ({} as JSONContent)
-                    ),
+                    )
                   }}
                 />
               )}
             </div>
           </div>
-        ),
+        )
       },
       {
         id: 2,
@@ -803,7 +803,7 @@ const JobBillOfProcess = ({
               temporaryItems={temporaryItems}
             />
           </div>
-        ),
+        )
       },
       {
         id: 3,
@@ -827,7 +827,7 @@ const JobBillOfProcess = ({
               materials={materials}
             />
           </div>
-        ),
+        )
       },
       {
         id: 4,
@@ -850,7 +850,7 @@ const JobBillOfProcess = ({
               temporaryItems={temporaryItems}
             />
           </div>
-        ),
+        )
       },
       {
         id: 5,
@@ -866,7 +866,7 @@ const JobBillOfProcess = ({
                 type: "spring",
                 bounce: 0.2,
                 duration: 0.75,
-                delay: 0.15,
+                delay: 0.15
               }}
             >
               <InfiniteScroll
@@ -877,15 +877,15 @@ const JobBillOfProcess = ({
               />
             </motion.div>
           </div>
-        ),
+        )
       },
       {
         id: 6,
         disabled:
           item.id in temporaryItems || item.data.operationType === "Outside",
         label: "Chat",
-        content: <OperationChat jobOperationId={item.id} />,
-      },
+        content: <OperationChat jobOperationId={item.id} />
+      }
     ];
 
     return (
@@ -923,7 +923,7 @@ const JobBillOfProcess = ({
                   exit={{ opacity: 1, filter: "blur(0px)" }}
                   transition={{
                     type: "spring",
-                    duration: 1.95,
+                    duration: 1.95
                   }}
                 >
                   <LuX className="h-5 w-5 text-foreground" />
@@ -935,7 +935,7 @@ const JobBillOfProcess = ({
                   exit={{ opacity: 1, filter: "blur(0px)" }}
                   transition={{
                     type: "spring",
-                    duration: 0.95,
+                    duration: 0.95
                   }}
                 >
                   <LuSettings2 className="stroke-1 h-5 w-5 text-foreground/80  hover:stroke-primary/70 " />
@@ -952,16 +952,16 @@ const JobBillOfProcess = ({
                         initial={{
                           y: 0,
                           opacity: 0,
-                          filter: "blur(4px)",
+                          filter: "blur(4px)"
                         }}
                         animate={{
                           y: 0,
                           opacity: 1,
-                          filter: "blur(0px)",
+                          filter: "blur(0px)"
                         }}
                         transition={{
                           type: "spring",
-                          duration: 0.15,
+                          duration: 0.15
                         }}
                         layout
                         className="w-full "
@@ -1027,7 +1027,7 @@ function StepsForm({
   isDisabled,
   steps,
   temporaryItems,
-  materials,
+  materials
 }: {
   operationId: string;
   isDisabled: boolean;
@@ -1077,7 +1077,7 @@ function StepsForm({
       formData.append("updates", JSON.stringify(updates));
       sortOrderFetcher.submit(formData, {
         method: "post",
-        action: path.to.jobOperationStepOrder(operationId),
+        action: path.to.jobOperationStepOrder(operationId)
       });
     },
     1000,
@@ -1093,14 +1093,14 @@ function StepsForm({
             {type}
           </HStack>
         ),
-        value: type,
+        value: type
       })),
     []
   );
 
   const { carbon } = useCarbon();
   const {
-    company: { id: companyId },
+    company: { id: companyId }
   } = useUser();
   const [allItems] = useItems();
 
@@ -1116,7 +1116,7 @@ function StepsForm({
         .map((item) => ({
           id: item.id,
           label: item.name ?? item.readableIdWithRevision,
-          helper: item.name ? item.readableIdWithRevision : undefined,
+          helper: item.name ? item.readableIdWithRevision : undefined
         })),
     [allItems, materialItemIds]
   );
@@ -1176,7 +1176,7 @@ function StepsForm({
               sortOrder:
                 steps.reduce((acc, a) => Math.max(acc, a.sortOrder ?? 0), 0) +
                 1,
-              operationId,
+              operationId
             }}
             onSubmit={() => {
               setType("Value");
@@ -1245,7 +1245,7 @@ function StepsForm({
                       label="Minimum"
                       formatOptions={{
                         minimumFractionDigits: 0,
-                        maximumFractionDigits: 10,
+                        maximumFractionDigits: 10
                       }}
                     />
                   )}
@@ -1255,7 +1255,7 @@ function StepsForm({
                       label="Maximum"
                       formatOptions={{
                         minimumFractionDigits: 0,
-                        maximumFractionDigits: 10,
+                        maximumFractionDigits: 10
                       }}
                     />
                   )}
@@ -1327,7 +1327,7 @@ function StepsListItem({
   typeOptions,
   isDisabled = false,
   itemMentions,
-  className,
+  className
 }: {
   attribute: JobOperationStep;
   operationId: string;
@@ -1345,7 +1345,7 @@ function StepsListItem({
     updatedBy,
     updatedAt,
     createdBy,
-    createdAt,
+    createdAt
   } = attribute;
 
   const disclosure = useDisclosure();
@@ -1394,7 +1394,7 @@ function StepsListItem({
   const unitOfMeasures = useUnitOfMeasure();
   const { carbon } = useCarbon();
   const {
-    company: { id: companyId },
+    company: { id: companyId }
   } = useUser();
 
   const onUploadImage = async (file: File) => {
@@ -1431,7 +1431,7 @@ function StepsListItem({
           }}
           defaultValues={{
             ...attribute,
-            operationId,
+            operationId
           }}
           className="w-full"
         >
@@ -1494,7 +1494,7 @@ function StepsListItem({
                     label="Minimum"
                     formatOptions={{
                       minimumFractionDigits: 0,
-                      maximumFractionDigits: 10,
+                      maximumFractionDigits: 10
                     }}
                   />
                 )}
@@ -1504,7 +1504,7 @@ function StepsListItem({
                     label="Maximum"
                     formatOptions={{
                       minimumFractionDigits: 0,
-                      maximumFractionDigits: 10,
+                      maximumFractionDigits: 10
                     }}
                   />
                 )}
@@ -1556,7 +1556,7 @@ function StepsListItem({
                           <p
                             className="prose prose-sm dark:prose-invert text-foreground text-sm"
                             dangerouslySetInnerHTML={{
-                              __html: generateHTML(attribute.description),
+                              __html: generateHTML(attribute.description)
                             }}
                           />
                         </TooltipContent>
@@ -1575,18 +1575,18 @@ function StepsListItem({
                             )?.label
                           }`
                         : attribute.minValue !== null
-                        ? `Must be > ${attribute.minValue} ${
-                            unitOfMeasures.find(
-                              (u) => u.value === unitOfMeasureCode
-                            )?.label
-                          }`
-                        : attribute.maxValue !== null
-                        ? `Must be < ${attribute.maxValue} ${
-                            unitOfMeasures.find(
-                              (u) => u.value === unitOfMeasureCode
-                            )?.label
-                          }`
-                        : null}
+                          ? `Must be > ${attribute.minValue} ${
+                              unitOfMeasures.find(
+                                (u) => u.value === unitOfMeasureCode
+                              )?.label
+                            }`
+                          : attribute.maxValue !== null
+                            ? `Must be < ${attribute.maxValue} ${
+                                unitOfMeasures.find(
+                                  (u) => u.value === unitOfMeasureCode
+                                )?.label
+                              }`
+                            : null}
                     </span>
                   )}
                 </VStack>
@@ -1694,7 +1694,7 @@ function PreviewStepRecords({ attribute }: { attribute: JobOperationStep }) {
 
 function PreviewStepRecord({
   attribute,
-  record,
+  record
 }: {
   attribute: JobOperationStep;
   record: any;
@@ -1782,7 +1782,7 @@ function ParametersForm({
   operationId,
   isDisabled,
   parameters,
-  temporaryItems,
+  temporaryItems
 }: {
   operationId: string;
   isDisabled: boolean;
@@ -1816,7 +1816,7 @@ function ParametersForm({
             id: undefined,
             key: "",
             value: "",
-            operationId,
+            operationId
           }}
           className="w-full"
         >
@@ -1864,7 +1864,7 @@ function ParametersForm({
 function ParametersListItem({
   parameter: { key, value, id, updatedBy, updatedAt, createdBy, createdAt },
   operationId,
-  className,
+  className
 }: {
   parameter: OperationParameter;
   operationId: string;
@@ -1905,7 +1905,7 @@ function ParametersListItem({
             id: id,
             key: key ?? "",
             value: value ?? "",
-            operationId,
+            operationId
           }}
           className="w-full"
         >
@@ -1999,7 +1999,7 @@ function OperationForm({
   setTemporaryItems,
   setSelectedItemId,
   temporaryItems,
-  onSubmit,
+  onSubmit
 }: {
   item: ItemWithData;
   isDisabled: boolean;
@@ -2085,7 +2085,7 @@ function OperationForm({
     procedureId: item.data.procedureId ?? "",
     setupTime: item.data.setupTime ?? 0,
     setupUnit: item.data.setupUnit ?? "Total Minutes",
-    setupUnitHint: getUnitHint(item.data.setupUnit),
+    setupUnitHint: getUnitHint(item.data.setupUnit)
   });
 
   const onProcessChange = async (processId: string) => {
@@ -2097,7 +2097,7 @@ function OperationForm({
         .select("workCenter(*)")
         .eq("processId", processId)
         .eq("workCenter.active", true),
-      carbon.from("supplierProcess").select("*").eq("processId", processId),
+      carbon.from("supplierProcess").select("*").eq("processId", processId)
     ]);
 
     const activeWorkCenters =
@@ -2148,7 +2148,7 @@ function OperationForm({
             }, 0) / supplierProcesses.data.length
           : p.operationLeadTime,
       operationType:
-        process.data?.processType === "Outside" ? "Outside" : "Inside",
+        process.data?.processType === "Outside" ? "Outside" : "Inside"
     }));
   };
 
@@ -2176,7 +2176,7 @@ function OperationForm({
       machineRate: data?.machineRate ?? 0,
       machineUnit: data?.defaultStandardFactor ?? "Hours/Piece",
       machineUnitHint: getUnitHint(data?.defaultStandardFactor),
-      overheadRate: data?.overheadRate ?? 0,
+      overheadRate: data?.overheadRate ?? 0
     }));
   };
 
@@ -2194,7 +2194,7 @@ function OperationForm({
       ...d,
       operationMinimumCost: data?.minimumCost ?? 0,
       operationUnitCost: 0, // TODO: get the unit cost from the purchase order history
-      operationLeadTime: data?.leadTime ?? 0,
+      operationLeadTime: data?.leadTime ?? 0
     }));
   };
 
@@ -2234,7 +2234,7 @@ function OperationForm({
           placeholder="Operation Order"
           options={methodOperationOrders.map((o) => ({
             value: o,
-            label: o,
+            label: o
           }))}
         />
         <SelectControlled
@@ -2243,7 +2243,7 @@ function OperationForm({
           placeholder="Operation Type"
           options={operationTypes.map((o) => ({
             value: o,
-            label: o,
+            label: o
           }))}
           value={processData.operationType}
           onChange={(value) => {
@@ -2253,7 +2253,7 @@ function OperationForm({
               setupUnit: "Total Minutes",
               laborUnit: "Minutes/Piece",
               machineUnit: "Minutes/Piece",
-              operationType: value?.value as string,
+              operationType: value?.value as string
             }));
           }}
         />
@@ -2288,12 +2288,12 @@ function OperationForm({
               value={processData.operationMinimumCost}
               formatOptions={{
                 style: "currency",
-                currency: baseCurrency,
+                currency: baseCurrency
               }}
               onChange={(newValue) =>
                 setProcessData((d) => ({
                   ...d,
-                  operationMinimumCost: newValue,
+                  operationMinimumCost: newValue
                 }))
               }
             />
@@ -2304,12 +2304,12 @@ function OperationForm({
               value={processData.operationUnitCost}
               formatOptions={{
                 style: "currency",
-                currency: baseCurrency,
+                currency: baseCurrency
               }}
               onChange={(newValue) =>
                 setProcessData((d) => ({
                   ...d,
-                  operationUnitCost: newValue,
+                  operationUnitCost: newValue
                 }))
               }
             />
@@ -2321,7 +2321,7 @@ function OperationForm({
               onChange={(newValue) =>
                 setProcessData((d) => ({
                   ...d,
-                  operationLeadTime: newValue,
+                  operationLeadTime: newValue
                 }))
               }
             />
@@ -2392,7 +2392,7 @@ function OperationForm({
                     ...d,
                     setupUnitHint: hint,
                     setupUnit:
-                      hint === "Fixed" ? "Total Minutes" : "Minutes/Piece",
+                      hint === "Fixed" ? "Total Minutes" : "Minutes/Piece"
                   }));
                 }}
               />
@@ -2404,7 +2404,7 @@ function OperationForm({
                 onChange={(newValue) =>
                   setProcessData((d) => ({
                     ...d,
-                    setupTime: newValue,
+                    setupTime: newValue
                   }))
                 }
               />
@@ -2416,7 +2416,7 @@ function OperationForm({
                 onChange={(newValue) => {
                   setProcessData((d) => ({
                     ...d,
-                    setupUnit: newValue?.value ?? "Total Minutes",
+                    setupUnit: newValue?.value ?? "Total Minutes"
                   }));
                 }}
               />
@@ -2470,7 +2470,7 @@ function OperationForm({
                     ...d,
                     laborUnitHint: hint,
                     laborUnit:
-                      hint === "Fixed" ? "Total Minutes" : "Minutes/Piece",
+                      hint === "Fixed" ? "Total Minutes" : "Minutes/Piece"
                   }));
                 }}
               />
@@ -2482,7 +2482,7 @@ function OperationForm({
                 onChange={(newValue) =>
                   setProcessData((d) => ({
                     ...d,
-                    laborTime: newValue,
+                    laborTime: newValue
                   }))
                 }
               />
@@ -2494,7 +2494,7 @@ function OperationForm({
                 onChange={(newValue) => {
                   setProcessData((d) => ({
                     ...d,
-                    laborUnit: newValue?.value ?? "Total Minutes",
+                    laborUnit: newValue?.value ?? "Total Minutes"
                   }));
                 }}
               />
@@ -2550,7 +2550,7 @@ function OperationForm({
                     ...d,
                     machineUnitHint: hint,
                     machineUnit:
-                      hint === "Fixed" ? "Total Minutes" : "Minutes/Piece",
+                      hint === "Fixed" ? "Total Minutes" : "Minutes/Piece"
                   }));
                 }}
               />
@@ -2562,7 +2562,7 @@ function OperationForm({
                 onChange={(newValue) =>
                   setProcessData((d) => ({
                     ...d,
-                    machineTime: newValue,
+                    machineTime: newValue
                   }))
                 }
               />
@@ -2574,7 +2574,7 @@ function OperationForm({
                 onChange={(newValue) => {
                   setProcessData((d) => ({
                     ...d,
-                    machineUnit: newValue?.value ?? "Total Minutes",
+                    machineUnit: newValue?.value ?? "Total Minutes"
                   }));
                 }}
               />
@@ -2622,12 +2622,12 @@ function OperationForm({
                 value={processData.laborRate}
                 formatOptions={{
                   style: "currency",
-                  currency: baseCurrency,
+                  currency: baseCurrency
                 }}
                 onChange={(newValue) =>
                   setProcessData((d) => ({
                     ...d,
-                    laborRate: newValue,
+                    laborRate: newValue
                   }))
                 }
               />
@@ -2638,12 +2638,12 @@ function OperationForm({
                 value={processData.machineRate}
                 formatOptions={{
                   style: "currency",
-                  currency: baseCurrency,
+                  currency: baseCurrency
                 }}
                 onChange={(newValue) =>
                   setProcessData((d) => ({
                     ...d,
-                    machineRate: newValue,
+                    machineRate: newValue
                   }))
                 }
               />
@@ -2654,12 +2654,12 @@ function OperationForm({
                 value={processData.overheadRate}
                 formatOptions={{
                   style: "currency",
-                  currency: baseCurrency,
+                  currency: baseCurrency
                 }}
                 onChange={(newValue) =>
                   setProcessData((d) => ({
                     ...d,
-                    overheadRate: newValue,
+                    overheadRate: newValue
                   }))
                 }
               />
@@ -2717,7 +2717,7 @@ function OperationForm({
                   }
                   setProcessData((d) => ({
                     ...d,
-                    procedureId: value?.value as string,
+                    procedureId: value?.value as string
                   }));
                 }}
               />
@@ -2758,7 +2758,7 @@ function OperationForm({
         transition={{
           type: "spring",
           bounce: 0,
-          duration: 0.55,
+          duration: 0.55
         }}
       >
         <motion.div layout className="ml-auto mr-1 pt-2">
@@ -2772,7 +2772,7 @@ function OperationForm({
 function ProcedureSyncModal({
   operationId,
   procedureId,
-  onClose,
+  onClose
 }: {
   operationId: string;
   procedureId: string;
@@ -2802,7 +2802,7 @@ function ProcedureSyncModal({
           fetcher={fetcher}
           defaultValues={{
             operationId,
-            procedureId,
+            procedureId
           }}
         >
           <ModalHeader>
@@ -2877,8 +2877,8 @@ const ProductionEventActivity = ({ item }: ProductionEventActivityProps) => {
               item.type === "Labor"
                 ? "text-emerald-500"
                 : item.type === "Machine"
-                ? "text-blue-500"
-                : "text-yellow-500"
+                  ? "text-blue-500"
+                  : "text-yellow-500"
             )}
           />
         ) : null
@@ -2890,7 +2890,7 @@ const ProductionEventActivity = ({ item }: ProductionEventActivityProps) => {
 function ToolsListItem({
   tool: { toolId, quantity, id, updatedBy, updatedAt, createdBy, createdAt },
   operationId,
-  className,
+  className
 }: {
   tool: OperationTool;
   operationId: string;
@@ -2933,7 +2933,7 @@ function ToolsListItem({
             id: id,
             toolId: toolId ?? "",
             quantity: quantity ?? 1,
-            operationId,
+            operationId
           }}
           className="w-full"
         >
@@ -3028,7 +3028,7 @@ function ToolsForm({
   operationId,
   isDisabled,
   tools,
-  temporaryItems,
+  temporaryItems
 }: {
   operationId: string;
   isDisabled: boolean;
@@ -3062,7 +3062,7 @@ function ToolsForm({
             id: undefined,
             toolId: "",
             quantity: 1,
-            operationId,
+            operationId
           }}
           className="w-full"
         >
@@ -3151,7 +3151,7 @@ function OperationChat({ jobOperationId }: { jobOperationId: string }) {
           event: "INSERT",
           schema: "public",
           table: "jobOperationNote",
-          filter: `jobOperationId=eq.${jobOperationId}`,
+          filter: `jobOperationId=eq.${jobOperationId}`
         },
         (payload) => {
           setMessages((prev) => {
@@ -3162,7 +3162,7 @@ function OperationChat({ jobOperationId }: { jobOperationId: string }) {
           });
         }
       );
-    },
+    }
   });
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -3171,7 +3171,7 @@ function OperationChat({ jobOperationId }: { jobOperationId: string }) {
     messagesEndRef.current?.scrollIntoView({
       block: "nearest",
       inline: "start",
-      behavior: messages.length > 0 ? "smooth" : "auto",
+      behavior: messages.length > 0 ? "smooth" : "auto"
     });
   }, [messages]);
 
@@ -3184,13 +3184,13 @@ function OperationChat({ jobOperationId }: { jobOperationId: string }) {
       const response = await fetch(path.to.api.messagingNotify, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json"
         },
         body: JSON.stringify({
           type: "jobOperationNote",
-          operationId: jobOperationId,
+          operationId: jobOperationId
         }),
-        credentials: "include", // This is sufficient for CORS with cookies
+        credentials: "include" // This is sufficient for CORS with cookies
       });
 
       if (!response.ok) {
@@ -3212,7 +3212,7 @@ function OperationChat({ jobOperationId }: { jobOperationId: string }) {
       createdBy: user.id,
       note: message,
       createdAt: new Date().toISOString(),
-      companyId: user.company.id,
+      companyId: user.company.id
     };
 
     flushSync(() => {
@@ -3222,7 +3222,7 @@ function OperationChat({ jobOperationId }: { jobOperationId: string }) {
 
     await Promise.all([
       carbon?.from("jobOperationNote").insert(newMessage),
-      notify(),
+      notify()
     ]);
   };
 
@@ -3272,7 +3272,7 @@ function OperationChat({ jobOperationId }: { jobOperationId: string }) {
                           <span className="text-xs opacity-70">
                             {new Date(m.createdAt).toLocaleTimeString([], {
                               hour: "2-digit",
-                              minute: "2-digit",
+                              minute: "2-digit"
                             })}
                           </span>
                         </div>

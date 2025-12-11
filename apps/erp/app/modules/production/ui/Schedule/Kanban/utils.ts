@@ -3,7 +3,7 @@ import type {
   DataRef,
   DroppableContainer,
   KeyboardCoordinateGetter,
-  Over,
+  Over
 } from "@dnd-kit/core";
 import { KeyboardCode, closestCorners, getFirstCollision } from "@dnd-kit/core";
 import type { DraggableData } from "./types";
@@ -12,7 +12,7 @@ const directions: string[] = [
   KeyboardCode.Down,
   KeyboardCode.Right,
   KeyboardCode.Up,
-  KeyboardCode.Left,
+  KeyboardCode.Left
 ];
 
 export const coordinateGetter: KeyboardCoordinateGetter = (
@@ -89,7 +89,7 @@ export const coordinateGetter: KeyboardCoordinateGetter = (
       collisionRect: collisionRect,
       droppableRects,
       droppableContainers: filteredContainers,
-      pointerCoordinates: null,
+      pointerCoordinates: null
     });
     const closestId = getFirstCollision(collisions, "id");
 
@@ -101,7 +101,7 @@ export const coordinateGetter: KeyboardCoordinateGetter = (
       if (newNode && newRect) {
         return {
           x: newRect.left,
-          y: newRect.top,
+          y: newRect.top
         };
       }
     }

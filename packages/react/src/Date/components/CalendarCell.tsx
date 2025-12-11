@@ -3,7 +3,7 @@ import { isSameMonth } from "@internationalized/date";
 import { useCalendarCell } from "@react-aria/calendar";
 import type {
   CalendarState,
-  RangeCalendarState,
+  RangeCalendarState
 } from "@react-stately/calendar";
 import clsx from "clsx";
 import { useRef } from "react";
@@ -13,7 +13,7 @@ import { Td } from "../../Table";
 export const CalendarCell = ({
   state,
   date,
-  currentMonth,
+  currentMonth
 }: {
   state: CalendarState | RangeCalendarState;
   date: CalendarDate;
@@ -28,7 +28,7 @@ export const CalendarCell = ({
     isDisabled,
     isUnavailable,
     isFocused,
-    formattedDate,
+    formattedDate
   } = useCalendarCell({ date }, state, ref);
 
   const isOutsideMonth = !isSameMonth(currentMonth, date);
@@ -45,15 +45,15 @@ export const CalendarCell = ({
           "bg-primary text-primary-foreground hover:bg-primary": isSelected,
           "opacity-50 hover:bg-white focus:bg-white":
             isInvalid || isDisabled || isUnavailable,
-          hidden: isOutsideMonth,
+          hidden: isOutsideMonth
         })}
         variant={isSelected ? "primary" : "ghost"}
         style={{
           opacity: isOutsideMonth
             ? 0.25
             : isInvalid || isDisabled || isUnavailable
-            ? 0.5
-            : 1,
+              ? 0.5
+              : 1
         }}
       >
         {formattedDate}

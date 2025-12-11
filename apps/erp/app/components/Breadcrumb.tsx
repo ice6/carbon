@@ -15,7 +15,7 @@ const Breadcrumbs = forwardRef<
   const clones = validChildren.map((child, index) =>
     cloneElement(child, {
       isFirstChild: index === 0,
-      isLastChild: index === count - 1,
+      isLastChild: index === count - 1
     })
   );
   return (

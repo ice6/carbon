@@ -14,7 +14,7 @@ import {
   Thead,
   toast,
   Tr,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { useParams } from "@remix-run/react";
 import { useCallback, useEffect, useState } from "react";
@@ -24,19 +24,19 @@ import {
   useCurrencyFormatter,
   usePermissions,
   useRouteData,
-  useUser,
+  useUser
 } from "~/hooks";
 import { path } from "~/utils/path";
 import type {
   SupplierQuote,
   SupplierQuoteLine,
-  SupplierQuoteLinePrice,
+  SupplierQuoteLinePrice
 } from "../../types";
 
 const SupplierQuoteLinePricing = ({
   line,
   pricesByQuantity,
-  exchangeRate = 1,
+  exchangeRate = 1
 }: {
   line: SupplierQuoteLine;
   pricesByQuantity: Record<number, SupplierQuoteLinePrice>;
@@ -52,13 +52,13 @@ const SupplierQuoteLinePricing = ({
 
   // Consolidated state for all editable fields
   const [editableFields, setEditableFields] = useState({
-    prices: pricesByQuantity,
+    prices: pricesByQuantity
   });
 
   useEffect(() => {
     setEditableFields((prev) => ({
       ...prev,
-      prices: pricesByQuantity,
+      prices: pricesByQuantity
     }));
   }, [pricesByQuantity]);
 
@@ -75,7 +75,7 @@ const SupplierQuoteLinePricing = ({
 
   const formatter = useCurrencyFormatter();
   const presentationCurrencyFormatter = useCurrencyFormatter({
-    currency: routeData?.quote?.currencyCode ?? baseCurrency,
+    currency: routeData?.quote?.currencyCode ?? baseCurrency
   });
 
   const onUpdatePrice = useCallback(
@@ -102,14 +102,14 @@ const SupplierQuoteLinePricing = ({
           supplierUnitPrice: 0,
           supplierShippingCost: 0,
           supplierTaxAmount: 0,
-          createdBy: userId,
+          createdBy: userId
         } as unknown as SupplierQuoteLinePrice;
       }
       newPrices[quantity] = { ...newPrices[quantity], [key]: value };
 
       setEditableFields((prev) => ({
         ...prev,
-        prices: newPrices,
+        prices: newPrices
       }));
 
       if (hasPrice) {
@@ -118,7 +118,7 @@ const SupplierQuoteLinePricing = ({
           .update({
             [key]: value,
             supplierQuoteLineId: lineId,
-            quantity,
+            quantity
           })
           .eq("supplierQuoteLineId", lineId)
           .eq("quantity", quantity);
@@ -131,7 +131,7 @@ const SupplierQuoteLinePricing = ({
         const insert = await carbon?.from("supplierQuoteLinePrice").insert({
           ...newPrices[quantity],
           supplierQuoteLineId: lineId,
-          quantity,
+          quantity
         });
 
         if (insert?.error) {
@@ -180,7 +180,7 @@ const SupplierQuoteLinePricing = ({
                       formatOptions={{
                         style: "unit",
                         unit: "day",
-                        unitDisplay: "long",
+                        unitDisplay: "long"
                       }}
                       minValue={0}
                       onChange={(value) => {
@@ -224,8 +224,7 @@ const SupplierQuoteLinePricing = ({
                       value={price}
                       formatOptions={{
                         style: "currency",
-                        currency:
-                          routeData?.quote?.currencyCode ?? baseCurrency,
+                        currency: routeData?.quote?.currencyCode ?? baseCurrency
                       }}
                       minValue={0}
                       onChange={(value) => {
@@ -288,8 +287,7 @@ const SupplierQuoteLinePricing = ({
                       value={shippingCost}
                       formatOptions={{
                         style: "currency",
-                        currency:
-                          routeData?.quote?.currencyCode ?? baseCurrency,
+                        currency: routeData?.quote?.currencyCode ?? baseCurrency
                       }}
                       minValue={0}
                       onChange={(value) => {
@@ -329,8 +327,7 @@ const SupplierQuoteLinePricing = ({
                       value={taxAmount}
                       formatOptions={{
                         style: "currency",
-                        currency:
-                          routeData?.quote?.currencyCode ?? baseCurrency,
+                        currency: routeData?.quote?.currencyCode ?? baseCurrency
                       }}
                       minValue={0}
                       onChange={(value) => {

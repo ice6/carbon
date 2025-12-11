@@ -12,7 +12,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   if (!table) {
     return json({
       data: [],
-      error: null,
+      error: null
     });
   }
 

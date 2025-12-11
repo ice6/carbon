@@ -22,7 +22,7 @@ import {
   Submit,
   TextArea,
   TimePicker,
-  Timezone,
+  Timezone
 } from "@carbon/form";
 
 import Abilities from "./Abilities";
@@ -150,5 +150,5 @@ export {
   User,
   Users,
   WorkCenter,
-  WorkCenters,
+  WorkCenters
 };

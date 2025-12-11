@@ -32,7 +32,7 @@ import type {
   getTool,
   getTools,
   getUnitOfMeasure,
-  getUnitOfMeasuresList,
+  getUnitOfMeasuresList
 } from "./items.service";
 
 export type MaterialConfigurationData = {

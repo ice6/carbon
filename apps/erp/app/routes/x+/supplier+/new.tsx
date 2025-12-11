@@ -14,13 +14,13 @@ import { path } from "~/utils/path";
 export const handle: Handle = {
   breadcrumb: "Suppliers",
   to: path.to.suppliers,
-  module: "purchasing",
+  module: "purchasing"
 };
 
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    create: "purchasing",
+    create: "purchasing"
   });
 
   const formData = await request.formData();
@@ -38,7 +38,7 @@ export async function action({ request }: ActionFunctionArgs) {
     ...data,
     companyId,
     createdBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
   if (createSupplier.error) {
     return modal
@@ -71,7 +71,7 @@ export default function SuppliersNewRoute() {
     currencyCode: company?.baseCurrencyCode ?? undefined,
     phone: "",
     fax: "",
-    website: "",
+    website: ""
   };
   return (
     <div className="max-w-4xl w-full p-2 sm:p-0 mx-auto mt-0 md:mt-8">

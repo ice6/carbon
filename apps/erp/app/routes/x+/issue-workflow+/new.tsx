@@ -9,27 +9,27 @@ import { json, redirect } from "@vercel/remix";
 import { issueWorkflowValidator } from "~/modules/quality/quality.models";
 import {
   getRequiredActionsList,
-  upsertIssueWorkflow,
+  upsertIssueWorkflow
 } from "~/modules/quality/quality.service";
 import IssueWorkflowForm from "~/modules/quality/ui/IssueWorkflows/IssueWorkflowForm";
 import { path } from "~/utils/path";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    create: "quality",
+    create: "quality"
   });
 
   const requiredActions = await getRequiredActionsList(client, companyId);
 
   return json({
-    requiredActions: requiredActions.data ?? [],
+    requiredActions: requiredActions.data ?? []
   });
 }
 
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    create: "quality",
+    create: "quality"
   });
   const formData = await request.formData();
   const validation = await validator(issueWorkflowValidator).validate(formData);
@@ -43,7 +43,7 @@ export async function action({ request }: ActionFunctionArgs) {
   const insertIssueWorkflow = await upsertIssueWorkflow(client, {
     ...data,
     companyId,
-    createdBy: userId,
+    createdBy: userId
   });
 
   if (insertIssueWorkflow.error || !insertIssueWorkflow.data?.id) {
@@ -71,7 +71,7 @@ export default function NewIssueWorkflowRoute() {
     priority: "Medium" as const,
     source: "Internal" as const,
     requiredActionIds: [],
-    approvalRequirements: [],
+    approvalRequirements: []
   };
 
   return (

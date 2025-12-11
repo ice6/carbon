@@ -19,7 +19,7 @@ import {
   ModalTitle,
   VStack,
   toast,
-  useDisclosure,
+  useDisclosure
 } from "@carbon/react";
 
 import type { FetcherWithComponents } from "@remix-run/react";
@@ -38,7 +38,7 @@ import {
   LuPanelLeft,
   LuPanelRight,
   LuTrash,
-  LuTruck,
+  LuTruck
 } from "react-icons/lu";
 
 import { usePanels } from "~/components/Layout";
@@ -68,7 +68,7 @@ import { useSalesOrder } from "./useSalesOrder";
 const SalesOrderConfirmModal = ({
   fetcher,
   salesOrder,
-  onClose,
+  onClose
 }: {
   fetcher: FetcherWithComponents<{ success: boolean; message: string }>;
   salesOrder?: SalesOrder;
@@ -110,7 +110,7 @@ const SalesOrderConfirmModal = ({
           onSubmit={onClose}
           defaultValues={{
             notification: notificationType,
-            customerContact: salesOrder?.customerContactId ?? undefined,
+            customerContact: salesOrder?.customerContactId ?? undefined
           }}
           fetcher={fetcher}
         >
@@ -131,12 +131,12 @@ const SalesOrderConfirmModal = ({
                   options={[
                     {
                       label: "None",
-                      value: "None",
+                      value: "None"
                     },
                     {
                       label: "Email",
-                      value: "Email",
-                    },
+                      value: "Email"
+                    }
                   ]}
                   value={notificationType}
                   onChange={(t) => {
@@ -204,7 +204,7 @@ const SalesOrderHeader = () => {
       "Customer #",
       "Sales Order #",
       "Order Date",
-      "Promised Date",
+      "Promised Date"
     ];
     if (!routeData?.lines) return [headers];
     return [
@@ -216,8 +216,8 @@ const SalesOrderHeader = () => {
         routeData?.salesOrder?.customerReference,
         routeData?.salesOrder?.salesOrderId,
         routeData?.salesOrder?.orderDate,
-        item.promisedDate,
-      ]),
+        item.promisedDate
+      ])
     ];
   }, [
     customers,
@@ -225,7 +225,7 @@ const SalesOrderHeader = () => {
     routeData?.salesOrder?.customerId,
     routeData?.salesOrder?.customerReference,
     routeData?.salesOrder?.orderDate,
-    routeData?.salesOrder?.salesOrderId,
+    routeData?.salesOrder?.salesOrderId
   ]);
 
   return (
@@ -409,7 +409,7 @@ const SalesOrderHeader = () => {
                                 ![
                                   "To Ship",
                                   "To Ship and Invoice",
-                                  "To Invoice",
+                                  "To Invoice"
                                 ].includes(routeData?.salesOrder?.status ?? "")
                               }
                               onClick={() => {

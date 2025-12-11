@@ -2,7 +2,7 @@ import {
   ActionMenu,
   DropdownMenuIcon,
   DropdownMenuItem,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { LuMapPin } from "react-icons/lu";
 import type { Action } from "~/types";
@@ -21,7 +21,7 @@ type CustomerPartNumberProps = {
 
 const CustomerPartNumber = ({
   customerPartNumber,
-  actions,
+  actions
 }: CustomerPartNumberProps) => {
   return (
     <div className="grid w-full gap-4 grid-cols-[auto_1fr_auto]">

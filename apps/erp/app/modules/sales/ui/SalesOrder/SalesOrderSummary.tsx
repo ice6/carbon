@@ -18,14 +18,14 @@ import {
   TooltipTrigger,
   Tr,
   useDisclosure,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { formatDate } from "@carbon/utils";
 import {
   getLocalTimeZone,
   isSameDay,
   parseDate,
-  today,
+  today
 } from "@internationalized/date";
 import { useLocale } from "@react-aria/i18n";
 import { Link, useParams } from "@remix-run/react";
@@ -37,7 +37,7 @@ import {
   LuEllipsisVertical,
   LuImage,
   LuInfo,
-  LuTriangleAlert,
+  LuTriangleAlert
 } from "react-icons/lu";
 import { CustomerAvatar, Hyperlink, MethodIcon } from "~/components";
 import { Confirm } from "~/components/Modals";
@@ -49,12 +49,12 @@ import type {
   Quotation,
   SalesOrder,
   SalesOrderJob,
-  SalesOrderLine,
+  SalesOrderLine
 } from "../../types";
 import { SalesOrderJobItem } from "./SalesOrderLineJobs";
 
 const SalesOrderSummary = ({
-  onEditShippingCost,
+  onEditShippingCost
 }: {
   onEditShippingCost: () => void;
 }) => {
@@ -75,7 +75,7 @@ const SalesOrderSummary = ({
     () =>
       new Intl.NumberFormat(locale, {
         style: "currency",
-        currency: routeData?.salesOrder?.currencyCode ?? "USD",
+        currency: routeData?.salesOrder?.currencyCode ?? "USD"
       }),
     [locale, routeData?.salesOrder?.currencyCode]
   );
@@ -196,7 +196,7 @@ const SalesOrderSummary = ({
                 value={subtotal}
                 format={{
                   style: "currency",
-                  currency: routeData?.salesOrder?.currencyCode ?? "USD",
+                  currency: routeData?.salesOrder?.currencyCode ?? "USD"
                 }}
                 locales={locale}
               />
@@ -207,7 +207,7 @@ const SalesOrderSummary = ({
                 value={tax}
                 format={{
                   style: "currency",
-                  currency: routeData?.salesOrder?.currencyCode ?? "USD",
+                  currency: routeData?.salesOrder?.currencyCode ?? "USD"
                 }}
                 locales={locale}
               />
@@ -230,7 +230,7 @@ const SalesOrderSummary = ({
                     value={convertedShippingCost}
                     format={{
                       style: "currency",
-                      currency: routeData?.salesOrder.currencyCode ?? "USD",
+                      currency: routeData?.salesOrder.currencyCode ?? "USD"
                     }}
                     locales={locale}
                   />
@@ -252,7 +252,7 @@ const SalesOrderSummary = ({
                 value={total}
                 format={{
                   style: "currency",
-                  currency: routeData?.salesOrder?.currencyCode ?? "USD",
+                  currency: routeData?.salesOrder?.currencyCode ?? "USD"
                 }}
                 locales={locale}
               />
@@ -269,7 +269,7 @@ function LineItems({
   locale,
   formatter,
   lines,
-  salesOrder,
+  salesOrder
 }: {
   currencyCode: string;
   formatter: Intl.NumberFormat;
@@ -321,8 +321,8 @@ function LineItems({
           hasEnoughJobsToCoverQuantity && hasEnoughCompletedToCoverQuantity
             ? "green"
             : hasEnoughJobsToCoverQuantity
-            ? "orange"
-            : "red";
+              ? "orange"
+              : "red";
 
         const jobLabel:
           | "Requires Jobs"
@@ -332,10 +332,10 @@ function LineItems({
           hasEnoughJobsToCoverQuantity && hasEnoughCompletedToCoverQuantity
             ? "Complete"
             : hasEnoughJobsToCoverQuantity
-            ? hasAnyQuantityReleased
-              ? "In Progress"
-              : "Planned"
-            : "Requires Jobs";
+              ? hasAnyQuantityReleased
+                ? "In Progress"
+                : "Planned"
+              : "Requires Jobs";
 
         return (
           <motion.div
@@ -406,13 +406,13 @@ function LineItems({
                           }
                           format={{
                             style: "currency",
-                            currency: currencyCode,
+                            currency: currencyCode
                           }}
                           locales={locale}
                         />
                         <motion.div
                           animate={{
-                            rotate: openItems.includes(line.id) ? 90 : 0,
+                            rotate: openItems.includes(line.id) ? 90 : 0
                           }}
                           transition={{ duration: 0.3 }}
                         >
@@ -475,7 +475,7 @@ function LineItems({
                                       "Planned",
                                       "In Progress",
                                       "Ready",
-                                      "Paused",
+                                      "Paused"
                                     ].includes(job.status ?? "") && (
                                       <>
                                         {job.dueDate &&
@@ -508,7 +508,7 @@ function LineItems({
               animate={openItems.includes(line.id) ? "open" : "collapsed"}
               variants={{
                 open: { opacity: 1, height: "auto", marginTop: 16 },
-                collapsed: { opacity: 0, height: 0, marginTop: 0 },
+                collapsed: { opacity: 0, height: 0, marginTop: 0 }
               }}
               transition={{ duration: 0.3 }}
               className="w-full overflow-hidden"
@@ -552,7 +552,7 @@ function LineItems({
                             value={line.addOnCost ?? 0}
                             format={{
                               style: "currency",
-                              currency: currencyCode,
+                              currency: currencyCode
                             }}
                             locales={locale}
                           />
@@ -572,7 +572,7 @@ function LineItems({
                           }
                           format={{
                             style: "currency",
-                            currency: currencyCode,
+                            currency: currencyCode
                           }}
                           locales={locale}
                         />
@@ -594,7 +594,7 @@ function LineItems({
                           }
                           format={{
                             style: "currency",
-                            currency: currencyCode,
+                            currency: currencyCode
                           }}
                           locales={locale}
                         />
@@ -614,7 +614,7 @@ function LineItems({
                           }
                           format={{
                             style: "currency",
-                            currency: currencyCode,
+                            currency: currencyCode
                           }}
                           locales={locale}
                         />

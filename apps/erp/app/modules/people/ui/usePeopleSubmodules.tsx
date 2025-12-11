@@ -3,7 +3,7 @@ import {
   LuCalendarHeart,
   LuListChecks,
   LuNetwork,
-  LuUsers,
+  LuUsers
 } from "react-icons/lu";
 import { useSavedViews } from "~/hooks/useSavedViews";
 import type { RouteGroup } from "~/types";
@@ -17,9 +17,9 @@ const peopleRoutes: RouteGroup[] = [
         name: "People",
         to: path.to.people,
         icon: <LuUsers />,
-        table: "employee",
-      },
-    ],
+        table: "employee"
+      }
+    ]
   },
   {
     name: "Configure",
@@ -27,25 +27,25 @@ const peopleRoutes: RouteGroup[] = [
       {
         name: "Attributes",
         to: path.to.attributes,
-        icon: <LuListChecks />,
+        icon: <LuListChecks />
       },
       {
         name: "Departments",
         to: path.to.departments,
-        icon: <LuNetwork />,
+        icon: <LuNetwork />
       },
       {
         name: "Holidays",
         to: path.to.holidays,
-        icon: <LuCalendarHeart />,
+        icon: <LuCalendarHeart />
       },
       {
         name: "Shifts",
         to: path.to.shifts,
-        icon: <LuCalendarClock />,
-      },
-    ],
-  },
+        icon: <LuCalendarClock />
+      }
+    ]
+  }
 ];
 
 export default function usePeopleSubmodules() {
@@ -54,7 +54,7 @@ export default function usePeopleSubmodules() {
   return {
     groups: peopleRoutes.map((group) => ({
       ...group,
-      routes: group.routes.map(addSavedViewsToRoutes),
-    })),
+      routes: group.routes.map(addSavedViewsToRoutes)
+    }))
   };
 }

@@ -10,7 +10,7 @@ import {
   getShipment,
   getShipmentLines,
   getShipmentRelatedItems,
-  getShipmentTracking,
+  getShipmentTracking
 } from "~/modules/inventory";
 import ShipmentHeader from "~/modules/inventory/ui/Shipments/ShipmentHeader";
 import type { Handle } from "~/utils/handle";
@@ -18,12 +18,12 @@ import { path } from "~/utils/path";
 
 export const handle: Handle = {
   breadcrumb: "Shipments",
-  to: path.to.shipments,
+  to: path.to.shipments
 };
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    view: "inventory",
+    view: "inventory"
   });
 
   const { shipmentId } = params;
@@ -32,7 +32,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   const [shipment, shipmentLines, shipmentLineTracking] = await Promise.all([
     getShipment(client, shipmentId),
     getShipmentLines(client, shipmentId),
-    getShipmentTracking(client, shipmentId, companyId),
+    getShipmentTracking(client, shipmentId, companyId)
   ]);
 
   if (shipment.error) {
@@ -54,7 +54,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
       client,
       shipmentId,
       shipment.data?.sourceDocumentId ?? ""
-    ),
+    )
   });
 }
 

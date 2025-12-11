@@ -14,7 +14,7 @@ import { path } from "~/utils/path";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId, userId } = await requirePermissions(request, {
-    view: "inventory",
+    view: "inventory"
   });
 
   const { itemId } = params;
@@ -74,7 +74,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     initialItemLedgers: itemLedgerRecords.data,
     itemId,
     companyId,
-    locationId,
+    locationId
   });
 }
 
@@ -107,7 +107,7 @@ export default function ItemInventoryActivityRoute() {
     if (newItemLedgers.data && newItemLedgers.data.length > 0) {
       setItemLedgers((prevItemLedgers) => [
         ...prevItemLedgers,
-        ...newItemLedgers.data,
+        ...newItemLedgers.data
       ]);
       setPage((prevPage) => prevPage + 1);
     } else {

@@ -36,7 +36,7 @@ export const useScrapReasons = () => {
 
     return dataSource.map((c) => ({
       value: c.id,
-      label: c.name,
+      label: c.name
     }));
   }, [scrapReasonFetcher.data?.data]);
 

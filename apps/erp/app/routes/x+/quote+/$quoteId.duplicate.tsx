@@ -7,7 +7,7 @@ import { copyQuote } from "~/modules/sales/sales.service";
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { companyId, userId } = await requirePermissions(request, {
-    create: "sales",
+    create: "sales"
   });
 
   const { quoteId: id } = params;
@@ -20,7 +20,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   if (!quoteId)
     return json({
       success: false,
-      message: "Invalid form data",
+      message: "Invalid form data"
     });
 
   const serviceRole = await getCarbonServiceRole();
@@ -29,20 +29,20 @@ export async function action({ request, params }: ActionFunctionArgs) {
     sourceId: quoteId,
     targetId: asRevision ? quoteId : "",
     companyId: companyId,
-    userId: userId,
+    userId: userId
   });
 
   if (copy.error) {
     return json({
       success: false,
-      message: "Failed to duplicate quote",
+      message: "Failed to duplicate quote"
     });
   }
 
   return json({
     success: true,
     data: {
-      newQuoteId: copy.data?.newQuoteId,
-    },
+      newQuoteId: copy.data?.newQuoteId
+    }
   });
 }

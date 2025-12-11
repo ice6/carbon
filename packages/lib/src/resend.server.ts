@@ -1,7 +1,7 @@
 import type {
   CreateEmailOptions,
   CreateEmailRequestOptions,
-  CreateEmailResponse,
+  CreateEmailResponse
 } from "resend";
 import { Resend } from "resend";
 
@@ -15,7 +15,7 @@ export const sendEmail = async (
     console.log(payload, options);
     return {
       error: null,
-      data: null,
+      data: null
     };
   }
   return resend.emails.send(payload, options);

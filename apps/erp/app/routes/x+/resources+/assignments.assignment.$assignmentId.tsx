@@ -7,7 +7,7 @@ import {
   redirect,
   useLoaderData,
   useNavigate,
-  useParams,
+  useParams
 } from "@remix-run/react";
 import { tasks } from "@trigger.dev/sdk";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@vercel/remix";
@@ -18,24 +18,24 @@ import {
   getTrainingsList,
   trainingAssignmentValidator,
   upsertTrainingAssignment,
-  TrainingAssignmentForm,
+  TrainingAssignmentForm
 } from "~/modules/resources";
 import type {
   TrainingAssignmentStatusItem,
-  TrainingListItem,
+  TrainingListItem
 } from "~/modules/resources/types";
 import type { Handle } from "~/utils/handle";
 import { path } from "~/utils/path";
 
 export const handle: Handle = {
   breadcrumb: "Edit Assignment",
-  to: path.to.trainingAssignments,
+  to: path.to.trainingAssignments
 };
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
     view: "resources",
-    role: "employee",
+    role: "employee"
   });
 
   const { assignmentId } = params;
@@ -51,7 +51,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     getTrainingsList(client, companyId),
     getTrainingAssignmentStatus(client, companyId, {
       // We'll filter by trainingId which we'll get from the assignment
-    }),
+    })
   ]);
 
   if (assignment.error) {
@@ -80,14 +80,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     assignment: assignment.data,
     trainings: (trainings.data ?? []) as TrainingListItem[],
     assignmentStatus: filteredStatus as TrainingAssignmentStatusItem[],
-    currentPeriod,
+    currentPeriod
   });
 }
 
 export async function action({ request, params }: ActionFunctionArgs) {
   const { client, companyId, userId } = await requirePermissions(request, {
     update: "resources",
-    role: "employee",
+    role: "employee"
   });
 
   const { assignmentId } = params;
@@ -111,7 +111,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     trainingId,
     groupIds,
     companyId: "", // not used for updates
-    updatedBy: userId,
+    updatedBy: userId
   });
 
   if (result.error) {
@@ -122,7 +122,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
         headers: await flash(
           request,
           error(result.error, "Failed to update assignment")
-        ),
+        )
       }
     );
   }
@@ -135,9 +135,9 @@ export async function action({ request, params }: ActionFunctionArgs) {
       event: NotificationEvent.TrainingAssignment,
       recipient: {
         type: "group",
-        groupIds,
+        groupIds
       },
-      from: userId,
+      from: userId
     });
   } catch (err) {
     console.error("Failed to send training assignment notifications", err);
@@ -158,7 +158,7 @@ export default function EditTrainingAssignmentRoute() {
   const initialValues = {
     id: params.assignmentId!,
     trainingId: assignment?.trainingId ?? "",
-    groupIds: assignment?.groupIds ?? [],
+    groupIds: assignment?.groupIds ?? []
   };
 
   return (

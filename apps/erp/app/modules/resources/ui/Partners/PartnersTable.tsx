@@ -47,14 +47,14 @@ const PartnersTable = memo(({ data, count }: PartnersTableProps) => {
             type: "static",
             options: suppliers.map((supplier) => ({
               value: supplier.name,
-              label: supplier.name,
-            })),
-          },
-        },
+              label: supplier.name
+            }))
+          }
+        }
       },
       {
         header: "Location",
-        cell: ({ row }) => `${row.original.city}, ${row.original.state}`,
+        cell: ({ row }) => `${row.original.city}, ${row.original.state}`
       },
       // {
       //   accessorKey: "abilityName",
@@ -73,8 +73,8 @@ const PartnersTable = memo(({ data, count }: PartnersTableProps) => {
       {
         accessorKey: "hoursPerWeek",
         header: "Hours per Week",
-        cell: (item) => item.getValue(),
-      },
+        cell: (item) => item.getValue()
+      }
     ];
 
     return [...defaultColumns, ...customColumns];

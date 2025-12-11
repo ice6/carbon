@@ -13,7 +13,7 @@ import {
   LuPencil,
   LuSquareStack,
   LuTrash,
-  LuUser,
+  LuUser
 } from "react-icons/lu";
 import { EmployeeAvatar, Hyperlink, New, Table } from "~/components";
 
@@ -31,7 +31,7 @@ import { path } from "~/utils/path";
 import {
   nonConformancePriority,
   nonConformanceSource,
-  nonConformanceStatus,
+  nonConformanceStatus
 } from "../../quality.models";
 import type { Issue } from "../../types";
 import { getPriorityIcon, getSourceIcon } from "./IssueIcons";
@@ -72,8 +72,8 @@ const IssuesTable = memo(({ data, types, count }: IssuesTableProps) => {
           </Hyperlink>
         ),
         meta: {
-          icon: <LuBookMarked />,
-        },
+          icon: <LuBookMarked />
+        }
       },
 
       {
@@ -86,10 +86,10 @@ const IssuesTable = memo(({ data, types, count }: IssuesTableProps) => {
             type: "static",
             options: nonConformanceStatus.map((status) => ({
               label: status,
-              value: status,
-            })),
-          },
-        },
+              value: status
+            }))
+          }
+        }
       },
       {
         accessorKey: "nonConformanceTypeId",
@@ -109,10 +109,10 @@ const IssuesTable = memo(({ data, types, count }: IssuesTableProps) => {
             type: "static",
             options: types.map((type) => ({
               label: type.name,
-              value: type.id,
-            })),
-          },
-        },
+              value: type.id
+            }))
+          }
+        }
       },
 
       {
@@ -130,10 +130,10 @@ const IssuesTable = memo(({ data, types, count }: IssuesTableProps) => {
             type: "static",
             options: nonConformancePriority.map((priority) => ({
               label: priority,
-              value: priority,
-            })),
-          },
-        },
+              value: priority
+            }))
+          }
+        }
       },
       {
         accessorKey: "source",
@@ -150,10 +150,10 @@ const IssuesTable = memo(({ data, types, count }: IssuesTableProps) => {
             type: "static",
             options: nonConformanceSource.map((source) => ({
               label: source,
-              value: source,
-            })),
-          },
-        },
+              value: source
+            }))
+          }
+        }
       },
       {
         accessorKey: "locationId",
@@ -173,10 +173,10 @@ const IssuesTable = memo(({ data, types, count }: IssuesTableProps) => {
             type: "static",
             options: locations.map((location) => ({
               label: location.label,
-              value: location.value,
-            })),
-          },
-        },
+              value: location.value
+            }))
+          }
+        }
       },
       {
         accessorKey: "assignee",
@@ -189,11 +189,11 @@ const IssuesTable = memo(({ data, types, count }: IssuesTableProps) => {
             type: "static",
             options: people.map((employee) => ({
               value: employee.id,
-              label: employee.name,
-            })),
+              label: employee.name
+            }))
           },
-          icon: <LuUser />,
-        },
+          icon: <LuUser />
+        }
       },
 
       {
@@ -220,27 +220,27 @@ const IssuesTable = memo(({ data, types, count }: IssuesTableProps) => {
               value: item.id,
               label: (
                 <Badge variant="outline">{item.readableIdWithRevision}</Badge>
-              ),
+              )
             })),
-            isArray: true,
-          },
-        },
+            isArray: true
+          }
+        }
       },
       {
         accessorKey: "openDate",
         header: "Open Date",
         cell: ({ row }) => formatDate(row.original.openDate),
         meta: {
-          icon: <LuCalendar />,
-        },
+          icon: <LuCalendar />
+        }
       },
       {
         accessorKey: "closeDate",
         header: "Closed Date",
         cell: ({ row }) => formatDate(row.original.closeDate),
         meta: {
-          icon: <LuCalendar />,
-        },
+          icon: <LuCalendar />
+        }
       },
       {
         accessorKey: "createdBy",
@@ -253,20 +253,20 @@ const IssuesTable = memo(({ data, types, count }: IssuesTableProps) => {
             type: "static",
             options: people.map((employee) => ({
               value: employee.id,
-              label: employee.name,
-            })),
+              label: employee.name
+            }))
           },
-          icon: <LuUser />,
-        },
+          icon: <LuUser />
+        }
       },
       {
         accessorKey: "createdAt",
         header: "Created At",
         cell: (item) => formatDate(item.getValue<string>()),
         meta: {
-          icon: <LuCalendar />,
-        },
-      },
+          icon: <LuCalendar />
+        }
+      }
     ];
     return [...defaultColumns, ...customColumns];
   }, [customColumns, items, locations, people, types]);

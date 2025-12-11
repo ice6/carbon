@@ -5,18 +5,18 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-  HStack,
+  HStack
 } from "@carbon/react";
 import { useFetcher, useParams } from "@remix-run/react";
 import { useState } from "react";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import {
   Customer,
   CustomerContact,
   CustomerLocation,
   Hidden,
   PaymentTerm,
-  Submit,
+  Submit
 } from "~/components/Form";
 import { usePermissions, useRouteData } from "~/hooks";
 import { path } from "~/utils/path";

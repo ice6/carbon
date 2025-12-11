@@ -12,7 +12,7 @@ import { getCompanyId, uomsQuery } from "~/utils/react-query";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    view: "parts",
+    view: "parts"
   });
 
   const { uomId } = params;
@@ -34,7 +34,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
 export async function action({ request, params }: ActionFunctionArgs) {
   const { client } = await requirePermissions(request, {
-    delete: "parts",
+    delete: "parts"
   });
 
   const { uomId } = params;

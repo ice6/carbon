@@ -14,7 +14,7 @@ import { path } from "~/utils/path";
 async function handleKanbanStart({
   client,
   companyId,
-  id,
+  id
 }: {
   client: SupabaseClient<Database>;
   companyId: string;
@@ -24,14 +24,14 @@ async function handleKanbanStart({
   if (kanban.error) {
     return {
       data: null,
-      error: "Kanban not found",
+      error: "Kanban not found"
     };
   }
 
   if (!kanban.data?.jobId) {
     return {
       data: null,
-      error: "No job found for kanban",
+      error: "No job found for kanban"
     };
   }
 
@@ -44,7 +44,7 @@ async function handleKanbanStart({
   if (!operation) {
     return {
       data: path.to.job(kanban.data.jobId!),
-      error: null,
+      error: null
     };
   }
 
@@ -61,7 +61,7 @@ async function handleKanbanStart({
 
   return {
     data: path.to.external.mesJobOperationStart(operation.id, type),
-    error: null,
+    error: null
   };
 }
 

@@ -6,8 +6,8 @@ const accountRoutes: Route[] = [
   {
     name: "Profile",
     to: path.to.profile,
-    icon: <CgProfile />,
-  },
+    icon: <CgProfile />
+  }
 ];
 
 export default function useAccountSubmodules() {

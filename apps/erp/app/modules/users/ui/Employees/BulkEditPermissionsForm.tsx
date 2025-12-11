@@ -9,7 +9,7 @@ import {
   DrawerTitle,
   HStack,
   VStack,
-  useMount,
+  useMount
 } from "@carbon/react";
 import { useFetcher } from "@remix-run/react";
 import { useEffect, useState } from "react";
@@ -28,7 +28,7 @@ type BulkEditPermissionsProps = {
 const BulkEditPermissions = ({
   userIds,
   isOpen,
-  onClose,
+  onClose
 }: BulkEditPermissionsProps) => {
   const [permissions, setPermissions] = useState<
     Record<string, CompanyPermission>
@@ -37,7 +37,7 @@ const BulkEditPermissions = ({
   const updatePermissions = (module: string, permission: CompanyPermission) => {
     setPermissions((prevPermissions) => ({
       ...prevPermissions,
-      [module]: permission,
+      [module]: permission
     }));
   };
 
@@ -95,12 +95,12 @@ const BulkEditPermissions = ({
                   options={[
                     {
                       label: "Add Permissions",
-                      value: "add",
+                      value: "add"
                     },
                     {
                       label: "Update Permissions",
-                      value: "update",
-                    },
+                      value: "update"
+                    }
                   ]}
                 />
               </div>

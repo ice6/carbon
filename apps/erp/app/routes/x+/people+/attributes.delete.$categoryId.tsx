@@ -8,7 +8,7 @@ import { path } from "~/utils/path";
 
 export async function action({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
-    update: "people",
+    update: "people"
   });
 
   const { categoryId } = params;

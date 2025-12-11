@@ -8,7 +8,7 @@ import {
   LuCheck,
   LuFile,
   LuHash,
-  LuNetwork,
+  LuNetwork
 } from "react-icons/lu";
 import { Hyperlink, Table } from "~/components";
 import { Enumerable } from "~/components/Enumerable";
@@ -56,10 +56,10 @@ const TrackedEntitiesTable = memo(
               type: "static",
               options: items.map((i) => ({
                 label: i.readableIdWithRevision,
-                value: i.id,
-              })),
-            },
-          },
+                value: i.id
+              }))
+            }
+          }
         },
         {
           accessorKey: "quantity",
@@ -69,8 +69,8 @@ const TrackedEntitiesTable = memo(
           ),
           meta: {
             icon: <LuHash />,
-            renderTotal: true,
-          },
+            renderTotal: true
+          }
         },
         {
           accessorKey: "status",
@@ -86,10 +86,10 @@ const TrackedEntitiesTable = memo(
                 .filter((v) => v !== "Reserved")
                 .map((v) => ({
                   label: <TrackedEntityStatus status={v} />,
-                  value: v,
-                })),
-            },
-          },
+                  value: v
+                }))
+            }
+          }
         },
         {
           accessorKey: "sourceDocument",
@@ -98,9 +98,9 @@ const TrackedEntitiesTable = memo(
             <SourceDocumentLink data={row.original} items={items} />
           ),
           meta: {
-            icon: <LuFile />,
-          },
-        },
+            icon: <LuFile />
+          }
+        }
       ],
       [numberFormatter, items]
     );
@@ -140,7 +140,7 @@ const TrackedEntitiesTable = memo(
 
 function SourceDocumentLink({
   data,
-  items,
+  items
 }: {
   data: TrackedEntity;
   items: Item[];

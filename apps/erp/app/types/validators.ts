@@ -1,12 +1,9 @@
 import type { Validator } from "@carbon/form";
-import { z } from 'zod/v3';
+import { z } from "zod/v3";
 import { zfd } from "zod-form-data";
 
-export type TypeOfValidator<U extends Validator<any>> = U extends Validator<
-  infer T
->
-  ? T
-  : unknown;
+export type TypeOfValidator<U extends Validator<any>> =
+  U extends Validator<infer T> ? T : unknown;
 
 export const address = {
   addressId: zfd.text(z.string().optional()),
@@ -17,7 +14,7 @@ export const address = {
   postalCode: zfd.text(z.string().optional()),
   countryCode: zfd.text(z.string().optional()),
   phone: zfd.text(z.string().optional()),
-  fax: zfd.text(z.string().optional()),
+  fax: zfd.text(z.string().optional())
 };
 
 export const contact = {
@@ -32,10 +29,10 @@ export const contact = {
   mobilePhone: zfd.text(z.string().optional()),
   homePhone: zfd.text(z.string().optional()),
   workPhone: zfd.text(z.string().optional()),
-  notes: zfd.text(z.string().optional()),
+  notes: zfd.text(z.string().optional())
 };
 
 export const favoriteSchema = z.object({
   id: z.string(),
-  favorite: z.enum(["favorite", "unfavorite"]),
+  favorite: z.enum(["favorite", "unfavorite"])
 });

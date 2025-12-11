@@ -38,7 +38,7 @@ const AppsPage = () => {
     () =>
       new Intl.DateTimeFormat(locale, {
         dateStyle: "full",
-        timeZone: getLocalTimeZone(),
+        timeZone: getLocalTimeZone()
       }),
     [locale]
   );

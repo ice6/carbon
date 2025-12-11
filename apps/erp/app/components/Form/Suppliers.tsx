@@ -20,7 +20,7 @@ const Suppliers = (props: SupplierSelectProps) => {
     return (
       suppliers.map((c) => ({
         value: c.id,
-        label: c.name,
+        label: c.name
       })) ?? []
     );
   }, [suppliers]);
@@ -46,7 +46,7 @@ const Suppliers = (props: SupplierSelectProps) => {
             triggerRef.current?.click();
           }}
           initialValues={{
-            name: created,
+            name: created
           }}
         />
       )}

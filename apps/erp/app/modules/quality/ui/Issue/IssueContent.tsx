@@ -8,7 +8,7 @@ import {
   generateHTML,
   toast,
   useDebounce,
-  type JSONContent,
+  type JSONContent
 } from "@carbon/react";
 import { Editor } from "@carbon/react/Editor";
 import { nanoid } from "nanoid";
@@ -21,7 +21,7 @@ export function IssueContent({
   title,
   subTitle,
   content: initialContent,
-  isDisabled,
+  isDisabled
 }: {
   id: string;
   title: string;
@@ -31,7 +31,7 @@ export function IssueContent({
 }) {
   const {
     id: userId,
-    company: { id: companyId },
+    company: { id: companyId }
   } = useUser();
   const { carbon } = useCarbon();
   const permissions = usePermissions();
@@ -62,7 +62,7 @@ export function IssueContent({
         ?.from("nonConformance")
         .update({
           content: content,
-          updatedBy: userId,
+          updatedBy: userId
         })
         .eq("id", id!);
     },
@@ -94,7 +94,7 @@ export function IssueContent({
             <div
               className="prose dark:prose-invert"
               dangerouslySetInnerHTML={{
-                __html: generateHTML(content as JSONContent),
+                __html: generateHTML(content as JSONContent)
               }}
             />
           )}

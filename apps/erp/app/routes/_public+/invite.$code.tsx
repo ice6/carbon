@@ -3,13 +3,13 @@ import {
   error,
   getAppUrl,
   getCarbonServiceRole,
-  getPermissionCacheKey,
+  getPermissionCacheKey
 } from "@carbon/auth";
 import { setCompanyId } from "@carbon/auth/company.server";
 import {
   flash,
   getAuthSession,
-  updateCompanySession,
+  updateCompanySession
 } from "@carbon/auth/session.server";
 import { redis } from "@carbon/kv";
 import { Button as _Button, Heading as _Heading, VStack } from "@carbon/react";
@@ -19,7 +19,7 @@ import { Form, Link, redirect, useLoaderData } from "@remix-run/react";
 import type {
   ActionFunctionArgs,
   LoaderFunctionArgs,
-  MetaFunction,
+  MetaFunction
 } from "@vercel/remix";
 import { AnimatePresence, motion } from "framer-motion";
 import { acceptInvite } from "~/modules/users/users.server";
@@ -79,16 +79,16 @@ export async function action({ request, params }: ActionFunctionArgs) {
     throw redirect(path.to.authenticatedRoot, {
       headers: [
         ["Set-Cookie", sessionCookie],
-        ["Set-Cookie", companyIdCookie],
-      ],
+        ["Set-Cookie", companyIdCookie]
+      ]
     });
   } else {
     const magicLink = await serviceRole.auth.admin.generateLink({
       type: "magiclink",
       email: accept.data.email,
       options: {
-        redirectTo: `${getAppUrl()}/callback`,
-      },
+        redirectTo: `${getAppUrl()}/callback`
+      }
     });
     throw redirect(magicLink.data?.properties?.action_link ?? path.to.root);
   }
@@ -96,7 +96,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
 const fade = {
   initial: { opacity: 0 },
-  animate: { opacity: 1 },
+  animate: { opacity: 1 }
 };
 
 const Heading = motion(_Heading);

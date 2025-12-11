@@ -8,7 +8,7 @@ import {
   LuList,
   LuListOrdered,
   LuSquareCheck,
-  LuText,
+  LuText
 } from "react-icons/lu";
 
 export const getSuggestionItems = (
@@ -27,7 +27,7 @@ export const getSuggestionItems = (
           .deleteRange(range)
           .toggleNode("paragraph", "paragraph")
           .run();
-      },
+      }
     },
     {
       title: "To-do List",
@@ -36,7 +36,7 @@ export const getSuggestionItems = (
       icon: <LuSquareCheck size={18} />,
       command: ({ editor, range }) => {
         editor.chain().focus().deleteRange(range).toggleTaskList().run();
-      },
+      }
     },
     {
       title: "Heading 1",
@@ -50,7 +50,7 @@ export const getSuggestionItems = (
           .deleteRange(range)
           .setNode("heading", { level: 1 })
           .run();
-      },
+      }
     },
     {
       title: "Heading 2",
@@ -64,7 +64,7 @@ export const getSuggestionItems = (
           .deleteRange(range)
           .setNode("heading", { level: 2 })
           .run();
-      },
+      }
     },
     {
       title: "Heading 3",
@@ -78,7 +78,7 @@ export const getSuggestionItems = (
           .deleteRange(range)
           .setNode("heading", { level: 3 })
           .run();
-      },
+      }
     },
     {
       title: "Bullet List",
@@ -87,7 +87,7 @@ export const getSuggestionItems = (
       icon: <LuList size={18} />,
       command: ({ editor, range }) => {
         editor.chain().focus().deleteRange(range).toggleBulletList().run();
-      },
+      }
     },
     {
       title: "Numbered List",
@@ -96,7 +96,7 @@ export const getSuggestionItems = (
       icon: <LuListOrdered size={18} />,
       command: ({ editor, range }) => {
         editor.chain().focus().deleteRange(range).toggleOrderedList().run();
-      },
+      }
     },
     // {
     //   title: "Code",
@@ -125,7 +125,7 @@ export const getSuggestionItems = (
           }
         };
         input.click();
-      },
-    },
+      }
+    }
   ]);
 };

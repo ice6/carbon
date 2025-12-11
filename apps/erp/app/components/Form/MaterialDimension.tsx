@@ -2,7 +2,7 @@ import { useFetcher } from "@remix-run/react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type {
   MaterialDimension as MaterialDimensionType,
-  getMaterialDimensionList,
+  getMaterialDimensionList
 } from "~/modules/items";
 import { path } from "~/utils/path";
 
@@ -58,7 +58,7 @@ const MaterialDimension = (props: MaterialDimensionSelectProps) => {
     return (materialDimensionsLoader.data?.data ?? []).map((c) => ({
       value: c.id,
       label: c.name,
-      helper: c.companyId === null ? "Standard" : undefined,
+      helper: c.companyId === null ? "Standard" : undefined
     }));
   }, [materialDimensionsLoader.data?.data]);
 

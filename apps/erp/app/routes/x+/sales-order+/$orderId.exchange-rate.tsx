@@ -9,7 +9,7 @@ import { path } from "~/utils/path";
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId } = await requirePermissions(request, {
-    create: "sales",
+    create: "sales"
   });
 
   const { orderId } = params;
@@ -25,7 +25,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
   const update = await updateSalesOrderExchangeRate(client, {
     id: orderId,
-    exchangeRate: currency.data.exchangeRate,
+    exchangeRate: currency.data.exchangeRate
   });
 
   if (update.error) {

@@ -7,7 +7,7 @@ import { path, requestReferrer } from "~/utils/path";
 
 export async function action({ request }: ActionFunctionArgs) {
   const { companyId, userId } = await requirePermissions(request, {
-    update: "parts",
+    update: "parts"
   });
 
   const serviceRole = getCarbonServiceRole();
@@ -22,12 +22,12 @@ export async function action({ request }: ActionFunctionArgs) {
   const upsert = await copyItem(serviceRole, {
     ...validation.data,
     companyId,
-    userId,
+    userId
   });
 
   if (upsert.error) {
     return json({
-      error: upsert.error ? "Failed to save method" : null,
+      error: upsert.error ? "Failed to save method" : null
     });
   }
 

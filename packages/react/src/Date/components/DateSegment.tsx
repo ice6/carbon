@@ -1,7 +1,7 @@
 import { useDateSegment } from "@react-aria/datepicker";
 import type {
   DateSegment as DateSegmentType,
-  useDateFieldState,
+  useDateFieldState
 } from "@react-stately/datepicker";
 import clsx from "clsx";
 import { useId, useRef } from "react";
@@ -9,7 +9,7 @@ import { useId, useRef } from "react";
 const segmentSizeVariants = {
   sm: "text-sm",
   md: "text-sm",
-  lg: "text-base",
+  lg: "text-base"
 } as const;
 
 interface DateSegmentProps {
@@ -21,7 +21,7 @@ interface DateSegmentProps {
 export const DateSegment = ({
   segment,
   state,
-  size = "md",
+  size = "md"
 }: DateSegmentProps) => {
   const instanceId = useId();
   const ref = useRef<HTMLDivElement>(null);
@@ -48,7 +48,7 @@ export const DateSegment = ({
         className={clsx("w-full text-center", {
           hidden: !segment.isPlaceholder,
           "h-0": !segment.isPlaceholder,
-          block: segment.isPlaceholder,
+          block: segment.isPlaceholder
         })}
       >
         {segment.isPlaceholder

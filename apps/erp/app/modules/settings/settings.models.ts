@@ -14,19 +14,19 @@ export const modulesType = [
   "Purchasing",
   "Resources",
   "Sales",
-  "Users",
+  "Users"
 ] as const;
 
 export const kanbanOutputTypes = ["label", "qrcode", "url"] as const;
 
 export const purchasePriceUpdateTimingTypes = [
   "Purchase Invoice Post",
-  "Purchase Order Finalize",
+  "Purchase Order Finalize"
 ] as const;
 
 export const apiKeyValidator = z.object({
   id: zfd.text(z.string().optional()),
-  name: z.string().min(1, { message: "Name is required" }),
+  name: z.string().min(1, { message: "Name is required" })
 });
 
 const company = {
@@ -42,13 +42,13 @@ const company = {
   phone: zfd.text(z.string().optional()),
   fax: zfd.text(z.string().optional()),
   email: zfd.text(z.string().optional()),
-  website: zfd.text(z.string().optional()),
+  website: zfd.text(z.string().optional())
 };
 
 export const companyValidator = z.object(company);
 export const onboardingCompanyValidator = z.object({
   ...company,
-  next: z.string().min(1, { message: "Next is required" }),
+  next: z.string().min(1, { message: "Next is required" })
 });
 
 export const customFieldValidator = z
@@ -60,7 +60,7 @@ export const customFieldValidator = z
       z.number().min(1, { message: "Data type is required" })
     ),
     listOptions: z.string().min(1).array().optional(),
-    tags: z.array(z.string()).optional(),
+    tags: z.array(z.string()).optional()
   })
   .refine((input) => {
     // allows bar to be optional only when foo is 'foo'
@@ -80,38 +80,38 @@ export const digitalQuoteValidator = z.object({
   digitalQuoteNotificationGroup: z
     .array(z.string().min(1, { message: "Invalid selection" }))
     .optional(),
-  digitalQuoteIncludesPurchaseOrders: zfd.checkbox(),
+  digitalQuoteIncludesPurchaseOrders: zfd.checkbox()
 });
 
 export const kanbanOutputValidator = z.object({
-  kanbanOutput: z.enum(kanbanOutputTypes),
+  kanbanOutput: z.enum(kanbanOutputTypes)
 });
 
 export const purchasePriceUpdateTimingValidator = z.object({
-  purchasePriceUpdateTiming: z.enum(purchasePriceUpdateTimingTypes),
+  purchasePriceUpdateTiming: z.enum(purchasePriceUpdateTimingTypes)
 });
 
 export const materialIdsValidator = z.object({
-  materialGeneratedIds: zfd.checkbox(),
+  materialGeneratedIds: zfd.checkbox()
 });
 
 export const materialUnitsValidator = z.object({
-  useMetric: zfd.checkbox(),
+  useMetric: zfd.checkbox()
 });
 
 export const productLabelSizeValidator = z.object({
   productLabelSize: z.enum(
     labelSizes.map((size) => size.id) as [string, ...string[]],
     {
-      message: "Product label size is required",
+      message: "Product label size is required"
     }
-  ),
+  )
 });
 
 export const rfqReadyValidator = z.object({
   rfqReadyNotificationGroup: z
     .array(z.string().min(1, { message: "Invalid selection" }))
-    .optional(),
+    .optional()
 });
 
 export const sequenceValidator = z.object({
@@ -120,7 +120,7 @@ export const sequenceValidator = z.object({
   suffix: zfd.text(z.string().optional()),
   next: zfd.numeric(z.number().min(0)),
   step: zfd.numeric(z.number().min(1)),
-  size: zfd.numeric(z.number().min(1).max(20)),
+  size: zfd.numeric(z.number().min(1).max(20))
 });
 
 export const themes = [
@@ -132,15 +132,15 @@ export const themes = [
   "green",
   "blue",
   "yellow",
-  "violet",
+  "violet"
 ] as const;
 export type Theme = (typeof themes)[number];
 
 export const themeValidator = z.object({
   next: zfd.text(z.string().optional()),
   theme: z.enum(themes, {
-    errorMap: (issue, ctx) => ({ message: "Theme is required" }),
-  }),
+    errorMap: (issue, ctx) => ({ message: "Theme is required" })
+  })
 });
 
 export const webhookValidator = z
@@ -152,7 +152,7 @@ export const webhookValidator = z
     onInsert: zfd.checkbox(),
     onUpdate: zfd.checkbox(),
     onDelete: zfd.checkbox(),
-    active: zfd.checkbox(),
+    active: zfd.checkbox()
   })
   .refine(
     (input) => {
@@ -161,6 +161,6 @@ export const webhookValidator = z
     },
     {
       message: "At least one action is required",
-      path: ["onDelete"],
+      path: ["onDelete"]
     }
   );

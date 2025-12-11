@@ -10,7 +10,7 @@ import { getParams, path } from "~/utils/path";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
-    view: "settings",
+    view: "settings"
   });
 
   const { id } = params;
@@ -25,13 +25,13 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   }
 
   return json({
-    webhook: webhook.data,
+    webhook: webhook.data
   });
 }
 
 export async function action({ request, params }: ActionFunctionArgs) {
   const { client } = await requirePermissions(request, {
-    update: "users",
+    update: "users"
   });
 
   const { id } = params;

@@ -18,7 +18,7 @@ import {
   TooltipTrigger,
   Tr,
   useDisclosure,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { formatDurationHours } from "@carbon/utils";
 import { useParams } from "@remix-run/react";
@@ -31,7 +31,7 @@ import type { Costs } from "../../types";
 const QuoteLineCosting = ({
   quantities,
   getLineCosts,
-  unitPricePrecision,
+  unitPricePrecision
 }: {
   quantities: number[];
   getLineCosts: (quantity: number) => Costs;
@@ -43,12 +43,12 @@ const QuoteLineCosting = ({
 
   const quantityCosts = quantities.map((quantity) => ({
     quantity,
-    costs: getLineCosts(quantity),
+    costs: getLineCosts(quantity)
   }));
 
   const formatter = useCurrencyFormatter();
   const unitCostFormatter = useCurrencyFormatter({
-    maximumFractionDigits: unitPricePrecision,
+    maximumFractionDigits: unitPricePrecision
   });
 
   const detailsDisclosure = useDisclosure();

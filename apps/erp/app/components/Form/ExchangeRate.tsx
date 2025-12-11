@@ -5,7 +5,7 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { useLocale } from "@react-aria/i18n";
 import React, { useMemo } from "react";
@@ -32,7 +32,7 @@ const ExchangeRate: React.FC<ExchangeRateProps> = ({
     () =>
       new Intl.DateTimeFormat(locale, {
         dateStyle: "medium",
-        timeStyle: "short",
+        timeStyle: "short"
       }),
     [locale]
   );

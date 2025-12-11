@@ -14,7 +14,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
   if (!processId)
     return json({
-      data: [],
+      data: []
     });
 
   const processes = await getSupplierProcessesByProcess(
@@ -36,7 +36,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
 export async function clientLoader({
   serverLoader,
-  params,
+  params
 }: ClientLoaderFunctionArgs) {
   const { processId } = params;
 

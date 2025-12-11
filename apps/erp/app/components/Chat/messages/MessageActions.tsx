@@ -4,13 +4,18 @@ import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
-  TooltipTrigger,
+  TooltipTrigger
 } from "@carbon/react";
 import { useFetcher } from "@remix-run/react";
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { LuCheck, LuCopy, LuRefreshCcw, LuThumbsDown, LuThumbsUp } from "react-icons/lu";
-
+import {
+  LuCheck,
+  LuCopy,
+  LuRefreshCcw,
+  LuThumbsDown,
+  LuThumbsUp
+} from "react-icons/lu";
 
 interface MessageActionsProps {
   messageId: string;
@@ -19,7 +24,7 @@ interface MessageActionsProps {
 
 export function MessageActions({
   messageId,
-  messageContent,
+  messageContent
 }: MessageActionsProps) {
   const chatId = useChatId();
   const { regenerate } = useChatActions();
@@ -29,7 +34,6 @@ export function MessageActions({
   const [copied, setCopied] = useState(false);
 
   const feedbackFetcher = useFetcher<{}>();
-  
 
   const handleRegenerate = () => {
     regenerate?.();
@@ -82,7 +86,7 @@ export function MessageActions({
       transition={{
         duration: 0.3,
         ease: "easeOut",
-        staggerChildren: 0.05,
+        staggerChildren: 0.05
       }}
     >
       {/* Copy Button */}
@@ -153,7 +157,7 @@ export function MessageActions({
                 className={cn(
                   "flex items-center justify-center w-6 h-6 transition-colors duration-200 hover:bg-muted",
                   feedbackFetcher.state !== "idle" &&
-                    "opacity-50 cursor-not-allowed",
+                    "opacity-50 cursor-not-allowed"
                 )}
               >
                 <LuThumbsUp
@@ -161,7 +165,7 @@ export function MessageActions({
                     "w-3 h-3",
                     feedbackGiven === "positive"
                       ? "text-emerald-600"
-                      : "text-muted-foreground hover:text-foreground",
+                      : "text-muted-foreground hover:text-foreground"
                   )}
                 />
               </button>
@@ -193,7 +197,7 @@ export function MessageActions({
                 className={cn(
                   "flex items-center justify-center w-6 h-6 transition-colors duration-200 hover:bg-muted",
                   feedbackFetcher.state !== "idle" &&
-                    "opacity-50 cursor-not-allowed",
+                    "opacity-50 cursor-not-allowed"
                 )}
               >
                 <LuThumbsDown
@@ -201,7 +205,7 @@ export function MessageActions({
                     "w-3 h-3",
                     feedbackGiven === "negative"
                       ? "text-red-600"
-                      : "text-muted-foreground hover:text-foreground",
+                      : "text-muted-foreground hover:text-foreground"
                   )}
                 />
               </button>

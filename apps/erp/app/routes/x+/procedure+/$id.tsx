@@ -24,14 +24,14 @@ import { getPrivateUrl, path } from "~/utils/path";
 export const handle: Handle = {
   breadcrumb: "Procedures",
   to: path.to.procedures,
-  module: "production",
+  module: "production"
 };
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
     view: "production",
     role: "employee",
-    bypassRls: true,
+    bypassRls: true
   });
 
   const { id } = params;
@@ -39,7 +39,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
   const [procedure, tags] = await Promise.all([
     getProcedure(client, id),
-    getTagsList(client, companyId, "procedure"),
+    getTagsList(client, companyId, "procedure")
   ]);
 
   if (procedure.error) {
@@ -52,7 +52,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   return defer({
     procedure: procedure.data,
     tags: tags.data ?? [],
-    versions: getProcedureVersions(client, procedure.data, companyId),
+    versions: getProcedureVersions(client, procedure.data, companyId)
   });
 }
 
@@ -112,7 +112,7 @@ function ProcedureEditor() {
   const { carbon } = useCarbon();
   const {
     id: userId,
-    company: { id: companyId },
+    company: { id: companyId }
   } = useUser();
 
   const updateProcedure = useDebounce(
@@ -122,7 +122,7 @@ function ProcedureEditor() {
         .update({
           content: content ?? {},
           updatedAt: today(getLocalTimeZone()).toString(),
-          updatedBy: userId,
+          updatedBy: userId
         })
         .eq("id", id!);
     },
@@ -148,7 +148,7 @@ function ProcedureEditor() {
 
     fetcher.submit(formData, {
       method: "post",
-      action: path.to.bulkUpdateProcedure,
+      action: path.to.bulkUpdateProcedure
     });
   };
 
@@ -202,7 +202,7 @@ function ProcedureEditor() {
         <div
           className="prose dark:prose-invert"
           dangerouslySetInnerHTML={{
-            __html: generateHTML(content),
+            __html: generateHTML(content)
           }}
         />
       )}

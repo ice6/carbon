@@ -27,7 +27,7 @@ import {
   TooltipContent,
   TooltipTrigger,
   Tr,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { getLocalTimeZone, today } from "@internationalized/date";
 import { useFetcher, useParams } from "@remix-run/react";
@@ -37,13 +37,13 @@ import {
   LuCirclePlus,
   LuInfo,
   LuRefreshCcw,
-  LuTrash,
+  LuTrash
 } from "react-icons/lu";
 import {
   useCurrencyFormatter,
   usePermissions,
   useRouteData,
-  useUser,
+  useUser
 } from "~/hooks";
 import { path } from "~/utils/path";
 import { quoteLineAdditionalChargesValidator } from "../../sales.models";
@@ -51,14 +51,14 @@ import type {
   Costs,
   Quotation,
   QuotationLine,
-  QuotationPrice,
+  QuotationPrice
 } from "../../types";
 
 const QuoteLinePricing = ({
   line,
   pricesByQuantity,
   exchangeRate,
-  getLineCosts,
+  getLineCosts
 }: {
   line: QuotationLine;
   pricesByQuantity: Record<number, QuotationPrice>;
@@ -79,7 +79,7 @@ const QuoteLinePricing = ({
     prices: pricesByQuantity,
     unitCost: line.unitCost ?? 0,
     additionalCharges: line.additionalCharges || {},
-    taxPercent: line.taxPercent ?? 0,
+    taxPercent: line.taxPercent ?? 0
   });
 
   useEffect(() => {
@@ -88,13 +88,13 @@ const QuoteLinePricing = ({
       prices: pricesByQuantity,
       unitCost: line.unitCost ?? 0,
       additionalCharges: line.additionalCharges || {},
-      taxPercent: line.taxPercent ?? 0,
+      taxPercent: line.taxPercent ?? 0
     }));
   }, [
     pricesByQuantity,
     line.unitCost,
     line.additionalCharges,
-    line.taxPercent,
+    line.taxPercent
   ]);
 
   const unitPricePrecision = line.unitPricePrecision ?? 2;
@@ -122,11 +122,11 @@ const QuoteLinePricing = ({
   const formatter = useCurrencyFormatter();
   const unitPriceFormatter = useCurrencyFormatter({
     currency: routeData?.quote?.currencyCode ?? baseCurrency,
-    maximumFractionDigits: unitPricePrecision,
+    maximumFractionDigits: unitPricePrecision
   });
   const presentationCurrencyFormatter = useCurrencyFormatter({
     currency: routeData?.quote?.currencyCode ?? baseCurrency,
-    maximumFractionDigits: unitPricePrecision,
+    maximumFractionDigits: unitPricePrecision
   });
 
   const additionalCharges = useMemo(() => {
@@ -152,21 +152,21 @@ const QuoteLinePricing = ({
         ...additionalCharges,
         [chargeId]: {
           ...additionalCharges[chargeId],
-          description,
-        },
+          description
+        }
       };
 
       setEditableFields((prev) => {
         return {
           ...prev,
-          additionalCharges: updatedCharges,
+          additionalCharges: updatedCharges
         };
       });
 
       const costUpdate = await carbon
         ?.from("quoteLine")
         .update({
-          additionalCharges: updatedCharges,
+          additionalCharges: updatedCharges
         })
         .eq("id", lineId);
 
@@ -186,20 +186,20 @@ const QuoteLinePricing = ({
           ...additionalCharges[chargeId],
           amounts: {
             ...additionalCharges[chargeId].amounts,
-            [quantity]: amount,
-          },
-        },
+            [quantity]: amount
+          }
+        }
       };
 
       setEditableFields((prev) => ({
         ...prev,
-        additionalCharges: updatedCharges,
+        additionalCharges: updatedCharges
       }));
 
       const costUpdate = await carbon
         ?.from("quoteLine")
         .update({
-          additionalCharges: updatedCharges,
+          additionalCharges: updatedCharges
         })
         .eq("id", lineId);
 
@@ -241,7 +241,7 @@ const QuoteLinePricing = ({
     formData.append("quantities", JSON.stringify(quantities));
     fetcher.submit(formData, {
       method: "post",
-      action: path.to.quoteLineRecalculatePrice(quoteId, lineId),
+      action: path.to.quoteLineRecalculatePrice(quoteId, lineId)
     });
   };
 
@@ -250,7 +250,7 @@ const QuoteLinePricing = ({
     formData.append("precision", precision.toString());
     fetcher.submit(formData, {
       method: "post",
-      action: path.to.quoteLineUpdatePrecision(quoteId, lineId),
+      action: path.to.quoteLineUpdatePrecision(quoteId, lineId)
     });
   };
 
@@ -260,7 +260,7 @@ const QuoteLinePricing = ({
 
       setEditableFields((prev) => ({
         ...prev,
-        unitCost: value,
+        unitCost: value
       }));
 
       const costUpdate = await carbon
@@ -268,7 +268,7 @@ const QuoteLinePricing = ({
         .update({
           unitCost: value,
           costIsAdjusted: true,
-          updatedAt: today(getLocalTimeZone()).toString(),
+          updatedAt: today(getLocalTimeZone()).toString()
         })
         .eq("itemId", line.itemId)
         .single();
@@ -302,7 +302,7 @@ const QuoteLinePricing = ({
           discountPercent: 0,
           exchangeRate: exchangeRate ?? 1,
           shippingCost: 0,
-          createdBy: userId,
+          createdBy: userId
         } as unknown as QuotationPrice;
       }
       let roundedValue = value;
@@ -314,7 +314,7 @@ const QuoteLinePricing = ({
 
       setEditableFields((prev) => ({
         ...prev,
-        prices: newPrices,
+        prices: newPrices
       }));
 
       if (hasPrice) {
@@ -323,7 +323,7 @@ const QuoteLinePricing = ({
           .update({
             [key]: roundedValue,
             quoteLineId: lineId,
-            quantity,
+            quantity
           })
           .eq("quoteLineId", lineId)
           .eq("quantity", quantity);
@@ -335,7 +335,7 @@ const QuoteLinePricing = ({
         const insert = await carbon?.from("quoteLinePrice").insert({
           ...newPrices[quantity],
           quoteLineId: lineId,
-          quantity,
+          quantity
         });
 
         if (insert?.error) {
@@ -351,7 +351,7 @@ const QuoteLinePricing = ({
       lineId,
       exchangeRate,
       userId,
-      carbon,
+      carbon
     ]
   );
 
@@ -492,7 +492,7 @@ const QuoteLinePricing = ({
                       formatOptions={{
                         style: "unit",
                         unit: "day",
-                        unitDisplay: "long",
+                        unitDisplay: "long"
                       }}
                       minValue={0}
                       onChange={(value) => {
@@ -537,7 +537,7 @@ const QuoteLinePricing = ({
                         value={editableFields.unitCost}
                         formatOptions={{
                           style: "currency",
-                          currency: baseCurrency,
+                          currency: baseCurrency
                         }}
                         minValue={0}
                         onChange={(value) => {
@@ -588,7 +588,7 @@ const QuoteLinePricing = ({
                         value={markup}
                         formatOptions={{
                           style: "percent",
-                          maximumFractionDigits: 2,
+                          maximumFractionDigits: 2
                         }}
                         onChange={(value) => {
                           if (Number.isFinite(value) && value !== markup) {
@@ -627,7 +627,7 @@ const QuoteLinePricing = ({
                       formatOptions={{
                         style: "currency",
                         currency: baseCurrency,
-                        maximumFractionDigits: unitPricePrecision,
+                        maximumFractionDigits: unitPricePrecision
                       }}
                       minValue={0}
                       onChange={(value) => {
@@ -664,7 +664,7 @@ const QuoteLinePricing = ({
                       value={discount}
                       formatOptions={{
                         style: "percent",
-                        maximumFractionDigits: 2,
+                        maximumFractionDigits: 2
                       }}
                       minValue={0}
                       maxValue={1}
@@ -781,7 +781,7 @@ const QuoteLinePricing = ({
                       value={shippingCost}
                       formatOptions={{
                         style: "currency",
-                        currency: baseCurrency,
+                        currency: baseCurrency
                       }}
                       minValue={0}
                       onChange={(value) => {
@@ -871,7 +871,7 @@ const QuoteLinePricing = ({
                               defaultValue={amount}
                               formatOptions={{
                                 style: "currency",
-                                currency: baseCurrency,
+                                currency: baseCurrency
                               }}
                               onChange={(value) => {
                                 if (
@@ -972,13 +972,13 @@ const QuoteLinePricing = ({
                       value={taxPercent}
                       formatOptions={{
                         style: "percent",
-                        maximumFractionDigits: 2,
+                        maximumFractionDigits: 2
                       }}
                       onChange={(value) => {
                         if (Number.isFinite(value) && value !== taxPercent) {
                           setEditableFields((prev) => ({
                             ...prev,
-                            taxPercent: value,
+                            taxPercent: value
                           }));
 
                           // TODO: handle mutation

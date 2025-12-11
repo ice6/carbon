@@ -29,9 +29,9 @@ export async function action({ request }: ActionFunctionArgs) {
       parentTrackedEntityId,
       children,
       companyId,
-      userId,
+      userId
     },
-    region: FunctionRegion.UsEast1,
+    region: FunctionRegion.UsEast1
   });
 
   if (issue.error) {

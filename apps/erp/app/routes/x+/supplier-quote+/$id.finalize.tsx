@@ -6,7 +6,7 @@ import {
   finalizeSupplierQuote,
   getSupplierQuote,
   getSupplierQuoteLines,
-  getSupplierQuoteLinePricesByQuoteId,
+  getSupplierQuoteLinePricesByQuoteId
 } from "~/modules/purchasing";
 import { upsertExternalLink } from "~/modules/shared";
 import { path } from "~/utils/path";
@@ -18,7 +18,7 @@ export async function action(args: ActionFunctionArgs) {
   const { client, companyId, userId } = await requirePermissions(request, {
     create: "purchasing",
     role: "employee",
-    bypassRls: true,
+    bypassRls: true
   });
 
   const { id } = params;
@@ -40,8 +40,8 @@ export async function action(args: ActionFunctionArgs) {
       documentId: id,
       supplierId: quote.data.supplierId,
       expiresAt: quote.data.expirationDate,
-      companyId,
-    }),
+      companyId
+    })
   ]);
 
   if (externalLink.data && quote.data.externalLinkId !== externalLink.data.id) {
@@ -49,7 +49,7 @@ export async function action(args: ActionFunctionArgs) {
       .from("supplierQuote")
       .update({
         externalLinkId: externalLink.data.id,
-        status: "Active",
+        status: "Active"
       })
       .eq("id", id);
   }
@@ -57,7 +57,7 @@ export async function action(args: ActionFunctionArgs) {
   // Validate that all quantities have price and lead time
   const [quoteLines, quoteLinePrices] = await Promise.all([
     getSupplierQuoteLines(client, id),
-    getSupplierQuoteLinePricesByQuoteId(client, id),
+    getSupplierQuoteLinePricesByQuoteId(client, id)
   ]);
 
   if (quoteLines.error) {

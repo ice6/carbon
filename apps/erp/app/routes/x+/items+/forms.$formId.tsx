@@ -8,7 +8,7 @@ import { json, redirect } from "@vercel/remix";
 import {
   getMaterialForm,
   materialFormValidator,
-  upsertMaterialForm,
+  upsertMaterialForm
 } from "~/modules/items";
 import { MaterialShapeForm } from "~/modules/items/ui/MaterialShapes";
 import { getCustomFields, setCustomFields } from "~/utils/form";
@@ -17,7 +17,7 @@ import { getParams, path } from "~/utils/path";
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
     view: "parts",
-    role: "employee",
+    role: "employee"
   });
 
   const { formId } = params;
@@ -36,14 +36,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   }
 
   return json({
-    materialForm: materialForm?.data ?? null,
+    materialForm: materialForm?.data ?? null
   });
 }
 
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    update: "parts",
+    update: "parts"
   });
 
   const { formId } = params;
@@ -60,7 +60,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     id: formId,
     ...validation.data,
     updatedBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
 
   if (updateMaterialForm.error) {
@@ -87,7 +87,7 @@ export default function EditMaterialFormsRoute() {
     id: materialForm?.id ?? undefined,
     name: materialForm?.name ?? "",
     code: materialForm?.code ?? "",
-    ...getCustomFields(materialForm?.customFields),
+    ...getCustomFields(materialForm?.customFields)
   };
 
   return (

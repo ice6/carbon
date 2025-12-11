@@ -5,7 +5,7 @@ import {
   methodOperationOrders,
   methodType,
   operationTypes,
-  standardFactorType,
+  standardFactorType
 } from "../shared";
 
 export const batchPropertyDataTypes = [
@@ -13,7 +13,7 @@ export const batchPropertyDataTypes = [
   "numeric",
   "boolean",
   "list",
-  "date",
+  "date"
 ] as const;
 
 export const configurationParameterDataTypes = [
@@ -21,39 +21,39 @@ export const configurationParameterDataTypes = [
   "numeric",
   "boolean",
   "list",
-  "material",
+  "material"
 ] as const;
 
 export const itemTrackingTypes = [
   "Inventory",
   "Non-Inventory",
   "Serial",
-  "Batch",
+  "Batch"
 ] as const;
 
 export const itemCostingMethods = [
   "Standard",
   "Average",
   "FIFO",
-  "LIFO",
+  "LIFO"
 ] as const;
 
 export const itemReorderingPolicies = [
   "Manual Reorder",
   "Demand-Based Reorder",
   "Fixed Reorder Quantity",
-  "Maximum Quantity",
+  "Maximum Quantity"
 ] as const;
 
 export const itemReplenishmentSystems = [
   "Buy",
   "Make",
-  "Buy and Make",
+  "Buy and Make"
 ] as const;
 
 export const partManufacturingPolicies = [
   "Make to Stock",
-  "Make to Order",
+  "Make to Order"
 ] as const;
 
 export const serviceType = ["Internal", "External"] as const;
@@ -68,39 +68,39 @@ export const itemValidator = z.object({
   description: zfd.text(z.string().optional()),
   replenishmentSystem: z.enum(itemReplenishmentSystems, {
     errorMap: (issue, ctx) => ({
-      message: "Replenishment system is required",
-    }),
+      message: "Replenishment system is required"
+    })
   }),
   defaultMethodType: z.enum(methodType, {
     errorMap: (issue, ctx) => ({
-      message: "Default method is required",
-    }),
+      message: "Default method is required"
+    })
   }),
   itemTrackingType: z.enum(itemTrackingTypes, {
     errorMap: (issue, ctx) => ({
-      message: "Part type is required",
-    }),
+      message: "Part type is required"
+    })
   }),
   unitOfMeasureCode: z
     .string()
     .min(1, { message: "Unit of Measure is required" }),
-  unitCost: zfd.numeric(z.number().nonnegative().optional()),
+  unitCost: zfd.numeric(z.number().nonnegative().optional())
 });
 
 export const configurationParameterGroupValidator = z.object({
   id: zfd.text(z.string().optional()),
-  name: z.string().min(1, { message: "Name is required" }),
+  name: z.string().min(1, { message: "Name is required" })
 });
 
 export const configurationParameterGroupOrderValidator = z.object({
   id: z.string().min(1, { message: "ID is required" }),
-  sortOrder: zfd.numeric(z.number().min(0)),
+  sortOrder: zfd.numeric(z.number().min(0))
 });
 
 export const configurationParameterOrderValidator = z.object({
   id: z.string().min(1, { message: "ID is required" }),
   sortOrder: zfd.numeric(z.number().min(0)),
-  configurationParameterGroupId: zfd.text(z.string().nullable()),
+  configurationParameterGroupId: zfd.text(z.string().nullable())
 });
 
 export const configurationParameterValidator = z
@@ -111,7 +111,7 @@ export const configurationParameterValidator = z
     label: z.string().min(1, { message: "Label is required" }),
     dataType: z.enum([...configurationParameterDataTypes, "date"]),
     listOptions: z.string().min(1).array().optional(),
-    configurationParameterGroupId: z.string().optional(),
+    configurationParameterGroupId: z.string().optional()
   })
   .refine(
     (data) => {
@@ -132,7 +132,7 @@ export const configurationParameterValidator = z
 
 export const configurationRuleValidator = z.object({
   field: z.string().min(1, { message: "Field is required" }),
-  code: z.string().min(1, { message: "Code is required" }),
+  code: z.string().min(1, { message: "Code is required" })
 });
 
 export const consumableValidator = itemValidator.merge(
@@ -140,7 +140,7 @@ export const consumableValidator = itemValidator.merge(
     id: z.string().min(1, { message: "Consumable ID is required" }).max(255),
     unitOfMeasureCode: z
       .string()
-      .min(1, { message: "Unit of Measure is required" }),
+      .min(1, { message: "Unit of Measure is required" })
   })
 );
 
@@ -149,20 +149,18 @@ export const customerPartValidator = z.object({
   itemId: z.string().min(1, { message: "Item ID is required" }),
   customerId: z.string().min(1, { message: "Customer is required" }),
   customerPartId: z.string(),
-  customerPartRevision: zfd.text(z.string().optional()),
+  customerPartRevision: zfd.text(z.string().optional())
 });
 
 export const getMethodValidator = z.object({
   targetId: z.string().min(1, { message: "Please select a target method" }),
-  sourceId: z.string().min(1, { message: "Please select a source method" }),
+  sourceId: z.string().min(1, { message: "Please select a source method" })
 });
 
 export const makeMethodVersionValidator = z.object({
   copyFromId: z.string().min(1, { message: "Please select a source method" }),
   activeVersionId: zfd.text(z.string().optional()),
-  version: zfd.numeric(
-    z.number().min(0, { message: "Please enter a version" })
-  ),
+  version: zfd.numeric(z.number().min(0, { message: "Please enter a version" }))
 });
 
 export const materialValidator = itemValidator.merge(
@@ -174,7 +172,7 @@ export const materialValidator = itemValidator.merge(
     finishId: zfd.text(z.string().optional()),
     gradeId: zfd.text(z.string().optional()),
     dimensionId: zfd.text(z.string().optional()),
-    sizes: z.array(z.string()).optional(),
+    sizes: z.array(z.string()).optional()
   })
 );
 
@@ -186,7 +184,7 @@ export const materialValidatorWithGeneratedIds = z.object({
   finishId: zfd.text(z.string().optional()),
   gradeId: zfd.text(z.string().optional()),
   dimensionId: zfd.text(z.string().optional()),
-  sizes: z.array(z.string()).optional(),
+  sizes: z.array(z.string()).optional()
 });
 
 export const methodMaterialValidator = z.object({
@@ -195,14 +193,14 @@ export const methodMaterialValidator = z.object({
   order: zfd.numeric(z.number().min(0)),
   itemType: z.enum(methodItemType, {
     errorMap: (issue, ctx) => ({
-      message: "Item type is required",
-    }),
+      message: "Item type is required"
+    })
   }),
   kit: zfd.text(z.string().optional()).transform((value) => value === "true"),
   methodType: z.enum(methodType, {
     errorMap: (issue, ctx) => ({
-      message: "Method type is required",
-    }),
+      message: "Method type is required"
+    })
   }),
   itemId: z.string().optional(),
   methodOperationId: zfd.text(z.string().optional()),
@@ -217,7 +215,7 @@ export const methodMaterialValidator = z.object({
     } catch {
       return {};
     }
-  }),
+  })
 });
 
 export const methodOperationValidator = z
@@ -227,13 +225,13 @@ export const methodOperationValidator = z
     order: zfd.numeric(z.number().min(0)),
     operationOrder: z.enum(methodOperationOrders, {
       errorMap: (issue, ctx) => ({
-        message: "Operation order is required",
-      }),
+        message: "Operation order is required"
+      })
     }),
     operationType: z.enum(operationTypes, {
       errorMap: (issue, ctx) => ({
-        message: "Operation type is required",
-      }),
+        message: "Operation type is required"
+      })
     }),
     processId: z.string().min(1, { message: "Process is required" }),
     workCenterId: zfd.text(z.string().optional()),
@@ -243,26 +241,26 @@ export const methodOperationValidator = z
     ),
     setupUnit: z
       .enum(standardFactorType, {
-        errorMap: () => ({ message: "Setup unit is required" }),
+        errorMap: () => ({ message: "Setup unit is required" })
       })
       .optional(),
     setupTime: zfd.numeric(z.number().min(0).optional()),
     laborUnit: z
       .enum(standardFactorType, {
-        errorMap: () => ({ message: "Labor unit is required" }),
+        errorMap: () => ({ message: "Labor unit is required" })
       })
       .optional(),
     laborTime: zfd.numeric(z.number().min(0).optional()),
     machineUnit: z
       .enum(standardFactorType, {
-        errorMap: () => ({ message: "Machine unit is required" }),
+        errorMap: () => ({ message: "Machine unit is required" })
       })
       .optional(),
     machineTime: zfd.numeric(z.number().min(0).optional()),
     operationSupplierProcessId: zfd.text(z.string().optional()),
     operationMinimumCost: zfd.numeric(z.number().min(0).optional()),
     operationUnitCost: zfd.numeric(z.number().min(0).optional()),
-    operationLeadTime: zfd.numeric(z.number().min(0).optional()),
+    operationLeadTime: zfd.numeric(z.number().min(0).optional())
   })
   .refine(
     (data) => {
@@ -273,7 +271,7 @@ export const methodOperationValidator = z
     },
     {
       message: "Setup unit is required",
-      path: ["setupUnit"],
+      path: ["setupUnit"]
     }
   )
   .refine(
@@ -285,7 +283,7 @@ export const methodOperationValidator = z
     },
     {
       message: "Labor unit is required",
-      path: ["laborUnit"],
+      path: ["laborUnit"]
     }
   )
   .refine(
@@ -297,7 +295,7 @@ export const methodOperationValidator = z
     },
     {
       message: "Machine unit is required",
-      path: ["machineUnit"],
+      path: ["machineUnit"]
     }
   )
   .refine(
@@ -309,7 +307,7 @@ export const methodOperationValidator = z
     },
     {
       message: "Setup time is required",
-      path: ["setupTime"],
+      path: ["setupTime"]
     }
   )
   .refine(
@@ -321,7 +319,7 @@ export const methodOperationValidator = z
     },
     {
       message: "Labor time is required",
-      path: ["laborTime"],
+      path: ["laborTime"]
     }
   )
   .refine(
@@ -333,7 +331,7 @@ export const methodOperationValidator = z
     },
     {
       message: "Machine time is required",
-      path: ["machineTime"],
+      path: ["machineTime"]
     }
   );
 
@@ -346,7 +344,7 @@ export const itemCostValidator = z.object({
   //   }),
   // }),
   // standardCost: zfd.numeric(z.number().min(0)),
-  unitCost: zfd.numeric(z.number().min(0)),
+  unitCost: zfd.numeric(z.number().min(0))
   // costIsAdjusted: zfd.checkbox(),
 });
 
@@ -356,13 +354,13 @@ export const itemManufacturingValidator = z.object({
   requiresConfiguration: zfd.checkbox().optional(),
   lotSize: zfd.numeric(z.number().min(0)),
   scrapPercentage: zfd.numeric(z.number().min(0)),
-  leadTime: zfd.numeric(z.number().min(0)),
+  leadTime: zfd.numeric(z.number().min(0))
 });
 
 export const itemPostingGroupValidator = z.object({
   id: zfd.text(z.string().optional()),
   name: z.string().min(1, { message: "Name is required" }).max(255),
-  description: z.string().optional(),
+  description: z.string().optional()
 });
 
 export const itemPlanningValidator = z
@@ -371,8 +369,8 @@ export const itemPlanningValidator = z
     locationId: z.string().min(1, { message: "Location is required" }),
     reorderingPolicy: z.enum(itemReorderingPolicies, {
       errorMap: (issue, ctx) => ({
-        message: "Reordering policy is required",
-      }),
+        message: "Reordering policy is required"
+      })
     }),
     demandAccumulationPeriod: zfd.numeric(z.number().min(1).optional()),
     demandAccumulationSafetyStock: zfd.numeric(z.number().min(0).optional()),
@@ -381,7 +379,7 @@ export const itemPlanningValidator = z
     maximumInventoryQuantity: zfd.numeric(z.number().min(0)).optional(),
     minimumOrderQuantity: zfd.numeric(z.number().min(0)).optional(),
     maximumOrderQuantity: zfd.numeric(z.number().min(0)).optional(),
-    orderMultiple: zfd.numeric(z.number().min(1)).optional(),
+    orderMultiple: zfd.numeric(z.number().min(1)).optional()
     // critical: zfd.checkbox(),
   })
   .refine(
@@ -397,7 +395,7 @@ export const itemPlanningValidator = z
     },
     {
       message: "Maximum inventory quantity must be greater than reorder point",
-      path: ["maximumInventoryQuantity"],
+      path: ["maximumInventoryQuantity"]
     }
   )
   .refine(
@@ -409,7 +407,7 @@ export const itemPlanningValidator = z
     },
     {
       message: "Reorder quantity must be greater than 0",
-      path: ["reorderQuantity"],
+      path: ["reorderQuantity"]
     }
   );
 
@@ -418,13 +416,13 @@ export const itemPurchasingValidator = z.object({
   preferredSupplierId: zfd.text(z.string().optional()),
   conversionFactor: zfd.numeric(z.number().min(0)),
   leadTime: zfd.numeric(z.number().min(0)),
-  purchasingUnitOfMeasureCode: zfd.text(z.string().optional()),
+  purchasingUnitOfMeasureCode: zfd.text(z.string().optional())
   // purchasingBlocked: zfd.checkbox(),
 });
 
 export const itemUnitSalePriceValidator = z.object({
   itemId: z.string().min(1, { message: "Item ID is required" }),
-  unitSalePrice: zfd.numeric(z.number().min(0)),
+  unitSalePrice: zfd.numeric(z.number().min(0))
   // currencyCode: z.string().min(1, { message: "Currency is required" }),
   // salesUnitOfMeasureCode: z
   //   .string()
@@ -437,31 +435,31 @@ export const itemUnitSalePriceValidator = z.object({
 export const materialDimensionValidator = z.object({
   id: zfd.text(z.string().optional()),
   name: z.string().min(1, { message: "Name is required" }).max(255),
-  materialFormId: z.string().min(1, { message: "Shape is required" }),
+  materialFormId: z.string().min(1, { message: "Shape is required" })
 });
 
 export const materialFinishValidator = z.object({
   id: zfd.text(z.string().optional()),
   materialSubstanceId: z.string().min(1, { message: "Substance is required" }),
-  name: z.string().min(1, { message: "Name is required" }).max(255),
+  name: z.string().min(1, { message: "Name is required" }).max(255)
 });
 
 export const materialFormValidator = z.object({
   id: zfd.text(z.string().optional()),
   name: z.string().min(1, { message: "Name is required" }).max(255),
-  code: z.string().min(1, { message: "Code is required" }).max(10),
+  code: z.string().min(1, { message: "Code is required" }).max(10)
 });
 
 export const materialGradeValidator = z.object({
   id: zfd.text(z.string().optional()),
   materialSubstanceId: z.string().min(1, { message: "Substance is required" }),
-  name: z.string().min(1, { message: "Name is required" }).max(255),
+  name: z.string().min(1, { message: "Name is required" }).max(255)
 });
 
 export const materialSubstanceValidator = z.object({
   id: zfd.text(z.string().optional()),
   name: z.string().min(1, { message: "Name is required" }).max(255),
-  code: z.string().min(1, { message: "Code is required" }).max(10),
+  code: z.string().min(1, { message: "Code is required" }).max(10)
 });
 
 export const materialTypeValidator = z.object({
@@ -469,7 +467,7 @@ export const materialTypeValidator = z.object({
   materialSubstanceId: z.string().min(1, { message: "Substance is required" }),
   materialFormId: z.string().min(1, { message: "Shape is required" }),
   name: z.string().min(1, { message: "Name is required" }).max(255),
-  code: z.string().min(1, { message: "Code is required" }).max(10),
+  code: z.string().min(1, { message: "Code is required" }).max(10)
 });
 
 export const partValidator = itemValidator.merge(
@@ -477,14 +475,14 @@ export const partValidator = itemValidator.merge(
     id: z.string().min(1, { message: "Part ID is required" }).max(255),
     revision: z.string().min(1, { message: "Revision is required" }),
     modelUploadId: zfd.text(z.string().optional()),
-    lotSize: zfd.numeric(z.number().min(0).optional()),
+    lotSize: zfd.numeric(z.number().min(0).optional())
   })
 );
 
 export const pickMethodValidator = z.object({
   itemId: z.string().min(1, { message: "Item ID is required" }),
   locationId: z.string().min(1, { message: "Location is required" }),
-  defaultShelfId: zfd.text(z.string().optional()),
+  defaultShelfId: zfd.text(z.string().optional())
 });
 
 export const revisionValidator = z
@@ -492,7 +490,7 @@ export const revisionValidator = z
     id: zfd.text(z.string().optional()),
     type: z.enum(["Part", "Material", "Tool", "Consumable", "Service"]),
     copyFromId: zfd.text(z.string().optional()),
-    revision: z.string().min(1, { message: "Revision is required" }),
+    revision: z.string().min(1, { message: "Revision is required" })
   })
   .refine(
     (data) => {
@@ -506,9 +504,9 @@ export const serviceValidator = itemValidator.merge(
     id: z.string().min(1, { message: "Service ID is required" }).max(255),
     serviceType: z.enum(serviceType, {
       errorMap: (issue, ctx) => ({
-        message: "Service type is required",
-      }),
-    }),
+        message: "Service type is required"
+      })
+    })
   })
 );
 
@@ -520,7 +518,7 @@ export const supplierPartValidator = z.object({
   supplierUnitOfMeasureCode: zfd.text(z.string().optional()),
   minimumOrderQuantity: zfd.numeric(z.number().min(0)),
   conversionFactor: zfd.numeric(z.number().min(0)),
-  unitPrice: zfd.numeric(z.number().min(0)),
+  unitPrice: zfd.numeric(z.number().min(0))
 });
 
 export const toolValidator = itemValidator.merge(
@@ -531,12 +529,12 @@ export const toolValidator = itemValidator.merge(
     unitOfMeasureCode: z
       .string()
       .min(1, { message: "Unit of Measure is required" }),
-    lotSize: zfd.numeric(z.number().min(0).optional()),
+    lotSize: zfd.numeric(z.number().min(0).optional())
   })
 );
 
 export const unitOfMeasureValidator = z.object({
   id: zfd.text(z.string().optional()),
   code: z.string().min(1, { message: "Code is required" }).max(10),
-  name: z.string().min(1, { message: "Name is required" }).max(50),
+  name: z.string().min(1, { message: "Name is required" }).max(50)
 });

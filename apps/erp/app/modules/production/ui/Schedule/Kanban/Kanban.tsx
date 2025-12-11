@@ -4,7 +4,7 @@ import type {
   DragEndEvent,
   DragOverEvent,
   DragStartEvent,
-  UniqueIdentifier,
+  UniqueIdentifier
 } from "@dnd-kit/core";
 import {
   DndContext,
@@ -13,7 +13,7 @@ import {
   MouseSensor,
   TouchSensor,
   useSensor,
-  useSensors,
+  useSensors
 } from "@dnd-kit/core";
 import { SortableContext, arrayMove } from "@dnd-kit/sortable";
 import { useFetchers, useSubmit } from "@remix-run/react";
@@ -91,7 +91,7 @@ const Kanban = ({
     useSensor(MouseSensor),
     useSensor(TouchSensor),
     useSensor(KeyboardSensor, {
-      coordinateGetter,
+      coordinateGetter
     })
   );
 
@@ -102,7 +102,7 @@ const Kanban = ({
     return {
       itemsInColumn,
       itemPosition,
-      column,
+      column
     };
   }
 
@@ -198,7 +198,7 @@ const Kanban = ({
       pickedUpItemColumn.current = null;
       if (!hasDraggableData(active)) return;
       return `Dragging ${active.data.current?.type} cancelled.`;
-    },
+    }
   };
 
   return (
@@ -210,7 +210,7 @@ const Kanban = ({
     >
       <DndContext
         accessibility={{
-          announcements,
+          announcements
         }}
         sensors={sensors}
         onDragStart={onDragStart}
@@ -258,7 +258,7 @@ const Kanban = ({
                       employeeIds: progressByItemId[activeItem.id]?.employees
                         ? Array.from(progressByItemId[activeItem.id].employees!)
                         : undefined,
-                      progress: progressByItemId[activeItem.id]?.progress ?? 0,
+                      progress: progressByItemId[activeItem.id]?.progress ?? 0
                     }}
                     isOverlay
                     progressByItemId={progressByItemId}
@@ -382,13 +382,13 @@ const Kanban = ({
           {
             id: activeItem.id,
             columnId: overItem.columnId,
-            priority: newPriority,
+            priority: newPriority
           },
           {
             method: "post",
             action: path.to.scheduleOperationUpdate,
             navigate: false,
-            fetcherKey: `item:${activeItem.id}`,
+            fetcherKey: `item:${activeItem.id}`
           }
         );
         return;
@@ -399,13 +399,13 @@ const Kanban = ({
           {
             id: activeItem.id,
             columnId: activeItem.columnId,
-            priority: newPriority,
+            priority: newPriority
           },
           {
             method: "post",
             action: path.to.scheduleOperationUpdate,
             navigate: false,
-            fetcherKey: `item:${activeItem.id}`,
+            fetcherKey: `item:${activeItem.id}`
           }
         );
       }
@@ -432,13 +432,13 @@ const Kanban = ({
           {
             id: activeItem.id,
             columnId,
-            priority: newPriority,
+            priority: newPriority
           },
           {
             method: "post",
             action: path.to.scheduleOperationUpdate,
             navigate: false,
-            fetcherKey: `item:${activeItem.id}`,
+            fetcherKey: `item:${activeItem.id}`
           }
         );
       }
@@ -461,7 +461,7 @@ function usePendingItems() {
       let item: { id: string; priority: number; columnId: string } = {
         id,
         priority,
-        columnId,
+        columnId
       };
       return item;
     });

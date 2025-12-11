@@ -23,7 +23,7 @@ export function KanbanProvider({
   displaySettings,
   selectedGroup,
   setSelectedGroup,
-  tags,
+  tags
 }: KanbanProviderProps) {
   return (
     <KanbanContext.Provider
@@ -31,7 +31,7 @@ export function KanbanProvider({
         displaySettings,
         selectedGroup,
         setSelectedGroup,
-        tags,
+        tags
       }}
     >
       {children}

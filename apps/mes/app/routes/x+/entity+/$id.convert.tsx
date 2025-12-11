@@ -19,7 +19,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   const validation = convertEntityValidator.safeParse({
     trackedEntityId: id,
     newRevision,
-    quantity,
+    quantity
   });
 
   if (!validation.success) {
@@ -29,7 +29,11 @@ export async function action({ request, params }: ActionFunctionArgs) {
     );
   }
 
-  const { trackedEntityId, newRevision: revision, quantity: newQuantity } = validation.data;
+  const {
+    trackedEntityId,
+    newRevision: revision,
+    quantity: newQuantity
+  } = validation.data;
 
   const serviceRole = await getCarbonServiceRole();
   const convert = await serviceRole.functions.invoke("issue", {
@@ -39,9 +43,9 @@ export async function action({ request, params }: ActionFunctionArgs) {
       newRevision: revision,
       quantity: newQuantity,
       companyId,
-      userId,
+      userId
     },
-    region: FunctionRegion.UsEast1,
+    region: FunctionRegion.UsEast1
   });
 
   if (convert.error) {
@@ -67,6 +71,6 @@ export async function action({ request, params }: ActionFunctionArgs) {
   return json({
     success: true,
     message: "Entity converted successfully",
-    convertedEntity: data.convertedEntity,
+    convertedEntity: data.convertedEntity
   });
 }

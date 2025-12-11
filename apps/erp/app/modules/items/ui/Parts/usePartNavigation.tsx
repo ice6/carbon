@@ -7,7 +7,7 @@ import {
   LuFileText,
   LuReceipt,
   LuShoppingCart,
-  LuTags,
+  LuTags
 } from "react-icons/lu";
 import { usePermissions, useRouteData } from "~/hooks";
 import type { Role } from "~/types";
@@ -35,7 +35,7 @@ export function usePartNavigation() {
       name: "Details",
       to: path.to.partDetails(itemId),
       icon: LuFileText,
-      shortcut: "Command+Shift+d",
+      shortcut: "Command+Shift+d"
     },
     {
       name: "Purchasing",
@@ -44,7 +44,7 @@ export function usePartNavigation() {
       role: ["employee", "supplier"],
       permission: "purchasing",
       icon: LuShoppingCart,
-      shortcut: "Command+Shift+p",
+      shortcut: "Command+Shift+p"
     },
     {
       name: "Manufacturing",
@@ -53,7 +53,7 @@ export function usePartNavigation() {
       role: ["employee"],
       icon: LuFactory,
       shortcut: "Command+Shift+m",
-      isActive: (pathname: string) => pathname.includes("manufacturing"),
+      isActive: (pathname: string) => pathname.includes("manufacturing")
     },
     {
       name: "Costing",
@@ -61,7 +61,7 @@ export function usePartNavigation() {
       role: ["employee"],
       permission: "purchasing",
       icon: LuTags,
-      shortcut: "Command+Shift+a",
+      shortcut: "Command+Shift+a"
     },
     {
       name: "Planning",
@@ -69,7 +69,7 @@ export function usePartNavigation() {
       isDisabled: itemTrackingType === "Non-Inventory",
       role: ["employee"],
       icon: LuChartLine,
-      shortcut: "Command+Shift+p",
+      shortcut: "Command+Shift+p"
     },
     {
       name: "Inventory",
@@ -77,15 +77,15 @@ export function usePartNavigation() {
       isDisabled: itemTrackingType === "Non-Inventory",
       role: ["employee", "supplier"],
       icon: LuBox,
-      shortcut: "Command+Shift+i",
+      shortcut: "Command+Shift+i"
     },
     {
       name: "Sales",
       to: path.to.partSales(itemId),
       role: ["employee", "customer"],
       icon: LuReceipt,
-      shortcut: "Command+Shift+x",
-    },
+      shortcut: "Command+Shift+x"
+    }
   ].filter(
     (item) =>
       !item.isDisabled &&

@@ -1,7 +1,11 @@
 import type { ComponentProps } from "react";
 import { cn } from "./utils/cn";
 
-const Spinner = ({ className, size = 24, ...props }: ComponentProps<"svg"> & { size?: number }) => {
+const Spinner = ({
+  className,
+  size = 24,
+  ...props
+}: ComponentProps<"svg"> & { size?: number }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

@@ -5,17 +5,17 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-  HStack,
+  HStack
 } from "@carbon/react";
 import { useState } from "react";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import {
   CustomFormFields,
   Customer,
   CustomerContact,
   CustomerLocation,
   Hidden,
-  Submit,
+  Submit
 } from "~/components/Form";
 import PaymentTerm from "~/components/Form/PaymentTerm";
 import { usePermissions } from "~/hooks";

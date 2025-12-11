@@ -2,7 +2,7 @@ import type {
   MutableRefObject,
   ReactElement,
   ReactNode,
-  RefCallback,
+  RefCallback
 } from "react";
 import { Children, isValidElement } from "react";
 

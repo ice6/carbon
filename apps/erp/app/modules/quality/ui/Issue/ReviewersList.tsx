@@ -15,7 +15,7 @@ import {
   ModalOverlay,
   ModalTitle,
   useDisclosure,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { useFetcher, useParams } from "@remix-run/react";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -30,7 +30,7 @@ import { TaskItem, TaskProgress } from "./IssueTask";
 
 export function ReviewersList({
   reviewers,
-  isDisabled,
+  isDisabled
 }: {
   reviewers: IssueReviewer[];
   isDisabled: boolean;
@@ -163,7 +163,7 @@ function NewApprovalRequirement({ isDisabled }: { isDisabled: boolean }) {
 
     fetcher.submit(formData, {
       method: "post",
-      action: path.to.bulkUpdateIssue,
+      action: path.to.bulkUpdateIssue
     });
   }, [id, routeData?.nonConformance?.approvalRequirements, fetcher]);
 

@@ -55,7 +55,7 @@ const Process = (props: ProcessSelectProps) => {
             processType: "Inside",
             defaultStandardFactor: "Minutes/Piece",
             completeAllOnScan: false,
-            workCenters: [],
+            workCenters: []
           }}
         />
       )}
@@ -79,7 +79,7 @@ export const useProcesses = () => {
       fetcher.data?.data
         ? fetcher.data?.data.map((c) => ({
             value: c.id,
-            label: c.name,
+            label: c.name
           }))
         : [],
     [fetcher.data]

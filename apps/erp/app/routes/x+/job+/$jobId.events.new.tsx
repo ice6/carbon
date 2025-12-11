@@ -8,14 +8,14 @@ import { json, redirect } from "@vercel/remix";
 import {
   getJobOperations,
   productionEventValidator,
-  upsertProductionEvent,
+  upsertProductionEvent
 } from "~/modules/production";
 import { ProductionEventForm } from "~/modules/production/ui/Jobs";
 import { getParams, path } from "~/utils/path";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
-    create: "production",
+    create: "production"
   });
 
   const { jobId } = params;
@@ -26,7 +26,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   const operationOptions =
     jobOperations.data?.map((operation) => ({
       label: operation.description ?? "",
-      value: operation.id,
+      value: operation.id
     })) ?? [];
 
   return json({ operationOptions });
@@ -35,7 +35,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    create: "production",
+    create: "production"
   });
 
   const { jobId } = params;
@@ -59,7 +59,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   const insert = await upsertProductionEvent(client, {
     ...data,
     companyId,
-    createdBy: userId,
+    createdBy: userId
   });
   if (insert.error) {
     return json(
@@ -87,7 +87,7 @@ export default function NewProductionEventRoute() {
     startTime: new Date(new Date().setHours(8, 0, 0, 0)).toISOString(),
     employeeId: "",
     workCenterId: "",
-    notes: "",
+    notes: ""
   };
 
   return (

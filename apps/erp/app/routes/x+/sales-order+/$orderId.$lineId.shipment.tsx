@@ -16,7 +16,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   }
 
   const { companyId, userId } = await requirePermissions(request, {
-    create: "inventory",
+    create: "inventory"
   });
 
   const serviceRole = getCarbonServiceRole();
@@ -50,9 +50,9 @@ export async function action({ request, params }: ActionFunctionArgs) {
       locationId: salesOrderLine.data.locationId,
       salesOrderLineId: lineId,
       companyId,
-      userId,
+      userId
     },
-    region: FunctionRegion.UsEast1,
+    region: FunctionRegion.UsEast1
   });
 
   if (!salesOrderShipment.data || salesOrderShipment.error) {

@@ -16,7 +16,7 @@ type InventoryItemHeaderProps = {
 
 const InventoryItemHeader = ({
   itemReadableId,
-  itemType,
+  itemType
 }: InventoryItemHeaderProps) => {
   const links = useInventoryNavigation();
   const { itemId } = useParams();

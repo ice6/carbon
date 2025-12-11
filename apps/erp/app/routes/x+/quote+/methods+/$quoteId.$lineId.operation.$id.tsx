@@ -9,7 +9,7 @@ import { setCustomFields } from "~/utils/form";
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    create: "sales",
+    create: "sales"
   });
 
   const { quoteId, lineId, id } = params;
@@ -39,12 +39,12 @@ export async function action({ request, params }: ActionFunctionArgs) {
     id: id,
     companyId,
     updatedBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
   if (updateQuoteOperation.error) {
     return json(
       {
-        id: null,
+        id: null
       },
       await flash(
         request,
@@ -57,7 +57,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   if (!quoteOperationId) {
     return json(
       {
-        id: null,
+        id: null
       },
       await flash(
         request,
@@ -69,6 +69,6 @@ export async function action({ request, params }: ActionFunctionArgs) {
   return json({
     id: quoteOperationId,
     success: true,
-    message: "Operation updated",
+    message: "Operation updated"
   });
 }

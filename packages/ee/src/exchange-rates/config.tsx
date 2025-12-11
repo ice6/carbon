@@ -1,6 +1,6 @@
 import { cn } from "@carbon/react";
 import type { SVGProps } from "react";
-import { z } from 'zod/v3';
+import { z } from "zod/v3";
 import type { IntegrationConfig } from "../types";
 
 export const ExchangeRates: IntegrationConfig = {
@@ -15,7 +15,7 @@ export const ExchangeRates: IntegrationConfig = {
     "Automatically update the currency exchange rates for your company.",
   images: [],
   settings: [],
-  schema: z.object({}),
+  schema: z.object({})
 };
 
 function Logo(props: SVGProps<SVGSVGElement>) {

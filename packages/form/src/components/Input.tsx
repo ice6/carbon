@@ -7,7 +7,7 @@ import {
   Input as InputBase,
   InputGroup,
   InputLeftAddon,
-  InputRightAddon,
+  InputRightAddon
 } from "@carbon/react";
 import type { ReactNode } from "react";
 import { forwardRef } from "react";
@@ -68,7 +68,7 @@ const Input = forwardRef<HTMLInputElement, FormInputProps>(
               ref={ref}
               {...getInputProps({
                 id: name,
-                ...rest,
+                ...rest
               })}
             />
             {suffix && <InputRightAddon children={suffix} />}
@@ -78,7 +78,7 @@ const Input = forwardRef<HTMLInputElement, FormInputProps>(
             ref={ref}
             {...getInputProps({
               id: name,
-              ...rest,
+              ...rest
             })}
           />
         )}

@@ -10,7 +10,7 @@ import { makeDurations } from "~/utils/duration";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    view: "parts",
+    view: "parts"
   });
 
   const { id } = params;
@@ -30,7 +30,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   ) satisfies FlatTreeItem<JobMethod>[];
 
   const makeMethodIds = [
-    ...new Set(methods.map((method) => method.data.jobMakeMethodId)),
+    ...new Set(methods.map((method) => method.data.jobMakeMethodId))
   ];
 
   let operationsByMakeMethodId: Record<
@@ -56,7 +56,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
         (acc, operation) => {
           acc[operation.jobMakeMethodId ?? ""] = [
             ...(acc[operation.jobMakeMethodId ?? ""] || []),
-            operation,
+            operation
           ];
           return acc;
         },
@@ -82,7 +82,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
       methodType: node.data.methodType,
       itemType: node.data.itemType,
       level: node.level,
-      version: node.data.version || null,
+      version: node.data.version || null
     };
 
     if (!withOperations) {
@@ -101,11 +101,11 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
         const op1 = makeDurations({ ...operation, operationQuantity: total });
         const op100 = makeDurations({
           ...operation,
-          operationQuantity: total * 100,
+          operationQuantity: total * 100
         });
         const op1000 = makeDurations({
           ...operation,
-          operationQuantity: total * 1000,
+          operationQuantity: total * 1000
         });
 
         return {
@@ -121,9 +121,9 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
           machineUnit: operation.machineUnit,
           totalDurationX1: op1.duration,
           totalDurationX100: op100.duration,
-          totalDurationX1000: op1000.duration,
+          totalDurationX1000: op1000.duration
         };
-      }),
+      })
     };
   });
 

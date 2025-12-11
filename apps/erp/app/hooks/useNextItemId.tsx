@@ -21,7 +21,7 @@ export function useNextItemId(
           const nextIdRpc = await carbon?.rpc("get_next_prefixed_sequence", {
             company_id: company.id,
             item_type: table,
-            prefix,
+            prefix
           });
 
           if (nextIdRpc.data) {
@@ -47,7 +47,7 @@ export function useNextItemId(
         try {
           const nextIdRpc = await carbon?.rpc("get_next_numeric_sequence", {
             company_id: company.id,
-            item_type: table,
+            item_type: table
           });
 
           if (nextIdRpc.data) {

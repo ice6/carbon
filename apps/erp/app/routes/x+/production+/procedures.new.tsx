@@ -14,7 +14,7 @@ import { getCompanyId, proceduresQuery } from "~/utils/react-query";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   await requirePermissions(request, {
-    create: "production",
+    create: "production"
   });
 
   return null;
@@ -23,7 +23,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    create: "production",
+    create: "production"
   });
   const formData = await request.formData();
   const validation = await validator(procedureValidator).validate(formData);
@@ -54,7 +54,7 @@ export async function action({ request }: ActionFunctionArgs) {
     ...data,
     content: contentJSON,
     companyId,
-    createdBy: userId,
+    createdBy: userId
   });
 
   if (insertProcedure.error || !insertProcedure.data?.id) {
@@ -86,7 +86,7 @@ export default function NewProcedureRoute() {
   const initialValues = {
     name: "",
     version: 0,
-    processId: "",
+    processId: ""
   };
 
   return (

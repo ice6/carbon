@@ -66,7 +66,7 @@ export function FlashOverlay() {
         isVisible ? "opacity-100" : "opacity-0"
       }`}
       style={{
-        background: `radial-gradient(circle, transparent 20%, rgba(${gradientColor}, 0.6) 100%)`,
+        background: `radial-gradient(circle, transparent 20%, rgba(${gradientColor}, 0.6) 100%)`
       }}
     />
   );

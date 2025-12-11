@@ -3,14 +3,14 @@ import { requirePermissions } from "@carbon/auth/auth.server";
 import { json, type ActionFunctionArgs } from "@vercel/remix";
 import {
   quoteLineAdditionalChargesValidator,
-  upsertQuoteLineAdditionalCharges,
+  upsertQuoteLineAdditionalCharges
 } from "~/modules/sales";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
 
   const { client, userId } = await requirePermissions(request, {
-    update: "sales",
+    update: "sales"
   });
 
   const { lineId } = params;
@@ -25,7 +25,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     return json(
       {
         data: null,
-        errors: { additionalCharges: "Additional charges are required" },
+        errors: { additionalCharges: "Additional charges are required" }
       },
       { status: 400 }
     );
@@ -43,7 +43,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
   const { error } = await upsertQuoteLineAdditionalCharges(client, lineId, {
     additionalCharges: parsedCharges.data,
-    updatedBy: userId,
+    updatedBy: userId
   });
 
   if (error) {

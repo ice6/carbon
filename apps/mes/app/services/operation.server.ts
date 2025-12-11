@@ -6,8 +6,8 @@ const sessionStorage = createCookieSessionStorage({
   cookie: {
     name: MES_FILTERS_KEY,
     path: "/",
-    secure: false,
-  },
+    secure: false
+  }
 });
 
 export async function getFilters(

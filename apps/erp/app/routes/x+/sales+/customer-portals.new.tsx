@@ -13,7 +13,7 @@ import { getParams, path, requestReferrer } from "~/utils/path";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   await requirePermissions(request, {
-    create: "sales",
+    create: "sales"
   });
 
   return null;
@@ -22,7 +22,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId } = await requirePermissions(request, {
-    create: "sales",
+    create: "sales"
   });
 
   const formData = await request.formData();
@@ -42,7 +42,7 @@ export async function action({ request }: ActionFunctionArgs) {
     documentType: "Customer",
     documentId: customerId,
     customerId,
-    companyId,
+    companyId
   });
 
   if (insertCustomerPortal.error) {
@@ -72,7 +72,7 @@ export async function action({ request }: ActionFunctionArgs) {
 export default function NewCustomerPortalRoute() {
   const navigate = useNavigate();
   const initialValues = {
-    customerId: "",
+    customerId: ""
   };
 
   return (

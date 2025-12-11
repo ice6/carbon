@@ -5,7 +5,7 @@ import {
   Heading,
   Loading,
   VStack,
-  useHydrated,
+  useHydrated
 } from "@carbon/react";
 import { useUrlParams } from "@carbon/remix";
 import { Link, useLoaderData, useNavigation } from "@remix-run/react";
@@ -21,11 +21,11 @@ import type {
   GraphData,
   GraphLink,
   GraphNode,
-  TrackedEntity,
+  TrackedEntity
 } from "~/modules/inventory";
 import {
   TraceabilityGraph,
-  TraceabilitySidebar,
+  TraceabilitySidebar
 } from "~/modules/inventory/ui/Traceability/TraceabilityGraph";
 import type { Handle } from "~/utils/handle";
 import { path } from "~/utils/path";
@@ -33,13 +33,13 @@ import { path } from "~/utils/path";
 export const handle: Handle = {
   breadcrumb: "Traceability",
   to: path.to.traceability,
-  module: "inventory",
+  module: "inventory"
 };
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
     view: "inventory",
-    bypassRls: true,
+    bypassRls: true
   });
 
   const url = new URL(request.url);
@@ -59,11 +59,11 @@ export async function loader({ request }: LoaderFunctionArgs) {
         .eq("id", trackedEntityId)
         .single(),
       client.rpc("get_direct_descendants_of_tracked_entity_strict", {
-        p_tracked_entity_id: trackedEntityId,
+        p_tracked_entity_id: trackedEntityId
       }),
       client.rpc("get_direct_ancestors_of_tracked_entity_strict", {
-        p_tracked_entity_id: trackedEntityId,
-      }),
+        p_tracked_entity_id: trackedEntityId
+      })
     ]);
 
     const [inputs, outputs] = await Promise.all([
@@ -75,7 +75,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
           Array.from(
             new Set([
               ...(descendants?.data?.map((descendant) => descendant.id) || []),
-              trackedEntityId,
+              trackedEntityId
             ])
           )
         ),
@@ -87,16 +87,16 @@ export async function loader({ request }: LoaderFunctionArgs) {
           Array.from(
             new Set([
               trackedEntityId,
-              ...(ancestors?.data?.map((ancestor) => ancestor.id) || []),
+              ...(ancestors?.data?.map((ancestor) => ancestor.id) || [])
             ])
           )
-        ),
+        )
     ]);
 
     const uniqueActivityIds = Array.from(
       new Set([
         ...(inputs?.data?.map((input) => input.trackedActivityId) || []),
-        ...(outputs?.data?.map((output) => output.trackedActivityId) || []),
+        ...(outputs?.data?.map((output) => output.trackedActivityId) || [])
       ])
     );
 
@@ -109,7 +109,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
       entities: [
         ...(entity?.data ? [entity.data] : []),
         ...(descendants?.data ?? []),
-        ...(ancestors?.data ?? []),
+        ...(ancestors?.data ?? [])
       ].reduce((acc, curr) => {
         if (!acc.some((item) => item.id === curr.id)) {
           acc.push(curr as TrackedEntity);
@@ -118,7 +118,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
       }, [] as TrackedEntity[]),
       inputs: inputs?.data ?? [],
       outputs: outputs?.data ?? [],
-      activities: activities?.data ?? [],
+      activities: activities?.data ?? []
     });
   }
 
@@ -133,14 +133,14 @@ export async function loader({ request }: LoaderFunctionArgs) {
       client
         .from("trackedActivityOutput")
         .select("*")
-        .eq("trackedActivityId", trackedActivityId),
+        .eq("trackedActivityId", trackedActivityId)
     ]);
 
     // Get the direct entities connected to this activity
     const directEntityIds = Array.from(
       new Set([
         ...(directInputs?.data?.map((input) => input.trackedEntityId) || []),
-        ...(directOutputs?.data?.map((output) => output.trackedEntityId) || []),
+        ...(directOutputs?.data?.map((output) => output.trackedEntityId) || [])
       ])
     );
 
@@ -161,7 +161,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
         .from("trackedActivityOutput")
         .select("*")
         .in("trackedEntityId", directEntityIds)
-        .neq("trackedActivityId", trackedActivityId),
+        .neq("trackedActivityId", trackedActivityId)
     ]);
 
     // Get additional activity IDs
@@ -171,7 +171,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
           []),
         ...(additionalOutputs?.data?.map(
           (output) => output.trackedActivityId
-        ) || []),
+        ) || [])
       ])
     );
 
@@ -184,25 +184,25 @@ export async function loader({ request }: LoaderFunctionArgs) {
     // Combine all inputs and outputs
     const allInputs = [
       ...(directInputs?.data || []),
-      ...(additionalInputs?.data || []),
+      ...(additionalInputs?.data || [])
     ];
 
     const allOutputs = [
       ...(directOutputs?.data || []),
-      ...(additionalOutputs?.data || []),
+      ...(additionalOutputs?.data || [])
     ];
 
     // Combine all activities
     const allActivities = [
       ...(activity?.data || []),
-      ...(additionalActivities?.data || []),
+      ...(additionalActivities?.data || [])
     ];
 
     return json({
       entities: directEntities?.data ?? [],
       inputs: allInputs,
       outputs: allOutputs,
-      activities: allActivities,
+      activities: allActivities
     });
   }
 
@@ -217,7 +217,7 @@ export default function TraceabilityRoute() {
     useLoaderData<typeof loader>();
   const [graphData, setGraphData] = useState<GraphData>({
     nodes: [],
-    links: [],
+    links: []
   });
 
   const isEmpty = useMemo(() => {
@@ -245,12 +245,12 @@ export default function TraceabilityRoute() {
     if (node.type === "entity") {
       setParams({
         trackedEntityId: node.data.id,
-        trackedActivityId: null,
+        trackedActivityId: null
       });
     } else {
       setParams({
         trackedEntityId: null,
-        trackedActivityId: node.data.id,
+        trackedActivityId: node.data.id
       });
     }
   };
@@ -339,7 +339,7 @@ export const filterGraphByNode = (
   nodes.push({
     ...selectedNode,
     depth: 0,
-    parentId: null,
+    parentId: null
   });
   nodeIds.add(selectedNode.id);
 
@@ -361,7 +361,7 @@ export const filterGraphByNode = (
             type: "activity" as const,
             data: activity,
             depth: -1, // Parent activities are at depth -1
-            parentId: selectedNode.id,
+            parentId: selectedNode.id
           } as GraphNode;
         }
         return null;
@@ -382,7 +382,7 @@ export const filterGraphByNode = (
               (o) =>
                 o.trackedActivityId === activity.id &&
                 o.trackedEntityId === selectedNode.id
-            )?.quantity || 1,
+            )?.quantity || 1
         });
       }
     });
@@ -401,7 +401,7 @@ export const filterGraphByNode = (
             type: "activity" as const,
             data: activity,
             depth: 1, // Child activities are at depth 1
-            parentId: selectedNode.id,
+            parentId: selectedNode.id
           } as GraphNode;
         }
         return null;
@@ -422,7 +422,7 @@ export const filterGraphByNode = (
               (i) =>
                 i.trackedActivityId === activity.id &&
                 i.trackedEntityId === selectedNode.id
-            )?.quantity || 1,
+            )?.quantity || 1
         });
       }
     });
@@ -441,7 +441,7 @@ export const filterGraphByNode = (
             type: "entity" as const,
             data: entity,
             depth: -1, // Input entities are at depth -1
-            parentId: selectedNode.id,
+            parentId: selectedNode.id
           } as GraphNode;
         }
         return null;
@@ -462,7 +462,7 @@ export const filterGraphByNode = (
               (i) =>
                 i.trackedActivityId === selectedNode.id &&
                 i.trackedEntityId === entity.id
-            )?.quantity || 1,
+            )?.quantity || 1
         });
       }
     });
@@ -479,7 +479,7 @@ export const filterGraphByNode = (
             type: "entity" as const,
             data: entity,
             depth: 1, // Output entities are at depth 1
-            parentId: selectedNode.id,
+            parentId: selectedNode.id
           } as GraphNode;
         }
         return null;
@@ -500,7 +500,7 @@ export const filterGraphByNode = (
               (o) =>
                 o.trackedActivityId === selectedNode.id &&
                 o.trackedEntityId === entity.id
-            )?.quantity || 1,
+            )?.quantity || 1
         });
       }
     });
@@ -519,7 +519,7 @@ export const getAllNodes = (
     type: "entity",
     data: entity,
     depth: 0,
-    parentId: null,
+    parentId: null
   }));
 
   const activityNodes: GraphNode[] = activities.map((activity) => ({
@@ -527,7 +527,7 @@ export const getAllNodes = (
     type: "activity",
     data: activity,
     depth: 0,
-    parentId: null,
+    parentId: null
   }));
 
   return [...entityNodes, ...activityNodes];
@@ -542,14 +542,14 @@ export const getAllLinks = (
     source: input.trackedEntityId,
     target: input.trackedActivityId,
     type: "input",
-    quantity: input.quantity,
+    quantity: input.quantity
   }));
 
   const outputLinks: GraphLink[] = outputs.map((output) => ({
     source: output.trackedActivityId,
     target: output.trackedEntityId,
     type: "output",
-    quantity: output.quantity,
+    quantity: output.quantity
   }));
 
   return [...inputLinks, ...outputLinks];

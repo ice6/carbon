@@ -5,7 +5,7 @@ import {
   TooltipContent,
   TooltipTrigger,
   cn,
-  useKeyboardShortcuts,
+  useKeyboardShortcuts
 } from "@carbon/react";
 import { prettifyKeyboardShortcut } from "@carbon/utils";
 import { Link, useNavigate } from "@remix-run/react";
@@ -28,7 +28,7 @@ type DetailTopbarProps = {
 const DetailTopbar = ({
   links,
 
-  preserveParams = false,
+  preserveParams = false
 }: DetailTopbarProps) => {
   const navigate = useNavigate();
   const location = useOptimisticLocation();

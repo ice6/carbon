@@ -7,13 +7,13 @@ import { json, redirect } from "@vercel/remix";
 import { ConfirmDelete } from "~/components/Modals";
 import {
   deletePurchaseInvoiceLine,
-  getPurchaseInvoiceLine,
+  getPurchaseInvoiceLine
 } from "~/modules/invoicing";
 import { path } from "~/utils/path";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
-    delete: "invoicing",
+    delete: "invoicing"
   });
   const { lineId, invoiceId } = params;
   if (!lineId) throw notFound("lineId not found");
@@ -35,7 +35,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
 export async function action({ request, params }: ActionFunctionArgs) {
   const { client } = await requirePermissions(request, {
-    delete: "invoicing",
+    delete: "invoicing"
   });
 
   const { lineId, invoiceId } = params;

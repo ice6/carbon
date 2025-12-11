@@ -21,7 +21,7 @@ export async function action({ request }: ActionFunctionArgs) {
     const updates = JSON.parse(updatesRaw).map(
       (update: { id: string; sortOrder: number }) => ({
         ...update,
-        updatedBy: userId,
+        updatedBy: userId
       })
     );
 

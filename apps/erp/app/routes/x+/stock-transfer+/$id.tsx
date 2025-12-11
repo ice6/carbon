@@ -16,12 +16,12 @@ import { path } from "~/utils/path";
 
 export const handle: Handle = {
   breadcrumb: "Stock Transfers",
-  to: path.to.stockTransfers,
+  to: path.to.stockTransfers
 };
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    view: "inventory",
+    view: "inventory"
   });
 
   const { id } = params;
@@ -29,7 +29,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
   const [stockTransfer, stockTransferLines] = await Promise.all([
     getStockTransfer(client, id),
-    getStockTransferLines(client, id),
+    getStockTransferLines(client, id)
   ]);
 
   if (stockTransfer.error) {
@@ -48,7 +48,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
   return json({
     stockTransfer: stockTransfer.data,
-    stockTransferLines: stockTransferLines.data ?? [],
+    stockTransferLines: stockTransferLines.data ?? []
   });
 }
 

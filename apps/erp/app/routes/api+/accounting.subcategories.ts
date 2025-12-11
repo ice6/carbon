@@ -7,7 +7,7 @@ import { getAccountSubcategoriesByCategory } from "~/modules/accounting";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    view: "accounting",
+    view: "accounting"
   });
 
   const url = new URL(request.url);
@@ -16,7 +16,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
   if (!accountCategoryId || accountCategoryId === "undefined")
     return json({
-      data: [],
+      data: []
     });
 
   const subcategories = await getAccountSubcategoriesByCategory(

@@ -7,7 +7,7 @@ import {
   LuShapes,
   LuShieldX,
   LuSquareCheck,
-  LuWorkflow,
+  LuWorkflow
 } from "react-icons/lu";
 import { usePermissions } from "~/hooks";
 import { useSavedViews } from "~/hooks/useSavedViews";
@@ -22,22 +22,22 @@ const qualityRoutes: AuthenticatedRouteGroup[] = [
         name: "Actions",
         to: path.to.qualityActions,
         icon: <LuListChecks />,
-        table: "nonConformanceActionTask",
+        table: "nonConformanceActionTask"
       },
 
       {
         name: "Issues",
         to: path.to.issues,
         icon: <LuShieldX />,
-        table: "nonConformance",
-      },
+        table: "nonConformance"
+      }
       // {
       //   name: "Inspections",
       //   to: "#",
       //   icon: <LuSearchCheck />,
       //   table: "inspection",
       // },
-    ],
+    ]
   },
   {
     name: "Calibrations",
@@ -45,14 +45,14 @@ const qualityRoutes: AuthenticatedRouteGroup[] = [
       {
         name: "Gauges",
         to: path.to.gauges,
-        icon: <LuDraftingCompass />,
+        icon: <LuDraftingCompass />
       },
       {
         name: "Records",
         to: path.to.calibrations,
-        icon: <LuCircleGauge />,
-      },
-    ],
+        icon: <LuCircleGauge />
+      }
+    ]
   },
   {
     name: "Documents",
@@ -61,9 +61,9 @@ const qualityRoutes: AuthenticatedRouteGroup[] = [
         name: "Documents",
         to: path.to.qualityDocuments,
         icon: <LuFileText />,
-        table: "qualityDocument",
-      },
-    ],
+        table: "qualityDocument"
+      }
+    ]
   },
   {
     name: "Configure",
@@ -71,26 +71,26 @@ const qualityRoutes: AuthenticatedRouteGroup[] = [
       {
         name: "Action Types",
         to: path.to.requiredActions,
-        icon: <LuSquareCheck />,
+        icon: <LuSquareCheck />
       },
 
       {
         name: "Gauge Types",
         to: path.to.gaugeTypes,
-        icon: <LuShapes />,
+        icon: <LuShapes />
       },
       {
         name: "Issue Types",
         to: path.to.issueTypes,
-        icon: <LuOctagonX />,
+        icon: <LuOctagonX />
       },
       {
         name: "Issue Workflows",
         to: path.to.issueWorkflows,
-        icon: <LuWorkflow />,
-      },
-    ],
-  },
+        icon: <LuWorkflow />
+      }
+    ]
+  }
 ];
 export default function useQualitySubmodules() {
   const permissions = usePermissions();
@@ -119,7 +119,7 @@ export default function useQualitySubmodules() {
               return true;
             }
           })
-          .map(addSavedViewsToRoutes),
-      })),
+          .map(addSavedViewsToRoutes)
+      }))
   };
 }

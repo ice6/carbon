@@ -9,12 +9,12 @@ import {
   DrawerTitle,
   HStack,
   VStack,
-  toast,
+  toast
 } from "@carbon/react";
 import { useFetcher } from "@remix-run/react";
 import type { PostgrestResponse } from "@supabase/supabase-js";
 import { useEffect } from "react";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import {
   CustomFormFields,
   Hidden,
@@ -22,7 +22,7 @@ import {
   PhoneInput,
   Submit,
   SupplierLocation,
-  TextArea,
+  TextArea
 } from "~/components/Form";
 import { usePermissions } from "~/hooks";
 import { supplierContactValidator } from "~/modules/purchasing";
@@ -41,7 +41,7 @@ const SupplierContactForm = ({
   initialValues,
   open = true,
   type = "drawer",
-  onClose,
+  onClose
 }: SupplierContactFormProps) => {
   const fetcher = useFetcher<PostgrestResponse<{ id: string }>>();
 

@@ -32,7 +32,7 @@ const Employee = ({ type, inline, ...props }: EmployeeSelectProps) => {
             <Avatar name={person.name} path={person.avatarUrl} size="xs" />
             <span>{person.name}</span>
           </div>
-        ),
+        )
       })) ?? [];
 
     if (type === "assignee") {

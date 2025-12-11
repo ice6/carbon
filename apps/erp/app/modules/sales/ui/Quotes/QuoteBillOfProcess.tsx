@@ -32,7 +32,7 @@ import {
   TooltipTrigger,
   useDebounce,
   useDisclosure,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { Editor } from "@carbon/react/Editor";
 import { formatRelativeTime } from "@carbon/utils";
@@ -57,7 +57,7 @@ import {
   LuMinimize2,
   LuSettings2,
   LuTriangleAlert,
-  LuX,
+  LuX
 } from "react-icons/lu";
 import type { z } from "zod/v3";
 import { DirectionAwareTabs, EmployeeAvatar, TimeTypeIcon } from "~/components";
@@ -74,7 +74,7 @@ import {
   SupplierProcess,
   Tool,
   UnitHint,
-  WorkCenter,
+  WorkCenter
 } from "~/components/Form";
 
 import { getUnitHint } from "~/components/Form/UnitHint";
@@ -85,7 +85,7 @@ import { usePermissions, useRouteData, useUser } from "~/hooks";
 import type {
   OperationParameter,
   OperationStep,
-  OperationTool,
+  OperationTool
 } from "~/modules/shared";
 import {
   methodOperationOrders,
@@ -93,7 +93,7 @@ import {
   operationStepValidator,
   operationToolValidator,
   operationTypes,
-  procedureStepType,
+  procedureStepType
 } from "~/modules/shared";
 
 import type { action as editQuoteOperationParameterAction } from "~/routes/x+/quote+/methods+/operation.parameter.$id";
@@ -105,7 +105,7 @@ import type { action as newQuoteOperationToolAction } from "~/routes/x+/quote+/m
 import Procedure from "~/components/Form/Procedure";
 import { SupplierProcessPreview } from "~/components/Form/SupplierProcess";
 import UnitOfMeasure, {
-  useUnitOfMeasure,
+  useUnitOfMeasure
 } from "~/components/Form/UnitOfMeasure";
 import { ProcedureStepTypeIcon } from "~/components/Icons";
 import { useItems, useTools } from "~/stores";
@@ -210,7 +210,7 @@ function makeItem(
         )}
       </HStack>
     ),
-    data: operation,
+    data: operation
   };
 }
 
@@ -236,7 +236,7 @@ const initialOperation: Omit<
   setupUnit: "Total Minutes",
   tags: [],
   workCenterId: "",
-  workInstruction: {},
+  workInstruction: {}
 };
 
 const usePendingOperations = () => {
@@ -273,7 +273,7 @@ const QuoteBillOfProcess = ({
   quoteMakeMethodId,
   materials,
   operations: initialOperations,
-  tags,
+  tags
 }: QuoteBillOfProcessProps) => {
   const { carbon } = useCarbon();
   const sortOrderFetcher = useFetcher<{}>();
@@ -281,7 +281,7 @@ const QuoteBillOfProcess = ({
   const permissions = usePermissions();
   const {
     id: userId,
-    company: { id: companyId },
+    company: { id: companyId }
   } = useUser();
 
   const [allItems] = useItems();
@@ -298,7 +298,7 @@ const QuoteBillOfProcess = ({
         .map((item) => ({
           id: item.id,
           label: item.name ?? item.readableIdWithRevision,
-          helper: item.name ? item.readableIdWithRevision : undefined,
+          helper: item.name ? item.readableIdWithRevision : undefined
         })),
     [allItems, materialItemIds]
   );
@@ -350,12 +350,12 @@ const QuoteBillOfProcess = ({
         ...pendingOperation,
         workInstruction: {},
         quoteOperationTool: [],
-        tags: [],
+        tags: []
       });
     } else {
       operationsById.set(pendingOperation.id, {
         ...operationsById.get(pendingOperation.id)!,
-        ...pendingOperation,
+        ...pendingOperation
       });
     }
   });
@@ -364,7 +364,7 @@ const QuoteBillOfProcess = ({
   Object.entries(temporaryItems).forEach(([id, operation]) => {
     operationsById.set(id, {
       ...operation,
-      quoteOperationTool: [],
+      quoteOperationTool: []
     });
   });
 
@@ -374,7 +374,7 @@ const QuoteBillOfProcess = ({
 
   const items = makeItems(operations, tags).map((item) => ({
     ...item,
-    checked: checkedState[item.id] ?? false,
+    checked: checkedState[item.id] ?? false
   }));
 
   const onUpdateWorkInstruction = useDebounce(
@@ -385,7 +385,7 @@ const QuoteBillOfProcess = ({
           .update({
             workInstruction: content,
             updatedAt: today(getLocalTimeZone()).toString(),
-            updatedBy: userId,
+            updatedBy: userId
           })
           .eq("id", selectedItemId!);
     },
@@ -415,7 +415,7 @@ const QuoteBillOfProcess = ({
     if (!permissions.can("update", "parts")) return;
     setCheckedState((prev) => ({
       ...prev,
-      [id]: !prev[id],
+      [id]: !prev[id]
     }));
   };
 
@@ -432,12 +432,12 @@ const QuoteBillOfProcess = ({
       ...initialOperation,
       id: operationId,
       order: newOrder,
-      quoteMakeMethodId,
+      quoteMakeMethodId
     };
 
     setTemporaryItems((prev) => ({
       ...prev,
-      [operationId]: newOperation,
+      [operationId]: newOperation
     }));
     setSelectedItemId(operationId);
   };
@@ -458,7 +458,7 @@ const QuoteBillOfProcess = ({
         { id },
         {
           method: "post",
-          action: path.to.quoteOperationsDelete,
+          action: path.to.quoteOperationsDelete
         }
       );
     }
@@ -476,8 +476,8 @@ const QuoteBillOfProcess = ({
       ...item,
       data: {
         ...item.data,
-        order: index + 1,
-      },
+        order: index + 1
+      }
     }));
     const updates = newItems.reduce<Record<string, number>>((acc, item) => {
       if (!temporaryItems[item.id]) {
@@ -488,7 +488,7 @@ const QuoteBillOfProcess = ({
 
     setOrderState((prev) => ({
       ...prev,
-      ...updates,
+      ...updates
     }));
     updateSortOrder(updates);
   };
@@ -499,7 +499,7 @@ const QuoteBillOfProcess = ({
       formData.append("updates", JSON.stringify(updates));
       sortOrderFetcher.submit(formData, {
         method: "post",
-        action: path.to.quoteOperationsOrder,
+        action: path.to.quoteOperationsOrder
       });
     },
     1000,
@@ -516,7 +516,7 @@ const QuoteBillOfProcess = ({
     items,
     order,
     onToggleItem,
-    onRemoveItem,
+    onRemoveItem
   }: SortableItemRenderProps<ItemWithData>) => {
     const isOpen = item.id === selectedItemId;
     const tools =
@@ -542,7 +542,7 @@ const QuoteBillOfProcess = ({
                 type: "spring",
                 bounce: 0.2,
                 duration: 0.75,
-                delay: 0.15,
+                delay: 0.15
               }}
             >
               <OperationForm
@@ -558,13 +558,13 @@ const QuoteBillOfProcess = ({
                   addOperationButtonRef.current?.scrollIntoView({
                     behavior: "smooth",
                     block: "nearest",
-                    inline: "center",
+                    inline: "center"
                   });
                 }}
               />
             </motion.div>
           </div>
-        ),
+        )
       },
       {
         id: 1,
@@ -602,7 +602,7 @@ const QuoteBillOfProcess = ({
                     if (!permissions.can("update", "sales")) return;
                     setWorkInstructions((prev) => ({
                       ...prev,
-                      [item.id]: content,
+                      [item.id]: content
                     }));
                     onUpdateWorkInstruction(content);
                   }}
@@ -615,13 +615,13 @@ const QuoteBillOfProcess = ({
                   dangerouslySetInnerHTML={{
                     __html: generateHTML(
                       item.data.workInstruction ?? ({} as JSONContent)
-                    ),
+                    )
                   }}
                 />
               )}
             </div>
           </div>
-        ),
+        )
       },
 
       {
@@ -661,7 +661,7 @@ const QuoteBillOfProcess = ({
               temporaryItems={temporaryItems}
             />
           </div>
-        ),
+        )
       },
       {
         id: 3,
@@ -701,7 +701,7 @@ const QuoteBillOfProcess = ({
               itemMentions={itemMentions}
             />
           </div>
-        ),
+        )
       },
       {
         id: 4,
@@ -724,8 +724,8 @@ const QuoteBillOfProcess = ({
               temporaryItems={temporaryItems}
             />
           </div>
-        ),
-      },
+        )
+      }
     ];
 
     return (
@@ -763,7 +763,7 @@ const QuoteBillOfProcess = ({
                   exit={{ opacity: 1, filter: "blur(0px)" }}
                   transition={{
                     type: "spring",
-                    duration: 1.95,
+                    duration: 1.95
                   }}
                 >
                   <LuX className="h-5 w-5 text-foreground" />
@@ -775,7 +775,7 @@ const QuoteBillOfProcess = ({
                   exit={{ opacity: 1, filter: "blur(0px)" }}
                   transition={{
                     type: "spring",
-                    duration: 0.95,
+                    duration: 0.95
                   }}
                 >
                   <LuSettings2 className="stroke-1 h-5 w-5 text-foreground/80  hover:stroke-primary/70 " />
@@ -792,16 +792,16 @@ const QuoteBillOfProcess = ({
                         initial={{
                           y: 0,
                           opacity: 0,
-                          filter: "blur(4px)",
+                          filter: "blur(4px)"
                         }}
                         animate={{
                           y: 0,
                           opacity: 1,
-                          filter: "blur(0px)",
+                          filter: "blur(0px)"
                         }}
                         transition={{
                           type: "spring",
-                          duration: 0.15,
+                          duration: 0.15
                         }}
                         layout
                         className="w-full "
@@ -867,7 +867,7 @@ function AttributesForm({
   isDisabled,
   steps,
   temporaryItems,
-  itemMentions,
+  itemMentions
 }: {
   operationId: string;
   isDisabled: boolean;
@@ -914,7 +914,7 @@ function AttributesForm({
       formData.append("updates", JSON.stringify(updates));
       sortOrderFetcher.submit(formData, {
         method: "post",
-        action: path.to.quoteOperationStepOrder(operationId),
+        action: path.to.quoteOperationStepOrder(operationId)
       });
     },
     1000,
@@ -925,7 +925,7 @@ function AttributesForm({
 
   const { carbon } = useCarbon();
   const {
-    company: { id: companyId },
+    company: { id: companyId }
   } = useUser();
 
   const onUploadImage = async (file: File) => {
@@ -955,7 +955,7 @@ function AttributesForm({
             {type}
           </HStack>
         ),
-        value: type,
+        value: type
       })),
     []
   );
@@ -996,7 +996,7 @@ function AttributesForm({
             listValues: [],
             sortOrder:
               steps.reduce((acc, a) => Math.max(acc, a.sortOrder ?? 0), 0) + 1,
-            operationId,
+            operationId
           }}
           onSubmit={() => {
             setType("Value");
@@ -1065,7 +1065,7 @@ function AttributesForm({
                     label="Minimum"
                     formatOptions={{
                       minimumFractionDigits: 0,
-                      maximumFractionDigits: 10,
+                      maximumFractionDigits: 10
                     }}
                   />
                 )}
@@ -1075,7 +1075,7 @@ function AttributesForm({
                     label="Maximum"
                     formatOptions={{
                       minimumFractionDigits: 0,
-                      maximumFractionDigits: 10,
+                      maximumFractionDigits: 10
                     }}
                   />
                 )}
@@ -1140,7 +1140,7 @@ function AttributesListItem({
   typeOptions,
   isDisabled = false,
   itemMentions,
-  className,
+  className
 }: {
   attribute: OperationStep;
   operationId: string;
@@ -1158,7 +1158,7 @@ function AttributesListItem({
     updatedBy,
     updatedAt,
     createdBy,
-    createdAt,
+    createdAt
   } = attribute;
 
   const disclosure = useDisclosure();
@@ -1201,7 +1201,7 @@ function AttributesListItem({
 
   const { carbon } = useCarbon();
   const {
-    company: { id: companyId },
+    company: { id: companyId }
   } = useUser();
 
   const onUploadImage = async (file: File) => {
@@ -1240,7 +1240,7 @@ function AttributesListItem({
           }}
           defaultValues={{
             ...attribute,
-            operationId,
+            operationId
           }}
           className="w-full"
         >
@@ -1303,7 +1303,7 @@ function AttributesListItem({
                     label="Minimum"
                     formatOptions={{
                       minimumFractionDigits: 0,
-                      maximumFractionDigits: 10,
+                      maximumFractionDigits: 10
                     }}
                   />
                 )}
@@ -1313,7 +1313,7 @@ function AttributesListItem({
                     label="Maximum"
                     formatOptions={{
                       minimumFractionDigits: 0,
-                      maximumFractionDigits: 10,
+                      maximumFractionDigits: 10
                     }}
                   />
                 )}
@@ -1364,7 +1364,7 @@ function AttributesListItem({
                           <p
                             className="prose prose-sm dark:prose-invert text-foreground text-sm"
                             dangerouslySetInnerHTML={{
-                              __html: generateHTML(attribute.description),
+                              __html: generateHTML(attribute.description)
                             }}
                           />
                         </TooltipContent>
@@ -1382,18 +1382,18 @@ function AttributesListItem({
                           )?.label
                         }`
                       : attribute.minValue !== null
-                      ? `Must be > ${attribute.minValue} ${
-                          unitOfMeasures.find(
-                            (u) => u.value === unitOfMeasureCode
-                          )?.label
-                        }`
-                      : attribute.maxValue !== null
-                      ? `Must be < ${attribute.maxValue} ${
-                          unitOfMeasures.find(
-                            (u) => u.value === unitOfMeasureCode
-                          )?.label
-                        }`
-                      : null}
+                        ? `Must be > ${attribute.minValue} ${
+                            unitOfMeasures.find(
+                              (u) => u.value === unitOfMeasureCode
+                            )?.label
+                          }`
+                        : attribute.maxValue !== null
+                          ? `Must be < ${attribute.maxValue} ${
+                              unitOfMeasures.find(
+                                (u) => u.value === unitOfMeasureCode
+                              )?.label
+                            }`
+                          : null}
                   </span>
                 )}
               </VStack>
@@ -1467,7 +1467,7 @@ function ParametersForm({
   operationId,
   isDisabled,
   parameters,
-  temporaryItems,
+  temporaryItems
 }: {
   operationId: string;
   isDisabled: boolean;
@@ -1501,7 +1501,7 @@ function ParametersForm({
             id: undefined,
             key: "",
             value: "",
-            operationId,
+            operationId
           }}
           className="w-full"
         >
@@ -1549,7 +1549,7 @@ function ParametersForm({
 function ParametersListItem({
   parameter: { key, value, id, updatedBy, updatedAt, createdBy, createdAt },
   operationId,
-  className,
+  className
 }: {
   parameter: OperationParameter;
   operationId: string;
@@ -1590,7 +1590,7 @@ function ParametersListItem({
             id: id,
             key: key ?? "",
             value: value ?? "",
-            operationId,
+            operationId
           }}
           className="w-full"
         >
@@ -1684,7 +1684,7 @@ function OperationForm({
   setTemporaryItems,
   setSelectedItemId,
   temporaryItems,
-  onSubmit,
+  onSubmit
 }: {
   item: ItemWithData;
   isDisabled: boolean;
@@ -1769,7 +1769,7 @@ function OperationForm({
     procedureId: item.data.procedureId ?? "",
     setupTime: item.data.setupTime ?? 0,
     setupUnit: item.data.setupUnit ?? "Total Minutes",
-    setupUnitHint: getUnitHint(item.data.setupUnit),
+    setupUnitHint: getUnitHint(item.data.setupUnit)
   });
 
   const onProcessChange = async (processId: string) => {
@@ -1781,7 +1781,7 @@ function OperationForm({
         .select("workCenter(*)")
         .eq("processId", processId)
         .eq("workCenter.active", true),
-      carbon.from("supplierProcess").select("*").eq("processId", processId),
+      carbon.from("supplierProcess").select("*").eq("processId", processId)
     ]);
 
     const activeWorkCenters =
@@ -1832,7 +1832,7 @@ function OperationForm({
             }, 0) / supplierProcesses.data.length
           : p.operationLeadTime,
       operationType:
-        process.data?.processType === "Outside" ? "Outside" : "Inside",
+        process.data?.processType === "Outside" ? "Outside" : "Inside"
     }));
   };
 
@@ -1860,7 +1860,7 @@ function OperationForm({
       machineRate: data?.machineRate ?? 0,
       machineUnit: data?.defaultStandardFactor ?? "Hours/Piece",
       machineUnitHint: getUnitHint(data?.defaultStandardFactor),
-      overheadRate: data?.overheadRate ?? 0,
+      overheadRate: data?.overheadRate ?? 0
     }));
   };
 
@@ -1878,7 +1878,7 @@ function OperationForm({
       ...d,
       operationMinimumCost: data?.minimumCost ?? 0,
       operationUnitCost: 0, // TODO: get the unit cost from the purchase order history
-      operationLeadTime: data?.leadTime ?? 0,
+      operationLeadTime: data?.leadTime ?? 0
     }));
   };
 
@@ -1914,7 +1914,7 @@ function OperationForm({
           placeholder="Operation Order"
           options={methodOperationOrders.map((o) => ({
             value: o,
-            label: o,
+            label: o
           }))}
         />
         <SelectControlled
@@ -1923,7 +1923,7 @@ function OperationForm({
           placeholder="Operation Type"
           options={operationTypes.map((o) => ({
             value: o,
-            label: o,
+            label: o
           }))}
           value={processData.operationType}
           onChange={(value) => {
@@ -1932,7 +1932,7 @@ function OperationForm({
               setupUnit: "Total Minutes",
               laborUnit: "Minutes/Piece",
               machineUnit: "Minutes/Piece",
-              operationType: value?.value as string,
+              operationType: value?.value as string
             }));
           }}
         />
@@ -1967,12 +1967,12 @@ function OperationForm({
               value={processData.operationMinimumCost}
               formatOptions={{
                 style: "currency",
-                currency: baseCurrency,
+                currency: baseCurrency
               }}
               onChange={(newValue) =>
                 setProcessData((d) => ({
                   ...d,
-                  operationMinimumCost: newValue,
+                  operationMinimumCost: newValue
                 }))
               }
             />
@@ -1983,12 +1983,12 @@ function OperationForm({
               value={processData.operationUnitCost}
               formatOptions={{
                 style: "currency",
-                currency: baseCurrency,
+                currency: baseCurrency
               }}
               onChange={(newValue) =>
                 setProcessData((d) => ({
                   ...d,
-                  operationUnitCost: newValue,
+                  operationUnitCost: newValue
                 }))
               }
             />
@@ -2000,7 +2000,7 @@ function OperationForm({
               onChange={(newValue) =>
                 setProcessData((d) => ({
                   ...d,
-                  operationLeadTime: newValue,
+                  operationLeadTime: newValue
                 }))
               }
             />
@@ -2069,7 +2069,7 @@ function OperationForm({
                     ...d,
                     setupUnitHint: hint,
                     setupUnit:
-                      hint === "Fixed" ? "Total Minutes" : "Minutes/Piece",
+                      hint === "Fixed" ? "Total Minutes" : "Minutes/Piece"
                   }));
                 }}
               />
@@ -2081,7 +2081,7 @@ function OperationForm({
                 onChange={(newValue) =>
                   setProcessData((d) => ({
                     ...d,
-                    setupTime: newValue,
+                    setupTime: newValue
                   }))
                 }
               />
@@ -2093,7 +2093,7 @@ function OperationForm({
                 onChange={(newValue) => {
                   setProcessData((d) => ({
                     ...d,
-                    setupUnit: newValue?.value ?? "Total Minutes",
+                    setupUnit: newValue?.value ?? "Total Minutes"
                   }));
                 }}
               />
@@ -2146,7 +2146,7 @@ function OperationForm({
                     ...d,
                     laborUnitHint: hint,
                     laborUnit:
-                      hint === "Fixed" ? "Total Minutes" : "Minutes/Piece",
+                      hint === "Fixed" ? "Total Minutes" : "Minutes/Piece"
                   }));
                 }}
               />
@@ -2158,7 +2158,7 @@ function OperationForm({
                 onChange={(newValue) =>
                   setProcessData((d) => ({
                     ...d,
-                    laborTime: newValue,
+                    laborTime: newValue
                   }))
                 }
               />
@@ -2170,7 +2170,7 @@ function OperationForm({
                 onChange={(newValue) => {
                   setProcessData((d) => ({
                     ...d,
-                    laborUnit: newValue?.value ?? "Total Minutes",
+                    laborUnit: newValue?.value ?? "Total Minutes"
                   }));
                 }}
               />
@@ -2226,7 +2226,7 @@ function OperationForm({
                     ...d,
                     machineUnitHint: hint,
                     machineUnit:
-                      hint === "Fixed" ? "Total Minutes" : "Minutes/Piece",
+                      hint === "Fixed" ? "Total Minutes" : "Minutes/Piece"
                   }));
                 }}
               />
@@ -2238,7 +2238,7 @@ function OperationForm({
                 onChange={(newValue) =>
                   setProcessData((d) => ({
                     ...d,
-                    machineTime: newValue,
+                    machineTime: newValue
                   }))
                 }
               />
@@ -2250,7 +2250,7 @@ function OperationForm({
                 onChange={(newValue) => {
                   setProcessData((d) => ({
                     ...d,
-                    machineUnit: newValue?.value ?? "Total Minutes",
+                    machineUnit: newValue?.value ?? "Total Minutes"
                   }));
                 }}
               />
@@ -2296,12 +2296,12 @@ function OperationForm({
                 value={processData.laborRate}
                 formatOptions={{
                   style: "currency",
-                  currency: baseCurrency,
+                  currency: baseCurrency
                 }}
                 onChange={(newValue) =>
                   setProcessData((d) => ({
                     ...d,
-                    laborRate: newValue,
+                    laborRate: newValue
                   }))
                 }
               />
@@ -2312,12 +2312,12 @@ function OperationForm({
                 value={processData.machineRate}
                 formatOptions={{
                   style: "currency",
-                  currency: baseCurrency,
+                  currency: baseCurrency
                 }}
                 onChange={(newValue) =>
                   setProcessData((d) => ({
                     ...d,
-                    machineRate: newValue,
+                    machineRate: newValue
                   }))
                 }
               />
@@ -2328,12 +2328,12 @@ function OperationForm({
                 value={processData.overheadRate}
                 formatOptions={{
                   style: "currency",
-                  currency: baseCurrency,
+                  currency: baseCurrency
                 }}
                 onChange={(newValue) =>
                   setProcessData((d) => ({
                     ...d,
-                    overheadRate: newValue,
+                    overheadRate: newValue
                   }))
                 }
               />
@@ -2388,7 +2388,7 @@ function OperationForm({
                 onChange={(value) => {
                   setProcessData((d) => ({
                     ...d,
-                    procedureId: value?.value as string,
+                    procedureId: value?.value as string
                   }));
                 }}
               />
@@ -2403,7 +2403,7 @@ function OperationForm({
         transition={{
           type: "spring",
           bounce: 0,
-          duration: 0.55,
+          duration: 0.55
         }}
       >
         <motion.div layout className="ml-auto mr-1 pt-2">
@@ -2422,7 +2422,7 @@ function OperationForm({
 function ToolsListItem({
   tool: { toolId, quantity, id, updatedBy, updatedAt, createdBy, createdAt },
   operationId,
-  className,
+  className
 }: {
   tool: OperationTool;
   operationId: string;
@@ -2465,7 +2465,7 @@ function ToolsListItem({
             id: id,
             toolId: toolId ?? "",
             quantity: quantity ?? 1,
-            operationId,
+            operationId
           }}
           className="w-full"
         >
@@ -2560,7 +2560,7 @@ function ToolsForm({
   operationId,
   isDisabled,
   tools,
-  temporaryItems,
+  temporaryItems
 }: {
   operationId: string;
   isDisabled: boolean;
@@ -2594,7 +2594,7 @@ function ToolsForm({
             id: undefined,
             toolId: "",
             quantity: 1,
-            operationId,
+            operationId
           }}
           className="w-full"
         >

@@ -11,14 +11,14 @@ export async function loader({ request }: LoaderFunctionArgs) {
   if (!itemId) {
     return json({
       data: [],
-      error: null,
+      error: null
     });
   }
 
   return json(
     await getSerialNumbersForItem(client, {
       itemId,
-      companyId,
+      companyId
     })
   );
 }

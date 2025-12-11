@@ -8,7 +8,7 @@ import {
   deleteStockTransfer,
   stockTransferValidator,
   upsertStockTransfer,
-  upsertStockTransferLines,
+  upsertStockTransferLines
 } from "~/modules/inventory";
 import { getNextSequence } from "~/modules/settings";
 import { setCustomFields } from "~/utils/form";
@@ -17,12 +17,12 @@ import { path } from "~/utils/path";
 
 export const handle: Handle = {
   breadcrumb: "Stock Transfers",
-  to: path.to.stockTransfers,
+  to: path.to.stockTransfers
 };
 
 export async function action({ request }: ActionFunctionArgs) {
   const { client, companyId, userId } = await requirePermissions(request, {
-    create: "inventory",
+    create: "inventory"
   });
 
   const formData = await request.formData();
@@ -62,7 +62,7 @@ export async function action({ request }: ActionFunctionArgs) {
         acc.push(
           ...Array.from({ length: line.quantity }, () => ({
             ...line,
-            quantity: 1,
+            quantity: 1
           }))
         );
       } else {
@@ -78,7 +78,7 @@ export async function action({ request }: ActionFunctionArgs) {
     locationId,
     companyId,
     createdBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
 
   if (createStockTransfer.error) {
@@ -95,7 +95,7 @@ export async function action({ request }: ActionFunctionArgs) {
     lines: linesWithExpandedSerialTracking,
     stockTransferId: createStockTransfer.data.id,
     companyId,
-    createdBy: userId,
+    createdBy: userId
   });
 
   if (createStockTransferLines.error) {

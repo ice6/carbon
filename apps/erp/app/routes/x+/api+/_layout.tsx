@@ -19,7 +19,7 @@ export const meta: MetaFunction = () => {
 export const handle: Handle = {
   breadcrumb: "API Docs",
   to: path.to.apiIntroduction,
-  module: "api",
+  module: "api"
 };
 
 export function links() {
@@ -92,7 +92,7 @@ const tableBlacklist = new Set([
   "oauthToken",
   "purchaseOrderTransaction",
   "salesOrderTransaction",
-  "search",
+  "search"
 ]);
 
 function useApiDocsMenu(): RouteGroup[] {
@@ -104,10 +104,10 @@ function useApiDocsMenu(): RouteGroup[] {
       routes: [
         {
           name: "Introduction",
-          to: path.to.apiIntro(selectedLang),
-        },
-      ],
-    },
+          to: path.to.apiIntro(selectedLang)
+        }
+      ]
+    }
   ];
 
   const tables = Object.keys(swaggerDocsSchema?.definitions ?? {}).sort();
@@ -130,8 +130,8 @@ function useApiDocsMenu(): RouteGroup[] {
           <LuTable2 className="flex-shrink-0" />
         ) : (
           <LuEye className="flex-shrink-0" />
-        ),
-      })),
+        )
+      }))
   });
 
   return result;

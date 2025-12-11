@@ -21,7 +21,7 @@ const Part = ({ itemReplenishmentSystem, ...props }: PartSelectProps) => {
       parts.map((part) => ({
         value: part.id,
         label: part.id,
-        helper: part.name,
+        helper: part.name
       })) ?? [],
     [parts]
   );
@@ -57,7 +57,7 @@ const Part = ({ itemReplenishmentSystem, ...props }: PartSelectProps) => {
             unitOfMeasureCode: "EA",
             unitCost: 0,
             lotSize: 0,
-            active: true,
+            active: true
           }}
         />
       )}

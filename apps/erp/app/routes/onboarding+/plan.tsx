@@ -10,7 +10,7 @@ import {
   CardTitle,
   cn,
   IconButton,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { getCheckoutUrl } from "@carbon/stripe/stripe.server";
 import { Edition } from "@carbon/utils";
@@ -31,8 +31,8 @@ const PLANS = {
     features: [
       "ERP, MES, QMS",
       "Cloud-Hosted",
-      "Self-Onboarding with Carbon Academy",
-    ],
+      "Self-Onboarding with Carbon Academy"
+    ]
   },
   BUSINESS: {
     price: 90,
@@ -44,12 +44,12 @@ const PLANS = {
       "Everything from Starter",
       "API and Webhooks",
       "Implementation Support",
-      "Unlimited Functional Support",
+      "Unlimited Functional Support"
       // <div key="ai-agents" className="flex items-center gap-2">
       //   <span>AI Agents</span>
       //   <Badge variant="outline">Beta</Badge>
       // </div>,
-    ],
+    ]
   },
   GOVCLOUD: {
     price: 90,
@@ -62,9 +62,9 @@ const PLANS = {
       "Cloud-Hosted",
       "API and Webhooks",
       "Implementation Support",
-      "Unlimited Functional Support",
-    ],
-  },
+      "Unlimited Functional Support"
+    ]
+  }
 } as const;
 
 export async function loader({ request }: ActionFunctionArgs) {
@@ -101,7 +101,7 @@ export async function action({ request }: ActionFunctionArgs) {
 
   const [user, company] = await Promise.all([
     getUser(client, userId),
-    getCompany(client, companyId),
+    getCompany(client, companyId)
   ]);
 
   if (!user.data) {
@@ -117,7 +117,7 @@ export async function action({ request }: ActionFunctionArgs) {
     userId,
     companyId,
     name: company.data?.name,
-    email: user.data?.email,
+    email: user.data?.email
   });
 
   throw redirect(url);
@@ -132,7 +132,7 @@ export default function OnboardingPlan() {
         style: "currency",
         currency: "USD",
         minimumFractionDigits: 0,
-        maximumFractionDigits: 0,
+        maximumFractionDigits: 0
       }),
     [locale]
   );

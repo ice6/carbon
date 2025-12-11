@@ -16,7 +16,7 @@ export function findTopicContext(topicId: string) {
         return {
           module,
           course,
-          topic,
+          topic
         };
       }
     }
@@ -38,7 +38,7 @@ export function getLessonContext(lessonId: string) {
             course,
             topic,
             lesson,
-            lessonType: "regular" as const,
+            lessonType: "regular" as const
           };
         }
 
@@ -53,7 +53,7 @@ export function getLessonContext(lessonId: string) {
               course,
               topic,
               lesson: supplementalLesson,
-              lessonType: "supplemental" as const,
+              lessonType: "supplemental" as const
             };
           }
         }

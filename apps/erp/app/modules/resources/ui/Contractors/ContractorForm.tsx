@@ -8,19 +8,19 @@ import {
   DrawerHeader,
   DrawerTitle,
   HStack,
-  VStack,
+  VStack
 } from "@carbon/react";
 
 import { ValidatedForm } from "@carbon/form";
 import { useLocation, useNavigate } from "@remix-run/react";
 import { useState } from "react";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import {
   CustomFormFields,
   Number,
   Submit,
   Supplier,
-  SupplierContact,
+  SupplierContact
 } from "~/components/Form";
 import { usePermissions } from "~/hooks";
 import { contractorValidator } from "~/modules/resources";

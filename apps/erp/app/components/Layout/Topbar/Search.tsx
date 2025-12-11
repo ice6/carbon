@@ -17,7 +17,7 @@ import {
   VStack,
   useDebounce,
   useMount,
-  useShortcutKeys,
+  useShortcutKeys
 } from "@carbon/react";
 import { useNavigate } from "@remix-run/react";
 import idb from "localforage";
@@ -30,13 +30,13 @@ import {
   LuShoppingCart,
   LuSquareUser,
   LuUser,
-  LuWrench,
+  LuWrench
 } from "react-icons/lu";
 import { PiShareNetworkFill } from "react-icons/pi";
 import {
   RiProgress2Line,
   RiProgress4Line,
-  RiProgress8Line,
+  RiProgress8Line
 } from "react-icons/ri";
 import { RxMagnifyingGlass } from "react-icons/rx";
 import { MethodItemTypeIcon } from "~/components/Icons";
@@ -70,7 +70,7 @@ type SearchResult = {
 
 const shortcut: ShortcutDefinition = {
   key: "K",
-  modifiers: ["mod"],
+  modifiers: ["mod"]
 };
 
 const SearchModal = () => {
@@ -99,9 +99,8 @@ const SearchModal = () => {
 
   const [recentResults, setRecentResults] = useState<Route[]>([]);
   useMount(async () => {
-    const recentResultsFromStorage = await idb.getItem<Route[]>(
-      "recentSearches"
-    );
+    const recentResultsFromStorage =
+      await idb.getItem<Route[]>("recentSearches");
     if (recentResultsFromStorage) {
       setRecentResults(recentResultsFromStorage);
     }
@@ -150,7 +149,7 @@ const SearchModal = () => {
       { to, name },
       ...((await idb.getItem<Route[]>("recentSearches"))?.filter(
         (item) => item.to !== to
-      ) ?? []),
+      ) ?? [])
     ].slice(0, 5);
 
     setRecentResults(newRecentSearches);
@@ -225,7 +224,7 @@ const SearchModal = () => {
                     onSelect={() =>
                       onSelect({
                         to: result.link,
-                        name: result.name,
+                        name: result.name
                       })
                     }
                   >
@@ -295,7 +294,7 @@ const SearchButton = () => {
 
   useShortcutKeys({
     shortcut: shortcut,
-    action: openSearchModal,
+    action: openSearchModal
   });
 
   return (
@@ -354,12 +353,12 @@ function useGroupedSubmodules() {
     production,
     resources,
     settings,
-    users,
+    users
   };
 
   const ungroupedSubmodules: Record<string, { links: Route[] }> = {
     documents,
-    "my account": account,
+    "my account": account
   };
 
   const shortcuts = modules.reduce<Record<string, Route[]>>((acc, module) => {
@@ -373,9 +372,9 @@ function useGroupedSubmodules() {
           group.routes.map((route) => ({
             to: route.to,
             name: route.name,
-            icon: module.icon,
+            icon: module.icon
           }))
-        ),
+        )
       };
     } else if (
       moduleName in ungroupedSubmodules ||
@@ -386,8 +385,8 @@ function useGroupedSubmodules() {
         [module.name]: ungroupedSubmodules[moduleName].links.map((link) => ({
           to: link.to,
           name: link.name,
-          icon: module.icon,
-        })),
+          icon: module.icon
+        }))
       };
     }
 

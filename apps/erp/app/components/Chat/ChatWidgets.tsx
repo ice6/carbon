@@ -4,7 +4,7 @@ import {
   LuAudioLines,
   LuChevronDown,
   LuSearch,
-  LuSquarePen,
+  LuSquarePen
 } from "react-icons/lu";
 import { useUIStore } from "~/stores/ui";
 import CreateMenu from "../Layout/Topbar/CreateMenu";

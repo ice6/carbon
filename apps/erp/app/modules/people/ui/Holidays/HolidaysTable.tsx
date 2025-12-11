@@ -35,8 +35,8 @@ const HolidaysTable = memo(({ data, count, years }: HolidaysTableProps) => {
           <Hyperlink to={row.original.id}>{row.original.name}</Hyperlink>
         ),
         meta: {
-          icon: <LuCalendar />,
-        },
+          icon: <LuCalendar />
+        }
       },
       {
         accessorKey: "year",
@@ -50,19 +50,19 @@ const HolidaysTable = memo(({ data, count, years }: HolidaysTableProps) => {
             type: "static",
             options: years.map((year) => ({
               label: <Enumerable value={year.toString()} />,
-              value: year.toString(),
-            })),
-          },
-        },
+              value: year.toString()
+            }))
+          }
+        }
       },
       {
         accessorKey: "date",
         header: "Date",
         cell: (item) => formatDate(item.getValue<string>()),
         meta: {
-          icon: <LuCalendarDays />,
-        },
-      },
+          icon: <LuCalendarDays />
+        }
+      }
     ];
     return [...defaultColumns, ...customColumns];
   }, [customColumns, years]);

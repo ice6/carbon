@@ -14,7 +14,7 @@ interface ChatStatusIndicatorsProps {
 export function ChatStatusIndicators({
   agentStatus,
   currentToolCall,
-  status,
+  status
 }: ChatStatusIndicatorsProps) {
   const statusMessage = getStatusMessage(agentStatus);
   const toolMessage = currentToolCall ? getToolMessage(currentToolCall) : null;

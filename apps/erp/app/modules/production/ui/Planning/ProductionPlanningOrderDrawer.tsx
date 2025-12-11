@@ -26,7 +26,7 @@ import {
   toast,
   Tr,
   useMount,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { getLocalTimeZone, parseDate, today } from "@internationalized/date";
 import { Link, useFetcher } from "@remix-run/react";
@@ -40,7 +40,7 @@ import {
   LuPackage,
   LuPlus,
   LuStar,
-  LuTrash2,
+  LuTrash2
 } from "react-icons/lu";
 import { getLinkToItemPlanning } from "~/modules/items/ui/Item/ItemForm";
 import { ItemPlanningChart } from "~/modules/items/ui/Item/ItemPlanningChart";
@@ -69,7 +69,7 @@ export const ProductionPlanningOrderDrawer = memo(
     locationId,
     periods,
     isOpen,
-    onClose,
+    onClose
   }: ProductionPlanningOrderDrawerProps) => {
     const fetcher = useFetcher<typeof bulkUpdateAction>();
     const { carbon } = useCarbon();
@@ -107,7 +107,7 @@ export const ProductionPlanningOrderDrawer = memo(
                 dueDate: order.dueDate ?? null,
                 quantity: order.quantity,
                 isASAP: order.deadlineType === "ASAP",
-                periodId: periods[0].id,
+                periodId: periods[0].id
               };
             }
 
@@ -129,7 +129,7 @@ export const ProductionPlanningOrderDrawer = memo(
               dueDate: order.dueDate ?? null,
               quantity: order.quantity,
               isASAP: order.deadlineType === "ASAP",
-              periodId: period?.id ?? periods[periods.length - 1].id,
+              periodId: period?.id ?? periods[periods.length - 1].id
             };
           });
 
@@ -158,7 +158,7 @@ export const ProductionPlanningOrderDrawer = memo(
             .toString(),
           startDate: today(getLocalTimeZone()).toString(),
           isASAP: false,
-          periodId: periods[0].id,
+          periodId: periods[0].id
         };
         setOrders(row, [...orders, newOrder]);
       }
@@ -184,7 +184,7 @@ export const ProductionPlanningOrderDrawer = memo(
           ) {
             return {
               ...order,
-              periodId: periods[0].id,
+              periodId: periods[0].id
             };
           }
 
@@ -199,7 +199,7 @@ export const ProductionPlanningOrderDrawer = memo(
           // If no matching period found (date is after last period), use last period
           return {
             ...order,
-            periodId: period?.id ?? periods[periods.length - 1].id,
+            periodId: period?.id ?? periods[periods.length - 1].id
           };
         });
 
@@ -208,15 +208,15 @@ export const ProductionPlanningOrderDrawer = memo(
           items: [
             {
               id: id,
-              orders: ordersWithPeriods,
-            },
+              orders: ordersWithPeriods
+            }
           ],
-          action: "order" as const,
+          action: "order" as const
         };
         fetcher.submit(payload, {
           method: "post",
           action: path.to.bulkUpdateProductionPlanning,
-          encType: "application/json",
+          encType: "application/json"
         });
       },
       [fetcher, locationId, periods]
@@ -229,7 +229,7 @@ export const ProductionPlanningOrderDrawer = memo(
           const newOrders = [...orders];
           newOrders[index] = {
             ...orders[index],
-            ...updates,
+            ...updates
           };
           setOrders(row, newOrders);
         }
@@ -434,7 +434,7 @@ export const ProductionPlanningOrderDrawer = memo(
                             }
                             onChange={(date) => {
                               handleOrderUpdate(index, {
-                                dueDate: date ? date.toString() : null,
+                                dueDate: date ? date.toString() : null
                               });
                             }}
                           />
@@ -500,7 +500,7 @@ export const ProductionPlanningOrderDrawer = memo(
         onAddOrder,
         onRemoveOrder,
         onSubmit,
-        handleOrderUpdate,
+        handleOrderUpdate
       ]
     );
 

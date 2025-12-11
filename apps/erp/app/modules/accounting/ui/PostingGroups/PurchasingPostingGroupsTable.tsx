@@ -22,21 +22,21 @@ const PurchasingPostingGroupsTable = ({
   itemPostingGroups,
   supplierTypes,
   balanceSheetAccounts,
-  incomeStatementAccounts,
+  incomeStatementAccounts
 }: PurchasingPostingGroupsTableProps) => {
   const { canEdit, onCellEdit } = usePostingGroups("postingGroupPurchasing");
 
   const balanceSheetAccountOptions = useMemo(() => {
     return balanceSheetAccounts.map((account) => ({
       label: account.number,
-      value: account.number,
+      value: account.number
     }));
   }, [balanceSheetAccounts]);
 
   const incomeStatementAccountOptions = useMemo(() => {
     return incomeStatementAccounts.map((account) => ({
       label: account.number,
-      value: account.number,
+      value: account.number
     }));
   }, [incomeStatementAccounts]);
 
@@ -59,10 +59,10 @@ const PurchasingPostingGroupsTable = ({
             type: "static",
             options: itemPostingGroups.map((group) => ({
               label: <Enumerable value={group.name} />,
-              value: group.id,
-            })),
-          },
-        },
+              value: group.id
+            }))
+          }
+        }
       },
       {
         id: "supplierTypeId",
@@ -81,41 +81,41 @@ const PurchasingPostingGroupsTable = ({
             type: "static",
             options: supplierTypes.map((t) => ({
               label: <Enumerable value={t.name} />,
-              value: t.id,
-            })),
-          },
-        },
+              value: t.id
+            }))
+          }
+        }
       },
       {
         accessorKey: "payablesAccount",
         header: "Payables",
-        cell: (item) => item.getValue(),
+        cell: (item) => item.getValue()
       },
       {
         accessorKey: "purchaseAccount",
         header: "Purchase",
-        cell: (item) => item.getValue(),
+        cell: (item) => item.getValue()
       },
       {
         accessorKey: "purchaseDiscountAccount",
         header: "Purchase Discount",
-        cell: (item) => item.getValue(),
+        cell: (item) => item.getValue()
       },
       {
         accessorKey: "purchaseCreditAccount",
         header: "Purchase Credit",
-        cell: (item) => item.getValue(),
+        cell: (item) => item.getValue()
       },
       {
         accessorKey: "purchasePrepaymentAccount",
         header: "Purchase Prepayment",
-        cell: (item) => item.getValue(),
+        cell: (item) => item.getValue()
       },
       {
         accessorKey: "purchaseTaxPayableAccount",
         header: "Purchase Tax Payable",
-        cell: (item) => item.getValue(),
-      },
+        cell: (item) => item.getValue()
+      }
     ];
   }, [supplierTypes, itemPostingGroups]);
 
@@ -138,7 +138,7 @@ const PurchasingPostingGroupsTable = ({
       purchaseTaxPayableAccount: EditableList(
         onCellEdit,
         balanceSheetAccountOptions
-      ),
+      )
     }),
     [onCellEdit, balanceSheetAccountOptions, incomeStatementAccountOptions]
   );

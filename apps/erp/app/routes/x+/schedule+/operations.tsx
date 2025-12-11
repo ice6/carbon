@@ -21,13 +21,13 @@ import {
   useLocalStorage,
   useMount,
   useRealtimeChannel,
-  VStack,
+  VStack
 } from "@carbon/react";
 import {
   getLocalTimeZone,
   now,
   parseAbsolute,
-  toZoned,
+  toZoned
 } from "@internationalized/date";
 import { Link, useLoaderData } from "@remix-run/react";
 import { json, redirect, type LoaderFunctionArgs } from "@vercel/remix";
@@ -46,14 +46,14 @@ import type { Column, OperationItem } from "~/modules/production/ui/Schedule";
 import type {
   DisplaySettings,
   Event,
-  Progress,
+  Progress
 } from "~/modules/production/ui/Schedule/Kanban";
 import { Kanban } from "~/modules/production/ui/Schedule/Kanban";
 import { ScheduleNavigation } from "~/modules/production/ui/Schedule/Kanban/ScheuleNavigation";
 import {
   getLocationsList,
   getProcessesList,
-  getWorkCentersByLocation,
+  getWorkCentersByLocation
 } from "~/modules/resources";
 import { getTagsList } from "~/modules/shared";
 import { getUserDefaults } from "~/modules/users/users.server";
@@ -63,13 +63,13 @@ import { makeDurations } from "~/utils/duration";
 export const handle: Handle = {
   breadcrumb: "Schedule",
   to: path.to.scheduleOperation,
-  module: "schedule",
+  module: "schedule"
 };
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId, userId } = await requirePermissions(request, {
     view: "production",
-    bypassRls: true,
+    bypassRls: true
   });
 
   const url = new URL(request.url);
@@ -155,7 +155,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
     getWorkCentersByLocation(client, locationId),
     getProcessesList(client, companyId),
     getActiveJobOperationsByLocation(client, locationId, selectedWorkCenterIds),
-    getTagsList(client, companyId, "operation"),
+    getTagsList(client, companyId, "operation")
   ]);
 
   const activeWorkCenters = new Set();
@@ -167,10 +167,10 @@ export async function loader({ request }: LoaderFunctionArgs) {
   });
 
   let filteredOperations = selectedWorkCenterIds.length
-    ? operations.data?.filter((op) =>
+    ? (operations.data?.filter((op) =>
         selectedWorkCenterIds.includes(op.workCenterId)
-      ) ?? []
-    : operations.data ?? [];
+      ) ?? [])
+    : (operations.data ?? []);
 
   if (selectedSalesOrderIds.length) {
     filteredOperations = filteredOperations.filter((op) =>
@@ -228,7 +228,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
         id: wc.id!,
         title: wc.name!,
         type: wc.processes ?? [],
-        active: activeWorkCenters.has(wc.id),
+        active: activeWorkCenters.has(wc.id)
       }))
       .sort((a, b) => a.title.localeCompare(b.title)) satisfies Column[],
     items: (filteredOperations.map((op) => {
@@ -268,28 +268,34 @@ export async function loader({ request }: LoaderFunctionArgs) {
         setupDuration: operation.setupDuration,
         laborDuration: operation.laborDuration,
         machineDuration: operation.machineDuration,
-        thumbnailPath: op.thumbnailPath,
+        thumbnailPath: op.thumbnailPath
       };
     }) ?? []) satisfies OperationItem[],
     processes: processes.data ?? [],
     salesOrders: Object.entries(
-      filteredOperations?.reduce((acc, op) => {
-        if (op.salesOrderId) {
-          acc[op.salesOrderId] = op.salesOrderReadableId;
-        }
-        return acc;
-      }, {} as Record<string, string>) ?? {}
+      filteredOperations?.reduce(
+        (acc, op) => {
+          if (op.salesOrderId) {
+            acc[op.salesOrderId] = op.salesOrderReadableId;
+          }
+          return acc;
+        },
+        {} as Record<string, string>
+      ) ?? {}
     ).map(([id, readableId]) => ({ id, readableId })),
     availableTags: Object.entries(
-      filteredOperations.reduce((acc, op) => {
-        if (op.tags) {
-          op.tags.forEach((tag) => (acc[tag] = true));
-        }
-        return acc;
-      }, {} as Record<string, boolean>)
+      filteredOperations.reduce(
+        (acc, op) => {
+          if (op.tags) {
+            op.tags.forEach((tag) => (acc[tag] = true));
+          }
+          return acc;
+        },
+        {} as Record<string, boolean>
+      )
     ).map(([tag]) => tag),
     tags: tags.data ?? [],
-    locationId,
+    locationId
   });
 }
 
@@ -303,7 +309,7 @@ const defaultDisplaySettings: DisplaySettings = {
   showQuantity: true,
   showStatus: true,
   showSalesOrder: true,
-  showThumbnail: true,
+  showThumbnail: true
 };
 
 const DISPLAY_SETTINGS_KEY = "kanban-schedule-display-settings";
@@ -315,7 +321,7 @@ function KanbanSchedule() {
     salesOrders,
     availableTags,
     tags,
-    locationId,
+    locationId
   } = useLoaderData<typeof loader>();
 
   const locations = useLocations();
@@ -358,9 +364,9 @@ function KanbanSchedule() {
           type: "static",
           options: columns.map((col) => ({
             label: <Enumerable value={col.title} />,
-            value: col.id,
-          })),
-        },
+            value: col.id
+          }))
+        }
       },
       {
         accessorKey: "processId",
@@ -370,9 +376,9 @@ function KanbanSchedule() {
           type: "static",
           options: processes.map((p) => ({
             label: <Enumerable value={p.name} />,
-            value: p.id,
-          })),
-        },
+            value: p.id
+          }))
+        }
       },
       {
         accessorKey: "salesOrderId",
@@ -381,9 +387,9 @@ function KanbanSchedule() {
           type: "static",
           options: salesOrders.map((so) => ({
             label: so.readableId,
-            value: so.id,
-          })),
-        },
+            value: so.id
+          }))
+        }
       },
       {
         accessorKey: "assignee",
@@ -392,9 +398,9 @@ function KanbanSchedule() {
           type: "static",
           options: people.map((p) => ({
             label: p.name,
-            value: p.id,
-          })),
-        },
+            value: p.id
+          }))
+        }
       },
       {
         accessorKey: "tag",
@@ -403,10 +409,10 @@ function KanbanSchedule() {
           type: "static",
           options: availableTags.map((tag) => ({
             label: tag,
-            value: tag,
-          })),
-        },
-      },
+            value: tag
+          }))
+        }
+      }
     ];
   }, [columns, processes, salesOrders, people, availableTags]);
 
@@ -459,7 +465,7 @@ function KanbanSchedule() {
                     { key: "showQuantity", label: "Quantity" },
                     { key: "showStatus", label: "Status" },
                     { key: "showSalesOrder", label: "Sales Order" },
-                    { key: "showThumbnail", label: "Thumbnail" },
+                    { key: "showThumbnail", label: "Thumbnail" }
                   ].map(({ key, label }) => (
                     <Switch
                       key={key}
@@ -471,7 +477,7 @@ function KanbanSchedule() {
                       onCheckedChange={(checked) =>
                         setDisplaySettings((prev) => ({
                           ...prev,
-                          [key]: checked,
+                          [key]: checked
                         }))
                       }
                     />
@@ -557,7 +563,7 @@ function useProgressByOperation(
   sortItems: (items: OperationItem[]) => OperationItem[]
 ) {
   const {
-    company: { id: companyId },
+    company: { id: companyId }
   } = useUser();
   const { carbon } = useCarbon();
 
@@ -589,7 +595,7 @@ function useProgressByOperation(
           data.reduce<Record<string, Event[]>>((acc, event) => {
             acc[event.jobOperationId] = [
               ...(acc[event.jobOperationId] ?? []),
-              event,
+              event
             ];
             return acc;
           }, {})
@@ -644,7 +650,7 @@ function useProgressByOperation(
           totalDuration,
           progress: currentProgress,
           active,
-          employees,
+          employees
         };
       }
     );
@@ -676,7 +682,7 @@ function useProgressByOperation(
             event: "*",
             schema: "public",
             table: "jobOperation",
-            filter: `id=in.(${items.map((item) => item.id).join(",")})`,
+            filter: `id=in.(${items.map((item) => item.id).join(",")})`
           },
           (payload) => {
             switch (payload.eventType) {
@@ -689,7 +695,7 @@ function useProgressByOperation(
                         return {
                           ...item,
                           columnId: updated.workCenterId,
-                          priority: updated.priority,
+                          priority: updated.priority
                         };
                       }
                       return item;
@@ -718,7 +724,7 @@ function useProgressByOperation(
             event: "*",
             schema: "public",
             table: "productionEvent",
-            filter: `companyId=eq.${companyId}`,
+            filter: `companyId=eq.${companyId}`
           },
           (payload) => {
             if (payload.eventType === "INSERT") {
@@ -728,8 +734,8 @@ function useProgressByOperation(
                   ...prevState,
                   [inserted.jobOperationId]: [
                     ...(prevState[inserted.jobOperationId] ?? []),
-                    inserted,
-                  ],
+                    inserted
+                  ]
                 }));
               }
             } else if (payload.eventType === "UPDATE") {
@@ -739,7 +745,7 @@ function useProgressByOperation(
                   ...prevState,
                   [updated.jobOperationId]: (
                     prevState[updated.jobOperationId] ?? []
-                  ).map((event) => (event.id === updated.id ? updated : event)),
+                  ).map((event) => (event.id === updated.id ? updated : event))
                 }));
               }
             } else if (payload.eventType === "DELETE") {
@@ -749,13 +755,13 @@ function useProgressByOperation(
                   ...prevState,
                   [deleted.jobOperationId]: (
                     prevState[deleted.jobOperationId] ?? []
-                  ).filter((event) => event.id !== deleted.id),
+                  ).filter((event) => event.id !== deleted.id)
                 }));
               }
             }
           }
         );
-    },
+    }
   });
 
   return { progressByOperation };

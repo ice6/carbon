@@ -11,13 +11,13 @@ import { getGenericQueryFilters } from "~/utils/query";
 
 export const handle: Handle = {
   breadcrumb: "Gauge Types",
-  to: path.to.gaugeTypes,
+  to: path.to.gaugeTypes
 };
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
     view: "quality",
-    role: "employee",
+    role: "employee"
   });
 
   const url = new URL(request.url);
@@ -32,7 +32,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
       limit,
       offset,
       sorts,
-      filters,
+      filters
     })
   );
 }

@@ -15,7 +15,7 @@ import {
   getIssueWorkflowsList,
   getRequiredActionsList,
   issueValidator,
-  upsertIssue,
+  upsertIssue
 } from "~/modules/quality";
 import IssueForm from "~/modules/quality/ui/Issue/IssueForm";
 
@@ -27,31 +27,31 @@ import { path } from "~/utils/path";
 
 export const handle: Handle = {
   breadcrumb: "Issues",
-  to: path.to.issues,
+  to: path.to.issues
 };
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    view: "quality",
+    view: "quality"
   });
 
   const [workflows, types, requiredActions] = await Promise.all([
     getIssueWorkflowsList(client, companyId),
     getIssueTypesList(client, companyId),
-    getRequiredActionsList(client, companyId),
+    getRequiredActionsList(client, companyId)
   ]);
 
   return json({
     workflows: workflows.data ?? [],
     types: types.data ?? [],
-    requiredActions: requiredActions.data ?? [],
+    requiredActions: requiredActions.data ?? []
   });
 }
 
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    create: "quality",
+    create: "quality"
   });
 
   const serviceRole = await getCarbonServiceRole();
@@ -85,7 +85,7 @@ export async function action({ request }: ActionFunctionArgs) {
     nonConformanceId: nextSequence.data,
     companyId,
     createdBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
 
   if (createIssue.error || !createIssue.data) {
@@ -108,9 +108,9 @@ export async function action({ request }: ActionFunctionArgs) {
       type: "nonConformanceTasks",
       id: ncrId,
       companyId,
-      userId,
+      userId
     },
-    region: FunctionRegion.UsEast1,
+    region: FunctionRegion.UsEast1
   });
 
   if (tasks.error) {
@@ -132,8 +132,8 @@ export async function action({ request }: ActionFunctionArgs) {
         nonConformanceId: nextSequence.data,
         title: validation.data.name,
         description: validation.data.description ?? "",
-        severity: validation.data.priority,
-      },
+        severity: validation.data.priority
+      }
     });
   } catch (error) {
     console.error("Failed to send notifications:", error);
@@ -186,7 +186,7 @@ export default function IssueNewRoute() {
     source: "Internal" as const,
     supplierId: supplierId ?? "",
     trackedEntityId: "",
-    operationSupplierProcessId: operationSupplierProcessId ?? "",
+    operationSupplierProcessId: operationSupplierProcessId ?? ""
   };
 
   return (

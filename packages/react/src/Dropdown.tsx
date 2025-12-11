@@ -5,7 +5,7 @@ import type {
   ComponentPropsWithoutRef,
   ElementRef,
   HTMLAttributes,
-  ReactElement,
+  ReactElement
 } from "react";
 import { cloneElement, forwardRef } from "react";
 import { LuCheck, LuChevronRight } from "react-icons/lu";
@@ -88,7 +88,7 @@ const DropdownMenuIcon = forwardRef<ElementRef<"span">, DropdownMenuIconProps>(
   ({ className, icon, children, ...props }, ref) => {
     return cloneElement(icon, {
       className: cn("mr-2 h-4 w-4", className),
-      ...props,
+      ...props
     });
   }
 );
@@ -223,5 +223,5 @@ export {
   DropdownMenuSub,
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
-  DropdownMenuTrigger,
+  DropdownMenuTrigger
 };

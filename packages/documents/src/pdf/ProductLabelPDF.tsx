@@ -12,16 +12,16 @@ interface ProductLabelProps {
 const tw = createTw({
   theme: {
     fontFamily: {
-      sans: ["Helvetica", "Arial", "sans-serif"],
+      sans: ["Helvetica", "Arial", "sans-serif"]
     },
     extend: {
       colors: {
         gray: {
-          500: "#7d7d7d",
-        },
-      },
-    },
-  },
+          500: "#7d7d7d"
+        }
+      }
+    }
+  }
 });
 
 const ProductLabelPDF = ({ items, labelSize }: ProductLabelProps) => {
@@ -87,7 +87,7 @@ const ProductLabelPDF = ({ items, labelSize }: ProductLabelProps) => {
               style={{
                 flexDirection: "row",
                 marginLeft: horizontalMargin,
-                marginTop: rowIndex === 0 ? verticalMargin : 0,
+                marginTop: rowIndex === 0 ? verticalMargin : 0
               }}
             >
               {Array.from({ length: columns }).map((_, colIndex) => {
@@ -110,7 +110,7 @@ const ProductLabelPDF = ({ items, labelSize }: ProductLabelProps) => {
                       ...tw("relative p-2 flex flex-col pl-[10pt]"),
                       width: labelWidthPt,
                       height: labelHeightPt,
-                      transform: rotated ? "rotate(90deg)" : undefined,
+                      transform: rotated ? "rotate(90deg)" : undefined
                     }}
                     wrap={false}
                   >
@@ -125,7 +125,7 @@ const ProductLabelPDF = ({ items, labelSize }: ProductLabelProps) => {
                             maxWidth: "100%",
                             ...tw("mb-2"),
                             fontWeight: "bold",
-                            fontSize: `${titleFontSize}pt`,
+                            fontSize: `${titleFontSize}pt`
                           }}
                         >
                           {item.itemId}
@@ -135,7 +135,7 @@ const ProductLabelPDF = ({ items, labelSize }: ProductLabelProps) => {
                           <Text
                             style={{
                               ...tw("mb-1"),
-                              fontSize: `${descriptionFontSize}pt`,
+                              fontSize: `${descriptionFontSize}pt`
                             }}
                           >
                             Rev: {item.revision}
@@ -146,7 +146,7 @@ const ProductLabelPDF = ({ items, labelSize }: ProductLabelProps) => {
                           <Text
                             style={{
                               ...tw("mb-1"),
-                              fontSize: `${descriptionFontSize}pt`,
+                              fontSize: `${descriptionFontSize}pt`
                             }}
                           >
                             Qty: {item.quantity}
@@ -157,7 +157,7 @@ const ProductLabelPDF = ({ items, labelSize }: ProductLabelProps) => {
                           <Text
                             style={{
                               ...tw("mb-1"),
-                              fontSize: `${descriptionFontSize}pt`,
+                              fontSize: `${descriptionFontSize}pt`
                             }}
                           >
                             S/N: {item.number}
@@ -167,7 +167,7 @@ const ProductLabelPDF = ({ items, labelSize }: ProductLabelProps) => {
                           <Text
                             style={{
                               ...tw("mb-1"),
-                              fontSize: `${descriptionFontSize}pt`,
+                              fontSize: `${descriptionFontSize}pt`
                             }}
                           >
                             Batch: {item.number}
@@ -184,7 +184,7 @@ const ProductLabelPDF = ({ items, labelSize }: ProductLabelProps) => {
                           style={{
                             width: qrCodeSize,
                             height: qrCodeSize,
-                            objectFit: "contain",
+                            objectFit: "contain"
                           }}
                         />
                       </View>
@@ -195,7 +195,7 @@ const ProductLabelPDF = ({ items, labelSize }: ProductLabelProps) => {
                         style={{
                           ...tw("mt-1 text-center"),
                           fontSize: `${descriptionFontSize - 1}pt`,
-                          width: "100%",
+                          width: "100%"
                         }}
                       >
                         {item.trackedEntityId}

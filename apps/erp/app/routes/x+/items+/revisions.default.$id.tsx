@@ -8,7 +8,7 @@ import { updateDefaultRevision } from "~/modules/items/items.service";
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    update: "parts",
+    update: "parts"
   });
 
   const { id } = params;
@@ -16,14 +16,14 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
   const update = await updateDefaultRevision(client, {
     id: id,
-    updatedBy: userId,
+    updatedBy: userId
   });
 
   if (update.error) {
     return json(
       {
         success: false,
-        error: update.error,
+        error: update.error
       },
       await flash(request, error(update.error, "Failed to update item group"))
     );

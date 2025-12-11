@@ -3,7 +3,7 @@ import {
   AvatarGroupList,
   AvatarOverflowIndicator,
   DropdownMenuIcon,
-  MenuItem,
+  MenuItem
 } from "@carbon/react";
 import { useNavigate } from "@remix-run/react";
 import type { ColumnDef } from "@tanstack/react-table";
@@ -33,11 +33,11 @@ const GroupsTable = memo(({ data, count }: GroupsTableProps) => {
     members: row.data.users
       .map((user) => ({
         name: user.fullName,
-        avatar: user.avatarUrl,
+        avatar: user.avatarUrl
       }))
       .concat(
         row.children.map((child) => ({ name: child.data.name, avatar: null }))
-      ),
+      )
   }));
 
   const columns = useMemo<ColumnDef<(typeof rows)[number]>[]>(() => {
@@ -56,8 +56,8 @@ const GroupsTable = memo(({ data, count }: GroupsTableProps) => {
             </Hyperlink>
           ),
         meta: {
-          icon: <LuBookMarked />,
-        },
+          icon: <LuBookMarked />
+        }
       },
       {
         header: "Members",
@@ -83,9 +83,9 @@ const GroupsTable = memo(({ data, count }: GroupsTableProps) => {
           </AvatarGroup>
         ),
         meta: {
-          icon: <LuUsers />,
-        },
-      },
+          icon: <LuUsers />
+        }
+      }
     ];
   }, []);
 

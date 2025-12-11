@@ -12,7 +12,7 @@ import {
   ModalFooter,
   ModalHeader,
   ModalTitle,
-  VStack,
+  VStack
 } from "@carbon/react";
 import type { FetcherWithComponents } from "@remix-run/react";
 import { useState } from "react";
@@ -33,7 +33,7 @@ const SupplierQuoteSendModal = ({
   quote,
   onClose,
   fetcher,
-  externalLinkId,
+  externalLinkId
 }: SupplierQuoteSendModalProps) => {
   const integrations = useIntegrations();
   const canEmail = integrations.has("resend");
@@ -101,7 +101,7 @@ const SupplierQuoteSendModal = ({
           onSubmit={onClose}
           defaultValues={{
             notification: notificationType as "Email" | "None",
-            supplierContact: quote?.supplierContactId ?? undefined,
+            supplierContact: quote?.supplierContactId ?? undefined
           }}
           fetcher={fetcher}
         >
@@ -120,12 +120,12 @@ const SupplierQuoteSendModal = ({
                   options={[
                     {
                       label: "None",
-                      value: "None",
+                      value: "None"
                     },
                     {
                       label: "Email",
-                      value: "Email",
-                    },
+                      value: "Email"
+                    }
                   ]}
                   value={notificationType}
                   onChange={(t) => {

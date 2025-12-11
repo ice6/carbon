@@ -11,7 +11,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
   HStack,
-  IconButton,
+  IconButton
 } from "@carbon/react";
 import { Outlet, useNavigate, useParams } from "@remix-run/react";
 import type { ColumnDef } from "@tanstack/react-table";
@@ -50,7 +50,7 @@ const SupplierProccesses = ({ processes }: SupplierProccessesProps) => {
         .from("supplierProcess")
         .update({
           [id]: value,
-          updatedBy: userId,
+          updatedBy: userId
         })
         .eq("id", row.id!);
     },
@@ -112,19 +112,19 @@ const SupplierProccesses = ({ processes }: SupplierProccessesProps) => {
               </DropdownMenu>
             </div>
           </HStack>
-        ),
+        )
       },
 
       {
         accessorKey: "minimumCost",
         header: "Minimum Cost",
-        cell: ({ row }) => formatter.format(row.original.minimumCost ?? 0),
+        cell: ({ row }) => formatter.format(row.original.minimumCost ?? 0)
       },
       {
         accessorKey: "leadTime",
         header: "Lead Time",
-        cell: (item) => item.getValue(),
-      },
+        cell: (item) => item.getValue()
+      }
     ];
     return [...defaultColumns, ...customColumns];
   }, [customColumns, canEdit, canDelete, navigate, supplierId, formatter]);
@@ -134,10 +134,10 @@ const SupplierProccesses = ({ processes }: SupplierProccessesProps) => {
       minimumCost: EditableNumber(onCellEdit, {
         formatOptions: {
           style: "currency",
-          currency: baseCurrency,
-        },
+          currency: baseCurrency
+        }
       }),
-      leadTime: EditableNumber(onCellEdit),
+      leadTime: EditableNumber(onCellEdit)
     }),
     [onCellEdit, baseCurrency]
   );

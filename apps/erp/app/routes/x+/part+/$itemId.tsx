@@ -9,7 +9,7 @@ import {
   getMakeMethods,
   getPart,
   getPickMethods,
-  getSupplierParts,
+  getSupplierParts
 } from "~/modules/items";
 import { PartHeader } from "~/modules/items/ui/Parts";
 import { getTagsList } from "~/modules/shared";
@@ -19,13 +19,13 @@ import { path } from "~/utils/path";
 export const handle: Handle = {
   breadcrumb: "Parts",
   to: path.to.parts,
-  module: "items",
+  module: "items"
 };
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
     view: "parts",
-    bypassRls: true,
+    bypassRls: true
   });
 
   const { itemId } = params;
@@ -35,7 +35,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     getPart(client, itemId, companyId),
     getSupplierParts(client, itemId, companyId),
     getPickMethods(client, itemId, companyId),
-    getTagsList(client, companyId, "part"),
+    getTagsList(client, companyId, "part")
   ]);
 
   if (partSummary.data?.companyId !== companyId) {
@@ -58,7 +58,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     supplierParts: supplierParts.data ?? [],
     pickMethods: pickMethods.data ?? [],
     makeMethods: getMakeMethods(client, itemId, companyId),
-    tags: tags.data ?? [],
+    tags: tags.data ?? []
   });
 }
 

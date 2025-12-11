@@ -27,13 +27,13 @@ import {
   Thead,
   Tr,
   useDisclosure,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { Outlet } from "@remix-run/react";
 import { nanoid } from "nanoid";
 import { useMemo, useState } from "react";
 import { LuEllipsisVertical, LuQrCode } from "react-icons/lu";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import { Enumerable } from "~/components/Enumerable";
 import { Input, Location, Select, Shelf } from "~/components/Form";
 import { useUnitOfMeasure } from "~/components/Form/UnitOfMeasure";
@@ -41,7 +41,7 @@ import { usePermissions } from "~/hooks";
 import type {
   ItemShelfQuantities,
   itemTrackingTypes,
-  pickMethodValidator,
+  pickMethodValidator
 } from "~/modules/items";
 import { path } from "~/utils/path";
 import { inventoryAdjustmentValidator } from "../../inventory.models";
@@ -59,7 +59,7 @@ const InventoryShelves = ({
   itemUnitOfMeasureCode,
   itemTrackingType,
   pickMethod,
-  shelves,
+  shelves
 }: InventoryShelvesProps) => {
   const permissions = usePermissions();
   const adjustmentModal = useDisclosure();
@@ -181,7 +181,7 @@ const InventoryShelves = ({
                 locationId: pickMethod.locationId,
                 shelfId: selectedShelfId || undefined,
                 adjustmentType: "Set Quantity",
-                trackedEntityId: nanoid(),
+                trackedEntityId: nanoid()
               }}
               onSubmit={adjustmentModal.onClose}
             >
@@ -207,12 +207,12 @@ const InventoryShelves = ({
                         : [{ label: "Set Quantity", value: "Set Quantity" }]),
                       {
                         label: "Positive Adjustment",
-                        value: "Positive Adjmt.",
+                        value: "Positive Adjmt."
                       },
                       {
                         label: "Negative Adjustment",
-                        value: "Negative Adjmt.",
-                      },
+                        value: "Negative Adjmt."
+                      }
                     ]}
                   />
                   {(isBatch || isSerial) && (

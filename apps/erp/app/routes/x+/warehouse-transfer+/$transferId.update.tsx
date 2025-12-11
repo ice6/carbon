@@ -4,18 +4,18 @@ import { flash } from "@carbon/auth/session.server";
 import { validationError, validator } from "@carbon/form";
 import type { ActionFunctionArgs } from "@vercel/remix";
 import { json } from "@vercel/remix";
-import { z } from 'zod/v3';
+import { z } from "zod/v3";
 import { updateWarehouseTransferStatus } from "~/modules/inventory";
 import { warehouseTransferStatusType } from "~/modules/inventory/inventory.models";
 
 const updateStatusValidator = z.object({
-  status: z.enum(warehouseTransferStatusType),
+  status: z.enum(warehouseTransferStatusType)
 });
 
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    update: "inventory",
+    update: "inventory"
   });
 
   const { transferId } = params;

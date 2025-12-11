@@ -5,7 +5,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { useRef, useState } from "react";
 import { Password, Submit } from "~/components/Form";

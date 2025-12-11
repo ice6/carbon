@@ -11,7 +11,7 @@ import {
   PopoverTrigger,
   VStack,
   buttonVariants,
-  cn,
+  cn
 } from "@carbon/react";
 import { useFetcher, useFetchers } from "@remix-run/react";
 import type { ComponentPropsWithoutRef } from "react";
@@ -69,7 +69,7 @@ const Assign = forwardRef<HTMLButtonElement, AssigneeProps>(
 
       fetcher.submit(formData, {
         method: "post",
-        action: path.to.api.assign,
+        action: path.to.api.assign
       });
     };
 
@@ -79,13 +79,13 @@ const Assign = forwardRef<HTMLButtonElement, AssigneeProps>(
           .filter((person) => person.id !== user.id)
           .map((person) => ({
             value: person.id,
-            label: person.name,
+            label: person.name
           })) ?? [];
 
       return [
         { value: "", label: "Unassigned" },
         { value: user.id, label: `${user.firstName} ${user.lastName}` },
-        ...base,
+        ...base
       ];
     }, [people, user]);
 
@@ -116,7 +116,7 @@ const Assign = forwardRef<HTMLButtonElement, AssigneeProps>(
                       isDisabled: isReadOnly || !permissions.is("employee"),
                       isLoading: fetcher.state !== "idle",
                       isIcon: false,
-                      className,
+                      className
                     })
                   )}
                   role="combobox"
@@ -198,7 +198,7 @@ export default Assign;
 
 export function useOptimisticAssignment({
   id,
-  table,
+  table
 }: {
   id: string;
   table: string;

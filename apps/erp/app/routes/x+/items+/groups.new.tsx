@@ -7,7 +7,7 @@ import type { ActionFunctionArgs, LoaderFunctionArgs } from "@vercel/remix";
 import { json, redirect } from "@vercel/remix";
 import {
   itemPostingGroupValidator,
-  upsertItemPostingGroup,
+  upsertItemPostingGroup
 } from "~/modules/items";
 import { ItemPostingGroupForm } from "~/modules/items/ui/ItemPostingGroups";
 import { setCustomFields } from "~/utils/form";
@@ -15,7 +15,7 @@ import { getParams, path } from "~/utils/path";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   await requirePermissions(request, {
-    create: "parts",
+    create: "parts"
   });
 
   return null;
@@ -24,7 +24,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    create: "parts",
+    create: "parts"
   });
 
   const formData = await request.formData();
@@ -44,7 +44,7 @@ export async function action({ request }: ActionFunctionArgs) {
     ...data,
     companyId,
     createdBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
   if (insertItemPostingGroup.error) {
     return json(
@@ -79,7 +79,7 @@ export default function NewItemPostingGroupsRoute() {
   const navigate = useNavigate();
   const initialValues = {
     name: "",
-    description: "",
+    description: ""
   };
 
   return (

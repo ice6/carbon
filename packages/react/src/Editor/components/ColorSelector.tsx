@@ -13,79 +13,79 @@ export interface BubbleColorMenuItem {
 const TEXT_COLORS: BubbleColorMenuItem[] = [
   {
     name: "Default",
-    color: "var(--novel-black)",
+    color: "var(--novel-black)"
   },
   {
     name: "Purple",
-    color: "#9333EA",
+    color: "#9333EA"
   },
   {
     name: "Red",
-    color: "#E00000",
+    color: "#E00000"
   },
   {
     name: "Yellow",
-    color: "#EAB308",
+    color: "#EAB308"
   },
   {
     name: "Blue",
-    color: "#2563EB",
+    color: "#2563EB"
   },
   {
     name: "Green",
-    color: "#008A00",
+    color: "#008A00"
   },
   {
     name: "Orange",
-    color: "#FFA500",
+    color: "#FFA500"
   },
   {
     name: "Pink",
-    color: "#BA4081",
+    color: "#BA4081"
   },
   {
     name: "Gray",
-    color: "#A8A29E",
-  },
+    color: "#A8A29E"
+  }
 ];
 
 const HIGHLIGHT_COLORS: BubbleColorMenuItem[] = [
   {
     name: "Default",
-    color: "var(--novel-highlight-default)",
+    color: "var(--novel-highlight-default)"
   },
   {
     name: "Purple",
-    color: "var(--novel-highlight-purple)",
+    color: "var(--novel-highlight-purple)"
   },
   {
     name: "Red",
-    color: "var(--novel-highlight-red)",
+    color: "var(--novel-highlight-red)"
   },
   {
     name: "Yellow",
-    color: "var(--novel-highlight-yellow)",
+    color: "var(--novel-highlight-yellow)"
   },
   {
     name: "Blue",
-    color: "var(--novel-highlight-blue)",
+    color: "var(--novel-highlight-blue)"
   },
   {
     name: "Green",
-    color: "var(--novel-highlight-green)",
+    color: "var(--novel-highlight-green)"
   },
   {
     name: "Orange",
-    color: "var(--novel-highlight-orange)",
+    color: "var(--novel-highlight-orange)"
   },
   {
     name: "Pink",
-    color: "var(--novel-highlight-pink)",
+    color: "var(--novel-highlight-pink)"
   },
   {
     name: "Gray",
-    color: "var(--novel-highlight-gray)",
-  },
+    color: "var(--novel-highlight-gray)"
+  }
 ];
 
 interface ColorSelectorProps {
@@ -113,7 +113,7 @@ export const ColorSelector = ({ open, onOpenChange }: ColorSelectorProps) => {
           rightIcon={<LuChevronDown className="h-4 w-4" />}
           style={{
             color: activeColorItem?.color,
-            backgroundColor: activeHighlightItem?.color,
+            backgroundColor: activeHighlightItem?.color
           }}
         >
           <RiPaintFill />

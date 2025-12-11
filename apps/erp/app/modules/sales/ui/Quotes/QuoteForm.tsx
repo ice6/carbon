@@ -9,13 +9,13 @@ import {
   CardTitle,
   VStack,
   cn,
-  toast,
+  toast
 } from "@carbon/react";
 import { useFetcher } from "@remix-run/react";
 import type { ReactNode } from "react";
 import { useState } from "react";
 import { flushSync } from "react-dom";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import {
   Currency,
   CustomFormFields,
@@ -28,7 +28,7 @@ import {
   Input,
   Location,
   SequenceOrCustomId,
-  Submit,
+  Submit
 } from "~/components/Form";
 import ExchangeRate from "~/components/Form/ExchangeRate";
 import { usePermissions, useUser } from "~/hooks";
@@ -50,7 +50,7 @@ const QuoteForm = ({ initialValues }: QuoteFormProps) => {
     currencyCode: string | undefined;
   }>({
     id: initialValues.customerId,
-    currencyCode: initialValues.currencyCode,
+    currencyCode: initialValues.currencyCode
   });
   const isCustomer = permissions.is("customer");
   const isDisabled = initialValues?.status !== "Draft";
@@ -74,7 +74,7 @@ const QuoteForm = ({ initialValues }: QuoteFormProps) => {
         // update the customer immediately
         setCustomer({
           id: newValue?.value,
-          currencyCode: undefined,
+          currencyCode: undefined
         });
       });
 
@@ -88,13 +88,13 @@ const QuoteForm = ({ initialValues }: QuoteFormProps) => {
       } else {
         setCustomer((prev) => ({
           ...prev,
-          currencyCode: data.currencyCode ?? undefined,
+          currencyCode: data.currencyCode ?? undefined
         }));
       }
     } else {
       setCustomer({
         id: undefined,
-        currencyCode: undefined,
+        currencyCode: undefined
       });
     }
   };
@@ -185,7 +185,7 @@ const QuoteForm = ({ initialValues }: QuoteFormProps) => {
                   if (newValue?.value) {
                     setCustomer((prevCustomer) => ({
                       ...prevCustomer,
-                      currencyCode: newValue.value,
+                      currencyCode: newValue.value
                     }));
                   }
                 }}
@@ -209,7 +209,7 @@ const QuoteForm = ({ initialValues }: QuoteFormProps) => {
                         method: "post",
                         action: path.to.quoteExchangeRate(
                           initialValues.id ?? ""
-                        ),
+                        )
                       });
                     }}
                   />

@@ -11,7 +11,7 @@ const themes = [
   "blue",
   "yellow",
   "orange",
-  "violet",
+  "violet"
 ] as const;
 type Theme = (typeof themes)[number];
 
@@ -26,6 +26,6 @@ export function setTheme(theme: string) {
   return cookie.serialize(cookieName, theme, {
     path: "/",
     maxAge: 31536000,
-    domain: DOMAIN,
+    domain: DOMAIN
   });
 }

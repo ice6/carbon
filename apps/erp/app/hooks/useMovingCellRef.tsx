@@ -28,6 +28,6 @@ export function useMovingCellRef(isSelected: boolean) {
   return {
     ref: isSelected ? ref : undefined,
     tabIndex: isFocused ? 0 : -1,
-    onFocus: isSelected ? onFocus : undefined,
+    onFocus: isSelected ? onFocus : undefined
   };
 }

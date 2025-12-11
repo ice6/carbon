@@ -8,14 +8,14 @@ import {
   Preview,
   Row,
   Section,
-  Text,
+  Text
 } from "@react-email/components";
 import type { CompanySettings, Email } from "../types";
 import {
   Button,
   EmailThemeProvider,
   getEmailInlineStyles,
-  getEmailThemeClasses,
+  getEmailThemeClasses
 } from "./components/Theme";
 
 interface QuoteEmailProps extends Email {
@@ -28,7 +28,7 @@ const QuoteEmail = ({
   companySettings,
   quote,
   recipient,
-  sender,
+  sender
 }: QuoteEmailProps) => {
   const digitalQuoteUrl =
     companySettings.digitalQuoteEnabled && !!quote.externalLinkId
@@ -50,7 +50,7 @@ const QuoteEmail = ({
           style={{
             borderStyle: "solid",
             borderWidth: "1px",
-            borderColor: lightStyles.container.borderColor,
+            borderColor: lightStyles.container.borderColor
           }}
         >
           <Section>

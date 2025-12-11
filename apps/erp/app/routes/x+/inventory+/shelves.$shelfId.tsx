@@ -10,7 +10,7 @@ import {
   ShelfForm,
   getShelf,
   shelfValidator,
-  upsertShelf,
+  upsertShelf
 } from "~/modules/inventory";
 import { getCustomFields, setCustomFields } from "~/utils/form";
 import { getParams, path } from "~/utils/path";
@@ -19,7 +19,7 @@ import { getCompanyId, shelvesQuery } from "~/utils/react-query";
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
     view: "inventory",
-    role: "employee",
+    role: "employee"
   });
 
   const { shelfId } = params;
@@ -28,14 +28,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   const shelf = await getShelf(client, shelfId);
 
   return json({
-    shelf: shelf?.data ?? null,
+    shelf: shelf?.data ?? null
   });
 }
 
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    update: "inventory",
+    update: "inventory"
   });
 
   const formData = await request.formData();
@@ -52,7 +52,7 @@ export async function action({ request }: ActionFunctionArgs) {
     id,
     ...data,
     updatedBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
 
   if (updateShelf.error) {
@@ -70,7 +70,7 @@ export async function action({ request }: ActionFunctionArgs) {
 
 export async function clientAction({
   request,
-  serverAction,
+  serverAction
 }: ClientActionFunctionArgs) {
   const companyId = getCompanyId();
 
@@ -98,7 +98,7 @@ export default function EditShelfRoute() {
     id: shelf?.id ?? undefined,
     name: shelf?.name ?? "",
     locationId: shelf?.locationId ?? "",
-    ...getCustomFields(shelf?.customFields),
+    ...getCustomFields(shelf?.customFields)
   };
 
   return (

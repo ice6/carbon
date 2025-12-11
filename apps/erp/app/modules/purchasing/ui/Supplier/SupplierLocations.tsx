@@ -5,7 +5,7 @@ import {
   CardHeader,
   CardTitle,
   HStack,
-  useDisclosure,
+  useDisclosure
 } from "@carbon/react";
 import { Outlet, useNavigate, useParams } from "@remix-run/react";
 import { useCallback, useState } from "react";
@@ -41,7 +41,7 @@ const SupplierLocations = ({ locations }: SupplierLocationsProps) => {
           icon: <LuPencil />,
           onClick: () => {
             navigate(location.id);
-          },
+          }
         });
       }
       if (permissions.can("delete", "purchasing")) {
@@ -52,7 +52,7 @@ const SupplierLocations = ({ locations }: SupplierLocationsProps) => {
           onClick: () => {
             setSelectedLocation(location);
             deleteLocationModal.onOpen();
-          },
+          }
         });
       }
 
@@ -64,7 +64,7 @@ const SupplierLocations = ({ locations }: SupplierLocationsProps) => {
             navigate(
               `${path.to.newPartner}?id=${location.id}&supplierId=${supplierId}`
             );
-          },
+          }
         });
       }
 

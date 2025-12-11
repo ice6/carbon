@@ -3,7 +3,7 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuTrigger,
+  DropdownMenuTrigger
 } from "./Dropdown";
 import { IconButton } from "./IconButton";
 import { Menu } from "./Menu";

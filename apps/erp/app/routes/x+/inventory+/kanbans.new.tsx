@@ -11,7 +11,7 @@ import { getParams, path } from "~/utils/path";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   await requirePermissions(request, {
-    create: "inventory",
+    create: "inventory"
   });
 
   return null;
@@ -20,7 +20,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    create: "inventory",
+    create: "inventory"
   });
 
   const formData = await request.formData();
@@ -36,7 +36,7 @@ export async function action({ request }: ActionFunctionArgs) {
   const createKanban = await upsertKanban(client, {
     ...data,
     companyId,
-    createdBy: userId,
+    createdBy: userId
   });
 
   if (createKanban.error) {
@@ -67,7 +67,7 @@ export default function NewKanbanRoute() {
     conversionFactor: 1,
     autoRelease: false,
     autoStartJob: false,
-    completedBarcodeOverride: "",
+    completedBarcodeOverride: ""
   };
 
   return (

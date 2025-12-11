@@ -12,7 +12,7 @@ export function useCurrencyFormatter(options?: Intl.NumberFormatOptions) {
       new Intl.NumberFormat(locale, {
         style: "currency",
         currency: currency,
-        ...options,
+        ...options
       }),
     [locale, currency, options]
   );

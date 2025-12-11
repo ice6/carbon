@@ -9,7 +9,7 @@ import { PanelProvider, ResizablePanels } from "~/components/Layout";
 import {
   getSalesInvoice,
   getSalesInvoiceLines,
-  getSalesInvoiceShipment,
+  getSalesInvoiceShipment
 } from "~/modules/invoicing";
 import SalesInvoiceExplorer from "~/modules/invoicing/ui/SalesInvoice/SalesInvoiceExplorer";
 import SalesInvoiceHeader from "~/modules/invoicing/ui/SalesInvoice/SalesInvoiceHeader";
@@ -18,19 +18,19 @@ import SalesInvoiceProperties from "~/modules/invoicing/ui/SalesInvoice/SalesInv
 import {
   getCustomer,
   getOpportunity,
-  getOpportunityDocuments,
+  getOpportunityDocuments
 } from "~/modules/sales/sales.service";
 import type { Handle } from "~/utils/handle";
 import { path } from "~/utils/path";
 
 export const handle: Handle = {
   breadcrumb: "Invoices",
-  to: path.to.salesInvoices,
+  to: path.to.salesInvoices
 };
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    view: "invoicing",
+    view: "invoicing"
   });
 
   const { invoiceId } = params;
@@ -40,7 +40,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     await Promise.all([
       getSalesInvoice(client, invoiceId),
       getSalesInvoiceLines(client, invoiceId),
-      getSalesInvoiceShipment(client, invoiceId),
+      getSalesInvoiceShipment(client, invoiceId)
     ]);
 
   if (salesInvoice.error) {
@@ -59,7 +59,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
       : null,
     salesInvoice.data?.opportunityId
       ? getOpportunity(client, salesInvoice.data.opportunityId)
-      : null,
+      : null
   ]);
 
   return defer({
@@ -72,7 +72,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
       salesInvoice.data?.opportunityId!
     ),
     opportunity: opportunity?.data ?? null,
-    customer: customer?.data ?? null,
+    customer: customer?.data ?? null
   });
 }
 

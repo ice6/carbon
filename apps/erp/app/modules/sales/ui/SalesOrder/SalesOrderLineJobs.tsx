@@ -22,7 +22,7 @@ import {
   toast,
   useDisclosure,
   useMount,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { useFetcher, useNavigate, useParams } from "@remix-run/react";
 import { useMemo, useState } from "react";
@@ -32,7 +32,7 @@ import {
   LuCirclePlay,
   LuCirclePlus,
   LuHardHat,
-  LuSettings2,
+  LuSettings2
 } from "react-icons/lu";
 import { Assignee, Empty, Hyperlink, TimeTypeIcon } from "~/components";
 import {
@@ -42,7 +42,7 @@ import {
   NumberControlled,
   Select,
   SequenceOrCustomId,
-  Submit,
+  Submit
 } from "~/components/Form";
 import { usePermissions } from "~/hooks";
 
@@ -51,13 +51,13 @@ import {
   getLocalTimeZone,
   isSameDay,
   parseDate,
-  today,
+  today
 } from "@internationalized/date";
 import { flushSync } from "react-dom";
 import { SupplierProcessPreview } from "~/components/Form/SupplierProcess";
 import {
   deadlineTypes,
-  salesOrderToJobValidator,
+  salesOrderToJobValidator
 } from "~/modules/production/production.models";
 import type { Job, JobOperation } from "~/modules/production/types";
 import { getDeadlineIcon } from "~/modules/production/ui/Jobs/Deadline";
@@ -69,7 +69,7 @@ import type {
   Opportunity,
   SalesOrder,
   SalesOrderJob,
-  SalesOrderLine,
+  SalesOrderLine
 } from "../../types";
 
 type SalesOrderLineJobsProps = {
@@ -85,7 +85,7 @@ export function SalesOrderLineJobs({
   line,
   opportunity,
   jobs,
-  itemReplenishment,
+  itemReplenishment
 }: SalesOrderLineJobsProps) {
   const { orderId, lineId } = useParams();
   if (!orderId) throw new Error("orderId not found");
@@ -109,7 +109,7 @@ export function SalesOrderLineJobs({
       : quantityRequired;
     return {
       quantity,
-      scrapQuantity: Math.ceil(quantity * (scrapPercentage / 100)),
+      scrapQuantity: Math.ceil(quantity * (scrapPercentage / 100))
     };
   });
 
@@ -186,7 +186,7 @@ export function SalesOrderLineJobs({
                 salesOrderId: opportunity.salesOrders[0]?.id ?? undefined,
                 salesOrderLineId: lineId,
                 scrapQuantity: 0,
-                unitOfMeasureCode: line.unitOfMeasureCode ?? undefined,
+                unitOfMeasureCode: line.unitOfMeasureCode ?? undefined
               }}
               className="flex flex-col h-full"
               onSubmit={newJobDisclosure.onClose}
@@ -217,7 +217,7 @@ export function SalesOrderLineJobs({
                       setQuantities((prev) => ({
                         ...prev,
                         quantity: value,
-                        scrapQuantity: Math.ceil(value * scrapPercentage),
+                        scrapQuantity: Math.ceil(value * scrapPercentage)
                       }));
                     }}
                     minValue={0}
@@ -229,7 +229,7 @@ export function SalesOrderLineJobs({
                     onChange={(value) =>
                       setQuantities((prev) => ({
                         ...prev,
-                        scrapQuantity: value,
+                        scrapQuantity: value
                       }))
                     }
                     minValue={0}
@@ -245,7 +245,7 @@ export function SalesOrderLineJobs({
                           {getDeadlineIcon(d)}
                           <span>{d}</span>
                         </div>
-                      ),
+                      )
                     }))}
                   />
                 </div>
@@ -285,7 +285,7 @@ export function SalesOrderJobItem({ job }: { job: SalesOrderJob }) {
                   "Planned",
                   "In Progress",
                   "Ready",
-                  "Paused",
+                  "Paused"
                 ].includes(job.status ?? "") && (
                   <>
                     {job.dueDate &&
@@ -383,7 +383,7 @@ function JobDetails({ job }: { job: Job }) {
         .select(
           "*, jobMakeMethod(parentMaterialId, item(readableIdWithRevision))"
         )
-        .eq("jobId", job.id!),
+        .eq("jobId", job.id!)
     ]);
 
     if (operations.error) {

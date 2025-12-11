@@ -13,7 +13,7 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
   Switch,
-  useDisclosure,
+  useDisclosure
 } from "@carbon/react";
 import { ItarDisclosure, useEdition, useMode } from "@carbon/remix";
 import { Edition, themes } from "@carbon/utils";
@@ -28,7 +28,7 @@ import {
   LuPalette,
   LuShieldCheck,
   LuSun,
-  LuUser,
+  LuUser
 } from "react-icons/lu";
 import { Avatar } from "~/components";
 import { usePermissions, useUser } from "~/hooks";
@@ -145,7 +145,7 @@ const AvatarMenu = () => {
                       {
                         "--theme-primary": `hsl(${
                           t?.activeColor[mode === "dark" ? "dark" : "light"]
-                        })`,
+                        })`
                       } as React.CSSProperties
                     }
                   >

@@ -9,20 +9,20 @@ import {
   Preview,
   Row,
   Section,
-  Text,
+  Text
 } from "@react-email/components";
 import type { Email } from "../types";
 import {
   getLineDescription,
   getLineDescriptionDetails,
   getLineTotal,
-  getTotal,
+  getTotal
 } from "../utils/sales-invoice";
 import { getCurrencyFormatter } from "../utils/shared";
 import {
   EmailThemeProvider,
   getEmailInlineStyles,
-  getEmailThemeClasses,
+  getEmailThemeClasses
 } from "./components/Theme";
 
 interface SalesInvoiceEmailProps extends Email {
@@ -42,7 +42,7 @@ const SalesInvoiceEmail = ({
   salesInvoiceShipment,
   recipient,
   sender,
-  paymentTerms,
+  paymentTerms
 }: SalesInvoiceEmailProps) => {
   const {
     invoiceCustomerName,
@@ -51,7 +51,7 @@ const SalesInvoiceEmail = ({
     invoiceCity,
     invoiceStateProvince,
     invoicePostalCode,
-    invoiceCountryName,
+    invoiceCountryName
   } = salesInvoiceLocations;
 
   const currencyCode = salesInvoice.currencyCode ?? company.baseCurrencyCode;
@@ -73,7 +73,7 @@ const SalesInvoiceEmail = ({
           style={{
             borderStyle: "solid",
             borderWidth: "1px",
-            borderColor: lightStyles.container.borderColor,
+            borderColor: lightStyles.container.borderColor
           }}
         >
           <Section>

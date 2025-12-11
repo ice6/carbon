@@ -17,14 +17,14 @@ import { path } from "~/utils/path";
 export const handle: Handle = {
   breadcrumb: "Quotes",
   to: path.to.quotes,
-  module: "sales",
+  module: "sales"
 };
 
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
     create: "sales",
-    bypassRls: true,
+    bypassRls: true
   });
 
   const formData = await request.formData();
@@ -58,7 +58,7 @@ export async function action({ request }: ActionFunctionArgs) {
     quoteId,
     companyId,
     createdBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
 
   if (createQuote.error || !createQuote.data?.[0]) {
@@ -91,7 +91,7 @@ export default function QuoteNewRoute() {
     salesPersonId: userId,
     currencyCode: undefined,
     exchangeRate: undefined,
-    exchangeRateUpdatedAt: "",
+    exchangeRateUpdatedAt: ""
   };
 
   return (

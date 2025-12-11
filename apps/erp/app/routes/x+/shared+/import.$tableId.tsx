@@ -2,7 +2,7 @@ import { getCarbonServiceRole, notFound } from "@carbon/auth";
 import { requirePermissions } from "@carbon/auth/auth.server";
 import { validator } from "@carbon/form";
 import { json, type ActionFunctionArgs } from "@vercel/remix";
-import { z } from 'zod/v3';
+import { z } from "zod/v3";
 import { importCsv, importPermissions, importSchemas } from "~/modules/shared";
 
 export async function action({ request, params }: ActionFunctionArgs) {
@@ -17,12 +17,12 @@ export async function action({ request, params }: ActionFunctionArgs) {
   }
 
   const { companyId, userId } = await requirePermissions(request, {
-    update: importPermissions[table],
+    update: importPermissions[table]
   });
 
   const schema = importSchemas[table].extend({
     filePath: z.string().min(1, { message: "Path is required" }),
-    enumMappings: z.string().optional(),
+    enumMappings: z.string().optional()
   });
 
   const validation = await validator(schema).validate(await request.formData());
@@ -30,7 +30,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   if (validation.error) {
     return json({
       success: false,
-      message: "Validation failed",
+      message: "Validation failed"
     });
   }
 
@@ -43,18 +43,18 @@ export async function action({ request, params }: ActionFunctionArgs) {
     columnMappings,
     enumMappings: enumMappings ? JSON.parse(enumMappings as string) : undefined,
     companyId,
-    userId,
+    userId
   });
 
   if (importResult.error) {
     return json({
       success: false,
-      message: importResult.error.message,
+      message: importResult.error.message
     });
   }
 
   return json({
     success: true,
-    message: "Import successful",
+    message: "Import successful"
   });
 }

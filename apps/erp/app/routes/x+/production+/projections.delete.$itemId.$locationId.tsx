@@ -11,7 +11,7 @@ import { path } from "~/utils/path";
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId } = await requirePermissions(request, {
-    delete: "production",
+    delete: "production"
   });
 
   const { itemId, locationId } = params;
@@ -31,7 +31,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   const endDate = startDate.add({ weeks: 52 });
   const periods = await getPeriods(client, {
     startDate: startDate.toString(),
-    endDate: endDate.toString(),
+    endDate: endDate.toString()
   });
 
   if (periods.error) {
@@ -48,7 +48,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     itemId,
     locationId,
     companyId,
-    futurePeriodIds,
+    futurePeriodIds
   });
 
   if (result.error) {

@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "flex-start",
-    marginBottom: 20,
+    marginBottom: 20
   },
   companyDetails: {
     display: "flex",
@@ -23,13 +23,13 @@ const styles = StyleSheet.create({
     rowGap: 3,
     fontSize: 11,
     fontWeight: 500,
-    width: "60%",
+    width: "60%"
   },
   companyName: {
     fontSize: 13,
     letterSpacing: -0.5,
     color: "#000000",
-    fontWeight: 700,
+    fontWeight: 700
   },
   documentSummary: {
     display: "flex",
@@ -37,22 +37,22 @@ const styles = StyleSheet.create({
     rowGap: 3,
     fontSize: 11,
     fontWeight: 500,
-    width: "40%",
+    width: "40%"
   },
   documentSummaryItem: {
     display: "flex",
     flexDirection: "row",
     justifyContent: "flex-start",
-    marginBottom: 5,
+    marginBottom: 5
   },
   documentSummaryLabel: {
     color: "#7d7d7d",
     fontWeight: 700,
-    width: "50%",
+    width: "50%"
   },
   documentSummaryValue: {
-    fontWeight: 500,
-  },
+    fontWeight: 500
+  }
 });
 
 const Summary = ({ company, items }: SummaryProps) => {

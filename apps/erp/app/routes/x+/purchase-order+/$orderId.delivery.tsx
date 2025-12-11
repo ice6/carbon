@@ -6,7 +6,7 @@ import type { ActionFunctionArgs } from "@vercel/remix";
 import { redirect } from "@vercel/remix";
 import {
   purchaseOrderDeliveryValidator,
-  upsertPurchaseOrderDelivery,
+  upsertPurchaseOrderDelivery
 } from "~/modules/purchasing";
 import { setCustomFields } from "~/utils/form";
 import { path } from "~/utils/path";
@@ -14,7 +14,7 @@ import { path } from "~/utils/path";
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    update: "purchasing",
+    update: "purchasing"
   });
 
   const { orderId } = params;
@@ -35,7 +35,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
       ...validation.data,
       id: orderId,
       updatedBy: userId,
-      customFields: setCustomFields(formData),
+      customFields: setCustomFields(formData)
     }
   );
   if (updatePurchaseOrderDelivery.error) {

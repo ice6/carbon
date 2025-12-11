@@ -14,7 +14,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   if (!itemId || !locationId) {
     return json({
       data: [],
-      error: null,
+      error: null
     });
   }
 
@@ -29,7 +29,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   if (result.error) {
     return json({
       data: [],
-      error: result.error,
+      error: result.error
     });
   }
 
@@ -41,6 +41,6 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
   return json({
     data: shelfEntities,
-    error: null,
+    error: null
   });
 }

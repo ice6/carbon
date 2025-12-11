@@ -7,7 +7,7 @@ import {
   Outlet,
   redirect,
   useLoaderData,
-  useParams,
+  useParams
 } from "@remix-run/react";
 import type { LoaderFunctionArgs } from "@vercel/remix";
 import { Suspense, useMemo } from "react";
@@ -20,12 +20,12 @@ import {
   getJob,
   getJobDocuments,
   getJobMethodTree,
-  getTrackedEntitiesByJobId,
+  getTrackedEntitiesByJobId
 } from "~/modules/production";
 import {
   JobBoMExplorer,
   JobHeader,
-  JobProperties,
+  JobProperties
 } from "~/modules/production/ui/Jobs";
 import { getTagsList } from "~/modules/shared";
 import type { Handle } from "~/utils/handle";
@@ -34,13 +34,13 @@ import { path } from "~/utils/path";
 export const handle: Handle = {
   breadcrumb: "Jobs",
   to: path.to.jobs,
-  module: "production",
+  module: "production"
 };
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
     view: "production",
-    bypassRls: true,
+    bypassRls: true
   });
 
   const { jobId } = params;
@@ -48,7 +48,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
   const [job, tags] = await Promise.all([
     getJob(client, jobId),
-    getTagsList(client, companyId, "job"),
+    getTagsList(client, companyId, "job")
   ]);
 
   if (companyId !== job.data?.companyId) {
@@ -72,7 +72,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
       client,
       job.data.itemId!,
       companyId
-    ),
+    )
   });
 }
 
@@ -125,7 +125,7 @@ export default function JobRoute() {
 }
 
 function JobBoMExplorerWrapper({
-  method,
+  method
 }: {
   method: JobMethodTreeItem[] | null;
 }) {

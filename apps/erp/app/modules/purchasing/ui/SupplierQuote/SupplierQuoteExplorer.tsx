@@ -15,7 +15,7 @@ import {
   useDisclosure,
   useKeyboardShortcuts,
   useMount,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { getItemReadableId, prettifyKeyboardShortcut } from "@carbon/utils";
 import { Link, useParams } from "@remix-run/react";
@@ -49,7 +49,7 @@ export default function SupplierQuoteExplorer() {
     itemId: "",
     quantity: [1],
     inventoryUnitOfMeasureCode: "",
-    purchaseUnitOfMeasureCode: "",
+    purchaseUnitOfMeasureCode: ""
   };
 
   const newSupplierQuoteLineDisclosure = useDisclosure();
@@ -74,7 +74,7 @@ export default function SupplierQuoteExplorer() {
     "Command+Shift+l": (event: KeyboardEvent) => {
       event.stopPropagation();
       newButtonRef.current?.click();
-    },
+    }
   });
 
   return (
@@ -142,7 +142,7 @@ export default function SupplierQuoteExplorer() {
         <DeleteSupplierQuoteLine
           line={{
             itemId: deleteLine?.itemId ?? "",
-            id: deleteLine.id,
+            id: deleteLine.id
           }}
           onCancel={onDeleteCancel}
         />
@@ -160,7 +160,7 @@ type SupplierQuoteLineItemProps = {
 function SupplierQuoteLineItem({
   line,
   isDisabled,
-  onDelete,
+  onDelete
 }: SupplierQuoteLineItemProps) {
   const { id, lineId } = useParams();
   if (!id) throw new Error("Could not find id");

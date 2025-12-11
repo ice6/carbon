@@ -6,14 +6,14 @@ import type { ActionFunctionArgs } from "@vercel/remix";
 import { redirect } from "@vercel/remix";
 import {
   documentLabelsValidator,
-  updateDocumentLabels,
+  updateDocumentLabels
 } from "~/modules/documents";
 import { path } from "~/utils/path";
 
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    view: "documents",
+    view: "documents"
   });
   const validation = await validator(documentLabelsValidator).validate(
     await request.formData()
@@ -28,7 +28,7 @@ export async function action({ request }: ActionFunctionArgs) {
   const updateLabels = await updateDocumentLabels(client, {
     documentId,
     labels: labels ?? [],
-    userId,
+    userId
   });
 
   if (updateLabels.error) {

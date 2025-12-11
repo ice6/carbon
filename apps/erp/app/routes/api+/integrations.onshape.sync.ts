@@ -6,7 +6,7 @@ import { json, type ActionFunctionArgs } from "@vercel/remix";
 
 export async function action({ request }: ActionFunctionArgs) {
   const { client, companyId, userId } = await requirePermissions(request, {
-    update: "parts",
+    update: "parts"
   });
 
   const formData = await request.formData();
@@ -48,15 +48,15 @@ export async function action({ request }: ActionFunctionArgs) {
           makeMethodId,
           data,
           companyId,
-          userId,
+          userId
         },
-        region: FunctionRegion.UsEast1,
+        region: FunctionRegion.UsEast1
       }),
       serviceRole
         .from("item")
         .select("externalId")
         .eq("id", record.data?.itemId as string)
-        .single(),
+        .single()
     ]);
 
     if (sync.error) {
@@ -80,13 +80,13 @@ export async function action({ request }: ActionFunctionArgs) {
       documentId,
       versionId,
       elementId,
-      lastSyncedAt: new Date().toISOString(),
+      lastSyncedAt: new Date().toISOString()
     };
 
     await client
       .from("item")
       .update({
-        externalId: currentExternalId,
+        externalId: currentExternalId
       })
       .eq("id", record.data?.itemId as string);
   } catch (error) {

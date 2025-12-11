@@ -4,7 +4,7 @@ import {
   FormControl,
   FormErrorMessage,
   FormHelperText,
-  FormLabel,
+  FormLabel
 } from "@carbon/react";
 import { useEffect } from "react";
 import { flushSync } from "react-dom";
@@ -62,7 +62,7 @@ const Combobox = ({
       )}
       <input
         {...getInputProps({
-          id: name,
+          id: name
         })}
         type="hidden"
         name={name}

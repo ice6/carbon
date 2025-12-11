@@ -5,14 +5,14 @@ import {
   Link,
   Preview,
   Section,
-  Text,
+  Text
 } from "@react-email/components";
 import { Logo } from "./components/Logo";
 import {
   Button,
   EmailThemeProvider,
   getEmailInlineStyles,
-  getEmailThemeClasses,
+  getEmailThemeClasses
 } from "./components/Theme";
 
 interface Props {
@@ -32,7 +32,7 @@ export const InviteEmail = ({
   companyName = "Tombstone",
   inviteLink = "https://carbon.ms/invite/1234567890",
   ip = "38.38.38.38",
-  location = "Tombstone, AZ",
+  location = "Tombstone, AZ"
 }: Props) => {
   const preview = <Preview>{`Join ${companyName} on Carbon`}</Preview>;
   const themeClasses = getEmailThemeClasses();
@@ -49,7 +49,7 @@ export const InviteEmail = ({
           style={{
             borderStyle: "solid",
             borderWidth: 1,
-            borderColor: lightStyles.container.borderColor,
+            borderColor: lightStyles.container.borderColor
           }}
         >
           <Logo />

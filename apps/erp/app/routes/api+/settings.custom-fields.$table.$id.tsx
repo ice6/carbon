@@ -11,13 +11,13 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
   if (!table || !id)
     return json({
-      data: [],
+      data: []
     });
 
   const values = await client.rpc("get_custom_field_unique_values", {
     table_name: table,
     field_key: id,
-    company_id: companyId,
+    company_id: companyId
   });
   if (values.error) {
     return json(
@@ -31,7 +31,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
   const options = values.data.map((value) => ({
     id: value.value,
-    name: value.value,
+    name: value.value
   }));
 
   return json({ data: options, error: null });

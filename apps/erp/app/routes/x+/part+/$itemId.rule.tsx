@@ -4,13 +4,13 @@ import { validator } from "@carbon/form";
 import { json, type ActionFunctionArgs } from "@vercel/remix";
 import {
   configurationRuleValidator,
-  upsertConfigurationRule,
+  upsertConfigurationRule
 } from "~/modules/items";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    update: "parts",
+    update: "parts"
   });
 
   const { itemId } = params;
@@ -24,7 +24,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   if (validation.error) {
     return json({
       success: false,
-      error: "Invalid form data",
+      error: "Invalid form data"
     });
   }
 
@@ -32,18 +32,18 @@ export async function action({ request, params }: ActionFunctionArgs) {
     ...validation.data,
     itemId,
     companyId,
-    updatedBy: userId,
+    updatedBy: userId
   });
 
   if (upsert.error) {
     console.error(upsert.error);
     return json({
       success: false,
-      error: upsert.error.message,
+      error: upsert.error.message
     });
   }
 
   return json({
-    success: true,
+    success: true
   });
 }

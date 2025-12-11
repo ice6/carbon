@@ -36,8 +36,8 @@ const CustomFieldsTable = memo(({ data, count }: CustomFieldsTableProps) => {
           </div>
         ),
         meta: {
-          icon: <LuDatabase />,
-        },
+          icon: <LuDatabase />
+        }
       },
       {
         accessorKey: "module",
@@ -49,10 +49,10 @@ const CustomFieldsTable = memo(({ data, count }: CustomFieldsTableProps) => {
             type: "static",
             options: modulesType.map((m) => ({
               label: <Enumerable value={m} />,
-              value: m,
-            })),
-          },
-        },
+              value: m
+            }))
+          }
+        }
       },
       {
         header: "Fields",
@@ -64,16 +64,16 @@ const CustomFieldsTable = memo(({ data, count }: CustomFieldsTableProps) => {
               )}?${params?.toString()}`}
             >
               {Array.isArray(row.original.fields)
-                ? row.original.fields?.length ?? 0
+                ? (row.original.fields?.length ?? 0)
                 : 0}{" "}
               Fields
             </Link>
           </Button>
         ),
         meta: {
-          icon: <LuList />,
-        },
-      },
+          icon: <LuList />
+        }
+      }
     ];
   }, [params]);
 

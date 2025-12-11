@@ -10,7 +10,7 @@ import { path } from "~/utils/path";
 async function handleKanbanComplete({
   client,
   companyId,
-  id,
+  id
 }: {
   client: SupabaseClient<Database>;
   companyId: string;
@@ -20,14 +20,14 @@ async function handleKanbanComplete({
   if (kanban.error) {
     return {
       data: null,
-      error: "Kanban not found",
+      error: "Kanban not found"
     };
   }
 
   if (!kanban.data?.jobId) {
     return {
       data: null,
-      error: "No job found for kanban",
+      error: "No job found for kanban"
     };
   }
 
@@ -40,13 +40,13 @@ async function handleKanbanComplete({
   if (!operation) {
     return {
       data: path.to.job(kanban.data.jobId!),
-      error: null,
+      error: null
     };
   }
 
   return {
     data: path.to.external.mesJobOperationComplete(operation.id),
-    error: null,
+    error: null
   };
 }
 

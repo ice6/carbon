@@ -12,7 +12,7 @@ import {
   Tbody,
   Td,
   Tr,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { formatDate, getItemReadableId } from "@carbon/utils";
 import { useLocale } from "@react-aria/i18n";
@@ -26,7 +26,7 @@ import {
   useCurrencyFormatter,
   usePercentFormatter,
   useRouteData,
-  useUser,
+  useUser
 } from "~/hooks";
 import { useItems } from "~/stores";
 import { getPrivateUrl, path } from "~/utils/path";
@@ -34,7 +34,7 @@ import type {
   PurchaseOrder,
   PurchaseOrderDelivery,
   PurchaseOrderLine,
-  Supplier,
+  Supplier
 } from "../../types";
 
 const LineItems = ({
@@ -43,7 +43,7 @@ const LineItems = ({
   formatter,
   locale,
   lines,
-  shouldConvertCurrency,
+  shouldConvertCurrency
 }: {
   currencyCode: string;
   presentationCurrencyFormatter: Intl.NumberFormat;
@@ -124,7 +124,9 @@ const LineItems = ({
                           size="sm"
                           className="text-muted-foreground flex-shrink-0"
                         >
-                          <Link to={path.to.purchaseOrderLine(orderId, line.id!)}>
+                          <Link
+                            to={path.to.purchaseOrderLine(orderId, line.id!)}
+                          >
                             Edit
                           </Link>
                         </Button>
@@ -152,7 +154,7 @@ const LineItems = ({
                         </VStack>
                         <motion.div
                           animate={{
-                            rotate: openItems.includes(line.id) ? 90 : 0,
+                            rotate: openItems.includes(line.id) ? 90 : 0
                           }}
                           transition={{ duration: 0.3 }}
                         >
@@ -168,9 +170,7 @@ const LineItems = ({
                           <MethodIcon type={line.methodType ?? "Pick"} />
                         </Badge>
                         <Badge variant="green">
-                          {formatter.format(
-                            line.unitPrice ?? 0
-                          )}{" "}
+                          {formatter.format(line.unitPrice ?? 0)}{" "}
                           {
                             unitOfMeasures.find(
                               (uom) =>
@@ -195,7 +195,7 @@ const LineItems = ({
               animate={openItems.includes(line.id) ? "open" : "collapsed"}
               variants={{
                 open: { opacity: 1, height: "auto", marginTop: 16 },
-                collapsed: { opacity: 0, height: 0, marginTop: 0 },
+                collapsed: { opacity: 0, height: 0, marginTop: 0 }
               }}
               transition={{ duration: 0.3 }}
               className="w-full overflow-hidden"
@@ -330,7 +330,7 @@ type PurchaseOrderSummaryProps = {
 };
 
 const PurchaseOrderSummary = ({
-  onEditShippingCost,
+  onEditShippingCost
 }: PurchaseOrderSummaryProps) => {
   const { orderId } = useParams();
   if (!orderId) throw new Error("Could not find orderId");
@@ -353,7 +353,7 @@ const PurchaseOrderSummary = ({
     currency:
       routeData?.purchaseOrder?.currencyCode ??
       company?.baseCurrencyCode ??
-      "USD",
+      "USD"
   });
 
   const shouldConvertCurrency =

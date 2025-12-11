@@ -2,12 +2,12 @@ import {
   CarbonEdition,
   CarbonProvider,
   CONTROLLED_ENVIRONMENT,
-  getCarbon,
+  getCarbon
 } from "@carbon/auth";
 import {
   destroyAuthSession,
   requireAuthSession,
-  updateCompanySession,
+  updateCompanySession
 } from "@carbon/auth/session.server";
 import { setCompanyId } from "@carbon/auth/company.server";
 import { TooltipProvider, useMount } from "@carbon/react";
@@ -15,7 +15,7 @@ import {
   AcademyBanner,
   ItarPopup,
   useKeyboardWedge,
-  useNProgress,
+  useNProgress
 } from "@carbon/remix";
 import { getStripeCustomerByCompanyId } from "@carbon/stripe/stripe.server";
 import { Edition } from "@carbon/utils";
@@ -30,14 +30,14 @@ import { PrimaryNavigation, Topbar } from "~/components/Layout";
 import {
   getCompanies,
   getCompanyIntegrations,
-  getCompanySettings,
+  getCompanySettings
 } from "~/modules/settings";
 import { getCustomFieldsSchemas } from "~/modules/shared/shared.server";
 import {
   getUser,
   getUserClaims,
   getUserDefaults,
-  getUserGroups,
+  getUserGroups
 } from "~/modules/users/users.server";
 import { ERP_URL, MES_URL, path } from "~/utils/path";
 
@@ -45,7 +45,7 @@ import { getSavedViews } from "~/modules/shared/shared.service";
 
 export const shouldRevalidate: ShouldRevalidateFunction = ({
   currentUrl,
-  defaultShouldRevalidate,
+  defaultShouldRevalidate
 }) => {
   if (
     currentUrl.pathname.startsWith("/x/settings") ||
@@ -86,7 +86,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
     user,
     claims,
     groups,
-    defaults,
+    defaults
   ] = await Promise.all([
     getCompanies(client, userId),
     getStripeCustomerByCompanyId(companyId, userId),
@@ -97,7 +97,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
     getUser(client, userId),
     getUserClaims(userId, companyId),
     getUserGroups(client, userId),
-    getUserDefaults(client, userId, companyId),
+    getUserDefaults(client, userId, companyId)
   ]);
 
   if (!claims || user.error || !user.data || !groups.data) {
@@ -113,8 +113,8 @@ export async function loader({ request }: LoaderFunctionArgs) {
     throw redirect(path.to.authenticatedRoot, {
       headers: [
         ["Set-Cookie", sessionCookie],
-        ["Set-Cookie", companyIdCookie],
-      ],
+        ["Set-Cookie", companyIdCookie]
+      ]
     });
   }
 
@@ -128,7 +128,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
     session: {
       accessToken,
       expiresIn,
-      expiresAt,
+      expiresAt
     },
     company,
     companies: companies.data ?? [],
@@ -141,7 +141,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
     plan: stripeCustomer?.planId,
     role: claims?.role,
     user: user.data,
-    savedViews: savedViews.data ?? [],
+    savedViews: savedViews.data ?? []
   });
 }
 
@@ -159,7 +159,7 @@ export default function AuthenticatedRoute() {
       } catch {
         navigate(input);
       }
-    },
+    }
   });
 
   useMount(() => {
@@ -167,7 +167,7 @@ export default function AuthenticatedRoute() {
 
     posthog.identify(user.id, {
       email: user.email,
-      name: `${user.firstName} ${user.lastName}`,
+      name: `${user.firstName} ${user.lastName}`
     });
   });
 

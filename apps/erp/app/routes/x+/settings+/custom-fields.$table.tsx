@@ -14,7 +14,7 @@ import { path } from "~/utils/path";
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
     view: "settings",
-    role: "employee",
+    role: "employee"
   });
 
   const { table } = params;
@@ -22,7 +22,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
   const [customFields, tags] = await Promise.all([
     getCustomFields(client, table, companyId),
-    getTagsList(client, companyId, table),
+    getTagsList(client, companyId, table)
   ]);
 
   if (customFields.error) {
@@ -41,7 +41,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    update: "resources",
+    update: "resources"
   });
 
   const updateMap = (await request.formData()).get("updates") as string;
@@ -56,7 +56,7 @@ export async function action({ request }: ActionFunctionArgs) {
     ([id, sortOrderString]) => ({
       id,
       sortOrder: Number(sortOrderString),
-      updatedBy: userId,
+      updatedBy: userId
     })
   );
 

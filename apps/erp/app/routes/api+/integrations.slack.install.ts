@@ -7,7 +7,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
   const url = await getSlackInstallUrl({
     companyId,
-    userId,
+    userId
   });
 
   return json({ url });

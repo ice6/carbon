@@ -14,12 +14,12 @@ import {
   TooltipTrigger,
   VStack,
   cn,
-  toast,
+  toast
 } from "@carbon/react";
 import { Await, useFetcher, useParams } from "@remix-run/react";
 import { Suspense, useCallback, useEffect } from "react";
 import { LuCopy, LuLink } from "react-icons/lu";
-import { z } from 'zod/v3';
+import { z } from "zod/v3";
 import { zfd } from "zod-form-data";
 import { MethodBadge, MethodIcon, TrackingTypeIcon } from "~/components";
 import { Enumerable } from "~/components/Enumerable";
@@ -38,7 +38,7 @@ import type {
   Consumable,
   ItemFile,
   PickMethod,
-  SupplierPart,
+  SupplierPart
 } from "../../types";
 import { FileBadge } from "../Item";
 
@@ -94,7 +94,7 @@ const ConsumableProperties = () => {
       formData.append("value", value?.toString() ?? "");
       fetcher.submit(formData, {
         method: "post",
-        action: path.to.bulkUpdateItems,
+        action: path.to.bulkUpdateItems
       });
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -114,7 +114,7 @@ const ConsumableProperties = () => {
 
       fetcher.submit(formData, {
         method: "post",
-        action: path.to.tags,
+        action: path.to.tags
       });
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -131,7 +131,7 @@ const ConsumableProperties = () => {
 
       fetcher.submit(formData, {
         method: "post",
-        action: path.to.customFields,
+        action: path.to.customFields
       });
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -196,10 +196,11 @@ const ConsumableProperties = () => {
           <ValidatedForm
             defaultValues={{
               consumableId:
-                routeData?.consumableSummary?.readableIdWithRevision ?? undefined,
+                routeData?.consumableSummary?.readableIdWithRevision ??
+                undefined
             }}
             validator={z.object({
-              consumableId: z.string(),
+              consumableId: z.string()
             })}
             className="w-full -mt-2"
           >
@@ -219,10 +220,10 @@ const ConsumableProperties = () => {
           </ValidatedForm>
           <ValidatedForm
             defaultValues={{
-              name: routeData?.consumableSummary?.name ?? undefined,
+              name: routeData?.consumableSummary?.name ?? undefined
             }}
             validator={z.object({
-              name: z.string(),
+              name: z.string()
             })}
             className="w-full -mt-2"
           >
@@ -350,10 +351,10 @@ const ConsumableProperties = () => {
       </VStack>
       <ValidatedForm
         defaultValues={{
-          active: routeData?.consumableSummary?.active ?? undefined,
+          active: routeData?.consumableSummary?.active ?? undefined
         }}
         validator={z.object({
-          active: zfd.checkbox(),
+          active: zfd.checkbox()
         })}
         className="w-full"
       >
@@ -368,10 +369,10 @@ const ConsumableProperties = () => {
       </ValidatedForm>
       <ValidatedForm
         defaultValues={{
-          tags: routeData?.consumableSummary?.tags ?? [],
+          tags: routeData?.consumableSummary?.tags ?? []
         }}
         validator={z.object({
-          tags: z.array(z.string()).optional(),
+          tags: z.array(z.string()).optional()
         })}
         className="w-full"
       >

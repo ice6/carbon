@@ -13,7 +13,7 @@ import {
   Th,
   Thead,
   Tr,
-  useDisclosure,
+  useDisclosure
 } from "@carbon/react";
 import { useFetcher, useParams } from "@remix-run/react";
 import { LuCirclePlus } from "react-icons/lu";
@@ -26,7 +26,7 @@ import type {
   Opportunity,
   SalesOrder,
   SalesOrderLine,
-  SalesOrderLineShipment,
+  SalesOrderLineShipment
 } from "../../types";
 
 import { formatDate } from "@carbon/utils";
@@ -41,7 +41,7 @@ type SalesOrderLineShipmentsProps = {
 
 export function SalesOrderLineShipments({
   line,
-  shipments,
+  shipments
 }: SalesOrderLineShipmentsProps) {
   const permissions = usePermissions();
   const { orderId, lineId } = useParams();
@@ -97,14 +97,17 @@ export function SalesOrderLineShipments({
               </Thead>
               <Tbody>
                 {Object.entries(
-                  shipments.reduce((acc, shipment) => {
-                    const key = shipment.shipment.id!;
-                    if (!acc[key]) {
-                      acc[key] = [];
-                    }
-                    acc[key].push(shipment);
-                    return acc;
-                  }, {} as Record<string, typeof shipments>)
+                  shipments.reduce(
+                    (acc, shipment) => {
+                      const key = shipment.shipment.id!;
+                      if (!acc[key]) {
+                        acc[key] = [];
+                      }
+                      acc[key].push(shipment);
+                      return acc;
+                    },
+                    {} as Record<string, typeof shipments>
+                  )
                 ).map(([shipmentId, groupedShipments]) => (
                   <Tr key={shipmentId}>
                     <Td>

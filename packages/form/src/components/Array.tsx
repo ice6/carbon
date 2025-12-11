@@ -7,7 +7,7 @@ import {
   HStack,
   IconButton,
   Input as InputBase,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { forwardRef, useRef } from "react";
 import { flushSync } from "react-dom";
@@ -77,7 +77,7 @@ const ArrayInput = forwardRef<HTMLInputElement, ArrayInputProps>(
             ref={ref}
             {...getInputProps({
               id: name,
-              ...rest,
+              ...rest
             })}
           />
           <IconButton

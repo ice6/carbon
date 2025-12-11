@@ -57,7 +57,7 @@ const CustomFormFields = ({ table, tags = [] }: CustomFormFieldsProps) => {
                   options={
                     field.listOptions?.map((o) => ({
                       label: o,
-                      value: o,
+                      value: o
                     })) ?? []
                   }
                 />

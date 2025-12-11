@@ -5,10 +5,10 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-  HStack,
+  HStack
 } from "@carbon/react";
 import { useState } from "react";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import {
   Customer,
   CustomerContact,
@@ -16,7 +16,7 @@ import {
   CustomFormFields,
   Hidden,
   ShippingMethod,
-  Submit,
+  Submit
 } from "~/components/Form";
 import { usePermissions } from "~/hooks";
 import { customerShippingValidator } from "../../sales.models";

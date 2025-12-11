@@ -3,7 +3,7 @@ import {
   Hidden,
   Submit,
   TextAreaControlled,
-  ValidatedForm,
+  ValidatedForm
 } from "@carbon/form";
 import {
   Badge,
@@ -16,7 +16,7 @@ import {
   PopoverTrigger,
   SidebarMenuButton,
   VStack,
-  toast,
+  toast
 } from "@carbon/react";
 import { SUPPORT_EMAIL } from "@carbon/utils";
 import { useFetcher, useLocation } from "@remix-run/react";
@@ -64,7 +64,7 @@ const Feedback = () => {
         .from("feedback")
         .upload(`${nanoid()}.${fileExtension}`, file, {
           cacheControl: `${12 * 60 * 60}`,
-          upsert: true,
+          upsert: true
         });
 
       if (imageUpload.error) {
@@ -75,7 +75,7 @@ const Feedback = () => {
       if (imageUpload.data?.path) {
         setAttachment({
           name: file.name,
-          path: imageUpload.data.path,
+          path: imageUpload.data.path
         });
       }
     }

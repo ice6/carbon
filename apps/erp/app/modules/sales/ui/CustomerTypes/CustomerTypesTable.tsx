@@ -35,9 +35,9 @@ const CustomerTypesTable = memo(({ data, count }: CustomerTypesTableProps) => {
           />
         ),
         meta: {
-          icon: <LuShapes />,
-        },
-      },
+          icon: <LuShapes />
+        }
+      }
     ];
     return [...defaultColumns, ...customColumns];
   }, [navigate, customColumns]);

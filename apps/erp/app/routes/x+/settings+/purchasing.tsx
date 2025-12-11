@@ -18,7 +18,7 @@ import {
   ScrollArea,
   toast,
   useDebounce,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { Editor } from "@carbon/react/Editor";
 import { getLocalTimeZone, today } from "@internationalized/date";
@@ -33,24 +33,24 @@ import {
   getTerms,
   purchasePriceUpdateTimingTypes,
   purchasePriceUpdateTimingValidator,
-  updatePurchasePriceUpdateTimingSetting,
+  updatePurchasePriceUpdateTimingSetting
 } from "~/modules/settings";
 import type { Handle } from "~/utils/handle";
 import { path } from "~/utils/path";
 
 export const handle: Handle = {
   breadcrumb: "Purchasing",
-  to: path.to.purchasingSettings,
+  to: path.to.purchasingSettings
 };
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    view: "settings",
+    view: "settings"
   });
 
   const [companySettings, terms] = await Promise.all([
     getCompanySettings(client, companyId),
-    getTerms(client, companyId),
+    getTerms(client, companyId)
   ]);
 
   if (companySettings.error) {
@@ -72,13 +72,13 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
   return json({
     companySettings: companySettings.data,
-    terms: terms.data,
+    terms: terms.data
   });
 }
 
 export async function action({ request }: ActionFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    update: "settings",
+    update: "settings"
   });
 
   const formData = await request.formData();
@@ -106,7 +106,7 @@ export async function action({ request }: ActionFunctionArgs) {
 
       return json({
         success: true,
-        message: "Purchase price update timing updated",
+        message: "Purchase price update timing updated"
       });
   }
 
@@ -120,7 +120,7 @@ export default function PurchasingSettingsRoute() {
   const { carbon } = useCarbon();
   const {
     id: userId,
-    company: { id: companyId },
+    company: { id: companyId }
   } = useUser();
 
   useEffect(() => {
@@ -149,7 +149,7 @@ export default function PurchasingSettingsRoute() {
         .update({
           purchasingTerms: content,
           updatedAt: today(getLocalTimeZone()).toString(),
-          updatedBy: userId,
+          updatedBy: userId
         })
         .eq("id", companyId);
       if (!error) setPurchasingTermsStatus("saved");
@@ -179,7 +179,7 @@ export default function PurchasingSettingsRoute() {
             defaultValues={{
               purchasePriceUpdateTiming:
                 companySettings.purchasePriceUpdateTiming ??
-                "Purchase Invoice Post",
+                "Purchase Invoice Post"
             }}
             fetcher={fetcher}
           >
@@ -202,7 +202,7 @@ export default function PurchasingSettingsRoute() {
                   label="Update prices on"
                   options={purchasePriceUpdateTimingTypes.map((type) => ({
                     label: type,
-                    value: type,
+                    value: type
                   }))}
                 />
               </div>
@@ -239,7 +239,7 @@ export default function PurchasingSettingsRoute() {
               <div
                 className="prose dark:prose-invert"
                 dangerouslySetInnerHTML={{
-                  __html: generateHTML(terms.purchasingTerms as JSONContent),
+                  __html: generateHTML(terms.purchasingTerms as JSONContent)
                 }}
               />
             )}

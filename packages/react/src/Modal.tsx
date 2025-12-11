@@ -6,7 +6,7 @@ import { cva } from "class-variance-authority";
 import type {
   ComponentPropsWithoutRef,
   ElementRef,
-  HTMLAttributes,
+  HTMLAttributes
 } from "react";
 import { forwardRef } from "react";
 
@@ -62,12 +62,12 @@ const ModalContentVariants = cva(
         large: `sm:align-middle sm:w-full max-w-xl`,
         xlarge: `sm:align-middle sm:w-full max-w-3xl`,
         xxlarge: `sm:align-middle sm:w-full max-w-6xl`,
-        xxxlarge: `sm:align-middle sm:w-full max-w-7xl`,
-      },
+        xxxlarge: `sm:align-middle sm:w-full max-w-7xl`
+      }
     },
     defaultVariants: {
-      size: "medium",
-    },
+      size: "medium"
+    }
   }
 );
 
@@ -173,5 +173,5 @@ export {
   ModalOverlay,
   ModalPortal,
   ModalTitle,
-  ModalTrigger,
+  ModalTrigger
 };

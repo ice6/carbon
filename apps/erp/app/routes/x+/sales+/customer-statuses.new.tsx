@@ -12,7 +12,7 @@ import { getParams, path, requestReferrer } from "~/utils/path";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   await requirePermissions(request, {
-    create: "sales",
+    create: "sales"
   });
 
   return null;
@@ -21,7 +21,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    create: "sales",
+    create: "sales"
   });
 
   const formData = await request.formData();
@@ -41,7 +41,7 @@ export async function action({ request }: ActionFunctionArgs) {
     ...data,
     companyId,
     createdBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
   if (insertCustomerStatus.error) {
     return modal
@@ -70,7 +70,7 @@ export async function action({ request }: ActionFunctionArgs) {
 export default function NewCustomerStatusesRoute() {
   const navigate = useNavigate();
   const initialValues = {
-    name: "",
+    name: ""
   };
 
   return (

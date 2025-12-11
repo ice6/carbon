@@ -6,7 +6,7 @@ import {
   Number,
   SelectControlled,
   Submit,
-  ValidatedForm,
+  ValidatedForm
 } from "@carbon/form";
 import type { JSONContent } from "@carbon/react";
 import {
@@ -36,7 +36,7 @@ import {
   useDebounce,
   useDisclosure,
   useKeyboardShortcuts,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { Editor } from "@carbon/react/Editor";
 import { prettifyKeyboardShortcut } from "@carbon/utils";
@@ -52,7 +52,7 @@ import {
   LuMaximize2,
   LuMinimize2,
   LuPencil,
-  LuTrash,
+  LuTrash
 } from "react-icons/lu";
 import type { z } from "zod/v3";
 import { Empty } from "~/components";
@@ -100,9 +100,9 @@ export default function QualityDocumentExplorer() {
     type: selectedStep?.type ?? "Task",
     sortOrder: selectedStep?.sortOrder ?? maxSortOrder + 1,
     unitOfMeasureCode: selectedStep?.unitOfMeasureCode ?? "",
-    minValue: selectedStep ? selectedStep?.minValue ?? undefined : 0,
-    maxValue: selectedStep ? selectedStep?.maxValue ?? undefined : 0,
-    listValues: selectedStep?.listValues ?? [],
+    minValue: selectedStep ? (selectedStep?.minValue ?? undefined) : 0,
+    maxValue: selectedStep ? (selectedStep?.maxValue ?? undefined) : 0,
+    listValues: selectedStep?.listValues ?? []
   };
 
   const isDisabled = documentData?.document?.status !== "Draft";
@@ -139,7 +139,7 @@ export default function QualityDocumentExplorer() {
       formData.append("updates", JSON.stringify(updates));
       sortOrderFetcher.submit(formData, {
         method: "post",
-        action: path.to.qualityDocumentStepOrder(id),
+        action: path.to.qualityDocumentStepOrder(id)
       });
     },
     2500,
@@ -172,7 +172,7 @@ export default function QualityDocumentExplorer() {
       if (!isDisabled) {
         newStepRef.current?.click();
       }
-    },
+    }
   });
 
   const stepMap = useMemo(
@@ -291,7 +291,7 @@ function QualityDocumentStepItem({
   attribute,
   isDisabled,
   onEdit,
-  onDelete,
+  onDelete
 }: QualityDocumentStepProps) {
   const { id } = useParams();
   if (!id) throw new Error("Could not find id");
@@ -333,10 +333,10 @@ function QualityDocumentStepItem({
                 {attribute.minValue !== null && attribute.maxValue !== null
                   ? `Must be between ${attribute.minValue} and ${attribute.maxValue}`
                   : attribute.minValue !== null
-                  ? `Must be > ${attribute.minValue}`
-                  : attribute.maxValue !== null
-                  ? `Must be < ${attribute.maxValue}`
-                  : null}
+                    ? `Must be > ${attribute.minValue}`
+                    : attribute.maxValue !== null
+                      ? `Must be < ${attribute.maxValue}`
+                      : null}
               </p>
             )}
           </VStack>
@@ -385,7 +385,7 @@ function QualityDocumentStepItem({
 
 function DeleteQualityDocumentStep({
   attribute,
-  onCancel,
+  onCancel
 }: {
   attribute: QualityDocumentStep;
   onCancel: () => void;
@@ -408,7 +408,7 @@ function DeleteQualityDocumentStep({
 function QualityDocumentStepForm({
   initialValues,
   isDisabled,
-  onClose,
+  onClose
 }: {
   initialValues: z.infer<typeof qualityDocumentStepValidator>;
   isDisabled: boolean;
@@ -455,7 +455,7 @@ function QualityDocumentStepForm({
 
   const { carbon } = useCarbon();
   const {
-    company: { id: companyId },
+    company: { id: companyId }
   } = useUser();
 
   const fetcher = useFetcher<{
@@ -477,7 +477,7 @@ function QualityDocumentStepForm({
             {type}
           </HStack>
         ),
-        value: type,
+        value: type
       })),
     []
   );
@@ -586,7 +586,7 @@ function QualityDocumentStepForm({
                       label="Minimum"
                       formatOptions={{
                         minimumFractionDigits: 0,
-                        maximumFractionDigits: 10,
+                        maximumFractionDigits: 10
                       }}
                     />
                   )}
@@ -596,7 +596,7 @@ function QualityDocumentStepForm({
                       label="Maximum"
                       formatOptions={{
                         minimumFractionDigits: 0,
-                        maximumFractionDigits: 10,
+                        maximumFractionDigits: 10
                       }}
                     />
                   )}

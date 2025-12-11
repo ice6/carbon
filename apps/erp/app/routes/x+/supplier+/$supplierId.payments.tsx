@@ -8,7 +8,7 @@ import { json, redirect } from "@vercel/remix";
 import {
   getSupplierPayment,
   supplierPaymentValidator,
-  updateSupplierPayment,
+  updateSupplierPayment
 } from "~/modules/purchasing";
 import SupplierPaymentForm from "~/modules/purchasing/ui/Supplier/SupplierPaymentForm";
 import { getCustomFields, setCustomFields } from "~/utils/form";
@@ -16,7 +16,7 @@ import { path } from "~/utils/path";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
-    view: "purchasing",
+    view: "purchasing"
   });
 
   const { supplierId } = params;
@@ -35,14 +35,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   }
 
   return json({
-    supplierPayment: supplierPayment.data,
+    supplierPayment: supplierPayment.data
   });
 }
 
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    update: "purchasing",
+    update: "purchasing"
   });
 
   const { supplierId } = params;
@@ -61,7 +61,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     ...validation.data,
     supplierId,
     updatedBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
   if (update.error) {
     throw redirect(
@@ -87,7 +87,7 @@ export default function SupplierPaymentRoute() {
     invoiceSupplierContactId: supplierPayment?.invoiceSupplierContactId ?? "",
     invoiceSupplierLocationId: supplierPayment?.invoiceSupplierLocationId ?? "",
     paymentTermId: supplierPayment?.paymentTermId ?? "",
-    ...getCustomFields(supplierPayment?.customFields),
+    ...getCustomFields(supplierPayment?.customFields)
   };
 
   return (

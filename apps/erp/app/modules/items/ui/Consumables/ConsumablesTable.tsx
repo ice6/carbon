@@ -16,7 +16,7 @@ import {
   MenuItem,
   toast,
   useDisclosure,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { formatDate } from "@carbon/utils";
 import { useFetcher, useNavigate } from "@remix-run/react";
@@ -30,7 +30,7 @@ import {
   LuPencil,
   LuTag,
   LuTrash,
-  LuUser,
+  LuUser
 } from "react-icons/lu";
 import { RxCodesandboxLogo } from "react-icons/rx";
 import { TbTargetArrow } from "react-icons/tb";
@@ -41,7 +41,7 @@ import {
   MethodIcon,
   New,
   Table,
-  TrackingTypeIcon,
+  TrackingTypeIcon
 } from "~/components";
 import { ConfirmDelete } from "~/components/Modals";
 import { usePermissions } from "~/hooks";
@@ -92,8 +92,8 @@ const ConsumablesTable = memo(
             </HStack>
           ),
           meta: {
-            icon: <LuBookMarked />,
-          },
+            icon: <LuBookMarked />
+          }
         },
         {
           accessorKey: "description",
@@ -104,8 +104,8 @@ const ConsumablesTable = memo(
             </div>
           ),
           meta: {
-            icon: <LuAlignJustify />,
-          },
+            icon: <LuAlignJustify />
+          }
         },
         {
           accessorKey: "itemTrackingType",
@@ -129,11 +129,11 @@ const ConsumablesTable = memo(
                     <TrackingTypeIcon type={type} className="mr-2" />
                     <span>{type}</span>
                   </Badge>
-                ),
-              })),
+                )
+              }))
             },
-            icon: <TbTargetArrow />,
-          },
+            icon: <TbTargetArrow />
+          }
         },
         {
           accessorKey: "defaultMethodType",
@@ -154,11 +154,11 @@ const ConsumablesTable = memo(
                     <MethodIcon type={value} className="mr-2" />
                     <span>{value}</span>
                   </Badge>
-                ),
-              })),
+                )
+              }))
             },
-            icon: <RxCodesandboxLogo />,
-          },
+            icon: <RxCodesandboxLogo />
+          }
         },
         {
           accessorKey: "tags",
@@ -177,12 +177,12 @@ const ConsumablesTable = memo(
               type: "static",
               options: tags.map((tag) => ({
                 value: tag.name,
-                label: <Badge variant="secondary">{tag.name}</Badge>,
+                label: <Badge variant="secondary">{tag.name}</Badge>
               })),
-              isArray: true,
+              isArray: true
             },
-            icon: <LuTag />,
-          },
+            icon: <LuTag />
+          }
         },
         {
           accessorKey: "active",
@@ -193,12 +193,12 @@ const ConsumablesTable = memo(
               type: "static",
               options: [
                 { value: "true", label: "Active" },
-                { value: "false", label: "Inactive" },
-              ],
+                { value: "false", label: "Inactive" }
+              ]
             },
             pluralHeader: "Active Statuses",
-            icon: <LuCheck />,
-          },
+            icon: <LuCheck />
+          }
         },
         // {
         //   id: "assignee",
@@ -227,19 +227,19 @@ const ConsumablesTable = memo(
               type: "static",
               options: people.map((employee) => ({
                 value: employee.id,
-                label: employee.name,
-              })),
+                label: employee.name
+              }))
             },
-            icon: <LuUser />,
-          },
+            icon: <LuUser />
+          }
         },
         {
           accessorKey: "createdAt",
           header: "Created At",
           cell: (item) => formatDate(item.getValue<string>()),
           meta: {
-            icon: <LuCalendar />,
-          },
+            icon: <LuCalendar />
+          }
         },
         {
           id: "updatedBy",
@@ -252,20 +252,20 @@ const ConsumablesTable = memo(
               type: "static",
               options: people.map((employee) => ({
                 value: employee.id,
-                label: employee.name,
-              })),
+                label: employee.name
+              }))
             },
-            icon: <LuUser />,
-          },
+            icon: <LuUser />
+          }
         },
         {
           accessorKey: "updatedAt",
           header: "Updated At",
           cell: (item) => formatDate(item.getValue<string>()),
           meta: {
-            icon: <LuCalendar />,
-          },
-        },
+            icon: <LuCalendar />
+          }
+        }
       ];
       return [...defaultColumns, ...customColumns];
     }, [tags, people, customColumns]);
@@ -290,7 +290,7 @@ const ConsumablesTable = memo(
         formData.append("value", value);
         fetcher.submit(formData, {
           method: "post",
-          action: path.to.bulkUpdateItems,
+          action: path.to.bulkUpdateItems
         });
       },
       // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -387,7 +387,7 @@ const ConsumablesTable = memo(
           columns={columns}
           data={data}
           defaultColumnPinning={{
-            left: ["id"],
+            left: ["id"]
           }}
           defaultColumnVisibility={{
             description: false,
@@ -395,13 +395,13 @@ const ConsumablesTable = memo(
             createdBy: false,
             createdAt: false,
             updatedBy: false,
-            updatedAt: false,
+            updatedAt: false
           }}
           importCSV={[
             {
               table: "consumable",
-              label: "Consumables",
-            },
+              label: "Consumables"
+            }
           ]}
           primaryAction={
             permissions.can("create", "parts") && (

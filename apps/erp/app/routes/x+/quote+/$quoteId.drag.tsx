@@ -9,12 +9,12 @@ import type { ActionFunctionArgs } from "@vercel/remix";
 import { json, redirect } from "@vercel/remix";
 import { generateObject } from "ai";
 import { nanoid } from "nanoid";
-import { z } from 'zod/v3';
+import { z } from "zod/v3";
 import { upsertPart } from "~/modules/items";
 import {
   getQuote,
   upsertQuoteLine,
-  upsertQuoteLineMethod,
+  upsertQuoteLineMethod
 } from "~/modules/sales";
 import { path } from "~/utils/path";
 
@@ -23,13 +23,13 @@ const quoteDragValidator = z.object({
   name: z.string(),
   size: z.number(),
   path: z.string(),
-  lineId: z.string().optional(),
+  lineId: z.string().optional()
 });
 
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    create: "sales",
+    create: "sales"
   });
 
   const { quoteId } = params;
@@ -79,9 +79,9 @@ export async function action({ request, params }: ActionFunctionArgs) {
           revision: z
             .string()
             .nullable()
-            .describe("The revision number if present, null if not found"),
+            .describe("The revision number if present, null if not found")
         }),
-        prompt: `Extract the part ID and revision from this filename: "${partName}". The part ID should be the main identifier, and revision should be any version/revision indicator if present.`,
+        prompt: `Extract the part ID and revision from this filename: "${partName}". The part ID should be the main identifier, and revision should be any version/revision indicator if present.`
       });
 
       readableId = parsedFilename.partId;
@@ -121,7 +121,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
       revision,
       unitOfMeasureCode: "EA",
       companyId,
-      createdBy: userId,
+      createdBy: userId
     };
 
     const part = await upsertPart(serviceRole, partData);
@@ -147,7 +147,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
       taxPercent: 0,
       quantity: [1],
       companyId,
-      createdBy: userId,
+      createdBy: userId
     };
 
     const createQuotationLine = await upsertQuoteLine(
@@ -173,7 +173,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
       itemId: partId ?? "",
       configuration: undefined,
       companyId,
-      userId,
+      userId
     });
 
     if (upsertMethod.error) {
@@ -222,7 +222,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
       name: fileName,
       size: size ?? 0,
       companyId,
-      createdBy: userId,
+      createdBy: userId
     });
 
     if (modelRecord.error) {
@@ -238,13 +238,16 @@ export async function action({ request, params }: ActionFunctionArgs) {
       client
         .from("quoteLine")
         .update({ modelUploadId: modelId })
-        .eq("id", targetLineId),
+        .eq("id", targetLineId)
     ];
 
     if (partId && modelId) {
       updates.push(
         // @ts-ignore
-        client.from("item").update({ modelUploadId: modelId }).eq("id", partId)
+        client
+          .from("item")
+          .update({ modelUploadId: modelId })
+          .eq("id", partId)
       );
     }
 
@@ -271,7 +274,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
     await tasks.trigger<typeof modelThumbnailTask>("model-thumbnail", {
       companyId,
-      modelId,
+      modelId
     });
   } else {
     newPath = `${companyId}/opportunity-line/${targetLineId}/${fileName}`;

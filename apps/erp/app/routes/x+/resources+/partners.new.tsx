@@ -8,7 +8,7 @@ import { useUrlParams } from "~/hooks";
 import {
   PartnerForm,
   partnerValidator,
-  upsertPartner,
+  upsertPartner
 } from "~/modules/resources";
 import { setCustomFields } from "~/utils/form";
 import { path } from "~/utils/path";
@@ -16,7 +16,7 @@ import { path } from "~/utils/path";
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    create: "resources",
+    create: "resources"
   });
 
   const formData = await request.formData();
@@ -32,7 +32,7 @@ export async function action({ request }: ActionFunctionArgs) {
     ...data,
     companyId,
     createdBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
 
   if (createPartner.error) {
@@ -57,7 +57,7 @@ export default function NewPartnerRoute() {
     id: params.get("id") ?? "",
     supplierId: params.get("supplierId") ?? "",
     hoursPerWeek: 0,
-    abilityId: "",
+    abilityId: ""
   };
 
   return <PartnerForm initialValues={initialValues} />;

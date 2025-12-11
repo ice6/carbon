@@ -14,7 +14,7 @@ export async function action({ request }: ActionFunctionArgs) {
   if (validation.error) {
     return json({
       success: false,
-      message: "Failed to submit feedback",
+      message: "Failed to submit feedback"
     });
   }
 
@@ -38,15 +38,15 @@ export async function action({ request }: ActionFunctionArgs) {
         feedback,
         location,
         attachmentPath: attachmentPath ? `feedback/${attachmentPath}` : null,
-        userId,
-      },
-    ]),
+        userId
+      }
+    ])
   ]);
 
   if (insertFeedback.error) {
     return json({
       success: false,
-      message: "Failed to submit feedback",
+      message: "Failed to submit feedback"
     });
   }
 
@@ -64,7 +64,7 @@ export async function action({ request }: ActionFunctionArgs) {
     blocks: [
       {
         type: "section",
-        text: { type: "mrkdwn", text: `New feedback submitted` },
+        text: { type: "mrkdwn", text: `New feedback submitted` }
       },
       {
         type: "section",
@@ -75,7 +75,7 @@ export async function action({ request }: ActionFunctionArgs) {
             type: "mrkdwn",
             text: `*User:*\n${user.data?.firstName ?? ""} ${
               user.data?.lastName ?? ""
-            } <${user.data?.email ?? ""}>`,
+            } <${user.data?.email ?? ""}>`
           },
           {
             type: "mrkdwn",
@@ -83,11 +83,11 @@ export async function action({ request }: ActionFunctionArgs) {
               attachmentPath
                 ? `${SUPABASE_URL}/storage/v1/object/public/feedback/${attachmentPath}`
                 : "None"
-            }`,
-          },
-        ],
-      },
-    ],
+            }`
+          }
+        ]
+      }
+    ]
   });
 
   return json({ success: true, message: "Feedback submitted" });

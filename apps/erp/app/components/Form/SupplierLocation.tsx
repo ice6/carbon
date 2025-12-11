@@ -6,7 +6,7 @@ import { useFetcher } from "@remix-run/react";
 import { useEffect, useMemo, useRef } from "react";
 import {
   type SupplierLocation as SupplierLocationType,
-  type getSupplierLocations,
+  type getSupplierLocations
 } from "~/modules/purchasing";
 import { SupplierLocationForm } from "~/modules/purchasing/ui/Supplier";
 import { path } from "~/utils/path";
@@ -54,7 +54,7 @@ const SupplierLocation = (props: SupplierLocationSelectProps) => {
           c.address?.addressLine2,
           c.address?.city,
           c.address?.stateProvince
-        )} (${c.name})`,
+        )} (${c.name})`
       })) ?? [],
 
     [supplierLocationsFetcher.data]

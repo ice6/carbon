@@ -5,7 +5,7 @@ import type { TrackedEntityAttributes } from "@carbon/utils";
 
 export async function action({ request, context }: ActionFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    create: "inventory",
+    create: "inventory"
   });
 
   const formData = await request.formData();
@@ -49,7 +49,7 @@ export async function action({ request, context }: ActionFunctionArgs) {
         p_receipt_id: receiptId,
         p_batch_number: batchNumber,
         p_quantity: quantity,
-        p_properties: propertiesJson,
+        p_properties: propertiesJson
       }
     );
 
@@ -89,7 +89,7 @@ export async function action({ request, context }: ActionFunctionArgs) {
         return json(
           {
             error:
-              "Serial number is already used for a different item or position",
+              "Serial number is already used for a different item or position"
           },
           { status: 400 }
         );
@@ -105,7 +105,7 @@ export async function action({ request, context }: ActionFunctionArgs) {
         p_receipt_line_id: receiptLineId,
         p_receipt_id: receiptId,
         p_serial_number: serialNumber,
-        p_index: index,
+        p_index: index
       }
     );
 

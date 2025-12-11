@@ -11,16 +11,16 @@ const invoicingRoutes: AuthenticatedRouteGroup[] = [
         name: "Purchasing",
         to: path.to.purchaseInvoices,
         role: "employee",
-        icon: <BsCartDash />,
-      },
+        icon: <BsCartDash />
+      }
       // {
       //   name: "Sales",
       //   to: path.to.salesInvoices,
       //   role: "employee",
       //   icon: <BsCartPlus />,
       // },
-    ],
-  },
+    ]
+  }
 ];
 
 export default function useInvoicingSubmodules() {
@@ -46,7 +46,7 @@ export default function useInvoicingSubmodules() {
           } else {
             return true;
           }
-        }),
-      })),
+        })
+      }))
   };
 }

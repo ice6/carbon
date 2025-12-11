@@ -1,7 +1,7 @@
 import {
   POSTHOG_API_HOST,
   POSTHOG_PROJECT_PUBLIC_KEY,
-  VERCEL_URL,
+  VERCEL_URL
 } from "@carbon/auth";
 import { OperatingSystemContextProvider } from "@carbon/react";
 import { I18nProvider } from "@react-aria/i18n";
@@ -16,7 +16,7 @@ function PosthogInit() {
       posthog.init(POSTHOG_PROJECT_PUBLIC_KEY, {
         api_host: POSTHOG_API_HOST,
         autocapture: false,
-        capture_pageview: false,
+        capture_pageview: false
       });
     }
   }, []);

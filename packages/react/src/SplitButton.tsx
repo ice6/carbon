@@ -6,7 +6,7 @@ import {
   DropdownMenuContent,
   DropdownMenuIcon,
   DropdownMenuItem,
-  DropdownMenuTrigger,
+  DropdownMenuTrigger
 } from "./Dropdown";
 import { cn } from "./utils/cn";
 
@@ -38,7 +38,7 @@ const SplitButton = forwardRef<HTMLButtonElement, SplitButtonProps>(
       isLoading,
       isDisabled,
       className,
-      dropdownItems,
+      dropdownItems
     },
     ref
   ) => {

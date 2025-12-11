@@ -20,7 +20,7 @@ import {
   Tr,
   useEscape,
   useMount,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { clamp } from "@carbon/utils";
 import { useNumberFormatter } from "@react-aria/i18n";
@@ -32,12 +32,12 @@ import type {
   ColumnPinningState,
   Table as ReactTable,
   RowData,
-  RowSelectionState,
+  RowSelectionState
 } from "@tanstack/react-table";
 import {
   flexRender,
   getCoreRowModel,
-  useReactTable,
+  useReactTable
 } from "@tanstack/react-table";
 import type { CSSProperties, ReactElement, ReactNode } from "react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
@@ -48,12 +48,12 @@ import {
   LuHash,
   LuSigma,
   LuTrendingUpDown,
-  LuTriangleAlert,
+  LuTriangleAlert
 } from "react-icons/lu";
 import { useSpinDelay } from "spin-delay";
 import type {
   EditableTableCellComponent,
-  Position,
+  Position
 } from "~/components/Editable";
 import { useSavedViews } from "~/hooks/useSavedViews";
 import type { fieldMappings } from "~/modules/shared";
@@ -63,7 +63,7 @@ import {
   Row,
   TableHeader,
   usePagination,
-  useSort,
+  useSort
 } from "./components";
 import type { ColumnFilter } from "./components/Filter/types";
 import { useFilters } from "./components/Filter/useFilters";
@@ -111,7 +111,7 @@ const aggregateFunctions: AggregateFunctionOption[] = [
   { value: "min", label: "Min", icon: <LuArrowDown /> },
   { value: "max", label: "Max", icon: <LuArrowUp /> },
   { value: "median", label: "Median", icon: <LuArrowUpDown /> },
-  { value: "count", label: "Count", icon: <LuHash /> },
+  { value: "count", label: "Count", icon: <LuHash /> }
 ];
 
 function numeric(v: unknown): number | null {
@@ -169,7 +169,7 @@ const AggregateSelector = ({
   value,
   aggregateFunction,
   onAggregateFunctionChange,
-  formatter,
+  formatter
 }: AggregateSelectorProps) => {
   const numberFormatter = useNumberFormatter();
   const currentFunction = aggregateFunctions.find(
@@ -228,7 +228,7 @@ const Table = <T extends object>({
   withSimpleSorting = true,
   onSelectedRowsChange,
   renderActions,
-  renderContextMenu,
+  renderContextMenu
 }: TableProps<T>) => {
   const tableContainerRef = useRef<HTMLDivElement>(null);
 
@@ -294,7 +294,7 @@ const Table = <T extends object>({
 
     return {
       left,
-      right,
+      right
     };
   });
 
@@ -334,7 +334,7 @@ const Table = <T extends object>({
 
         return {
           left,
-          right,
+          right
         };
       });
     }
@@ -355,7 +355,7 @@ const Table = <T extends object>({
         if (accessorKey && column.header && typeof column.header === "string") {
           return {
             ...acc,
-            [accessorKey]: column.header,
+            [accessorKey]: column.header
           };
         }
         return acc;
@@ -382,7 +382,7 @@ const Table = <T extends object>({
       columnVisibility,
       columnOrder,
       columnPinning,
-      rowSelection,
+      rowSelection
     },
     onColumnVisibilityChange: setColumnVisibility,
     onColumnOrderChange: setColumnOrder,
@@ -404,7 +404,7 @@ const Table = <T extends object>({
                   } else {
                     return {
                       ...newRow,
-                      [columnId]: value,
+                      [columnId]: value
                     };
                   }
                 },
@@ -416,8 +416,8 @@ const Table = <T extends object>({
 
           return newData;
         });
-      },
-    },
+      }
+    }
   });
 
   const selectedRows = withSelectableRows
@@ -472,7 +472,7 @@ const Table = <T extends object>({
 
       const tableColumns = [
         ...table.getLeftVisibleLeafColumns(),
-        ...table.getCenterVisibleLeafColumns(),
+        ...table.getCenterVisibleLeafColumns()
       ];
 
       const column =
@@ -524,7 +524,7 @@ const Table = <T extends object>({
         [key: string]: [number, number];
       } = {
         Tab: [0, 1],
-        Enter: [1, 0],
+        Enter: [1, 0]
       };
 
       const navigationCodes: {
@@ -533,7 +533,7 @@ const Table = <T extends object>({
         ArrowRight: [0, 1],
         ArrowLeft: [0, -1],
         ArrowDown: [1, 0],
-        ArrowUp: [-1, 0],
+        ArrowUp: [-1, 0]
       };
 
       const lastRow = table.getRowModel().rows.length - 1;
@@ -601,7 +601,7 @@ const Table = <T extends object>({
         const [x1, y1] = navigate(direction, code === "Tab");
         setSelectedCell({
           row: y1,
-          column: x1,
+          column: x1
         });
         if (isEditing) {
           setIsEditing(false);
@@ -614,7 +614,7 @@ const Table = <T extends object>({
         setIsEditing(false);
         setSelectedCell({
           row: y1,
-          column: x1,
+          column: x1
         });
         // any other key (besides shift) activates editing
         // if the column is editable and a cell is selected
@@ -633,7 +633,7 @@ const Table = <T extends object>({
       selectedCell,
       setSelectedCell,
       table,
-      withSelectableRows,
+      withSelectableRows
     ]
   );
 
@@ -659,7 +659,7 @@ const Table = <T extends object>({
             header: column.header,
             pluralHeader: column.meta.pluralHeader,
             filter: column.meta.filter,
-            icon: column.meta.icon,
+            icon: column.meta.icon
           };
           return [...acc, filter];
         }
@@ -706,13 +706,13 @@ const Table = <T extends object>({
           if (header.column.getIsPinned() === "left") {
             columnWidths.set(header.id, {
               width,
-              startX: leftPinnedWidth,
+              startX: leftPinnedWidth
             });
             leftPinnedWidth += width;
           } else {
             columnWidths.set(header.id, {
               width,
-              startX: 0, // Will be calculated in second pass
+              startX: 0 // Will be calculated in second pass
             });
           }
         });
@@ -725,7 +725,7 @@ const Table = <T extends object>({
           if (!header.column.getIsPinned()) {
             columnWidths.set(header.id, {
               width: columnWidths.get(header.id)?.width ?? 0,
-              startX: currentX,
+              startX: currentX
             });
             currentX += columnWidths.get(header.id)?.width ?? 0;
           }
@@ -753,7 +753,7 @@ const Table = <T extends object>({
     visibleColumns,
     pinnedColumnsKey,
     columnOrder,
-    withSelectableRows,
+    withSelectableRows
   ]);
   // const lastLeftPinnedColumn = table
   //   .getLeftVisibleLeafColumns()
@@ -775,14 +775,14 @@ const Table = <T extends object>({
         isPinned === "right" &&
         column.columnDef.header?.toString() === "Actions"
           ? 60
-          : undefined,
+          : undefined
     };
   };
 
   const navigation = useNavigation();
   const { hasFilters, clearFilters } = useFilters();
   const isLoading = useSpinDelay(navigation.state === "loading", {
-    delay: 300,
+    delay: 300
   });
 
   return (
@@ -924,7 +924,7 @@ const Table = <T extends object>({
                           )}
                           style={{
                             ...getPinnedStyles(header.column),
-                            width: header.getSize(),
+                            width: header.getSize()
                           }}
                         >
                           {!header.isPlaceholder &&
@@ -1064,7 +1064,7 @@ const Table = <T extends object>({
                           )}
                           style={{
                             ...getPinnedStyles(footer.column),
-                            width: footer.getSize(),
+                            width: footer.getSize()
                           }}
                         >
                           {!footer.isPlaceholder &&
@@ -1075,7 +1075,7 @@ const Table = <T extends object>({
                                 onAggregateFunctionChange={(fn) => {
                                   setColumnAggregates((prev) => ({
                                     ...prev,
-                                    [footer.column.id]: fn,
+                                    [footer.column.id]: fn
                                   }));
                                 }}
                                 formatter={
@@ -1109,7 +1109,7 @@ function getRowSelectionColumn<T>(): ColumnDef<T>[] {
           {...{
             checked: table.getIsAllRowsSelected(),
             indeterminate: table.getIsSomeRowsSelected(),
-            onChange: table.getToggleAllRowsSelectedHandler(),
+            onChange: table.getToggleAllRowsSelectedHandler()
           }}
         />
       ),
@@ -1118,11 +1118,11 @@ function getRowSelectionColumn<T>(): ColumnDef<T>[] {
           {...{
             checked: row.getIsSelected(),
             indeterminate: row.getIsSomeSelected(),
-            onChange: row.getToggleSelectedHandler(),
+            onChange: row.getToggleSelectedHandler()
           }}
         />
-      ),
-    },
+      )
+    }
   ];
 }
 
@@ -1138,8 +1138,8 @@ function getActionColumn<T>(
           <ActionMenu>{renderContextMenu(item.row.original)}</ActionMenu>
         </div>
       ),
-      size: 60,
-    },
+      size: 60
+    }
   ];
 }
 

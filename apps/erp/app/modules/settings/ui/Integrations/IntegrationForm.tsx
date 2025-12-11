@@ -5,7 +5,7 @@ import {
   Input,
   Select,
   Submit,
-  ValidatedForm,
+  ValidatedForm
 } from "@carbon/form";
 import {
   Badge,
@@ -19,7 +19,7 @@ import {
   HStack,
   ScrollArea,
   toast,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { SUPPORT_EMAIL } from "@carbon/utils";
 import { useParams } from "@remix-run/react";
@@ -37,12 +37,12 @@ interface IntegrationFormProps {
 export function IntegrationForm({
   installed,
   metadata,
-  onClose,
+  onClose
 }: IntegrationFormProps) {
   const permissions = usePermissions();
   const isDisabled = !permissions.can("update", "settings");
   const {
-    company: { id: companyId },
+    company: { id: companyId }
   } = useUser();
 
   const { id: integrationId } = useParams();
@@ -60,7 +60,7 @@ export function IntegrationForm({
   const initialValues = integration.settings.reduce((acc, setting) => {
     return {
       ...acc,
-      [setting.name]: metadata[setting.name],
+      [setting.name]: metadata[setting.name]
     };
   }, {});
 
@@ -173,7 +173,7 @@ export function IntegrationForm({
                                     {icon ? icon : null} {option}
                                   </Badge>
                                 ),
-                                value: option,
+                                value: option
                               };
                             }) ?? []
                           }

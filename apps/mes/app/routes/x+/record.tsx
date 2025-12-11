@@ -2,7 +2,7 @@ import {
   assertIsPost,
   error,
   getCarbonServiceRole,
-  success,
+  success
 } from "@carbon/auth";
 import { requirePermissions } from "@carbon/auth/auth.server";
 import { flash } from "@carbon/auth/session.server";
@@ -27,7 +27,7 @@ export async function action({ request }: ActionFunctionArgs) {
   const attributeRecord = await insertAttributeRecord(serviceRole, {
     ...validation.data,
     companyId,
-    createdBy: userId,
+    createdBy: userId
   });
 
   if (attributeRecord.error) {

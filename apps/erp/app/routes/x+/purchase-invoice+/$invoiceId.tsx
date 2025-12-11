@@ -10,26 +10,26 @@ import {
   PurchaseInvoiceHeader,
   getPurchaseInvoice,
   getPurchaseInvoiceDelivery,
-  getPurchaseInvoiceLines,
+  getPurchaseInvoiceLines
 } from "~/modules/invoicing";
 import PurchaseInvoiceExplorer from "~/modules/invoicing/ui/PurchaseInvoice/PurchaseInvoiceExplorer";
 import PurchaseInvoiceProperties from "~/modules/invoicing/ui/PurchaseInvoice/PurchaseInvoiceProperties";
 import {
   getSupplier,
   getSupplierInteraction,
-  getSupplierInteractionDocuments,
+  getSupplierInteractionDocuments
 } from "~/modules/purchasing/purchasing.service";
 import type { Handle } from "~/utils/handle";
 import { path } from "~/utils/path";
 
 export const handle: Handle = {
   breadcrumb: "Purchase Invoices",
-  to: path.to.purchaseInvoices,
+  to: path.to.purchaseInvoices
 };
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    view: "invoicing",
+    view: "invoicing"
   });
 
   const { invoiceId } = params;
@@ -39,7 +39,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     await Promise.all([
       getPurchaseInvoice(client, invoiceId),
       getPurchaseInvoiceLines(client, invoiceId),
-      getPurchaseInvoiceDelivery(client, invoiceId),
+      getPurchaseInvoiceDelivery(client, invoiceId)
     ]);
 
   if (purchaseInvoice.error) {
@@ -56,7 +56,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     purchaseInvoice.data?.supplierId
       ? getSupplier(client, purchaseInvoice.data.supplierId)
       : null,
-    getSupplierInteraction(client, purchaseInvoice.data.supplierInteractionId!),
+    getSupplierInteraction(client, purchaseInvoice.data.supplierInteractionId!)
   ]);
 
   return defer({
@@ -69,7 +69,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
       purchaseInvoice.data.supplierInteractionId!
     ),
     interaction: interaction.data,
-    supplier: supplier?.data ?? null,
+    supplier: supplier?.data ?? null
   });
 }
 

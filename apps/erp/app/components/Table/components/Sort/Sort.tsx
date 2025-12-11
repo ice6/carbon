@@ -16,7 +16,7 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-  cn,
+  cn
 } from "@carbon/react";
 import { Reorder } from "framer-motion";
 import { BsChevronDown, BsSortUp } from "react-icons/bs";
@@ -34,7 +34,7 @@ const Sort = ({ columnAccessors }: SortProps) => {
     removeSortBy,
     reorderSorts,
     toggleSortBy,
-    toggleSortByDirection,
+    toggleSortByDirection
   } = useSort();
   const hasNoSorts = sorts.length === 0;
 

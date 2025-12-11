@@ -49,7 +49,7 @@ export async function getCustomFieldsSchemas(
     if (schema) {
       return {
         data: schema as CustomFieldsTableType[],
-        error: null,
+        error: null
       };
     }
 

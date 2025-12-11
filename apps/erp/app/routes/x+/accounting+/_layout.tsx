@@ -19,19 +19,19 @@ export const meta: MetaFunction = () => {
 export const handle: Handle = {
   breadcrumb: "Finance",
   to: path.to.currencies,
-  module: "accounting",
+  module: "accounting"
 };
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    view: "accounting",
+    view: "accounting"
   });
 
   const [accounts, baseCurrency] = await Promise.all([
     getAccountsList(client, companyId, {
-      type: "Posting",
+      type: "Posting"
     }),
-    getBaseCurrency(client, companyId),
+    getBaseCurrency(client, companyId)
   ]);
 
   if (accounts.error) {
@@ -46,7 +46,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
     balanceSheetAccounts:
       accounts.data.filter((a) => a.incomeBalance === "Balance Sheet") ?? [],
     incomeStatementAccounts:
-      accounts.data.filter((a) => a.incomeBalance === "Income Statement") ?? [],
+      accounts.data.filter((a) => a.incomeBalance === "Income Statement") ?? []
   });
 }
 

@@ -2,7 +2,7 @@ import { fetchAllFromTable, type Database, type Json } from "@carbon/database";
 import { getLocalTimeZone, today } from "@internationalized/date";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { nanoid } from "nanoid";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import type { StorageItem } from "~/types";
 import type { GenericQueryFilters } from "~/utils/query";
 import { setGenericQueryFilters } from "~/utils/query";
@@ -19,7 +19,7 @@ import type {
   shippingMethodValidator,
   stockTransferLineValidator,
   stockTransferValidator,
-  warehouseTransferValidator,
+  warehouseTransferValidator
 } from "./inventory.models";
 
 export async function deleteBatchProperty(
@@ -143,7 +143,7 @@ export async function getItemLedgerPage(
     count,
     page,
     pageSize,
-    hasMore: count !== null && offset + pageSize < count,
+    hasMore: count !== null && offset + pageSize < count
   };
 }
 
@@ -172,10 +172,10 @@ export async function getInventoryItems(
     "get_inventory_quantities",
     {
       location_id: locationId,
-      company_id: companyId,
+      company_id: companyId
     },
     {
-      count: "exact",
+      count: "exact"
     }
   );
 
@@ -186,7 +186,7 @@ export async function getInventoryItems(
   }
 
   query = setGenericQueryFilters(query, args, [
-    { column: "readableIdWithRevision", ascending: true },
+    { column: "readableIdWithRevision", ascending: true }
   ]);
 
   return query;
@@ -203,7 +203,7 @@ export async function getInventoryItemsCount(
   let query = client
     .from("item")
     .select("id", {
-      count: "exact",
+      count: "exact"
     })
     .neq("itemTrackingType", "Non-Inventory")
     .eq("companyId", companyId);
@@ -230,7 +230,7 @@ export async function getKanbans(
   let query = client
     .from("kanbans")
     .select("*", {
-      count: "exact",
+      count: "exact"
     })
     .eq("companyId", companyId)
     .eq("locationId", locationId);
@@ -242,7 +242,7 @@ export async function getKanbans(
   }
 
   query = setGenericQueryFilters(query, args, [
-    { column: "readableIdWithRevision", ascending: true },
+    { column: "readableIdWithRevision", ascending: true }
   ]);
   return query;
 }
@@ -312,7 +312,7 @@ export async function getStockTransfers(
   let query = client
     .from("stockTransfer")
     .select("*", {
-      count: "exact",
+      count: "exact"
     })
     .eq("companyId", companyId);
 
@@ -325,7 +325,7 @@ export async function getStockTransfers(
   }
 
   query = setGenericQueryFilters(query, args, [
-    { column: "stockTransferId", ascending: false },
+    { column: "stockTransferId", ascending: false }
   ]);
   return query;
 }
@@ -375,7 +375,7 @@ export async function getReceipts(
   let query = client
     .from("receipt")
     .select("*", {
-      count: "exact",
+      count: "exact"
     })
     .eq("companyId", companyId)
     .neq("sourceDocumentId", "");
@@ -387,7 +387,7 @@ export async function getReceipts(
   }
 
   query = setGenericQueryFilters(query, args, [
-    { column: "receiptId", ascending: false },
+    { column: "receiptId", ascending: false }
   ]);
   return query;
 }
@@ -441,7 +441,7 @@ export async function getReceiptFiles(
       .list(`${companyId}/inventory/${lineId}`)
       .then((result) => ({
         ...result,
-        lineId,
+        lineId
       }))
   );
 
@@ -452,7 +452,7 @@ export async function getReceiptFiles(
   if (firstError) {
     return {
       data: [],
-      error: firstError.error?.message ?? "Failed to fetch files",
+      error: firstError.error?.message ?? "Failed to fetch files"
     };
   }
 
@@ -461,10 +461,10 @@ export async function getReceiptFiles(
     data: results.flatMap((result) =>
       (result.data ?? []).map((file) => ({
         ...file,
-        bucket: result.lineId,
+        bucket: result.lineId
       }))
     ),
-    error: null,
+    error: null
   };
 }
 
@@ -543,7 +543,7 @@ export async function getShelves(
   let query = client
     .from("shelf")
     .select("*", {
-      count: "exact",
+      count: "exact"
     })
     .eq("companyId", companyId)
     .eq("locationId", locationId);
@@ -553,7 +553,7 @@ export async function getShelves(
   }
 
   query = setGenericQueryFilters(query, args, [
-    { column: "name", ascending: true },
+    { column: "name", ascending: true }
   ]);
 
   return query;
@@ -576,7 +576,7 @@ export async function getShipments(
   let query = client
     .from("shipment")
     .select("*", {
-      count: "exact",
+      count: "exact"
     })
     .eq("companyId", companyId)
     .neq("sourceDocumentId", "");
@@ -588,7 +588,7 @@ export async function getShipments(
   }
 
   query = setGenericQueryFilters(query, args, [
-    { column: "shipmentId", ascending: false },
+    { column: "shipmentId", ascending: false }
   ]);
   return query;
 }
@@ -628,7 +628,7 @@ export async function getShipmentFiles(
       .list(`${companyId}/inventory/${lineId}`)
       .then((result) => ({
         ...result,
-        lineId,
+        lineId
       }))
   );
 
@@ -639,7 +639,7 @@ export async function getShipmentFiles(
   if (firstError) {
     return {
       data: [],
-      error: firstError.error?.message ?? "Failed to fetch files",
+      error: firstError.error?.message ?? "Failed to fetch files"
     };
   }
 
@@ -648,10 +648,10 @@ export async function getShipmentFiles(
     data: results.flatMap((result) =>
       (result.data ?? []).map((file) => ({
         ...file,
-        bucket: result.lineId,
+        bucket: result.lineId
       }))
     ),
-    error: null,
+    error: null
   };
 }
 
@@ -676,7 +676,7 @@ export async function getShipmentRelatedItems(
     );
 
   return {
-    invoices: invoices.data ?? [],
+    invoices: invoices.data ?? []
   };
 }
 
@@ -725,7 +725,7 @@ export async function getShippingMethods(
   let query = client
     .from("shippingMethod")
     .select("*", {
-      count: "exact",
+      count: "exact"
     })
     .eq("companyId", companyId)
     .eq("active", true);
@@ -737,7 +737,7 @@ export async function getShippingMethods(
   }
 
   query = setGenericQueryFilters(query, args, [
-    { column: "name", ascending: true },
+    { column: "name", ascending: true }
   ]);
   return query;
 }
@@ -776,7 +776,7 @@ export async function getTrackedEntities(
   let query = client
     .from("trackedEntity")
     .select("*", {
-      count: "exact",
+      count: "exact"
     })
     .eq("companyId", companyId)
     .neq("status", "Reserved");
@@ -788,7 +788,7 @@ export async function getTrackedEntities(
   }
 
   query = setGenericQueryFilters(query, args, [
-    { column: "sourceDocumentReadableId", ascending: true },
+    { column: "sourceDocumentReadableId", ascending: true }
   ]);
   return query;
 }
@@ -817,7 +817,7 @@ export async function getTrackedEntitiesByOperationId(
   if (jobOperation.error || !jobOperation.data.jobMakeMethodId)
     return {
       data: null,
-      error: jobOperation.error,
+      error: jobOperation.error
     };
 
   return getTrackedEntitiesByMakeMethodId(
@@ -838,7 +838,7 @@ export async function getWarehouseTransfers(
     .select(
       "*, fromLocation:location!fromLocationId(name), toLocation:location!toLocationId(name)",
       {
-        count: "exact",
+        count: "exact"
       }
     )
     .eq("companyId", companyId);
@@ -850,7 +850,7 @@ export async function getWarehouseTransfers(
   }
 
   query = setGenericQueryFilters(query, args, [
-    { column: "transferId", ascending: false },
+    { column: "transferId", ascending: false }
   ]);
   return query;
 }
@@ -906,7 +906,7 @@ export async function insertManualInventoryAdjustment(
   const data = {
     ...rest,
     entryType:
-      adjustmentType === "Set Quantity" ? "Positive Adjmt." : adjustmentType, // This will be overwritten below
+      adjustmentType === "Set Quantity" ? "Positive Adjmt." : adjustmentType // This will be overwritten below
   };
 
   const shelfQuantities = await client.rpc(
@@ -914,7 +914,7 @@ export async function insertManualInventoryAdjustment(
     {
       item_id: data.itemId,
       company_id: data.companyId,
-      location_id: data.locationId,
+      location_id: data.locationId
     }
   );
 
@@ -948,7 +948,7 @@ export async function insertManualInventoryAdjustment(
   if (data.entryType === "Negative Adjmt.") {
     if (data.quantity > currentQuantityOnHand) {
       return {
-        error: "Insufficient quantity for negative adjustment",
+        error: "Insufficient quantity for negative adjustment"
       };
     }
     data.quantity = -Math.abs(data.quantity);
@@ -960,7 +960,7 @@ export async function insertManualInventoryAdjustment(
       const trackedEntityUpdate = await client
         .from("trackedEntity")
         .update({
-          quantity: data.quantity + currentQuantityOnHand,
+          quantity: data.quantity + currentQuantityOnHand
         })
         .eq("id", inventoryAdjustment.trackedEntityId);
 
@@ -986,8 +986,8 @@ export async function insertManualInventoryAdjustment(
             quantity: data.quantity,
             status: "Available",
             companyId: data.companyId,
-            createdBy: data.createdBy,
-          },
+            createdBy: data.createdBy
+          }
         ])
         .select("*")
         .single();
@@ -1031,7 +1031,7 @@ export async function updateStockTransferStatus(
       status,
       assignee,
       completedAt,
-      updatedBy,
+      updatedBy
     })
     .eq("id", id);
 }
@@ -1051,7 +1051,7 @@ export async function upsertBatchProperty(
         sanitize({
           ...data,
           updatedBy: userId,
-          updatedAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString()
         })
       )
       .eq("id", batchProperty.id);
@@ -1059,7 +1059,7 @@ export async function upsertBatchProperty(
 
   return client.from("batchProperty").insert({
     ...data,
-    createdBy: userId,
+    createdBy: userId
   });
 }
 
@@ -1081,7 +1081,7 @@ export async function upsertKanban(
     return client
       .from("kanban")
       .insert({
-        ...kanban,
+        ...kanban
       })
       .select("id")
       .single();
@@ -1090,7 +1090,7 @@ export async function upsertKanban(
     .from("kanban")
     .update({
       ...sanitize(kanban),
-      updatedAt: today(getLocalTimeZone()).toString(),
+      updatedAt: today(getLocalTimeZone()).toString()
     })
     .eq("id", kanban.id)
     .select("id")
@@ -1120,7 +1120,7 @@ export async function upsertReceipt(
     .from("receipt")
     .update({
       ...sanitize(receipt),
-      updatedAt: today(getLocalTimeZone()).toString(),
+      updatedAt: today(getLocalTimeZone()).toString()
     })
     .eq("id", receipt.id)
     .select("id")
@@ -1146,7 +1146,7 @@ export async function upsertShelf(
       .from("shelf")
       .insert({
         ...shelf,
-        id: nanoid(),
+        id: nanoid()
       })
       .select("id")
       .single();
@@ -1155,7 +1155,7 @@ export async function upsertShelf(
     .from("shelf")
     .update({
       ...sanitize(shelf),
-      updatedAt: today(getLocalTimeZone()).toString(),
+      updatedAt: today(getLocalTimeZone()).toString()
     })
     .eq("id", shelf.id)
     .select("id")
@@ -1214,7 +1214,7 @@ export async function upsertShipment(
     .from("shipment")
     .update({
       ...sanitize(shipment),
-      updatedAt: today(getLocalTimeZone()).toString(),
+      updatedAt: today(getLocalTimeZone()).toString()
     })
     .eq("id", shipment.id)
     .select("id")
@@ -1245,7 +1245,7 @@ export async function upsertStockTransfer(
       .from("stockTransfer")
       .insert({
         ...stockTransfer,
-        status: "Released",
+        status: "Released"
       })
       .select("id")
       .single();
@@ -1300,7 +1300,7 @@ export async function upsertStockTransferLines(
       ...line,
       stockTransferId,
       companyId,
-      createdBy,
+      createdBy
     }))
   );
 }
@@ -1332,7 +1332,7 @@ export async function upsertWarehouseTransfer(
     .from("warehouseTransfer")
     .update({
       ...sanitize(transfer),
-      updatedAt: today(getLocalTimeZone()).toString(),
+      updatedAt: today(getLocalTimeZone()).toString()
     })
     .eq("id", transfer.id)
     .select("id")
@@ -1350,7 +1350,7 @@ export async function updateWarehouseTransferStatus(
     .update({
       status,
       updatedBy,
-      updatedAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
     })
     .eq("id", transferId);
 }
@@ -1369,7 +1369,7 @@ export async function upsertWarehouseTransferLine(
       .from("warehouseTransferLine")
       .update({
         ...updateData,
-        updatedAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
       })
       .eq("id", id)
       .select()
@@ -1379,7 +1379,7 @@ export async function upsertWarehouseTransferLine(
       .from("warehouseTransferLine")
       .insert({
         ...line,
-        createdAt: new Date().toISOString(),
+        createdAt: new Date().toISOString()
       } as Database["public"]["Tables"]["warehouseTransferLine"]["Insert"])
       .select()
       .single();

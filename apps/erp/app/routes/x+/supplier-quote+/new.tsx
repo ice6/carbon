@@ -8,7 +8,7 @@ import { redirect } from "@vercel/remix";
 import { useUrlParams, useUser } from "~/hooks";
 import {
   supplierQuoteValidator,
-  upsertSupplierQuote,
+  upsertSupplierQuote
 } from "~/modules/purchasing";
 import { SupplierQuoteForm } from "~/modules/purchasing/ui/SupplierQuote";
 import { getNextSequence } from "~/modules/settings/settings.service";
@@ -19,14 +19,14 @@ import { path } from "~/utils/path";
 export const handle: Handle = {
   breadcrumb: "Supplier Quote",
   to: path.to.supplierQuotes,
-  module: "purchasing",
+  module: "purchasing"
 };
 
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
     create: "purchasing",
-    bypassRls: true,
+    bypassRls: true
   });
 
   const formData = await request.formData();
@@ -64,7 +64,7 @@ export async function action({ request }: ActionFunctionArgs) {
     supplierQuoteId,
     companyId,
     createdBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
 
   if (createSupplierQuote.error || !createSupplierQuote.data?.id) {
@@ -95,7 +95,7 @@ export default function SupplierQuoteNewRoute() {
     currencyCode: company.baseCurrencyCode,
     exchangeRate: undefined,
     exchangeRateUpdatedAt: "",
-    supplierQuoteType: "Purchase" as const,
+    supplierQuoteType: "Purchase" as const
   };
 
   return (

@@ -25,7 +25,7 @@ import type {
   getSalesOrderRelatedItems,
   getSalesOrders,
   getSalesRFQLines,
-  getSalesRFQs,
+  getSalesRFQs
 } from "./sales.service";
 
 export type Costs = {

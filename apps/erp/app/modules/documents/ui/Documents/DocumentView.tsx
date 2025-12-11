@@ -2,7 +2,7 @@ import {
   Button,
   ResizableHandle,
   ResizablePanel,
-  Skeleton,
+  Skeleton
 } from "@carbon/react";
 import { convertKbToString } from "@carbon/utils";
 import { useNavigate } from "@remix-run/react";

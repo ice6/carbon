@@ -38,7 +38,7 @@ const MethodOperationsTable = memo(
             >
               {row.original.description}
             </Hyperlink>
-          ),
+          )
         },
         {
           accessorKey: "makeMethod.item.readableIdWithRevision",
@@ -52,10 +52,10 @@ const MethodOperationsTable = memo(
               type: "static",
               options: items?.map((item) => ({
                 value: item.readableIdWithRevision,
-                label: item.readableIdWithRevision,
-              })),
-            },
-          },
+                label: item.readableIdWithRevision
+              }))
+            }
+          }
         },
         {
           accessorKey: "operationType",
@@ -68,32 +68,32 @@ const MethodOperationsTable = memo(
               type: "static",
               options: operationTypes.map((value) => ({
                 value,
-                label: <Enumerable value={value ?? null} />,
-              })),
-            },
-          },
+                label: <Enumerable value={value ?? null} />
+              }))
+            }
+          }
         },
         {
           accessorKey: "setupTime",
           header: "Setup Time",
           cell: ({ row }) => {
             return `${row.original.setupTime} ${row.original.setupUnit}`;
-          },
+          }
         },
         {
           accessorKey: "laborTime",
           header: "Labor Time",
           cell: ({ row }) => {
             return `${row.original.laborTime} ${row.original.laborUnit}`;
-          },
+          }
         },
         {
           accessorKey: "machineTime",
           header: "Machine Time",
           cell: ({ row }) => {
             return `${row.original.machineTime} ${row.original.machineUnit}`;
-          },
-        },
+          }
+        }
       ];
     }, [items]);
 

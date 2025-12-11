@@ -13,12 +13,12 @@ import {
   getIssueAssociations,
   getIssueSuppliers,
   getIssueTypesList,
-  getRequiredActionsList,
+  getRequiredActionsList
 } from "~/modules/quality";
 import type { IssueAssociationNode } from "~/modules/quality/types";
 import {
   IssueAssociationsSkeleton,
-  IssueAssociationsTree,
+  IssueAssociationsTree
 } from "~/modules/quality/ui/Issue/IssueAssociations";
 import IssueHeader from "~/modules/quality/ui/Issue/IssueHeader";
 import IssueProperties from "~/modules/quality/ui/Issue/IssueProperties";
@@ -29,13 +29,13 @@ import { path } from "~/utils/path";
 export const handle: Handle = {
   breadcrumb: "Issues",
   to: path.to.issues,
-  module: "quality",
+  module: "quality"
 };
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
     view: "quality",
-    bypassRls: true,
+    bypassRls: true
   });
 
   const { id } = params;
@@ -46,13 +46,13 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     nonConformanceTypes,
     requiredActions,
     suppliers,
-    tags,
+    tags
   ] = await Promise.all([
     getIssue(client, id),
     getIssueTypesList(client, companyId),
     getRequiredActionsList(client, companyId),
     getIssueSuppliers(client, id, companyId),
-    getTagsList(client, companyId, "nonConformance"),
+    getTagsList(client, companyId, "nonConformance")
   ]);
 
   if (nonConformance.error) {
@@ -69,7 +69,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     nonConformanceTypes: nonConformanceTypes.data ?? [],
     requiredActions: requiredActions.data ?? [],
     suppliers: suppliers.data ?? [],
-    tags: tags.data ?? [],
+    tags: tags.data ?? []
   });
 }
 
@@ -96,64 +96,64 @@ export default function IssueRoute() {
                           name: "Item",
                           pluralName: "Items",
                           module: "parts",
-                          children: resolvedAssociations.items,
+                          children: resolvedAssociations.items
                         },
                         {
                           key: "jobOperations",
                           name: "Job Operation",
                           pluralName: "Job Operations",
                           module: "production",
-                          children: resolvedAssociations.jobOperations,
+                          children: resolvedAssociations.jobOperations
                         },
                         {
                           key: "purchaseOrderLines",
                           name: "Purchase Order",
                           pluralName: "Purchase Orders",
                           module: "purchasing",
-                          children: resolvedAssociations.purchaseOrderLines,
+                          children: resolvedAssociations.purchaseOrderLines
                         },
                         {
                           key: "salesOrderLines",
                           name: "Sales Order",
                           pluralName: "Sales Orders",
                           module: "sales",
-                          children: resolvedAssociations.salesOrderLines,
+                          children: resolvedAssociations.salesOrderLines
                         },
                         {
                           key: "shipmentLines",
                           name: "Shipment",
                           pluralName: "Shipments",
                           module: "shipping",
-                          children: resolvedAssociations.shipmentLines,
+                          children: resolvedAssociations.shipmentLines
                         },
                         {
                           key: "receiptLines",
                           name: "Receipt",
                           pluralName: "Receipts",
                           module: "receiving",
-                          children: resolvedAssociations.receiptLines,
+                          children: resolvedAssociations.receiptLines
                         },
                         {
                           key: "trackedEntities",
                           name: "Tracked Entity",
                           pluralName: "Tracked Entities",
                           module: "inventory",
-                          children: resolvedAssociations.trackedEntities,
+                          children: resolvedAssociations.trackedEntities
                         },
                         {
                           key: "customers",
                           name: "Customer",
                           pluralName: "Customers",
                           module: "sales",
-                          children: resolvedAssociations.customers,
+                          children: resolvedAssociations.customers
                         },
                         {
                           key: "suppliers",
                           name: "Supplier",
                           pluralName: "Suppliers",
                           module: "purchasing",
-                          children: resolvedAssociations.suppliers,
-                        },
+                          children: resolvedAssociations.suppliers
+                        }
                       ];
                       return (
                         <IssueAssociationsTree

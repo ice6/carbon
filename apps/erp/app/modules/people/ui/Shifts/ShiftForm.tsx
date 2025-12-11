@@ -10,10 +10,10 @@ import {
   FormControl,
   FormLabel,
   HStack,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { useNavigate } from "@remix-run/react";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import {
   Boolean,
   CustomFormFields,
@@ -21,7 +21,7 @@ import {
   Input,
   Location,
   Submit,
-  TimePicker,
+  TimePicker
 } from "~/components/Form";
 import { usePermissions } from "~/hooks";
 import { path } from "~/utils/path";

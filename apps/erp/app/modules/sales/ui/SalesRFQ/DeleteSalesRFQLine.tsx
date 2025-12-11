@@ -5,7 +5,7 @@ import type { SalesRFQLine } from "../../types";
 
 export default function DeleteSalesRFQLine({
   line,
-  onCancel,
+  onCancel
 }: {
   line: SalesRFQLine;
   onCancel: () => void;

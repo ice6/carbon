@@ -3,27 +3,27 @@ const snippets = {
     title: "API URL",
     bash: {
       language: "bash",
-      code: `${endpoint}`,
+      code: `${endpoint}`
     },
     js: {
       language: "bash",
-      code: `${endpoint}`,
-    },
+      code: `${endpoint}`
+    }
   }),
   install: () => ({
     title: "Install",
     bash: null,
     js: {
       language: "bash",
-      code: `npm install --save @supabase/supabase-js`,
-    },
+      code: `npm install --save @supabase/supabase-js`
+    }
   }),
   env: ({
     appUrl,
     apiKey,
     publicKey,
     apiUrl,
-    companyId,
+    companyId
   }: {
     appUrl: string;
     apiKey: string;
@@ -40,7 +40,7 @@ export CARBON_APP_URL="${appUrl}"
 export CARBON_PUBLIC_KEY="${publicKey}"
 export CARBON_API_URL="${apiUrl}"
 export CARBON_COMPANY_ID="${companyId}"      
-      `,
+      `
     },
     js: {
       language: "js",
@@ -52,13 +52,13 @@ CARBON_APP_URL = "${appUrl}"
 CARBON_PUBLIC_KEY = "${publicKey}"
 CARBON_API_URL = "${apiUrl}"
 CARBON_COMPANY_ID = "${companyId}"
-      `,
-    },
+      `
+    }
   }),
   init: (endpoint: string) => ({
     bash: {
       language: "bash",
-      code: `# No client library required for Bash.`,
+      code: `# No client library required for Bash.`
     },
     js: {
       language: "js",
@@ -75,7 +75,7 @@ const carbon = createClient(apiUrl, publicKey, {
       "carbon-key": apiKey,
     },
   },
-});`,
+});`
     },
     python: {
       language: "python",
@@ -85,7 +85,7 @@ from supabase import create_client, Client
 url: str = os.environ.get("CARBON_API_URL")
 key: str = os.environ.get("CARBON_API_KEY")
 supabase: Client = create_client(url, key)
-`,
+`
     },
     dart: {
       language: "dart",
@@ -95,18 +95,18 @@ const supabaseKey = String.fromEnvironment('SUPABASE_KEY');
 Future<void> main() async {
   await Supabase.initialize(url: supabaseUrl, anonKey: supabaseKey);
   runApp(MyApp());
-}`,
-    },
+}`
+    }
   }),
   authKey: (title: string, varName: string, apikey: string) => ({
     bash: {
       language: "bash",
-      code: `${apikey}`,
+      code: `${apikey}`
     },
     js: {
       language: "js",
-      code: `const ${varName} = '${apikey}'`,
-    },
+      code: `const ${varName} = '${apikey}'`
+    }
   }),
   authKeyExample: (
     defaultApiKey: string,
@@ -124,7 +124,7 @@ curl '${endpoint}/rest/v1/' \\
 -H "Authorization: Bearer ${defaultApiKey}"`
           : ""
       }
-`,
+`
     },
     js: {
       language: "js",
@@ -133,15 +133,15 @@ const SUPABASE_URL = "${endpoint}"
 const carbon = createClient(SUPABASE_URL, process.env.${
         keyName || "SUPABASE_KEY"
       });
-`,
-    },
+`
+    }
   }),
   rpcSingle: ({
     rpcName,
     rpcParams,
     endpoint,
     apiKey,
-    showBearer = true,
+    showBearer = true
   }: {
     rpcName: string;
     rpcParams: any[];
@@ -171,7 +171,7 @@ curl -X POST '${endpoint}/rest/v1/rpc/${rpcName}' \\${bashParams}
 -H "Content-Type: application/json" \\
 -H "carbon-key: <your_api_key_here>" \\
 -H "apiKey: CARBON_PUBLIC_KEY" \\
--H "Authorization: Bearer CARBON_PUBLIC_KEY"`,
+-H "Authorization: Bearer CARBON_PUBLIC_KEY"`
       },
       js: {
         language: "js",
@@ -180,15 +180,15 @@ let { data, error } = await carbon
   .rpc('${rpcName}'${jsParams})
 if (error) console.error(error)
 else console.log(data)
-`,
-      },
+`
+      }
     };
   },
   subscribeAll: (listenerName: string, resourceId: string) => ({
     title: "Subscribe to all events",
     bash: {
       language: "bash",
-      code: `# Realtime streams are only supported by our client libraries`,
+      code: `# Realtime streams are only supported by our client libraries`
     },
     js: {
       language: "js",
@@ -201,14 +201,14 @@ const ${listenerName} = carbon.channel('custom-all-channel')
       console.log('Change received!', payload)
     }
   )
-  .subscribe()`,
-    },
+  .subscribe()`
+    }
   }),
   subscribeInserts: (listenerName: string, resourceId: string) => ({
     title: "Subscribe to inserts",
     bash: {
       language: "bash",
-      code: `# Realtime streams are only supported by our client libraries`,
+      code: `# Realtime streams are only supported by our client libraries`
     },
     js: {
       language: "js",
@@ -221,14 +221,14 @@ const ${listenerName} = carbon.channel('custom-insert-channel')
       console.log('Change received!', payload)
     }
   )
-  .subscribe()`,
-    },
+  .subscribe()`
+    }
   }),
   subscribeUpdates: (listenerName: string, resourceId: string) => ({
     title: "Subscribe to updates",
     bash: {
       language: "bash",
-      code: `# Realtime streams are only supported by our client libraries`,
+      code: `# Realtime streams are only supported by our client libraries`
     },
     js: {
       language: "js",
@@ -241,14 +241,14 @@ const ${listenerName} = carbon.channel('custom-update-channel')
       console.log('Change received!', payload)
     }
   )
-  .subscribe()`,
-    },
+  .subscribe()`
+    }
   }),
   subscribeDeletes: (listenerName: string, resourceId: string) => ({
     title: "Subscribe to deletes",
     bash: {
       language: "bash",
-      code: `# Realtime streams are only supported by our client libraries`,
+      code: `# Realtime streams are only supported by our client libraries`
     },
     js: {
       language: "js",
@@ -261,8 +261,8 @@ const ${listenerName} = carbon.channel('custom-delete-channel')
       console.log('Change received!', payload)
     }
   )
-  .subscribe()`,
-    },
+  .subscribe()`
+    }
   }),
   subscribeEq: (
     listenerName: string,
@@ -273,7 +273,7 @@ const ${listenerName} = carbon.channel('custom-delete-channel')
     title: "Subscribe to specific rows",
     bash: {
       language: "bash",
-      code: `# Realtime streams are only supported by our client libraries`,
+      code: `# Realtime streams are only supported by our client libraries`
     },
     js: {
       language: "js",
@@ -286,8 +286,8 @@ const ${listenerName} = carbon.channel('custom-filter-channel')
       console.log('Change received!', payload)
     }
   )
-  .subscribe()`,
-    },
+  .subscribe()`
+    }
   }),
   readAll: (resourceId: string, endpoint: string, apiKey: string) => ({
     title: "Read all rows",
@@ -297,7 +297,7 @@ const ${listenerName} = carbon.channel('custom-filter-channel')
 curl '${endpoint}/rest/v1/${resourceId}?select=*' \\
 -H "carbon-key: <your_api_key_here>" \\
 -H "apiKey: CARBON_PUBLIC_KEY" \\
--H "Authorization: Bearer CARBON_PUBLIC_KEY"`,
+-H "Authorization: Bearer CARBON_PUBLIC_KEY"`
     },
     js: {
       language: "js",
@@ -305,15 +305,15 @@ curl '${endpoint}/rest/v1/${resourceId}?select=*' \\
 let { data: ${resourceId}, error } = await carbon
   .from('${resourceId}')
   .select('*')
-`,
-    },
+`
+    }
   }),
   readColumns: ({
     title = "Read specific columns",
     resourceId,
     endpoint,
     apiKey,
-    columnName = "some_column,other_column",
+    columnName = "some_column,other_column"
   }: {
     title?: string;
     resourceId: string;
@@ -328,7 +328,7 @@ let { data: ${resourceId}, error } = await carbon
 curl '${endpoint}/rest/v1/${resourceId}?select=${columnName}' \\
 -H "carbon-key: <your_api_key_here>" \\
 -H "apiKey: CARBON_PUBLIC_KEY" \\
--H "Authorization: Bearer CARBON_PUBLIC_KEY"`,
+-H "Authorization: Bearer CARBON_PUBLIC_KEY"`
     },
     js: {
       language: "js",
@@ -336,8 +336,8 @@ curl '${endpoint}/rest/v1/${resourceId}?select=${columnName}' \\
 let { data: ${resourceId}, error } = await carbon
   .from('${resourceId}')
   .select('${columnName}')
-`,
-    },
+`
+    }
   }),
   readForeignTables: (
     resourceId: string,
@@ -351,7 +351,7 @@ let { data: ${resourceId}, error } = await carbon
 curl '${endpoint}/rest/v1/${resourceId}?select=some_column,other_table(foreign_key)' \\
 -H "carbon-key: <your_api_key_here>" \\
 -H "apiKey: CARBON_PUBLIC_KEY" \\
--H "Authorization: Bearer CARBON_PUBLIC_KEY"`,
+-H "Authorization: Bearer CARBON_PUBLIC_KEY"`
     },
     js: {
       language: "js",
@@ -364,8 +364,8 @@ let { data: ${resourceId}, error } = await carbon
       foreign_key
     )
   \`)
-`,
-    },
+`
+    }
   }),
   readRange: (resourceId: string, endpoint: string, apiKey: string) => ({
     title: "With pagination",
@@ -377,7 +377,7 @@ curl '${endpoint}/rest/v1/${resourceId}?select=*' \\
 -H "apiKey: CARBON_PUBLIC_KEY" \\
 -H "Authorization: Bearer CARBON_PUBLIC_KEY" \\
 -H "Range: 0-9"
-`,
+`
     },
     js: {
       language: "js",
@@ -386,8 +386,8 @@ let { data: ${resourceId}, error } = await carbon
   .from('${resourceId}')
   .select('*')
   .range(0, 9)
-`,
-    },
+`
+    }
   }),
   readFilters: (resourceId: string, endpoint: string, apiKey: string) => ({
     title: "With filtering",
@@ -399,7 +399,7 @@ curl '${endpoint}/rest/v1/${resourceId}?id=eq.1&select=*' \\
 -H "apiKey: CARBON_PUBLIC_KEY" \\
 -H "Authorization: Bearer CARBON_PUBLIC_KEY" \\
 -H "Range: 0-9"
-`,
+`
     },
     js: {
       language: "js",
@@ -421,8 +421,8 @@ let { data: ${resourceId}, error } = await carbon
   // Arrays
   .contains('array_column', ['array', 'contains'])
   .containedBy('array_column', ['contained', 'by'])
-`,
-    },
+`
+    }
   }),
   insertSingle: (resourceId: string, endpoint: string, apiKey: string) => ({
     title: "Insert a row",
@@ -436,7 +436,7 @@ curl -X POST '${endpoint}/rest/v1/${resourceId}' \\
 -H "Content-Type: application/json" \\
 -H "Prefer: return=minimal" \\
 -d '{ "some_column": "someValue", "other_column": "otherValue" }'
-`,
+`
     },
     js: {
       language: "js",
@@ -447,8 +447,8 @@ const { data, error } = await carbon
     { some_column: 'someValue', other_column: 'otherValue' },
   ])
   .select()
-`,
-    },
+`
+    }
   }),
   insertMany: (resourceId: string, endpoint: string, apiKey: string) => ({
     title: "Insert many rows",
@@ -461,7 +461,7 @@ curl -X POST '${endpoint}/rest/v1/${resourceId}' \\
 -H "Authorization: Bearer CARBON_PUBLIC_KEY" \\
 -H "Content-Type: application/json" \\
 -d '[{ "some_column": "someValue" }, { "other_column": "otherValue" }]'
-`,
+`
     },
     js: {
       language: "js",
@@ -473,8 +473,8 @@ const { data, error } = await carbon
     { some_column: 'otherValue' },
   ])
   .select()
-`,
-    },
+`
+    }
   }),
   upsert: (resourceId: string, endpoint: string, apiKey: string) => ({
     title: "Upsert matching rows",
@@ -488,7 +488,7 @@ curl -X POST '${endpoint}/rest/v1/${resourceId}' \\
 -H "Content-Type: application/json" \\
 -H "Prefer: resolution=merge-duplicates" \\
 -d '{ "some_column": "someValue", "other_column": "otherValue" }'
-`,
+`
     },
     js: {
       language: "js",
@@ -497,8 +497,8 @@ const { data, error } = await carbon
   .from('${resourceId}')
   .upsert({ some_column: 'someValue' })
   .select()
-`,
-    },
+`
+    }
   }),
   update: (resourceId: string, endpoint: string, apiKey: string) => ({
     title: "Update matching rows",
@@ -512,7 +512,7 @@ curl -X PATCH '${endpoint}/rest/v1/${resourceId}?some_column=eq.someValue' \\
 -H "Content-Type: application/json" \\
 -H "Prefer: return=minimal" \\
 -d '{ "other_column": "otherValue" }'
-`,
+`
     },
     js: {
       language: "js",
@@ -522,8 +522,8 @@ const { data, error } = await carbon
   .update({ other_column: 'otherValue' })
   .eq('some_column', 'someValue')
   .select()
-`,
-    },
+`
+    }
   }),
   delete: (resourceId: string, endpoint: string, apiKey: string) => ({
     title: "Delete matching rows",
@@ -533,7 +533,7 @@ const { data, error } = await carbon
 curl -X DELETE '${endpoint}/rest/v1/${resourceId}?some_column=eq.someValue' \\
 -H "carbon-key: <your_api_key_here>" \\
 -H "apiKey: CARBON_PUBLIC_KEY" \\
--H "Authorization: Bearer CARBON_PUBLIC_KEY"`,
+-H "Authorization: Bearer CARBON_PUBLIC_KEY"`
     },
     js: {
       language: "js",
@@ -542,8 +542,8 @@ const { error } = await carbon
   .from('${resourceId}')
   .delete()
   .eq('some_column', 'someValue')
-`,
-    },
+`
+    }
   }),
   authSignup: (endpoint: string, apiKey: string, randomPassword: string) => ({
     title: "User signup",
@@ -559,7 +559,7 @@ curl -X POST '${endpoint}/auth/v1/signup' \\
   "email": "someone@email.com",
   "password": "${randomPassword}"
 }'
-`,
+`
     },
     js: {
       language: "js",
@@ -568,8 +568,8 @@ let { data, error } = await carbon.auth.signUp({
   email: 'someone@email.com',
   password: '${randomPassword}'
 })
-`,
-    },
+`
+    }
   }),
   authLogin: (endpoint: string, apiKey: string, randomPassword: string) => ({
     title: "User login",
@@ -585,7 +585,7 @@ curl -X POST '${endpoint}/auth/v1/token?grant_type=password' \\
   "email": "someone@email.com",
   "password": "${randomPassword}"
 }'
-`,
+`
     },
     js: {
       language: "js",
@@ -594,8 +594,8 @@ let { data, error } = await carbon.auth.signInWithPassword({
   email: 'someone@email.com',
   password: '${randomPassword}'
 })
-`,
-    },
+`
+    }
   }),
   authMagicLink: (endpoint: string, apiKey: string) => ({
     title: "User login",
@@ -610,7 +610,7 @@ curl -X POST '${endpoint}/auth/v1/magiclink' \\
 -d '{
   "email": "someone@email.com"
 }'
-`,
+`
     },
     js: {
       language: "js",
@@ -618,8 +618,8 @@ curl -X POST '${endpoint}/auth/v1/magiclink' \\
 let { data, error } = await carbon.auth.signInWithOtp({
   email: 'someone@email.com'
 })
-`,
-    },
+`
+    }
   }),
   authPhoneSignUp: (endpoint: string, apiKey: string) => ({
     title: "Phone Signup",
@@ -635,7 +635,7 @@ curl -X POST '${endpoint}/auth/v1/signup' \\
   "phone": "+13334445555",
   "password": "some-password"
 }'
-`,
+`
     },
     js: {
       language: "js",
@@ -644,8 +644,8 @@ let { data, error } = await carbon.auth.signUp({
   phone: '+13334445555',
   password: 'some-password'
 })
-`,
-    },
+`
+    }
   }),
   authMobileOTPLogin: (endpoint: string, apiKey: string) => ({
     title: "Phone Login",
@@ -660,7 +660,7 @@ curl -X POST '${endpoint}/auth/v1/otp' \\
 -d '{
   "phone": "+13334445555"
 }'
-`,
+`
     },
     js: {
       language: "js",
@@ -668,8 +668,8 @@ curl -X POST '${endpoint}/auth/v1/otp' \\
 let { data, error } = await carbon.auth.signInWithOtp({
   phone: '+13334445555'
 })
-`,
-    },
+`
+    }
   }),
   authMobileOTPVerify: (endpoint: string, apiKey: string) => ({
     title: "Verify Pin",
@@ -684,7 +684,7 @@ curl -X POST '${endpoint}/auth/v1/verify' \\
   "phone": "+13334445555",
   "token": "123456"
 }'
-`,
+`
     },
     js: {
       language: "js",
@@ -694,8 +694,8 @@ let { data, error } = await carbon.auth.verifyOtp({
   token: '123456',
   type: 'sms'
 })
-`,
-    },
+`
+    }
   }),
   authInvite: (endpoint: string, apiKey: string) => ({
     title: "Invite User",
@@ -709,14 +709,14 @@ curl -X POST '${endpoint}/auth/v1/invite' \\
 -d '{
   "email": "someone@email.com"
 }'
-`,
+`
     },
     js: {
       language: "js",
       code: `
 let { data, error } = await carbon.auth.admin.inviteUserByEmail('someone@email.com')
-`,
-    },
+`
+    }
   }),
   authThirdPartyLogin: (endpoint: string, apiKey: string) => ({
     title: "Third Party Login",
@@ -727,7 +727,7 @@ curl -X GET '${endpoint}/auth/v1/authorize?provider=github' \\
 -H "carbon-key: <your_api_key_here>" \\
 -H "Authorization: Bearer USER_TOKEN" \\
 -H "Content-Type: application/json"
-`,
+`
     },
     js: {
       language: "js",
@@ -735,8 +735,8 @@ curl -X GET '${endpoint}/auth/v1/authorize?provider=github' \\
 let { data, error } = await carbon.auth.signInWithOAuth({
   provider: 'github'
 })
-`,
-    },
+`
+    }
   }),
   authUser: (endpoint: string, apiKey: string) => ({
     title: "Get User",
@@ -747,14 +747,14 @@ curl -X GET '${endpoint}/auth/v1/user' \\
 -H "carbon-key: <your_api_key_here>" \\
 -H "apiKey: CARBON_PUBLIC_KEY" \\
 -H "Authorization: Bearer CARBON_PUBLIC_KEY"
-`,
+`
     },
     js: {
       language: "js",
       code: `
 const { data: { user } } = await carbon.auth.getUser()
-`,
-    },
+`
+    }
   }),
   authRecover: (endpoint: string, apiKey: string) => ({
     title: "Password Recovery",
@@ -769,14 +769,14 @@ const { data: { user } } = await carbon.auth.getUser()
 -d '{
   "email": "someone@email.com"
 }'
-`,
+`
     },
     js: {
       language: "js",
       code: `
 let { data, error } = await carbon.auth.resetPasswordForEmail(email)
-`,
-    },
+`
+    }
   }),
   authUpdate: (endpoint: string, apiKey: string) => ({
     title: "Update User",
@@ -795,7 +795,7 @@ let { data, error } = await carbon.auth.resetPasswordForEmail(email)
     "key": "value"
   }
 }'
-`,
+`
     },
     js: {
       language: "js",
@@ -805,8 +805,8 @@ const { data, error } = await carbon.auth.updateUser({
   password: "new-password",
   data: { hello: 'world' }
 })
-`,
-    },
+`
+    }
   }),
   authLogout: (endpoint: string, apiKey: string) => ({
     title: "User logout",
@@ -819,15 +819,15 @@ curl -X POST '${endpoint}/auth/v1/logout' \\
 -H "Authorization: Bearer CARBON_PUBLIC_KEY" \\
 -H "Content-Type: application/json" \\
 -H "Authorization: Bearer USER_TOKEN"
-`,
+`
     },
     js: {
       language: "js",
       code: `
 let { error } = await carbon.auth.signOut()
-`,
-    },
-  }),
+`
+    }
+  })
 };
 
 export default snippets;

@@ -1,5 +1,5 @@
 import type { ComponentProps } from "react";
-import { z } from 'zod/v3';
+import { z } from "zod/v3";
 import type { IntegrationConfig } from "../types";
 
 export const QuickBooks: IntegrationConfig = {
@@ -14,7 +14,7 @@ export const QuickBooks: IntegrationConfig = {
     "Automatically post transactions from sales and purchase invoices.",
   images: [],
   settings: [],
-  schema: z.object({}),
+  schema: z.object({})
 };
 
 function Logo(props: ComponentProps<"svg">) {

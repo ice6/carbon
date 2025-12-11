@@ -8,7 +8,7 @@ import type { ActionFunctionArgs, LoaderFunctionArgs } from "@vercel/remix";
 import { json, redirect } from "@vercel/remix";
 import {
   stockTransferLineValidator,
-  upsertStockTransferLine,
+  upsertStockTransferLine
 } from "~/modules/inventory";
 import type { StockTransfer } from "~/modules/inventory/types";
 import StockTransferLineForm from "~/modules/inventory/ui/StockTransfers/StockTransferLineForm";
@@ -17,7 +17,7 @@ import { path } from "~/utils/path";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   await requirePermissions(request, {
-    create: "inventory",
+    create: "inventory"
   });
 
   return null;
@@ -26,7 +26,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    create: "inventory",
+    create: "inventory"
   });
 
   const { id } = params;
@@ -47,7 +47,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   const insertStockTransferLine = await upsertStockTransferLine(client, {
     ...data,
     companyId,
-    createdBy: userId,
+    createdBy: userId
   });
   if (insertStockTransferLine.error) {
     return json(
@@ -81,7 +81,7 @@ export default function NewStockTransferLinesRoute() {
     itemId: "",
     quantity: 1,
     fromShelfId: "",
-    toShelfId: "",
+    toShelfId: ""
   };
 
   return (

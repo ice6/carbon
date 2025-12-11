@@ -2,7 +2,7 @@ import { assertIsPost } from "@carbon/auth";
 import { setCompanyId } from "@carbon/auth/company.server";
 import {
   refreshAuthSession,
-  setAuthSession,
+  setAuthSession
 } from "@carbon/auth/session.server";
 import { useNavigate } from "@remix-run/react";
 import type { ActionFunctionArgs } from "@vercel/remix";
@@ -20,7 +20,7 @@ export async function action({ request }: ActionFunctionArgs) {
   const authSession = await refreshAuthSession(request);
 
   const sessionCookie = await setAuthSession(request, {
-    authSession,
+    authSession
   });
   const companyIdCookie = setCompanyId(authSession.companyId);
 
@@ -29,8 +29,8 @@ export async function action({ request }: ActionFunctionArgs) {
     {
       headers: [
         ["Set-Cookie", sessionCookie],
-        ["Set-Cookie", companyIdCookie],
-      ],
+        ["Set-Cookie", companyIdCookie]
+      ]
     }
   );
 }

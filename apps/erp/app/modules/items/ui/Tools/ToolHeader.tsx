@@ -9,7 +9,7 @@ import {
   Heading,
   IconButton,
   VStack,
-  useDisclosure,
+  useDisclosure
 } from "@carbon/react";
 
 import { Link, useParams } from "@remix-run/react";

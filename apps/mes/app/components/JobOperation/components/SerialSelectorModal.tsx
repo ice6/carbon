@@ -16,7 +16,7 @@ import {
   TabsContent,
   TabsList,
   TabsTrigger,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { useState } from "react";
 import type { TrackedEntity } from "~/services/types";
@@ -27,7 +27,7 @@ export function SerialSelectorModal({
   availableEntities,
   onCancel,
   onClose,
-  onSelect,
+  onSelect
 }: {
   availableEntities: TrackedEntity[];
   onCancel: () => void;

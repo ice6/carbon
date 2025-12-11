@@ -20,7 +20,7 @@ export async function action({ request }: ActionFunctionArgs) {
     city,
     fullName,
     companyName,
-    baseCurrency,
+    baseCurrency
   } = payload;
 
   const context = createChatContext({
@@ -34,7 +34,7 @@ export async function action({ request }: ActionFunctionArgs) {
     chatId: id,
     timezone,
     locale,
-    baseCurrency,
+    baseCurrency
   });
 
   return orchestrationAgent.toUIMessageStream({
@@ -46,8 +46,8 @@ export async function action({ request }: ActionFunctionArgs) {
     maxRounds: 5,
     maxSteps: 20,
     experimental_transform: smoothStream({
-      chunking: "word",
+      chunking: "word"
     }),
-    sendSources: true,
+    sendSources: true
   });
 }

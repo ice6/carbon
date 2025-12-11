@@ -21,7 +21,7 @@ import {
   VStack,
   cn,
   useDisclosure,
-  useMount,
+  useMount
 } from "@carbon/react";
 import { useOptimisticLocation } from "@carbon/remix";
 import { Link, useNavigate, useParams } from "@remix-run/react";
@@ -34,7 +34,7 @@ import {
   LuEllipsisVertical,
   LuExternalLink,
   LuSearch,
-  LuTable,
+  LuTable
 } from "react-icons/lu";
 import { MethodIcon, MethodItemTypeIcon } from "~/components";
 import { OnshapeStatus } from "~/components/Icons";
@@ -61,7 +61,7 @@ const BoMExplorer = ({
   itemType,
   makeMethod,
   methods,
-  selectedId,
+  selectedId
 }: BoMExplorerProps) => {
   const [filterText, setFilterText] = useState("");
   const parentRef = useRef<HTMLDivElement>(null);
@@ -71,7 +71,7 @@ const BoMExplorer = ({
   const {
     id: makeMethodId,
     version: makeMethodVersion,
-    status: makeMethodStatus,
+    status: makeMethodStatus
   } = makeMethod;
 
   const {
@@ -83,7 +83,7 @@ const BoMExplorer = ({
     collapseAllBelowDepth,
     selectNode,
     scrollToNode,
-    virtualizer,
+    virtualizer
   } = useTree({
     tree: methods,
     selectedId,
@@ -100,9 +100,9 @@ const BoMExplorer = ({
           return true;
         }
         return false;
-      },
+      }
     },
-    isEager: true,
+    isEager: true
   });
 
   const navigate = useNavigate();

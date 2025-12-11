@@ -18,7 +18,7 @@ import {
   toast,
   useDisclosure,
   useMount,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { useRouteData } from "@carbon/remix";
 import { useFetcher } from "@remix-run/react";
@@ -71,7 +71,7 @@ export function AdjustInventory({ add }: { add: boolean }) {
     setShelves(
       shelves.data?.map((shelf) => ({
         value: shelf.id,
-        label: shelf.name,
+        label: shelf.name
       })) ?? []
     );
     setLoading(false);
@@ -102,7 +102,7 @@ export function AdjustInventory({ add }: { add: boolean }) {
       .map((item) => ({
         label: item.readableIdWithRevision,
         helper: item.name,
-        value: item.id,
+        value: item.id
       }));
   }, [items]);
 
@@ -125,7 +125,7 @@ export function AdjustInventory({ add }: { add: boolean }) {
               defaultValues={{
                 itemId: "",
                 quantity: 1,
-                entryType: add ? "Positive Adjmt." : "Negative Adjmt.",
+                entryType: add ? "Positive Adjmt." : "Negative Adjmt."
               }}
               fetcher={fetcher}
             >

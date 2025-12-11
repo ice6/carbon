@@ -3,13 +3,13 @@ import {
   FormControl,
   FormErrorMessage,
   FormHelperText,
-  FormLabel,
+  FormLabel
 } from "@carbon/react";
 import { useState } from "react";
 import { UserSelect } from "../Selectors";
 import type {
   IndividualOrGroup,
-  UserSelectProps,
+  UserSelectProps
 } from "../Selectors/UserSelect/types";
 
 export type UserProps = {

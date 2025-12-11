@@ -22,12 +22,12 @@ import {
   ModalTitle,
   VStack,
   cn,
-  useDisclosure,
+  useDisclosure
 } from "@carbon/react";
 import {
   formatRelativeTime,
   getItemById,
-  getItemReadableId,
+  getItemReadableId
 } from "@carbon/utils";
 import { Link, Outlet, useFetcher, useNavigate } from "@remix-run/react";
 import { useEffect, useRef } from "react";
@@ -49,7 +49,7 @@ const WarehouseTransferLines = ({
   warehouseTransferLines,
   transferId,
   warehouseTransfer,
-  compact = false,
+  compact = false
 }: WarehouseTransferLinesProps) => {
   const [items] = useItems();
   const { canEdit } = useWarehouseTransferLines(warehouseTransfer);
@@ -120,7 +120,7 @@ function WarehouseTransferLineListItem({
   line,
   warehouseTransfer,
   isDisabled,
-  className,
+  className
 }: {
   line: WarehouseTransferLine;
   warehouseTransfer: WarehouseTransfer;
@@ -238,7 +238,7 @@ function DeleteWarehouseTransferLine({
   warehouseTransferId,
   itemName,
   onCancel,
-  onSubmit,
+  onSubmit
 }: {
   lineId: string;
   warehouseTransferId: string;

@@ -3,14 +3,14 @@ import { requirePermissions } from "@carbon/auth/auth.server";
 import { json, type ActionFunctionArgs } from "@vercel/remix";
 import {
   updateQuoteLinePrecision,
-  upsertQuoteLinePrices,
+  upsertQuoteLinePrices
 } from "~/modules/sales";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
 
   const { client } = await requirePermissions(request, {
-    update: "sales",
+    update: "sales"
   });
 
   const { quoteId, lineId } = params;
@@ -46,7 +46,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
       leadTime: price.leadTime,
       discountPercent: price.discountPercent,
       quantity: price.quantity,
-      createdBy: price.createdBy,
+      createdBy: price.createdBy
     }));
 
     const updatePrices = await upsertQuoteLinePrices(

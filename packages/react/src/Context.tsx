@@ -4,7 +4,7 @@ import * as ContextMenuPrimitive from "@radix-ui/react-context-menu";
 import type {
   ComponentPropsWithoutRef,
   ElementRef,
-  HTMLAttributes,
+  HTMLAttributes
 } from "react";
 import { forwardRef } from "react";
 import { LuChevronRight, LuCircle } from "react-icons/lu";
@@ -205,5 +205,5 @@ export {
   ContextMenuSub,
   ContextMenuSubContent,
   ContextMenuSubTrigger,
-  ContextMenuTrigger,
+  ContextMenuTrigger
 };

@@ -3,7 +3,7 @@ import {
   LuCog,
   LuGraduationCap,
   LuMapPin,
-  LuWrench,
+  LuWrench
 } from "react-icons/lu";
 import { useSavedViews } from "~/hooks/useSavedViews";
 import type { RouteGroup } from "~/types";
@@ -17,21 +17,21 @@ const resourcesRoutes: RouteGroup[] = [
         name: "Locations",
         to: path.to.locations,
         icon: <LuMapPin />,
-        table: "location",
+        table: "location"
       },
       {
         name: "Processes",
         to: path.to.processes,
         icon: <LuCog />,
-        table: "process",
+        table: "process"
       },
       {
         name: "Work Centers",
         to: path.to.workCenters,
         icon: <LuWrench />,
-        table: "workCenter",
-      },
-    ],
+        table: "workCenter"
+      }
+    ]
   },
   {
     name: "Training",
@@ -40,15 +40,15 @@ const resourcesRoutes: RouteGroup[] = [
         name: "Training",
         to: path.to.trainings,
         icon: <LuGraduationCap />,
-        table: "training",
+        table: "training"
       },
       {
         name: "Assignments",
         to: path.to.trainingAssignments,
-        icon: <LuClipboardCheck />,
-      },
-    ],
-  },
+        icon: <LuClipboardCheck />
+      }
+    ]
+  }
 ];
 
 export default function useResourcesSubmodules() {
@@ -57,7 +57,7 @@ export default function useResourcesSubmodules() {
   return {
     groups: resourcesRoutes.map((group) => ({
       ...group,
-      routes: group.routes.map(addSavedViewsToRoutes),
-    })),
+      routes: group.routes.map(addSavedViewsToRoutes)
+    }))
   };
 }

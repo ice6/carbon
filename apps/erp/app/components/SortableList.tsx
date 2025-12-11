@@ -50,7 +50,7 @@ function SortableListItem<T>({
   isExpanded,
   isHighlighted,
   className,
-  isReadOnly = false,
+  isReadOnly = false
 }: SortableListItemProps<T>) {
   const [isDragging, setIsDragging] = useState(false);
   const [isDraggable] = useState(!isExpanded && !isReadOnly);
@@ -73,7 +73,7 @@ function SortableListItem<T>({
     if (isHighlighted && itemRef.current) {
       itemRef.current.scrollIntoView({
         behavior: "smooth",
-        block: "nearest",
+        block: "nearest"
       });
     }
   }, [isHighlighted]);
@@ -102,11 +102,11 @@ function SortableListItem<T>({
                   marginTop: 10,
                   marginBottom: 10,
                   position: "relative",
-                  overflow: "hidden",
+                  overflow: "hidden"
                 }
               : {
                   position: "relative",
-                  overflow: "hidden",
+                  overflow: "hidden"
                 }
           }
           whileDrag={{ zIndex: 9999 }}
@@ -246,7 +246,7 @@ function SortableList<T extends Item>({
   onToggleItem,
   onReorder,
   renderItem,
-  isReadOnly = false,
+  isReadOnly = false
 }: SortableListProps<T>) {
   if (items && Array.isArray(items) && items.length > 0) {
     return (
@@ -263,7 +263,7 @@ function SortableList<T extends Item>({
               items,
               order: index,
               onToggleItem,
-              onRemoveItem,
+              onRemoveItem
             })
           )}
         </Reorder.Group>

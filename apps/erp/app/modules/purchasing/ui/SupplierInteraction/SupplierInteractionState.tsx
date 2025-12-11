@@ -5,7 +5,7 @@ import { LuCircle, LuCreditCard } from "react-icons/lu";
 import {
   RiProgress2Line,
   RiProgress4Line,
-  RiProgress8Line,
+  RiProgress8Line
 } from "react-icons/ri";
 import { path } from "~/utils/path";
 import type { SupplierInteraction } from "../../types";
@@ -127,7 +127,7 @@ function getItems(interaction: SupplierInteraction, state: string) {
                 : ""
             }`
           : `Quote ${quote.id}`,
-        path: path.to.supplierQuoteDetails(quote.id!),
+        path: path.to.supplierQuoteDetails(quote.id!)
       }));
     case "Order":
       return interaction.purchaseOrders.map((order) => ({
@@ -139,7 +139,7 @@ function getItems(interaction: SupplierInteraction, state: string) {
                 : ""
             }`
           : `Order ${order.id}`,
-        path: path.to.purchaseOrderDetails(order.id!),
+        path: path.to.purchaseOrderDetails(order.id!)
       }));
     case "Invoice":
       return interaction.purchaseInvoices.map((invoice) => ({
@@ -147,7 +147,7 @@ function getItems(interaction: SupplierInteraction, state: string) {
         label: invoice.invoiceId
           ? `${invoice.invoiceId}`
           : `Invoice ${invoice.id}`,
-        path: path.to.purchaseInvoiceDetails(invoice.id!),
+        path: path.to.purchaseInvoiceDetails(invoice.id!)
       }));
     default:
       return [];
@@ -157,7 +157,7 @@ function getItems(interaction: SupplierInteraction, state: string) {
 const states = ["RFQ", "Quote", "Order", "Invoice"];
 
 const SupplierInteractionState = ({
-  interaction,
+  interaction
 }: {
   interaction: SupplierInteraction;
 }) => {
@@ -198,7 +198,7 @@ const SupplierInteractionState = ({
                   onClick={() => navigate(to)}
                   dropdownItems={items.map((item) => ({
                     label: item.label,
-                    onClick: () => navigate(item.path),
+                    onClick: () => navigate(item.path)
                   }))}
                 >
                   {state}

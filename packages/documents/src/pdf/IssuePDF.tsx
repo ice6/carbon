@@ -60,16 +60,16 @@ interface IssuePDFProps extends PDF {
 const tw = createTw({
   theme: {
     fontFamily: {
-      sans: ["Helvetica", "Arial", "sans-serif"],
+      sans: ["Helvetica", "Arial", "sans-serif"]
     },
     extend: {
       colors: {
         gray: {
-          500: "#7d7d7d",
-        },
-      },
-    },
-  },
+          500: "#7d7d7d"
+        }
+      }
+    }
+  }
 });
 
 const IssuePDF = ({
@@ -86,7 +86,7 @@ const IssuePDF = ({
   assignees = {},
   jobOperationStepRecords = [],
   operationToJobId = {},
-  title = "Issue Report",
+  title = "Issue Report"
 }: IssuePDFProps) => {
   // Sort action tasks by sortOrder
   const sortedActionTasks = [...actionTasks].sort(
@@ -98,7 +98,7 @@ const IssuePDF = ({
       meta={{
         author: meta?.author ?? "Carbon",
         keywords: meta?.keywords ?? "issue report",
-        subject: meta?.subject ?? "Issue Report",
+        subject: meta?.subject ?? "Issue Report"
       }}
     >
       <View>
@@ -108,30 +108,30 @@ const IssuePDF = ({
           items={[
             {
               label: "Issue #",
-              value: nonConformance.nonConformanceId,
+              value: nonConformance.nonConformanceId
             },
             {
               label: "Type",
               value: nonConformanceTypes.find(
                 (type) => type.id === nonConformance.nonConformanceTypeId
-              )?.name,
+              )?.name
             },
             {
               label: "Status",
-              value: nonConformance.status,
+              value: nonConformance.status
             },
             {
               label: "Initiated By",
-              value: assignees[nonConformance.createdBy] || "Unknown",
+              value: assignees[nonConformance.createdBy] || "Unknown"
             },
             {
               label: "Started",
-              value: nonConformance.openDate,
+              value: nonConformance.openDate
             },
             {
               label: "Completed",
-              value: nonConformance.closeDate,
-            },
+              value: nonConformance.closeDate
+            }
           ]}
         />
         <View style={tw("flex flex-col gap-2 mb-4")}>
@@ -372,7 +372,7 @@ const IssuePDF = ({
                                   height: 12,
                                   border: "1px solid #000",
                                   marginTop: 2,
-                                  position: "relative",
+                                  position: "relative"
                                 }}
                               >
                                 <Text
@@ -383,7 +383,7 @@ const IssuePDF = ({
                                     lineHeight: 1,
                                     textAlign: "center",
                                     top: -3,
-                                    left: -2,
+                                    left: -2
                                   }}
                                 >
                                   {record.booleanValue ? "✓" : ""}

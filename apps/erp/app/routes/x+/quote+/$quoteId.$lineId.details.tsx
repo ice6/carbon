@@ -15,7 +15,7 @@ import type {
   Quotation,
   QuotationOperation,
   QuotationPrice,
-  QuoteMethod,
+  QuoteMethod
 } from "~/modules/sales";
 import {
   getOpportunityLineDocuments,
@@ -24,17 +24,17 @@ import {
   getQuoteOperationsByLine,
   getRelatedPricesForQuoteLine,
   quoteLineValidator,
-  upsertQuoteLine,
+  upsertQuoteLine
 } from "~/modules/sales";
 import {
   OpportunityLineDocuments,
-  OpportunityLineNotes,
+  OpportunityLineNotes
 } from "~/modules/sales/ui/Opportunity";
 import {
   QuoteLineCosting,
   QuoteLineForm,
   QuoteLinePricing,
-  useLineCosts,
+  useLineCosts
 } from "~/modules/sales/ui/Quotes";
 import QuoteLinePricingHistory from "~/modules/sales/ui/Quotes/QuoteLinePricingHistory";
 import { getCustomFields, setCustomFields } from "~/utils/form";
@@ -42,7 +42,7 @@ import { path } from "~/utils/path";
 
 export const loader = async ({ request, params }: LoaderFunctionArgs) => {
   const { companyId } = await requirePermissions(request, {
-    view: "sales",
+    view: "sales"
   });
 
   const { quoteId, lineId } = params;
@@ -54,7 +54,7 @@ export const loader = async ({ request, params }: LoaderFunctionArgs) => {
   const [line, operations, prices] = await Promise.all([
     getQuoteLine(serviceRole, lineId),
     getQuoteOperationsByLine(serviceRole, lineId),
-    getQuoteLinePrices(serviceRole, lineId),
+    getQuoteLinePrices(serviceRole, lineId)
   ]);
 
   if (line.error) {
@@ -76,14 +76,14 @@ export const loader = async ({ request, params }: LoaderFunctionArgs) => {
       acc[price.quantity] = price;
       return acc;
     }, {}),
-    relatedPrices: getRelatedPricesForQuoteLine(serviceRole, itemId, quoteId),
+    relatedPrices: getRelatedPricesForQuoteLine(serviceRole, itemId, quoteId)
   });
 };
 
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    create: "sales",
+    create: "sales"
   });
 
   const { quoteId, lineId } = params;
@@ -104,7 +104,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     id: lineId,
     ...data,
     updatedBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
 
   if (updateQuotationLine.error) {
@@ -148,7 +148,7 @@ export default function QuoteLine() {
   const getLineCosts = useLineCosts({
     methodTree,
     operations: operations as QuotationOperation[],
-    line,
+    line
   });
 
   const initialValues = {
@@ -167,7 +167,7 @@ export default function QuoteLine() {
     quantity: line.quantity ?? [1],
     unitOfMeasureCode: line.unitOfMeasureCode ?? "",
     taxPercent: line.taxPercent ?? 0,
-    ...getCustomFields(line.customFields),
+    ...getCustomFields(line.customFields)
   };
 
   return (
@@ -254,7 +254,7 @@ export default function QuoteLine() {
         isReadOnly={!permissions.can("update", "sales")}
         metadata={{
           quoteLineId: line.id ?? undefined,
-          itemId: line.itemId ?? undefined,
+          itemId: line.itemId ?? undefined
         }}
         modelPath={line?.modelPath ?? null}
         title="CAD Model"

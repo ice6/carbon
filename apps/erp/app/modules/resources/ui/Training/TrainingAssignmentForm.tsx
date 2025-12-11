@@ -19,7 +19,7 @@ import {
   TabsTrigger,
   ToggleGroup,
   ToggleGroupItem,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { useFetcher } from "@remix-run/react";
 import { memo, useMemo, useState } from "react";
@@ -28,7 +28,7 @@ import {
   LuCalendar,
   LuCircleCheck,
   LuClock,
-  LuSearch,
+  LuSearch
 } from "react-icons/lu";
 import type { z } from "zod/v3";
 import { EmployeeAvatar, Empty } from "~/components";
@@ -37,7 +37,7 @@ import { usePermissions } from "~/hooks";
 import { trainingAssignmentValidator } from "~/modules/resources";
 import type {
   TrainingAssignmentStatusItem,
-  TrainingListItem,
+  TrainingListItem
 } from "~/modules/resources/types";
 import { path } from "~/utils/path";
 
@@ -91,7 +91,7 @@ function AssignmentListItem({
   assignment,
   currentPeriod,
   disabled,
-  isLast,
+  isLast
 }: {
   assignment: TrainingAssignmentStatusItem;
   currentPeriod: string | null;
@@ -162,7 +162,7 @@ function AssignmentListItem({
 const StatusList = memo(
   ({
     data,
-    currentPeriod,
+    currentPeriod
   }: {
     data: TrainingAssignmentStatusItem[];
     currentPeriod: string | null;
@@ -186,10 +186,13 @@ const StatusList = memo(
     }, [data, search, statusFilter]);
 
     const statusCounts = useMemo(() => {
-      return data.reduce((acc, assignment) => {
-        acc[assignment.status] = (acc[assignment.status] || 0) + 1;
-        return acc;
-      }, {} as Record<string, number>);
+      return data.reduce(
+        (acc, assignment) => {
+          acc[assignment.status] = (acc[assignment.status] || 0) + 1;
+          return acc;
+        },
+        {} as Record<string, number>
+      );
     }, [data]);
 
     return (
@@ -298,7 +301,7 @@ const TrainingAssignmentForm = ({
   assignmentStatus = [],
   currentPeriod = null,
   open = true,
-  onClose,
+  onClose
 }: TrainingAssignmentFormProps) => {
   const permissions = usePermissions();
   const fetcher = useFetcher();
@@ -414,7 +417,7 @@ const TrainingAssignmentForm = ({
 
 function AssignmentFormContent({
   trainings,
-  isEditing,
+  isEditing
 }: {
   trainings: TrainingListItem[];
   isEditing: boolean;
@@ -427,7 +430,7 @@ function AssignmentFormContent({
         isReadOnly={isEditing}
         options={trainings.map((training) => ({
           label: training.name ?? "",
-          value: training.id ?? "",
+          value: training.id ?? ""
         }))}
       />
       <Users

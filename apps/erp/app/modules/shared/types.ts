@@ -1,5 +1,5 @@
 import type { ColumnPinningState } from "@tanstack/react-table";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import type { StorageItem } from "~/types";
 import type {
   methodItemType,
@@ -7,7 +7,7 @@ import type {
   operationParameterValidator,
   operationStepValidator,
   operationToolValidator,
-  standardFactorType,
+  standardFactorType
 } from "./shared.models";
 import type { getNotes } from "./shared.service";
 
@@ -38,7 +38,7 @@ export enum DataType {
   Text = 5,
   User = 6,
   Customer = 7,
-  Supplier = 8,
+  Supplier = 8
 }
 
 export type MethodItemType = (typeof methodItemType)[number];

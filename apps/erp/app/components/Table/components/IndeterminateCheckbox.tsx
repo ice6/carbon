@@ -16,7 +16,7 @@ const IndeterminateCheckbox = ({
 }: IndeterminateCheckboxProps) => {
   const handleChange = (checked: boolean) => {
     onChange({
-      target: { checked },
+      target: { checked }
     } as unknown as MouseEvent<HTMLInputElement>);
   };
 

@@ -14,7 +14,7 @@ import {
   TabsList,
   TabsTrigger,
   toast,
-  useDebounce,
+  useDebounce
 } from "@carbon/react";
 import { Editor } from "@carbon/react/Editor";
 import { getLocalTimeZone, today } from "@internationalized/date";
@@ -28,7 +28,7 @@ const SupplierInteractionNotes = ({
   table,
   title,
   internalNotes: initialInternalNotes,
-  externalNotes: initialExternalNotes,
+  externalNotes: initialExternalNotes
 }: {
   id: string | null;
   table: "supplierQuote" | "purchaseOrder" | "receipt" | "purchaseInvoice";
@@ -38,7 +38,7 @@ const SupplierInteractionNotes = ({
 }) => {
   const {
     id: userId,
-    company: { id: companyId },
+    company: { id: companyId }
   } = useUser();
   const { carbon } = useCarbon();
   const permissions = usePermissions();
@@ -76,7 +76,7 @@ const SupplierInteractionNotes = ({
         .update({
           externalNotes: content,
           updatedAt: today(getLocalTimeZone()).toString(),
-          updatedBy: userId,
+          updatedBy: userId
         })
         .eq("id", id!);
     },
@@ -91,7 +91,7 @@ const SupplierInteractionNotes = ({
         .update({
           internalNotes: content,
           updatedAt: today(getLocalTimeZone()).toString(),
-          updatedBy: userId,
+          updatedBy: userId
         })
         .eq("id", id!);
     },
@@ -136,7 +136,7 @@ const SupplierInteractionNotes = ({
                 <div
                   className="prose dark:prose-invert"
                   dangerouslySetInnerHTML={{
-                    __html: generateHTML(internalNotes as JSONContent),
+                    __html: generateHTML(internalNotes as JSONContent)
                   }}
                 />
               )}
@@ -156,7 +156,7 @@ const SupplierInteractionNotes = ({
                   <div
                     className="prose dark:prose-invert"
                     dangerouslySetInnerHTML={{
-                      __html: generateHTML(externalNotes as JSONContent),
+                      __html: generateHTML(externalNotes as JSONContent)
                     }}
                   />
                 )}

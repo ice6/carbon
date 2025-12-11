@@ -11,7 +11,7 @@ import {
   InputGroup,
   InputLeftAddon,
   InputRightAddon,
-  VStack,
+  VStack
 } from "@carbon/react";
 import type { ChangeEvent, ReactNode } from "react";
 import { forwardRef, useEffect, useRef, useState } from "react";
@@ -128,7 +128,7 @@ const InputControlled = forwardRef<HTMLInputElement, FormInputControlledProps>(
                 id: name,
                 ...rest,
                 // @ts-ignore
-                value: controlValue,
+                value: controlValue
               })}
               onChange={handleChange}
               value={controlValue}
@@ -159,7 +159,7 @@ const InputControlled = forwardRef<HTMLInputElement, FormInputControlledProps>(
               id: name,
               ...rest,
               // @ts-ignore
-              value: controlValue,
+              value: controlValue
             })}
             onChange={handleChange}
             value={controlValue}

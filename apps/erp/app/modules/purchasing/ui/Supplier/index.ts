@@ -22,5 +22,5 @@ export {
   SupplierProcesses,
   SupplierShippingForm,
   SupplierSidebar,
-  SuppliersTable,
+  SuppliersTable
 };

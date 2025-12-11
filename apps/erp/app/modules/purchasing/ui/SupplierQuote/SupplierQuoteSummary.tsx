@@ -13,7 +13,7 @@ import {
   Th,
   Thead,
   Tr,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { formatDate, getItemReadableId } from "@carbon/utils";
 import { useLocale } from "@react-aria/i18n";
@@ -30,13 +30,13 @@ import type {
   PurchaseOrderLine,
   SupplierQuote,
   SupplierQuoteLine,
-  SupplierQuoteLinePrice,
+  SupplierQuoteLinePrice
 } from "../../types";
 
 const LineItems = ({
   currencyCode,
   formatter,
-  locale,
+  locale
 }: {
   currencyCode: string;
   formatter: Intl.NumberFormat;
@@ -137,7 +137,7 @@ const LineItems = ({
                     <HStack spacing={4}>
                       <motion.div
                         animate={{
-                          rotate: openItems.includes(line.id) ? 90 : 0,
+                          rotate: openItems.includes(line.id) ? 90 : 0
                         }}
                         transition={{ duration: 0.3 }}
                       >
@@ -157,7 +157,7 @@ const LineItems = ({
               animate={openItems.includes(line.id) ? "open" : "collapsed"}
               variants={{
                 open: { opacity: 1, height: "auto", marginTop: 16 },
-                collapsed: { opacity: 0, height: 0, marginTop: 0 },
+                collapsed: { opacity: 0, height: 0, marginTop: 0 }
               }}
               transition={{ duration: 0.3 }}
               className="w-full overflow-hidden"
@@ -193,7 +193,7 @@ const LinePricingOptions = ({
   line,
   options,
   locale,
-  formatter,
+  formatter
 }: LinePricingOptionsProps) => {
   const { id } = useParams();
   if (!id) throw new Error("Could not find quote id");
@@ -273,7 +273,7 @@ const LinePricingOptions = ({
                     <Td>
                       {new Intl.NumberFormat(locale, {
                         style: "unit",
-                        unit: "day",
+                        unit: "day"
                       }).format(option.leadTime)}
                     </Td>
 

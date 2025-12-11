@@ -3,7 +3,7 @@ import type { MentionOptions } from "@tiptap/extension-mention";
 import { ReactRenderer } from "@tiptap/react";
 import type {
   SuggestionProps,
-  SuggestionKeyDownProps,
+  SuggestionKeyDownProps
 } from "@tiptap/suggestion";
 import type { RefObject } from "react";
 import tippy, { type Instance, type Props } from "tippy.js";
@@ -33,7 +33,7 @@ export interface CreateMentionSuggestionOptions {
 export function createMentionSuggestion({
   char,
   items,
-  elementRef,
+  elementRef
 }: CreateMentionSuggestionOptions): MentionOptions["suggestion"] {
   return {
     char,
@@ -51,7 +51,7 @@ export function createMentionSuggestion({
         onStart: (props: SuggestionProps<MentionSuggestion>) => {
           component = new ReactRenderer(MentionList, {
             props,
-            editor: props.editor,
+            editor: props.editor
           });
 
           if (!props.clientRect) {
@@ -65,7 +65,7 @@ export function createMentionSuggestion({
             showOnCreate: true,
             interactive: true,
             trigger: "manual",
-            placement: "bottom-start",
+            placement: "bottom-start"
           });
         },
 
@@ -77,7 +77,7 @@ export function createMentionSuggestion({
           }
 
           popup?.[0]?.setProps({
-            getReferenceClientRect: props.clientRect as () => DOMRect,
+            getReferenceClientRect: props.clientRect as () => DOMRect
           });
         },
 
@@ -93,9 +93,9 @@ export function createMentionSuggestion({
         onExit() {
           popup?.[0]?.destroy();
           component?.destroy();
-        },
+        }
       };
-    },
+    }
   };
 }
 
@@ -147,17 +147,17 @@ export function createMentionExtension({
   name,
   char,
   items,
-  elementRef,
+  elementRef
 }: CreateMentionExtensionOptions) {
   return Mention.configure({
     HTMLAttributes: {
       class:
         "inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900/50 dark:text-blue-400",
-      "data-mention-type": name,
+      "data-mention-type": name
     },
-    suggestion: createMentionSuggestion({ char, items, elementRef }),
+    suggestion: createMentionSuggestion({ char, items, elementRef })
   }).extend({
-    name,
+    name
   });
 }
 

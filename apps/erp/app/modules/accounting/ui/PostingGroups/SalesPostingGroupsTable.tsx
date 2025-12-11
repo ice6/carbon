@@ -22,21 +22,21 @@ const SalesPostingGroupsTable = ({
   itemPostingGroups,
   customerTypes,
   balanceSheetAccounts,
-  incomeStatementAccounts,
+  incomeStatementAccounts
 }: SalesPostingGroupsTableProps) => {
   const { canEdit, onCellEdit } = usePostingGroups("postingGroupSales");
 
   const balanceSheetAccountOptions = useMemo(() => {
     return balanceSheetAccounts.map((account) => ({
       label: account.number,
-      value: account.number,
+      value: account.number
     }));
   }, [balanceSheetAccounts]);
 
   const incomeStatementAccountOptions = useMemo(() => {
     return incomeStatementAccounts.map((account) => ({
       label: account.number,
-      value: account.number,
+      value: account.number
     }));
   }, [incomeStatementAccounts]);
 
@@ -59,10 +59,10 @@ const SalesPostingGroupsTable = ({
             type: "static",
             options: itemPostingGroups.map((group) => ({
               label: <Enumerable value={group.name} />,
-              value: group.id,
-            })),
-          },
-        },
+              value: group.id
+            }))
+          }
+        }
       },
       {
         id: "customerTypeId",
@@ -81,41 +81,41 @@ const SalesPostingGroupsTable = ({
             type: "static",
             options: customerTypes.map((t) => ({
               label: <Enumerable value={t.name} />,
-              value: t.id,
-            })),
-          },
-        },
+              value: t.id
+            }))
+          }
+        }
       },
       {
         accessorKey: "receivablesAccount",
         header: "Receivables",
-        cell: (item) => item.getValue(),
+        cell: (item) => item.getValue()
       },
       {
         accessorKey: "salesAccount",
         header: "Sales",
-        cell: (item) => item.getValue(),
+        cell: (item) => item.getValue()
       },
       {
         accessorKey: "salesDiscountAccount",
         header: "Sales Discount",
-        cell: (item) => item.getValue(),
+        cell: (item) => item.getValue()
       },
       {
         accessorKey: "salesCreditAccount",
         header: "Sales Credit",
-        cell: (item) => item.getValue(),
+        cell: (item) => item.getValue()
       },
       {
         accessorKey: "salesPrepaymentAccount",
         header: "Sales Prepayment",
-        cell: (item) => item.getValue(),
+        cell: (item) => item.getValue()
       },
       {
         accessorKey: "salesTaxPayableAccount",
         header: "Sales Tax Payable",
-        cell: (item) => item.getValue(),
-      },
+        cell: (item) => item.getValue()
+      }
     ];
   }, [customerTypes, itemPostingGroups]);
 
@@ -135,7 +135,7 @@ const SalesPostingGroupsTable = ({
       salesTaxPayableAccount: EditableList(
         onCellEdit,
         balanceSheetAccountOptions
-      ),
+      )
     }),
     [onCellEdit, balanceSheetAccountOptions, incomeStatementAccountOptions]
   );

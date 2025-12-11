@@ -6,7 +6,7 @@ import { path } from "~/utils/path";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
-    view: "inventory",
+    view: "inventory"
   });
 
   const { id, action } = params;
@@ -45,7 +45,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   return new Response(buffer, {
     headers: {
       "Content-Type": "image/png",
-      "Cache-Control": "public, max-age=31536000, immutable",
-    },
+      "Cache-Control": "public, max-age=31536000, immutable"
+    }
   });
 }

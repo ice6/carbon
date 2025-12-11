@@ -5,7 +5,7 @@ import {
   getMaterialId,
   openAiCategorizationModel,
   supportedModelTypes,
-  textToTiptap,
+  textToTiptap
 } from "@carbon/utils";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { generateObject } from "ai";
@@ -17,7 +17,7 @@ import type {
   ContactSchema,
   FacilitySchema,
   OrderSchema,
-  SalesPersonSchema,
+  SalesPersonSchema
 } from "./schemas";
 import { calculatePromisedDate } from "./utils";
 
@@ -77,7 +77,7 @@ const substanceSchema = z.object({
     .describe("Confidence level of the match (0-1)"),
   reasoningText: z
     .string()
-    .describe("Brief explanation of why this substance was chosen"),
+    .describe("Brief explanation of why this substance was chosen")
 });
 
 async function determineMaterialSubstance(
@@ -125,7 +125,7 @@ async function determineMaterialSubstance(
       
       Select the substance that best matches the material information provided. Consider material type, grade, and common industry terminology.
       `,
-      temperature: 0.2,
+      temperature: 0.2
     });
 
     return object;
@@ -156,7 +156,7 @@ const materialPropertiesSchema = z.object({
   confidence: z.number().describe("Confidence level of the match (0-1)"),
   reasoningText: z
     .string()
-    .describe("Brief explanation of why this material properties were chosen"),
+    .describe("Brief explanation of why this material properties were chosen")
 });
 
 // Cache for material properties by substance ID
@@ -237,7 +237,7 @@ async function getCachedMaterialProperties(
         .from("materialSubstance")
         .select("id, name, code")
         .eq("id", substanceId)
-        .single(),
+        .single()
     ]);
 
   // Check for any errors
@@ -255,7 +255,7 @@ async function getCachedMaterialProperties(
       finishes: finishes.error,
       types: types.error,
       forms: forms.error,
-      substance: substance.error,
+      substance: substance.error
     });
     return null;
   }
@@ -273,7 +273,7 @@ async function getCachedMaterialProperties(
     types: types.data || [],
     forms: forms.data || [],
     substance: substance.data,
-    timestamp: Date.now(),
+    timestamp: Date.now()
   };
 
   // Cache the result
@@ -308,7 +308,7 @@ export function getMaterialPropertiesCacheStats(): {
     size: materialPropertiesCache.size,
     substances,
     oldestEntry: timestamps.length > 0 ? Math.min(...timestamps) : undefined,
-    newestEntry: timestamps.length > 0 ? Math.max(...timestamps) : undefined,
+    newestEntry: timestamps.length > 0 ? Math.max(...timestamps) : undefined
   };
 }
 
@@ -412,7 +412,7 @@ async function determineMaterialProperties(
     
     Select the properties that best match the material information provided. Consider material type, grade, and common industry terminology.
     `,
-    temperature: 0.2,
+    temperature: 0.2
   });
 
   if (object.confidence < 0.5) {
@@ -450,7 +450,7 @@ async function determineMaterialProperties(
     // Other properties
     quantity: object.quantity,
     confidence: object.confidence,
-    reasoningText: object.reasoningText,
+    reasoningText: object.reasoningText
   };
 }
 
@@ -515,7 +515,7 @@ export async function getMaterialProperties(
       // Other properties
       quantity: undefined,
       confidence: undefined,
-      reasoningText: undefined,
+      reasoningText: undefined
     };
   } catch (error) {
     console.error("Error getting material properties:", error);
@@ -549,7 +549,7 @@ export async function getOrCreateMaterial(
       materialDisplayName: args.input.material?.display_name || "",
       materialFamily: args.input.material?.family || "",
       materialClass: args.input.material?.material_class || "",
-      processName: args.input.process?.name || "",
+      processName: args.input.process?.name || ""
     };
 
     const substanceResult = await determineMaterialSubstance(
@@ -644,7 +644,7 @@ export async function getOrCreateMaterial(
       return {
         itemId: item.data[0].id,
         unitOfMeasureCode: item.data[0].unitOfMeasureCode ?? "EA",
-        quantity,
+        quantity
       };
     } else {
       const readableId = getMaterialId({
@@ -653,7 +653,7 @@ export async function getOrCreateMaterial(
         grade: materialPropertiesResult?.grade,
         shapeCode: materialPropertiesResult?.shapeCode,
         dimensions: materialPropertiesResult?.dimensions,
-        finish: materialPropertiesResult?.finish,
+        finish: materialPropertiesResult?.finish
       });
       const description = getMaterialDescription({
         materialType: materialPropertiesResult?.materialType,
@@ -661,7 +661,7 @@ export async function getOrCreateMaterial(
         grade: materialPropertiesResult?.grade,
         shape: materialPropertiesResult?.shape,
         dimensions: materialPropertiesResult?.dimensions,
-        finish: materialPropertiesResult?.finish,
+        finish: materialPropertiesResult?.finish
       });
 
       const itemInsert = await carbon
@@ -676,7 +676,7 @@ export async function getOrCreateMaterial(
           unitOfMeasureCode: "EA",
           active: true,
           companyId: args.companyId,
-          createdBy: args.createdBy,
+          createdBy: args.createdBy
         })
         .select("id, unitOfMeasureCode")
         .single();
@@ -695,7 +695,7 @@ export async function getOrCreateMaterial(
         dimensionId: materialPropertiesResult?.dimensionId,
         finishId: materialPropertiesResult?.finishId,
         materialTypeId: materialPropertiesResult?.typeId,
-        createdBy: args.createdBy,
+        createdBy: args.createdBy
       };
 
       const materialInsert = await carbon
@@ -712,7 +712,7 @@ export async function getOrCreateMaterial(
       return {
         itemId: itemInsert.data.id,
         unitOfMeasureCode: itemInsert.data.unitOfMeasureCode ?? "EA",
-        quantity,
+        quantity
       };
     }
   }
@@ -746,7 +746,7 @@ async function uploadModelFile(
     const modelUpload = await carbon.storage
       .from("private")
       .upload(modelPath, file, {
-        upsert: true,
+        upsert: true
       });
 
     if (modelUpload.error) {
@@ -766,7 +766,7 @@ async function uploadModelFile(
       name: file.name,
       size: file.size,
       companyId,
-      createdBy,
+      createdBy
     });
 
     if (modelRecord.error) {
@@ -783,7 +783,7 @@ async function uploadModelFile(
         .from("salesOrderLine")
         .update({ modelUploadId: modelId })
         .eq("id", salesOrderLineId),
-      carbon.from("item").update({ modelUploadId: modelId }).eq("id", itemId),
+      carbon.from("item").update({ modelUploadId: modelId }).eq("id", itemId)
     ]);
 
     if (lineUpdate.error) {
@@ -831,7 +831,7 @@ async function uploadFileToItem(
       .from("private")
       .upload(storagePath, file, {
         cacheControl: `${12 * 60 * 60}`,
-        upsert: true,
+        upsert: true
       });
 
     if (fileUpload.error) {
@@ -909,7 +909,7 @@ async function processSupportingFiles(
           companyId,
           itemId,
           salesOrderLineId: lineId,
-          createdBy,
+          createdBy
         });
 
         if (!uploadSuccess) {
@@ -925,7 +925,7 @@ async function processSupportingFiles(
           file,
           companyId,
           itemId,
-          createdBy,
+          createdBy
         });
 
         if (!uploadSuccess) {
@@ -994,8 +994,8 @@ export async function getCustomerIdAndContactId(
           .from("customer")
           .update({
             externalId: {
-              paperlessPartsId: contact.account.id,
-            },
+              paperlessPartsId: contact.account.id
+            }
           })
           .eq("id", existingCustomerByName.data.id)
           .select()
@@ -1018,13 +1018,13 @@ export async function getCustomerIdAndContactId(
               companyId: company.id,
               name: customerName,
               externalId: {
-                paperlessPartsId: contact.account.id,
+                paperlessPartsId: contact.account.id
               },
               currencyCode: company.baseCurrencyCode,
-              createdBy,
+              createdBy
             },
             {
-              onConflict: "name, companyId",
+              onConflict: "name, companyId"
             }
           )
           .select()
@@ -1048,7 +1048,7 @@ export async function getCustomerIdAndContactId(
 
     // Search for existing accounts in Paperless Parts by name first
     const existingAccountsResponse = await paperless.accounts.listAccounts({
-      search: customerName,
+      search: customerName
     });
 
     let paperlessPartsAccountId: number;
@@ -1073,7 +1073,7 @@ export async function getCustomerIdAndContactId(
       let newPaperlessPartsAccount;
       try {
         newPaperlessPartsAccount = await paperless.accounts.createAccount({
-          name: customerName,
+          name: customerName
         });
       } catch (err) {
         // If an exception is thrown, try to read the error details
@@ -1110,12 +1110,12 @@ export async function getCustomerIdAndContactId(
         const searchStrategies = [
           customerName.split(" ")[0], // First name only
           customerName.split(" ").pop() || customerName, // Last name only
-          customerName, // Full name again (in case initial search had timing issues)
+          customerName // Full name again (in case initial search had timing issues)
         ];
 
         for (const searchTerm of searchStrategies) {
           const searchResponse = await paperless.accounts.listAccounts({
-            search: searchTerm,
+            search: searchTerm
           });
 
           if (searchResponse.data && searchResponse.data.length > 0) {
@@ -1202,8 +1202,8 @@ export async function getCustomerIdAndContactId(
             .from("customer")
             .update({
               externalId: {
-                paperlessPartsId: paperlessPartsAccountId,
-              },
+                paperlessPartsId: paperlessPartsAccountId
+              }
             })
             .eq("id", existingCustomerByName.data.id)
             .select()
@@ -1227,20 +1227,20 @@ export async function getCustomerIdAndContactId(
           companyId: company.id,
           name: customerName,
           currencyCode: company.baseCurrencyCode,
-          createdBy,
+          createdBy
         };
 
         // Only add externalId if we have a valid Paperless Parts account ID
         if (paperlessPartsAccountId > 0) {
           customerData.externalId = {
-            paperlessPartsId: paperlessPartsAccountId,
+            paperlessPartsId: paperlessPartsAccountId
           };
         }
 
         const newCustomer = await carbon
           .from("customer")
           .upsert(customerData, {
-            onConflict: "name, companyId",
+            onConflict: "name, companyId"
           })
           .select()
           .single();
@@ -1293,11 +1293,11 @@ export async function getCustomerIdAndContactId(
           email: contact.email!,
           isCustomer: true,
           externalId: {
-            paperlessPartsId: contact.id,
-          },
+            paperlessPartsId: contact.id
+          }
         },
         {
-          onConflict: "companyId, email, isCustomer",
+          onConflict: "companyId, email, isCustomer"
         }
       )
       .select()
@@ -1307,7 +1307,7 @@ export async function getCustomerIdAndContactId(
       console.error("Failed to create contact in Carbon", newContact);
       return {
         customerContactId: null,
-        customerId,
+        customerId
       };
     }
 
@@ -1315,7 +1315,7 @@ export async function getCustomerIdAndContactId(
       .from("customerContact")
       .insert({
         customerId,
-        contactId: newContact.data.id,
+        contactId: newContact.data.id
       })
       .select()
       .single();
@@ -1324,7 +1324,7 @@ export async function getCustomerIdAndContactId(
       console.error("Failed to create customerContact", newCustomerContact);
       return {
         customerContactId: null,
-        customerId,
+        customerId
       };
     }
 
@@ -1333,7 +1333,7 @@ export async function getCustomerIdAndContactId(
 
   return {
     customerId,
-    customerContactId,
+    customerContactId
   };
 }
 
@@ -1422,7 +1422,7 @@ export async function getCustomerLocationIds(
               city: billingInfo.city!,
               stateProvince: billingInfo.state!,
               postalCode: billingInfo.postal_code!,
-              countryCode,
+              countryCode
             })
             .select()
             .single();
@@ -1449,8 +1449,8 @@ export async function getCustomerLocationIds(
             customerId,
             addressId,
             externalId: {
-              paperlessPartsId: billingInfo.id,
-            },
+              paperlessPartsId: billingInfo.id
+            }
           })
           .select()
           .single();
@@ -1536,7 +1536,7 @@ export async function getCustomerLocationIds(
               city: shippingInfo.city!,
               stateProvince: shippingInfo.state!,
               postalCode: shippingInfo.postal_code!,
-              countryCode,
+              countryCode
             })
             .select()
             .single();
@@ -1560,8 +1560,8 @@ export async function getCustomerLocationIds(
             customerId,
             addressId,
             externalId: {
-              paperlessPartsId: shippingInfo.id,
-            },
+              paperlessPartsId: shippingInfo.id
+            }
           })
           .select()
           .single();
@@ -1579,7 +1579,7 @@ export async function getCustomerLocationIds(
 
   return {
     invoiceLocationId,
-    shipmentLocationId,
+    shipmentLocationId
   };
 }
 
@@ -1605,7 +1605,7 @@ export async function getEmployeeAndSalesPersonId(
     return {
       salesPersonId: null,
       estimatorId: null,
-      createdBy,
+      createdBy
     };
   }
 
@@ -1619,7 +1619,7 @@ export async function getEmployeeAndSalesPersonId(
   return {
     salesPersonId,
     estimatorId,
-    createdBy: estimatorId ?? createdBy,
+    createdBy: estimatorId ?? createdBy
   };
 }
 
@@ -1701,7 +1701,7 @@ export async function findPartByExternalId(
     return {
       itemId: existingPart.data.id,
       partId: existingPart.data.readableId,
-      revision: existingPart.data.revision,
+      revision: existingPart.data.revision
     };
   }
 
@@ -1748,7 +1748,7 @@ async function downloadAndUploadThumbnail(
       `${supabaseUrl}/functions/v1/image-resizer`,
       {
         method: "POST",
-        body: formData,
+        body: formData
       }
     );
 
@@ -1765,13 +1765,13 @@ async function downloadAndUploadThumbnail(
 
     const processedImageBuffer = await resizerResponse.arrayBuffer();
     const processedBlob = new Blob([processedImageBuffer], {
-      type: contentType,
+      type: contentType
     });
 
     // Generate filename and create File object
     const fileName = `${nanoid()}.${fileExtension}`;
     const thumbnailFile = new File([processedBlob], fileName, {
-      type: contentType,
+      type: contentType
     });
 
     // Upload to private bucket
@@ -1779,7 +1779,7 @@ async function downloadAndUploadThumbnail(
     const { data, error } = await carbon.storage
       .from("private")
       .upload(storagePath, thumbnailFile, {
-        upsert: true,
+        upsert: true
       });
 
     if (error) {
@@ -1820,7 +1820,7 @@ export async function createPartFromComponent(
     component,
     defaultMethodType,
     defaultTrackingType,
-    billOfProcessBlackList = [],
+    billOfProcessBlackList = []
   } = args;
 
   const operations: Omit<
@@ -1838,7 +1838,7 @@ export async function createPartFromComponent(
       createdBy,
       input: component,
       defaultMethodType,
-      defaultTrackingType,
+      defaultTrackingType
     });
 
     if (material) {
@@ -1849,7 +1849,7 @@ export async function createPartFromComponent(
         methodType: defaultMethodType,
         companyId,
         createdBy,
-        unitOfMeasureCode: "EA",
+        unitOfMeasureCode: "EA"
       });
     }
   }
@@ -1857,7 +1857,7 @@ export async function createPartFromComponent(
   if (component.shop_operations) {
     for await (const [
       index,
-      operation,
+      operation
     ] of component.shop_operations.entries()) {
       if (operation.category === "operation") {
         // Check if operation is blacklisted
@@ -1899,7 +1899,7 @@ export async function createPartFromComponent(
             machineUnit: "Minutes/Piece",
             workInstruction: operation.notes
               ? textToTiptap(operation.notes)
-              : {},
+              : {}
           });
         }
       } else {
@@ -1938,7 +1938,7 @@ export async function createPartFromComponent(
           componentsIndex: index,
           defaultMethodType,
           defaultTrackingType,
-          billOfProcessBlackList,
+          billOfProcessBlackList
         });
 
         const childIsPurchased =
@@ -1964,7 +1964,7 @@ export async function createPartFromComponent(
             childRef.quantity ?? (childComponent as any)?.innate_quantity ?? 1,
           companyId,
           createdBy,
-          unitOfMeasureCode: "EA",
+          unitOfMeasureCode: "EA"
         });
       } catch (err) {
         console.error(
@@ -2025,7 +2025,7 @@ export async function createPartFromComponent(
         const itemCostUpdate = await carbon
           .from("itemCost")
           .update({
-            unitCost,
+            unitCost
           })
           .eq("itemId", existingItem.data.id)
           .eq("companyId", companyId)
@@ -2045,7 +2045,7 @@ export async function createPartFromComponent(
 
     return {
       itemId: existingItem.data.id,
-      partId: partId,
+      partId: partId
     };
   }
 
@@ -2066,8 +2066,8 @@ export async function createPartFromComponent(
       companyId,
       createdBy,
       externalId: {
-        paperlessPartsId: component.part_uuid,
-      },
+        paperlessPartsId: component.part_uuid
+      }
     })
     .select("id")
     .single();
@@ -2093,7 +2093,7 @@ export async function createPartFromComponent(
       const itemCostUpdate = await carbon
         .from("itemCost")
         .update({
-          unitCost,
+          unitCost
         })
         .eq("itemId", itemId)
         .eq("companyId", companyId)
@@ -2118,7 +2118,7 @@ export async function createPartFromComponent(
     thumbnailPath = await downloadAndUploadThumbnail(carbon, {
       thumbnailUrl: component.thumbnail_url,
       companyId,
-      itemId,
+      itemId
     });
 
     // Update the item with the thumbnail path
@@ -2144,11 +2144,11 @@ export async function createPartFromComponent(
     companyId,
     createdBy,
     externalId: {
-      paperlessPartsId: component.part_uuid,
-    },
+      paperlessPartsId: component.part_uuid
+    }
   });
   let makeMethod: { data?: { id: string } | null; error?: any } = {
-    data: null,
+    data: null
   };
   if (!isPurchased) {
     makeMethod = await carbon
@@ -2172,7 +2172,7 @@ export async function createPartFromComponent(
       const operationInsert = await carbon.from("methodOperation").insert(
         operations.map((operation) => ({
           ...operation,
-          makeMethodId,
+          makeMethodId
         }))
       );
       if (operationInsert.error) {
@@ -2187,7 +2187,7 @@ export async function createPartFromComponent(
       const materialInsert = await carbon.from("methodMaterial").insert(
         materials.map((material) => ({
           ...material,
-          makeMethodId,
+          makeMethodId
         }))
       );
       if (materialInsert.error) {
@@ -2251,7 +2251,7 @@ export async function getOrCreatePart(
     component,
     defaultMethodType,
     defaultTrackingType,
-    billOfProcessBlackList = [],
+    billOfProcessBlackList = []
   } = args;
 
   if (!component.part_uuid) {
@@ -2261,7 +2261,7 @@ export async function getOrCreatePart(
   // First, try to find existing part by external ID
   const existingPart = await findPartByExternalId(carbon, {
     companyId,
-    paperlessPartsId: component.part_uuid,
+    paperlessPartsId: component.part_uuid
   });
 
   if (existingPart) {
@@ -2284,7 +2284,7 @@ export async function getOrCreatePart(
         const itemCostUpdate = await carbon
           .from("itemCost")
           .update({
-            unitCost,
+            unitCost
           })
           .eq("itemId", existingPart.itemId)
           .eq("companyId", companyId)
@@ -2341,7 +2341,7 @@ async function getOrCreateProcess(
       processType: operation.is_outside_service === true ? "Outside" : "Inside",
       companyId,
       createdBy,
-      defaultStandardFactor: "Minutes/Piece",
+      defaultStandardFactor: "Minutes/Piece"
     })
     .select("id, processType")
     .single();
@@ -2378,7 +2378,7 @@ export async function insertOrderLines(
     orderItems,
     defaultMethodType,
     defaultTrackingType,
-    billOfProcessBlackList = [],
+    billOfProcessBlackList = []
   } = args;
 
   if (!orderItems?.length) {
@@ -2407,7 +2407,7 @@ export async function insertOrderLines(
             salesOrderLineType: "Comment",
             description: orderItem.description || orderItem.public_notes || "",
             companyId,
-            createdBy,
+            createdBy
           };
 
         const result = await carbon
@@ -2451,14 +2451,14 @@ export async function insertOrderLines(
           componentsIndex,
           defaultMethodType,
           defaultTrackingType,
-          billOfProcessBlackList,
+          billOfProcessBlackList
         });
 
         const leadTime = orderItem.lead_days ?? 7;
         const updateLeadTime = await carbon
           .from("itemReplenishment")
           .update({
-            leadTime,
+            leadTime
           })
           .eq("itemId", itemId);
 
@@ -2503,7 +2503,7 @@ export async function insertOrderLines(
             createdBy,
             quantitySent: component.deliver_quantity,
             promisedDate:
-              promisedDate ?? orderItem.ships_on
+              (promisedDate ?? orderItem.ships_on)
                 ? new Date(orderItem.ships_on).toISOString()
                 : null,
             internalNotes: orderItem.private_notes
@@ -2511,7 +2511,7 @@ export async function insertOrderLines(
               : null,
             externalNotes: orderItem.public_notes
               ? textToTiptap(orderItem.public_notes)
-              : null,
+              : null
           };
 
         // Insert the line first to get the line ID
@@ -2538,8 +2538,8 @@ export async function insertOrderLines(
             let supportingFiles = [
               {
                 filename: orderItem.filename,
-                url: component.part_url,
-              },
+                url: component.part_url
+              }
             ];
 
             if (component.supporting_files) {
@@ -2561,7 +2561,7 @@ export async function insertOrderLines(
               lineId, // Use the actual line ID
               sourceDocumentType: "Sales Order",
               sourceDocumentId: salesOrderId,
-              createdBy,
+              createdBy
             });
           } catch (error) {
             console.error(

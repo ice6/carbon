@@ -97,7 +97,7 @@ export const useRealtimeChannel = <TDeps extends any[]>(
     enabled,
     topic,
     memoSetup,
-    teardown,
+    teardown
     // dependencies are already in memoSetup, so not needed here
   ]);
 

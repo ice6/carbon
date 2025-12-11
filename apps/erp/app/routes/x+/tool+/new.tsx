@@ -13,13 +13,13 @@ import { path } from "~/utils/path";
 export const handle: Handle = {
   breadcrumb: "Tools",
   to: path.to.tools,
-  module: "items",
+  module: "items"
 };
 
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    create: "parts",
+    create: "parts"
   });
 
   const formData = await request.formData();
@@ -35,7 +35,7 @@ export async function action({ request }: ActionFunctionArgs) {
     ...validation.data,
     companyId,
     customFields: setCustomFields(formData),
-    createdBy: userId,
+    createdBy: userId
   });
   if (createTool.error) {
     return modal
@@ -69,7 +69,7 @@ export default function ToolsNewRoute() {
     unitOfMeasureCode: "EA",
     unitCost: 0,
     active: true,
-    tags: [],
+    tags: []
   };
 
   return (

@@ -5,7 +5,7 @@ import {
   DropdownMenuTrigger,
   HStack,
   IconButton,
-  TooltipProvider,
+  TooltipProvider
 } from "@carbon/react";
 import { useMode } from "@carbon/remix";
 import { Outlet, useFetcher, useRevalidator } from "@remix-run/react";

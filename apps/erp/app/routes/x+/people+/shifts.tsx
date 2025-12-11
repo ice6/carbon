@@ -14,14 +14,14 @@ import { getGenericQueryFilters } from "~/utils/query";
 
 export const handle: Handle = {
   breadcrumb: "Shifts",
-  to: path.to.shifts,
+  to: path.to.shifts
 };
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
     view: "people",
     role: "employee",
-    bypassRls: true,
+    bypassRls: true
   });
 
   const url = new URL(request.url);
@@ -32,7 +32,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
   const [shifts, locations] = await Promise.all([
     getShifts(client, companyId, { search, limit, offset, sorts, filters }),
-    getLocations(client, companyId),
+    getLocations(client, companyId)
   ]);
 
   if (shifts.error) {
@@ -45,7 +45,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   return json({
     shifts: shifts.data ?? [],
     locations: locations.data ?? [],
-    count: shifts.count ?? 0,
+    count: shifts.count ?? 0
   });
 }
 

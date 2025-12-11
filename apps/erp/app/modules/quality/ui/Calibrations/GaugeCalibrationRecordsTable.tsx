@@ -14,14 +14,14 @@ import {
   LuThermometer,
   LuTrash,
   LuUser,
-  LuUsers,
+  LuUsers
 } from "react-icons/lu";
 import {
   EmployeeAvatar,
   Hyperlink,
   New,
   SupplierAvatar,
-  Table,
+  Table
 } from "~/components";
 
 import { flushSync } from "react-dom";
@@ -52,7 +52,7 @@ const defaultColumnVisibility = {
   updatedBy: false,
   temperature: false,
   humidity: false,
-  approvedBy: false,
+  approvedBy: false
 };
 
 const GaugeCalibrationRecordsTable = memo(
@@ -79,12 +79,12 @@ const GaugeCalibrationRecordsTable = memo(
     const temperatureFormatter = useNumberFormatter({
       maximumFractionDigits: 2,
       style: "unit",
-      unit: isMetric ? "celsius" : "fahrenheit",
+      unit: isMetric ? "celsius" : "fahrenheit"
     });
     const humidityFormatter = useNumberFormatter({
       maximumFractionDigits: 2,
       style: "percent",
-      minimumFractionDigits: 0,
+      minimumFractionDigits: 0
     });
 
     const columns = useMemo<ColumnDef<GaugeCalibrationRecord>[]>(() => {
@@ -105,16 +105,16 @@ const GaugeCalibrationRecordsTable = memo(
             </Hyperlink>
           ),
           meta: {
-            icon: <LuBookMarked />,
-          },
+            icon: <LuBookMarked />
+          }
         },
         {
           accessorKey: "dateCalibrated",
           header: "Date Calibrated",
           cell: (item) => formatDate(item.getValue<string>()),
           meta: {
-            icon: <LuCalendar />,
-          },
+            icon: <LuCalendar />
+          }
         },
         {
           accessorKey: "inspectionStatus",
@@ -131,15 +131,15 @@ const GaugeCalibrationRecordsTable = memo(
               options: [
                 {
                   value: "Pass",
-                  label: <GaugeCalibrationRecordStatus status="Pass" />,
+                  label: <GaugeCalibrationRecordStatus status="Pass" />
                 },
                 {
                   value: "Fail",
-                  label: <GaugeCalibrationRecordStatus status="Fail" />,
-                },
-              ],
-            },
-          },
+                  label: <GaugeCalibrationRecordStatus status="Fail" />
+                }
+              ]
+            }
+          }
         },
         {
           accessorKey: "gaugeTypeId",
@@ -158,10 +158,10 @@ const GaugeCalibrationRecordsTable = memo(
               type: "static",
               options: types.map((type) => ({
                 label: <Enumerable value={type.name} />,
-                value: type.id,
-              })),
-            },
-          },
+                value: type.id
+              }))
+            }
+          }
         },
         {
           accessorKey: "requiresAction",
@@ -172,11 +172,11 @@ const GaugeCalibrationRecordsTable = memo(
               type: "static",
               options: [
                 { value: "true", label: "Yes" },
-                { value: "false", label: "No" },
-              ],
+                { value: "false", label: "No" }
+              ]
             },
-            icon: <LuCheck />,
-          },
+            icon: <LuCheck />
+          }
         },
         {
           accessorKey: "requiresAdjustment",
@@ -187,11 +187,11 @@ const GaugeCalibrationRecordsTable = memo(
               type: "static",
               options: [
                 { value: "true", label: "Yes" },
-                { value: "false", label: "No" },
-              ],
+                { value: "false", label: "No" }
+              ]
             },
-            icon: <LuCheck />,
-          },
+            icon: <LuCheck />
+          }
         },
         {
           accessorKey: "requiresRepair",
@@ -202,11 +202,11 @@ const GaugeCalibrationRecordsTable = memo(
               type: "static",
               options: [
                 { value: "true", label: "Yes" },
-                { value: "false", label: "No" },
-              ],
+                { value: "false", label: "No" }
+              ]
             },
-            icon: <LuCheck />,
-          },
+            icon: <LuCheck />
+          }
         },
 
         {
@@ -220,11 +220,11 @@ const GaugeCalibrationRecordsTable = memo(
               type: "static",
               options: suppliers?.map((supplier) => ({
                 value: supplier.id,
-                label: supplier.name,
-              })),
+                label: supplier.name
+              }))
             },
-            icon: <LuContainer />,
-          },
+            icon: <LuContainer />
+          }
         },
 
         {
@@ -237,8 +237,8 @@ const GaugeCalibrationRecordsTable = memo(
               : "—";
           },
           meta: {
-            icon: <LuThermometer />,
-          },
+            icon: <LuThermometer />
+          }
         },
         {
           accessorKey: "humidity",
@@ -250,8 +250,8 @@ const GaugeCalibrationRecordsTable = memo(
               : "—";
           },
           meta: {
-            icon: <LuDroplets />,
-          },
+            icon: <LuDroplets />
+          }
         },
         {
           id: "approvedBy",
@@ -265,10 +265,10 @@ const GaugeCalibrationRecordsTable = memo(
               type: "static",
               options: people.map((employee) => ({
                 value: employee.id,
-                label: employee.name,
-              })),
-            },
-          },
+                label: employee.name
+              }))
+            }
+          }
         },
         {
           id: "createdBy",
@@ -282,18 +282,18 @@ const GaugeCalibrationRecordsTable = memo(
               type: "static",
               options: people.map((employee) => ({
                 value: employee.id,
-                label: employee.name,
-              })),
-            },
-          },
+                label: employee.name
+              }))
+            }
+          }
         },
         {
           accessorKey: "createdAt",
           header: "Created At",
           cell: (item) => formatDate(item.getValue<string>()),
           meta: {
-            icon: <LuFileText />,
-          },
+            icon: <LuFileText />
+          }
         },
         {
           id: "updatedBy",
@@ -307,19 +307,19 @@ const GaugeCalibrationRecordsTable = memo(
               type: "static",
               options: people.map((employee) => ({
                 value: employee.id,
-                label: employee.name,
-              })),
-            },
-          },
+                label: employee.name
+              }))
+            }
+          }
         },
         {
           accessorKey: "updatedAt",
           header: "Updated At",
           cell: (item) => formatDate(item.getValue<string>()),
           meta: {
-            icon: <LuFileText />,
-          },
-        },
+            icon: <LuFileText />
+          }
+        }
       ];
       return [...defaultColumns, ...customColumns];
     }, [
@@ -328,7 +328,7 @@ const GaugeCalibrationRecordsTable = memo(
       people,
       suppliers,
       temperatureFormatter,
-      types,
+      types
     ]);
 
     const renderContextMenu = useCallback(

@@ -8,7 +8,7 @@ import { json, redirect } from "@vercel/remix";
 import { PanelProvider } from "~/components/Layout/Panels";
 import {
   getWarehouseTransfer,
-  getWarehouseTransferLines,
+  getWarehouseTransferLines
 } from "~/modules/inventory";
 import WarehouseTransferHeader from "~/modules/inventory/ui/WarehouseTransfers/WarehouseTransferHeader";
 import type { Handle } from "~/utils/handle";
@@ -16,12 +16,12 @@ import { path } from "~/utils/path";
 
 export const handle: Handle = {
   breadcrumb: "Warehouse Transfer",
-  to: path.to.warehouseTransfers,
+  to: path.to.warehouseTransfers
 };
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
-    view: "inventory",
+    view: "inventory"
   });
 
   const { transferId } = params;
@@ -29,7 +29,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
   const [warehouseTransfer, warehouseTransferLines] = await Promise.all([
     getWarehouseTransfer(client, transferId),
-    getWarehouseTransferLines(client, transferId),
+    getWarehouseTransferLines(client, transferId)
   ]);
 
   if (warehouseTransfer.error) {
@@ -57,7 +57,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
   return json({
     warehouseTransfer: warehouseTransfer.data,
-    warehouseTransferLines: warehouseTransferLines.data ?? [],
+    warehouseTransferLines: warehouseTransferLines.data ?? []
   });
 }
 

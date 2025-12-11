@@ -4,7 +4,7 @@ import {
   Accordion,
   AccordionContent,
   AccordionItem,
-  AccordionTrigger,
+  AccordionTrigger
 } from "./Accordion";
 import ActionBar, { ActionBarButton } from "./ActionBar";
 import { ActionMenu } from "./ActionMenu";
@@ -15,7 +15,7 @@ import {
   Avatar,
   AvatarGroup,
   AvatarGroupList,
-  AvatarOverflowIndicator,
+  AvatarOverflowIndicator
 } from "./Avatar";
 import type { BadgeProps } from "./Badge";
 import { Badge, BadgeCloseButton } from "./Badge";
@@ -32,7 +32,7 @@ import {
   CardDescription,
   CardFooter,
   CardHeader,
-  CardTitle,
+  CardTitle
 } from "./Card";
 import { Checkbox } from "./Checkbox";
 import { ClientOnly } from "./ClientOnly";
@@ -40,7 +40,7 @@ import { CodeBlock } from "./CodeBlock";
 import {
   Collapsible,
   CollapsibleContent,
-  CollapsibleTrigger,
+  CollapsibleTrigger
 } from "./Collapsible";
 import type { ComboboxProps } from "./Combobox";
 import { Combobox } from "./Combobox";
@@ -57,7 +57,7 @@ import {
   CommandSeparator,
   CommandShortcut,
   CommandTrigger,
-  multiSelectTriggerVariants,
+  multiSelectTriggerVariants
 } from "./Command";
 import {
   ContextMenu,
@@ -74,7 +74,7 @@ import {
   ContextMenuSub,
   ContextMenuSubContent,
   ContextMenuSubTrigger,
-  ContextMenuTrigger,
+  ContextMenuTrigger
 } from "./Context";
 import Copy from "./Copy";
 import { Count } from "./Count";
@@ -86,7 +86,7 @@ import {
   DatePicker,
   DateRangePicker,
   DateTimePicker,
-  TimePicker,
+  TimePicker
 } from "./Date";
 import {
   Drawer,
@@ -96,7 +96,7 @@ import {
   DrawerFooter,
   DrawerHeader,
   DrawerTitle,
-  DrawerTrigger,
+  DrawerTrigger
 } from "./Drawer";
 import {
   DropdownMenu,
@@ -114,14 +114,14 @@ import {
   DropdownMenuSub,
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
-  DropdownMenuTrigger,
+  DropdownMenuTrigger
 } from "./Dropdown";
 import { File } from "./File";
 import {
   FormControl,
   FormErrorMessage,
   FormHelperText,
-  FormLabel,
+  FormLabel
 } from "./Form";
 import { HStack } from "./HStack";
 import { HTML, generateHTML } from "./HTML";
@@ -135,13 +135,13 @@ import {
   InputLeftAddon,
   InputLeftElement,
   InputRightAddon,
-  InputRightElement,
+  InputRightElement
 } from "./Input";
 import {
   InputOTP,
   InputOTPGroup,
   InputOTPSeparator,
-  InputOTPSlot,
+  InputOTPSlot
 } from "./InputOTP";
 import { Kbd } from "./Kbd";
 import { Label } from "./Label";
@@ -159,7 +159,7 @@ import {
   MenuShortcut,
   MenuSub,
   MenuSubContent,
-  MenuSubTrigger,
+  MenuSubTrigger
 } from "./Menu";
 import { Menubar, MenubarItem } from "./Menubar";
 import {
@@ -173,7 +173,7 @@ import {
   ModalOverlay,
   ModalPortal,
   ModalTitle,
-  ModalTrigger,
+  ModalTrigger
 } from "./Modal";
 import {
   ModalCard,
@@ -186,7 +186,7 @@ import {
   ModalCardTitle,
   ModalCardTypeContext,
   ModalCardTypeProvider,
-  useModalCardType,
+  useModalCardType
 } from "./ModalCard";
 import {
   ModalDrawer,
@@ -199,7 +199,7 @@ import {
   ModalDrawerTitle,
   ModalDrawerTypeContext,
   ModalDrawerTypeProvider,
-  useModalDrawerType,
+  useModalDrawerType
 } from "./ModalDrawer";
 import { ModelViewer } from "./ModelViewer";
 import type { MultiSelectProps } from "./MultiSelect";
@@ -211,12 +211,12 @@ import {
   NumberIncrementStepper,
   NumberInput,
   NumberInputGroup,
-  NumberInputStepper,
+  NumberInputStepper
 } from "./Number";
 import type { OperatingSystemPlatform } from "./OperatingSystem";
 import {
   OperatingSystemContextProvider,
-  useOperatingSystem,
+  useOperatingSystem
 } from "./OperatingSystem";
 import { Paragraph } from "./Paragraph";
 import {
@@ -225,7 +225,7 @@ import {
   PopoverContent,
   PopoverFooter,
   PopoverHeader,
-  PopoverTrigger,
+  PopoverTrigger
 } from "./Popover";
 import { Progress } from "./Progress";
 import { PulsingDot } from "./PulsingDot";
@@ -233,7 +233,7 @@ import { RadioGroup, RadioGroupItem } from "./Radio";
 import {
   ResizableHandle,
   ResizablePanel,
-  ResizablePanelGroup,
+  ResizablePanelGroup
 } from "./Resizable";
 import { ScrollArea, ScrollBar } from "./ScrollArea";
 import {
@@ -246,7 +246,7 @@ import {
   SelectScrollUpButton,
   SelectSeparator,
   SelectTrigger,
-  SelectValue,
+  SelectValue
 } from "./Select";
 import { Separator } from "./Separator";
 import { ShortcutKey, shortcutKeyVariants } from "./ShortcutKey";
@@ -274,7 +274,7 @@ import {
   SidebarRail,
   SidebarSeparator,
   SidebarTrigger,
-  useSidebar,
+  useSidebar
 } from "./Sidebar";
 import { Skeleton } from "./Skeleton";
 import { Slider } from "./Slider";
@@ -294,13 +294,13 @@ import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
-  TooltipTrigger,
+  TooltipTrigger
 } from "./Tooltip";
 import { VStack } from "./VStack";
 import type {
   Modifier,
   Shortcut,
-  ShortcutDefinition,
+  ShortcutDefinition
 } from "./hooks/useShortcutKeys";
 import { cn } from "./utils/cn";
 import { copyToClipboard } from "./utils/dom";
@@ -576,7 +576,7 @@ export {
   useModalCardType,
   useModalDrawerType,
   useOperatingSystem,
-  useSidebar,
+  useSidebar
 };
 export type {
   AvatarProps,
@@ -593,5 +593,5 @@ export type {
   OperatingSystemPlatform,
   Shortcut,
   ShortcutDefinition,
-  TextareaProps,
+  TextareaProps
 };

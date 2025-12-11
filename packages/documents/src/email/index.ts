@@ -15,5 +15,5 @@ export {
   SalesInvoiceEmail,
   SalesOrderEmail,
   VerificationEmail,
-  WelcomeEmail,
+  WelcomeEmail
 };

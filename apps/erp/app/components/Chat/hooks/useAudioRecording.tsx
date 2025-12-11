@@ -47,7 +47,7 @@ export function useAudioRecording(): UseAudioRecordingReturn {
         const audioBlob =
           audioChunksRef.current.length > 0
             ? new Blob(audioChunksRef.current, {
-                type: "audio/webm;codecs=opus",
+                type: "audio/webm;codecs=opus"
               })
             : null;
 
@@ -67,13 +67,13 @@ export function useAudioRecording(): UseAudioRecordingReturn {
         audio: {
           echoCancellation: true,
           noiseSuppression: true,
-          sampleRate: 44100,
-        },
+          sampleRate: 44100
+        }
       });
 
       streamRef.current = stream;
       const mediaRecorder = new MediaRecorder(stream, {
-        mimeType: "audio/webm;codecs=opus",
+        mimeType: "audio/webm;codecs=opus"
       });
 
       mediaRecorderRef.current = mediaRecorder;
@@ -102,7 +102,7 @@ export function useAudioRecording(): UseAudioRecordingReturn {
   const { accessToken } = useCarbon();
   const {
     id: userId,
-    company: { id: companyId },
+    company: { id: companyId }
   } = useUser();
   const transcribeAudio = useCallback(
     async (audioBlob: Blob): Promise<string> => {
@@ -126,12 +126,12 @@ export function useAudioRecording(): UseAudioRecordingReturn {
             "Content-Type": "application/json",
             Authorization: `Bearer ${accessToken}`,
             "x-company-id": companyId,
-            "x-user-id": userId,
+            "x-user-id": userId
           },
           body: JSON.stringify({
             audio: base64Audio,
-            mimeType: audioBlob.type,
-          }),
+            mimeType: audioBlob.type
+          })
         });
 
         if (!response.ok) {
@@ -139,7 +139,7 @@ export function useAudioRecording(): UseAudioRecordingReturn {
           console.error("Transcription API error:", {
             status: response.status,
             statusText: response.statusText,
-            body: errorText,
+            body: errorText
           });
           throw new Error(
             `Failed to transcribe audio: ${response.status} ${response.statusText}`
@@ -168,6 +168,6 @@ export function useAudioRecording(): UseAudioRecordingReturn {
     isProcessing,
     startRecording,
     stopRecording,
-    transcribeAudio,
+    transcribeAudio
   };
 }

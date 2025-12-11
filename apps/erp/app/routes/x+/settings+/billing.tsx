@@ -6,7 +6,7 @@ import {
   Submit,
   ValidatedForm,
   validationError,
-  validator,
+  validator
 } from "@carbon/form";
 import {
   Button,
@@ -19,7 +19,7 @@ import {
   Heading,
   ScrollArea,
   Status,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { useEdition } from "@carbon/remix";
 import { getBillingPortalRedirectUrl } from "@carbon/stripe/stripe.server";
@@ -28,24 +28,24 @@ import { Form, useLoaderData } from "@remix-run/react";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@vercel/remix";
 import { json, redirect } from "@vercel/remix";
 import { useState } from "react";
-import { z } from 'zod/v3';
+import { z } from "zod/v3";
 import { usePermissions, useUser } from "~/hooks";
 import type { Handle } from "~/utils/handle";
 import { path } from "~/utils/path";
 
 export const handle: Handle = {
   breadcrumb: "Payment",
-  to: path.to.billing,
+  to: path.to.billing
 };
 
 const transferOwnershipValidator = z.object({
   intent: z.literal("transfer-ownership"),
-  newOwnerId: z.string().min(1, { message: "New owner is required" }),
+  newOwnerId: z.string().min(1, { message: "New owner is required" })
 });
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    view: "settings",
+    view: "settings"
   });
 
   // Get company plan and usage data for payment section
@@ -98,14 +98,14 @@ export async function loader({ request }: LoaderFunctionArgs) {
   return json({
     plan: companyPlan.data,
     usage: companyUsage.data,
-    employees: employees.data || [],
+    employees: employees.data || []
   });
 }
 
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId } = await requirePermissions(request, {
-    update: "settings",
+    update: "settings"
   });
 
   const formData = await request.formData();
@@ -122,7 +122,7 @@ export async function action({ request }: ActionFunctionArgs) {
 
       const billingPortalUrl = await getBillingPortalRedirectUrl({
         companyId,
-        priceIds,
+        priceIds
       });
       return redirect(billingPortalUrl, 301);
     } catch (err) {
@@ -284,7 +284,7 @@ export default function PaymentSettings() {
                             }}
                             options={employees.map((employee) => ({
                               label: employee.fullName || employee.email,
-                              value: employee.id,
+                              value: employee.id
                             }))}
                           />
                         </div>

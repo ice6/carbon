@@ -5,7 +5,7 @@ import { getCustomersList } from "~/modules/sales";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    view: "sales",
+    view: "sales"
   });
 
   return json(await getCustomersList(client, companyId));

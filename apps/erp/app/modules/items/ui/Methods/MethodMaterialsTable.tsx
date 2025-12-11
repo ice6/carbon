@@ -41,7 +41,7 @@ const MethodMaterialsTable = memo(
                 {row.original.makeMethod?.item?.readableIdWithRevision}
               </Hyperlink>
             </HStack>
-          ),
+          )
         },
         {
           accessorKey: "itemReadableIdWithRevision",
@@ -52,15 +52,15 @@ const MethodMaterialsTable = memo(
               type: "static",
               options: items?.map((item) => ({
                 value: item.readableIdWithRevision,
-                label: item.readableIdWithRevision,
-              })),
-            },
-          },
+                label: item.readableIdWithRevision
+              }))
+            }
+          }
         },
         {
           accessorKey: "item.name",
           header: "Description",
-          cell: ({ row }) => row.original.item?.name,
+          cell: ({ row }) => row.original.item?.name
         },
         {
           accessorKey: "methodType",
@@ -81,10 +81,10 @@ const MethodMaterialsTable = memo(
                     <MethodIcon type={value} className="mr-2" />
                     <span>{value}</span>
                   </Badge>
-                ),
-              })),
-            },
-          },
+                )
+              }))
+            }
+          }
         },
         {
           accessorKey: "itemType",
@@ -108,22 +108,22 @@ const MethodMaterialsTable = memo(
                     <span>{type}</span>
                   </HStack>
                 ),
-                value: type,
-              })),
-            },
-          },
+                value: type
+              }))
+            }
+          }
         },
 
         {
           accessorKey: "unitOfMeasureCode",
           header: "UoM",
-          cell: (item) => item.getValue(),
+          cell: (item) => item.getValue()
         },
         {
           accessorKey: "quantity",
           header: "Qty. per Parent",
-          cell: (item) => item.getValue(),
-        },
+          cell: (item) => item.getValue()
+        }
       ];
     }, [items]);
 

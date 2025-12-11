@@ -1,4 +1,4 @@
-import { z } from 'zod/v3';
+import { z } from "zod/v3";
 import { methodItemType } from "~/modules/shared";
 
 export const documentSourceTypes = [
@@ -13,7 +13,7 @@ export const documentSourceTypes = [
   "Sales Order",
   "Sales Invoice",
   "Shipment",
-  ...methodItemType,
+  ...methodItemType
 ] as const;
 
 export const documentValidator = z.object({
@@ -27,10 +27,10 @@ export const documentValidator = z.object({
     .min(1, { message: "Read permissions are required" }),
   writeGroups: z
     .array(z.string().min(1, { message: "Invalid selection" }))
-    .min(1, { message: "Write permissions are required" }),
+    .min(1, { message: "Write permissions are required" })
 });
 
 export const documentLabelsValidator = z.object({
   documentId: z.string().min(20),
-  labels: z.array(z.string().min(1).max(50)).optional(),
+  labels: z.array(z.string().min(1).max(50)).optional()
 });

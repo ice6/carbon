@@ -19,7 +19,7 @@ import {
   ModalCardTitle,
   toast,
   useDisclosure,
-  VStack,
+  VStack
 } from "@carbon/react";
 
 import { useCarbon } from "@carbon/auth";
@@ -28,7 +28,7 @@ import { Link, useFetcher, useParams } from "@remix-run/react";
 import { useState } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { LuTrash } from "react-icons/lu";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import {
   ArrayNumeric,
   CustomFormFields,
@@ -38,13 +38,13 @@ import {
   Number,
   Select,
   SelectControlled,
-  Submit,
+  Submit
 } from "~/components/Form";
 import {
   usePercentFormatter,
   usePermissions,
   useRouteData,
-  useUser,
+  useUser
 } from "~/hooks";
 import type { Quotation, QuotationLine } from "../../types";
 
@@ -54,7 +54,7 @@ import { ConfiguratorModal } from "~/components/Configurator/ConfiguratorForm";
 import { QuoteLineStatusIcon } from "~/components/Icons";
 import type {
   ConfigurationParameter,
-  ConfigurationParameterGroup,
+  ConfigurationParameterGroup
 } from "~/modules/items/types";
 import { getLinkToItemDetails } from "~/modules/items/ui/Item/ItemForm";
 import { methodType } from "~/modules/shared";
@@ -73,7 +73,7 @@ type QuoteLineFormProps = {
 const QuoteLineForm = ({
   initialValues,
   type,
-  onClose,
+  onClose
 }: QuoteLineFormProps) => {
   const fetcher = useFetcher<typeof action>();
   const permissions = usePermissions();
@@ -110,7 +110,7 @@ const QuoteLineForm = ({
     description: initialValues.description ?? "",
     methodType: initialValues.methodType ?? "",
     uom: initialValues.unitOfMeasureCode ?? "",
-    modelUploadId: initialValues.modelUploadId ?? null,
+    modelUploadId: initialValues.modelUploadId ?? null
   });
 
   const configurationDisclosure = useDisclosure();
@@ -191,7 +191,7 @@ const QuoteLineForm = ({
         .from("itemReplenishment")
         .select("requiresConfiguration")
         .eq("itemId", itemId)
-        .maybeSingle(),
+        .maybeSingle()
     ]);
 
     if (item.error) {
@@ -205,7 +205,7 @@ const QuoteLineForm = ({
       description: item.data?.name ?? "",
       methodType: item.data?.defaultMethodType ?? "",
       uom: item.data?.unitOfMeasureCode ?? "",
-      modelUploadId: item.data?.modelUploadId ?? null,
+      modelUploadId: item.data?.modelUploadId ?? null
     };
 
     if (customerPart.data && !itemData.customerPartId) {
@@ -227,7 +227,7 @@ const QuoteLineForm = ({
           .from("configurationParameterGroup")
           .select("*")
           .eq("itemId", itemId)
-          .eq("companyId", company.id),
+          .eq("companyId", company.id)
       ]);
 
       if (parameters.error || groups.error) {
@@ -237,7 +237,7 @@ const QuoteLineForm = ({
 
       setConfigurationParameters({
         parameters: parameters.data ?? [],
-        groups: groups.data ?? [],
+        groups: groups.data ?? []
       });
     } else {
       setRequiresConfiguration(false);
@@ -275,8 +275,8 @@ const QuoteLineForm = ({
                 <ModalCardHeader>
                   <ModalCardTitle>
                     {isEditing
-                      ? getItemReadableId(items, itemData?.itemId) ??
-                        "Quote Line"
+                      ? (getItemReadableId(items, itemData?.itemId) ??
+                        "Quote Line")
                       : "New Quote Line"}
                   </ModalCardTitle>
                   <ModalCardDescription>
@@ -385,7 +385,7 @@ const QuoteLineForm = ({
                                 {m}
                               </span>
                             ),
-                            value: m,
+                            value: m
                           })) ?? []
                         }
                         value={itemData.methodType}
@@ -393,7 +393,7 @@ const QuoteLineForm = ({
                           if (newValue)
                             setItemData((d) => ({
                               ...d,
-                              methodType: newValue?.value,
+                              methodType: newValue?.value
                             }));
                         }}
                       />
@@ -408,7 +408,7 @@ const QuoteLineForm = ({
                               {s}
                             </span>
                           ),
-                          value: s,
+                          value: s
                         }))}
                       />
 
@@ -419,7 +419,7 @@ const QuoteLineForm = ({
                         onChange={(newValue) => {
                           setItemData((d) => ({
                             ...d,
-                            customerPartId: newValue,
+                            customerPartId: newValue
                           }));
                         }}
                         onBlur={(e) => onCustomerPartChange(e.target.value)}
@@ -431,7 +431,7 @@ const QuoteLineForm = ({
                         onChange={(newValue) => {
                           setItemData((d) => ({
                             ...d,
-                            customerPartRevision: newValue,
+                            customerPartRevision: newValue
                           }));
                         }}
                         onBlur={(e) =>
@@ -447,7 +447,7 @@ const QuoteLineForm = ({
                         formatOptions={{
                           style: "percent",
                           minimumFractionDigits: 0,
-                          maximumFractionDigits: 2,
+                          maximumFractionDigits: 2
                         }}
                       />
 

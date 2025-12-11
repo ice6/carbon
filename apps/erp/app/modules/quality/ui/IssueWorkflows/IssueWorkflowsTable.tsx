@@ -7,7 +7,7 @@ import {
   LuChartNoAxesColumnIncreasing,
   LuDna,
   LuPencil,
-  LuTrash,
+  LuTrash
 } from "react-icons/lu";
 import { Hyperlink, New, Table } from "~/components";
 
@@ -44,8 +44,8 @@ const IssueWorkflowsTable = memo(
             </div>
           ),
           meta: {
-            icon: <LuBookMarked />,
-          },
+            icon: <LuBookMarked />
+          }
         },
         {
           accessorKey: "source",
@@ -57,8 +57,8 @@ const IssueWorkflowsTable = memo(
             </div>
           ),
           meta: {
-            icon: <LuDna />,
-          },
+            icon: <LuDna />
+          }
         },
         {
           accessorKey: "priority",
@@ -70,9 +70,9 @@ const IssueWorkflowsTable = memo(
             </div>
           ),
           meta: {
-            icon: <LuChartNoAxesColumnIncreasing />,
-          },
-        },
+            icon: <LuChartNoAxesColumnIncreasing />
+          }
+        }
       ];
       return [...defaultColumns];
     }, []);

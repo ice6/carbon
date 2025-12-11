@@ -6,7 +6,7 @@ import { useChatStore } from "./lib/store";
 // Custom Record Icon with smooth animation
 const RecordIcon = ({
   size = 16,
-  isRecording = false,
+  isRecording = false
 }: {
   size?: number;
   isRecording?: boolean;
@@ -152,7 +152,7 @@ export const RecordButton = forwardRef<RecordButtonRef, RecordButtonProps>(
       isRecording,
       isProcessing,
       setIsRecording,
-      setIsProcessing,
+      setIsProcessing
     } = useChatStore();
     const { startRecording, stopRecording, transcribeAudio } =
       useAudioRecording();
@@ -195,12 +195,12 @@ export const RecordButton = forwardRef<RecordButtonRef, RecordButtonProps>(
       setInput,
       input,
       setIsRecording,
-      setIsProcessing,
+      setIsProcessing
     ]);
 
     // Expose the handleRecordClick method via ref
     useImperativeHandle(ref, () => ({
-      handleRecordClick,
+      handleRecordClick
     }));
 
     return (

@@ -28,7 +28,7 @@ export default function useSupplierParts() {
       return await carbon
         .from("supplierPart")
         .update({
-          [id]: value,
+          [id]: value
         })
         .eq("id", row.id);
     },
@@ -39,6 +39,6 @@ export default function useSupplierParts() {
     canDelete,
     canEdit,
     carbon,
-    onCellEdit,
+    onCellEdit
   };
 }

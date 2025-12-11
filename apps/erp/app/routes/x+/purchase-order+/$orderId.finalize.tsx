@@ -2,7 +2,7 @@ import {
   assertIsPost,
   error,
   getCarbonServiceRole,
-  success,
+  success
 } from "@carbon/auth";
 import { requirePermissions } from "@carbon/auth/auth.server";
 import { flash } from "@carbon/auth/session.server";
@@ -23,7 +23,7 @@ import {
   getPurchaseOrderLines,
   getPurchaseOrderLocations,
   getSupplierContact,
-  purchaseOrderFinalizeValidator,
+  purchaseOrderFinalizeValidator
 } from "~/modules/purchasing";
 import { getCompany, getCompanySettings } from "~/modules/settings";
 import { getUser } from "~/modules/users/users.server";
@@ -37,7 +37,7 @@ export async function action(args: ActionFunctionArgs) {
 
   const { client, companyId, userId } = await requirePermissions(request, {
     create: "purchasing",
-    role: "employee",
+    role: "employee"
   });
 
   const { orderId } = params;
@@ -65,8 +65,8 @@ export async function action(args: ActionFunctionArgs) {
       type: "purchaseOrder",
       id: orderId,
       companyId,
-      userId,
-    }),
+      userId
+    })
   ]);
   if (purchaseOrder.error) {
     throw redirect(
@@ -91,7 +91,8 @@ export async function action(args: ActionFunctionArgs) {
   // Check if we should update prices on purchase order finalize
   const companySettings = await getCompanySettings(serviceRole, companyId);
   if (
-    companySettings.data?.purchasePriceUpdateTiming === "Purchase Order Finalize"
+    companySettings.data?.purchasePriceUpdateTiming ===
+    "Purchase Order Finalize"
   ) {
     const priceUpdate = await serviceRole.functions.invoke(
       "update-purchased-prices",
@@ -99,9 +100,9 @@ export async function action(args: ActionFunctionArgs) {
         body: {
           purchaseOrderId: orderId,
           companyId,
-          source: "purchaseOrder",
+          source: "purchaseOrder"
         },
-        region: FunctionRegion.UsEast1,
+        region: FunctionRegion.UsEast1
       }
     );
 
@@ -113,7 +114,7 @@ export async function action(args: ActionFunctionArgs) {
 
   const acceptLanguage = request.headers.get("accept-language");
   const locales = parseAcceptLanguage(acceptLanguage, {
-    validate: Intl.DateTimeFormat.supportedLocalesOf,
+    validate: Intl.DateTimeFormat.supportedLocalesOf
   });
 
   try {
@@ -135,7 +136,7 @@ export async function action(args: ActionFunctionArgs) {
       .upload(documentFilePath, file, {
         cacheControl: `${12 * 60 * 60}`,
         contentType: "application/pdf",
-        upsert: true,
+        upsert: true
       });
 
     if (documentFileUpload.error) {
@@ -157,7 +158,7 @@ export async function action(args: ActionFunctionArgs) {
       readGroups: [userId],
       writeGroups: [userId],
       createdBy: userId,
-      companyId,
+      companyId
     });
 
     if (createDocument.error) {
@@ -198,7 +199,7 @@ export async function action(args: ActionFunctionArgs) {
           purchaseOrderLines,
           purchaseOrderLocations,
           paymentTerms,
-          buyer,
+          buyer
         ] = await Promise.all([
           getCompany(serviceRole, companyId),
           getSupplierContact(serviceRole, supplierContact),
@@ -206,7 +207,7 @@ export async function action(args: ActionFunctionArgs) {
           getPurchaseOrderLines(serviceRole, orderId),
           getPurchaseOrderLocations(serviceRole, orderId),
           getPaymentTermsList(serviceRole, companyId),
-          getUser(serviceRole, userId),
+          getUser(serviceRole, userId)
         ]);
 
         if (!supplier?.data?.contact)
@@ -228,14 +229,14 @@ export async function action(args: ActionFunctionArgs) {
           recipient: {
             email: supplier.data.contact.email,
             firstName: supplier.data.contact.firstName ?? undefined,
-            lastName: supplier.data.contact.lastName ?? undefined,
+            lastName: supplier.data.contact.lastName ?? undefined
           },
           sender: {
             email: buyer.data.email,
             firstName: buyer.data.firstName,
-            lastName: buyer.data.lastName,
+            lastName: buyer.data.lastName
           },
-          paymentTerms: paymentTerms.data,
+          paymentTerms: paymentTerms.data
         });
 
         const html = await renderAsync(emailTemplate);
@@ -251,11 +252,11 @@ export async function action(args: ActionFunctionArgs) {
             attachments: [
               {
                 content: Buffer.from(file).toString("base64"),
-                filename: fileName,
-              },
+                filename: fileName
+              }
             ],
-            companyId,
-          }),
+            companyId
+          })
         ]);
       } catch (err) {
         throw redirect(

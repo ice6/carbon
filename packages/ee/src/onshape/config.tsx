@@ -1,6 +1,6 @@
 import { Badge } from "@carbon/react";
 import type { SVGProps } from "react";
-import { z } from 'zod/v3';
+import { z } from "zod/v3";
 import type { IntegrationConfig } from "../types";
 
 export const Onshape: IntegrationConfig = {
@@ -21,42 +21,42 @@ export const Onshape: IntegrationConfig = {
       label: "Base URL",
       type: "text",
       required: true,
-      value: "https://cad.onshape.com",
+      value: "https://cad.onshape.com"
     },
     {
       name: "accessKey",
       label: "Access Key/Username",
       type: "text",
       required: true,
-      value: "",
+      value: ""
     },
     {
       name: "secretKey",
       label: "Secret Key/Password",
       type: "text",
       required: true,
-      value: "",
+      value: ""
     },
     {
       name: "companyId",
       label: "Company ID",
       type: "text",
       required: true,
-      value: "",
-    },
+      value: ""
+    }
   ],
   schema: z.object({
     baseUrl: z
       .string()
       .min(1, { message: "Base URL is required" })
       .regex(/^https:\/\/.*onshape\.com$/, {
-        message: "URL must start with https:// and end with onshape.com",
+        message: "URL must start with https:// and end with onshape.com"
       }),
 
     accessKey: z.string().min(1, { message: "Access Key is required" }),
     secretKey: z.string().min(1, { message: "Secret Key is required" }),
-    companyId: z.string().min(1, { message: "Company ID is required" }),
-  }),
+    companyId: z.string().min(1, { message: "Company ID is required" })
+  })
 };
 
 function SetupInstructions({ companyId }: { companyId: string }) {

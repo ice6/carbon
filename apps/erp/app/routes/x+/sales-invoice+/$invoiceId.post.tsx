@@ -14,7 +14,7 @@ import {
   getSalesInvoice,
   getSalesInvoiceCustomerDetails,
   getSalesInvoiceLines,
-  getSalesInvoiceShipment,
+  getSalesInvoiceShipment
 } from "~/modules/invoicing";
 import { getCustomerContact, salesConfirmValidator } from "~/modules/sales";
 import { getCompany } from "~/modules/settings";
@@ -28,14 +28,14 @@ export async function action(args: ActionFunctionArgs) {
 
   const { client, companyId, userId } = await requirePermissions(request, {
     create: "invoicing",
-    role: "employee",
+    role: "employee"
   });
 
   const { invoiceId } = params;
   if (!invoiceId) {
     return {
       success: false,
-      message: "Could not find invoiceId",
+      message: "Could not find invoiceId"
     };
   }
 
@@ -45,14 +45,14 @@ export async function action(args: ActionFunctionArgs) {
   const setPendingState = await client
     .from("salesInvoice")
     .update({
-      status: "Pending",
+      status: "Pending"
     })
     .eq("id", invoiceId);
 
   if (setPendingState.error) {
     return {
       success: false,
-      message: "Failed to update sales invoice status",
+      message: "Failed to update sales invoice status"
     };
   }
 
@@ -65,9 +65,9 @@ export async function action(args: ActionFunctionArgs) {
         body: {
           invoiceId: invoiceId,
           userId: userId,
-          companyId: companyId,
+          companyId: companyId
         },
-        region: FunctionRegion.UsEast1,
+        region: FunctionRegion.UsEast1
       }
     );
 
@@ -75,61 +75,61 @@ export async function action(args: ActionFunctionArgs) {
       await client
         .from("salesInvoice")
         .update({
-          status: "Draft",
+          status: "Draft"
         })
         .eq("id", invoiceId);
 
       return {
         success: false,
-        message: "Failed to post sales invoice",
+        message: "Failed to post sales invoice"
       };
     }
   } catch (err) {
     await client
       .from("salesInvoice")
       .update({
-        status: "Draft",
+        status: "Draft"
       })
       .eq("id", invoiceId);
 
     return {
       success: false,
-      message: "Failed to post sales invoice",
+      message: "Failed to post sales invoice"
     };
   }
 
   const [salesInvoice] = await Promise.all([
-    getSalesInvoice(serviceRole, invoiceId),
+    getSalesInvoice(serviceRole, invoiceId)
   ]);
   if (salesInvoice.error) {
     return {
       success: false,
-      message: "Failed to get sales invoice",
+      message: "Failed to get sales invoice"
     };
   }
 
   if (salesInvoice.data.companyId !== companyId) {
     return {
       success: false,
-      message: "You are not authorized to confirm this sales invoice",
+      message: "You are not authorized to confirm this sales invoice"
     };
   }
 
   const acceptLanguage = request.headers.get("accept-language");
   const locales = parseAcceptLanguage(acceptLanguage, {
-    validate: Intl.DateTimeFormat.supportedLocalesOf,
+    validate: Intl.DateTimeFormat.supportedLocalesOf
   });
 
   try {
     const pdf = await pdfLoader({
       ...args,
-      params: { ...args.params, id: invoiceId },
+      params: { ...args.params, id: invoiceId }
     });
 
     if (pdf.headers.get("content-type") !== "application/pdf") {
       return {
         success: false,
-        message: "Failed to generate PDF",
+        message: "Failed to generate PDF"
       };
     }
 
@@ -147,13 +147,13 @@ export async function action(args: ActionFunctionArgs) {
       .upload(documentFilePath, file, {
         cacheControl: `${12 * 60 * 60}`,
         contentType: "application/pdf",
-        upsert: true,
+        upsert: true
       });
 
     if (documentFileUpload.error) {
       return {
         success: false,
-        message: "Failed to upload file",
+        message: "Failed to upload file"
       };
     }
 
@@ -166,19 +166,19 @@ export async function action(args: ActionFunctionArgs) {
       readGroups: [userId],
       writeGroups: [userId],
       createdBy: userId,
-      companyId,
+      companyId
     });
 
     if (createDocument.error) {
       return {
         success: false,
-        message: "Failed to create document",
+        message: "Failed to create document"
       };
     }
   } catch (err) {
     return {
       success: false,
-      message: "Failed to generate PDF",
+      message: "Failed to generate PDF"
     };
   }
 
@@ -189,7 +189,7 @@ export async function action(args: ActionFunctionArgs) {
   if (validation.error) {
     return {
       success: false,
-      message: "Invalid notification type",
+      message: "Invalid notification type"
     };
   }
 
@@ -201,7 +201,7 @@ export async function action(args: ActionFunctionArgs) {
         if (!customerContact) {
           return {
             success: false,
-            message: "Customer contact is required",
+            message: "Customer contact is required"
           };
         }
 
@@ -213,7 +213,7 @@ export async function action(args: ActionFunctionArgs) {
           salesInvoiceLocations,
           salesInvoiceShipment,
           seller,
-          paymentTerms,
+          paymentTerms
         ] = await Promise.all([
           getCompany(serviceRole, companyId),
           getCustomerContact(serviceRole, customerContact),
@@ -222,49 +222,49 @@ export async function action(args: ActionFunctionArgs) {
           getSalesInvoiceCustomerDetails(serviceRole, invoiceId),
           getSalesInvoiceShipment(serviceRole, invoiceId),
           getUser(serviceRole, userId),
-          getPaymentTermsList(serviceRole, companyId),
+          getPaymentTermsList(serviceRole, companyId)
         ]);
 
         if (!customer?.data?.contact) {
           return {
             success: false,
-            message: "Failed to get customer contact",
+            message: "Failed to get customer contact"
           };
         }
         if (!company.data) {
           return {
             success: false,
-            message: "Failed to get company",
+            message: "Failed to get company"
           };
         }
         if (!seller.data) {
           return {
             success: false,
-            message: "Failed to get user",
+            message: "Failed to get user"
           };
         }
         if (!salesInvoice.data) {
           return {
             success: false,
-            message: "Failed to get sales invoice",
+            message: "Failed to get sales invoice"
           };
         }
         if (!salesInvoiceLocations.data) {
           return {
             success: false,
-            message: "Failed to get sales invoice locations",
+            message: "Failed to get sales invoice locations"
           };
         }
         if (!salesInvoiceShipment.data) {
           return {
             success: false,
-            message: "Failed to get sales invoice shipment",
+            message: "Failed to get sales invoice shipment"
           };
         }
         if (!paymentTerms.data) {
           return {
             success: false,
-            message: "Failed to get payment terms",
+            message: "Failed to get payment terms"
           };
         }
 
@@ -278,14 +278,14 @@ export async function action(args: ActionFunctionArgs) {
           recipient: {
             email: customer.data.contact.email,
             firstName: customer.data.contact.firstName ?? undefined,
-            lastName: customer.data.contact.lastName ?? undefined,
+            lastName: customer.data.contact.lastName ?? undefined
           },
           sender: {
             email: seller.data.email,
             firstName: seller.data.firstName,
-            lastName: seller.data.lastName,
+            lastName: seller.data.lastName
           },
-          paymentTerms: paymentTerms.data,
+          paymentTerms: paymentTerms.data
         });
 
         const html = await renderAsync(emailTemplate);
@@ -300,15 +300,15 @@ export async function action(args: ActionFunctionArgs) {
           attachments: [
             {
               content: Buffer.from(file).toString("base64"),
-              filename: fileName,
-            },
+              filename: fileName
+            }
           ],
-          companyId,
+          companyId
         });
       } catch (err) {
         return {
           success: false,
-          message: "Failed to send email",
+          message: "Failed to send email"
         };
       }
       break;
@@ -318,12 +318,12 @@ export async function action(args: ActionFunctionArgs) {
     default:
       return {
         success: false,
-        message: "Invalid notification type",
+        message: "Invalid notification type"
       };
   }
 
   return {
     success: true,
-    message: "Sales invoice confirmed",
+    message: "Sales invoice confirmed"
   };
 }

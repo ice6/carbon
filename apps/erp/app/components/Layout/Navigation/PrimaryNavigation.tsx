@@ -72,7 +72,7 @@ const NavigationIconLink = forwardRef<
   NavigationIconButtonProps
 >(({ link, isActive = false, isOpen = false, onClick, ...props }, ref) => {
   const iconClasses = [
-    "absolute left-3 top-3 flex rounded-md items-center items-center justify-center", // Layout
+    "absolute left-3 top-3 flex rounded-md items-center items-center justify-center" // Layout
   ];
 
   const classes = [
@@ -92,7 +92,7 @@ const NavigationIconLink = forwardRef<
         ? "bg-active text-active-foreground hover:text-active-foreground hover:bg-active/90 shadow-button-base"
         : "hover:text-active-foreground"
     }`,
-    "group/item",
+    "group/item"
   ];
 
   return (

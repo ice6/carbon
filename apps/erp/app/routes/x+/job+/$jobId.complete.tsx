@@ -2,7 +2,7 @@ import {
   assertIsPost,
   error,
   getCarbonServiceRole,
-  success,
+  success
 } from "@carbon/auth";
 import { requirePermissions } from "@carbon/auth/auth.server";
 import { flash } from "@carbon/auth/session.server";
@@ -17,13 +17,13 @@ import { path, requestReferrer } from "~/utils/path";
 export const handle: Handle = {
   breadcrumb: "Jobs",
   to: path.to.jobs,
-  module: "production",
+  module: "production"
 };
 
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    update: "production",
+    update: "production"
   });
 
   const formData = await request.formData();
@@ -41,7 +41,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     salesOrderId,
     salesOrderLineId,
     locationId,
-    shelfId,
+    shelfId
   } = validation.data;
 
   const makeToOrder = !!salesOrderId || !!salesOrderLineId;
@@ -54,7 +54,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
         completedDate: new Date().toISOString(),
         quantityComplete,
         updatedAt: new Date().toISOString(),
-        updatedBy: userId,
+        updatedBy: userId
       })
       .eq("id", jobId);
 
@@ -77,9 +77,9 @@ export async function action({ request, params }: ActionFunctionArgs) {
         userId,
         quantityComplete,
         shelfId,
-        locationId,
+        locationId
       },
-      region: FunctionRegion.UsEast1,
+      region: FunctionRegion.UsEast1
     });
 
     if (issue.error) {

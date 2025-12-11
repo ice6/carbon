@@ -31,9 +31,9 @@ export async function action({ request, params }: ActionFunctionArgs) {
       parentTrackedEntityId,
       type: "scrapTrackedEntity",
       companyId,
-      userId,
+      userId
     },
-    region: FunctionRegion.UsEast1,
+    region: FunctionRegion.UsEast1
   });
 
   if (issue.error) {

@@ -6,7 +6,7 @@ import type { ActionFunctionArgs } from "@vercel/remix";
 import { redirect } from "@vercel/remix";
 import {
   accountSubcategoryValidator,
-  upsertAccountSubcategory,
+  upsertAccountSubcategory
 } from "~/modules/accounting";
 import { setCustomFields } from "~/utils/form";
 import { getParams, path } from "~/utils/path";
@@ -14,7 +14,7 @@ import { getParams, path } from "~/utils/path";
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    update: "accounting",
+    update: "accounting"
   });
 
   const { subcategoryId } = params;
@@ -35,7 +35,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     id: subcategoryId,
     ...data,
     customFields: setCustomFields(formData),
-    updatedBy: userId,
+    updatedBy: userId
   });
   if (update.error)
     redirect(

@@ -5,7 +5,7 @@ import type {
   getCustomFieldsTables,
   getIntegrations,
   getSequences,
-  getWebhooks,
+  getWebhooks
 } from "./settings.service";
 
 export type ApiKey = NonNullable<

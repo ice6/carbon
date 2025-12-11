@@ -11,7 +11,7 @@ import { upsertProcedureStep } from "~/modules/production/production.service";
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    create: "production",
+    create: "production"
   });
 
   const { id: procedureId } = params;
@@ -33,12 +33,12 @@ export async function action({ request, params }: ActionFunctionArgs) {
   const create = await upsertProcedureStep(client, {
     ...data,
     companyId,
-    createdBy: userId,
+    createdBy: userId
   });
   if (create.error) {
     return json(
       {
-        success: false,
+        success: false
       },
       await flash(
         request,

@@ -7,5 +7,5 @@ export {
   AttributeCategoriesTable,
   AttributeCategoryDetail,
   AttributeCategoryForm,
-  AttributeForm,
+  AttributeForm
 };

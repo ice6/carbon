@@ -3,7 +3,7 @@ import {
   DatePicker as DatePickerBase,
   FormControl,
   FormErrorMessage,
-  FormLabel,
+  FormLabel
 } from "@carbon/react";
 import { formatDate } from "@carbon/utils";
 import type { CalendarDate } from "@internationalized/date";
@@ -33,7 +33,7 @@ const DatePicker = ({
   inline = false,
   helperText,
   value,
-  onChange,
+  onChange
 }: DatePickerProps) => {
   const { validate } = useFormContext();
   const { error, defaultValue, validate: validateField } = useField(name);
@@ -41,8 +41,8 @@ const DatePicker = ({
     value
       ? parseDate(value)
       : defaultValue
-      ? parseDate(defaultValue)
-      : undefined
+        ? parseDate(defaultValue)
+        : undefined
   );
 
   useEffect(() => {

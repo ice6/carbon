@@ -19,7 +19,7 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { Link } from "@remix-run/react";
 import type { ColumnDef } from "@tanstack/react-table";
@@ -39,7 +39,7 @@ import {
   LuSettings,
   LuTag,
   LuTrash,
-  LuUser,
+  LuUser
 } from "react-icons/lu";
 import {
   EmployeeAvatar,
@@ -47,7 +47,7 @@ import {
   ItemThumbnail,
   New,
   SupplierAvatar,
-  Table,
+  Table
 } from "~/components";
 import { Enumerable } from "~/components/Enumerable";
 import { useLocations } from "~/components/Form/Location";
@@ -71,7 +71,7 @@ const defaultColumnVisibility = {
   supplierName: false,
   createdAt: false,
   updatedBy: false,
-  updatedAt: false,
+  updatedAt: false
 };
 
 const KanbansTable = memo(
@@ -113,11 +113,11 @@ const KanbansTable = memo(
               type: "static",
               options: items?.map((item) => ({
                 value: item.id,
-                label: item.readableIdWithRevision,
-              })),
+                label: item.readableIdWithRevision
+              }))
             },
-            icon: <LuPackage />,
-          },
+            icon: <LuPackage />
+          }
         },
         {
           id: "job",
@@ -135,7 +135,7 @@ const KanbansTable = memo(
                 </Link>
               </Badge>
             );
-          },
+          }
         },
         {
           id: "links",
@@ -367,7 +367,7 @@ const KanbansTable = memo(
                 </HStack>
               )}
             </>
-          ),
+          )
         },
         {
           accessorKey: "quantity",
@@ -384,8 +384,8 @@ const KanbansTable = memo(
             );
           },
           meta: {
-            icon: <LuHash />,
-          },
+            icon: <LuHash />
+          }
         },
         {
           accessorKey: "replenishmentSystem",
@@ -398,11 +398,11 @@ const KanbansTable = memo(
               type: "static",
               options: ["Buy", "Make"].map((type) => ({
                 value: type,
-                label: <Enumerable value={type} />,
-              })),
+                label: <Enumerable value={type} />
+              }))
             },
-            icon: <LuRefreshCw />,
-          },
+            icon: <LuRefreshCw />
+          }
         },
         {
           accessorKey: "supplierId",
@@ -416,18 +416,18 @@ const KanbansTable = memo(
               type: "static",
               options: suppliers.map((supplier) => ({
                 value: supplier.id,
-                label: supplier.name,
-              })),
-            },
-          },
+                label: supplier.name
+              }))
+            }
+          }
         },
         {
           accessorKey: "shelfName",
           header: "Shelf",
           cell: ({ row }) => row.original.shelfName || "",
           meta: {
-            icon: <LuMapPin />,
-          },
+            icon: <LuMapPin />
+          }
         },
         {
           accessorKey: "autoRelease",
@@ -444,10 +444,10 @@ const KanbansTable = memo(
               type: "static",
               options: [
                 { value: "true", label: "Yes" },
-                { value: "false", label: "No" },
-              ],
-            },
-          },
+                { value: "false", label: "No" }
+              ]
+            }
+          }
         },
         {
           accessorKey: "autoStartJob",
@@ -464,10 +464,10 @@ const KanbansTable = memo(
               type: "static",
               options: [
                 { value: "true", label: "Yes" },
-                { value: "false", label: "No" },
-              ],
-            },
-          },
+                { value: "false", label: "No" }
+              ]
+            }
+          }
         },
         {
           accessorKey: "createdBy",
@@ -480,11 +480,11 @@ const KanbansTable = memo(
               type: "static",
               options: people.map((employee) => ({
                 value: employee.id,
-                label: <Enumerable value={employee.name} />,
-              })),
+                label: <Enumerable value={employee.name} />
+              }))
             },
-            icon: <LuUser />,
-          },
+            icon: <LuUser />
+          }
         },
         {
           accessorKey: "createdAt",
@@ -494,8 +494,8 @@ const KanbansTable = memo(
               ? new Date(row.original.createdAt).toLocaleDateString()
               : "",
           meta: {
-            icon: <LuCalendar />,
-          },
+            icon: <LuCalendar />
+          }
         },
         {
           accessorKey: "updatedBy",
@@ -508,11 +508,11 @@ const KanbansTable = memo(
               type: "static",
               options: people.map((employee) => ({
                 value: employee.id,
-                label: <Enumerable value={employee.name} />,
-              })),
+                label: <Enumerable value={employee.name} />
+              }))
             },
-            icon: <LuUser />,
-          },
+            icon: <LuUser />
+          }
         },
         {
           accessorKey: "updatedAt",
@@ -522,9 +522,9 @@ const KanbansTable = memo(
               ? new Date(row.original.updatedAt).toLocaleDateString()
               : "",
           meta: {
-            icon: <LuCalendar />,
-          },
-        },
+            icon: <LuCalendar />
+          }
+        }
       ],
       [items, kanbanOutput, params, people, suppliers]
     );
@@ -633,7 +633,7 @@ function getLocationPath(locationId: string) {
 function CopyBadge({
   text,
   url,
-  tooltip,
+  tooltip
 }: {
   text: string;
   url: string;

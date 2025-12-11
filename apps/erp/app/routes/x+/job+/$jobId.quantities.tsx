@@ -9,7 +9,7 @@ import { usePanels } from "~/components/Layout";
 import {
   getJobOperationsList,
   getProductionQuantities,
-  getScrapReasons,
+  getScrapReasons
 } from "~/modules/production";
 import { ProductionQuantitiesTable } from "~/modules/production/ui/Jobs";
 import { path, requestReferrer } from "~/utils/path";
@@ -17,7 +17,7 @@ import { getGenericQueryFilters } from "~/utils/query";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    view: "production",
+    view: "production"
   });
 
   const { jobId } = params;
@@ -45,7 +45,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
       count: 0,
       events: [],
       operations: [],
-      scrapReasons: [],
+      scrapReasons: []
     });
   }
 
@@ -55,9 +55,9 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
       limit,
       offset,
       sorts,
-      filters,
+      filters
     }),
-    getScrapReasons(client, companyId),
+    getScrapReasons(client, companyId)
   ]);
 
   if (events.error) {
@@ -71,7 +71,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     count: events.count ?? 0,
     events: events.data ?? [],
     operations: operations.data ?? [],
-    scrapReasons: scrapReasons.data ?? [],
+    scrapReasons: scrapReasons.data ?? []
   });
 }
 

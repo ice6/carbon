@@ -9,20 +9,20 @@ import { makeEmptyPermissionsFromModules } from "~/modules/users/users.server";
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
     view: "users",
-    role: "employee",
+    role: "employee"
   });
 
   const modules = await getModules(client);
   if (modules.error || modules.data === null) {
     return json(
       {
-        permissions: {},
+        permissions: {}
       },
       await flash(request, error(modules.error, "Failed to fetch modules"))
     );
   }
 
   return json({
-    permissions: makeEmptyPermissionsFromModules(modules.data),
+    permissions: makeEmptyPermissionsFromModules(modules.data)
   });
 }

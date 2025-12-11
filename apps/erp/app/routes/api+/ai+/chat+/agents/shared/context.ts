@@ -44,6 +44,6 @@ export function createChatContext(params: {
     locale: params.locale || "en-US",
     currentDateTime: new Date().toISOString(),
     timezone:
-      params.timezone || Intl.DateTimeFormat().resolvedOptions().timeZone,
+      params.timezone || Intl.DateTimeFormat().resolvedOptions().timeZone
   };
 }

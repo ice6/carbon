@@ -1,6 +1,6 @@
 import { cn } from "@carbon/react";
 import type { SVGProps } from "react";
-import { z } from 'zod/v3';
+import { z } from "zod/v3";
 import type { IntegrationConfig } from "../types";
 
 export const Resend: IntegrationConfig = {
@@ -20,20 +20,20 @@ export const Resend: IntegrationConfig = {
       label: "API Key",
       type: "text",
       required: true,
-      value: "",
+      value: ""
     },
     {
       name: "fromEmail",
       label: "From Email",
       type: "text",
       required: true,
-      value: "",
-    },
+      value: ""
+    }
   ],
   schema: z.object({
     apiKey: z.string().min(1, { message: "API Key is required" }),
-    fromEmail: z.string().email(),
-  }),
+    fromEmail: z.string().email()
+  })
 };
 
 function Logo(props: SVGProps<SVGSVGElement>) {

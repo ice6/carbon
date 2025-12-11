@@ -1,6 +1,6 @@
 import type { Database } from "@carbon/database";
 import type { SupabaseClient } from "@supabase/supabase-js";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import type { GenericQueryFilters } from "~/utils/query";
 import { setGenericQueryFilters } from "~/utils/query";
 import { sanitize } from "~/utils/supabase";
@@ -8,7 +8,7 @@ import { getDocumentType } from "../shared/shared.service";
 import type {
   documentLabelsValidator,
   documentSourceTypes,
-  documentValidator,
+  documentValidator
 } from "./documents.models";
 
 export async function deleteDocument(
@@ -63,7 +63,7 @@ export async function getDocuments(
   let query = client
     .from("documents")
     .select("*", {
-      count: "exact",
+      count: "exact"
     })
     .eq("companyId", companyId)
     .eq("active", args.active);
@@ -83,7 +83,7 @@ export async function getDocuments(
   }
 
   query = setGenericQueryFilters(query, args, [
-    { column: "favorite", ascending: false },
+    { column: "favorite", ascending: false }
   ]);
 
   return query;
@@ -127,7 +127,7 @@ export async function moveDocumentToTrash(
     .update({
       active: false,
       updatedBy: userId,
-      updatedAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
     })
     .eq("id", id);
 }
@@ -142,7 +142,7 @@ export async function restoreDocument(
     .update({
       active: true,
       updatedBy: userId,
-      updatedAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
     })
     .eq("id", id);
 }
@@ -185,7 +185,7 @@ export async function upsertDocument(
       sanitize({
         ...data,
         type,
-        updatedAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
       })
     )
     .eq("id", document.id);
@@ -234,7 +234,7 @@ export async function updateDocumentLabels(
         document.labels.map((label) => ({
           documentId: document.documentId,
           label,
-          userId: document.userId,
+          userId: document.userId
         }))
       );
     });

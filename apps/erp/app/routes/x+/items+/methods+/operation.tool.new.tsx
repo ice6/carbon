@@ -9,7 +9,7 @@ import { operationToolValidator } from "~/modules/shared";
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    create: "parts",
+    create: "parts"
   });
 
   const formData = await request.formData();
@@ -22,12 +22,12 @@ export async function action({ request, params }: ActionFunctionArgs) {
   const insert = await upsertMethodOperationTool(client, {
     ...validation.data,
     companyId,
-    createdBy: userId,
+    createdBy: userId
   });
   if (insert.error) {
     return json(
       {
-        id: null,
+        id: null
       },
       await flash(
         request,
@@ -40,7 +40,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   if (!methodOperationToolId) {
     return json(
       {
-        id: null,
+        id: null
       },
       await flash(
         request,

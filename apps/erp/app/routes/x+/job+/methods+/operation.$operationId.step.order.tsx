@@ -8,7 +8,7 @@ import { updateJobOperationStepOrder } from "~/modules/production";
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    update: "production",
+    update: "production"
   });
 
   const formData = await request.formData();
@@ -33,7 +33,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     ([id, sortOrderString]) => ({
       id,
       sortOrder: Number(sortOrderString),
-      updatedBy: userId,
+      updatedBy: userId
     })
   );
 

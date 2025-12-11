@@ -24,7 +24,7 @@ import {
   Progress,
   toast,
   useDebounce,
-  useDisclosure,
+  useDisclosure
 } from "@carbon/react";
 import { Editor } from "@carbon/react/Editor";
 import { formatDate } from "@carbon/utils";
@@ -41,7 +41,7 @@ import {
   LuCog,
   LuContainer,
   LuGripVertical,
-  LuLoaderCircle,
+  LuLoaderCircle
 } from "react-icons/lu";
 import { RxCheck } from "react-icons/rx";
 import { Assignee } from "~/components";
@@ -56,7 +56,7 @@ import type {
   IssueActionTask,
   IssueInvestigationTask,
   IssueItem,
-  IssueReviewer,
+  IssueReviewer
 } from "~/modules/quality";
 import { nonConformanceTaskStatus } from "~/modules/quality";
 import { useSuppliers } from "~/stores";
@@ -65,7 +65,7 @@ import { LinearIssueDialog } from "./Linear/IssueDialog";
 
 export function TaskProgress({
   tasks,
-  className,
+  className
 }: {
   tasks: { status: IssueInvestigationTask["status"] }[];
   className?: string;
@@ -105,30 +105,30 @@ export const statusActions = {
   Completed: {
     action: "Reopen",
     icon: <LuLoaderCircle />,
-    status: "Pending",
+    status: "Pending"
   },
   Pending: {
     action: "Start",
     icon: <LuCirclePlay />,
-    status: "In Progress",
+    status: "In Progress"
   },
   Skipped: {
     action: "Reopen",
     icon: <LuLoaderCircle />,
-    status: "Pending",
+    status: "Pending"
   },
   "In Progress": {
     action: "Complete",
     icon: <LuCircleCheck />,
-    status: "Completed",
-  },
+    status: "Completed"
+  }
 } as const;
 
 function SupplierAssignment({
   task,
   type,
   supplierIds,
-  isDisabled = false,
+  isDisabled = false
 }: {
   task: IssueInvestigationTask | IssueActionTask;
   type: "investigation" | "action";
@@ -164,13 +164,13 @@ function SupplierAssignment({
       {
         id: task.id!,
         supplierId: supplierId || "",
-        table,
+        table
       },
       {
         method: "post",
         action: path.to.issueTaskSupplier,
         navigate: false,
-        fetcherKey: `supplierAssignment:${task.id}`,
+        fetcherKey: `supplierAssignment:${task.id}`
       }
     );
     setOpen(false);
@@ -182,7 +182,7 @@ function SupplierAssignment({
       .filter((supplier) => supplierIds.includes(supplier.id))
       .map((supplier) => ({
         value: supplier.id,
-        label: supplier.name,
+        label: supplier.name
       }));
 
     return [{ value: "", label: "Unassigned" }, ...filteredSuppliers];
@@ -251,7 +251,7 @@ export function TaskItem({
   suppliers,
   isDisabled = false,
   showDragHandle = false,
-  dragControls,
+  dragControls
 }: {
   task: IssueInvestigationTask | IssueActionTask | IssueReviewer;
   type: "investigation" | "action" | "review";
@@ -265,13 +265,13 @@ export function TaskItem({
   const integrations = useIntegrations();
   const permissions = usePermissions();
   const disclosure = useDisclosure({
-    defaultIsOpen: true,
+    defaultIsOpen: true
   });
 
   const { currentStatus, onOperationStatusChange } = useTaskStatus({
     task,
     type,
-    disabled: isDisabled,
+    disabled: isDisabled
   });
   const statusAction =
     statusActions[currentStatus as keyof typeof statusActions];
@@ -286,7 +286,7 @@ export function TaskItem({
     initialContent: (task.notes ?? {}) as JSONContent,
     taskId: task.id!,
     type,
-    hasLinearLink,
+    hasLinearLink
   });
 
   const { id } = useParams();
@@ -356,7 +356,7 @@ export function TaskItem({
                     {
                       method: "post",
                       action: path.to.issueStatus(id!),
-                      navigate: false,
+                      navigate: false
                     }
                   );
                 }
@@ -366,7 +366,7 @@ export function TaskItem({
             <div
               className="prose dark:prose-invert"
               dangerouslySetInnerHTML={{
-                __html: generateHTML(content as JSONContent),
+                __html: generateHTML(content as JSONContent)
               }}
             />
           )}
@@ -430,7 +430,7 @@ function useTaskNotes({
   initialContent,
   taskId,
   type,
-  hasLinearLink = false,
+  hasLinearLink = false
 }: {
   initialContent: JSONContent;
   taskId: string;
@@ -439,7 +439,7 @@ function useTaskNotes({
 }) {
   const {
     id: userId,
-    company: { id: companyId },
+    company: { id: companyId }
   } = useUser();
   const { carbon } = useCarbon();
 
@@ -473,7 +473,7 @@ function useTaskNotes({
         ?.from(table)
         .update({
           notes: content,
-          updatedBy: userId,
+          updatedBy: userId
         })
         .eq("id", taskId!);
 
@@ -485,8 +485,8 @@ function useTaskNotes({
             headers: { "Content-Type": "application/x-www-form-urlencoded" },
             body: new URLSearchParams({
               actionId: taskId,
-              notes: JSON.stringify(content),
-            }),
+              notes: JSON.stringify(content)
+            })
           });
         } catch (e) {
           // Silently fail Linear sync - not critical
@@ -502,7 +502,7 @@ function useTaskNotes({
     content,
     setContent,
     onUpdateContent,
-    onUploadImage,
+    onUploadImage
   };
 }
 
@@ -522,7 +522,7 @@ function useTaskStatus({
   disabled = false,
   task,
   type,
-  onChange,
+  onChange
 }: {
   disabled?: boolean;
   task: {
@@ -547,13 +547,13 @@ function useTaskStatus({
           id,
           status,
           type,
-          assignee: task.assignee ?? "",
+          assignee: task.assignee ?? ""
         },
         {
           method: "post",
           action: path.to.issueTaskStatus(id),
           navigate: false,
-          fetcherKey: `nonConformanceTask:${id}`,
+          fetcherKey: `nonConformanceTask:${id}`
         }
       );
     },
@@ -565,7 +565,7 @@ function useTaskStatus({
   return {
     currentStatus,
     onOperationStatusChange,
-    isDisabled,
+    isDisabled
   };
 }
 
@@ -574,7 +574,7 @@ export function IssueTaskStatus({
   type,
   className,
   onChange,
-  isDisabled,
+  isDisabled
 }: {
   task: {
     id?: string;
@@ -590,7 +590,7 @@ export function IssueTaskStatus({
     task,
     type,
     onChange,
-    disabled: isDisabled,
+    disabled: isDisabled
   });
 
   return (
@@ -646,7 +646,7 @@ function getTable(type: "investigation" | "action" | "approval" | "review") {
 
 function TaskDueDate({
   task,
-  isDisabled,
+  isDisabled
 }: {
   task: IssueActionTask;
   isDisabled: boolean;
@@ -669,13 +669,13 @@ function TaskDueDate({
     submit(
       {
         id: task.id!,
-        dueDate: date || "",
+        dueDate: date || ""
       },
       {
         method: "post",
         action: path.to.issueActionDueDate(task.id!),
         navigate: false,
-        fetcherKey: `nonConformanceTask:${task.id}`,
+        fetcherKey: `nonConformanceTask:${task.id}`
       }
     );
   };
@@ -729,7 +729,7 @@ function TaskDueDate({
 
 function TaskProcesses({
   task,
-  isDisabled,
+  isDisabled
 }: {
   task: IssueActionTask;
   isDisabled: boolean;
@@ -778,14 +778,14 @@ function TaskProcesses({
     submit(
       {
         id: task.id!,
-        processIds: newProcessIds,
+        processIds: newProcessIds
       },
       {
         method: "post",
         action: path.to.issueActionProcesses(task.id!),
         navigate: false,
         fetcherKey: `nonConformanceTaskProcesses:${task.id}`,
-        encType: "application/json",
+        encType: "application/json"
       }
     );
   };
@@ -798,8 +798,8 @@ function TaskProcesses({
     selectedProcesses.length === 0
       ? "Processes"
       : selectedProcesses.length === 1
-      ? selectedProcesses[0].label
-      : `${selectedProcesses.length} Processes`;
+        ? selectedProcesses[0].label
+        : `${selectedProcesses.length} Processes`;
 
   if (!canEdit) {
     return (

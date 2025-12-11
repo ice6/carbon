@@ -10,12 +10,12 @@ import { getGenericQueryFilters } from "~/utils/query";
 
 export const handle: Handle = {
   breadcrumb: "API Keys",
-  to: path.to.apiKeys,
+  to: path.to.apiKeys
 };
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    update: "users",
+    update: "users"
   });
 
   const url = new URL(request.url);
@@ -29,7 +29,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
     offset,
     sorts,
     search,
-    filters,
+    filters
   });
   if (apiKeys.error) {
     throw redirect(
@@ -42,9 +42,9 @@ export async function loader({ request }: LoaderFunctionArgs) {
     apiKeys:
       apiKeys.data?.map((apiKey) => ({
         ...apiKey,
-        key: apiKey.key.substring(0, 12) + "…",
+        key: apiKey.key.substring(0, 12) + "…"
       })) ?? [],
-    count: apiKeys.count ?? 0,
+    count: apiKeys.count ?? 0
   });
 }
 

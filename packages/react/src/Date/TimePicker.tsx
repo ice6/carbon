@@ -12,7 +12,7 @@ const TimePicker = (
   const { locale } = useLocale();
   const state = useTimeFieldState({
     ...props,
-    locale,
+    locale
   });
 
   const ref = useRef<HTMLDivElement>(null);

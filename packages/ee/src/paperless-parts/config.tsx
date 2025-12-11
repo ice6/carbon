@@ -23,14 +23,14 @@ export const PaperlessParts: IntegrationConfig = {
       label: "API Key",
       type: "text",
       required: true,
-      value: "",
+      value: ""
     },
     {
       name: "secretKey",
       label: "Webhook Signing Secret",
       type: "text",
       required: true,
-      value: "",
+      value: ""
     },
     {
       name: "methodType",
@@ -38,7 +38,7 @@ export const PaperlessParts: IntegrationConfig = {
       type: "options",
       listOptions: ["Buy", "Pick"],
       required: false,
-      value: "Pick",
+      value: "Pick"
     },
     {
       name: "trackingType",
@@ -46,22 +46,22 @@ export const PaperlessParts: IntegrationConfig = {
       type: "options",
       listOptions: ["Inventory", "Non-Inventory", "Batch"],
       required: false,
-      value: "Inventory",
+      value: "Inventory"
     },
     {
       name: "billOfProcessBlackList",
       label: "Bill of Process Black List",
       type: "array",
       required: false,
-      value: [],
+      value: []
     },
     {
       name: "usePaperlessOrderNumber",
       label: "Use Paperless Order Number",
       type: "switch",
       required: false,
-      value: false,
-    },
+      value: false
+    }
   ],
   schema: z.object({
     apiKey: z.string().min(1, { message: "API Key is required" }),
@@ -71,8 +71,8 @@ export const PaperlessParts: IntegrationConfig = {
     methodType: z.enum(["Buy", "Pick"]),
     trackingType: z.enum(["Inventory", "Non-Inventory", "Batch"]),
     billOfProcessBlackList: z.array(z.string()),
-    usePaperlessOrderNumber: zfd.checkbox(),
-  }),
+    usePaperlessOrderNumber: zfd.checkbox()
+  })
 };
 
 function SetupInstructions({ companyId }: { companyId: string }) {

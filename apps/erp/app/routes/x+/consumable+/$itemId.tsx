@@ -8,7 +8,7 @@ import {
   getConsumable,
   getItemFiles,
   getPickMethods,
-  getSupplierParts,
+  getSupplierParts
 } from "~/modules/items";
 import { ConsumableHeader } from "~/modules/items/ui/Consumables";
 import { getTagsList } from "~/modules/shared";
@@ -18,12 +18,12 @@ import { path } from "~/utils/path";
 export const handle: Handle = {
   breadcrumb: "Consumables",
   to: path.to.consumables,
-  module: "items",
+  module: "items"
 };
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { companyId } = await requirePermissions(request, {
-    view: "parts",
+    view: "parts"
   });
 
   const serviceRole = await getCarbonServiceRole();
@@ -36,7 +36,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
       getConsumable(serviceRole, itemId, companyId),
       getSupplierParts(serviceRole, itemId, companyId),
       getPickMethods(serviceRole, itemId, companyId),
-      getTagsList(serviceRole, companyId, "consumable"),
+      getTagsList(serviceRole, companyId, "consumable")
     ]);
 
   if (consumableSummary.error) {
@@ -54,7 +54,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     files: getItemFiles(serviceRole, itemId, companyId),
     supplierParts: supplierParts.data ?? [],
     pickMethods: pickMethods.data ?? [],
-    tags: tags.data ?? [],
+    tags: tags.data ?? []
   });
 }
 

@@ -2,7 +2,7 @@ import {
   assertIsPost,
   error,
   getCarbonServiceRole,
-  notFound,
+  notFound
 } from "@carbon/auth";
 import { requirePermissions } from "@carbon/auth/auth.server";
 import { flash } from "@carbon/auth/session.server";
@@ -17,19 +17,19 @@ import {
   employeeValidator,
   getEmployee,
   getEmployeeTypes,
-  userPermissionsValidator,
+  userPermissionsValidator
 } from "~/modules/users";
 import {
   getClaims,
   makeCompanyPermissionsFromClaims,
-  updateEmployee,
+  updateEmployee
 } from "~/modules/users/users.server";
 import { path } from "~/utils/path";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { companyId } = await requirePermissions(request, {
     view: "users",
-    role: "employee",
+    role: "employee"
   });
 
   const { employeeId } = params;
@@ -39,7 +39,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   const [rawClaims, employee, employeeTypes] = await Promise.all([
     getClaims(client, employeeId, companyId),
     getEmployee(client, employeeId, companyId),
-    getEmployeeTypes(client, companyId),
+    getEmployeeTypes(client, companyId)
   ]);
 
   if (rawClaims.error || employee.error || rawClaims.data === null) {
@@ -69,14 +69,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   return json({
     permissions: claims?.permissions,
     employee: employee.data,
-    employeeTypes: employeeTypes.data ?? [],
+    employeeTypes: employeeTypes.data ?? []
   });
 }
 
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId } = await requirePermissions(request, {
-    update: "users",
+    update: "users"
   });
 
   const validation = await validator(employeeValidator).validate(
@@ -105,7 +105,7 @@ export async function action({ request }: ActionFunctionArgs) {
     id,
     employeeType,
     permissions,
-    companyId,
+    companyId
   });
 
   throw redirect(path.to.employeeAccounts, await flash(request, result));
@@ -118,7 +118,7 @@ export default function UsersEmployeeRoute() {
   const initialValues = {
     id: employee?.id || "",
     employeeType: employee?.employeeTypeId,
-    permissions: permissions || {},
+    permissions: permissions || {}
   };
 
   return (

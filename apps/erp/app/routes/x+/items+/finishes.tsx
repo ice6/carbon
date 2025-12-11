@@ -14,13 +14,13 @@ import { getGenericQueryFilters } from "~/utils/query";
 
 export const handle: Handle = {
   breadcrumb: "Finishes",
-  to: path.to.materialFinishes,
+  to: path.to.materialFinishes
 };
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
     view: "parts",
-    role: "employee",
+    role: "employee"
   });
 
   const url = new URL(request.url);
@@ -35,8 +35,8 @@ export async function loader({ request }: LoaderFunctionArgs) {
       offset,
       sorts,
       search,
-      filters,
-    }),
+      filters
+    })
   ]);
 
   if (materialFinishes.error) {
@@ -49,7 +49,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
   return json({
     materialFinishes: materialFinishes.data ?? [],
-    count: materialFinishes.count ?? 0,
+    count: materialFinishes.count ?? 0
   });
 }
 

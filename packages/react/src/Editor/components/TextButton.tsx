@@ -4,7 +4,7 @@ import {
   BsTypeBold,
   BsTypeItalic,
   BsTypeStrikethrough,
-  BsTypeUnderline,
+  BsTypeUnderline
 } from "react-icons/bs";
 
 import { IconButton } from "../../IconButton";
@@ -19,32 +19,32 @@ export const TextButtons = () => {
       name: "bold",
       isActive: (editor) => editor.isActive("bold"),
       command: (editor) => editor.chain().focus().toggleBold().run(),
-      icon: BsTypeBold,
+      icon: BsTypeBold
     },
     {
       name: "italic",
       isActive: (editor) => editor.isActive("italic"),
       command: (editor) => editor.chain().focus().toggleItalic().run(),
-      icon: BsTypeItalic,
+      icon: BsTypeItalic
     },
     {
       name: "underline",
       isActive: (editor) => editor.isActive("underline"),
       command: (editor) => editor.chain().focus().toggleUnderline().run(),
-      icon: BsTypeUnderline,
+      icon: BsTypeUnderline
     },
     {
       name: "strike",
       isActive: (editor) => editor.isActive("strike"),
       command: (editor) => editor.chain().focus().toggleStrike().run(),
-      icon: BsTypeStrikethrough,
+      icon: BsTypeStrikethrough
     },
     {
       name: "code",
       isActive: (editor) => editor.isActive("code"),
       command: (editor) => editor.chain().focus().toggleCode().run(),
-      icon: BsCodeSlash,
-    },
+      icon: BsCodeSlash
+    }
   ];
 
   return (

@@ -10,22 +10,22 @@ import {
   Tabs,
   TabsContent,
   TabsList,
-  TabsTrigger,
+  TabsTrigger
 } from "@carbon/react";
 import { useNavigate } from "@remix-run/react";
-import { z } from 'zod/v3';
+import { z } from "zod/v3";
 import { Hidden, Select, Submit } from "~/components/Form";
 import { usePermissions } from "~/hooks";
 import { path } from "~/utils/path";
 import {
   defaultBalanceSheetAccountValidator,
-  defaultIncomeAcountValidator,
+  defaultIncomeAcountValidator
 } from "../../accounting.models";
 import type { AccountListItem } from "../../types";
 
 const defaultUnion = z.union([
   defaultBalanceSheetAccountValidator,
-  defaultIncomeAcountValidator,
+  defaultIncomeAcountValidator
 ]);
 
 type AccountDefaultsFormProps = {
@@ -37,7 +37,7 @@ type AccountDefaultsFormProps = {
 const AccountDefaultsForm = ({
   balanceSheetAccounts,
   incomeStatementAccounts,
-  initialValues,
+  initialValues
 }: AccountDefaultsFormProps) => {
   const permissions = usePermissions();
   const navigate = useNavigate();
@@ -47,12 +47,12 @@ const AccountDefaultsForm = ({
 
   const incomeStatementAccountOptions = incomeStatementAccounts.map((c) => ({
     value: c.number,
-    label: `${c.number} - ${c.name}`,
+    label: `${c.number} - ${c.name}`
   }));
 
   const balanceSheetAccountOptions = balanceSheetAccounts.map((c) => ({
     value: c.number,
-    label: `${c.number} - ${c.name}`,
+    label: `${c.number} - ${c.name}`
   }));
 
   const initialIncomeStatementValues =

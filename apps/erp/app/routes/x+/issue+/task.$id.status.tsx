@@ -11,7 +11,7 @@ import { path } from "~/utils/path";
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId, companyId } = await requirePermissions(request, {
-    update: "quality",
+    update: "quality"
   });
 
   const formData = await request.formData();
@@ -35,7 +35,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     status,
     type,
     assignee,
-    userId,
+    userId
   });
   if (update.error) {
     return json(
@@ -58,8 +58,8 @@ export async function action({ request, params }: ActionFunctionArgs) {
           status,
           issueId: update.data.nonConformanceId,
           title: "",
-          type,
-        },
+          type
+        }
       });
     }
   } catch (error) {

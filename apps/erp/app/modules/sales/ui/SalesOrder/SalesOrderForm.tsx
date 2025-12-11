@@ -9,12 +9,12 @@ import {
   CardTitle,
   VStack,
   cn,
-  toast,
+  toast
 } from "@carbon/react";
 import { useFetcher } from "@remix-run/react";
 import { useState } from "react";
 import { flushSync } from "react-dom";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import {
   Currency,
   CustomFormFields,
@@ -27,7 +27,7 @@ import {
   Input,
   Location,
   SequenceOrCustomId,
-  Submit,
+  Submit
 } from "~/components/Form";
 import ExchangeRate from "~/components/Form/ExchangeRate";
 import { usePermissions, useUser } from "~/hooks";
@@ -53,7 +53,7 @@ const SalesOrderForm = ({ initialValues }: SalesOrderFormProps) => {
     currencyCode: string | undefined;
   }>({
     id: initialValues.customerId,
-    currencyCode: initialValues.currencyCode,
+    currencyCode: initialValues.currencyCode
   });
   const isEditing = initialValues.id !== undefined;
   const isCustomer = permissions.is("customer");
@@ -76,7 +76,7 @@ const SalesOrderForm = ({ initialValues }: SalesOrderFormProps) => {
         // update the customer immediately
         setCustomer({
           id: newValue?.value,
-          currencyCode: undefined,
+          currencyCode: undefined
         });
       });
 
@@ -90,13 +90,13 @@ const SalesOrderForm = ({ initialValues }: SalesOrderFormProps) => {
       } else {
         setCustomer((prev) => ({
           ...prev,
-          currencyCode: data.currencyCode ?? undefined,
+          currencyCode: data.currencyCode ?? undefined
         }));
       }
     } else {
       setCustomer({
         id: undefined,
-        currencyCode: undefined,
+        currencyCode: undefined
       });
     }
   };
@@ -203,7 +203,7 @@ const SalesOrderForm = ({ initialValues }: SalesOrderFormProps) => {
                   if (newValue?.value) {
                     setCustomer((prevCustomer) => ({
                       ...prevCustomer,
-                      currencyCode: newValue.value,
+                      currencyCode: newValue.value
                     }));
                   }
                 }}
@@ -230,7 +230,7 @@ const SalesOrderForm = ({ initialValues }: SalesOrderFormProps) => {
                               method: "post",
                               action: path.to.salesOrderExchangeRate(
                                 initialValues.id ?? ""
-                              ),
+                              )
                             });
                           }
                         : undefined

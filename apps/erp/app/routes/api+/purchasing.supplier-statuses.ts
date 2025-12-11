@@ -5,7 +5,7 @@ import { getSupplierStatusesList } from "~/modules/purchasing";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    view: "purchasing",
+    view: "purchasing"
   });
 
   return json(await getSupplierStatusesList(client, companyId));

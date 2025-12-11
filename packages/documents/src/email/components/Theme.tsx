@@ -13,7 +13,7 @@ export const emailTheme = {
     muted: "#6b7280",
     border: "#e5e7eb",
     accent: "#0e0e0e",
-    secondary: "#9ca3af",
+    secondary: "#9ca3af"
   },
   dark: {
     background: "#0C0C0C",
@@ -21,8 +21,8 @@ export const emailTheme = {
     muted: "#a1a1aa",
     border: "#1D1D1D",
     accent: "#fefefe",
-    secondary: "#6b7280",
-  },
+    secondary: "#6b7280"
+  }
 } as const;
 
 // Industry-standard dark mode CSS for email clients
@@ -168,7 +168,7 @@ export function EmailThemeProvider({
   children,
   preview,
   additionalHeadContent,
-  disableDarkMode = false,
+  disableDarkMode = false
 }: EmailThemeProviderProps) {
   return (
     <Html className={disableDarkMode ? "disable-dark-mode" : ""}>
@@ -225,7 +225,7 @@ export function EmailThemeProvider({
             fallbackFontFamily="Helvetica"
             webFont={{
               url: "https://cdn.jsdelivr.net/npm/@fontsource/geist-sans@5.0.1/files/geist-sans-latin-400-normal.woff2",
-              format: "woff2",
+              format: "woff2"
             }}
             fontWeight={400}
             fontStyle="normal"
@@ -236,7 +236,7 @@ export function EmailThemeProvider({
             fallbackFontFamily="Helvetica"
             webFont={{
               url: "https://cdn.jsdelivr.net/npm/@fontsource/geist-sans@5.0.1/files/geist-sans-latin-500-normal.woff2",
-              format: "woff2",
+              format: "woff2"
             }}
             fontWeight={500}
             fontStyle="normal"
@@ -269,7 +269,7 @@ export function getEmailThemeClasses() {
 
     // Dark mode image control
     hideInDark: "dark-mode-hide",
-    showInDark: "dark-mode-show",
+    showInDark: "dark-mode-show"
   };
 }
 
@@ -279,24 +279,24 @@ export function getEmailInlineStyles(mode: "light" | "dark" = "light") {
   return {
     body: {
       backgroundColor: theme.background,
-      color: theme.foreground,
+      color: theme.foreground
     },
     container: {
-      borderColor: theme.border,
+      borderColor: theme.border
     },
     text: {
-      color: theme.foreground,
+      color: theme.foreground
     },
     mutedText: {
-      color: theme.muted,
+      color: theme.muted
     },
     secondaryText: {
-      color: theme.secondary,
+      color: theme.secondary
     },
     button: {
       color: theme.accent,
-      borderColor: theme.accent,
-    },
+      borderColor: theme.accent
+    }
   };
 }
 
@@ -305,6 +305,6 @@ export function useEmailTheme() {
   return {
     classes: getEmailThemeClasses(),
     lightStyles: getEmailInlineStyles("light"),
-    darkStyles: getEmailInlineStyles("dark"),
+    darkStyles: getEmailInlineStyles("dark")
   };
 }

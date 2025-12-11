@@ -13,13 +13,13 @@ import { getGenericQueryFilters } from "~/utils/query";
 
 export const handle: Handle = {
   breadcrumb: "Quotes",
-  to: path.to.quotes,
+  to: path.to.quotes
 };
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
     view: "sales",
-    bypassRls: true,
+    bypassRls: true
   });
 
   const url = new URL(request.url);
@@ -35,8 +35,8 @@ export async function loader({ request }: LoaderFunctionArgs) {
       limit,
       offset,
       sorts,
-      filters,
-    }),
+      filters
+    })
   ]);
 
   if (quotes.error) {
@@ -48,7 +48,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
   return json({
     count: quotes.count ?? 0,
-    quotes: quotes.data ?? [],
+    quotes: quotes.data ?? []
   });
 }
 

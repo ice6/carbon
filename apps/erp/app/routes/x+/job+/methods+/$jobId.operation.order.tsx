@@ -5,13 +5,13 @@ import { requirePermissions } from "@carbon/auth/auth.server";
 import { flash } from "@carbon/auth/session.server";
 import {
   recalculateJobOperationDependencies,
-  updateJobOperationOrder,
+  updateJobOperationOrder
 } from "~/modules/production";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    update: "production",
+    update: "production"
   });
 
   const formData = await request.formData();
@@ -36,7 +36,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     ([id, orderString]) => ({
       id,
       order: Number(orderString),
-      updatedBy: userId,
+      updatedBy: userId
     })
   );
 
@@ -56,7 +56,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
       {
         jobId: jobId,
         companyId: companyId,
-        userId: userId,
+        userId: userId
       }
     );
     if (recalculateDependencies.error)

@@ -8,11 +8,11 @@ import {
   DrawerHeader,
   DrawerTitle,
   HStack,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { useNavigate } from "@remix-run/react";
 import { useState } from "react";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import { Hidden, Input, Submit } from "~/components/Form";
 import { usePermissions } from "~/hooks";
 import type { CompanyPermission } from "~/modules/users";
@@ -43,8 +43,8 @@ const EmployeeTypeForm = ({ initialValues }: EmployeeTypeFormProps) => {
       ...prevPermissions,
       [module]: {
         name: prevPermissions[module].name,
-        permission,
-      },
+        permission
+      }
     }));
   };
 

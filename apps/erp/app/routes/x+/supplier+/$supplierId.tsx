@@ -7,7 +7,7 @@ import { json, redirect } from "@vercel/remix";
 import {
   getSupplier,
   getSupplierContacts,
-  getSupplierLocations,
+  getSupplierLocations
 } from "~/modules/purchasing";
 import SupplierHeader from "~/modules/purchasing/ui/Supplier/SupplierHeader";
 import SupplierSidebar from "~/modules/purchasing/ui/Supplier/SupplierSidebar";
@@ -17,12 +17,12 @@ import { path } from "~/utils/path";
 
 export const handle: Handle = {
   breadcrumb: "Suppliers",
-  to: path.to.suppliers,
+  to: path.to.suppliers
 };
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    view: "purchasing",
+    view: "purchasing"
   });
 
   const { supplierId } = params;
@@ -32,7 +32,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     getSupplier(client, supplierId),
     getSupplierContacts(client, supplierId),
     getSupplierLocations(client, supplierId),
-    getTagsList(client, companyId, "supplier"),
+    getTagsList(client, companyId, "supplier")
   ]);
 
   if (supplier.error) {
@@ -49,7 +49,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     supplier: supplier.data,
     contacts: contacts.data ?? [],
     locations: locations.data ?? [],
-    tags: tags.data ?? [],
+    tags: tags.data ?? []
   });
 }
 

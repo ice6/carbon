@@ -22,21 +22,21 @@ const InventoryPostingGroupsTable = ({
   itemPostingGroups,
   locations,
   balanceSheetAccounts,
-  incomeStatementAccounts,
+  incomeStatementAccounts
 }: InventoryPostingGroupsTableProps) => {
   const { canEdit, onCellEdit } = usePostingGroups("postingGroupInventory");
 
   const balanceSheetAccountOptions = useMemo(() => {
     return balanceSheetAccounts.map((account) => ({
       label: account.number,
-      value: account.number,
+      value: account.number
     }));
   }, [balanceSheetAccounts]);
 
   const incomeStatementAccountOptions = useMemo(() => {
     return incomeStatementAccounts.map((account) => ({
       label: account.number,
-      value: account.number,
+      value: account.number
     }));
   }, [incomeStatementAccounts]);
 
@@ -59,10 +59,10 @@ const InventoryPostingGroupsTable = ({
             type: "static",
             options: itemPostingGroups.map((group) => ({
               label: <Enumerable value={group.name} />,
-              value: group.id,
-            })),
-          },
-        },
+              value: group.id
+            }))
+          }
+        }
       },
       {
         id: "locationId",
@@ -80,81 +80,81 @@ const InventoryPostingGroupsTable = ({
             type: "static",
             options: locations.map((l) => ({
               label: <Enumerable value={l.name} />,
-              value: l.id,
-            })),
-          },
-        },
+              value: l.id
+            }))
+          }
+        }
       },
       {
         accessorKey: "costOfGoodsSoldAccount",
         header: "COGS",
-        cell: (item) => item.getValue(),
+        cell: (item) => item.getValue()
       },
       {
         accessorKey: "inventoryAccount",
         header: "Inventory",
-        cell: (item) => item.getValue(),
+        cell: (item) => item.getValue()
       },
       {
         accessorKey: "inventoryInterimAccrualAccount",
         header: "Inv. Interim Accrual",
-        cell: (item) => item.getValue(),
+        cell: (item) => item.getValue()
       },
       {
         accessorKey: "inventoryReceivedNotInvoicedAccount",
         header: "Received Not Invoiced",
-        cell: (item) => item.getValue(),
+        cell: (item) => item.getValue()
       },
       {
         accessorKey: "inventoryInvoicedNotReceivedAccount",
         header: "Invoiced Not Received",
-        cell: (item) => item.getValue(),
+        cell: (item) => item.getValue()
       },
       {
         accessorKey: "inventoryShippedNotInvoicedAccount",
         header: "Shipped Not Invoiced",
-        cell: (item) => item.getValue(),
+        cell: (item) => item.getValue()
       },
       {
         accessorKey: "workInProgressAccount",
         header: "WIP",
-        cell: (item) => item.getValue(),
+        cell: (item) => item.getValue()
       },
       {
         accessorKey: "directCostAppliedAccount",
         header: "Direct Cost Applied",
-        cell: (item) => item.getValue(),
+        cell: (item) => item.getValue()
       },
       {
         accessorKey: "overheadCostAppliedAccount",
         header: "Overhead Cost Applied",
-        cell: (item) => item.getValue(),
+        cell: (item) => item.getValue()
       },
       {
         accessorKey: "purchaseVarianceAccount",
         header: "Purchase Variance",
-        cell: (item) => item.getValue(),
+        cell: (item) => item.getValue()
       },
       {
         accessorKey: "inventoryAdjustmentVarianceAccount",
         header: "Inv. Adjustment Variance",
-        cell: (item) => item.getValue(),
+        cell: (item) => item.getValue()
       },
       {
         accessorKey: "materialVarianceAccount",
         header: "Material Variance",
-        cell: (item) => item.getValue(),
+        cell: (item) => item.getValue()
       },
       {
         accessorKey: "capacityVarianceAccount",
         header: "Capacity Variance",
-        cell: (item) => item.getValue(),
+        cell: (item) => item.getValue()
       },
       {
         accessorKey: "overheadAccount",
         header: "Overhead",
-        cell: (item) => item.getValue(),
-      },
+        cell: (item) => item.getValue()
+      }
     ];
   }, [locations, itemPostingGroups]);
 
@@ -209,7 +209,7 @@ const InventoryPostingGroupsTable = ({
         onCellEdit,
         incomeStatementAccountOptions
       ),
-      overheadAccount: EditableList(onCellEdit, incomeStatementAccountOptions),
+      overheadAccount: EditableList(onCellEdit, incomeStatementAccountOptions)
     }),
     [onCellEdit, balanceSheetAccountOptions, incomeStatementAccountOptions]
   );

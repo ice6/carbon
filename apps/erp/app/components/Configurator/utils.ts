@@ -3,7 +3,7 @@ import type {
   ConfiguratorDataType,
   MaterialValue,
   Parameter,
-  ReturnType,
+  ReturnType
 } from "./types";
 import { typeMap } from "./types";
 
@@ -14,7 +14,7 @@ export function configureMonaco(monaco: typeof Monaco) {
   // Configure JavaScript defaults
   monaco.languages.typescript.javascriptDefaults.setDiagnosticsOptions({
     noSemanticValidation: false,
-    noSyntaxValidation: false,
+    noSyntaxValidation: false
   });
 
   monaco.languages.typescript.javascriptDefaults.setCompilerOptions({
@@ -24,7 +24,7 @@ export function configureMonaco(monaco: typeof Monaco) {
     module: monaco.languages.typescript.ModuleKind.CommonJS,
     noEmit: true,
     typeRoots: ["node_modules/@types"],
-    strict: true,
+    strict: true
   });
 }
 
@@ -183,7 +183,7 @@ export function getDefaultValue(
         materialTypeId: null,
         dimensionId: "plate-1/4",
         finishId: null,
-        gradeId: "steel-a36",
+        gradeId: "steel-a36"
       };
     case "date":
       return new Date().toISOString();
@@ -236,8 +236,8 @@ export function convertTypescriptToJavaScript(code: string): string {
     return window.ts.transpileModule(code, {
       compilerOptions: {
         // @ts-expect-error - TypeScript compiler is loaded globally
-        target: window.ts.ScriptTarget.ES2020,
-      },
+        target: window.ts.ScriptTarget.ES2020
+      }
     }).outputText;
   }
   return "";

@@ -9,7 +9,7 @@ import { path, requestReferrer } from "~/utils/path";
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client } = await requirePermissions(request, {
-    create: "production",
+    create: "production"
   });
 
   const { orderId } = params;
@@ -18,13 +18,13 @@ export async function action({ request, params }: ActionFunctionArgs) {
   }
 
   const { companyId, userId } = await requirePermissions(request, {
-    create: "production",
+    create: "production"
   });
 
   const salesOrder = await convertSalesOrderLinesToJobs(client, {
     orderId,
     companyId,
-    userId,
+    userId
   });
 
   if (salesOrder.error) {

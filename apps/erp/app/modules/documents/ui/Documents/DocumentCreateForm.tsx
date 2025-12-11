@@ -11,7 +11,7 @@ const DocumentCreateForm = () => {
   const submit = useSubmit();
   const { carbon } = useCarbon();
   const {
-    company: { id: companyId },
+    company: { id: companyId }
   } = useUser();
 
   const uploadFile = async (e: ChangeEvent<HTMLInputElement>) => {
@@ -25,7 +25,7 @@ const DocumentCreateForm = () => {
         .from("private")
         .upload(fileName, file, {
           cacheControl: `${12 * 60 * 60}`,
-          upsert: true,
+          upsert: true
         });
 
       if (fileUpload.error) {
@@ -37,7 +37,7 @@ const DocumentCreateForm = () => {
         submitFileData({
           path: fileUpload.data.path,
           name: file.name,
-          size: file.size,
+          size: file.size
         });
       }
     }
@@ -46,7 +46,7 @@ const DocumentCreateForm = () => {
   const submitFileData = ({
     path: filePath,
     name,
-    size,
+    size
   }: {
     path: string;
     name: string;
@@ -59,7 +59,7 @@ const DocumentCreateForm = () => {
     submit(formData, {
       method: "post",
       action: path.to.newDocument,
-      navigate: false,
+      navigate: false
     });
   };
 

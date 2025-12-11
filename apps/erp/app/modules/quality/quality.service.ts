@@ -19,7 +19,7 @@ import type {
   nonConformanceReviewerValidator,
   nonConformanceStatus,
   qualityDocumentStepValidator,
-  qualityDocumentValidator,
+  qualityDocumentValidator
 } from "./quality.models";
 export async function activateGauge(
   client: SupabaseClient<Database>,
@@ -213,7 +213,7 @@ export async function getGauges(
 
   if (args) {
     query = setGenericQueryFilters(query, args, [
-      { column: "gaugeId", ascending: false },
+      { column: "gaugeId", ascending: false }
     ]);
   }
 
@@ -264,7 +264,7 @@ export async function getGaugeCalibrationRecords(
   if (args) {
     query = setGenericQueryFilters(query, args, [
       { column: "createdAt", ascending: false },
-      { column: "dateCalibrated", ascending: false },
+      { column: "dateCalibrated", ascending: false }
     ]);
   }
 
@@ -316,7 +316,7 @@ export async function getGaugeTypes(
 
   if (args) {
     query = setGenericQueryFilters(query, args, [
-      { column: "name", ascending: true },
+      { column: "name", ascending: true }
     ]);
   }
 
@@ -352,7 +352,7 @@ export async function getIssues(
 
   if (args) {
     query = setGenericQueryFilters(query, args, [
-      { column: "nonConformanceId", ascending: false },
+      { column: "nonConformanceId", ascending: false }
     ]);
   }
 
@@ -441,7 +441,7 @@ export async function getIssueAssociations(
     receiptLines,
     trackedEntities,
     customers,
-    suppliers,
+    suppliers
   ] = await Promise.all([
     // Items
     client
@@ -578,7 +578,7 @@ export async function getIssueAssociations(
       `
       )
       .eq("nonConformanceId", nonConformanceId)
-      .eq("companyId", companyId),
+      .eq("companyId", companyId)
   ]);
 
   return {
@@ -591,7 +591,7 @@ export async function getIssueAssociations(
         documentLineId: "",
         disposition: item.disposition,
         quantity: item.quantity,
-        createdAt: item.createdAt,
+        createdAt: item.createdAt
       })) || [],
     jobOperations:
       jobOperations.data?.map((item) => ({
@@ -601,7 +601,7 @@ export async function getIssueAssociations(
         documentLineId: item.jobOperationId,
         documentReadableId: `${item.jobReadableId || ""} - ${
           item.jobOperation?.process?.name || ""
-        }`,
+        }`
       })) || [],
     purchaseOrderLines:
       purchaseOrderLines.data?.map((item) => ({
@@ -609,7 +609,7 @@ export async function getIssueAssociations(
         type: "purchaseOrderLines",
         documentId: item.purchaseOrderId ?? "",
         documentLineId: item.purchaseOrderLineId,
-        documentReadableId: item.purchaseOrderReadableId || "",
+        documentReadableId: item.purchaseOrderReadableId || ""
       })) || [],
     salesOrderLines:
       salesOrderLines.data?.map((item) => ({
@@ -617,7 +617,7 @@ export async function getIssueAssociations(
         type: "salesOrderLines",
         documentId: item.salesOrderId ?? "",
         documentLineId: item.salesOrderLineId,
-        documentReadableId: item.salesOrderReadableId || "",
+        documentReadableId: item.salesOrderReadableId || ""
       })) || [],
     shipmentLines:
       shipmentLines.data?.map((item) => ({
@@ -625,7 +625,7 @@ export async function getIssueAssociations(
         type: "shipmentLines",
         documentId: item.shipmentId ?? "",
         documentLineId: item.shipmentLineId,
-        documentReadableId: item.shipmentReadableId || "",
+        documentReadableId: item.shipmentReadableId || ""
       })) || [],
     receiptLines:
       receiptLines.data?.map((item) => ({
@@ -633,7 +633,7 @@ export async function getIssueAssociations(
         type: "receiptLines",
         documentId: item.receiptId ?? "",
         documentLineId: item.receiptLineId,
-        documentReadableId: item.receiptReadableId || "",
+        documentReadableId: item.receiptReadableId || ""
       })) || [],
     trackedEntities:
       trackedEntities.data?.map((item) => ({
@@ -641,7 +641,7 @@ export async function getIssueAssociations(
         type: "trackedEntities",
         documentId: item.trackedEntityId ?? "",
         documentLineId: "",
-        documentReadableId: item.trackedEntityId ?? "",
+        documentReadableId: item.trackedEntityId ?? ""
       })) || [],
     customers:
       customers.data?.map((c) => ({
@@ -649,7 +649,7 @@ export async function getIssueAssociations(
         type: "customers",
         documentId: c.customerId ?? "",
         documentLineId: "",
-        documentReadableId: c.customer.name,
+        documentReadableId: c.customer.name
       })) || [],
     suppliers:
       suppliers.data?.map((item) => ({
@@ -657,8 +657,8 @@ export async function getIssueAssociations(
         type: "suppliers",
         documentId: item.supplierId ?? "",
         documentLineId: "",
-        documentReadableId: item.supplier.name,
-      })) || [],
+        documentReadableId: item.supplier.name
+      })) || []
   };
 }
 
@@ -705,7 +705,7 @@ export async function getIssueTasks(
       .select("*")
       .eq("nonConformanceId", id)
       .eq("companyId", companyId)
-      .order("approvalType", { ascending: true }),
+      .order("approvalType", { ascending: true })
   ]);
 }
 
@@ -736,7 +736,7 @@ export async function getIssueTypes(
 
   if (args) {
     query = setGenericQueryFilters(query, args, [
-      { column: "name", ascending: true },
+      { column: "name", ascending: true }
     ]);
   }
 
@@ -760,7 +760,7 @@ export async function getIssueWorkflows(
 
   if (args) {
     query = setGenericQueryFilters(query, args, [
-      { column: "name", ascending: true },
+      { column: "name", ascending: true }
     ]);
   }
 
@@ -808,7 +808,7 @@ export async function getQualityActions(
 
   if (args) {
     query = setGenericQueryFilters(query, args, [
-      { column: "createdAt", ascending: false },
+      { column: "createdAt", ascending: false }
     ]);
   }
 
@@ -858,7 +858,7 @@ export async function getQualityDocuments(
   let query = client
     .from("qualityDocuments")
     .select("*", {
-      count: "exact",
+      count: "exact"
     })
     .eq("companyId", companyId);
 
@@ -868,7 +868,7 @@ export async function getQualityDocuments(
 
   if (args) {
     query = setGenericQueryFilters(query, args, [
-      { column: "name", ascending: true },
+      { column: "name", ascending: true }
     ]);
   }
 
@@ -936,7 +936,7 @@ export async function getRequiredActions(
 
   if (args) {
     query = setGenericQueryFilters(query, args, [
-      { column: "name", ascending: true },
+      { column: "name", ascending: true }
     ]);
   }
 
@@ -992,7 +992,7 @@ export async function updateIssueActionProcesses(
         actionTaskId: actionTaskId,
         processId,
         companyId: companyId,
-        createdBy: createdBy,
+        createdBy: createdBy
       }))
     );
   } else {
@@ -1028,8 +1028,8 @@ export async function updateIssueTaskStatus(
     type === "action" || type === "investigation"
       ? "nonConformanceActionTask"
       : type === "review"
-      ? "nonConformanceReviewer"
-      : "nonConformanceApprovalTask";
+        ? "nonConformanceReviewer"
+        : "nonConformanceApprovalTask";
 
   const finalAssignee = assignee || userId;
 
@@ -1037,7 +1037,7 @@ export async function updateIssueTaskStatus(
   const updateData = {
     status,
     updatedBy: userId,
-    assignee: finalAssignee,
+    assignee: finalAssignee
   };
 
   if (status === "Completed") {
@@ -1066,8 +1066,8 @@ export async function updateIssueTaskContent(
     type === "action"
       ? "nonConformanceActionTask"
       : type === "review"
-      ? "nonConformanceReviewer"
-      : "nonConformanceApprovalTask";
+        ? "nonConformanceReviewer"
+        : "nonConformanceApprovalTask";
 
   return client
     .from(table)
@@ -1154,7 +1154,7 @@ export async function upsertGaugeCalibrationRecord(
   ) {
     const nextCalibrationDate = parseDate(gaugeCalibrationRecord.dateCalibrated)
       .add({
-        months: gauge.data.calibrationIntervalInMonths,
+        months: gauge.data.calibrationIntervalInMonths
       })
       .toString();
 
@@ -1173,7 +1173,7 @@ export async function upsertGaugeCalibrationRecord(
             ? "In-Calibration"
             : gauge.data.lastCalibrationStatus,
         updatedBy: userId,
-        updatedAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
       })
       .eq("id", gaugeCalibrationRecord.gaugeId);
 
@@ -1197,7 +1197,7 @@ export async function upsertGaugeCalibrationRecord(
       sanitize({
         ...gaugeCalibrationRecord,
         updatedBy: userId,
-        updatedAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
       })
     )
     .eq("id", gaugeCalibrationRecord.id);
@@ -1265,7 +1265,7 @@ export async function upsertIssue(
             nonConformanceId: result.data.id,
             itemId: item,
             companyId: nonConformance.companyId,
-            createdBy: nonConformance.createdBy,
+            createdBy: nonConformance.createdBy
           }))
         );
         if (itemInsert.error) {
@@ -1294,8 +1294,8 @@ export async function upsertIssue(
                   nonConformanceId: result.data.id,
                   jobReadableId: job.data?.jobId,
                   companyId: nonConformance.companyId,
-                  createdBy: nonConformance.createdBy,
-                },
+                  createdBy: nonConformance.createdBy
+                }
               ]);
             if (jobOperationInsert.error) {
               console.error(jobOperationInsert);
@@ -1311,8 +1311,8 @@ export async function upsertIssue(
               companyId: nonConformance.companyId,
               createdBy: nonConformance.createdBy,
               customerId: customerId,
-              nonConformanceId: result.data.id,
-            },
+              nonConformanceId: result.data.id
+            }
           ]);
 
         if (customerInsert.error) {
@@ -1336,8 +1336,8 @@ export async function upsertIssue(
                 salesOrderId: salesOrderLine.data.salesOrderId,
                 salesOrderReadableId:
                   salesOrderLine.data.salesOrder.salesOrderId,
-                nonConformanceId: result.data.id,
-              },
+                nonConformanceId: result.data.id
+              }
             ]);
 
           if (salesOrderLineInsert.error) {
@@ -1360,8 +1360,8 @@ export async function upsertIssue(
                 companyId: nonConformance.companyId,
                 createdBy: nonConformance.createdBy,
                 supplierId: operationSupplierProcess.data.supplierId,
-                nonConformanceId: result.data.id,
-              },
+                nonConformanceId: result.data.id
+              }
             ]);
 
           if (nonConformanceSupplierInsert.error) {
@@ -1510,7 +1510,7 @@ export async function upsertQualityDocument(
         .from("qualityDocument")
         .update({
           content: workInstruction,
-          tags: qualityDocument.data.tags,
+          tags: qualityDocument.data.tags
         })
         .eq("id", insert.data.id),
       steps.length > 0
@@ -1520,11 +1520,11 @@ export async function upsertQualityDocument(
               return {
                 ...rest,
                 qualityDocumentId: insert.data.id,
-                companyId: qualityDocument.data.companyId!,
+                companyId: qualityDocument.data.companyId!
               };
             })
           )
-        : Promise.resolve({ data: null, error: null }),
+        : Promise.resolve({ data: null, error: null })
     ]);
 
     if (updateWorkInstructions.error) {

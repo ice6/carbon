@@ -21,7 +21,7 @@ import {
   useDisclosure,
   useKeyboardShortcuts,
   useMount,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { prettifyKeyboardShortcut } from "@carbon/utils";
 import { useDroppable } from "@dnd-kit/core";
@@ -35,7 +35,7 @@ import {
   LuEllipsisVertical,
   LuSearch,
   LuTable,
-  LuTrash,
+  LuTrash
 } from "react-icons/lu";
 import { Empty, ItemThumbnail, MethodItemTypeIcon } from "~/components";
 import { QuoteLineStatusIcon } from "~/components/Icons";
@@ -46,7 +46,7 @@ import {
   usePermissions,
   useRealtime,
   useRouteData,
-  useUser,
+  useUser
 } from "~/hooks";
 import { getLinkToItemDetails } from "~/modules/items/ui/Item/ItemForm";
 import type { MethodItemType } from "~/modules/shared";
@@ -55,7 +55,7 @@ import type {
   Customer,
   Quotation,
   QuotationLine,
-  QuoteMethod,
+  QuoteMethod
 } from "../../types";
 import DeleteQuoteLine from "./DeleteQuoteLine";
 import QuoteBoMExplorer from "./QuoteBoMExplorer";
@@ -87,7 +87,7 @@ export default function QuoteExplorer({ methods }: QuoteExplorerProps) {
     status: "Not Started" as const,
     quantity: [1],
     unitOfMeasureCode: "",
-    taxPercent: quoteData?.customer?.taxPercent ?? 0,
+    taxPercent: quoteData?.customer?.taxPercent ?? 0
   };
 
   useRealtime(
@@ -116,11 +116,11 @@ export default function QuoteExplorer({ methods }: QuoteExplorerProps) {
     "Command+Shift+l": (event: KeyboardEvent) => {
       event.stopPropagation();
       newButtonRef.current?.click();
-    },
+    }
   });
 
   const { setNodeRef: setExplorerRef, isOver: isOverExplorer } = useDroppable({
-    id: "quote-explorer",
+    id: "quote-explorer"
   });
 
   const optimisticDrags = useOptimisticDocumentDrag();
@@ -286,8 +286,8 @@ export function useOptimisticDocumentDrag() {
               itemReadableId: fileName,
               customerPartId: fileName,
               customerPartRevision: "",
-              itemId: `pending-${parsedPayload.id}`,
-            },
+              itemId: `pending-${parsedPayload.id}`
+            }
           ];
         } catch {
           // nothing
@@ -308,11 +308,11 @@ function DroppableQuoteLineItem({
   line,
   isDisabled,
   onDelete,
-  methods,
+  methods
 }: DroppableQuoteLineItemProps) {
   const { setNodeRef, isOver } = useDroppable({
     id: `quote-line-${line.id}`,
-    data: { lineId: line.id },
+    data: { lineId: line.id }
   });
 
   return (
@@ -344,7 +344,7 @@ function QuoteLineItem({
   line,
   isDisabled,
   onDelete,
-  methods,
+  methods
 }: QuoteLineItemProps) {
   const { quoteId, lineId } = useParams();
   if (!quoteId) throw new Error("Could not find quoteId");

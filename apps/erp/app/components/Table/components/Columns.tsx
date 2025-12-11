@@ -10,7 +10,7 @@ import {
   IconButton,
   Tooltip,
   TooltipContent,
-  TooltipTrigger,
+  TooltipTrigger
 } from "@carbon/react";
 import type { Column, ColumnOrderState } from "@tanstack/react-table";
 import { Reorder } from "framer-motion";
@@ -20,7 +20,7 @@ import {
   LuEyeOff,
   LuGripVertical,
   LuPin,
-  LuPinOff,
+  LuPinOff
 } from "react-icons/lu";
 
 type ColumnsProps<T> = {
@@ -34,7 +34,7 @@ const Columns = <T extends object>({
   columns,
   columnOrder,
   withSelectableRows,
-  setColumnOrder,
+  setColumnOrder
 }: ColumnsProps<T>) => {
   return (
     <Drawer>

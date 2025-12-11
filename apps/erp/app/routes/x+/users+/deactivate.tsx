@@ -13,7 +13,7 @@ import { deactivateUsersValidator } from "~/modules/users";
 
 export async function action({ request }: ActionFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    delete: "users",
+    delete: "users"
   });
 
   const validation = await validator(deactivateUsersValidator).validate(
@@ -39,8 +39,8 @@ export async function action({ request }: ActionFunctionArgs) {
       payload: {
         id,
         type: "deactivate" as const,
-        companyId,
-      },
+        companyId
+      }
     }));
 
     try {

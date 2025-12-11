@@ -6,7 +6,7 @@ import {
   CardContent,
   CardFooter,
   CardHeader,
-  CardTitle,
+  CardTitle
 } from "@carbon/react";
 import { useUrlParams } from "@carbon/remix";
 import { Link, useFetcher, useNavigate } from "@remix-run/react";
@@ -20,7 +20,7 @@ type IntegrationsListProps = {
 
 const IntegrationsList = ({
   installedIntegrations,
-  availableIntegrations,
+  availableIntegrations
 }: IntegrationsListProps) => {
   const [params] = useUrlParams();
   const search = params.get("search") || "";
@@ -54,7 +54,7 @@ const IntegrationsList = ({
 
 function IntegrationCard({
   integration,
-  installed,
+  installed
 }: {
   integration: IntegrationConfig;
   installed: boolean;
@@ -71,7 +71,7 @@ function IntegrationCard({
       const formData = new FormData();
       fetcher.submit(formData, {
         method: "post",
-        action: path.to.integration(integration.id),
+        action: path.to.integration(integration.id)
       });
     }
   };

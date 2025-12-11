@@ -3,7 +3,7 @@ import { Outlet } from "@remix-run/react";
 import type { MetaFunction } from "@vercel/remix";
 import {
   CollapsibleSidebarProvider,
-  ContentSidebar,
+  ContentSidebar
 } from "~/components/Layout/Navigation";
 import { useDocumentsSubmodules } from "~/modules/documents";
 import type { Handle } from "~/utils/handle";
@@ -16,7 +16,7 @@ export const meta: MetaFunction = () => {
 export const handle: Handle = {
   breadcrumb: "Documents",
   to: path.to.documents,
-  module: "documents",
+  module: "documents"
 };
 
 export default function DocumentsRoute() {

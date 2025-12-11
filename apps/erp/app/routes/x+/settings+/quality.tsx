@@ -9,7 +9,7 @@ import {
   Label,
   ScrollArea,
   toast,
-  VStack,
+  VStack
 } from "@carbon/react";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@vercel/remix";
 import { json, redirect } from "@vercel/remix";
@@ -20,7 +20,7 @@ import { flash } from "@carbon/auth/session.server";
 import { Submit, ValidatedForm, validator } from "@carbon/form";
 import { useFetcher, useLoaderData } from "@remix-run/react";
 import { useEffect } from "react";
-import { z } from 'zod/v3';
+import { z } from "zod/v3";
 import { Users } from "~/components/Form";
 import { getCompanySettings } from "~/modules/settings";
 import type { Handle } from "~/utils/handle";
@@ -28,16 +28,16 @@ import { path } from "~/utils/path";
 
 export const handle: Handle = {
   breadcrumb: "Quality",
-  to: path.to.qualitySettings,
+  to: path.to.qualitySettings
 };
 
 const gaugeCalibrationValidator = z.object({
-  gaugeCalibrationExpiredNotificationGroup: z.array(z.string()).optional(),
+  gaugeCalibrationExpiredNotificationGroup: z.array(z.string()).optional()
 });
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    view: "settings",
+    view: "settings"
   });
 
   const companySettings = await getCompanySettings(client, companyId);
@@ -55,7 +55,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
 export async function action({ request }: ActionFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    update: "settings",
+    update: "settings"
   });
 
   const formData = await request.formData();
@@ -71,7 +71,7 @@ export async function action({ request }: ActionFunctionArgs) {
     .from("companySettings")
     .update({
       gaugeCalibrationExpiredNotificationGroup:
-        validation.data.gaugeCalibrationExpiredNotificationGroup ?? [],
+        validation.data.gaugeCalibrationExpiredNotificationGroup ?? []
     })
     .eq("id", companyId);
 
@@ -80,7 +80,7 @@ export async function action({ request }: ActionFunctionArgs) {
 
   return json({
     success: true,
-    message: "Gauge calibration notification settings updated",
+    message: "Gauge calibration notification settings updated"
   });
 }
 
@@ -112,7 +112,7 @@ export default function QualitySettingsRoute() {
             validator={gaugeCalibrationValidator}
             defaultValues={{
               gaugeCalibrationExpiredNotificationGroup:
-                companySettings.gaugeCalibrationExpiredNotificationGroup ?? [],
+                companySettings.gaugeCalibrationExpiredNotificationGroup ?? []
             }}
             fetcher={fetcher}
           >

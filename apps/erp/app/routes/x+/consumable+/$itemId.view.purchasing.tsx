@@ -14,21 +14,21 @@ import type { SupplierPart } from "~/modules/items";
 import {
   getItemReplenishment,
   itemPurchasingValidator,
-  upsertItemPurchasing,
+  upsertItemPurchasing
 } from "~/modules/items";
 import { ItemPurchasingForm, SupplierParts } from "~/modules/items/ui/Item";
 import { path } from "~/utils/path";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    view: "parts",
+    view: "parts"
   });
 
   const { itemId } = params;
   if (!itemId) throw new Error("Could not find itemId");
 
   const [consumablePurchasingResult] = await Promise.all([
-    getItemReplenishment(client, itemId, companyId),
+    getItemReplenishment(client, itemId, companyId)
   ]);
 
   if (consumablePurchasingResult.error) {
@@ -46,14 +46,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
   return defer({
     consumablePurchasing: consumablePurchasingResult.data,
-    batchProperties: getBatchProperties(client, [itemId], companyId),
+    batchProperties: getBatchProperties(client, [itemId], companyId)
   });
 }
 
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    update: "parts",
+    update: "parts"
   });
 
   const { itemId } = params;
@@ -71,7 +71,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   const updateConsumablePurchasing = await upsertItemPurchasing(client, {
     ...validation.data,
     itemId,
-    updatedBy: userId,
+    updatedBy: userId
   });
   if (updateConsumablePurchasing.error) {
     throw redirect(
@@ -114,7 +114,7 @@ export default function ConsumablePurchasingRoute() {
     purchasingBlocked: consumablePurchasing?.purchasingBlocked ?? false,
     purchasingUnitOfMeasureCode:
       consumablePurchasing?.purchasingUnitOfMeasureCode ?? "",
-    conversionFactor: consumablePurchasing?.conversionFactor ?? 1,
+    conversionFactor: consumablePurchasing?.conversionFactor ?? 1
   };
 
   return (

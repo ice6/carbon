@@ -6,19 +6,21 @@ import {
   copyQuoteLine,
   getMethodValidator,
   upsertQuoteLineMethod,
-  upsertQuoteMaterialMakeMethod,
+  upsertQuoteMaterialMakeMethod
 } from "~/modules/sales";
 import { path, requestReferrer } from "~/utils/path";
 
 export async function action({ request }: ActionFunctionArgs) {
   const { companyId, userId } = await requirePermissions(request, {
-    update: "sales",
+    update: "sales"
   });
 
   const formData = await request.formData();
   const type = formData.get("type") as string;
   const configurationStr = formData.get("configuration") as string | null;
-  const configuration = configurationStr ? JSON.parse(configurationStr) : undefined;
+  const configuration = configurationStr
+    ? JSON.parse(configurationStr)
+    : undefined;
 
   const serviceRole = getCarbonServiceRole();
   if (type === "item") {
@@ -35,18 +37,21 @@ export async function action({ request }: ActionFunctionArgs) {
       quoteId,
       quoteLineId,
       companyId,
-      userId,
+      userId
     };
-    
+
     // Only add configuration if it exists
     if (configuration !== undefined) {
       lineMethodPayload.configuration = configuration;
     }
-    
-    const lineMethod = await upsertQuoteLineMethod(serviceRole, lineMethodPayload);
+
+    const lineMethod = await upsertQuoteLineMethod(
+      serviceRole,
+      lineMethodPayload
+    );
 
     return json({
-      error: lineMethod.error ? "Failed to get quote line method" : null,
+      error: lineMethod.error ? "Failed to get quote line method" : null
     });
   }
 
@@ -59,11 +64,11 @@ export async function action({ request }: ActionFunctionArgs) {
     const copyLine = await copyQuoteLine(serviceRole, {
       ...validation.data,
       companyId,
-      userId,
+      userId
     });
 
     return json({
-      error: copyLine.error ? "Failed to copy quote line" : null,
+      error: copyLine.error ? "Failed to copy quote line" : null
     });
   }
 
@@ -76,21 +81,24 @@ export async function action({ request }: ActionFunctionArgs) {
     const makeMethodPayload: any = {
       ...validation.data,
       companyId,
-      userId,
+      userId
     };
-    
+
     // Only add configuration if it exists
     if (configuration !== undefined) {
       makeMethodPayload.configuration = configuration;
     }
-    
-    const makeMethod = await upsertQuoteMaterialMakeMethod(serviceRole, makeMethodPayload);
+
+    const makeMethod = await upsertQuoteMaterialMakeMethod(
+      serviceRole,
+      makeMethodPayload
+    );
 
     if (makeMethod.error) {
       return json({
         error: makeMethod.error
           ? "Failed to insert quote material make method"
-          : null,
+          : null
       });
     }
 

@@ -4,13 +4,13 @@ import {
   Heading,
   Preview,
   Section,
-  Text,
+  Text
 } from "@react-email/components";
 import { Logo } from "./components/Logo";
 import {
   EmailThemeProvider,
   getEmailInlineStyles,
-  getEmailThemeClasses,
+  getEmailThemeClasses
 } from "./components/Theme";
 
 interface Props {
@@ -20,7 +20,7 @@ interface Props {
 
 export const VerificationEmail = ({
   email = "user@example.com",
-  verificationCode = "123456",
+  verificationCode = "123456"
 }: Props) => {
   const text = `Your verification code is ${verificationCode}`;
   const themeClasses = getEmailThemeClasses();
@@ -37,7 +37,7 @@ export const VerificationEmail = ({
           style={{
             borderStyle: "solid",
             borderWidth: 1,
-            borderColor: lightStyles.container.borderColor,
+            borderColor: lightStyles.container.borderColor
           }}
         >
           <Logo />
@@ -63,7 +63,7 @@ export const VerificationEmail = ({
                 padding: "20px 40px",
                 backgroundColor: "#f8f9fa",
                 borderRadius: "8px",
-                border: "1px solid #e9ecef",
+                border: "1px solid #e9ecef"
               }}
             >
               <Text
@@ -73,7 +73,7 @@ export const VerificationEmail = ({
                   fontWeight: "bold",
                   letterSpacing: "8px",
                   color: "#333",
-                  margin: 0,
+                  margin: 0
                 }}
               >
                 {verificationCode}
@@ -94,7 +94,7 @@ export const VerificationEmail = ({
             style={{
               color: lightStyles.text.color,
               fontSize: "14px",
-              opacity: 0.7,
+              opacity: 0.7
             }}
           >
             If you're having trouble, you can reply to this email or contact us

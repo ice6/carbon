@@ -10,7 +10,7 @@ export const meta: MetaFunction = () => {
 export const handle: Handle = {
   breadcrumb: "Sales",
   to: path.to.sales,
-  module: "sales",
+  module: "sales"
 };
 
 export default function SalesRFQRoute() {

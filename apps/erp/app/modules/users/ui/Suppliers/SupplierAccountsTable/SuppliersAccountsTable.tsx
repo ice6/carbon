@@ -5,7 +5,7 @@ import {
   HStack,
   MenuIcon,
   MenuItem,
-  useDisclosure,
+  useDisclosure
 } from "@carbon/react";
 import type { ColumnDef } from "@tanstack/react-table";
 import { memo, useCallback, useMemo, useState } from "react";
@@ -16,7 +16,7 @@ import {
   LuMailCheck,
   LuStar,
   LuUser,
-  LuUserCheck,
+  LuUserCheck
 } from "react-icons/lu";
 import { Avatar, New, Table } from "~/components";
 import { Enumerable } from "~/components/Enumerable";
@@ -25,7 +25,7 @@ import type { Supplier } from "~/modules/users";
 import {
   DeactivateUsersModal,
   ResendInviteModal,
-  RevokeInviteModal,
+  RevokeInviteModal
 } from "~/modules/users";
 import { useSuppliers } from "~/stores";
 import type { ListItem } from "~/types";
@@ -39,7 +39,7 @@ type SupplierAccountsTableProps = {
 
 const defaultColumnVisibility = {
   user_firstName: false,
-  user_lastName: false,
+  user_lastName: false
 };
 
 const SupplierAccountsTable = memo(
@@ -91,8 +91,8 @@ const SupplierAccountsTable = memo(
             </HStack>
           ),
           meta: {
-            icon: <LuUser />,
-          },
+            icon: <LuUser />
+          }
         },
 
         {
@@ -100,24 +100,24 @@ const SupplierAccountsTable = memo(
           header: "First Name",
           cell: (item) => item.getValue(),
           meta: {
-            icon: <LuUserCheck />,
-          },
+            icon: <LuUserCheck />
+          }
         },
         {
           accessorKey: "user.lastName",
           header: "Last Name",
           cell: (item) => item.getValue(),
           meta: {
-            icon: <LuUserCheck />,
-          },
+            icon: <LuUserCheck />
+          }
         },
         {
           accessorKey: "user.email",
           header: "Email",
           cell: (item) => item.getValue(),
           meta: {
-            icon: <LuMail />,
-          },
+            icon: <LuMail />
+          }
         },
         {
           accessorKey: "supplier.name",
@@ -129,10 +129,10 @@ const SupplierAccountsTable = memo(
               type: "static",
               options: suppliers.map(({ name }) => ({
                 value: name,
-                label: name,
-              })),
-            },
-          },
+                label: name
+              }))
+            }
+          }
         },
         {
           accessorKey: "supplier.supplierTypeId",
@@ -147,10 +147,10 @@ const SupplierAccountsTable = memo(
               type: "static",
               options: supplierTypes.map((type) => ({
                 value: type.id,
-                label: <Enumerable value={type.name} />,
-              })),
-            },
-          },
+                label: <Enumerable value={type.name} />
+              }))
+            }
+          }
         },
         {
           accessorKey: "active",
@@ -163,16 +163,16 @@ const SupplierAccountsTable = memo(
               options: [
                 {
                   value: "true",
-                  label: "Active",
+                  label: "Active"
                 },
                 {
                   value: "false",
-                  label: "Inactive",
-                },
-              ],
-            },
-          },
-        },
+                  label: "Inactive"
+                }
+              ]
+            }
+          }
+        }
       ];
     }, [supplierTypes, suppliers]);
 
@@ -269,7 +269,7 @@ const SupplierAccountsTable = memo(
         deactivateSupplierModal,
         permissions,
         resendInviteModal,
-        revokeInviteModal,
+        revokeInviteModal
       ]
     );
 

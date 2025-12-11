@@ -14,7 +14,7 @@ export const meta: MetaFunction = () => {
 export const handle: Handle = {
   breadcrumb: "Users",
   to: path.to.employeeAccounts,
-  module: "users",
+  module: "users"
 };
 
 export default function UsersRoute() {

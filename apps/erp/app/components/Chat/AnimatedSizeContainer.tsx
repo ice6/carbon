@@ -4,7 +4,7 @@ import {
   type ComponentPropsWithoutRef,
   type PropsWithChildren,
   forwardRef,
-  useRef,
+  useRef
 } from "react";
 import { useResizeObserver } from "~/hooks/useResizeObserver";
 
@@ -30,11 +30,11 @@ const AnimatedSizeContainer = forwardRef<
       children,
       ...rest
     }: AnimatedSizeContainerProps,
-    forwardedRef,
+    forwardedRef
   ) => {
     const containerRef = useRef<HTMLDivElement>(null);
     const resizeObserverEntry = useResizeObserver(
-      containerRef as React.RefObject<Element>,
+      containerRef as React.RefObject<Element>
     );
 
     return (
@@ -47,7 +47,7 @@ const AnimatedSizeContainer = forwardRef<
             : "auto",
           height: height
             ? (resizeObserverEntry?.contentRect?.height ?? "auto")
-            : "auto",
+            : "auto"
         }}
         transition={transition ?? { type: "spring", duration: 0.3 }}
         {...rest}
@@ -60,7 +60,7 @@ const AnimatedSizeContainer = forwardRef<
         </div>
       </motion.div>
     );
-  },
+  }
 );
 
 AnimatedSizeContainer.displayName = "AnimatedSizeContainer";

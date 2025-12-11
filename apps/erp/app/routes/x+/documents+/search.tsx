@@ -10,14 +10,14 @@ import {
   DocumentsTable,
   getDocumentExtensions,
   getDocumentLabels,
-  getDocuments,
+  getDocuments
 } from "~/modules/documents";
 import { path } from "~/utils/path";
 import { getGenericQueryFilters } from "~/utils/query";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId, userId } = await requirePermissions(request, {
-    view: "documents",
+    view: "documents"
   });
 
   const url = new URL(request.url);
@@ -43,10 +43,10 @@ export async function loader({ request }: LoaderFunctionArgs) {
       limit,
       offset,
       sorts,
-      filters,
+      filters
     }),
     getDocumentLabels(client, userId),
-    getDocumentExtensions(client),
+    getDocumentExtensions(client)
   ]);
 
   if (documents.error) {
@@ -60,7 +60,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
     count: documents.count ?? 0,
     documents: (documents.data ?? []) as Document[],
     labels: labels.data ?? [],
-    extensions: extensions.data?.map(({ extension }) => extension) ?? [],
+    extensions: extensions.data?.map(({ extension }) => extension) ?? []
   });
 }
 

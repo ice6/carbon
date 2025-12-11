@@ -7,20 +7,20 @@ import {
   CardTitle,
   Copy,
   toast,
-  VStack,
+  VStack
 } from "@carbon/react";
 import {
   useFetcher,
   useLocation,
   useNavigate,
-  useParams,
+  useParams
 } from "@remix-run/react";
 
 import { useCarbon } from "@carbon/auth";
 import { ValidatedForm } from "@carbon/form";
 import { getItemReadableId } from "@carbon/utils";
 import { useEffect, useState } from "react";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import {
   DefaultMethodType,
   Hidden,
@@ -30,7 +30,7 @@ import {
   NumberControlled,
   Select,
   Submit,
-  UnitOfMeasure,
+  UnitOfMeasure
 } from "~/components/Form";
 import { usePermissions } from "~/hooks";
 import type { MethodItemType, MethodType } from "~/modules/shared";
@@ -48,7 +48,7 @@ type QuoteMaterialFormProps = {
 
 const QuoteMaterialForm = ({
   initialValues,
-  operations,
+  operations
 }: QuoteMaterialFormProps) => {
   const fetcher = useFetcher<{ id: string; methodType: MethodType }>();
   const { carbon } = useCarbon();
@@ -77,7 +77,7 @@ const QuoteMaterialForm = ({
     description: initialValues.description ?? "",
     unitCost: initialValues.unitCost ?? 0,
     unitOfMeasureCode: initialValues.unitOfMeasureCode ?? "EA",
-    quantity: initialValues.quantity ?? 1,
+    quantity: initialValues.quantity ?? 1
   });
 
   const onTypeChange = (value: MethodItemType | "Item") => {
@@ -89,7 +89,7 @@ const QuoteMaterialForm = ({
       quantity: 1,
       description: "",
       unitCost: 0,
-      unitOfMeasureCode: "EA",
+      unitOfMeasureCode: "EA"
     });
   };
 
@@ -104,7 +104,7 @@ const QuoteMaterialForm = ({
         )
         .eq("id", itemId)
         .single(),
-      carbon.from("itemCost").select("unitCost").eq("itemId", itemId).single(),
+      carbon.from("itemCost").select("unitCost").eq("itemId", itemId).single()
     ]);
 
     if (item.error) {
@@ -118,7 +118,7 @@ const QuoteMaterialForm = ({
       description: item.data?.name ?? "",
       unitCost: itemCost.data?.unitCost ?? 0,
       unitOfMeasureCode: item.data?.unitOfMeasureCode ?? "EA",
-      methodType: item.data?.defaultMethodType ?? "Buy",
+      methodType: item.data?.defaultMethodType ?? "Buy"
     }));
   };
 
@@ -143,7 +143,7 @@ const QuoteMaterialForm = ({
     location.pathname,
     navigate,
     quoteId,
-    setSelectedMaterialId,
+    setSelectedMaterialId
   ]);
 
   const [items] = useItems();
@@ -197,7 +197,7 @@ const QuoteMaterialForm = ({
                 isClearable
                 options={operations.map((o) => ({
                   value: o.id!,
-                  label: o.description,
+                  label: o.description
                 }))}
               />
 
@@ -214,7 +214,7 @@ const QuoteMaterialForm = ({
                 onChange={(newValue) =>
                   setItemData((d) => ({
                     ...d,
-                    unitOfMeasureCode: newValue?.value ?? "EA",
+                    unitOfMeasureCode: newValue?.value ?? "EA"
                   }))
                 }
               />

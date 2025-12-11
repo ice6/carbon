@@ -18,7 +18,7 @@ import {
   getProductionQuantitiesForJobOperation,
   getThumbnailPathByItemId,
   getTrackedEntitiesByMakeMethodId,
-  getWorkCenter,
+  getWorkCenter
 } from "~/services/operations.service";
 import type { OperationWithDetails } from "~/services/types";
 import { makeDurations } from "~/utils/durations";
@@ -38,11 +38,11 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   const [events, quantities, job, operation] = await Promise.all([
     getProductionEventsForJobOperation(serviceRole, {
       operationId,
-      userId,
+      userId
     }),
     getProductionQuantitiesForJobOperation(serviceRole, operationId),
     getJobByOperationId(serviceRole, operationId),
-    getJobOperationById(serviceRole, operationId),
+    getJobOperationById(serviceRole, operationId)
   ]);
 
   if (job.error) {
@@ -74,7 +74,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
         operation.data?.[0].jobMakeMethodId
       ),
       getJobMakeMethod(serviceRole, operation.data?.[0].jobMakeMethodId),
-      getKanbanByJobId(serviceRole, job.data.id),
+      getKanbanByJobId(serviceRole, job.data.id)
     ]);
 
   // If no trackedEntityId is provided in the URL but trackedEntities exist,
@@ -124,18 +124,18 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
       operation: operation.data?.[0],
       trackedEntityId: trackedEntityId ?? trackedEntities?.data?.[0]?.id,
       requiresSerialTracking:
-        jobMakeMethod.data?.requiresSerialTracking ?? false,
+        jobMakeMethod.data?.requiresSerialTracking ?? false
     }),
     trackedEntities: trackedEntities.data ?? [],
     nonConformanceActions: getNonConformanceActions(serviceRole, {
       itemId: operation.data?.[0].itemId,
       processId: operation.data?.[0].processId,
-      companyId,
+      companyId
     }),
     operation: makeDurations(operation.data?.[0]) as OperationWithDetails,
     procedure: getJobOperationProcedure(serviceRole, operation.data?.[0].id),
     workCenter: getWorkCenter(serviceRole, operation.data?.[0].workCenterId),
-    thumbnailPath,
+    thumbnailPath
   });
 }
 
@@ -155,7 +155,7 @@ export default function OperationRoute() {
     thumbnailPath,
     trackedEntities,
     workCenter,
-    nonConformanceActions,
+    nonConformanceActions
   } = useLoaderData<typeof loader>();
 
   return (

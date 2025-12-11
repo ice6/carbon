@@ -34,9 +34,9 @@ const CustomerStatusesTable = memo(
             </Hyperlink>
           ),
           meta: {
-            icon: <LuStar />,
-          },
-        },
+            icon: <LuStar />
+          }
+        }
       ];
       return [...defaultColumns, ...customColumns];
     }, [customColumns]);

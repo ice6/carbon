@@ -36,14 +36,14 @@ const RequiredActionsTable = memo(
             </Hyperlink>
           ),
           meta: {
-            icon: <LuSquareCheck />,
-          },
+            icon: <LuSquareCheck />
+          }
         },
         {
           accessorKey: "active",
           header: "Active",
-          cell: ({ row }) => <Checkbox checked={row.original.active} />,
-        },
+          cell: ({ row }) => <Checkbox checked={row.original.active} />
+        }
       ];
       return defaultColumns;
     }, []);

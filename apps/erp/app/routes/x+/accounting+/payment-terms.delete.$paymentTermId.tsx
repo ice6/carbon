@@ -12,7 +12,7 @@ import { getCompanyId, paymentTermsQuery } from "~/utils/react-query";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
-    view: "accounting",
+    view: "accounting"
   });
   const { paymentTermId } = params;
   if (!paymentTermId) throw notFound("paymentTermId not found");
@@ -33,7 +33,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
 export async function action({ request, params }: ActionFunctionArgs) {
   const { client } = await requirePermissions(request, {
-    delete: "accounting",
+    delete: "accounting"
   });
 
   const { paymentTermId } = params;

@@ -6,7 +6,7 @@ import { getBase64ImageFromSupabase } from "~/modules/shared";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
-    view: "inventory",
+    view: "inventory"
   });
 
   const { action } = params;
@@ -86,7 +86,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
         supplierName: kanban.supplierName,
         quantity: kanban.quantity ?? 0,
         unitOfMeasureCode: kanban.purchaseUnitOfMeasureCode,
-        thumbnail: thumbnails[kanban.id!] || null,
+        thumbnail: thumbnails[kanban.id!] || null
       };
 
       labels.push(labelData);
@@ -119,7 +119,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
   const headers = new Headers({
     "Content-Type": "application/pdf",
-    "Content-Disposition": `inline; filename="Kanban Labels.pdf"`,
+    "Content-Disposition": `inline; filename="Kanban Labels.pdf"`
   });
 
   // @ts-ignore

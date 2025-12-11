@@ -5,7 +5,7 @@ import type { PurchaseInvoiceLine } from "../../types";
 
 export default function DeletePurchaseInvoiceLine({
   line,
-  onCancel,
+  onCancel
 }: {
   line: PurchaseInvoiceLine;
   onCancel: () => void;

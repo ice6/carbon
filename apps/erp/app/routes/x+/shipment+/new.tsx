@@ -10,12 +10,12 @@ import { path } from "~/utils/path";
 
 export const handle: Handle = {
   breadcrumb: "Shipments",
-  to: path.to.shipments,
+  to: path.to.shipments
 };
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId, userId } = await requirePermissions(request, {
-    create: "inventory",
+    create: "inventory"
   });
 
   const url = new URL(request.url);
@@ -38,9 +38,9 @@ export async function loader({ request }: LoaderFunctionArgs) {
           locationId: defaults.data?.locationId,
           salesOrderId: sourceDocumentId,
           shipmentId: undefined,
-          userId: userId,
+          userId: userId
         },
-        region: FunctionRegion.UsEast1,
+        region: FunctionRegion.UsEast1
       });
       if (!salesOrderShipment.data || salesOrderShipment.error) {
         console.error(salesOrderShipment.error);
@@ -64,9 +64,9 @@ export async function loader({ request }: LoaderFunctionArgs) {
           locationId: defaults.data?.locationId,
           purchaseOrderId: sourceDocumentId,
           shipmentId: undefined,
-          userId: userId,
+          userId: userId
         },
-        region: FunctionRegion.UsEast1,
+        region: FunctionRegion.UsEast1
       });
       if (!purchaseOrderShipment.data || purchaseOrderShipment.error) {
         console.error(purchaseOrderShipment.error);
@@ -89,9 +89,9 @@ export async function loader({ request }: LoaderFunctionArgs) {
           companyId,
           warehouseTransferId: sourceDocumentId,
           shipmentId: undefined,
-          userId: userId,
+          userId: userId
         },
-        region: FunctionRegion.UsEast1,
+        region: FunctionRegion.UsEast1
       });
       if (!warehouseTransferShipment.data || warehouseTransferShipment.error) {
         console.error(warehouseTransferShipment.error);
@@ -115,9 +115,9 @@ export async function loader({ request }: LoaderFunctionArgs) {
           type: "shipmentDefault",
           companyId,
           locationId: defaults.data?.locationId,
-          userId: userId,
+          userId: userId
         },
-        region: FunctionRegion.UsEast1,
+        region: FunctionRegion.UsEast1
       });
 
       if (!defaultShipment.data || defaultShipment.error) {

@@ -15,7 +15,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const result = await getAccountsList(client, companyId, {
     type,
     incomeBalance,
-    classes,
+    classes
   });
 
   return json(result);

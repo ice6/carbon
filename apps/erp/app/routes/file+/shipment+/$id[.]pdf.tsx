@@ -8,18 +8,18 @@ import {
   getShipment,
   getShipmentLinesWithDetails,
   getShipmentTracking,
-  getShippingMethod,
+  getShippingMethod
 } from "~/modules/inventory";
 import {
   getPurchaseOrder,
   getPurchaseOrderDelivery,
-  getSupplierLocation,
+  getSupplierLocation
 } from "~/modules/purchasing";
 import {
   getCustomerLocation,
   getSalesOrder,
   getSalesOrderShipment,
-  getSalesTerms,
+  getSalesTerms
 } from "~/modules/sales";
 import { getCompany } from "~/modules/settings";
 import { getBase64ImageFromSupabase } from "~/modules/shared";
@@ -28,7 +28,7 @@ import { getCarbonServiceRole } from "@carbon/auth";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    view: "inventory",
+    view: "inventory"
   });
 
   const { id } = params;
@@ -37,7 +37,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   const [company, shipment, shipmentLines] = await Promise.all([
     getCompany(client, companyId),
     getShipment(client, id),
-    getShipmentLinesWithDetails(client, id),
+    getShipmentLinesWithDetails(client, id)
   ]);
 
   if (company.error) {
@@ -75,7 +75,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     case "Sales Order": {
       const [salesOrder, salesOrderShipment] = await Promise.all([
         getSalesOrder(serviceRole, shipment.data.sourceDocumentId),
-        getSalesOrderShipment(serviceRole, shipment.data.sourceDocumentId),
+        getSalesOrderShipment(serviceRole, shipment.data.sourceDocumentId)
       ]);
 
       const [
@@ -83,7 +83,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
         customerLocation,
         paymentTerm,
         shippingMethod,
-        shipmentTracking,
+        shipmentTracking
       ] = await Promise.all([
         serviceRole
           .from("customer")
@@ -101,7 +101,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
             salesOrderShipment.data?.shippingMethodId ??
             ""
         ),
-        getShipmentTracking(serviceRole, shipment.data.id, companyId),
+        getShipmentTracking(serviceRole, shipment.data.id, companyId)
       ]);
 
       if (customer.error) {
@@ -128,7 +128,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
                 return getBase64ImageFromSupabase(serviceRole, path).then(
                   (data) => ({
                     id,
-                    data,
+                    data
                   })
                 );
               })
@@ -149,7 +149,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
           meta={{
             author: "Carbon",
             keywords: "packing slip",
-            subject: "Packing Slip",
+            subject: "Packing Slip"
           }}
           customerReference={salesOrder.data?.customerReference ?? undefined}
           sourceDocument="Sales Order"
@@ -198,7 +198,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
         customerLocation,
         paymentTerm,
         shippingMethod,
-        shipmentTracking,
+        shipmentTracking
       ] = await Promise.all([
         serviceRole
           .from("customer")
@@ -213,7 +213,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
             salesInvoice.data?.salesInvoiceShipment?.shippingMethodId ??
             ""
         ),
-        getShipmentTracking(serviceRole, shipment.data.id, companyId),
+        getShipmentTracking(serviceRole, shipment.data.id, companyId)
       ]);
 
       if (customer.error) {
@@ -240,7 +240,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
                 return getBase64ImageFromSupabase(serviceRole, path).then(
                   (data) => ({
                     id,
-                    data,
+                    data
                   })
                 );
               })
@@ -261,7 +261,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
           meta={{
             author: "Carbon",
             keywords: "packing slip",
-            subject: "Packing Slip",
+            subject: "Packing Slip"
           }}
           customerReference={salesInvoice.data?.customerReference ?? undefined}
           sourceDocument="Sales Invoice"
@@ -296,7 +296,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     case "Purchase Order": {
       const [purchaseOrder, purchaseOrderDelivery] = await Promise.all([
         getPurchaseOrder(client, shipment.data.sourceDocumentId),
-        getPurchaseOrderDelivery(client, shipment.data.sourceDocumentId),
+        getPurchaseOrderDelivery(client, shipment.data.sourceDocumentId)
       ]);
 
       const [
@@ -304,7 +304,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
         supplierLocation,
         poPaymentTerm,
         poShippingMethod,
-        poShipmentTracking,
+        poShipmentTracking
       ] = await Promise.all([
         client
           .from("supplier")
@@ -320,7 +320,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
           client,
           purchaseOrderDelivery.data?.shippingMethodId ?? ""
         ),
-        getShipmentTracking(client, shipment.data.id, companyId),
+        getShipmentTracking(client, shipment.data.id, companyId)
       ]);
 
       if (supplier.error) {
@@ -347,7 +347,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
                 return getBase64ImageFromSupabase(client, path).then(
                   (data) => ({
                     id,
-                    data,
+                    data
                   })
                 );
               })
@@ -368,7 +368,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
           meta={{
             author: "Carbon",
             keywords: "packing slip",
-            subject: "Packing Slip",
+            subject: "Packing Slip"
           }}
           customerReference={purchaseOrder.data?.supplierReference ?? undefined}
           sourceDocument="Purchase Order"
@@ -399,7 +399,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
       const poHeaders = new Headers({
         "Content-Type": "application/pdf",
-        "Content-Disposition": `inline; filename="${shipment.data.shipmentId}.pdf"`,
+        "Content-Disposition": `inline; filename="${shipment.data.shipmentId}.pdf"`
       });
       return new Response(poBody, { status: 200, headers: poHeaders });
     }

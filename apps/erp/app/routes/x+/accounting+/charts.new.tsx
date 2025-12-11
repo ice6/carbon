@@ -8,7 +8,7 @@ import type {
   AccountClass,
   AccountConsolidatedRate,
   AccountIncomeBalance,
-  AccountType,
+  AccountType
 } from "~/modules/accounting";
 import { accountValidator, upsertAccount } from "~/modules/accounting";
 import { ChartOfAccountForm } from "~/modules/accounting/ui/ChartOfAccounts";
@@ -17,7 +17,7 @@ import { path } from "~/utils/path";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   await requirePermissions(request, {
-    create: "accounting",
+    create: "accounting"
   });
 
   return null;
@@ -26,7 +26,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    create: "accounting",
+    create: "accounting"
   });
 
   const formData = await request.formData();
@@ -42,7 +42,7 @@ export async function action({ request }: ActionFunctionArgs) {
     ...data,
     companyId,
     customFields: setCustomFields(formData),
-    createdBy: userId,
+    createdBy: userId
   });
   if (insertAccount.error) {
     return json(
@@ -77,7 +77,7 @@ export default function NewAccountRoute() {
     class: "Asset" as AccountClass,
     incomeBalance: "Balance Sheet" as AccountIncomeBalance,
     consolidatedRate: "Average" as AccountConsolidatedRate,
-    directPosting: false,
+    directPosting: false
   };
 
   return <ChartOfAccountForm initialValues={initialValues} />;

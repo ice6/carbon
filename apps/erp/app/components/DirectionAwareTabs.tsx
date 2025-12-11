@@ -24,7 +24,7 @@ function DirectionAwareTabs({
   tabs,
   className,
   rounded,
-  onChange,
+  onChange
 }: OgImageSectionProps) {
   const [activeTab, setActiveTab] = useState(0);
   const [direction, setDirection] = useState(0);
@@ -49,29 +49,29 @@ function DirectionAwareTabs({
     initial: (direction: number) => ({
       x: 300 * direction,
       opacity: 0,
-      filter: "blur(4px)",
+      filter: "blur(4px)"
     }),
     active: {
       x: 0,
       opacity: 1,
-      filter: "blur(0px)",
+      filter: "blur(0px)"
     },
     exit: (direction: number) => ({
       x: -300 * direction,
       opacity: 0,
-      filter: "blur(4px)",
-    }),
+      filter: "blur(4px)"
+    })
   };
 
   return (
     <motion.div
       initial={{
         opacity: 0,
-        filter: "blur(4px)",
+        filter: "blur(4px)"
       }}
       animate={{
         opacity: 1,
-        filter: "blur(0px)",
+        filter: "blur(0px)"
       }}
       transition={{ duration: 0.2, delay: 0.3 }}
       className="flex flex-col items-center w-full"

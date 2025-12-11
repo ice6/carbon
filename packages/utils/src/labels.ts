@@ -32,7 +32,7 @@ export const labelSizes: LabelSize[] = [
     description: 'Address Labels (1" x 2.625")',
     rows: 10,
     columns: 3,
-    rotated: false,
+    rotated: false
   },
   {
     id: "avery5163",
@@ -42,7 +42,7 @@ export const labelSizes: LabelSize[] = [
     description: 'Shipping Labels (2" x 4")',
     rows: 5,
     columns: 2,
-    rotated: false,
+    rotated: false
   },
   {
     id: "zebra2x1",
@@ -54,8 +54,8 @@ export const labelSizes: LabelSize[] = [
     zpl: {
       dpi: 203,
       width: 2,
-      height: 1,
-    },
+      height: 1
+    }
   },
   {
     id: "zebra4x2",
@@ -67,7 +67,7 @@ export const labelSizes: LabelSize[] = [
     zpl: {
       dpi: 203,
       width: 4,
-      height: 2,
-    },
-  },
+      height: 2
+    }
+  }
 ];

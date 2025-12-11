@@ -5,7 +5,7 @@ import {
   FormLabel,
   HStack,
   useDisclosure,
-  useOutsideClick,
+  useOutsideClick
 } from "@carbon/react";
 import { useRef } from "react";
 import { HexColorInput, HexColorPicker } from "react-colorful";
@@ -23,7 +23,7 @@ const ColorPicker = ({ name, label }: ColorFieldProps) => {
 
   useOutsideClick({
     ref: containerRef,
-    handler: () => disclosure.onClose(),
+    handler: () => disclosure.onClose()
   });
 
   return (

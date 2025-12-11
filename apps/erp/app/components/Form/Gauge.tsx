@@ -56,7 +56,7 @@ const Gauge = (props: GaugeSelectProps) => {
             locationId: defaults.locationId ?? "",
             shelfId: "",
             calibrationIntervalInMonths: 6,
-            gaugeRole: "Standard" as const,
+            gaugeRole: "Standard" as const
           }}
         />
       )}
@@ -84,7 +84,7 @@ export const useGauges = () => {
         ? gaugeFetcher.data?.gauges.map((c) => ({
             value: c.id,
             label: c.name,
-            helper: c.description ?? undefined,
+            helper: c.description ?? undefined
           }))
         : [],
     [gaugeFetcher.data]

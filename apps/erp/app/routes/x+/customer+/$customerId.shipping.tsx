@@ -8,14 +8,14 @@ import { json, redirect } from "@vercel/remix";
 import {
   customerShippingValidator,
   getCustomerShipping,
-  updateCustomerShipping,
+  updateCustomerShipping
 } from "~/modules/sales";
 import { CustomerShippingForm } from "~/modules/sales/ui/Customer";
 import { path } from "~/utils/path";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
-    view: "sales",
+    view: "sales"
   });
 
   const { customerId } = params;
@@ -34,14 +34,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   }
 
   return json({
-    customerShipping: customerShipping.data,
+    customerShipping: customerShipping.data
   });
 }
 
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    update: "sales",
+    update: "sales"
   });
 
   const { customerId } = params;
@@ -59,7 +59,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   const update = await updateCustomerShipping(client, {
     ...validation.data,
     customerId,
-    updatedBy: userId,
+    updatedBy: userId
   });
   if (update.error) {
     throw redirect(
@@ -86,7 +86,7 @@ export default function CustomerShippingRoute() {
       customerShipping?.shippingCustomerContactId ?? "",
     shippingCustomerLocationId:
       customerShipping?.shippingCustomerLocationId ?? "",
-    shippingMethodId: customerShipping?.shippingMethodId ?? "",
+    shippingMethodId: customerShipping?.shippingMethodId ?? ""
     // shippingTermId: customerShipping?.shippingTermId ?? "",
   };
 

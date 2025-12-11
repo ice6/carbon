@@ -5,13 +5,13 @@ import { json, redirect, type ActionFunctionArgs } from "@vercel/remix";
 import {
   getJobMethodValidator,
   upsertMakeMethodFromJob,
-  upsertMakeMethodFromJobMethod,
+  upsertMakeMethodFromJobMethod
 } from "~/modules/production";
 import { path, requestReferrer } from "~/utils/path";
 
 export async function action({ request }: ActionFunctionArgs) {
   const { companyId, userId } = await requirePermissions(request, {
-    update: "production",
+    update: "production"
   });
 
   const formData = await request.formData();
@@ -28,13 +28,11 @@ export async function action({ request }: ActionFunctionArgs) {
     const jobMethod = await upsertMakeMethodFromJob(serviceRole, {
       ...validation.data,
       companyId,
-      userId,
+      userId
     });
 
     return json({
-      error: jobMethod.error
-        ? "Failed to save job method to make method"
-        : null,
+      error: jobMethod.error ? "Failed to save job method to make method" : null
     });
   }
 
@@ -42,14 +40,14 @@ export async function action({ request }: ActionFunctionArgs) {
     const makeMethod = await upsertMakeMethodFromJobMethod(serviceRole, {
       ...validation.data,
       companyId,
-      userId,
+      userId
     });
 
     if (makeMethod.error) {
       return json({
         error: makeMethod.error
           ? "Failed to save job method to make method"
-          : null,
+          : null
       });
     }
 

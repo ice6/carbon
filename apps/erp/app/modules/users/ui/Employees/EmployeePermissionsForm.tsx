@@ -8,11 +8,11 @@ import {
   DrawerHeader,
   DrawerTitle,
   HStack,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { useNavigate } from "@remix-run/react";
 import { useState } from "react";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import { Hidden, Select, Submit } from "~/components/Form";
 import type { CompanyPermission } from "~/modules/users";
 import { employeeValidator } from "~/modules/users";
@@ -31,7 +31,7 @@ type EmployeePermissionsFormProps = {
 const EmployeePermissionsForm = ({
   name,
   employeeTypes,
-  initialValues,
+  initialValues
 }: EmployeePermissionsFormProps) => {
   const navigate = useNavigate();
   const onClose = () => navigate(-1);
@@ -39,14 +39,14 @@ const EmployeePermissionsForm = ({
   const employeeTypeOptions =
     employeeTypes?.map((et) => ({
       value: et.id,
-      label: et.name,
+      label: et.name
     })) ?? [];
 
   const [permissions, setPermissions] = useState(initialValues.permissions);
   const updatePermissions = (module: string, permission: CompanyPermission) => {
     setPermissions((prevPermissions) => ({
       ...prevPermissions,
-      [module]: permission,
+      [module]: permission
     }));
   };
 

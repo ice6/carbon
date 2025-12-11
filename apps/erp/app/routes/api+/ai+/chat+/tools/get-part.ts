@@ -9,16 +9,16 @@ export const config: ToolConfig = {
   name: "getPart",
   icon: LuSearch,
   displayText: "Getting Part",
-  message: "Searching for a part...",
+  message: "Searching for a part..."
 };
 
 export const getPartSchema = z
   .object({
     readableId: z.string().optional(),
-    description: z.string().optional(),
+    description: z.string().optional()
   })
   .refine((data) => data.readableId || data.description, {
-    message: "Either readableId or description must be provided",
+    message: "Either readableId or description must be provided"
   });
 
 export const getPartTool = tool({
@@ -46,7 +46,7 @@ export const getPartTool = tool({
           .select("*, item(id, name, description, revision)")
           .eq("supplierPartId", readableId)
           .eq("companyId", context.companyId)
-          .single(),
+          .single()
       ]);
 
       if (supplierPart.data) {
@@ -54,14 +54,14 @@ export const getPartTool = tool({
           id: supplierPart.data.itemId,
           name: supplierPart.data.item?.name,
           description: supplierPart.data.item?.description,
-          supplierId: supplierPart.data.supplierId,
+          supplierId: supplierPart.data.supplierId
         };
       }
       if (part.data?.[0]) {
         return {
           id: part.data[0].id,
           name: part.data[0].name,
-          description: part.data[0].description,
+          description: part.data[0].description
         };
       }
 
@@ -79,7 +79,7 @@ export const getPartTool = tool({
         query_embedding: JSON.stringify(embedding),
         match_threshold: 0.7,
         match_count: 10,
-        p_company_id: context.companyId,
+        p_company_id: context.companyId
       });
 
       if (search.data && search.data.length > 0) {
@@ -88,5 +88,5 @@ export const getPartTool = tool({
     }
 
     return null;
-  },
+  }
 });

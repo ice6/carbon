@@ -19,39 +19,39 @@ const itemVariants = cva(
         sm: "w-7 h-7",
         md: "w-9 h-9",
         lg: "w-11 h-11",
-        xl: "w-16 h-16",
+        xl: "w-16 h-16"
       },
       withPadding: {
         true: "",
-        false: "p-0",
-      },
+        false: "p-0"
+      }
     },
     compoundVariants: [
       {
         withPadding: true,
         size: "sm",
-        class: "p-1",
+        class: "p-1"
       },
       {
         withPadding: true,
         size: "md",
-        class: "p-1.5",
+        class: "p-1.5"
       },
       {
         withPadding: true,
         size: "lg",
-        class: "p-2",
+        class: "p-2"
       },
       {
         withPadding: true,
         size: "xl",
-        class: "p-2.5",
-      },
+        class: "p-2.5"
+      }
     ],
     defaultVariants: {
       size: "md",
-      withPadding: true,
-    },
+      withPadding: true
+    }
   }
 );
 
@@ -61,19 +61,19 @@ const iconVariants = cva("text-[#AAAAAA] dark:text-[#444]", {
       sm: "w-5 h-5",
       md: "w-6 h-6",
       lg: "w-7 h-7",
-      xl: "w-11 h-11",
-    },
+      xl: "w-11 h-11"
+    }
   },
   defaultVariants: {
-    size: "md",
-  },
+    size: "md"
+  }
 });
 
 const ItemThumbnail = ({
   thumbnailPath,
   type,
   size = "md",
-  onClick,
+  onClick
 }: ItemThumbnailProps) => {
   return thumbnailPath ? (
     <img

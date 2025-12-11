@@ -14,7 +14,7 @@ import {
   ModalCardTitle,
   useDisclosure,
   useMount,
-  VStack,
+  VStack
 } from "@carbon/react";
 
 import { useCarbon } from "@carbon/auth";
@@ -23,7 +23,7 @@ import { getItemReadableId } from "@carbon/utils";
 import { useFetcher, useParams } from "@remix-run/react";
 import type { PostgrestResponse } from "@supabase/supabase-js";
 import { useEffect, useMemo, useState } from "react";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import {
   ConversionFactor,
   CustomFormFields,
@@ -33,14 +33,14 @@ import {
   NumberControlled,
   Shelf,
   Submit,
-  UnitOfMeasure,
+  UnitOfMeasure
 } from "~/components/Form";
 import {
   useCurrencyFormatter,
   usePercentFormatter,
   usePermissions,
   useRouteData,
-  useUser,
+  useUser
 } from "~/hooks";
 import type { PurchaseOrder, PurchaseOrderLine } from "~/modules/purchasing";
 import { purchaseOrderLineValidator } from "~/modules/purchasing";
@@ -59,7 +59,7 @@ type PurchaseOrderLineFormProps = {
 const PurchaseOrderLineForm = ({
   initialValues,
   type,
-  onClose,
+  onClose
 }: PurchaseOrderLineFormProps) => {
   const permissions = usePermissions();
   const { carbon } = useCarbon();
@@ -116,7 +116,7 @@ const PurchaseOrderLineForm = ({
           ((initialValues.supplierUnitPrice ?? 0) *
             (initialValues.purchaseQuantity ?? 1) +
             (initialValues.supplierShippingCost ?? 0))
-        : 0,
+        : 0
   });
 
   // update tax amount when quantity or unit price changes
@@ -127,22 +127,22 @@ const PurchaseOrderLineForm = ({
     if (itemData.taxPercent !== 0) {
       setItemData((d) => ({
         ...d,
-        supplierTaxAmount: subtotal * itemData.taxPercent,
+        supplierTaxAmount: subtotal * itemData.taxPercent
       }));
     }
   }, [
     itemData.supplierUnitPrice,
     itemData.purchaseQuantity,
     itemData.supplierShippingCost,
-    itemData.taxPercent,
+    itemData.taxPercent
   ]);
 
   const isEditing = initialValues.id !== undefined;
   const isDisabled = !isEditable
     ? true
     : isEditing
-    ? !permissions.can("update", "purchasing")
-    : !permissions.can("create", "purchasing");
+      ? !permissions.can("update", "purchasing")
+      : !permissions.can("create", "purchasing");
 
   const deleteDisclosure = useDisclosure();
   const currencyFormatter = useCurrencyFormatter();
@@ -163,7 +163,7 @@ const PurchaseOrderLineForm = ({
       shelfId: "",
       minimumOrderQuantity: undefined,
       supplierTaxAmount: 0,
-      taxPercent: 0,
+      taxPercent: 0
     });
   };
 
@@ -198,7 +198,7 @@ const PurchaseOrderLineForm = ({
             .eq("itemId", itemId)
             .eq("companyId", company.id)
             .eq("locationId", locationId!)
-            .maybeSingle(),
+            .maybeSingle()
         ]);
 
         const itemCost = item?.data?.itemCost?.[0];
@@ -224,7 +224,7 @@ const PurchaseOrderLineForm = ({
             1,
           shelfId: inventory.data?.defaultShelfId ?? null,
           supplierTaxAmount: 0,
-          taxPercent: 0,
+          taxPercent: 0
         });
 
         if (item.data?.type) {
@@ -256,7 +256,7 @@ const PurchaseOrderLineForm = ({
 
     setItemData((d) => ({
       ...d,
-      shelfId: shelf?.data?.defaultShelfId ?? "",
+      shelfId: shelf?.data?.defaultShelfId ?? ""
     }));
   };
 
@@ -361,7 +361,7 @@ const PurchaseOrderLineForm = ({
                         onChange={(e) =>
                           setItemData((d) => ({
                             ...d,
-                            description: e.target.value,
+                            description: e.target.value
                           }))
                         }
                       />
@@ -379,7 +379,7 @@ const PurchaseOrderLineForm = ({
                       onChange={(value) => {
                         setItemData((d) => ({
                           ...d,
-                          purchaseQuantity: value,
+                          purchaseQuantity: value
                         }));
                       }}
                     />
@@ -389,7 +389,7 @@ const PurchaseOrderLineForm = ({
                       "Part",
                       "Material",
                       "Consumable",
-                      "Tool",
+                      "Tool"
                     ].includes(itemType) && (
                       <>
                         <UnitOfMeasure
@@ -400,7 +400,7 @@ const PurchaseOrderLineForm = ({
                             if (newValue) {
                               setItemData((d) => ({
                                 ...d,
-                                purchaseUom: newValue?.value as string,
+                                purchaseUom: newValue?.value as string
                               }));
                             }
                           }}
@@ -413,7 +413,7 @@ const PurchaseOrderLineForm = ({
                           onChange={(value) => {
                             setItemData((d) => ({
                               ...d,
-                              conversionFactor: value,
+                              conversionFactor: value
                             }));
                           }}
                         />
@@ -427,12 +427,12 @@ const PurchaseOrderLineForm = ({
                         style: "currency",
                         currency:
                           routeData?.purchaseOrder?.currencyCode ??
-                          company.baseCurrencyCode,
+                          company.baseCurrencyCode
                       }}
                       onChange={(value) =>
                         setItemData((d) => ({
                           ...d,
-                          supplierUnitPrice: value,
+                          supplierUnitPrice: value
                         }))
                       }
                     />
@@ -445,12 +445,12 @@ const PurchaseOrderLineForm = ({
                         style: "currency",
                         currency:
                           routeData?.purchaseOrder?.currencyCode ??
-                          company.baseCurrencyCode,
+                          company.baseCurrencyCode
                       }}
                       onChange={(value) =>
                         setItemData((d) => ({
                           ...d,
-                          supplierShippingCost: value,
+                          supplierShippingCost: value
                         }))
                       }
                     />
@@ -462,7 +462,7 @@ const PurchaseOrderLineForm = ({
                         style: "currency",
                         currency:
                           routeData?.purchaseOrder?.currencyCode ??
-                          company.baseCurrencyCode,
+                          company.baseCurrencyCode
                       }}
                       onChange={(value) => {
                         const subtotal =
@@ -472,7 +472,7 @@ const PurchaseOrderLineForm = ({
                         setItemData((d) => ({
                           ...d,
                           supplierTaxAmount: value,
-                          taxPercent: subtotal > 0 ? value / subtotal : 0,
+                          taxPercent: subtotal > 0 ? value / subtotal : 0
                         }));
                       }}
                     />
@@ -483,7 +483,7 @@ const PurchaseOrderLineForm = ({
                       "Material",
                       "Tool",
                       "Consumable",
-                      "Fixed Asset",
+                      "Fixed Asset"
                     ].includes(itemType) &&
                       !isOutsideProcessing && (
                         <Location
@@ -500,7 +500,7 @@ const PurchaseOrderLineForm = ({
                       "Material",
                       "Tool",
                       "Consumable",
-                      "Fixed Asset",
+                      "Fixed Asset"
                     ].includes(itemType) &&
                       !isOutsideProcessing && (
                         <Shelf
@@ -512,7 +512,7 @@ const PurchaseOrderLineForm = ({
                             if (newValue) {
                               setItemData((d) => ({
                                 ...d,
-                                shelfId: newValue?.id,
+                                shelfId: newValue?.id
                               }));
                             }
                           }}
@@ -528,7 +528,7 @@ const PurchaseOrderLineForm = ({
                       formatOptions={{
                         style: "percent",
                         minimumFractionDigits: 0,
-                        maximumFractionDigits: 2,
+                        maximumFractionDigits: 2
                       }}
                       onChange={(value) => {
                         const subtotal =
@@ -538,7 +538,7 @@ const PurchaseOrderLineForm = ({
                         setItemData((d) => ({
                           ...d,
                           taxPercent: value,
-                          supplierTaxAmount: subtotal * value,
+                          supplierTaxAmount: subtotal * value
                         }));
                       }}
                     />
@@ -584,7 +584,7 @@ function JobOperationSelect(initialValues: { jobId?: string }) {
       jobsFetcher.data?.data
         ? jobsFetcher.data?.data.map((c) => ({
             value: c.id,
-            label: c.jobId,
+            label: c.jobId
           }))
         : [],
     [jobsFetcher.data]
@@ -603,7 +603,7 @@ function JobOperationSelect(initialValues: { jobId?: string }) {
     return (
       jobOperationFetcher.data?.data?.map((c) => ({
         value: c.id,
-        label: c.description,
+        label: c.description
       })) ?? []
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps

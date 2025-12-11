@@ -6,7 +6,7 @@ import type {
   Costs,
   QuotationLine,
   QuotationOperation,
-  QuoteMethod,
+  QuoteMethod
 } from "../../types";
 
 const defaultEffects: CostEffects = {
@@ -21,7 +21,7 @@ const defaultEffects: CostEffects = {
   partCost: [],
   serviceCost: [],
   setupHours: [],
-  toolCost: [],
+  toolCost: []
 };
 
 type EnhancedTree = Tree<QuoteMethod & { operations?: QuotationOperation[] }>;
@@ -29,7 +29,7 @@ type EnhancedTree = Tree<QuoteMethod & { operations?: QuotationOperation[] }>;
 export function useLineCosts({
   methodTree: originalMethodTree,
   operations,
-  line,
+  line
 }: {
   methodTree?: Tree<QuoteMethod>;
   operations: QuotationOperation[];
@@ -414,7 +414,7 @@ export function useLineCosts({
         partCost,
         serviceCost,
         setupHours,
-        toolCost,
+        toolCost
       };
     },
     [costEffects]

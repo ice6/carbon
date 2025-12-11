@@ -5,7 +5,7 @@ import {
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue,
+  SelectValue
 } from "@carbon/react";
 import type { ComponentPropsWithoutRef } from "react";
 import { forwardRef } from "react";

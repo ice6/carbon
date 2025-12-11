@@ -15,7 +15,7 @@ import { path } from "~/utils/path";
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    create: "purchasing",
+    create: "purchasing"
   });
 
   const formData = await request.formData();
@@ -38,7 +38,7 @@ export async function action({ request }: ActionFunctionArgs) {
     id,
     ...data,
     updatedBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
   if (update.error) {
     throw redirect(
@@ -70,7 +70,7 @@ export default function SupplierEditRoute() {
     phone: routeData?.supplier?.phone ?? "",
     fax: routeData?.supplier?.fax ?? "",
     website: routeData?.supplier?.website ?? "",
-    ...getCustomFields(routeData?.supplier?.customFields),
+    ...getCustomFields(routeData?.supplier?.customFields)
   };
 
   return <SupplierForm key={initialValues.id} initialValues={initialValues} />;

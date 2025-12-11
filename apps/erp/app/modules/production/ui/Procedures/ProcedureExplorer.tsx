@@ -6,7 +6,7 @@ import {
   Number,
   SelectControlled,
   Submit,
-  ValidatedForm,
+  ValidatedForm
 } from "@carbon/form";
 import type { JSONContent } from "@carbon/react";
 import {
@@ -40,7 +40,7 @@ import {
   useDebounce,
   useDisclosure,
   useKeyboardShortcuts,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { Editor } from "@carbon/react/Editor";
 import { prettifyKeyboardShortcut } from "@carbon/utils";
@@ -57,7 +57,7 @@ import {
   LuMaximize2,
   LuMinimize2,
   LuPencil,
-  LuTrash,
+  LuTrash
 } from "react-icons/lu";
 import type { z } from "zod/v3";
 import { Empty } from "~/components";
@@ -69,7 +69,7 @@ import { procedureStepType } from "~/modules/shared";
 import { getPrivateUrl, path } from "~/utils/path";
 import {
   procedureParameterValidator,
-  procedureStepValidator,
+  procedureStepValidator
 } from "../../production.models";
 import type { Procedure, ProcedureParameter, ProcedureStep } from "../../types";
 
@@ -115,16 +115,20 @@ export default function ProcedureExplorer() {
     type: selectedAttribute?.type ?? "Task",
     sortOrder: selectedAttribute?.sortOrder ?? maxSortOrder + 1,
     unitOfMeasureCode: selectedAttribute?.unitOfMeasureCode ?? "",
-    minValue: selectedAttribute ? selectedAttribute?.minValue ?? undefined : 0,
-    maxValue: selectedAttribute ? selectedAttribute?.maxValue ?? undefined : 0,
-    listValues: selectedAttribute?.listValues ?? [],
+    minValue: selectedAttribute
+      ? (selectedAttribute?.minValue ?? undefined)
+      : 0,
+    maxValue: selectedAttribute
+      ? (selectedAttribute?.maxValue ?? undefined)
+      : 0,
+    listValues: selectedAttribute?.listValues ?? []
   };
 
   const procedureParameterInitialValues = {
     id: selectedParameter?.id,
     procedureId: id,
     key: selectedParameter?.key ?? "",
-    value: selectedParameter?.value ?? "",
+    value: selectedParameter?.value ?? ""
   };
 
   const isDisabled = procedureData?.procedure?.status !== "Draft";
@@ -163,7 +167,7 @@ export default function ProcedureExplorer() {
       formData.append("updates", JSON.stringify(updates));
       sortOrderFetcher.submit(formData, {
         method: "post",
-        action: path.to.procedureStepOrder(id),
+        action: path.to.procedureStepOrder(id)
       });
     },
     2500,
@@ -212,7 +216,7 @@ export default function ProcedureExplorer() {
       if (!isDisabled) {
         newAttributeRef.current?.click();
       }
-    },
+    }
   });
 
   const newParameterRef = useRef<HTMLButtonElement>(null);
@@ -222,7 +226,7 @@ export default function ProcedureExplorer() {
       if (!isDisabled) {
         newParameterRef.current?.click();
       }
-    },
+    }
   });
 
   const attributeMap = useMemo(
@@ -442,7 +446,7 @@ function ProcedureStepItem({
   attribute,
   isDisabled,
   onEdit,
-  onDelete,
+  onDelete
 }: ProcedureStepProps) {
   const { id } = useParams();
   if (!id) throw new Error("Could not find id");
@@ -484,10 +488,10 @@ function ProcedureStepItem({
                 {attribute.minValue !== null && attribute.maxValue !== null
                   ? `Must be between ${attribute.minValue} and ${attribute.maxValue}`
                   : attribute.minValue !== null
-                  ? `Must be > ${attribute.minValue}`
-                  : attribute.maxValue !== null
-                  ? `Must be < ${attribute.maxValue}`
-                  : null}
+                    ? `Must be > ${attribute.minValue}`
+                    : attribute.maxValue !== null
+                      ? `Must be < ${attribute.maxValue}`
+                      : null}
               </p>
             )}
           </VStack>
@@ -536,7 +540,7 @@ function ProcedureStepItem({
 
 function DeleteProcedureStep({
   attribute,
-  onCancel,
+  onCancel
 }: {
   attribute: ProcedureStep;
   onCancel: () => void;
@@ -567,7 +571,7 @@ function ProcedureParameterItem({
   parameter,
   isDisabled,
   onEdit,
-  onDelete,
+  onDelete
 }: ProcedureParameterProps) {
   const permissions = usePermissions();
   return (
@@ -625,7 +629,7 @@ function ProcedureParameterItem({
 function ProcedureStepForm({
   initialValues,
   isDisabled,
-  onClose,
+  onClose
 }: {
   initialValues: z.infer<typeof procedureStepValidator>;
   isDisabled: boolean;
@@ -670,7 +674,7 @@ function ProcedureStepForm({
 
   const { carbon } = useCarbon();
   const {
-    company: { id: companyId },
+    company: { id: companyId }
   } = useUser();
 
   const fetcher = useFetcher<{
@@ -692,7 +696,7 @@ function ProcedureStepForm({
             {type}
           </HStack>
         ),
-        value: type,
+        value: type
       })),
     []
   );
@@ -798,7 +802,7 @@ function ProcedureStepForm({
                       label="Minimum"
                       formatOptions={{
                         minimumFractionDigits: 0,
-                        maximumFractionDigits: 10,
+                        maximumFractionDigits: 10
                       }}
                     />
                   )}
@@ -808,7 +812,7 @@ function ProcedureStepForm({
                       label="Maximum"
                       formatOptions={{
                         minimumFractionDigits: 0,
-                        maximumFractionDigits: 10,
+                        maximumFractionDigits: 10
                       }}
                     />
                   )}
@@ -840,7 +844,7 @@ interface ProcedureParameterFormProps {
 function ProcedureParameterForm({
   initialValues,
   isDisabled = false,
-  onClose,
+  onClose
 }: ProcedureParameterFormProps) {
   const { id: procedureId } = useParams();
   if (!procedureId) throw new Error("id not found");
@@ -899,7 +903,7 @@ function ProcedureParameterForm({
 
 function DeleteProcedureParameter({
   parameter,
-  onCancel,
+  onCancel
 }: {
   parameter: ProcedureParameter;
   onCancel: () => void;

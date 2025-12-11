@@ -12,7 +12,7 @@ import {
   Tbody,
   Td,
   Tr,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { formatDate, getItemReadableId } from "@carbon/utils";
 import { useLocale } from "@react-aria/i18n";
@@ -26,14 +26,14 @@ import {
   useCurrencyFormatter,
   usePercentFormatter,
   useRouteData,
-  useUser,
+  useUser
 } from "~/hooks";
 import { useItems } from "~/stores";
 import { getPrivateUrl, path } from "~/utils/path";
 import type {
   PurchaseInvoice,
   PurchaseInvoiceDelivery,
-  PurchaseInvoiceLine,
+  PurchaseInvoiceLine
 } from "../../types";
 
 const LineItems = ({
@@ -42,7 +42,7 @@ const LineItems = ({
   formatter,
   locale,
   purchaseInvoiceLines,
-  shouldConvertCurrency,
+  shouldConvertCurrency
 }: {
   currencyCode: string;
   presentationCurrencyFormatter: Intl.NumberFormat;
@@ -124,7 +124,10 @@ const LineItems = ({
                           className="text-muted-foreground flex-shrink-0"
                         >
                           <Link
-                            to={path.to.purchaseInvoiceLine(invoiceId, line.id!)}
+                            to={path.to.purchaseInvoiceLine(
+                              invoiceId,
+                              line.id!
+                            )}
                           >
                             Edit
                           </Link>
@@ -153,7 +156,7 @@ const LineItems = ({
                         </VStack>
                         <motion.div
                           animate={{
-                            rotate: openItems.includes(line.id) ? 90 : 0,
+                            rotate: openItems.includes(line.id) ? 90 : 0
                           }}
                           transition={{ duration: 0.3 }}
                         >
@@ -169,9 +172,7 @@ const LineItems = ({
                           <MethodIcon type={line.methodType ?? "Pick"} />
                         </Badge>
                         <Badge variant="green">
-                          {formatter.format(
-                            line.unitPrice ?? 0
-                          )}{" "}
+                          {formatter.format(line.unitPrice ?? 0)}{" "}
                           {
                             unitOfMeasures.find(
                               (uom) =>
@@ -196,7 +197,7 @@ const LineItems = ({
               animate={openItems.includes(line.id) ? "open" : "collapsed"}
               variants={{
                 open: { opacity: 1, height: "auto", marginTop: 16 },
-                collapsed: { opacity: 0, height: 0, marginTop: 0 },
+                collapsed: { opacity: 0, height: 0, marginTop: 0 }
               }}
               transition={{ duration: 0.3 }}
               className="w-full overflow-hidden"
@@ -329,7 +330,7 @@ type PurchaseInvoiceSummaryProps = {
 };
 
 const PurchaseInvoiceSummary = ({
-  onEditShippingCost,
+  onEditShippingCost
 }: PurchaseInvoiceSummaryProps) => {
   const { invoiceId } = useParams();
   if (!invoiceId) throw new Error("Could not find invoiceId");
@@ -347,10 +348,10 @@ const PurchaseInvoiceSummary = ({
     routeData?.purchaseInvoice?.currencyCode !== company?.baseCurrencyCode;
 
   const formatter = useCurrencyFormatter({
-    currency: company?.baseCurrencyCode ?? "USD",
+    currency: company?.baseCurrencyCode ?? "USD"
   });
   const presentationCurrencyFormatter = useCurrencyFormatter({
-    currency: routeData?.purchaseInvoice?.currencyCode ?? "USD",
+    currency: routeData?.purchaseInvoice?.currencyCode ?? "USD"
   });
 
   const isEditable = ["Draft", "To Review"].includes(

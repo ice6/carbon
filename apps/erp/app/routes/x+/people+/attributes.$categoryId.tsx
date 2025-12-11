@@ -8,7 +8,7 @@ import { json, redirect } from "@vercel/remix";
 import {
   attributeCategoryValidator,
   getAttributeCategory,
-  updateAttributeCategory,
+  updateAttributeCategory
 } from "~/modules/people";
 import { AttributeCategoryForm } from "~/modules/people/ui/Attributes";
 import { path } from "~/utils/path";
@@ -16,7 +16,7 @@ import { path } from "~/utils/path";
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
     view: "people",
-    role: "employee",
+    role: "employee"
   });
 
   const { categoryId } = params;
@@ -39,7 +39,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    update: "people",
+    update: "people"
   });
 
   const validation = await validator(attributeCategoryValidator).validate(
@@ -58,7 +58,7 @@ export async function action({ request }: ActionFunctionArgs) {
     name,
     emoji,
     public: isPublic,
-    updatedBy: userId,
+    updatedBy: userId
   });
   if (updateCategory.error) {
     throw redirect(
@@ -85,7 +85,7 @@ export default function EditAttributeCategoryRoute() {
     id: attributeCategory?.id,
     name: attributeCategory?.name ?? "",
     emoji: attributeCategory?.emoji ?? "",
-    isPublic: attributeCategory?.public ?? false,
+    isPublic: attributeCategory?.public ?? false
   };
 
   return (

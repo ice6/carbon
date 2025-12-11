@@ -9,7 +9,7 @@ import { useRouteData } from "~/hooks";
 import type { SupplierDetail } from "~/modules/purchasing";
 import {
   supplierAccountingValidator,
-  updateSupplierAccounting,
+  updateSupplierAccounting
 } from "~/modules/purchasing";
 import SupplierAccountingForm from "~/modules/purchasing/ui/Supplier/SupplierAccountingForm";
 import { path } from "~/utils/path";
@@ -17,7 +17,7 @@ import { path } from "~/utils/path";
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    create: "purchasing",
+    create: "purchasing"
   });
   const formData = await request.formData();
   const validation = await validator(supplierAccountingValidator).validate(
@@ -40,7 +40,7 @@ export async function action({ request }: ActionFunctionArgs) {
   const update = await updateSupplierAccounting(client, {
     id,
     ...data,
-    updatedBy: userId,
+    updatedBy: userId
   });
 
   if (update.error) {
@@ -71,7 +71,7 @@ export default function SupplierAccountingRoute() {
   const initialValues = {
     id: routeData?.supplier?.id ?? undefined,
     supplierTypeId: routeData?.supplier?.supplierTypeId ?? undefined,
-    taxId: routeData?.supplier?.taxId ?? "",
+    taxId: routeData?.supplier?.taxId ?? ""
   };
 
   return (

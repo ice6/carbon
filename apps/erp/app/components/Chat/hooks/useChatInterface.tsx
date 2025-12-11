@@ -28,6 +28,6 @@ export function useChatInterface() {
   return {
     isChatPage,
     chatId,
-    setChatId,
+    setChatId
   };
 }

@@ -19,7 +19,7 @@ const supportedFileTypes: Record<string, string> = {
   mp3: "audio/mpeg",
   wav: "audio/wav",
   ogg: "audio/ogg",
-  flac: "audio/flac",
+  flac: "audio/flac"
 };
 
 export async function loader({ params }: LoaderFunctionArgs) {
@@ -67,7 +67,7 @@ export async function loader({ params }: LoaderFunctionArgs) {
     "Cache-Control": "public, max-age=31536000, immutable",
     "Access-Control-Allow-Origin": "*", // Allow cross-origin requests
     "Access-Control-Allow-Methods": "GET", // Only allow GET requests
-    "Access-Control-Allow-Headers": "Content-Type", // Allow Content-Type header
+    "Access-Control-Allow-Headers": "Content-Type" // Allow Content-Type header
   });
   return new Response(fileData, { status: 200, headers });
 }

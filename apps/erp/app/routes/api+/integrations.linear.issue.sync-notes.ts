@@ -3,7 +3,7 @@ import {
   getLinearIssueFromExternalId,
   LinearClient,
   tiptapToMarkdown,
-  type TiptapDocument,
+  type TiptapDocument
 } from "@carbon/ee/linear";
 import { json, type ActionFunction } from "@vercel/remix";
 
@@ -50,7 +50,7 @@ export const action: ActionFunction = async ({ request }) => {
 
     await linear.updateIssue(companyId, {
       id: issue.id,
-      description,
+      description
     });
 
     return json({ success: true, message: "Notes synced to Linear" });

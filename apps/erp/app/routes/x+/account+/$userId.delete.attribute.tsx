@@ -61,7 +61,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   const removeAttributeValue = await deleteUserAttributeValue(client, {
     userId: targetUserId,
     userAttributeId: userAttributeId,
-    userAttributeValueId: userAttributeValueId,
+    userAttributeValueId: userAttributeValueId
   });
   if (removeAttributeValue.error) {
     return json(

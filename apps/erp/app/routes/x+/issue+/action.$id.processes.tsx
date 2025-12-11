@@ -5,12 +5,12 @@ import { updateIssueActionProcesses } from "~/modules/quality/quality.service";
 
 const updateProcessesSchema = z.object({
   id: z.string(),
-  processIds: z.array(z.string()).optional(),
+  processIds: z.array(z.string()).optional()
 });
 
 export async function action({ request, params }: ActionFunctionArgs) {
   const { client, userId, companyId } = await requirePermissions(request, {
-    update: "quality",
+    update: "quality"
   });
 
   const { id } = params;
@@ -29,7 +29,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     actionTaskId: id,
     processIds,
     companyId,
-    createdBy: userId,
+    createdBy: userId
   });
 
   if (updateProcesses.error) {

@@ -25,7 +25,7 @@ import {
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
-  useSidebar,
+  useSidebar
 } from "@carbon/react";
 import { Link } from "@remix-run/react";
 import type { IconType } from "react-icons/lib";
@@ -49,14 +49,14 @@ import {
   LuSettings2,
   LuShare,
   LuSparkles,
-  LuTrash,
+  LuTrash
 } from "react-icons/lu";
 
 const data = {
   user: {
     name: "shadcn",
     email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
+    avatar: "/avatars/shadcn.jpg"
   },
   navMain: [
     {
@@ -66,17 +66,17 @@ const data = {
       items: [
         {
           title: "Genesis",
-          url: "#",
+          url: "#"
         },
         {
           title: "Explorer",
-          url: "#",
+          url: "#"
         },
         {
           title: "Quantum",
-          url: "#",
-        },
-      ],
+          url: "#"
+        }
+      ]
     },
     {
       title: "Documentation",
@@ -85,21 +85,21 @@ const data = {
       items: [
         {
           title: "Introduction",
-          url: "#",
+          url: "#"
         },
         {
           title: "Get Started",
-          url: "#",
+          url: "#"
         },
         {
           title: "Tutorials",
-          url: "#",
+          url: "#"
         },
         {
           title: "Changelog",
-          url: "#",
-        },
-      ],
+          url: "#"
+        }
+      ]
     },
     {
       title: "Settings",
@@ -108,52 +108,52 @@ const data = {
       items: [
         {
           title: "General",
-          url: "#",
+          url: "#"
         },
         {
           title: "Team",
-          url: "#",
+          url: "#"
         },
         {
           title: "Billing",
-          url: "#",
+          url: "#"
         },
         {
           title: "Limits",
-          url: "#",
-        },
-      ],
-    },
+          url: "#"
+        }
+      ]
+    }
   ],
   navSecondary: [
     {
       title: "Support",
       url: "#",
-      icon: LuLifeBuoy,
+      icon: LuLifeBuoy
     },
     {
       title: "Feedback",
       url: "#",
-      icon: LuSend,
-    },
+      icon: LuSend
+    }
   ],
   projects: [
     {
       name: "Design Engineering",
       url: "#",
-      icon: LuFrame,
+      icon: LuFrame
     },
     {
       name: "Sales & Marketing",
       url: "#",
-      icon: LuChartPie,
+      icon: LuChartPie
     },
     {
       name: "Travel",
       url: "#",
-      icon: LuMap,
-    },
-  ],
+      icon: LuMap
+    }
+  ]
 };
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
@@ -188,7 +188,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 }
 
 export function NavMain({
-  items,
+  items
 }: {
   items: {
     title: string;
@@ -246,7 +246,7 @@ export function NavMain({
 }
 
 export function NavProjects({
-  projects,
+  projects
 }: {
   projects: {
     name: string;
@@ -344,7 +344,7 @@ export function NavSecondary({
 }
 
 export function NavUser({
-  user,
+  user
 }: {
   user: {
     name: string;

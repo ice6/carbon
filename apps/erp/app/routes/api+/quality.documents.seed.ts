@@ -34,12 +34,12 @@ function interpolateContent(
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId, companyId } = await requirePermissions(request, {
-    create: "quality",
+    create: "quality"
   });
 
   const [currentDocuments, company] = await Promise.all([
     client.from("qualityDocument").select("*").eq("companyId", companyId),
-    client.from("company").select("name").eq("id", companyId).single(),
+    client.from("company").select("name").eq("id", companyId).single()
   ]);
 
   if (currentDocuments.error) {
@@ -67,7 +67,7 @@ export async function action({ request }: ActionFunctionArgs) {
     ...document,
     content: interpolateContent(document.content, { company: company.data }),
     companyId,
-    createdBy: userId,
+    createdBy: userId
   }));
 
   const insertDocuments = await client

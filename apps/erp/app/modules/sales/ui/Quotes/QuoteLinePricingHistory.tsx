@@ -14,14 +14,14 @@ import {
   Td,
   Th,
   Thead,
-  Tr,
+  Tr
 } from "@carbon/react";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
-  CarouselPrevious,
+  CarouselPrevious
 } from "@carbon/react/Carousel";
 import { Link } from "@remix-run/react";
 import { Empty } from "~/components";
@@ -34,7 +34,7 @@ import type { HistoricalQuotationPrice, SalesOrderLine } from "../../types";
 const QuoteLinePricingHistory = ({
   baseCurrency,
   relatedSalesOrderLines,
-  historicalQuoteLinePrices,
+  historicalQuoteLinePrices
 }: {
   baseCurrency: string;
   relatedSalesOrderLines: SalesOrderLine[];
@@ -159,7 +159,7 @@ const QuoteLinePricingHistory = ({
                                       <Td>
                                         {new Intl.NumberFormat("en-US", {
                                           style: "currency",
-                                          currency: baseCurrency,
+                                          currency: baseCurrency
                                         }).format(line.unitPrice ?? 0)}
                                       </Td>
                                     </Tr>
@@ -251,7 +251,7 @@ const QuoteLinePricingHistory = ({
                                           <Td>
                                             {new Intl.NumberFormat("en-US", {
                                               style: "currency",
-                                              currency: baseCurrency,
+                                              currency: baseCurrency
                                             }).format(price as number)}
                                           </Td>
                                         </Tr>

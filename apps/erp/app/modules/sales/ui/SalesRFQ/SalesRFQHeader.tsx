@@ -24,7 +24,7 @@ import {
   TooltipTrigger,
   VStack,
   useDisclosure,
-  useMount,
+  useMount
 } from "@carbon/react";
 
 import { useCarbon } from "@carbon/auth";
@@ -40,10 +40,10 @@ import {
   LuPanelLeft,
   LuPanelRight,
   LuTrash,
-  LuTriangleAlert,
+  LuTriangleAlert
 } from "react-icons/lu";
 import { RiProgress4Line } from "react-icons/ri";
-import { z } from 'zod/v3';
+import { z } from "zod/v3";
 import { zfd } from "zod-form-data";
 import { usePanels } from "~/components/Layout";
 import ConfirmDelete from "~/components/Modals/ConfirmDelete";
@@ -306,13 +306,13 @@ export default SalesRFQHeader;
 
 const rfqNoQuoteReasonValidator = z.object({
   status: z.enum(["Closed"]),
-  noQuoteReasonId: zfd.text(z.string().optional()),
+  noQuoteReasonId: zfd.text(z.string().optional())
 });
 
 function NoQuoteReasonModal({
   fetcher,
   rfqId,
-  onClose,
+  onClose
 }: {
   fetcher: FetcherWithComponents<{}>;
   rfqId: string;
@@ -410,7 +410,7 @@ function RequiresCustomerAlert({ onClose }: { onClose: () => void }) {
 function ConvertToQuoteModal({
   lines,
   rfqId,
-  onClose,
+  onClose
 }: {
   lines: SalesRFQLine[];
   rfqId: string;

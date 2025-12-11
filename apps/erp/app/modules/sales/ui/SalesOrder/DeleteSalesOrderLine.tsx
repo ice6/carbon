@@ -5,7 +5,7 @@ import type { SalesOrderLine } from "../../types";
 
 export default function DeleteSalesOrderLine({
   line,
-  onCancel,
+  onCancel
 }: {
   line: SalesOrderLine;
   onCancel: () => void;

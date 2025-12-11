@@ -13,7 +13,7 @@ import {
   ModalCardTitle,
   VStack,
   cn,
-  toast,
+  toast
 } from "@carbon/react";
 import { convertKbToString, supportedModelTypes } from "@carbon/utils";
 import { useFetcher } from "@remix-run/react";
@@ -23,7 +23,7 @@ import { useEffect, useState } from "react";
 import { flushSync } from "react-dom";
 import { useDropzone } from "react-dropzone";
 import { LuCloudUpload } from "react-icons/lu";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import { TrackingTypeIcon } from "~/components";
 import {
   CustomFormFields,
@@ -34,7 +34,7 @@ import {
   Number,
   Select,
   Submit,
-  UnitOfMeasure,
+  UnitOfMeasure
 } from "~/components/Form";
 import { ReplenishmentSystemIcon } from "~/components/Icons";
 import { useNextItemId, usePermissions, useUser } from "~/hooks";
@@ -42,7 +42,7 @@ import { path } from "~/utils/path";
 import {
   itemReplenishmentSystems,
   itemTrackingTypes,
-  partValidator,
+  partValidator
 } from "../../items.models";
 
 type PartFormProps = {
@@ -68,7 +68,7 @@ const PartForm = ({ initialValues, type = "card", onClose }: PartFormProps) => {
   const [modelFile, setModelFile] = useState<File | null>(null);
   const { carbon } = useCarbon();
   const {
-    company: { id: companyId },
+    company: { id: companyId }
   } = useUser();
 
   const modelUpload = async (file: File) => {
@@ -89,8 +89,8 @@ const PartForm = ({ initialValues, type = "card", onClose }: PartFormProps) => {
         size: file.size,
         name: file.name,
         companyId: companyId,
-        createdBy: "system",
-      }),
+        createdBy: "system"
+      })
     ]);
 
     if (fileUpload.error || recordInsert.error) {
@@ -141,7 +141,7 @@ const PartForm = ({ initialValues, type = "card", onClose }: PartFormProps) => {
         message = errors[0].message;
       }
       toast.error(message);
-    },
+    }
   });
 
   useEffect(() => {
@@ -166,7 +166,7 @@ const PartForm = ({ initialValues, type = "card", onClose }: PartFormProps) => {
         {itemTrackingType}
       </span>
     ),
-    value: itemTrackingType,
+    value: itemTrackingType
   }));
 
   const [replenishmentSystem, setReplenishmentSystem] = useState<string>(
@@ -183,7 +183,7 @@ const PartForm = ({ initialValues, type = "card", onClose }: PartFormProps) => {
           {itemReplenishmentSystem}
         </span>
       ),
-      value: itemReplenishmentSystem,
+      value: itemReplenishmentSystem
     })) ?? [];
 
   return (
@@ -289,7 +289,7 @@ const PartForm = ({ initialValues, type = "card", onClose }: PartFormProps) => {
                     label="Unit Cost"
                     formatOptions={{
                       style: "currency",
-                      currency: baseCurrency,
+                      currency: baseCurrency
                     }}
                     minValue={0}
                   />

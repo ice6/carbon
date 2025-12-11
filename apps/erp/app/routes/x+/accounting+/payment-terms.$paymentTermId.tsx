@@ -10,7 +10,7 @@ import type { PaymentTermCalculationMethod } from "~/modules/accounting";
 import {
   getPaymentTerm,
   paymentTermValidator,
-  upsertPaymentTerm,
+  upsertPaymentTerm
 } from "~/modules/accounting";
 import { PaymentTermForm } from "~/modules/accounting/ui/PaymentTerms";
 import { getCustomFields, setCustomFields } from "~/utils/form";
@@ -20,7 +20,7 @@ import { getCompanyId, paymentTermsQuery } from "~/utils/react-query";
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
     view: "accounting",
-    role: "employee",
+    role: "employee"
   });
 
   const { paymentTermId } = params;
@@ -29,14 +29,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   const paymentTerm = await getPaymentTerm(client, paymentTermId);
 
   return json({
-    paymentTerm: paymentTerm?.data ?? null,
+    paymentTerm: paymentTerm?.data ?? null
   });
 }
 
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    update: "accounting",
+    update: "accounting"
   });
 
   const formData = await request.formData();
@@ -53,7 +53,7 @@ export async function action({ request }: ActionFunctionArgs) {
     id,
     ...data,
     updatedBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
 
   if (updatePaymentTerm.error) {
@@ -92,7 +92,7 @@ export default function EditPaymentTermsRoute() {
     discountPercentage: paymentTerm?.discountPercentage ?? 0,
     calculationMethod:
       paymentTerm?.calculationMethod ?? ("Net" as PaymentTermCalculationMethod),
-    ...getCustomFields(paymentTerm?.customFields),
+    ...getCustomFields(paymentTerm?.customFields)
   };
 
   return (

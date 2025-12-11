@@ -13,7 +13,7 @@ import {
   Popover,
   PopoverContent,
   PopoverFooter,
-  PopoverTrigger,
+  PopoverTrigger
 } from "../Popover";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../Tooltip";
 import { FieldButton } from "./components/Button";
@@ -28,7 +28,7 @@ const DatePicker = (
 ) => {
   const state = useDatePickerState({
     ...props,
-    shouldCloseOnSelect: false,
+    shouldCloseOnSelect: false
   });
 
   const ref = useRef<HTMLDivElement>(null);

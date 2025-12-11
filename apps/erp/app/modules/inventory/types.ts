@@ -15,7 +15,7 @@ import type {
   getStockTransfers,
   getTrackedEntities,
   getWarehouseTransferLines,
-  getWarehouseTransfers,
+  getWarehouseTransfers
 } from "./inventory.service";
 
 export type BatchProperty = NonNullable<

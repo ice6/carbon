@@ -20,6 +20,6 @@ export function useIntegrations(): {
 
   return {
     list: list?.integrations ?? [],
-    has,
+    has
   };
 }

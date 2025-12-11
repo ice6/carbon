@@ -8,7 +8,7 @@ import { json, redirect } from "@vercel/remix";
 import {
   departmentValidator,
   getDepartment,
-  upsertDepartment,
+  upsertDepartment
 } from "~/modules/people";
 import { DepartmentForm } from "~/modules/people/ui/Departments";
 import { getCustomFields, setCustomFields } from "~/utils/form";
@@ -16,7 +16,7 @@ import { path } from "~/utils/path";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
-    view: "people",
+    view: "people"
   });
 
   const { departmentId } = params;
@@ -32,14 +32,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   }
 
   return json({
-    department: department.data,
+    department: department.data
   });
 }
 
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    create: "people",
+    create: "people"
   });
 
   const formData = await request.formData();
@@ -56,7 +56,7 @@ export async function action({ request }: ActionFunctionArgs) {
     id,
     ...data,
     updatedBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
 
   if (updateDepartment.error) {
@@ -83,7 +83,7 @@ export default function DepartmentRoute() {
     id: department.id,
     name: department.name,
     parentDepartmentId: department.parentDepartmentId ?? undefined,
-    ...getCustomFields(department.customFields),
+    ...getCustomFields(department.customFields)
   };
 
   return (

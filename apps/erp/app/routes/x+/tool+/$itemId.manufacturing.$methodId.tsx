@@ -6,7 +6,7 @@ import {
   json,
   redirect,
   useLoaderData,
-  useParams,
+  useParams
 } from "@remix-run/react";
 import type { LoaderFunctionArgs } from "@vercel/remix";
 
@@ -22,7 +22,7 @@ import {
   getMakeMethodById,
   getMethodMaterialsByMakeMethod,
   getMethodOperationsByMakeMethodId,
-  getMethodTree,
+  getMethodTree
 } from "~/modules/items";
 import { BoMExplorer } from "~/modules/items/ui/Item";
 import { ToolProperties } from "~/modules/items/ui/Tools";
@@ -32,7 +32,7 @@ import { path } from "~/utils/path";
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
     view: "parts",
-    bypassRls: true,
+    bypassRls: true
   });
 
   const { itemId, methodId } = params;
@@ -63,7 +63,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
       getMethodTree(client, makeMethod.data.id),
       getMethodMaterialsByMakeMethod(client, makeMethod.data.id),
       getMethodOperationsByMakeMethodId(client, makeMethod.data.id),
-      getItemManufacturing(client, itemId, companyId),
+      getItemManufacturing(client, itemId, companyId)
     ]);
   if (methodTree?.error) {
     throw redirect(
@@ -101,7 +101,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
         ...m,
         description: m.item?.name ?? "",
         methodType: m.methodType as MethodType,
-        itemType: m.itemType as MethodItemType,
+        itemType: m.itemType as MethodItemType
       })) ?? [],
     methodOperations:
       methodOperations.data?.map((operation) => ({
@@ -109,12 +109,12 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
         workCenterId: operation.workCenterId ?? undefined,
         operationSupplierProcessId:
           operation.operationSupplierProcessId ?? undefined,
-        workInstruction: operation.workInstruction as JSONContent | null,
+        workInstruction: operation.workInstruction as JSONContent | null
       })) ?? [],
     methods: (methodTree.data.length > 0
       ? flattenTree(methodTree.data[0])
       : []) satisfies FlatTreeItem<Method>[],
-    toolManufacturing: toolManufacturing.data,
+    toolManufacturing: toolManufacturing.data
     // configurationParametersAndGroups: toolManufacturing.data
     //   ?.requiresConfiguration
     //   ? await getConfigurationParameters(client, itemId, companyId)

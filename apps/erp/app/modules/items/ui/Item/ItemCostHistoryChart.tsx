@@ -24,13 +24,13 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-  Tr,
+  Tr
 } from "@carbon/react";
 import type { ChartConfig } from "@carbon/react/Chart";
 import {
   ChartContainer,
   ChartTooltip,
-  ChartTooltipContent,
+  ChartTooltipContent
 } from "@carbon/react/Chart";
 import type { CalendarDate } from "@internationalized/date";
 import { today } from "@internationalized/date";
@@ -44,7 +44,7 @@ import {
   LuExternalLink,
   LuFile,
   LuInfo,
-  LuTable,
+  LuTable
 } from "react-icons/lu";
 import { Bar, CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts";
 import { SupplierAvatar } from "~/components";
@@ -55,17 +55,17 @@ import { path } from "~/utils/path";
 const chartConfig = {
   cost: {
     color: "hsl(var(--chart-1))",
-    label: "Unit Cost",
+    label: "Unit Cost"
   },
   weightedAverage: {
     color: "hsl(var(--chart-2))",
-    label: "Weighted Average",
-  },
+    label: "Weighted Average"
+  }
 } satisfies ChartConfig;
 
 export function ItemCostHistoryChart({
   readableId,
-  itemCostHistory,
+  itemCostHistory
 }: {
   readableId: string;
   itemCostHistory: ItemCostHistory;
@@ -98,7 +98,7 @@ export function ItemCostHistoryChart({
         entries = [
           itemCostHistory.find(
             (h) => new Date(h.postingDate) <= new Date(dateString)
-          ) ?? itemCostHistory[0],
+          ) ?? itemCostHistory[0]
         ];
       }
 
@@ -119,7 +119,7 @@ export function ItemCostHistoryChart({
       return {
         postingDate: dateString,
         cost: totalQuantity > 0 ? totalCost / totalQuantity : null,
-        quantity: totalQuantity,
+        quantity: totalQuantity
       };
     });
   }, [itemCostHistory]);
@@ -127,12 +127,12 @@ export function ItemCostHistoryChart({
   const currencyFormatter = useCurrencyFormatter();
   const shortDateFormatter = useDateFormatter({
     month: "short",
-    day: "numeric",
+    day: "numeric"
   });
   const longDateFormatter = useDateFormatter({
     year: "numeric",
     month: "short",
-    day: "numeric",
+    day: "numeric"
   });
 
   // Calculate max value for y-axis
@@ -150,8 +150,8 @@ export function ItemCostHistoryChart({
         currencyFormatter.format(h.nominalCost / h.quantity),
         currencyFormatter.format(h.cost / h.quantity),
         h.quantity,
-        suppliers.find((s) => s.id === h.supplierId)?.name,
-      ]),
+        suppliers.find((s) => s.id === h.supplierId)?.name
+      ])
     ];
   }, [itemCostHistory, longDateFormatter, currencyFormatter, suppliers]);
 
@@ -241,10 +241,10 @@ export function ItemCostHistoryChart({
                   strokeWidth={2}
                   dot={{
                     fill: "var(--color-cost)",
-                    r: 4,
+                    r: 4
                   }}
                   activeDot={{
-                    r: 8,
+                    r: 8
                   }}
                   connectNulls
                 />

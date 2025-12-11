@@ -8,7 +8,7 @@ interface ParameterPanelProps {
 
 export default function ParameterPanel({
   parameters,
-  onChange,
+  onChange
 }: ParameterPanelProps) {
   const updateValue = (index: number, value: string | MaterialValue) => {
     const newParameters = [...parameters];
@@ -28,8 +28,8 @@ export default function ParameterPanel({
         ...param,
         value: {
           ...(param.value as MaterialValue),
-          [property]: value || null,
-        },
+          [property]: value || null
+        }
       };
       onChange(newParameters);
     }
@@ -58,12 +58,12 @@ export default function ParameterPanel({
                 { key: "materialFormId", value: materialValue.materialFormId },
                 {
                   key: "materialSubstanceId",
-                  value: materialValue.materialSubstanceId,
+                  value: materialValue.materialSubstanceId
                 },
                 { key: "materialTypeId", value: materialValue.materialTypeId },
                 { key: "dimensionId", value: materialValue.dimensionId },
                 { key: "finishId", value: materialValue.finishId },
-                { key: "gradeId", value: materialValue.gradeId },
+                { key: "gradeId", value: materialValue.gradeId }
               ];
 
               return materialProperties.map((prop) => (

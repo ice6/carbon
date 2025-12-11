@@ -15,7 +15,7 @@ import { upsertCustomField } from "~/modules/settings/settings.server";
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    create: "settings",
+    create: "settings"
   });
 
   const { table } = params;
@@ -34,7 +34,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   const create = await upsertCustomField(client, {
     ...data,
     companyId,
-    createdBy: userId,
+    createdBy: userId
   });
   if (create.error) {
     return json(
@@ -63,7 +63,7 @@ export default function NewCustomFieldRoute() {
         // @ts-ignore
         dataTypeId: DataType.Text.toString(),
         table: table,
-        tags: [],
+        tags: []
       }}
       dataTypes={routeData?.dataTypes ?? []}
       onClose={onClose}

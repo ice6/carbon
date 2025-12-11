@@ -5,7 +5,7 @@ import { json, type ActionFunctionArgs } from "@vercel/remix";
 
 export async function action({ request }: ActionFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    create: "inventory",
+    create: "inventory"
   });
 
   const formData = await request.formData();
@@ -40,7 +40,7 @@ export async function action({ request }: ActionFunctionArgs) {
     return json(
       {
         success: false,
-        error: `Tracked entity is not available. Current status: ${trackedEntity.status}`,
+        error: `Tracked entity is not available. Current status: ${trackedEntity.status}`
       },
       await flash(
         request,
@@ -71,7 +71,7 @@ export async function action({ request }: ActionFunctionArgs) {
     newAttributes = {
       ...newAttributes,
       "Shipment Line": shipmentLineId,
-      Shipment: shipmentId,
+      Shipment: shipmentId
     };
   } else if (trackingType === "serial") {
     const index = Number(formData.get("index"));
@@ -81,7 +81,7 @@ export async function action({ request }: ActionFunctionArgs) {
       ...newAttributes,
       "Shipment Line": shipmentLineId,
       Shipment: shipmentId,
-      "Shipment Line Index": index,
+      "Shipment Line Index": index
     };
   }
 
@@ -89,7 +89,7 @@ export async function action({ request }: ActionFunctionArgs) {
   const updateResponse = await serviceRole
     .from("trackedEntity")
     .update({
-      attributes: newAttributes,
+      attributes: newAttributes
     })
     .eq("id", trackedEntityId)
     .eq("status", "Available");

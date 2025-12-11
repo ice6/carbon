@@ -8,19 +8,19 @@ import {
   DrawerHeader,
   DrawerTitle,
   HStack,
-  VStack,
+  VStack
 } from "@carbon/react";
 
 import { useNavigate } from "@remix-run/react";
 import { useState } from "react";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import {
   Employee,
   Hidden,
   Number,
   Select,
   Submit,
-  TextArea,
+  TextArea
 } from "~/components/Form";
 import ScrapReason from "~/components/Form/ScrapReason";
 import { usePermissions } from "~/hooks";
@@ -31,7 +31,7 @@ type ProductionQuantityFormProps = {
 };
 
 const ProductionQuantityForm = ({
-  initialValues,
+  initialValues
 }: ProductionQuantityFormProps) => {
   const permissions = usePermissions();
   const navigate = useNavigate();
@@ -71,7 +71,7 @@ const ProductionQuantityForm = ({
                 options={[
                   { label: "Production", value: "Production" },
                   { label: "Scrap", value: "Scrap" },
-                  { label: "Rework", value: "Rework" },
+                  { label: "Rework", value: "Rework" }
                 ]}
                 onChange={(value) =>
                   setType(value?.value as "Production" | "Scrap" | "Rework")

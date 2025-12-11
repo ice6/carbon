@@ -8,11 +8,11 @@ import {
   ModalDrawerHeader,
   ModalDrawerProvider,
   ModalDrawerTitle,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { useFetcher } from "@remix-run/react";
 import type { PostgrestResponse } from "@supabase/supabase-js";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import { Hidden, Input, Number, Submit } from "~/components/Form";
 import { usePermissions } from "~/hooks";
 import { path } from "~/utils/path";
@@ -29,7 +29,7 @@ const QualityDocumentForm = ({
   initialValues,
   type = "new",
   open = true,
-  onClose,
+  onClose
 }: QualityDocumentFormProps) => {
   const permissions = usePermissions();
   const fetcher = useFetcher<PostgrestResponse<{ id: string }>>();

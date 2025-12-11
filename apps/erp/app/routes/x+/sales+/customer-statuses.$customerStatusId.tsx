@@ -8,7 +8,7 @@ import { json, redirect } from "@vercel/remix";
 import {
   customerStatusValidator,
   getCustomerStatus,
-  upsertCustomerStatus,
+  upsertCustomerStatus
 } from "~/modules/sales";
 import CustomerStatusForm from "~/modules/sales/ui/CustomerStatuses/CustomerStatusForm";
 import { getCustomFields, setCustomFields } from "~/utils/form";
@@ -17,7 +17,7 @@ import { path } from "~/utils/path";
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
     view: "sales",
-    role: "employee",
+    role: "employee"
   });
 
   const { customerStatusId } = params;
@@ -36,14 +36,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   }
 
   return json({
-    customerStatus: customerStatus.data,
+    customerStatus: customerStatus.data
   });
 }
 
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    update: "sales",
+    update: "sales"
   });
 
   const formData = await request.formData();
@@ -62,7 +62,7 @@ export async function action({ request }: ActionFunctionArgs) {
     id,
     ...data,
     updatedBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
 
   if (updateCustomerStatus.error) {
@@ -88,7 +88,7 @@ export default function EditCustomerStatusesRoute() {
   const initialValues = {
     id: customerStatus.id ?? undefined,
     name: customerStatus.name ?? "",
-    ...getCustomFields(customerStatus.customFields),
+    ...getCustomFields(customerStatus.customFields)
   };
 
   return (

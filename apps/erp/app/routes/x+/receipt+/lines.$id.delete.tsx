@@ -8,7 +8,7 @@ import { deleteReceiptLine } from "~/modules/inventory";
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client } = await requirePermissions(request, {
-    delete: "inventory",
+    delete: "inventory"
   });
 
   const { id } = params;
@@ -19,12 +19,12 @@ export async function action({ request, params }: ActionFunctionArgs) {
   if (lineDelete.error) {
     return json({
       success: false,
-      message: lineDelete.error.message,
+      message: lineDelete.error.message
     });
   }
 
   return json({
     success: true,
-    message: "Receipt line deleted successfully",
+    message: "Receipt line deleted successfully"
   });
 }

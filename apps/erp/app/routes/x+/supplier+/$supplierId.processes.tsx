@@ -10,7 +10,7 @@ import { path } from "~/utils/path";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
-    view: "purchasing",
+    view: "purchasing"
   });
 
   const { supplierId } = params;
@@ -29,7 +29,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   }
 
   return json({
-    processes: processes.data,
+    processes: processes.data
   });
 }
 

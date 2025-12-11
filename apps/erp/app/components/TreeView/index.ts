@@ -3,7 +3,7 @@ import type {
   FlatTree,
   FlatTreeItem,
   Tree,
-  UseTreeStateOutput,
+  UseTreeStateOutput
 } from "./TreeView";
 import { flattenTree, LevelLine, TreeView, useTree } from "./TreeView";
 
@@ -14,5 +14,5 @@ export type {
   NodesState,
   NodeState,
   Tree,
-  UseTreeStateOutput,
+  UseTreeStateOutput
 };

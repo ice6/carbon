@@ -28,7 +28,7 @@ export const useCountries = () => {
 
   const options = countries.map((c) => ({
     value: c.alpha2,
-    label: c.name,
+    label: c.name
   }));
 
   return options;

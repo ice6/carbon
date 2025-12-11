@@ -12,7 +12,7 @@ import {
   PopoverContent,
   PopoverTrigger,
   cn,
-  useDisclosure,
+  useDisclosure
 } from "@carbon/react";
 import { convertKbToString, filterEmpty, formatDate } from "@carbon/utils";
 import { Link, useRevalidator } from "@remix-run/react";
@@ -31,7 +31,7 @@ import {
   LuTag,
   LuTrash,
   LuUser,
-  LuUsers,
+  LuUsers
 } from "react-icons/lu";
 import { RxCheck } from "react-icons/rx";
 import { EmployeeAvatar, Hyperlink, Table } from "~/components";
@@ -78,7 +78,7 @@ const DocumentsTable = memo(
       view,
       favorite,
       label,
-      setLabel,
+      setLabel
     } = useDocument();
 
     const [people] = usePeople();
@@ -93,7 +93,7 @@ const DocumentsTable = memo(
       () =>
         labels.map(({ label }) => ({
           value: label as string,
-          label: label as string,
+          label: label as string
         })) ?? [],
       [labels]
     );
@@ -131,7 +131,7 @@ const DocumentsTable = memo(
           const updated = [...prev];
           updated[index] = {
             ...updated[index],
-            labels: labels.sort(),
+            labels: labels.sort()
           };
           return updated;
         });
@@ -150,7 +150,7 @@ const DocumentsTable = memo(
           const updated = [...prev];
           updated[index] = {
             ...updated[index],
-            favorite: !updated[index].favorite,
+            favorite: !updated[index].favorite
           };
           return filter === "starred"
             ? updated.filter((item) => item.favorite === true)
@@ -193,8 +193,8 @@ const DocumentsTable = memo(
             </HStack>
           ),
           meta: {
-            icon: <LuBookMarked />,
-          },
+            icon: <LuBookMarked />
+          }
         },
         {
           accessorKey: "sourceDocument",
@@ -223,10 +223,10 @@ const DocumentsTable = memo(
               type: "static",
               options: documentSourceTypes?.map((type) => ({
                 value: type,
-                label: <Enumerable value={type} />,
-              })),
-            },
-          },
+                label: <Enumerable value={type} />
+              }))
+            }
+          }
         },
         {
           id: "labels",
@@ -261,13 +261,13 @@ const DocumentsTable = memo(
                     onChange={(newValue) =>
                       onLabel(row.original, [
                         ...(row.original.labels ?? []),
-                        newValue,
+                        newValue
                       ])
                     }
                     onCreateOption={async (newValue) => {
                       await onLabel(row.original, [
                         ...(row.original.labels ?? []),
-                        newValue,
+                        newValue
                       ]);
                       revalidator.revalidate();
                     }}
@@ -281,17 +281,17 @@ const DocumentsTable = memo(
             filter: {
               type: "static",
               options: labelOptions,
-              isArray: true,
-            },
-          },
+              isArray: true
+            }
+          }
         },
         {
           accessorKey: "size",
           header: "Size",
           cell: ({ row }) => convertKbToString(row.original.size ?? 0),
           meta: {
-            icon: <LuRuler />,
-          },
+            icon: <LuRuler />
+          }
         },
         {
           accessorKey: "type",
@@ -308,10 +308,10 @@ const DocumentsTable = memo(
                     <span>{type}</span>
                   </HStack>
                 ),
-                value: type,
-              })),
-            },
-          },
+                value: type
+              }))
+            }
+          }
         },
         {
           accessorKey: "extension",
@@ -323,10 +323,10 @@ const DocumentsTable = memo(
               type: "static",
               options: filterEmpty(extensions).map((extension) => ({
                 label: extension,
-                value: extension,
-              })),
-            },
-          },
+                value: extension
+              }))
+            }
+          }
         },
         {
           id: "createdBy",
@@ -340,18 +340,18 @@ const DocumentsTable = memo(
               type: "static",
               options: people.map((employee) => ({
                 value: employee.id,
-                label: employee.name,
-              })),
-            },
-          },
+                label: employee.name
+              }))
+            }
+          }
         },
         {
           accessorKey: "createdAt",
           header: "Created At",
           cell: (item) => formatDate(item.getValue<string>()),
           meta: {
-            icon: <LuFileText />,
-          },
+            icon: <LuFileText />
+          }
         },
         {
           id: "updatedBy",
@@ -365,19 +365,19 @@ const DocumentsTable = memo(
               type: "static",
               options: people.map((employee) => ({
                 value: employee.id,
-                label: employee.name,
-              })),
-            },
-          },
+                label: employee.name
+              }))
+            }
+          }
         },
         {
           accessorKey: "updatedAt",
           header: "Updated At",
           cell: (item) => formatDate(item.getValue<string>()),
           meta: {
-            icon: <LuFileText />,
-          },
-        },
+            icon: <LuFileText />
+          }
+        }
       ];
       // Don't put the revalidator in the deps array
       // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -389,7 +389,7 @@ const DocumentsTable = memo(
       onLabel,
       people,
       setLabel,
-      view,
+      view
     ]);
 
     const defaultColumnVisibility = {
@@ -398,7 +398,7 @@ const DocumentsTable = memo(
       createdAt: false,
       updatedAt: false,
       updatedBy: false,
-      description: false,
+      description: false
     };
 
     const renderContextMenu = useMemo(() => {
@@ -452,7 +452,7 @@ const DocumentsTable = memo(
       download,
       onFavorite,
       moveDocumentModal,
-      deleteDocumentModal,
+      deleteDocumentModal
     ]);
 
     return (
@@ -543,7 +543,7 @@ const CreatableCommand = ({
   options,
   selected,
   onChange,
-  onCreateOption,
+  onCreateOption
 }: CreatableCommandProps) => {
   const [search, setSearch] = useState("");
   const isExactMatch = options.some(

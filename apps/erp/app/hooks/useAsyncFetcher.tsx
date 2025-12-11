@@ -12,7 +12,7 @@ export function useAsyncFetcher<TData>(options?: FetcherOptions) {
   const onStateChange = options?.onStateChange || noop;
 
   const fetcher = useFetcher<TData>({
-    key: options?.key,
+    key: options?.key
   });
 
   const instance = useRef<PromiseWithResolvers<TData>>();
@@ -51,6 +51,6 @@ export function useAsyncFetcher<TData>(options?: FetcherOptions) {
     ...fetcher,
     data: fetcher.data as TData,
     submit,
-    load,
+    load
   };
 }

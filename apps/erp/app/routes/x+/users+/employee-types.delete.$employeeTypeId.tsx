@@ -11,7 +11,7 @@ import { path } from "~/utils/path";
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
     view: "users",
-    role: "employee",
+    role: "employee"
   });
   const { employeeTypeId } = params;
   if (!employeeTypeId) throw notFound("EmployeeTypeId not found");
@@ -28,13 +28,13 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   }
 
   return json({
-    employeeType: employeeType.data,
+    employeeType: employeeType.data
   });
 }
 
 export async function action({ request, params }: ActionFunctionArgs) {
   const { client } = await requirePermissions(request, {
-    delete: "users",
+    delete: "users"
   });
 
   const { employeeTypeId } = params;

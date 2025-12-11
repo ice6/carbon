@@ -30,16 +30,16 @@ function getEndPath(operationId: string) {
 const tw = createTw({
   theme: {
     fontFamily: {
-      sans: ["Helvetica", "Arial", "sans-serif"],
+      sans: ["Helvetica", "Arial", "sans-serif"]
     },
     extend: {
       colors: {
         gray: {
-          500: "#7d7d7d",
-        },
-      },
-    },
-  },
+          500: "#7d7d7d"
+        }
+      }
+    }
+  }
 });
 
 // JobHeader styles
@@ -54,30 +54,30 @@ const jobHeaderStyles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "flex-start",
     marginBottom: 20,
-    gap: 60,
+    gap: 60
   },
   leftSection: {
     flex: 1,
-    marginTop: 5,
+    marginTop: 5
   },
   rightSection: {
-    flex: 1,
+    flex: 1
   },
   infoRow: {
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
-    marginBottom: 4,
+    marginBottom: 4
   },
   label: {
     fontSize: 9,
     fontWeight: 600,
-    color: "#374151",
+    color: "#374151"
   },
   value: {
     fontSize: 9,
     fontWeight: 400,
-    color: "#111827",
+    color: "#111827"
   },
   sectionTitle: {
     fontSize: 11,
@@ -85,8 +85,8 @@ const jobHeaderStyles = StyleSheet.create({
     marginBottom: 8,
     color: "#111827",
     borderBottom: "1px solid #d1d5db",
-    paddingBottom: 2,
-  },
+    paddingBottom: 2
+  }
 });
 
 type JobHeaderProps = {
@@ -104,7 +104,7 @@ const JobHeader = ({
   customer,
   item,
   batchNumber,
-  thumbnail,
+  thumbnail
 }: JobHeaderProps) => {
   const getTargetInfo = () => {
     if (job.salesOrderId && job.salesOrderLineId) {
@@ -227,11 +227,11 @@ const JobTravelerPDF = ({
   meta,
   notes,
   thumbnail,
-  title = "Job Traveler",
+  title = "Job Traveler"
 }: JobTravelerProps) => {
   const subtitle = batchNumber
     ? batchNumber
-    : item.name ?? item.readableIdWithRevision;
+    : (item.name ?? item.readableIdWithRevision);
   const tertiaryTitle = batchNumber
     ? `${item.name ?? item.readableIdWithRevision}`
     : undefined;
@@ -242,7 +242,7 @@ const JobTravelerPDF = ({
       meta={{
         author: meta?.author ?? "Carbon",
         keywords: meta?.keywords ?? "job traveler, manufacturing",
-        subject: meta?.subject ?? "Job Traveler",
+        subject: meta?.subject ?? "Job Traveler"
       }}
     >
       <View style={tw("flex flex-col")}>

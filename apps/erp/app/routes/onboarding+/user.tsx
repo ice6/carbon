@@ -10,16 +10,16 @@ import {
   CardHeader,
   CardTitle,
   HStack,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { Link, useLoaderData } from "@remix-run/react";
 import { redirect, type ActionFunctionArgs } from "@vercel/remix";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import { Hidden, Input, Submit } from "~/components/Form";
 import { useOnboarding } from "~/hooks";
 import {
   onboardingUserValidator,
-  updatePublicAccount,
+  updatePublicAccount
 } from "~/modules/account";
 import { getUser } from "~/modules/users/users.server";
 
@@ -51,7 +51,7 @@ export async function action({ request }: ActionFunctionArgs) {
   const updateAccount = await updatePublicAccount(client, {
     id: userId,
     firstName,
-    lastName,
+    lastName
     // about: about ?? "",
   });
 

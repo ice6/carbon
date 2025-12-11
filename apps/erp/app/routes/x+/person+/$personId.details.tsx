@@ -12,7 +12,7 @@ import { ProfileForm } from "~/modules/account/ui/Profile";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
-    view: "people",
+    view: "people"
   });
 
   const { personId } = params;
@@ -27,7 +27,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   }
 
   return json({
-    user: account.data,
+    user: account.data
   });
 }
 

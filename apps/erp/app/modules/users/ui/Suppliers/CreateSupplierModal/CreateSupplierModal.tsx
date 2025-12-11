@@ -13,7 +13,7 @@ import {
   ModalHeader,
   ModalOverlay,
   ModalTitle,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { useFetcher, useNavigate } from "@remix-run/react";
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -21,7 +21,7 @@ import { Submit, Supplier } from "~/components/Form";
 import { useUrlParams } from "~/hooks";
 import type {
   SupplierContact as SupplierContactType,
-  getSupplierContacts,
+  getSupplierContacts
 } from "~/modules/purchasing";
 import { createSupplierAccountValidator } from "~/modules/users";
 import type { Result } from "~/types";
@@ -56,7 +56,7 @@ const CreateSupplierModal = () => {
           validator={createSupplierAccountValidator}
           defaultValues={{
             id: params.get("id") ?? "",
-            supplier: params.get("supplier") ?? "",
+            supplier: params.get("supplier") ?? ""
           }}
           // @ts-ignore
           fetcher={formFetcher}
@@ -116,7 +116,7 @@ const CreateSupplierModal = () => {
 const SupplierContact = ({
   name,
   supplier,
-  onChange,
+  onChange
 }: {
   name: string;
   supplier?: string;
@@ -155,7 +155,7 @@ const SupplierContact = ({
       supplierContactFetcher.data?.data
         ? supplierContactFetcher.data?.data.map((c) => ({
             value: c.id,
-            label: c.contact?.fullName ?? c.contact?.email ?? "Unknown",
+            label: c.contact?.fullName ?? c.contact?.email ?? "Unknown"
           }))
         : [],
     [supplierContactFetcher.data]

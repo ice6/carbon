@@ -4,7 +4,7 @@ import {
   getCarbonServiceRole,
   STRIPE_BYPASS_COMPANY_IDS,
   STRIPE_BYPASS_USER_IDS,
-  STRIPE_SECRET_KEY,
+  STRIPE_SECRET_KEY
 } from "@carbon/auth";
 import type { Database } from "@carbon/database";
 import { redis } from "@carbon/kv";
@@ -18,7 +18,7 @@ export const stripe = STRIPE_SECRET_KEY
   ? new Stripe(STRIPE_SECRET_KEY, {
       // @ts-ignore
       apiVersion: "2025-06-30.basil",
-      typescript: true,
+      typescript: true
     })
   : null;
 
@@ -32,7 +32,7 @@ const KvStripeCustomerSchema = z.object({
     z.literal("past_due"),
     z.literal("paused"),
     z.literal("trialing"),
-    z.literal("unpaid"),
+    z.literal("unpaid")
   ]),
   planId: z.string().nullish(),
   priceId: z.string(),
@@ -42,9 +42,9 @@ const KvStripeCustomerSchema = z.object({
   paymentMethod: z
     .object({
       brand: z.string().nullable(),
-      last4: z.string().nullable(),
+      last4: z.string().nullable()
     })
-    .nullable(),
+    .nullable()
 });
 
 const allowedEventTypes = [
@@ -66,7 +66,7 @@ const allowedEventTypes = [
   "invoice.payment_succeeded",
   "payment_intent.succeeded",
   "payment_intent.payment_failed",
-  "payment_intent.canceled",
+  "payment_intent.canceled"
 ] as const;
 type AllowedEventType = (typeof allowedEventTypes)[number];
 
@@ -74,7 +74,7 @@ export async function createStripeCustomer({
   userId,
   companyId,
   email,
-  name,
+  name
 }: {
   userId: string;
   companyId: string;
@@ -92,11 +92,11 @@ export async function createStripeCustomer({
         name: name ?? undefined,
         metadata: {
           userId,
-          companyId,
-        },
+          companyId
+        }
       },
       {
-        maxNetworkRetries: 3,
+        maxNetworkRetries: 3
       }
     );
 
@@ -147,7 +147,7 @@ export async function getStripeCustomerByCompanyId(
         currentPeriodStart: Math.floor(Date.now() / 1000),
         currentPeriodEnd: Math.floor(Date.now() / 1000) + 365 * 24 * 60 * 60, // 1 year from now
         cancelAtPeriodEnd: false,
-        paymentMethod: null,
+        paymentMethod: null
       };
     }
   }
@@ -187,7 +187,7 @@ export async function getStripeCustomerId(companyId: string) {
 
 function getStripeWebhookEvent({
   body,
-  signature,
+  signature
 }: {
   body: string;
   signature: string;
@@ -213,7 +213,7 @@ export async function getCheckoutUrl({
   userId,
   companyId,
   email,
-  name,
+  name
 }: {
   planId: string;
   userId: string;
@@ -234,7 +234,7 @@ export async function getCheckoutUrl({
       userId,
       companyId,
       email,
-      name,
+      name
     });
     stripeCustomerId = customer.id;
   }
@@ -246,8 +246,8 @@ export async function getCheckoutUrl({
     line_items: [
       {
         price: plan.data.stripePriceId,
-        quantity: 1,
-      },
+        quantity: 1
+      }
     ],
     mode: "subscription",
     success_url: `${getAppUrl()}/api/webhook/stripe`,
@@ -255,13 +255,13 @@ export async function getCheckoutUrl({
     payment_method_types: ["card", "us_bank_account", "cashapp"],
     ...(plan.data.stripeTrialPeriodDays > 0 && {
       subscription_data: {
-        trial_period_days: plan.data.stripeTrialPeriodDays,
-      },
+        trial_period_days: plan.data.stripeTrialPeriodDays
+      }
     }),
     metadata: {
       userId,
-      companyId,
-    },
+      companyId
+    }
   });
 
   if (!checkoutSession.url) {
@@ -273,7 +273,7 @@ export async function getCheckoutUrl({
 
 export async function getBillingPortalRedirectUrl({
   companyId,
-  priceIds,
+  priceIds
 }: {
   companyId: string;
   priceIds?: string[];
@@ -293,7 +293,7 @@ export async function getBillingPortalRedirectUrl({
 
   const portalSession = await stripe.billingPortal.sessions.create({
     customer: customerId,
-    return_url: `${getAppUrl()}/x/settings/company`,
+    return_url: `${getAppUrl()}/x/settings/company`
   });
 
   if (!portalSession.url) {
@@ -318,7 +318,7 @@ function isAllowedEventType<TEvent extends Stripe.Event>(
 
 export async function processStripeEvent({
   body,
-  signature,
+  signature
 }: {
   body: string;
   signature: string;
@@ -330,7 +330,7 @@ export async function processStripeEvent({
   const {
     event,
     success: eventSuccess,
-    error: eventError,
+    error: eventError
   } = getStripeWebhookEvent({ body, signature });
 
   if (!eventSuccess) {
@@ -373,7 +373,7 @@ export async function processStripeEvent({
           companyId,
           userId,
           data.customer_details?.email
-        ),
+        )
       ]);
     } catch (error) {
       console.error("Error processing webhook:", error);
@@ -410,7 +410,7 @@ export async function processStripeEvent({
         serviceRole
           .from("companyPlan")
           .delete()
-          .eq("stripeCustomerId", customer),
+          .eq("stripeCustomerId", customer)
       ]);
     } catch (error) {
       console.error("Error processing webhook:", error);
@@ -433,7 +433,7 @@ async function sendNewCustomerNotification(
     customer: customerId,
     limit: 1,
     status: "all",
-    expand: ["data.default_payment_method"],
+    expand: ["data.default_payment_method"]
   });
 
   const serviceRole = getCarbonServiceRole();
@@ -449,7 +449,7 @@ async function sendNewCustomerNotification(
       type: "customer",
       companyId,
       userId,
-      plan: plan.data?.name,
+      plan: plan.data?.name
     });
   }
 }
@@ -470,7 +470,7 @@ export async function syncStripeDataToKV(
     customer: customerId,
     limit: 1,
     status: "all",
-    expand: ["data.default_payment_method"],
+    expand: ["data.default_payment_method"]
   });
 
   if (subscriptions.data.length === 0) {
@@ -514,9 +514,9 @@ export async function syncStripeDataToKV(
       typeof subscription.default_payment_method !== "string"
         ? {
             brand: subscription.default_payment_method.card?.brand ?? null,
-            last4: subscription.default_payment_method.card?.last4 ?? null,
+            last4: subscription.default_payment_method.card?.last4 ?? null
           }
-        : null,
+        : null
   });
 
   if (!subDataResult.success) {
@@ -537,18 +537,18 @@ export async function syncStripeDataToKV(
         stripeSubscriptionStatus: (subData.cancelAtPeriodEnd
           ? "Canceled"
           : ["active", "trialing"].includes(subData.status)
-          ? "Active"
-          : "Inactive") as "Active" | "Inactive" | "Canceled",
+            ? "Active"
+            : "Inactive") as "Active" | "Inactive" | "Canceled",
         stripeCustomerId: customerId,
         stripeSubscriptionId: subData.subscriptionId,
         subscriptionStartDate: new Date(
           subData.currentPeriodStart * 1000
-        ).toISOString(),
+        ).toISOString()
       };
 
     const [, companyPlan] = await Promise.all([
       redis.set(key, subData),
-      upsertCompanyPlan(serviceRole, companyPlanData),
+      upsertCompanyPlan(serviceRole, companyPlanData)
     ]);
 
     if (companyPlan.error) {
@@ -563,7 +563,7 @@ export async function syncStripeDataToKV(
 
 export async function updateActiveUsers({
   subscriptionId,
-  activeUsers,
+  activeUsers
 }: {
   subscriptionId: string;
   activeUsers: number;
@@ -573,7 +573,7 @@ export async function updateActiveUsers({
   }
 
   await stripe.subscriptionItems.update(subscriptionId, {
-    quantity: activeUsers,
+    quantity: activeUsers
   });
 }
 
@@ -631,9 +631,8 @@ export async function updateSubscriptionQuantityForCompany(companyId: string) {
       ).length || 1;
 
     // Get the subscription from Stripe to find the subscription item
-    const subscription = await stripe.subscriptions.retrieve(
-      stripeSubscriptionId
-    );
+    const subscription =
+      await stripe.subscriptions.retrieve(stripeSubscriptionId);
 
     if (
       !subscription ||
@@ -650,7 +649,7 @@ export async function updateSubscriptionQuantityForCompany(companyId: string) {
     const subscriptionItemId = subscription.items.data[0].id;
 
     await stripe.subscriptionItems.update(subscriptionItemId, {
-      quantity: activeUserCount,
+      quantity: activeUserCount
     });
 
     console.log(

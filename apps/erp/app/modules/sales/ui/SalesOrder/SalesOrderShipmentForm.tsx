@@ -4,11 +4,11 @@ import {
   CardContent,
   CardFooter,
   CardHeader,
-  CardTitle,
+  CardTitle
 } from "@carbon/react";
 import { useFetcher, useParams } from "@remix-run/react";
 import { forwardRef, useImperativeHandle, useRef, useState } from "react";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import {
   Boolean,
   CustomFormFields,
@@ -20,7 +20,7 @@ import {
   Location,
   Number,
   ShippingMethod,
-  Submit,
+  Submit
 } from "~/components/Form";
 import { usePermissions, useRouteData, useUser } from "~/hooks";
 import type { action } from "~/routes/x+/sales-order+/$orderId.shipment";
@@ -61,7 +61,7 @@ const SalesOrderShipmentForm = forwardRef<
         cardRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
         shippingCostRef.current?.focus();
       }, 100);
-    },
+    }
   }));
 
   const { orderId } = useParams();
@@ -103,7 +103,7 @@ const SalesOrderShipmentForm = forwardRef<
                 style: "currency",
                 currency:
                   routeData?.salesOrder?.currencyCode ??
-                  company?.baseCurrencyCode,
+                  company?.baseCurrencyCode
               }}
               ref={shippingCostRef}
             />

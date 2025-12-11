@@ -7,7 +7,7 @@ import {
   SESSION_KEY,
   SESSION_MAX_AGE,
   SESSION_SECRET,
-  VERCEL_ENV,
+  VERCEL_ENV
 } from "../config/env";
 import type { AuthSession, Result } from "../types";
 import { getCurrentPath, isGet, makeRedirectToFromHere } from "../utils/http";
@@ -39,14 +39,14 @@ const sessionStorage = createCookieSessionStorage({
     sameSite: "lax",
     secrets: [SESSION_SECRET],
     secure: VERCEL_ENV === "production",
-    domain: VERCEL_ENV === "production" ? DOMAIN : undefined, // eg. carbon.ms
-  },
+    domain: VERCEL_ENV === "production" ? DOMAIN : undefined // eg. carbon.ms
+  }
 });
 
 export async function setAuthSession(
   request: Request,
   {
-    authSession,
+    authSession
   }: {
     authSession?: AuthSession | null;
   } = {}
@@ -69,8 +69,8 @@ export async function destroyAuthSession(request: Request) {
   return redirect(path.to.login, {
     headers: [
       ["Set-Cookie", sessionCookie],
-      ["Set-Cookie", companyIdCookie],
-    ],
+      ["Set-Cookie", companyIdCookie]
+    ]
   });
 }
 
@@ -85,7 +85,7 @@ export async function flash(request: Request, result: Result) {
   }
 
   return {
-    headers: { "Set-Cookie": await sessionStorage.commitSession(session) },
+    headers: { "Set-Cookie": await sessionStorage.commitSession(session) }
   };
 }
 
@@ -115,7 +115,7 @@ export async function getSessionFlash(request: Request) {
   const result: Result = {
     success: session.get("success") === true,
     message: session.get("message"),
-    flash: session.get("flash") as "success" | "error" | undefined,
+    flash: session.get("flash") as "success" | "error" | undefined
   };
 
   if (!result.message) return null;
@@ -138,14 +138,14 @@ export async function requireAuthSession(
   request: Request,
   {
     onFailRedirectTo,
-    verify,
+    verify
   }: {
     onFailRedirectTo?: string;
     verify: boolean;
   } = { verify: false }
 ): Promise<AuthSession> {
   const authSession = await assertAuthSession(request, {
-    onFailRedirectTo,
+    onFailRedirectTo
   });
 
   const isValidSession = verify ? await verifyAuthSession(authSession) : true;
@@ -171,29 +171,29 @@ export async function refreshAuthSession(
     const redirectUrl = `${path.to.login}?${makeRedirectToFromHere(request)}`;
 
     const sessionCookie = await setAuthSession(request, {
-      authSession: null,
+      authSession: null
     });
     const companyIdCookie = setCompanyId(null);
 
     throw redirect(redirectUrl, {
       headers: [
         ["Set-Cookie", sessionCookie],
-        ["Set-Cookie", companyIdCookie],
-      ],
+        ["Set-Cookie", companyIdCookie]
+      ]
     });
   }
 
   if (isGet(request)) {
     const sessionCookie = await setAuthSession(request, {
-      authSession: refreshedAuthSession,
+      authSession: refreshedAuthSession
     });
     const companyIdCookie = setCompanyId(refreshedAuthSession.companyId);
 
     throw redirect(getCurrentPath(request), {
       headers: [
         ["Set-Cookie", sessionCookie],
-        ["Set-Cookie", companyIdCookie],
-      ],
+        ["Set-Cookie", companyIdCookie]
+      ]
     });
   }
 
@@ -211,7 +211,7 @@ export async function updateCompanySession(
     await redis.del(getPermissionCacheKey(authSession?.userId!));
     session.set(SESSION_KEY, {
       ...authSession,
-      companyId,
+      companyId
     });
   }
 

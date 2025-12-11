@@ -7,7 +7,7 @@ import { redirect } from "@vercel/remix";
 import {
   quoteLineValidator,
   upsertQuoteLine,
-  upsertQuoteLineMethod,
+  upsertQuoteLineMethod
 } from "~/modules/sales";
 import { setCustomFields } from "~/utils/form";
 import { path } from "~/utils/path";
@@ -15,7 +15,7 @@ import { path } from "~/utils/path";
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { companyId, userId } = await requirePermissions(request, {
-    create: "sales",
+    create: "sales"
   });
 
   const { quoteId } = params;
@@ -44,7 +44,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     companyId,
     configuration,
     createdBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
 
   if (createQuotationLine.error) {
@@ -65,7 +65,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
       itemId: data.itemId,
       configuration,
       companyId,
-      userId,
+      userId
     });
 
     if (upsertMethod.error) {

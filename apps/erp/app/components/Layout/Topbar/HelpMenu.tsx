@@ -4,7 +4,7 @@ import {
   DropdownMenuIcon,
   DropdownMenuItem,
   DropdownMenuTrigger,
-  IconButton,
+  IconButton
 } from "@carbon/react";
 import { Link } from "@remix-run/react";
 import { LuCircleHelp, LuFiles } from "react-icons/lu";

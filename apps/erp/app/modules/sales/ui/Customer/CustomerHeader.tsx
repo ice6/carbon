@@ -10,12 +10,12 @@ import {
   CardHeader,
   CardTitle,
   HStack,
-  VStack,
+  VStack
 } from "@carbon/react";
 
 import { useFetcher, useParams } from "@remix-run/react";
 import { useCallback } from "react";
-import { z } from 'zod/v3';
+import { z } from "zod/v3";
 import { EmployeeAvatar } from "~/components";
 import { Enumerable } from "~/components/Enumerable";
 import { Tags } from "~/components/Form";
@@ -60,7 +60,7 @@ const CustomerHeader = () => {
 
       fetcher.submit(formData, {
         method: "post",
-        action: path.to.tags,
+        action: path.to.tags
       });
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -110,10 +110,10 @@ const CustomerHeader = () => {
               <CardAttributeValue>
                 <ValidatedForm
                   defaultValues={{
-                    tags: routeData?.customer?.tags ?? [],
+                    tags: routeData?.customer?.tags ?? []
                   }}
                   validator={z.object({
-                    tags: z.array(z.string()).optional(),
+                    tags: z.array(z.string()).optional()
                   })}
                   className="w-full"
                 >

@@ -2,19 +2,15 @@ import { assertIsPost, error } from "@carbon/auth";
 import { requirePermissions } from "@carbon/auth/auth.server";
 import { flash } from "@carbon/auth/session.server";
 import { validationError, validator } from "@carbon/form";
-import type {
-  ClientActionFunctionArgs} from "@remix-run/react";
-import {
-  useNavigate,
-  useParams,
-} from "@remix-run/react";
+import type { ClientActionFunctionArgs } from "@remix-run/react";
+import { useNavigate, useParams } from "@remix-run/react";
 import type { ActionFunctionArgs } from "@vercel/remix";
 import { redirect } from "@vercel/remix";
 import { useRouteData } from "~/hooks";
 import type { SupplierProcess } from "~/modules/purchasing";
 import {
   supplierProcessValidator,
-  upsertSupplierProcess,
+  upsertSupplierProcess
 } from "~/modules/purchasing";
 import SupplierProcessForm from "~/modules/purchasing/ui/Supplier/SupplierProcessForm";
 import { setCustomFields } from "~/utils/form";
@@ -24,7 +20,7 @@ import { supplierProcessesQuery } from "~/utils/react-query";
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    create: "purchasing",
+    create: "purchasing"
   });
 
   const { supplierId } = params;
@@ -47,7 +43,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     id,
     ...data,
     updatedBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
 
   if (createSupplierProcess.error) {
@@ -66,7 +62,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
 export async function clientAction({
   request,
   serverAction,
-  params,
+  params
 }: ClientActionFunctionArgs) {
   const formData = await request.clone().formData(); // if we. don't clone it we can't access it in the action
   const validation = await validator(supplierProcessValidator).validate(
@@ -104,7 +100,7 @@ export default function SupplierProcessRoute() {
     supplierId: process.supplierId ?? "",
     processId: process.processId ?? "",
     minimumCost: process.minimumCost ?? 0,
-    leadTime: process.leadTime ?? 0,
+    leadTime: process.leadTime ?? 0
   };
 
   return (

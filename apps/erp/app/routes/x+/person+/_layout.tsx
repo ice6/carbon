@@ -9,7 +9,7 @@ export const meta: MetaFunction = () => {
 
 export async function loader({ request }: LoaderFunctionArgs) {
   await requirePermissions(request, {
-    view: "people",
+    view: "people"
   });
 
   return null;

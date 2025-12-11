@@ -8,7 +8,7 @@ import {
   BsFilePptFill,
   BsFileTextFill,
   BsFileWordFill,
-  BsFileZipFill,
+  BsFileZipFill
 } from "react-icons/bs";
 import { LuAxis3D } from "react-icons/lu";
 import type { documentTypes } from "~/modules/shared";

@@ -14,12 +14,12 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-  cn,
+  cn
 } from "@carbon/react";
 import type {
   ElementRef,
   ForwardRefExoticComponent,
-  InputHTMLAttributes,
+  InputHTMLAttributes
 } from "react";
 import { forwardRef, useCallback } from "react";
 import { RxCaretSort, RxCheck } from "react-icons/rx";
@@ -64,7 +64,7 @@ const PhoneInput: ForwardRefExoticComponent<PhoneInputProps> = forwardRef<
         international
         {...getInputProps({
           id: name,
-          ...props,
+          ...props
         })}
         value={value}
         /**
@@ -110,7 +110,7 @@ const CountrySelect = ({
   disabled,
   value,
   onChange,
-  options,
+  options
 }: CountrySelectProps) => {
   const handleSelect = useCallback(
     (country: ReactPhoneInput.Country) => {

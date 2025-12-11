@@ -12,7 +12,7 @@ import {
   NumberInput,
   NumberInputGroup,
   NumberInputStepper,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { forwardRef, useRef } from "react";
 import { flushSync } from "react-dom";
@@ -97,7 +97,7 @@ const ArrayNumericInput = ({
           // @ts-ignore
           {...getInputProps({
             id: name,
-            ...rest,
+            ...rest
           })}
         >
           <NumberInputGroup className="relative">

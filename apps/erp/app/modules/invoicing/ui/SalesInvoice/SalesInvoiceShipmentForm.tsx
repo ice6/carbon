@@ -4,18 +4,18 @@ import {
   CardContent,
   CardFooter,
   CardHeader,
-  CardTitle,
+  CardTitle
 } from "@carbon/react";
 import { useFetcher, useParams } from "@remix-run/react";
 import { forwardRef, useImperativeHandle, useRef, useState } from "react";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import {
   CustomFormFields,
   Hidden,
   Location,
   Number,
   ShippingMethod,
-  Submit,
+  Submit
 } from "~/components/Form";
 import { usePermissions, useRouteData } from "~/hooks";
 import type { SalesInvoice } from "~/modules/invoicing";
@@ -64,7 +64,7 @@ const SalesInvoiceShipmentForm = forwardRef<
         cardRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
         shippingCostRef.current?.focus();
       }, 100);
-    },
+    }
   }));
 
   const isCustomer = permissions.is("customer");
@@ -96,7 +96,7 @@ const SalesInvoiceShipmentForm = forwardRef<
               minValue={0}
               formatOptions={{
                 style: "currency",
-                currency: currencyCode,
+                currency: currencyCode
               }}
               ref={shippingCostRef}
             />

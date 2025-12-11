@@ -13,12 +13,12 @@ const hStackVariants = cva("flex items-center", {
       3: "space-x-3",
       4: "space-x-4",
       6: "space-x-6",
-      8: "space-x-8",
-    },
+      8: "space-x-8"
+    }
   },
   defaultVariants: {
-    spacing: 2,
-  },
+    spacing: 2
+  }
 });
 
 export interface HStackProps
@@ -32,7 +32,7 @@ const HStack = forwardRef<HTMLDivElement, HStackProps>(
         className={cn(
           hStackVariants({
             spacing,
-            className,
+            className
           })
         )}
         ref={ref}

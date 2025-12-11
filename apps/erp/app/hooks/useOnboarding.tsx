@@ -17,6 +17,6 @@ export function useOnboarding() {
     currentIndex: routeData?.currentIndex,
     onboardingSteps: routeData?.onboardingSteps,
     next: routeData?.nextPath,
-    previous: routeData?.previousPath,
+    previous: routeData?.previousPath
   };
 }

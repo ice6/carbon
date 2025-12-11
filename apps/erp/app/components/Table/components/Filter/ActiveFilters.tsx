@@ -11,7 +11,7 @@ import {
   PopoverContent,
   PopoverTrigger,
   reactNodeToString,
-  useMount,
+  useMount
 } from "@carbon/react";
 import { useFetcher } from "@remix-run/react";
 import type { PostgrestResponse } from "@supabase/supabase-js";
@@ -97,8 +97,8 @@ const ActiveFilter = ({ filter, operator, value }: ActiveFilterProps) => {
       setOptions(
         filter.filter.transform
           ? filter.filter.transform(fetcher.data.data)
-          : fetcher.data.data?.map((d) => ({ label: d.name, value: d.id })) ??
-              []
+          : (fetcher.data.data?.map((d) => ({ label: d.name, value: d.id })) ??
+              [])
       );
 
       setLoading(false);

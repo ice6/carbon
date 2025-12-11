@@ -55,7 +55,7 @@ export function useUser(): User {
       ...data.user,
       company: data.company,
       groups: data.groups,
-      defaults: data.defaults ?? { locationId: null },
+      defaults: data.defaults ?? { locationId: null }
     };
   }
 

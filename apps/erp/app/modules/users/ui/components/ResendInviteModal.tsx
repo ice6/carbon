@@ -7,7 +7,7 @@ import {
   ModalContent,
   ModalFooter,
   ModalHeader,
-  ModalTitle,
+  ModalTitle
 } from "@carbon/react";
 import { useFetcher } from "@remix-run/react";
 import { UserSelect } from "~/components/Selectors";
@@ -23,7 +23,7 @@ type ResendInviteModalProps = {
 const ResendInviteModal = ({
   userIds,
   isOpen,
-  onClose,
+  onClose
 }: ResendInviteModalProps) => {
   const fetcher = useFetcher<{}>();
   const isSingleUser = userIds.length === 1;

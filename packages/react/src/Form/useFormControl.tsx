@@ -36,7 +36,7 @@ export function useFormControl<T extends HTMLElement>(
     required: isRequired,
     "aria-invalid": ariaAttr(isInvalid),
     "aria-required": ariaAttr(isRequired),
-    "aria-readonly": ariaAttr(isReadOnly),
+    "aria-readonly": ariaAttr(isReadOnly)
   };
 }
 
@@ -84,6 +84,6 @@ export function useFormControlProps<T extends HTMLElement>(
     isRequired: required ?? isRequired ?? field?.isRequired,
     isInvalid: isInvalid ?? field?.isInvalid,
     onFocus: callAllHandlers(field?.onFocus, onFocus),
-    onBlur: callAllHandlers(field?.onBlur, onBlur),
+    onBlur: callAllHandlers(field?.onBlur, onBlur)
   };
 }

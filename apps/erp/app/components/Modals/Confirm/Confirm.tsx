@@ -7,7 +7,7 @@ import {
   ModalHeader,
   ModalOverlay,
   ModalTitle,
-  toast,
+  toast
 } from "@carbon/react";
 import { useFetcher } from "@remix-run/react";
 import { useEffect, useRef } from "react";
@@ -29,7 +29,7 @@ const Confirm = ({
   text,
   confirmText = "Confirm",
   onCancel,
-  onSubmit,
+  onSubmit
 }: ConfirmProps) => {
   const fetcher = useFetcher<{ success: boolean; message: string }>();
   const submitted = useRef(false);

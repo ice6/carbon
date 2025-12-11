@@ -16,7 +16,7 @@ export const meta: MetaFunction = () => {
 export const handle: Handle = {
   breadcrumb: "Settings",
   to: path.to.company,
-  module: "settings",
+  module: "settings"
 };
 
 export default function SettingsRoute() {
@@ -28,7 +28,7 @@ export default function SettingsRoute() {
       name: "API Keys",
       to: path.to.apiKeys,
       role: "employee",
-      icon: <LuKey />,
+      icon: <LuKey />
     });
   }
 

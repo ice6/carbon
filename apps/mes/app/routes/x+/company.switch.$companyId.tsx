@@ -4,7 +4,7 @@ import { setCompanyId } from "@carbon/auth/company.server";
 import {
   destroyAuthSession,
   flash,
-  updateCompanySession,
+  updateCompanySession
 } from "@carbon/auth/session.server";
 import { redirect, type ActionFunctionArgs } from "@vercel/remix";
 import { getLocation, setLocation } from "~/services/location.server";
@@ -37,7 +37,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   const companyIdCookie = setCompanyId(companyId!);
   const storedLocations = await getLocation(request, client, {
     userId,
-    companyId: companyId!,
+    companyId: companyId!
   });
 
   if (storedLocations.updated) {
@@ -50,15 +50,15 @@ export async function action({ request, params }: ActionFunctionArgs) {
       headers: [
         ["Set-Cookie", sessionCookie],
         ["Set-Cookie", companyIdCookie],
-        ["Set-Cookie", locationCookie],
-      ],
+        ["Set-Cookie", locationCookie]
+      ]
     });
   }
 
   throw redirect(path.to.authenticatedRoot, {
     headers: [
       ["Set-Cookie", sessionCookie],
-      ["Set-Cookie", companyIdCookie],
-    ],
+      ["Set-Cookie", companyIdCookie]
+    ]
   });
 }

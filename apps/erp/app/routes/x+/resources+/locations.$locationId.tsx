@@ -11,7 +11,7 @@ import {
   LocationForm,
   getLocation,
   locationValidator,
-  upsertLocation,
+  upsertLocation
 } from "~/modules/resources";
 import { getCustomFields, setCustomFields } from "~/utils/form";
 import { path } from "~/utils/path";
@@ -19,7 +19,7 @@ import { getCompanyId, locationsQuery } from "~/utils/react-query";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
-    view: "resources",
+    view: "resources"
   });
 
   const { locationId } = params;
@@ -35,14 +35,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   }
 
   return json({
-    location: location.data,
+    location: location.data
   });
 }
 
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    create: "resources",
+    create: "resources"
   });
 
   const formData = await request.formData();
@@ -59,7 +59,7 @@ export async function action({ request }: ActionFunctionArgs) {
     id,
     ...data,
     updatedBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
 
   if (createLocation.error) {
@@ -103,7 +103,7 @@ export default function LocationRoute() {
     timezone: location.timezone ?? getLocalTimeZone(),
     latitude: location.latitude ?? undefined,
     longitude: location.longitude ?? undefined,
-    ...getCustomFields(location.customFields),
+    ...getCustomFields(location.customFields)
   };
 
   return <LocationForm initialValues={initialValues} onClose={onClose} />;

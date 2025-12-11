@@ -8,7 +8,7 @@ import {
   Heading,
   ScrollArea,
   toast,
-  VStack,
+  VStack
 } from "@carbon/react";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@vercel/remix";
 import { json, redirect } from "@vercel/remix";
@@ -24,7 +24,7 @@ import {
   materialIdsValidator,
   materialUnitsValidator,
   updateMaterialGeneratedIdsSetting,
-  updateMetricSettings,
+  updateMetricSettings
 } from "~/modules/settings";
 
 import type { Handle } from "~/utils/handle";
@@ -32,16 +32,16 @@ import { path } from "~/utils/path";
 
 export const handle: Handle = {
   breadcrumb: "Items",
-  to: path.to.itemsSettings,
+  to: path.to.itemsSettings
 };
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    view: "settings",
+    view: "settings"
   });
 
   const [companySettings] = await Promise.all([
-    getCompanySettings(client, companyId),
+    getCompanySettings(client, companyId)
   ]);
   if (!companySettings.data)
     throw redirect(
@@ -56,7 +56,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
 export async function action({ request }: ActionFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    update: "settings",
+    update: "settings"
   });
 
   const formData = await request.formData();
@@ -64,9 +64,8 @@ export async function action({ request }: ActionFunctionArgs) {
 
   switch (intent) {
     case "materialIds":
-      const idsValidation = await validator(materialIdsValidator).validate(
-        formData
-      );
+      const idsValidation =
+        await validator(materialIdsValidator).validate(formData);
 
       if (idsValidation.error) {
         return json({ success: false, message: "Invalid form data" });
@@ -80,7 +79,7 @@ export async function action({ request }: ActionFunctionArgs) {
       if (materialIdsResult.error)
         return json({
           success: false,
-          message: materialIdsResult.error.message,
+          message: materialIdsResult.error.message
         });
 
       return json({ success: true, message: "Material IDs setting updated" });
@@ -102,7 +101,7 @@ export async function action({ request }: ActionFunctionArgs) {
       if (materialUnitsResult.error)
         return json({
           success: false,
-          message: materialUnitsResult.error.message,
+          message: materialUnitsResult.error.message
         });
 
       return json({ success: true, message: "Material units setting updated" });
@@ -138,7 +137,7 @@ export default function ItemsSettingsRoute() {
             validator={materialIdsValidator}
             defaultValues={{
               materialGeneratedIds:
-                companySettings.materialGeneratedIds ?? false,
+                companySettings.materialGeneratedIds ?? false
             }}
             fetcher={fetcher}
           >
@@ -172,7 +171,7 @@ export default function ItemsSettingsRoute() {
             method="post"
             validator={materialUnitsValidator}
             defaultValues={{
-              useMetric: (companySettings as any).useMetric ?? false,
+              useMetric: (companySettings as any).useMetric ?? false
             }}
             fetcher={fetcher}
           >

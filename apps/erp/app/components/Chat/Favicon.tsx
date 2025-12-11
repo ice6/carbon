@@ -39,25 +39,25 @@ export function FaviconStack({ sources }: FaviconStackProps) {
                 opacity: 0,
                 scale: 0.6,
                 x: 50,
-                filter: "blur(4px)",
+                filter: "blur(4px)"
               }}
               animate={{
                 opacity: 1,
                 scale: 1,
                 x: 0,
                 filter: "blur(0px)",
-                zIndex: sources.length - index,
+                zIndex: sources.length - index
               }}
               exit={{
                 opacity: 0,
                 scale: 0.8,
                 x: -20,
-                filter: "blur(4px)",
+                filter: "blur(4px)"
               }}
               transition={{
                 duration: 0.4,
                 delay: index * 0.04,
-                ease: [0.16, 1, 0.3, 1], // Custom easing for smooth motion
+                ease: [0.16, 1, 0.3, 1] // Custom easing for smooth motion
               }}
               className="relative group -ml-2 first:ml-0"
               style={{ zIndex: sources.length - index }}
@@ -73,7 +73,7 @@ export function FaviconStack({ sources }: FaviconStackProps) {
                     target.style.display = "none";
                     const parent = target.parentElement;
                     const fallback = parent?.querySelector(
-                      ".fallback-icon",
+                      ".fallback-icon"
                     ) as HTMLElement;
                     if (fallback) fallback.style.display = "block";
                   }}

@@ -6,11 +6,11 @@ import {
   TooltipContent,
   TooltipTrigger,
   VStack,
-  useMount,
+  useMount
 } from "@carbon/react";
 import type {
   TrackedActivityAttributes,
-  TrackedEntityAttributes,
+  TrackedEntityAttributes
 } from "@carbon/utils";
 import * as d3 from "d3";
 import { motion } from "framer-motion";
@@ -20,7 +20,7 @@ import {
   CustomerAvatar,
   EmployeeAvatar,
   Hyperlink,
-  SupplierAvatar,
+  SupplierAvatar
 } from "~/components";
 import { useWorkCenters } from "~/components/Form/WorkCenter";
 import type {
@@ -28,7 +28,7 @@ import type {
   GraphData,
   GraphLink,
   GraphNode,
-  TrackedEntity,
+  TrackedEntity
 } from "~/modules/inventory";
 import { path } from "~/utils/path";
 import { capitalize, copyToClipboard } from "~/utils/string";
@@ -38,7 +38,7 @@ export function TraceabilityGraph({
   onNodeClick,
   width,
   height,
-  selectedId,
+  selectedId
 }: TraceabilityGraphProps) {
   const svgRef = useRef<SVGSVGElement>(null);
 
@@ -362,7 +362,7 @@ export function TraceabilityGraph({
 
 export function TraceabilitySidebar({
   entity,
-  activity,
+  activity
 }: {
   entity: TrackedEntity | null;
   activity: Activity | null;
@@ -370,7 +370,7 @@ export function TraceabilitySidebar({
   const selectedNode = entity ?? activity;
   const selectedNodeType = entity ? "entity" : "activity";
   const selectedNodeAttributes = (
-    entity ? entity.attributes ?? {} : activity?.attributes ?? {}
+    entity ? (entity.attributes ?? {}) : (activity?.attributes ?? {})
   ) as Record<string, any>;
 
   return (
@@ -421,8 +421,8 @@ export function TraceabilitySidebar({
             {entity
               ? entity.sourceDocumentReadableId
               : activity
-              ? activity.type
-              : "No selection"}
+                ? activity.type
+                : "No selection"}
           </span>
           <span className="text-xs text-muted-foreground">
             {selectedNode?.id}
@@ -574,7 +574,7 @@ function JobAttribute({ jobId }: { jobId: string }) {
 
 function JobProductionEvent({
   jobId,
-  eventId,
+  eventId
 }: {
   jobId: string;
   eventId: string;
@@ -595,7 +595,7 @@ function JobProductionEvent({
 
 function JobOperationAttribute({
   jobId,
-  operationId,
+  operationId
 }: {
   jobId: string;
   operationId: string;
@@ -621,7 +621,7 @@ function JobOperationAttribute({
 function JobMakeMethodAttribute({
   jobId,
   makeMethodId,
-  materialId,
+  materialId
 }: {
   jobId: string;
   makeMethodId: string;
@@ -644,7 +644,7 @@ function JobMakeMethodAttribute({
 }
 
 function PurchaseOrderAttribute({
-  purchaseOrderId,
+  purchaseOrderId
 }: {
   purchaseOrderId: string;
 }) {

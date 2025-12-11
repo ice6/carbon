@@ -8,7 +8,7 @@ import { getCompanyId, shelvesQuery } from "~/utils/react-query";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    view: "parts",
+    view: "parts"
   });
 
   const url = new URL(request.url);
@@ -18,7 +18,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   if (!locationId) {
     return json({
       data: [],
-      error: null,
+      error: null
     });
   }
 
@@ -26,13 +26,13 @@ export async function loader({ request }: LoaderFunctionArgs) {
   if (itemId) {
     const [shelvesResult, quantitiesResult] = await Promise.all([
       getShelvesListForLocation(client, companyId, locationId),
-      getItemShelfQuantities(client, itemId, companyId, locationId),
+      getItemShelfQuantities(client, itemId, companyId, locationId)
     ]);
 
     if (shelvesResult.error || quantitiesResult.error) {
       return json({
         data: [],
-        error: shelvesResult.error || quantitiesResult.error,
+        error: shelvesResult.error || quantitiesResult.error
       });
     }
 
@@ -50,12 +50,12 @@ export async function loader({ request }: LoaderFunctionArgs) {
     // Add quantity information to each shelf
     const shelvesWithQuantityData = shelvesWithQuantities.map((shelf) => ({
       ...shelf,
-      quantity: quantitiesMap.get(shelf.id) ?? 0,
+      quantity: quantitiesMap.get(shelf.id) ?? 0
     }));
 
     return json({
       data: shelvesWithQuantityData,
-      error: null,
+      error: null
     });
   }
 
@@ -65,7 +65,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
 export async function clientLoader({
   request,
-  serverLoader,
+  serverLoader
 }: ClientLoaderFunctionArgs) {
   const companyId = getCompanyId();
 

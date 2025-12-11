@@ -12,7 +12,7 @@ import { getCompanyId, shippingMethodsQuery } from "~/utils/react-query";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
-    view: "inventory",
+    view: "inventory"
   });
   const { shippingMethodId } = params;
   if (!shippingMethodId) throw notFound("shippingMethodId not found");
@@ -33,7 +33,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
 export async function action({ request, params }: ActionFunctionArgs) {
   const { client } = await requirePermissions(request, {
-    delete: "inventory",
+    delete: "inventory"
   });
 
   const { shippingMethodId } = params;

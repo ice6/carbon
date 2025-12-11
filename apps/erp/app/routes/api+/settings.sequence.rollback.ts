@@ -45,12 +45,12 @@ export async function action({ request }: ActionFunctionArgs) {
   if (verifyCurrent.data !== currentSequence) {
     return json({
       data: null,
-      error: "Sequence has changed since last request",
+      error: "Sequence has changed since last request"
     });
   }
 
   return json({
     data: currentSequence,
-    error: null,
+    error: null
   });
 }

@@ -1,4 +1,4 @@
-import { z } from 'zod/v3';
+import { z } from "zod/v3";
 import { zfd } from "zod-form-data";
 import {
   methodItemType,
@@ -6,32 +6,32 @@ import {
   methodType,
   operationTypes,
   procedureStepType,
-  standardFactorType,
+  standardFactorType
 } from "../shared";
 
 export const KPIs = [
   {
     key: "utilization",
     label: "Work Center Utilization",
-    emptyMessage: "No work center utilization data within range",
+    emptyMessage: "No work center utilization data within range"
   },
   {
     key: "estimatesVsActuals",
     label: "Estimates vs Actuals",
-    emptyMessage: "No completed jobs within range",
+    emptyMessage: "No completed jobs within range"
   },
   {
     key: "completionTime",
     label: "Completion Time",
-    emptyMessage: "No completed jobs within range",
-  },
+    emptyMessage: "No completed jobs within range"
+  }
 ] as const;
 
 export const deadlineTypes = [
   "ASAP",
   "Hard Deadline",
   "Soft Deadline",
-  "No Deadline",
+  "No Deadline"
 ] as const;
 
 export const jobStatus = [
@@ -43,7 +43,7 @@ export const jobStatus = [
   "Completed",
   "Cancelled",
   "Overdue", // deprecated
-  "Due Today", // deprecated
+  "Due Today" // deprecated
 ] as const;
 
 export const jobOperationStatus = [
@@ -53,7 +53,7 @@ export const jobOperationStatus = [
   "In Progress",
   "Paused",
   "Done",
-  "Canceled",
+  "Canceled"
 ] as const;
 
 export const procedureStatus = ["Draft", "Active", "Archived"] as const;
@@ -65,7 +65,7 @@ const baseJobValidator = z.object({
   customerId: zfd.text(z.string().optional()),
   dueDate: zfd.text(z.string().optional()),
   deadlineType: z.enum(deadlineTypes, {
-    errorMap: () => ({ message: "Deadline type is required" }),
+    errorMap: () => ({ message: "Deadline type is required" })
   }),
   locationId: z.string().min(1, { message: "Location is required" }),
   quantity: zfd.numeric(z.number().min(0)),
@@ -75,7 +75,7 @@ const baseJobValidator = z.object({
     .string()
     .min(1, { message: "Unit of measure is required" }),
   modelUploadId: zfd.text(z.string().optional()),
-  configuration: z.any().optional(),
+  configuration: z.any().optional()
 });
 
 export const bulkJobValidator = z
@@ -88,14 +88,14 @@ export const bulkJobValidator = z
       .string()
       .min(1, { message: "Unit of measure is required" }),
     deadlineType: z.enum(deadlineTypes, {
-      errorMap: () => ({ message: "Deadline type is required" }),
+      errorMap: () => ({ message: "Deadline type is required" })
     }),
     dueDateOfFirstJob: zfd.text(z.string().optional()),
     dueDateOfLastJob: zfd.text(z.string().optional()),
     locationId: z.string().min(1, { message: "Location is required" }),
     customerId: zfd.text(z.string().optional()),
     modelUploadId: zfd.text(z.string().optional()),
-    configuration: z.any().optional(),
+    configuration: z.any().optional()
   })
   .refine(
     (data) => {
@@ -106,7 +106,7 @@ export const bulkJobValidator = z
     },
     {
       message: "Due date of first job must be before due date of last job",
-      path: ["dueDateOfLastJob"],
+      path: ["dueDateOfLastJob"]
     }
   )
   .refine(
@@ -118,7 +118,7 @@ export const bulkJobValidator = z
     },
     {
       message: "Due date of first job is required for hard and soft deadlines",
-      path: ["dueDateOfFirstJob"],
+      path: ["dueDateOfFirstJob"]
     }
   )
   .refine(
@@ -130,7 +130,7 @@ export const bulkJobValidator = z
     },
     {
       message: "Due date of last job is required for hard and soft deadlines",
-      path: ["dueDateOfLastJob"],
+      path: ["dueDateOfLastJob"]
     }
   );
 
@@ -146,7 +146,7 @@ export const jobValidator = baseJobValidator.refine(
   },
   {
     message: "Due date is required",
-    path: ["dueDate"],
+    path: ["dueDate"]
   }
 );
 
@@ -155,7 +155,7 @@ export const jobCompleteValidator = z.object({
   salesOrderId: zfd.text(z.string().optional()),
   salesOrderLineId: zfd.text(z.string().optional()),
   locationId: zfd.text(z.string().optional()),
-  shelfId: zfd.text(z.string().optional()),
+  shelfId: zfd.text(z.string().optional())
 });
 
 export const salesOrderToJobValidator = baseJobValidator
@@ -163,7 +163,7 @@ export const salesOrderToJobValidator = baseJobValidator
     quoteId: zfd.text(z.string().optional()),
     quoteLineId: zfd.text(z.string().optional()),
     salesOrderId: zfd.text(z.string()),
-    salesOrderLineId: zfd.text(z.string()),
+    salesOrderLineId: zfd.text(z.string())
   })
   .refine(
     (data) => {
@@ -177,7 +177,7 @@ export const salesOrderToJobValidator = baseJobValidator
     },
     {
       message: "Due date is required",
-      path: ["dueDate"],
+      path: ["dueDate"]
     }
   );
 
@@ -189,13 +189,13 @@ export const baseJobOperationValidator = z.object({
   order: zfd.numeric(z.number().min(0)),
   operationOrder: z.enum(methodOperationOrders, {
     errorMap: (issue, ctx) => ({
-      message: "Operation order is required",
-    }),
+      message: "Operation order is required"
+    })
   }),
   operationType: z.enum(operationTypes, {
     errorMap: (issue, ctx) => ({
-      message: "Operation type is required",
-    }),
+      message: "Operation type is required"
+    })
   }),
   processId: z.string().min(1, { message: "Process is required" }),
   procedureId: zfd.text(z.string().optional()),
@@ -204,19 +204,19 @@ export const baseJobOperationValidator = z.object({
   ),
   setupUnit: z
     .enum(standardFactorType, {
-      errorMap: () => ({ message: "Setup unit is required" }),
+      errorMap: () => ({ message: "Setup unit is required" })
     })
     .optional(),
   setupTime: zfd.numeric(z.number().min(0).optional()),
   laborUnit: z
     .enum(standardFactorType, {
-      errorMap: () => ({ message: "Labor unit is required" }),
+      errorMap: () => ({ message: "Labor unit is required" })
     })
     .optional(),
   laborTime: zfd.numeric(z.number().min(0).optional()),
   machineUnit: z
     .enum(standardFactorType, {
-      errorMap: () => ({ message: "Machine unit is required" }),
+      errorMap: () => ({ message: "Machine unit is required" })
     })
     .optional(),
   machineTime: zfd.numeric(z.number().min(0).optional()),
@@ -226,13 +226,13 @@ export const baseJobOperationValidator = z.object({
   operationSupplierProcessId: zfd.text(z.string().optional()),
   operationMinimumCost: zfd.numeric(z.number().min(0).optional()),
   operationUnitCost: zfd.numeric(z.number().min(0).optional()),
-  operationLeadTime: zfd.numeric(z.number().min(0).optional()),
+  operationLeadTime: zfd.numeric(z.number().min(0).optional())
 });
 
 export const jobOperationValidator = baseJobOperationValidator
   .merge(
     z.object({
-      workCenterId: zfd.text(z.string().optional()),
+      workCenterId: zfd.text(z.string().optional())
     })
   )
   .refine(
@@ -244,7 +244,7 @@ export const jobOperationValidator = baseJobOperationValidator
     },
     {
       message: "Minimum is required",
-      path: ["operationMinimumCost"],
+      path: ["operationMinimumCost"]
     }
   )
   .refine(
@@ -256,7 +256,7 @@ export const jobOperationValidator = baseJobOperationValidator
     },
     {
       message: "Unit cost is required",
-      path: ["operationUnitCost"],
+      path: ["operationUnitCost"]
     }
   )
   .refine(
@@ -268,7 +268,7 @@ export const jobOperationValidator = baseJobOperationValidator
     },
     {
       message: "Lead time is required",
-      path: ["operationLeadTime"],
+      path: ["operationLeadTime"]
     }
   )
   .refine(
@@ -280,7 +280,7 @@ export const jobOperationValidator = baseJobOperationValidator
     },
     {
       message: "Setup unit is required",
-      path: ["setupUnit"],
+      path: ["setupUnit"]
     }
   )
   .refine(
@@ -292,7 +292,7 @@ export const jobOperationValidator = baseJobOperationValidator
     },
     {
       message: "Labor unit is required",
-      path: ["laborUnit"],
+      path: ["laborUnit"]
     }
   )
   .refine(
@@ -304,7 +304,7 @@ export const jobOperationValidator = baseJobOperationValidator
     },
     {
       message: "Machine unit is required",
-      path: ["machineUnit"],
+      path: ["machineUnit"]
     }
   )
   .refine(
@@ -316,7 +316,7 @@ export const jobOperationValidator = baseJobOperationValidator
     },
     {
       message: "Setup time is required",
-      path: ["setupTime"],
+      path: ["setupTime"]
     }
   )
   .refine(
@@ -328,7 +328,7 @@ export const jobOperationValidator = baseJobOperationValidator
     },
     {
       message: "Labor time is required",
-      path: ["laborTime"],
+      path: ["laborTime"]
     }
   )
   .refine(
@@ -340,7 +340,7 @@ export const jobOperationValidator = baseJobOperationValidator
     },
     {
       message: "Machine time is required",
-      path: ["machineTime"],
+      path: ["machineTime"]
     }
   )
   .refine(
@@ -352,7 +352,7 @@ export const jobOperationValidator = baseJobOperationValidator
     },
     {
       message: "Machine rate is required",
-      path: ["machineRate"],
+      path: ["machineRate"]
     }
   )
   .refine(
@@ -364,7 +364,7 @@ export const jobOperationValidator = baseJobOperationValidator
     },
     {
       message: "Overhead rate is required",
-      path: ["overheadRate"],
+      path: ["overheadRate"]
     }
   )
   .refine(
@@ -376,14 +376,14 @@ export const jobOperationValidator = baseJobOperationValidator
     },
     {
       message: "Labor rate is required",
-      path: ["laborRate"],
+      path: ["laborRate"]
     }
   );
 
 export const jobOperationValidatorForReleasedJob = baseJobOperationValidator
   .merge(
     z.object({
-      workCenterId: zfd.text(z.string().optional()),
+      workCenterId: zfd.text(z.string().optional())
     })
   )
   .refine(
@@ -395,7 +395,7 @@ export const jobOperationValidatorForReleasedJob = baseJobOperationValidator
     },
     {
       message: "Work center is required",
-      path: ["workCenterId"],
+      path: ["workCenterId"]
     }
   )
   .refine(
@@ -407,7 +407,7 @@ export const jobOperationValidatorForReleasedJob = baseJobOperationValidator
     },
     {
       message: "Minimum is required",
-      path: ["operationMinimumCost"],
+      path: ["operationMinimumCost"]
     }
   )
   .refine(
@@ -419,7 +419,7 @@ export const jobOperationValidatorForReleasedJob = baseJobOperationValidator
     },
     {
       message: "Unit cost is required",
-      path: ["operationUnitCost"],
+      path: ["operationUnitCost"]
     }
   )
   .refine(
@@ -431,7 +431,7 @@ export const jobOperationValidatorForReleasedJob = baseJobOperationValidator
     },
     {
       message: "Lead time is required",
-      path: ["operationLeadTime"],
+      path: ["operationLeadTime"]
     }
   )
   .refine(
@@ -443,7 +443,7 @@ export const jobOperationValidatorForReleasedJob = baseJobOperationValidator
     },
     {
       message: "Supplier is required",
-      path: ["operationSupplierProcessId"],
+      path: ["operationSupplierProcessId"]
     }
   )
   .refine(
@@ -455,7 +455,7 @@ export const jobOperationValidatorForReleasedJob = baseJobOperationValidator
     },
     {
       message: "Setup unit is required",
-      path: ["setupUnit"],
+      path: ["setupUnit"]
     }
   )
   .refine(
@@ -467,7 +467,7 @@ export const jobOperationValidatorForReleasedJob = baseJobOperationValidator
     },
     {
       message: "Labor unit is required",
-      path: ["laborUnit"],
+      path: ["laborUnit"]
     }
   )
   .refine(
@@ -479,7 +479,7 @@ export const jobOperationValidatorForReleasedJob = baseJobOperationValidator
     },
     {
       message: "Machine unit is required",
-      path: ["machineUnit"],
+      path: ["machineUnit"]
     }
   )
   .refine(
@@ -491,7 +491,7 @@ export const jobOperationValidatorForReleasedJob = baseJobOperationValidator
     },
     {
       message: "Setup time is required",
-      path: ["setupTime"],
+      path: ["setupTime"]
     }
   )
   .refine(
@@ -503,7 +503,7 @@ export const jobOperationValidatorForReleasedJob = baseJobOperationValidator
     },
     {
       message: "Labor time is required",
-      path: ["laborTime"],
+      path: ["laborTime"]
     }
   )
   .refine(
@@ -515,7 +515,7 @@ export const jobOperationValidatorForReleasedJob = baseJobOperationValidator
     },
     {
       message: "Machine time is required",
-      path: ["machineTime"],
+      path: ["machineTime"]
     }
   )
   .refine(
@@ -527,7 +527,7 @@ export const jobOperationValidatorForReleasedJob = baseJobOperationValidator
     },
     {
       message: "Machine rate is required",
-      path: ["machineRate"],
+      path: ["machineRate"]
     }
   )
   .refine(
@@ -539,7 +539,7 @@ export const jobOperationValidatorForReleasedJob = baseJobOperationValidator
     },
     {
       message: "Overhead rate is required",
-      path: ["overheadRate"],
+      path: ["overheadRate"]
     }
   )
   .refine(
@@ -551,7 +551,7 @@ export const jobOperationValidatorForReleasedJob = baseJobOperationValidator
     },
     {
       message: "Labor rate is required",
-      path: ["laborRate"],
+      path: ["laborRate"]
     }
   );
 
@@ -561,13 +561,13 @@ const baseMaterialValidator = z.object({
   jobMakeMethodId: z.string().min(1, { message: "Make method is required" }),
   itemType: z.enum(methodItemType, {
     errorMap: (issue, ctx) => ({
-      message: "Item type is required",
-    }),
+      message: "Item type is required"
+    })
   }),
   methodType: z.enum(methodType, {
     errorMap: (issue, ctx) => ({
-      message: "Method type is required",
-    }),
+      message: "Method type is required"
+    })
   }),
   itemId: z.string().min(1, { message: "Item is required" }),
   kit: zfd.text(z.string().optional()).transform((value) => value === "true"),
@@ -583,12 +583,12 @@ const baseMaterialValidator = z.object({
   unitOfMeasureCode: z
     .string()
     .min(1, { message: "Unit of Measure is required" }),
-  shelfId: zfd.text(z.string().optional()),
+  shelfId: zfd.text(z.string().optional())
 });
 
 export const jobMaterialValidator = baseMaterialValidator
   .extend({
-    jobOperationId: zfd.text(z.string().optional()),
+    jobOperationId: zfd.text(z.string().optional())
   })
   .refine(
     (data) => {
@@ -599,7 +599,7 @@ export const jobMaterialValidator = baseMaterialValidator
     },
     {
       message: "Part ID is required",
-      path: ["itemId"],
+      path: ["itemId"]
     }
   )
   .refine(
@@ -611,7 +611,7 @@ export const jobMaterialValidator = baseMaterialValidator
     },
     {
       message: "Material ID is required",
-      path: ["itemId"],
+      path: ["itemId"]
     }
   )
   .refine(
@@ -623,7 +623,7 @@ export const jobMaterialValidator = baseMaterialValidator
     },
     {
       message: "Tool ID is required",
-      path: ["itemId"],
+      path: ["itemId"]
     }
   )
   .refine(
@@ -635,13 +635,13 @@ export const jobMaterialValidator = baseMaterialValidator
     },
     {
       message: "Consumable ID is required",
-      path: ["itemId"],
+      path: ["itemId"]
     }
   );
 
 export const jobMaterialValidatorForReleasedJob = baseMaterialValidator
   .extend({
-    jobOperationId: z.string().min(1, { message: "Operation is required" }),
+    jobOperationId: z.string().min(1, { message: "Operation is required" })
   })
   .refine(
     (data) => {
@@ -652,7 +652,7 @@ export const jobMaterialValidatorForReleasedJob = baseMaterialValidator
     },
     {
       message: "Part ID is required",
-      path: ["itemId"],
+      path: ["itemId"]
     }
   )
   .refine(
@@ -664,7 +664,7 @@ export const jobMaterialValidatorForReleasedJob = baseMaterialValidator
     },
     {
       message: "Material ID is required",
-      path: ["itemId"],
+      path: ["itemId"]
     }
   )
   .refine(
@@ -676,7 +676,7 @@ export const jobMaterialValidatorForReleasedJob = baseMaterialValidator
     },
     {
       message: "Tool ID is required",
-      path: ["itemId"],
+      path: ["itemId"]
     }
   )
   .refine(
@@ -688,13 +688,13 @@ export const jobMaterialValidatorForReleasedJob = baseMaterialValidator
     },
     {
       message: "Consumable ID is required",
-      path: ["itemId"],
+      path: ["itemId"]
     }
   );
 
 export const getJobMethodValidator = z.object({
   sourceId: z.string().min(1, { message: "Source ID is required" }),
-  targetId: z.string().min(1, { message: "Please select a source method" }),
+  targetId: z.string().min(1, { message: "Please select a source method" })
 });
 
 // export const getJobMaterialMethodValidator = z.object({
@@ -708,7 +708,7 @@ export const procedureValidator = z.object({
   version: zfd.numeric(z.number().min(0)),
   processId: zfd.text(z.string().optional()),
   content: zfd.text(z.string().optional()),
-  copyFromId: zfd.text(z.string().optional()),
+  copyFromId: zfd.text(z.string().optional())
 });
 
 export const procedureStepValidator = z
@@ -718,13 +718,13 @@ export const procedureStepValidator = z
     name: z.string().min(1, { message: "Name is required" }),
     description: zfd.text(z.string().optional()),
     type: z.enum(procedureStepType, {
-      errorMap: () => ({ message: "Type is required" }),
+      errorMap: () => ({ message: "Type is required" })
     }),
     unitOfMeasureCode: zfd.text(z.string().optional()),
     minValue: zfd.numeric(z.number().min(0).optional()),
     maxValue: zfd.numeric(z.number().min(0).optional()),
     listValues: z.array(z.string()).optional(),
-    sortOrder: zfd.numeric(z.number().min(0).optional()),
+    sortOrder: zfd.numeric(z.number().min(0).optional())
   })
   .refine(
     (data) => {
@@ -735,7 +735,7 @@ export const procedureStepValidator = z
     },
     {
       message: "Unit of measure is required",
-      path: ["unitOfMeasureCode"],
+      path: ["unitOfMeasureCode"]
     }
   )
   .refine(
@@ -751,7 +751,7 @@ export const procedureStepValidator = z
     },
     {
       message: "List options are required",
-      path: ["listOptions"],
+      path: ["listOptions"]
     }
   )
   .refine(
@@ -763,7 +763,7 @@ export const procedureStepValidator = z
     },
     {
       message: "Maximum value must be greater than or equal to minimum value",
-      path: ["maxValue"],
+      path: ["maxValue"]
     }
   );
 
@@ -771,12 +771,12 @@ export const procedureParameterValidator = z.object({
   id: zfd.text(z.string().optional()),
   procedureId: z.string().min(1, { message: "Procedure is required" }),
   key: z.string().min(1, { message: "Key is required" }),
-  value: z.string().min(1, { message: "Value is required" }),
+  value: z.string().min(1, { message: "Value is required" })
 });
 
 export const procedureSyncValidator = z.object({
   operationId: z.string().min(1, { message: "Operation is required" }),
-  procedureId: z.string().min(1, { message: "Procedure is required" }),
+  procedureId: z.string().min(1, { message: "Procedure is required" })
 });
 
 export const productionEventValidator = z
@@ -784,13 +784,13 @@ export const productionEventValidator = z
     id: zfd.text(z.string().optional()),
     jobOperationId: z.string().min(1, { message: "Operation is required" }),
     type: z.enum(["Labor", "Machine", "Setup"], {
-      errorMap: () => ({ message: "Event type is required" }),
+      errorMap: () => ({ message: "Event type is required" })
     }),
     employeeId: zfd.text(z.string().optional()),
     workCenterId: zfd.text(z.string().optional()),
     startTime: z.string().min(1, { message: "Start time is required" }),
     endTime: zfd.text(z.string().optional()),
-    notes: zfd.text(z.string().optional()),
+    notes: zfd.text(z.string().optional())
   })
   .refine(
     (data) => {
@@ -801,7 +801,7 @@ export const productionEventValidator = z
     },
     {
       message: "Start time must be before end time",
-      path: ["endTime"],
+      path: ["endTime"]
     }
   );
 
@@ -814,7 +814,7 @@ export const productionOrderValidator = z.object({
   existingQuantity: zfd.numeric(z.number().optional()),
   existingReadableId: zfd.text(z.string().optional()),
   existingStatus: zfd.text(z.string().optional()),
-  isASAP: z.boolean().optional(),
+  isASAP: z.boolean().optional()
 });
 
 export type ProductionOrder = z.infer<typeof productionOrderValidator>;
@@ -823,29 +823,29 @@ export const productionQuantityValidator = z.object({
   id: z.string().min(0, { message: "ID is required" }),
   jobOperationId: z.string().min(1, { message: "Operation is required" }),
   type: z.enum(["Rework", "Scrap", "Production"], {
-    errorMap: () => ({ message: "Quantity type is required" }),
+    errorMap: () => ({ message: "Quantity type is required" })
   }),
   scrapReasonId: zfd.text(z.string().optional()),
   notes: zfd.text(z.string().optional()),
   createdBy: zfd.text(z.string().optional()),
-  quantity: zfd.numeric(z.number().min(0)),
+  quantity: zfd.numeric(z.number().min(0))
 });
 
 export const scheduleOperationUpdateValidator = z.object({
   id: z.string().min(1, { message: "ID is required" }),
   columnId: z.string().min(1, { message: "Column is required" }),
-  priority: zfd.numeric(z.number().min(0).optional()),
+  priority: zfd.numeric(z.number().min(0).optional())
 });
 
 export const scheduleJobUpdateValidator = z.object({
   id: z.string().min(1, { message: "ID is required" }),
   columnId: z.string().min(1, { message: "Column is required" }),
-  priority: zfd.numeric(z.number().min(0).optional()),
+  priority: zfd.numeric(z.number().min(0).optional())
 });
 
 export const scrapReasonValidator = z.object({
   id: zfd.text(z.string().optional()),
-  name: z.string().min(1, { message: "Name is required" }),
+  name: z.string().min(1, { message: "Name is required" })
 });
 
 export const demandProjectionValidator = z.object({
@@ -855,7 +855,7 @@ export const demandProjectionValidator = z.object({
   ...Object.fromEntries(
     Array.from({ length: 52 }, (_, i) => [
       `week${i}`,
-      zfd.numeric(z.number().min(0).optional()),
+      zfd.numeric(z.number().min(0).optional())
     ])
-  ),
+  )
 });

@@ -19,7 +19,7 @@ import {
   Th,
   Thead,
   toast,
-  Tr,
+  Tr
 } from "@carbon/react";
 import { convertKbToString } from "@carbon/utils";
 import { LuAxis3D, LuEllipsisVertical, LuUpload } from "react-icons/lu";
@@ -49,7 +49,7 @@ const ItemDocuments = ({
   files,
   itemId,
   modelUpload,
-  type,
+  type
 }: ItemDocumentsProps) => {
   const {
     canDelete,
@@ -59,10 +59,10 @@ const ItemDocuments = ({
     deleteModel,
     getPath,
     getModelPath,
-    upload,
+    upload
   } = useItemDocuments({
     itemId,
-    type,
+    type
   });
 
   const onDrop = useCallback(
@@ -405,7 +405,7 @@ export const useItemDocuments = ({ itemId, type }: Props) => {
           .from("private")
           .upload(fileName, file, {
             cacheControl: `${12 * 60 * 60}`,
-            upsert: true,
+            upsert: true
           });
 
         if (fileUpload.error) {
@@ -423,7 +423,7 @@ export const useItemDocuments = ({ itemId, type }: Props) => {
             method: "post",
             action: path.to.newDocument,
             navigate: false,
-            fetcherKey: `item:${file.name}`,
+            fetcherKey: `item:${file.name}`
           });
         }
       }
@@ -440,7 +440,7 @@ export const useItemDocuments = ({ itemId, type }: Props) => {
     downloadModel,
     getPath,
     getModelPath,
-    upload,
+    upload
   };
 };
 
@@ -466,8 +466,8 @@ const usePendingItems = () => {
           bucket: "private",
           metadata: {
             size,
-            mimetype: getDocumentType(name),
-          },
+            mimetype: getDocumentType(name)
+          }
         };
         return [...acc, newItem];
       }

@@ -17,7 +17,7 @@ import {
   ModalDrawerTitle,
   VStack,
   toast,
-  useDisclosure,
+  useDisclosure
 } from "@carbon/react";
 import { useFetcher, useNavigate } from "@remix-run/react";
 import type { PostgrestResponse } from "@supabase/supabase-js";
@@ -26,9 +26,9 @@ import {
   LuCirclePlus,
   LuEllipsisVertical,
   LuPencil,
-  LuTrash,
+  LuTrash
 } from "react-icons/lu";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import { SupplierAvatar } from "~/components";
 import {
   Boolean,
@@ -37,7 +37,7 @@ import {
   Input,
   Select,
   StandardFactor,
-  Submit,
+  Submit
 } from "~/components/Form";
 import { useSupplierProcesses } from "~/components/Form/SupplierProcess";
 import WorkCenters from "~/components/Form/WorkCenters";
@@ -59,7 +59,7 @@ const ProcessForm = ({
   initialValues,
   open = true,
   type = "drawer",
-  onClose,
+  onClose
 }: ProcessFormProps) => {
   const permissions = usePermissions();
   const fetcher = useFetcher<PostgrestResponse<{ id: string }>>();
@@ -118,7 +118,7 @@ const ProcessForm = ({
                   label="Process Type"
                   options={processTypes.map((pt) => ({
                     value: pt,
-                    label: pt,
+                    label: pt
                   }))}
                   onChange={(newValue) => {
                     setProcessType(
@@ -241,7 +241,7 @@ function SupplierProcesses({ processId }: { processId?: string }) {
             processId: processId,
             supplierId: "",
             minimumCost: 0,
-            leadTime: 0,
+            leadTime: 0
           }}
         />
       )}

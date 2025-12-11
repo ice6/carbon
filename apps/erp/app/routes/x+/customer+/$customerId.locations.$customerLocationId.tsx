@@ -3,7 +3,7 @@ import {
   badRequest,
   error,
   notFound,
-  success,
+  success
 } from "@carbon/auth";
 import { requirePermissions } from "@carbon/auth/auth.server";
 import { flash } from "@carbon/auth/session.server";
@@ -15,7 +15,7 @@ import { json, redirect } from "@vercel/remix";
 import {
   customerLocationValidator,
   getCustomerLocation,
-  updateCustomerLocation,
+  updateCustomerLocation
 } from "~/modules/sales";
 import { CustomerLocationForm } from "~/modules/sales/ui/Customer";
 import { getCustomFields, setCustomFields } from "~/utils/form";
@@ -24,7 +24,7 @@ import { customerLocationsQuery } from "~/utils/react-query";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
-    view: "sales",
+    view: "sales"
   });
 
   const { customerId, customerLocationId } = params;
@@ -43,14 +43,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   }
 
   return json({
-    location: location.data,
+    location: location.data
   });
 }
 
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client } = await requirePermissions(request, {
-    update: "sales",
+    update: "sales"
   });
 
   const { customerId, customerLocationId } = params;
@@ -75,7 +75,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     addressId,
     name,
     address,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
   if (update.error) {
     throw redirect(
@@ -95,7 +95,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
 export async function clientAction({
   serverAction,
-  params,
+  params
 }: ClientActionFunctionArgs) {
   const { customerId } = params;
   if (customerId) {
@@ -125,7 +125,7 @@ export default function EditCustomerLocationRoute() {
     stateProvince: location?.address?.stateProvince ?? "",
     postalCode: location?.address?.postalCode ?? "",
     countryCode: location?.address?.country?.alpha2 ?? "",
-    ...getCustomFields(location?.customFields),
+    ...getCustomFields(location?.customFields)
   };
 
   return (

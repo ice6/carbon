@@ -9,7 +9,7 @@ import {
   MenuIcon,
   MenuItem,
   toast,
-  useDisclosure,
+  useDisclosure
 } from "@carbon/react";
 import { formatDate } from "@carbon/utils";
 import { getLocalTimeZone, today } from "@internationalized/date";
@@ -28,7 +28,7 @@ import {
   LuStar,
   LuTrash,
   LuTruck,
-  LuUser,
+  LuUser
 } from "react-icons/lu";
 import {
   EmployeeAvatar,
@@ -36,7 +36,7 @@ import {
   ItemThumbnail,
   New,
   SupplierAvatar,
-  Table,
+  Table
 } from "~/components";
 import { Enumerable } from "~/components/Enumerable";
 import { usePaymentTerm } from "~/components/Form/PaymentTerm";
@@ -97,8 +97,8 @@ const PurchaseOrdersTable = memo(
             </HStack>
           ),
           meta: {
-            icon: <LuBookMarked />,
-          },
+            icon: <LuBookMarked />
+          }
         },
         {
           id: "supplierId",
@@ -111,11 +111,11 @@ const PurchaseOrdersTable = memo(
               type: "static",
               options: suppliers?.map((supplier) => ({
                 value: supplier.id,
-                label: supplier.name,
-              })),
+                label: supplier.name
+              }))
             },
-            icon: <LuContainer />,
-          },
+            icon: <LuContainer />
+          }
         },
         {
           accessorKey: "status",
@@ -130,36 +130,36 @@ const PurchaseOrdersTable = memo(
               type: "static",
               options: purchaseOrderStatusType.map((status) => ({
                 value: status,
-                label: <PurchasingStatus status={status} />,
-              })),
+                label: <PurchasingStatus status={status} />
+              }))
             },
             pluralHeader: "Statuses",
-            icon: <LuStar />,
-          },
+            icon: <LuStar />
+          }
         },
         {
           accessorKey: "supplierReference",
           header: "Supplier Ref.",
           cell: (item) => item.getValue(),
           meta: {
-            icon: <LuQrCode />,
-          },
+            icon: <LuQrCode />
+          }
         },
         {
           accessorKey: "orderDate",
           header: "Order Date",
           cell: (item) => formatDate(item.getValue<string>()),
           meta: {
-            icon: <LuCalendar />,
-          },
+            icon: <LuCalendar />
+          }
         },
         {
           accessorKey: "receiptRequestedDate",
           header: "Requested Date",
           cell: (item) => formatDate(item.getValue<string>()),
           meta: {
-            icon: <LuCalendar />,
-          },
+            icon: <LuCalendar />
+          }
         },
         {
           accessorKey: "receiptPromisedDate",
@@ -182,8 +182,8 @@ const PurchaseOrdersTable = memo(
                   isReceivedOnTime
                     ? "text-emerald-500"
                     : isOverdue
-                    ? "text-red-500"
-                    : ""
+                      ? "text-red-500"
+                      : ""
                 }
               >
                 {formatDate(row.original.receiptPromisedDate)}
@@ -191,8 +191,8 @@ const PurchaseOrdersTable = memo(
             );
           },
           meta: {
-            icon: <LuCalendar />,
-          },
+            icon: <LuCalendar />
+          }
         },
         {
           accessorKey: "orderTotal",
@@ -201,8 +201,8 @@ const PurchaseOrdersTable = memo(
           meta: {
             icon: <LuDollarSign />,
             formatter: currencyFormatter.format,
-            renderTotal: true,
-          },
+            renderTotal: true
+          }
         },
         {
           id: "assignee",
@@ -215,11 +215,11 @@ const PurchaseOrdersTable = memo(
               type: "static",
               options: people.map((employee) => ({
                 value: employee.id,
-                label: employee.name,
-              })),
+                label: employee.name
+              }))
             },
-            icon: <LuUser />,
-          },
+            icon: <LuUser />
+          }
         },
 
         {
@@ -235,8 +235,8 @@ const PurchaseOrdersTable = memo(
             />
           ),
           meta: {
-            icon: <LuTruck />,
-          },
+            icon: <LuTruck />
+          }
         },
         {
           accessorKey: "paymentTermId",
@@ -250,8 +250,8 @@ const PurchaseOrdersTable = memo(
             />
           ),
           meta: {
-            icon: <LuCreditCard />,
-          },
+            icon: <LuCreditCard />
+          }
         },
         {
           accessorKey: "dropShipment",
@@ -262,12 +262,12 @@ const PurchaseOrdersTable = memo(
               type: "static",
               options: [
                 { value: "true", label: "Yes" },
-                { value: "false", label: "No" },
-              ],
+                { value: "false", label: "No" }
+              ]
             },
             pluralHeader: "Drop Shipment Statuses",
-            icon: <LuTruck />,
-          },
+            icon: <LuTruck />
+          }
         },
         {
           id: "createdBy",
@@ -280,19 +280,19 @@ const PurchaseOrdersTable = memo(
               type: "static",
               options: people.map((employee) => ({
                 value: employee.id,
-                label: employee.name,
-              })),
+                label: employee.name
+              }))
             },
-            icon: <LuUser />,
-          },
+            icon: <LuUser />
+          }
         },
         {
           accessorKey: "createdAt",
           header: "Created At",
           cell: (item) => formatDate(item.getValue<string>()),
           meta: {
-            icon: <LuCalendar />,
-          },
+            icon: <LuCalendar />
+          }
         },
         {
           id: "updatedBy",
@@ -305,20 +305,20 @@ const PurchaseOrdersTable = memo(
               type: "static",
               options: people.map((employee) => ({
                 value: employee.id,
-                label: employee.name,
-              })),
+                label: employee.name
+              }))
             },
-            icon: <LuUser />,
-          },
+            icon: <LuUser />
+          }
         },
         {
           accessorKey: "updatedAt",
           header: "Updated At",
           cell: (item) => formatDate(item.getValue<string>()),
           meta: {
-            icon: <LuCalendar />,
-          },
-        },
+            icon: <LuCalendar />
+          }
+        }
       ];
 
       return [...defaultColumns, ...customColumns];
@@ -328,7 +328,7 @@ const PurchaseOrdersTable = memo(
       customColumns,
       currencyFormatter,
       shippingMethods,
-      paymentTerms,
+      paymentTerms
     ]);
 
     const fetcher = useFetcher<typeof action>();
@@ -348,7 +348,7 @@ const PurchaseOrdersTable = memo(
         if (value) formData.append("value", value);
         fetcher.submit(formData, {
           method: "post",
-          action: path.to.bulkUpdatePurchaseOrder,
+          action: path.to.bulkUpdatePurchaseOrder
         });
       },
       // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -432,7 +432,7 @@ const PurchaseOrdersTable = memo(
           columns={columns}
           data={data}
           defaultColumnPinning={{
-            left: ["purchaseOrderId"],
+            left: ["purchaseOrderId"]
           }}
           defaultColumnVisibility={{
             shippingMethodName: false,
@@ -441,7 +441,7 @@ const PurchaseOrdersTable = memo(
             createdBy: false,
             createdAt: false,
             updatedBy: false,
-            updatedAt: false,
+            updatedAt: false
           }}
           primaryAction={
             permissions.can("create", "purchasing") && (

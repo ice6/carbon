@@ -4,7 +4,7 @@
 import type {
   ComponentPropsWithoutRef,
   ElementRef,
-  PropsWithChildren,
+  PropsWithChildren
 } from "react";
 import { createContext, forwardRef, useContext } from "react";
 import {
@@ -14,7 +14,7 @@ import {
   DrawerDescription,
   DrawerFooter,
   DrawerHeader,
-  DrawerTitle,
+  DrawerTitle
 } from "./Drawer";
 
 import {
@@ -24,7 +24,7 @@ import {
   ModalDescription,
   ModalFooter,
   ModalHeader,
-  ModalTitle,
+  ModalTitle
 } from "./Modal";
 
 const ModalDrawerTypeContext = createContext<"drawer" | "modal">("drawer");
@@ -157,5 +157,5 @@ export {
   ModalDrawerTitle,
   ModalDrawerTypeContext,
   ModalDrawerTypeProvider,
-  useModalDrawerType,
+  useModalDrawerType
 };

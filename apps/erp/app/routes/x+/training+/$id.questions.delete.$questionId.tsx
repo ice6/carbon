@@ -7,7 +7,7 @@ import { deleteTrainingQuestion } from "~/modules/resources";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    delete: "resources",
+    delete: "resources"
   });
 
   const { questionId } = params;
@@ -23,7 +23,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   if (deleteQuestion.error) {
     return json(
       {
-        success: false,
+        success: false
       },
       await flash(
         request,
@@ -34,7 +34,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
   return json(
     {
-      success: true,
+      success: true
     },
     await flash(request, success("Successfully deleted question"))
   );

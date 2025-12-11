@@ -12,7 +12,7 @@ import { path } from "~/utils/path";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
-    view: "people",
+    view: "people"
   });
 
   const { holidayId } = params;
@@ -28,14 +28,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   }
 
   return json({
-    holiday: holiday.data,
+    holiday: holiday.data
   });
 }
 
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    create: "people",
+    create: "people"
   });
 
   const formData = await request.formData();
@@ -52,7 +52,7 @@ export async function action({ request }: ActionFunctionArgs) {
     id,
     name,
     date,
-    updatedBy: userId,
+    updatedBy: userId
   });
 
   if (updateHoliday.error) {
@@ -78,7 +78,7 @@ export default function HolidayRoute() {
     id: holiday.id,
     name: holiday.name,
     date: holiday.date,
-    ...getCustomFields(holiday.customFields),
+    ...getCustomFields(holiday.customFields)
   };
 
   return <HolidayForm key={initialValues.id} initialValues={initialValues} />;

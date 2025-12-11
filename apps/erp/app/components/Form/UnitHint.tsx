@@ -50,7 +50,7 @@ const UnitHint = ({
         className="w-full"
         options={["Fixed", "Per Unit"].map((u) => ({
           value: u,
-          label: u,
+          label: u
         }))}
       />
 

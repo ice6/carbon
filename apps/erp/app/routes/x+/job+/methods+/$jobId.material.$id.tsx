@@ -7,7 +7,7 @@ import {
   jobMaterialValidator,
   recalculateJobMakeMethodRequirements,
   recalculateJobOperationDependencies,
-  upsertJobMaterial,
+  upsertJobMaterial
 } from "~/modules/production";
 import { setCustomFields } from "~/utils/form";
 
@@ -15,7 +15,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
     create: "production",
-    bypassRls: true,
+    bypassRls: true
   });
 
   const { jobId, id } = params;
@@ -40,12 +40,12 @@ export async function action({ request, params }: ActionFunctionArgs) {
     id: id,
     companyId,
     updatedBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
   if (updateJobMaterial.error) {
     return json(
       {
-        id: null,
+        id: null
       },
       await flash(
         request,
@@ -58,7 +58,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   if (!jobMaterialId) {
     return json(
       {
-        id: null,
+        id: null
       },
       await flash(
         request,
@@ -72,8 +72,8 @@ export async function action({ request, params }: ActionFunctionArgs) {
       recalculateJobMakeMethodRequirements(client, {
         id: validation.data.jobMakeMethodId,
         companyId,
-        userId,
-      }),
+        userId
+      })
     ];
 
     if (validation.data.jobOperationId) {
@@ -81,14 +81,13 @@ export async function action({ request, params }: ActionFunctionArgs) {
         recalculateJobOperationDependencies(client, {
           jobId,
           companyId,
-          userId,
+          userId
         })
       );
     }
 
-    const [recalculateResult, recalculateDependencies] = await Promise.all(
-      promises
-    );
+    const [recalculateResult, recalculateDependencies] =
+      await Promise.all(promises);
 
     if (recalculateResult.error) {
       return json(
@@ -121,7 +120,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
       {
         id: validation.data.jobMakeMethodId,
         companyId,
-        userId,
+        userId
       }
     );
 
@@ -143,6 +142,6 @@ export async function action({ request, params }: ActionFunctionArgs) {
     id: jobMaterialId,
     methodType: updateJobMaterial.data.methodType,
     success: true,
-    message: "Material updated",
+    message: "Material updated"
   });
 }

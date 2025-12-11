@@ -67,8 +67,8 @@ function getDocumentTypeInfo(documentType: DocumentType): {
     nonConformance: {
       emoji: "⚠️",
       name: "Issue",
-      urlPath: "/x/issue",
-    },
+      urlPath: "/x/issue"
+    }
   };
 
   return typeMap[documentType];
@@ -102,8 +102,8 @@ export function formatDocumentCreated(
       type: "header",
       text: {
         type: "plain_text",
-        text: `${typeInfo.emoji} #${identifier}`,
-      },
+        text: `${typeInfo.emoji} #${identifier}`
+      }
     },
     {
       type: "section",
@@ -111,19 +111,19 @@ export function formatDocumentCreated(
         type: "mrkdwn",
         text: `*${data.title || "No title"}*\n${
           data.description || "_No description provided_"
-        }`,
+        }`
       },
       fields: [
         {
           type: "mrkdwn",
-          text: `*Status:*\n${data.status || "Unknown"}`,
+          text: `*Status:*\n${data.status || "Unknown"}`
         },
         {
           type: "mrkdwn",
-          text: `*Type:*\n${typeInfo.name}`,
-        },
-      ],
-    },
+          text: `*Type:*\n${typeInfo.name}`
+        }
+      ]
+    }
   ];
 
   // Add document-specific fields
@@ -131,7 +131,7 @@ export function formatDocumentCreated(
   if (specificFields.length > 0) {
     blocks.push({
       type: "section",
-      fields: specificFields,
+      fields: specificFields
     });
   }
 
@@ -151,9 +151,9 @@ export function formatDocumentCreated(
                 new Date(data.createdAt).getTime() / 1000
               )}^{date_short_pretty} at {time}|${data.createdAt}>`
             : ""
-        }`.trim(),
-      },
-    ],
+        }`.trim()
+      }
+    ]
   });
 
   // Add action buttons
@@ -164,21 +164,21 @@ export function formatDocumentCreated(
         type: "button",
         text: {
           type: "plain_text",
-          text: "View in Carbon",
+          text: "View in Carbon"
         },
         url: `${baseUrl}${typeInfo.urlPath}/${data.id}`,
-        action_id: "view_in_carbon",
+        action_id: "view_in_carbon"
       },
       {
         type: "button",
         text: {
           type: "plain_text",
-          text: "Update Status",
+          text: "Update Status"
         },
         value: data.id,
-        action_id: `update_${data.documentType}_status`,
-      },
-    ],
+        action_id: `update_${data.documentType}_status`
+      }
+    ]
   });
 
   return blocks;
@@ -196,13 +196,13 @@ function getDocumentSpecificFields(data: DocumentData): any[] {
       if (ncrData.severity) {
         fields.push({
           type: "mrkdwn",
-          text: `*Severity:*\n${ncrData.severity}`,
+          text: `*Severity:*\n${ncrData.severity}`
         });
       }
       if (ncrData.typeName) {
         fields.push({
           type: "mrkdwn",
-          text: `*Issue Type:*\n${ncrData.typeName}`,
+          text: `*Issue Type:*\n${ncrData.typeName}`
         });
       }
       break;
@@ -240,8 +240,8 @@ function getDocumentSpecificSections(data: DocumentData): KnownBlock[] {
           type: "section",
           text: {
             type: "mrkdwn",
-            text: text.trim(),
-          },
+            text: text.trim()
+          }
         });
       }
       break;
@@ -265,22 +265,22 @@ export function formatStatusUpdate(
       type: "section",
       text: {
         type: "mrkdwn",
-        text: `${emoji} *Issue Status Updated*\n${documentIdentifier}`,
-      },
+        text: `${emoji} *Issue Status Updated*\n${documentIdentifier}`
+      }
     },
     {
       type: "section",
       fields: [
         {
           type: "mrkdwn",
-          text: `*From:*\n${update.previousStatus}`,
+          text: `*From:*\n${update.previousStatus}`
         },
         {
           type: "mrkdwn",
-          text: `*To:*\n${update.newStatus}`,
-        },
-      ],
-    },
+          text: `*To:*\n${update.newStatus}`
+        }
+      ]
+    }
   ];
 
   if (update.reason) {
@@ -288,8 +288,8 @@ export function formatStatusUpdate(
       type: "section",
       text: {
         type: "mrkdwn",
-        text: `*Reason:* ${update.reason}`,
-      },
+        text: `*Reason:* ${update.reason}`
+      }
     });
   }
 
@@ -300,9 +300,9 @@ export function formatStatusUpdate(
         type: "mrkdwn",
         text: `Updated by <@${update.updatedBy}> at <!date^${Math.floor(
           Date.now() / 1000
-        )}^{date_short_pretty} {time}|${new Date().toISOString()}>`,
-      },
-    ],
+        )}^{date_short_pretty} {time}|${new Date().toISOString()}>`
+      }
+    ]
   });
 
   return blocks;
@@ -319,7 +319,7 @@ export function formatTaskUpdate(
   const taskTypeLabel = {
     investigation: "Investigation",
     action: "Action",
-    approval: "Approval",
+    approval: "Approval"
   }[update.taskType];
 
   const statusEmoji = getTaskStatusEmoji(update.status);
@@ -329,9 +329,9 @@ export function formatTaskUpdate(
       type: "section",
       text: {
         type: "mrkdwn",
-        text: `${statusEmoji} *${taskTypeLabel} Task ${update.status}*\n_${update.taskName}_`,
-      },
-    },
+        text: `${statusEmoji} *${taskTypeLabel} Task ${update.status}*\n_${update.taskName}_`
+      }
+    }
   ];
 
   const fields: any[] = [];
@@ -339,21 +339,21 @@ export function formatTaskUpdate(
   if (update.assignee) {
     fields.push({
       type: "mrkdwn",
-      text: `*Assigned to:*\n<@${update.assignee}>`,
+      text: `*Assigned to:*\n<@${update.assignee}>`
     });
   }
 
   if (update.completedBy) {
     fields.push({
       type: "mrkdwn",
-      text: `*Completed by:*\n<@${update.completedBy}>`,
+      text: `*Completed by:*\n<@${update.completedBy}>`
     });
   }
 
   if (fields.length > 0) {
     blocks.push({
       type: "section",
-      fields,
+      fields
     });
   }
 
@@ -362,8 +362,8 @@ export function formatTaskUpdate(
       type: "section",
       text: {
         type: "mrkdwn",
-        text: `*Notes:* ${update.notes}`,
-      },
+        text: `*Notes:* ${update.notes}`
+      }
     });
   }
 
@@ -378,9 +378,9 @@ export function formatTaskUpdate(
                 new Date(update.completedAt).getTime() / 1000
               )}^{date_short_pretty} at {time}|${update.completedAt}>`
             : ""
-        }`.trim(),
-      },
-    ],
+        }`.trim()
+      }
+    ]
   });
 
   return blocks;
@@ -399,9 +399,9 @@ export function formatAssignmentUpdate(
       type: "section",
       text: {
         type: "mrkdwn",
-        text: `🎯 *Assignment Updated*\n${documentIdentifier}`,
-      },
-    },
+        text: `🎯 *Assignment Updated*\n${documentIdentifier}`
+      }
+    }
   ];
 
   const fields: any[] = [];
@@ -409,18 +409,18 @@ export function formatAssignmentUpdate(
   if (update.previousAssignee) {
     fields.push({
       type: "mrkdwn",
-      text: `*Previous Assignee:*\n<@${update.previousAssignee}>`,
+      text: `*Previous Assignee:*\n<@${update.previousAssignee}>`
     });
   }
 
   fields.push({
     type: "mrkdwn",
-    text: `*New Assignee:*\n<@${update.newAssignee}>`,
+    text: `*New Assignee:*\n<@${update.newAssignee}>`
   });
 
   blocks.push({
     type: "section",
-    fields,
+    fields
   });
 
   blocks.push({
@@ -430,9 +430,9 @@ export function formatAssignmentUpdate(
         type: "mrkdwn",
         text: `Updated by <@${update.updatedBy}> at <!date^${Math.floor(
           Date.now() / 1000
-        )}^{date_short_pretty} {time}|${new Date().toISOString()}>`,
-      },
-    ],
+        )}^{date_short_pretty} {time}|${new Date().toISOString()}>`
+      }
+    ]
   });
 
   return blocks;
@@ -451,9 +451,9 @@ export function formatSimpleNotification(
       type: "section",
       text: {
         type: "mrkdwn",
-        text: `*${title}*\n${message}`,
-      },
-    },
+        text: `*${title}*\n${message}`
+      }
+    }
   ];
 
   if (context) {
@@ -462,9 +462,9 @@ export function formatSimpleNotification(
       elements: [
         {
           type: "mrkdwn",
-          text: context,
-        },
-      ],
+          text: context
+        }
+      ]
     });
   }
 

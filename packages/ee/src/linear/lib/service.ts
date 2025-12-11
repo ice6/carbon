@@ -12,15 +12,15 @@ export const LinearIssueSchema = z.object({
   state: z.object({
     name: z.string(),
     color: z.string(),
-    type: z.nativeEnum(LinearWorkStateType),
+    type: z.nativeEnum(LinearWorkStateType)
   }),
   identifier: z.string(),
   dueDate: z.string().nullish(),
   assignee: z
     .object({
-      email: z.string(),
+      email: z.string()
     })
-    .nullish(),
+    .nullish()
 });
 
 export async function getLinearIntegration(
@@ -61,11 +61,11 @@ export function linkActionToLinearIssue(
 
   const updateData: Record<string, any> = {
     externalId: {
-      linear: data,
+      linear: data
     },
     assignee: input.assignee,
     status: mapLinearStatusToCarbonStatus(data.state.type!),
-    dueDate: data.dueDate,
+    dueDate: data.dueDate
   };
 
   // Only update notes if we successfully converted the description
@@ -108,8 +108,8 @@ export function unlinkActionFromLinearIssue(
     .from("nonConformanceActionTask")
     .update({
       externalId: {
-        linear: undefined,
-      },
+        linear: undefined
+      }
     })
     .eq("companyId", companyId)
     .eq("id", input.actionId)

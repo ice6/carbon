@@ -72,7 +72,7 @@ export const Markdown = memo(
           }
 
           return <pre {...rest}>{children}</pre>;
-        },
+        }
       } satisfies Components;
     }, []);
 

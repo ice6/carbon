@@ -10,7 +10,7 @@ import {
   Heading,
   IconButton,
   SplitButton,
-  useDisclosure,
+  useDisclosure
 } from "@carbon/react";
 import { labelSizes } from "@carbon/utils";
 import { Link, useParams } from "@remix-run/react";
@@ -21,7 +21,7 @@ import {
   LuQrCode,
   LuShoppingCart,
   LuTrash,
-  LuTruck,
+  LuTruck
 } from "react-icons/lu";
 
 import ConfirmDelete from "~/components/Modals/ConfirmDelete";
@@ -111,7 +111,7 @@ const ReceiptHeader = () => {
                 leftIcon={<LuQrCode />}
                 dropdownItems={labelSizes.map((size) => ({
                   label: size.name,
-                  onClick: () => navigateToTrackingLabels(!!size.zpl, size.id),
+                  onClick: () => navigateToTrackingLabels(!!size.zpl, size.id)
                 }))}
                 // TODO: if we knew the preferred label size, we could use that here
                 onClick={() => navigateToTrackingLabels(false)}
@@ -161,7 +161,7 @@ const ReceiptHeader = () => {
 function SourceDocumentLink({
   sourceDocument,
   sourceDocumentId,
-  sourceDocumentReadableId,
+  sourceDocumentReadableId
 }: {
   sourceDocument?: string;
   sourceDocumentId?: string;

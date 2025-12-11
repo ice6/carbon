@@ -5,7 +5,7 @@ import {
   HStack,
   MenuIcon,
   MenuItem,
-  useDisclosure,
+  useDisclosure
 } from "@carbon/react";
 import type { ColumnDef } from "@tanstack/react-table";
 import { memo, useCallback, useMemo, useState } from "react";
@@ -16,7 +16,7 @@ import {
   LuSquareUser,
   LuStar,
   LuUser,
-  LuUserCheck,
+  LuUserCheck
 } from "react-icons/lu";
 import { Avatar, New, Table } from "~/components";
 import { Enumerable } from "~/components/Enumerable";
@@ -25,7 +25,7 @@ import type { Customer } from "~/modules/users";
 import {
   DeactivateUsersModal,
   ResendInviteModal,
-  RevokeInviteModal,
+  RevokeInviteModal
 } from "~/modules/users";
 import { useCustomers } from "~/stores";
 import type { ListItem } from "~/types";
@@ -39,7 +39,7 @@ type CustomerAccountsTableProps = {
 
 const defaultColumnVisibility = {
   user_firstName: false,
-  user_lastName: false,
+  user_lastName: false
 };
 
 const CustomerAccountsTable = memo(
@@ -95,8 +95,8 @@ const CustomerAccountsTable = memo(
             </HStack>
           ),
           meta: {
-            icon: <LuUser />,
-          },
+            icon: <LuUser />
+          }
         },
 
         {
@@ -104,24 +104,24 @@ const CustomerAccountsTable = memo(
           header: "First Name",
           cell: (item) => item.getValue(),
           meta: {
-            icon: <LuUserCheck />,
-          },
+            icon: <LuUserCheck />
+          }
         },
         {
           accessorKey: "user.lastName",
           header: "Last Name",
           cell: (item) => item.getValue(),
           meta: {
-            icon: <LuUserCheck />,
-          },
+            icon: <LuUserCheck />
+          }
         },
         {
           accessorKey: "user.email",
           header: "Email",
           cell: (item) => item.getValue(),
           meta: {
-            icon: <LuMail />,
-          },
+            icon: <LuMail />
+          }
         },
         {
           accessorKey: "customer.name",
@@ -133,10 +133,10 @@ const CustomerAccountsTable = memo(
               type: "static",
               options: customers.map(({ name }) => ({
                 value: name,
-                label: name,
-              })),
-            },
-          },
+                label: name
+              }))
+            }
+          }
         },
         {
           accessorKey: "customer.customerTypeId",
@@ -151,10 +151,10 @@ const CustomerAccountsTable = memo(
               type: "static",
               options: customerTypes.map((type) => ({
                 value: type.id,
-                label: <Enumerable value={type.name} />,
-              })),
-            },
-          },
+                label: <Enumerable value={type.name} />
+              }))
+            }
+          }
         },
         {
           accessorKey: "active",
@@ -167,16 +167,16 @@ const CustomerAccountsTable = memo(
               options: [
                 {
                   value: "true",
-                  label: "Active",
+                  label: "Active"
                 },
                 {
                   value: "false",
-                  label: "Inactive",
-                },
-              ],
-            },
-          },
-        },
+                  label: "Inactive"
+                }
+              ]
+            }
+          }
+        }
       ];
     }, [customerTypes, customers]);
 
@@ -273,7 +273,7 @@ const CustomerAccountsTable = memo(
         deactivateCustomerModal,
         permissions,
         resendInviteModal,
-        revokeInviteModal,
+        revokeInviteModal
       ]
     );
 

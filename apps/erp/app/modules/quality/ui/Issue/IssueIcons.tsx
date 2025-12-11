@@ -6,7 +6,7 @@ import { LowPriorityIcon } from "~/assets/icons/LowPriorityIcon";
 import { MediumPriorityIcon } from "~/assets/icons/MediumPriorityIcon";
 import type {
   nonConformancePriority,
-  nonConformanceSource,
+  nonConformanceSource
 } from "../../quality.models";
 
 export function getPriorityIcon(

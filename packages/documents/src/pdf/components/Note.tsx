@@ -29,7 +29,7 @@ const convertTiptapJSON = (
           style={{
             fontSize: 13,
             fontWeight: "bold",
-            marginBottom: 10,
+            marginBottom: 10
           }}
         >
           {node?.content?.map((child) => convertTiptapJSON(child))}
@@ -49,7 +49,7 @@ const convertTiptapJSON = (
           {node?.content?.map((child, index) =>
             convertTiptapJSON(child, {
               index,
-              parentNodeType: "bulletList",
+              parentNodeType: "bulletList"
             })
           )}
         </View>
@@ -61,7 +61,7 @@ const convertTiptapJSON = (
           {node?.content?.map((child, index) =>
             convertTiptapJSON(child, {
               index,
-              parentNodeType: "orderedList",
+              parentNodeType: "orderedList"
             })
           )}
         </View>
@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
     borderBottomStyle: "solid",
     fontSize: 9,
     fontWeight: 700,
-    textTransform: "uppercase",
+    textTransform: "uppercase"
   },
   tfoot: {
     flexGrow: 1,
@@ -158,6 +158,6 @@ const styles = StyleSheet.create({
     borderBottomStyle: "solid",
     fontWeight: 700,
     color: "#7d7d7d",
-    textTransform: "uppercase",
-  },
+    textTransform: "uppercase"
+  }
 });

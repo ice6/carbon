@@ -14,13 +14,13 @@ import { getGenericQueryFilters } from "~/utils/query";
 
 export const handle: Handle = {
   breadcrumb: "Suppliers",
-  to: path.to.suppliers,
+  to: path.to.suppliers
 };
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
     view: "purchasing",
-    bypassRls: true,
+    bypassRls: true
   });
 
   const url = new URL(request.url);
@@ -40,10 +40,10 @@ export async function loader({ request }: LoaderFunctionArgs) {
       limit,
       offset,
       sorts,
-      filters,
+      filters
     }),
     getSupplierStatuses(client, companyId),
-    getTagsList(client, companyId, "supplier"),
+    getTagsList(client, companyId, "supplier")
   ]);
 
   if (suppliers.error) {
@@ -57,7 +57,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
     count: suppliers.count ?? 0,
     suppliers: suppliers.data ?? [],
     supplierStatuses: supplierStatuses.data ?? [],
-    tags: tags.data ?? [],
+    tags: tags.data ?? []
   });
 }
 

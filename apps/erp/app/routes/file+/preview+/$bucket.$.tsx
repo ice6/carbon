@@ -29,7 +29,7 @@ const supportedFileTypes: Record<string, string> = {
   fbx: "application/fbx",
   ply: "application/ply",
   off: "application/off",
-  step: "application/step",
+  step: "application/step"
 };
 
 export let loader = async ({ request, params }: LoaderFunctionArgs) => {
@@ -75,7 +75,7 @@ export let loader = async ({ request, params }: LoaderFunctionArgs) => {
   }
 
   const headers = new Headers({
-    "Cache-Control": "private, max-age=31536000, immutable",
+    "Cache-Control": "private, max-age=31536000, immutable"
   });
 
   if (contentType) {

@@ -11,7 +11,7 @@ import {
   LuMapPin,
   LuPencil,
   LuTrash,
-  LuUser,
+  LuUser
 } from "react-icons/lu";
 import { EmployeeAvatar, Hyperlink, New, Table } from "~/components";
 import { Enumerable } from "~/components/Enumerable";
@@ -33,7 +33,7 @@ const LocationsTable = memo(({ data, count }: LocationsTableProps) => {
   const [people] = usePeople();
 
   const rows = data.map((row) => ({
-    ...row,
+    ...row
   }));
 
   const customColumns = useCustomColumns<ShiftLocation>("location");
@@ -48,40 +48,40 @@ const LocationsTable = memo(({ data, count }: LocationsTableProps) => {
           </Hyperlink>
         ),
         meta: {
-          icon: <LuMapPin />,
-        },
+          icon: <LuMapPin />
+        }
       },
       {
         accessorKey: "addressLine1",
         header: "Address",
         cell: (item) => item.getValue(),
         meta: {
-          icon: <LuHouse />,
-        },
+          icon: <LuHouse />
+        }
       },
       {
         accessorKey: "city",
         header: "City",
         cell: (item) => item.getValue(),
         meta: {
-          icon: <LuBuilding2 />,
-        },
+          icon: <LuBuilding2 />
+        }
       },
       {
         accessorKey: "stateProvince",
         header: "State / Province",
         cell: (item) => item.getValue(),
         meta: {
-          icon: <LuMap />,
-        },
+          icon: <LuMap />
+        }
       },
       {
         accessorKey: "countryCode",
         header: "Country",
         cell: (item) => item.getValue(),
         meta: {
-          icon: <LuGlobe />,
-        },
+          icon: <LuGlobe />
+        }
       },
       // {
       //   accessorKey: "timezone",
@@ -100,10 +100,10 @@ const LocationsTable = memo(({ data, count }: LocationsTableProps) => {
             type: "static",
             options: people.map((employee) => ({
               value: employee.id,
-              label: employee.name,
-            })),
-          },
-        },
+              label: employee.name
+            }))
+          }
+        }
       },
       {
         id: "updatedBy",
@@ -117,11 +117,11 @@ const LocationsTable = memo(({ data, count }: LocationsTableProps) => {
             type: "static",
             options: people.map((employee) => ({
               value: employee.id,
-              label: employee.name,
-            })),
-          },
-        },
-      },
+              label: employee.name
+            }))
+          }
+        }
+      }
     ];
     return [...defaultColumns, ...customColumns];
   }, [people, customColumns]);

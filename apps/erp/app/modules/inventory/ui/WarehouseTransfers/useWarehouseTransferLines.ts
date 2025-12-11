@@ -24,7 +24,7 @@ export default function useWarehouseTransferLines(
 
       fetcher.submit(formData, {
         method: "post",
-        action: path.to.warehouseTransferLine(warehouseTransfer.id, id),
+        action: path.to.warehouseTransferLine(warehouseTransfer.id, id)
       });
     },
     [canEdit, fetcher, warehouseTransfer.id]
@@ -32,6 +32,6 @@ export default function useWarehouseTransferLines(
 
   return {
     canEdit,
-    onCellEdit,
+    onCellEdit
   };
 }

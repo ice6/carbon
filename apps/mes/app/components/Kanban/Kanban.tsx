@@ -2,7 +2,7 @@ import { ClientOnly } from "@carbon/react";
 import type {
   Announcements,
   DragEndEvent,
-  DragStartEvent,
+  DragStartEvent
 } from "@dnd-kit/core";
 import {
   DndContext,
@@ -11,7 +11,7 @@ import {
   MouseSensor,
   TouchSensor,
   useSensor,
-  useSensors,
+  useSensors
 } from "@dnd-kit/core";
 import { SortableContext, arrayMove } from "@dnd-kit/sortable";
 import { useEffect, useState } from "react";
@@ -69,7 +69,7 @@ const Kanban = ({
     useSensor(MouseSensor),
     useSensor(TouchSensor),
     useSensor(KeyboardSensor, {
-      coordinateGetter,
+      coordinateGetter
     })
   );
 
@@ -118,13 +118,13 @@ const Kanban = ({
     onDragCancel({ active }) {
       if (!hasDraggableData(active)) return;
       return `Dragging ${active.data.current?.type} cancelled.`;
-    },
+    }
   };
 
   return (
     <DndContext
       accessibility={{
-        announcements,
+        announcements
       }}
       sensors={sensors}
       onDragStart={onDragStart}

@@ -4,7 +4,7 @@ import type { MutableRefObject } from "react";
 import { memo } from "react";
 import type {
   EditableTableCellComponent,
-  Position,
+  Position
 } from "~/components/Editable";
 import Cell from "./Cell";
 
@@ -32,7 +32,7 @@ const Row = <T extends object>({
   rowRef,
   selectedCell,
   onCellClick,
-  onCellUpdate,
+  onCellUpdate
 }: RowProps<T>) => {
   const onUpdate = onCellUpdate(row.index);
 

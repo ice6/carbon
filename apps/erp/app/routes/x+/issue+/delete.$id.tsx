@@ -8,7 +8,7 @@ import { path } from "~/utils/path";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   const { client } = await requirePermissions(request, {
-    delete: "quality",
+    delete: "quality"
   });
 
   const { id } = params;
@@ -19,7 +19,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   if (mutation.error) {
     return json(
       {
-        success: false,
+        success: false
       },
       await flash(request, error(mutation.error, "Failed to delete issue"))
     );

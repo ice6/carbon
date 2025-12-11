@@ -20,7 +20,7 @@ import {
   Tr,
   useDisclosure,
   VStack,
-  type JSONContent,
+  type JSONContent
 } from "@carbon/react";
 import { useFetcher } from "@remix-run/react";
 import { useEffect, useMemo, useState } from "react";
@@ -38,7 +38,7 @@ import {
   Number,
   Select,
   Submit,
-  ValidatedForm,
+  ValidatedForm
 } from "@carbon/form";
 import { formatDateTime, parseMentionsFromDocument } from "@carbon/utils";
 import {
@@ -47,7 +47,7 @@ import {
   LuCircleCheck,
   LuFile,
   LuPaperclip,
-  LuTrash,
+  LuTrash
 } from "react-icons/lu";
 import { ProcedureStepTypeIcon } from "~/components/Icons";
 import { useItems, usePeople } from "~/stores";
@@ -63,7 +63,7 @@ export function StepsListItem({
   operationId,
   className,
   onRecord,
-  onDelete,
+  onDelete
 }: {
   activeStep: number;
   step: JobOperationStep;
@@ -83,7 +83,7 @@ export function StepsListItem({
     ? parseMentionsFromDocument(description as JSONContent)
     : [];
   const disclosure = useDisclosure({
-    defaultIsOpen: !!hasDescription,
+    defaultIsOpen: !!hasDescription
   });
 
   if (!operationId) return null;
@@ -110,10 +110,10 @@ export function StepsListItem({
                   {minValue !== null && maxValue !== null
                     ? `Must be between ${minValue} and ${maxValue} ${unitOfMeasureCode}`
                     : minValue !== null
-                    ? `Must be > ${minValue} ${unitOfMeasureCode}`
-                    : maxValue !== null
-                    ? `Must be < ${maxValue} ${unitOfMeasureCode}`
-                    : null}
+                      ? `Must be > ${minValue} ${unitOfMeasureCode}`
+                      : maxValue !== null
+                        ? `Must be < ${maxValue} ${unitOfMeasureCode}`
+                        : null}
                 </span>
               )}
             </VStack>
@@ -222,7 +222,7 @@ export function StepsListItem({
         <div
           className="mt-4 text-sm prose prose-sm dark:prose-invert"
           dangerouslySetInnerHTML={{
-            __html: generateHTML(description as JSONContent),
+            __html: generateHTML(description as JSONContent)
           }}
         />
       )}
@@ -275,7 +275,7 @@ function ItemsSummaryTable({ itemsIds }: { itemsIds: string[] }) {
 
 export function PreviewStepRecord({
   activeStep,
-  step,
+  step
 }: {
   activeStep: number;
   step: JobOperationStep;
@@ -343,7 +343,7 @@ export function PreviewStepRecord({
 export function RecordModal({
   attribute,
   activeStep,
-  onClose,
+  onClose
 }: {
   attribute: JobOperationStep;
   activeStep: number;
@@ -353,7 +353,7 @@ export function RecordModal({
   const employeeOptions = useMemo(() => {
     return employees.map((employee) => ({
       label: employee.name,
-      value: employee.id,
+      value: employee.id
     }));
   }, [employees]);
 
@@ -377,7 +377,7 @@ export function RecordModal({
       .from("private")
       .upload(fileName, fileUpload, {
         cacheControl: `${12 * 60 * 60}`,
-        upsert: true,
+        upsert: true
       });
 
     if (upload.error) {
@@ -424,7 +424,7 @@ export function RecordModal({
               record?.value ??
               (attribute.type === "Timestamp" ? new Date().toISOString() : ""),
             numericValue: record?.numericValue ?? 0,
-            userValue: record?.userValue ?? "",
+            userValue: record?.userValue ?? ""
           }}
           fetcher={fetcher}
         >
@@ -460,7 +460,7 @@ export function RecordModal({
                 <div
                   className="flex flex-col gap-2"
                   dangerouslySetInnerHTML={{
-                    __html: generateHTML(attribute.description as JSONContent),
+                    __html: generateHTML(attribute.description as JSONContent)
                   }}
                 />
               )}
@@ -488,7 +488,7 @@ export function RecordModal({
                   label=""
                   options={(attribute.listValues ?? []).map((value) => ({
                     label: value,
-                    value,
+                    value
                   }))}
                 />
               )}
@@ -574,7 +574,7 @@ export function DeleteStepRecordModal({
   onClose,
   id,
   title,
-  description,
+  description
 }: {
   onClose: () => void;
   id: string;

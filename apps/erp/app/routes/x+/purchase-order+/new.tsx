@@ -9,7 +9,7 @@ import { useUrlParams } from "~/hooks";
 import type { PurchaseOrderStatus } from "~/modules/purchasing";
 import {
   purchaseOrderValidator,
-  upsertPurchaseOrder,
+  upsertPurchaseOrder
 } from "~/modules/purchasing";
 import { PurchaseOrderForm } from "~/modules/purchasing/ui/PurchaseOrder";
 
@@ -20,14 +20,14 @@ import { path } from "~/utils/path";
 
 export const handle: Handle = {
   breadcrumb: "Orders",
-  to: path.to.purchaseOrders,
+  to: path.to.purchaseOrders
 };
 
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
     create: "purchasing",
-    bypassRls: true,
+    bypassRls: true
   });
 
   const formData = await request.formData();
@@ -65,7 +65,7 @@ export async function action({ request }: ActionFunctionArgs) {
     purchaseOrderId,
     companyId,
     createdBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
 
   if (createPurchaseOrder.error || !createPurchaseOrder.data?.[0]) {
@@ -92,7 +92,7 @@ export default function PurchaseOrderNewRoute() {
     supplierId: supplierId ?? "",
     orderDate: today(getLocalTimeZone()).toString(),
     status: "Draft" as PurchaseOrderStatus,
-    purchaseOrderType: "Purchase" as const,
+    purchaseOrderType: "Purchase" as const
   };
 
   return (

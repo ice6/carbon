@@ -8,7 +8,7 @@ import { getParams, path } from "~/utils/path";
 
 export async function action({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
-    delete: "accounting",
+    delete: "accounting"
   });
 
   const { subcategoryId } = params;

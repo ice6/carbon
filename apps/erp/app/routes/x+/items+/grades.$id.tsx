@@ -8,7 +8,7 @@ import { json, redirect } from "@vercel/remix";
 import {
   getMaterialGrade,
   materialGradeValidator,
-  upsertMaterialGrade,
+  upsertMaterialGrade
 } from "~/modules/items";
 import MaterialGradeForm from "~/modules/items/ui/MaterialGrades/MaterialGradeForm";
 import { getParams, path } from "~/utils/path";
@@ -16,7 +16,7 @@ import { getParams, path } from "~/utils/path";
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
     view: "parts",
-    role: "employee",
+    role: "employee"
   });
 
   const { id } = params;
@@ -35,14 +35,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   }
 
   return json({
-    materialGrade: materialGrade?.data ?? null,
+    materialGrade: materialGrade?.data ?? null
   });
 }
 
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client } = await requirePermissions(request, {
-    update: "parts",
+    update: "parts"
   });
 
   const { id } = params;
@@ -57,7 +57,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
   const updateMaterialGrade = await upsertMaterialGrade(client, {
     id: id,
-    ...validation.data,
+    ...validation.data
   });
 
   if (updateMaterialGrade.error) {
@@ -83,7 +83,7 @@ export default function EditMaterialGradesRoute() {
   const initialValues = {
     id: materialGrade?.id ?? undefined,
     name: materialGrade?.name ?? "",
-    materialSubstanceId: materialGrade?.materialSubstanceId ?? "",
+    materialSubstanceId: materialGrade?.materialSubstanceId ?? ""
   };
 
   return (

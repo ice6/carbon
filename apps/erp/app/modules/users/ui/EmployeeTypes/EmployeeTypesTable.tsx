@@ -32,9 +32,9 @@ const EmployeeTypesTable = memo(({ data, count }: EmployeeTypesTableProps) => {
         ),
 
         meta: {
-          icon: <LuUsers />,
-        },
-      },
+          icon: <LuUsers />
+        }
+      }
     ];
   }, []);
 

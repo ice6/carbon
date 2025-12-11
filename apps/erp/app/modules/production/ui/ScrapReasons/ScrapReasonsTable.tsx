@@ -32,9 +32,9 @@ const ScrapReasonsTable = memo(({ data, count }: ScrapReasonsTableProps) => {
           </Hyperlink>
         ),
         meta: {
-          icon: <LuTrash />,
-        },
-      },
+          icon: <LuTrash />
+        }
+      }
     ];
     return [...defaultColumns, ...customColumns];
   }, [customColumns]);

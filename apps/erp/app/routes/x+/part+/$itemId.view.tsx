@@ -16,7 +16,7 @@ import { path } from "~/utils/path";
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
     view: "parts",
-    bypassRls: true,
+    bypassRls: true
   });
 
   const { itemId } = params;
@@ -57,7 +57,7 @@ export default function PartViewRoute() {
                     quoteMaterials,
                     salesOrderLines,
                     shipmentLines,
-                    supplierQuotes,
+                    supplierQuotes
                   } = resolvedUsedIn;
 
                   const tree: UsedInNode[] = [
@@ -65,7 +65,7 @@ export default function PartViewRoute() {
                       key: "issues",
                       name: "Issues",
                       module: "quality",
-                      children: issues,
+                      children: issues
                     },
                     {
                       key: "jobs",
@@ -73,21 +73,21 @@ export default function PartViewRoute() {
                       module: "production",
                       children: jobs.map((job) => ({
                         ...job,
-                        methodType: "Make",
-                      })),
+                        methodType: "Make"
+                      }))
                     },
                     {
                       key: "jobMaterials",
                       name: "Job Materials",
                       module: "production",
-                      children: jobMaterials,
+                      children: jobMaterials
                     },
                     {
                       key: "methodMaterials",
                       name: "Method Materials",
                       module: "parts",
                       // @ts-expect-error
-                      children: methodMaterials,
+                      children: methodMaterials
                     },
                     {
                       key: "purchaseOrderLines",
@@ -95,8 +95,8 @@ export default function PartViewRoute() {
                       module: "purchasing",
                       children: purchaseOrderLines.map((po) => ({
                         ...po,
-                        methodType: "Buy",
-                      })),
+                        methodType: "Buy"
+                      }))
                     },
                     {
                       key: "receiptLines",
@@ -104,14 +104,14 @@ export default function PartViewRoute() {
                       module: "inventory",
                       children: receiptLines.map((receipt) => ({
                         ...receipt,
-                        methodType: "Pick",
-                      })),
+                        methodType: "Pick"
+                      }))
                     },
                     {
                       key: "quoteLines",
                       name: "Quotes",
                       module: "sales",
-                      children: quoteLines,
+                      children: quoteLines
                     },
                     {
                       key: "quoteMaterials",
@@ -119,14 +119,14 @@ export default function PartViewRoute() {
                       module: "sales",
                       children: quoteMaterials?.map((qm) => ({
                         ...qm,
-                        documentReadableId: qm.documentReadableId ?? "",
-                      })),
+                        documentReadableId: qm.documentReadableId ?? ""
+                      }))
                     },
                     {
                       key: "salesOrderLines",
                       name: "Sales Orders",
                       module: "sales",
-                      children: salesOrderLines,
+                      children: salesOrderLines
                     },
                     {
                       key: "shipmentLines",
@@ -134,15 +134,15 @@ export default function PartViewRoute() {
                       module: "inventory",
                       children: shipmentLines.map((shipment) => ({
                         ...shipment,
-                        methodType: "Shipment",
-                      })),
+                        methodType: "Shipment"
+                      }))
                     },
                     {
                       key: "supplierQuotes",
                       name: "Supplier Quotes",
                       module: "purchasing",
-                      children: supplierQuotes,
-                    },
+                      children: supplierQuotes
+                    }
                   ];
 
                   return (

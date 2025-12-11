@@ -33,9 +33,9 @@ const IssueTypesTable = memo(({ data, count }: IssueTypesTableProps) => {
           </Hyperlink>
         ),
         meta: {
-          icon: <LuOctagonX />,
-        },
-      },
+          icon: <LuOctagonX />
+        }
+      }
     ];
     return [...defaultColumns, ...customColumns];
   }, [customColumns]);

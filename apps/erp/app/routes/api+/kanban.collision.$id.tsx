@@ -10,7 +10,7 @@ import { LuTriangleAlert } from "react-icons/lu";
 import { getKanban } from "~/modules/inventory";
 import {
   getJob,
-  updateKanbanJob,
+  updateKanbanJob
 } from "~/modules/production/production.service";
 import { path } from "~/utils/path";
 
@@ -33,13 +33,13 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   if (job.error) {
     return json({
       existingJob: null,
-      id,
+      id
     });
   }
 
   return json({
     existingJob: job.data,
-    id,
+    id
   });
 }
 
@@ -53,7 +53,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     id,
     jobId: null,
     userId,
-    companyId,
+    companyId
   });
 
   if (kanbanUpdate.error) {

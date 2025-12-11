@@ -4,7 +4,7 @@ import {
   Input,
   Select,
   Submit,
-  ValidatedForm,
+  ValidatedForm
 } from "@carbon/form";
 import {
   Button,
@@ -28,13 +28,13 @@ import {
   ModalTitle,
   toast,
   useDisclosure,
-  VStack,
+  VStack
 } from "@carbon/react";
 import {
   useFetcher,
   useFetchers,
   useParams,
-  useSubmit,
+  useSubmit
 } from "@remix-run/react";
 import { cva } from "class-variance-authority";
 import { useEffect, useRef, useState } from "react";
@@ -43,14 +43,14 @@ import {
   LuEllipsisVertical,
   LuFolderOpen,
   LuGripVertical,
-  LuKeySquare,
+  LuKeySquare
 } from "react-icons/lu";
 import { EmployeeAvatar } from "~/components";
 import type { ConfigurationParameter } from "~/modules/items";
 import {
   configurationParameterDataTypes,
   configurationParameterGroupValidator,
-  configurationParameterValidator,
+  configurationParameterValidator
 } from "~/modules/items";
 import type { action as configurationParameterAction } from "~/routes/x+/part+/$itemId.parameter";
 import { path } from "~/utils/path";
@@ -65,7 +65,7 @@ import type {
   DragStartEvent,
   DroppableContainer,
   KeyboardCoordinateGetter,
-  Over,
+  Over
 } from "@dnd-kit/core";
 import {
   closestCorners,
@@ -77,7 +77,7 @@ import {
   MouseSensor,
   TouchSensor,
   useSensor,
-  useSensors,
+  useSensors
 } from "@dnd-kit/core";
 import { SortableContext, useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
@@ -94,7 +94,7 @@ type ConfigurationParameterGroup = {
 
 export default function ConfigurationParametersForm({
   parameters: initialParameters,
-  groups: initialGroups,
+  groups: initialGroups
 }: {
   parameters: ConfigurationParameter[];
   groups: ConfigurationParameterGroup[];
@@ -106,7 +106,7 @@ export default function ConfigurationParametersForm({
     onChangeCheckForListType,
     setKey,
     setIsList,
-    updateKey,
+    updateKey
   } = useConfigurationParameters();
 
   const submit = useSubmit();
@@ -135,7 +135,7 @@ export default function ConfigurationParametersForm({
     if (parameter) {
       parametersById.set(pendingParameter.id, {
         ...parameter,
-        ...pendingParameter,
+        ...pendingParameter
       });
     }
   }
@@ -171,7 +171,7 @@ export default function ConfigurationParametersForm({
     useSensor(MouseSensor),
     useSensor(TouchSensor),
     useSensor(KeyboardSensor, {
-      coordinateGetter,
+      coordinateGetter
     })
   );
 
@@ -201,7 +201,7 @@ export default function ConfigurationParametersForm({
                   label: "",
                   dataType: "numeric",
                   listOptions: [],
-                  configurationParameterGroupId: undefined,
+                  configurationParameterGroupId: undefined
                 }}
                 className="w-full"
               >
@@ -235,7 +235,7 @@ export default function ConfigurationParametersForm({
                             {capitalize(type)}
                           </HStack>
                         ),
-                        value: type,
+                        value: type
                       }))}
                       onChange={onChangeCheckForListType}
                     />
@@ -377,7 +377,7 @@ export default function ConfigurationParametersForm({
               fetcher={fetcher}
               defaultValues={{
                 id: selectedGroup?.id,
-                name: selectedGroup?.name,
+                name: selectedGroup?.name
               }}
               onSubmit={() => {
                 setSelectedGroup(null);
@@ -497,13 +497,13 @@ export default function ConfigurationParametersForm({
     submit(
       {
         id: activeGroup.id,
-        sortOrder: newSortOrder,
+        sortOrder: newSortOrder
       },
       {
         method: "post",
         action: path.to.configurationParameterGroupOrder(itemId),
         navigate: false,
-        fetcherKey: `group:${activeGroup.id}`,
+        fetcherKey: `group:${activeGroup.id}`
       }
     );
   }
@@ -585,13 +585,13 @@ export default function ConfigurationParametersForm({
             sortOrder: newSortOrder,
             label: activeParameter.label,
             key: activeParameter.key,
-            dataType: activeParameter.dataType,
+            dataType: activeParameter.dataType
           },
           {
             method: "post",
             action: path.to.configurationParameterOrder(activeParameter.itemId),
             navigate: false,
-            fetcherKey: `parameter:${activeParameter.id}`,
+            fetcherKey: `parameter:${activeParameter.id}`
           }
         );
         return;
@@ -608,13 +608,13 @@ export default function ConfigurationParametersForm({
             sortOrder: newSortOrder,
             label: activeParameter.label,
             key: activeParameter.key,
-            dataType: activeParameter.dataType,
+            dataType: activeParameter.dataType
           },
           {
             method: "post",
             action: path.to.configurationParameterOrder(activeParameter.itemId),
             navigate: false,
-            fetcherKey: `parameter:${activeParameter.id}`,
+            fetcherKey: `parameter:${activeParameter.id}`
           }
         );
       }
@@ -644,13 +644,13 @@ export default function ConfigurationParametersForm({
             sortOrder: newSortOrder,
             label: activeParameter.label,
             key: activeParameter.key,
-            dataType: activeParameter.dataType,
+            dataType: activeParameter.dataType
           },
           {
             method: "post",
             action: path.to.configurationParameterOrder(activeParameter.itemId),
             navigate: false,
-            fetcherKey: `parameter:${activeParameter.id}`,
+            fetcherKey: `parameter:${activeParameter.id}`
           }
         );
       }
@@ -663,9 +663,9 @@ const variants = cva("border rounded-lg", {
     dragging: {
       default: "",
       over: "ring-2 opacity-30",
-      overlay: "ring-2 ring-primary",
-    },
-  },
+      overlay: "ring-2 ring-primary"
+    }
+  }
 });
 
 function ParameterGroup({
@@ -674,7 +674,7 @@ function ParameterGroup({
   parameters,
   groupDisclosure,
   deleteGroupDisclosure,
-  setSelectedGroup,
+  setSelectedGroup
 }: {
   group: ConfigurationParameterGroup;
   parameters: ConfigurationParameter[];
@@ -689,18 +689,18 @@ function ParameterGroup({
     listeners,
     transform,
     transition,
-    isDragging,
+    isDragging
   } = useSortable({
     id: group.id,
     data: { type: "group", group } satisfies GroupData,
     attributes: {
-      roleDescription: `Group: ${group.name}`,
-    },
+      roleDescription: `Group: ${group.name}`
+    }
   });
 
   const style = {
     transition,
-    transform: CSS.Translate.toString(transform),
+    transform: CSS.Translate.toString(transform)
   };
 
   return (
@@ -709,7 +709,7 @@ function ParameterGroup({
       ref={setNodeRef}
       style={style}
       className={variants({
-        dragging: isOverlay ? "overlay" : isDragging ? "over" : undefined,
+        dragging: isOverlay ? "overlay" : isDragging ? "over" : undefined
       })}
     >
       <div
@@ -778,7 +778,7 @@ function ParameterGroup({
 
 function ConfigurableParameter({
   parameter,
-  isOverlay,
+  isOverlay
 }: {
   parameter: ConfigurationParameter;
   isOverlay?: boolean;
@@ -797,21 +797,21 @@ function ConfigurableParameter({
     setNodeRef,
     transform,
     transition,
-    isDragging,
+    isDragging
   } = useSortable({
     id: parameter.id,
     data: {
       type: "parameter",
-      parameter,
+      parameter
     } satisfies ParameterData,
     attributes: {
-      roleDescription: `Parameter: ${parameter.label}`,
-    },
+      roleDescription: `Parameter: ${parameter.label}`
+    }
   });
 
   const style = {
     transform: CSS.Transform.toString(transform),
-    transition,
+    transition
   };
 
   useEffect(() => {
@@ -832,7 +832,7 @@ function ConfigurableParameter({
       className={cn(
         "p-4 bg-card",
         variants({
-          dragging: isOverlay ? "overlay" : isDragging ? "over" : undefined,
+          dragging: isOverlay ? "overlay" : isDragging ? "over" : undefined
         })
       )}
     >
@@ -852,7 +852,7 @@ function ConfigurableParameter({
             key: parameter.key,
             label: parameter.label,
             dataType: parameter.dataType,
-            listOptions: parameter.listOptions ?? [],
+            listOptions: parameter.listOptions ?? []
           }}
         >
           <Hidden name="id" />
@@ -885,7 +885,7 @@ function ConfigurableParameter({
                       {capitalize(type)}
                     </HStack>
                   ),
-                  value: type,
+                  value: type
                 }))}
                 onChange={onChangeCheckForListType}
               />
@@ -1077,7 +1077,7 @@ function useConfigurationParameters(parameter?: ConfigurationParameter) {
     onChangeCheckForListType,
     setKey,
     setIsList,
-    updateKey,
+    updateKey
   };
 }
 
@@ -1128,7 +1128,7 @@ function usePendingParameters({ itemId }: { itemId: string }) {
         label,
         key,
         dataType,
-        configurationParameterGroupId,
+        configurationParameterGroupId
       };
       return item;
     });
@@ -1138,7 +1138,7 @@ const directions: string[] = [
   KeyboardCode.Down,
   KeyboardCode.Right,
   KeyboardCode.Up,
-  KeyboardCode.Left,
+  KeyboardCode.Left
 ];
 
 export const coordinateGetter: KeyboardCoordinateGetter = (
@@ -1215,7 +1215,7 @@ export const coordinateGetter: KeyboardCoordinateGetter = (
       collisionRect: collisionRect,
       droppableRects,
       droppableContainers: filteredContainers,
-      pointerCoordinates: null,
+      pointerCoordinates: null
     });
     const closestId = getFirstCollision(collisions, "id");
 
@@ -1227,7 +1227,7 @@ export const coordinateGetter: KeyboardCoordinateGetter = (
       if (newNode && newRect) {
         return {
           x: newRect.left,
-          y: newRect.top,
+          y: newRect.top
         };
       }
     }

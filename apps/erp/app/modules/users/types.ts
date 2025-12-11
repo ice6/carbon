@@ -6,7 +6,7 @@ import type {
   getModules,
   getPermissionsByEmployeeType,
   getSuppliers,
-  getUsers,
+  getUsers
 } from "./users.service";
 
 export type Customer = NonNullable<

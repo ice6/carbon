@@ -23,7 +23,7 @@ export async function action({ request }: ActionFunctionArgs) {
     documentId,
     note,
     companyId,
-    createdBy: userId,
+    createdBy: userId
   });
   if (createNote.error) {
     throw redirect(

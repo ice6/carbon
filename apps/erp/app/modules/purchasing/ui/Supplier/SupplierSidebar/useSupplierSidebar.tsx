@@ -6,7 +6,7 @@ import {
   LuLayoutList,
   LuMapPin,
   LuPackageSearch,
-  LuCog,
+  LuCog
 } from "react-icons/lu";
 import { usePermissions } from "~/hooks";
 import type { Role } from "~/types";
@@ -27,7 +27,7 @@ export function useSupplierSidebar({ contacts, locations }: Props) {
       name: "Details",
       to: path.to.supplierDetails(supplierId),
       icon: <LuBuilding />,
-      shortcut: "Command+Shift+d",
+      shortcut: "Command+Shift+d"
     },
     {
       name: "Contacts",
@@ -35,7 +35,7 @@ export function useSupplierSidebar({ contacts, locations }: Props) {
       role: ["employee"],
       count: contacts,
       icon: <LuContact />,
-      shortcut: "Command+Shift+c",
+      shortcut: "Command+Shift+c"
     },
     {
       name: "Locations",
@@ -43,38 +43,38 @@ export function useSupplierSidebar({ contacts, locations }: Props) {
       role: ["employee", "supplier"],
       count: locations,
       icon: <LuMapPin />,
-      shortcut: "Command+Shift+l",
+      shortcut: "Command+Shift+l"
     },
     {
       name: "Payment Terms",
       to: path.to.supplierPayment(supplierId),
       role: ["employee"],
       icon: <LuCreditCard />,
-      shortcut: "Command+Shift+p",
+      shortcut: "Command+Shift+p"
     },
     {
       name: "Processes",
       to: path.to.supplierProcesses(supplierId),
       role: ["employee"],
       icon: <LuCog />,
-      shortcut: "Command+Shift+r",
+      shortcut: "Command+Shift+r"
     },
     {
       name: "Quotes",
       to: `${path.to.supplierQuotes}?filter=supplierId:eq:${supplierId}`,
 
-      icon: <LuPackageSearch />,
+      icon: <LuPackageSearch />
     },
     {
       name: "Orders",
       to: `${path.to.purchaseOrders}?filter=supplierId:eq:${supplierId}`,
-      icon: <LuLayoutList />,
+      icon: <LuLayoutList />
     },
     {
       name: "Invoices",
       to: `${path.to.purchaseInvoices}?filter=supplierId:eq:${supplierId}`,
-      icon: <LuCreditCard />,
-    },
+      icon: <LuCreditCard />
+    }
     // {
     //   name: "Shipping",
     //   to: path.to.supplierShipping(supplierId),

@@ -9,7 +9,7 @@ import { json, redirect } from "@vercel/remix";
 import {
   getSupplierType,
   supplierTypeValidator,
-  upsertSupplierType,
+  upsertSupplierType
 } from "~/modules/purchasing";
 import { SupplierTypeForm } from "~/modules/purchasing/ui/SupplierTypes";
 import { getCustomFields, setCustomFields } from "~/utils/form";
@@ -19,7 +19,7 @@ import { getCompanyId, supplierTypesQuery } from "~/utils/react-query";
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
     view: "purchasing",
-    role: "employee",
+    role: "employee"
   });
 
   const { supplierTypeId } = params;
@@ -44,7 +44,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   }
 
   return json({
-    supplierType: supplierType.data,
+    supplierType: supplierType.data
   });
 }
 
@@ -59,7 +59,7 @@ export async function clientAction({ serverAction }: ClientActionFunctionArgs) {
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    update: "purchasing",
+    update: "purchasing"
   });
 
   const formData = await request.formData();
@@ -76,7 +76,7 @@ export async function action({ request }: ActionFunctionArgs) {
     id,
     ...data,
     updatedBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
 
   if (updateSupplierType.error) {
@@ -102,7 +102,7 @@ export default function EditSupplierTypesRoute() {
   const initialValues = {
     id: supplierType.id ?? undefined,
     name: supplierType.name ?? "",
-    ...getCustomFields(supplierType.customFields),
+    ...getCustomFields(supplierType.customFields)
   };
 
   return (

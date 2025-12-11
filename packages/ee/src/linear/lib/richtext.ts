@@ -45,7 +45,7 @@ export function markdownToTiptap(
       content.push({
         type: "heading",
         attrs: { level },
-        content: parseInlineMarkdown(headingMatch[2]),
+        content: parseInlineMarkdown(headingMatch[2])
       });
       i++;
       continue;
@@ -73,7 +73,7 @@ export function markdownToTiptap(
         content:
           codeLines.length > 0
             ? [{ type: "text", text: codeLines.join("\n") }]
-            : undefined,
+            : undefined
       });
       i++; // Skip closing ```
       continue;
@@ -91,9 +91,9 @@ export function markdownToTiptap(
         content: [
           {
             type: "paragraph",
-            content: parseInlineMarkdown(quoteLines.join("\n")),
-          },
-        ],
+            content: parseInlineMarkdown(quoteLines.join("\n"))
+          }
+        ]
       });
       continue;
     }
@@ -108,15 +108,15 @@ export function markdownToTiptap(
           content: [
             {
               type: "paragraph",
-              content: parseInlineMarkdown(itemText),
-            },
-          ],
+              content: parseInlineMarkdown(itemText)
+            }
+          ]
         });
         i++;
       }
       content.push({
         type: "bulletList",
-        content: listItems,
+        content: listItems
       });
       continue;
     }
@@ -131,15 +131,15 @@ export function markdownToTiptap(
           content: [
             {
               type: "paragraph",
-              content: parseInlineMarkdown(itemText),
-            },
-          ],
+              content: parseInlineMarkdown(itemText)
+            }
+          ]
         });
         i++;
       }
       content.push({
         type: "orderedList",
-        content: listItems,
+        content: listItems
       });
       continue;
     }
@@ -153,7 +153,7 @@ export function markdownToTiptap(
     // Regular paragraph
     content.push({
       type: "paragraph",
-      content: parseInlineMarkdown(line),
+      content: parseInlineMarkdown(line)
     });
     i++;
   }
@@ -181,7 +181,7 @@ function parseInlineMarkdown(text: string): TiptapNode[] {
       nodes.push({
         type: "text",
         text: linkMatch[1],
-        marks: [{ type: "link", attrs: { href: linkMatch[2] } }],
+        marks: [{ type: "link", attrs: { href: linkMatch[2] } }]
       });
       remaining = remaining.slice(linkMatch[0].length);
       continue;
@@ -193,7 +193,7 @@ function parseInlineMarkdown(text: string): TiptapNode[] {
       nodes.push({
         type: "text",
         text: boldMatch[2],
-        marks: [{ type: "bold" }],
+        marks: [{ type: "bold" }]
       });
       remaining = remaining.slice(boldMatch[0].length);
       continue;
@@ -205,7 +205,7 @@ function parseInlineMarkdown(text: string): TiptapNode[] {
       nodes.push({
         type: "text",
         text: italicMatch[2],
-        marks: [{ type: "italic" }],
+        marks: [{ type: "italic" }]
       });
       remaining = remaining.slice(italicMatch[0].length);
       continue;
@@ -217,7 +217,7 @@ function parseInlineMarkdown(text: string): TiptapNode[] {
       nodes.push({
         type: "text",
         text: strikeMatch[1],
-        marks: [{ type: "strike" }],
+        marks: [{ type: "strike" }]
       });
       remaining = remaining.slice(strikeMatch[0].length);
       continue;
@@ -229,7 +229,7 @@ function parseInlineMarkdown(text: string): TiptapNode[] {
       nodes.push({
         type: "text",
         text: codeMatch[1],
-        marks: [{ type: "code" }],
+        marks: [{ type: "code" }]
       });
       remaining = remaining.slice(codeMatch[0].length);
       continue;

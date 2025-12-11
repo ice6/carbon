@@ -6,7 +6,7 @@ import { useMemo, useRef, useState } from "react";
 import { useRouteData } from "~/hooks";
 import type {
   CustomerStatus as CustomerStatusStatus,
-  getCustomerStatusesList,
+  getCustomerStatusesList
 } from "~/modules/sales";
 import CustomerStatusForm from "~/modules/sales/ui/CustomerStatuses/CustomerStatusForm";
 
@@ -42,7 +42,7 @@ const CustomerStatus = (props: CustomerStatusSelectProps) => {
             triggerRef.current?.click();
           }}
           initialValues={{
-            name: created,
+            name: created
           }}
         />
       )}
@@ -77,12 +77,12 @@ export const useCustomerStatuses = () => {
 
     return dataSource.map((c) => ({
       value: c.id,
-      label: c.name,
+      label: c.name
     }));
   }, [
     customerStatusFetcher.data?.data,
     hasCustomerData,
-    sharedCustomerData?.customerStatuses,
+    sharedCustomerData?.customerStatuses
   ]);
 
   return options;

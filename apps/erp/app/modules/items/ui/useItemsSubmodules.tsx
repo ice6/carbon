@@ -9,7 +9,7 @@ import {
   LuPizza,
   LuPuzzle,
   LuRuler,
-  LuShapes,
+  LuShapes
 } from "react-icons/lu";
 import { usePermissions } from "~/hooks";
 import { useSavedViews } from "~/hooks/useSavedViews";
@@ -24,32 +24,32 @@ const itemsRoutes: AuthenticatedRouteGroup[] = [
         name: "Parts",
         to: path.to.parts,
         icon: <AiOutlinePartition />,
-        table: "part",
+        table: "part"
       },
       {
         name: "Materials",
         to: path.to.materials,
         icon: <LuAtom />,
-        table: "material",
+        table: "material"
       },
       {
         name: "Tools",
         to: path.to.tools,
         icon: <LuHammer />,
-        table: "tool",
+        table: "tool"
       },
       {
         name: "Consumables",
         to: path.to.consumables,
         icon: <LuPizza />,
-        table: "consumable",
-      },
+        table: "consumable"
+      }
       // {
       //   name: "Services",
       //   to: path.to.services,
       //   icon: <LuHeadphones />,
       // },
-    ],
+    ]
   },
   // {
   //   name: "Methods",
@@ -73,37 +73,37 @@ const itemsRoutes: AuthenticatedRouteGroup[] = [
         name: "Dimensions",
         to: path.to.materialDimensions,
         icon: <LuAxis3D />,
-        role: "employee",
+        role: "employee"
       },
       {
         name: "Finishes",
         to: path.to.materialFinishes,
         icon: <LuDessert />,
-        role: "employee",
+        role: "employee"
       },
       {
         name: "Grades",
         to: path.to.materialGrades,
         icon: <LuBeef />,
-        role: "employee",
+        role: "employee"
       },
       {
         name: "Shapes",
         to: path.to.materialForms,
         icon: <LuShapes />,
-        role: "employee",
+        role: "employee"
       },
       {
         name: "Substances",
         to: path.to.materialSubstances,
         icon: <LuGlassWater />,
-        role: "employee",
+        role: "employee"
       },
       {
         name: "Types",
         to: path.to.materialTypes,
         icon: <LuPuzzle />,
-        role: "employee",
+        role: "employee"
       },
       // {
       //   name: "Posting Groups",
@@ -115,10 +115,10 @@ const itemsRoutes: AuthenticatedRouteGroup[] = [
         name: "Units",
         to: path.to.uoms,
         role: "employee",
-        icon: <LuRuler />,
-      },
-    ],
-  },
+        icon: <LuRuler />
+      }
+    ]
+  }
 ];
 
 export default function useItemsSubmodules() {
@@ -148,7 +148,7 @@ export default function useItemsSubmodules() {
               return true;
             }
           })
-          .map(addSavedViewsToRoutes),
-      })),
+          .map(addSavedViewsToRoutes)
+      }))
   };
 }

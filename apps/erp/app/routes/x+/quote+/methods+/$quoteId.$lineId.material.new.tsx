@@ -6,14 +6,14 @@ import { json, type ActionFunctionArgs } from "@vercel/remix";
 import {
   quoteMaterialValidator,
   upsertQuoteMaterial,
-  upsertQuoteMaterialMakeMethod,
+  upsertQuoteMaterialMakeMethod
 } from "~/modules/sales";
 import { setCustomFields } from "~/utils/form";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { companyId, userId } = await requirePermissions(request, {
-    create: "sales",
+    create: "sales"
   });
 
   const { quoteId, lineId } = params;
@@ -38,12 +38,12 @@ export async function action({ request, params }: ActionFunctionArgs) {
     quoteLineId: lineId,
     companyId,
     createdBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
   if (insertQuoteMaterial.error) {
     return json(
       {
-        id: null,
+        id: null
       },
       await flash(
         request,
@@ -56,7 +56,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   if (!quoteMaterialId) {
     return json(
       {
-        id: null,
+        id: null
       },
       await flash(
         request,
@@ -74,7 +74,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     if (materialMakeMethod.error) {
       return json(
         {
-          id: null,
+          id: null
         },
         await flash(
           request,
@@ -86,13 +86,13 @@ export async function action({ request, params }: ActionFunctionArgs) {
       sourceId: validation.data.itemId,
       targetId: materialMakeMethod.data?.quoteMaterialMakeMethodId!,
       companyId,
-      userId,
+      userId
     });
 
     if (makeMethod.error) {
       return json(
         {
-          id: quoteMaterialId,
+          id: quoteMaterialId
         },
         await flash(
           request,
@@ -105,6 +105,6 @@ export async function action({ request, params }: ActionFunctionArgs) {
   return json({
     id: quoteMaterialId,
     success: true,
-    message: "Material created",
+    message: "Material created"
   });
 }

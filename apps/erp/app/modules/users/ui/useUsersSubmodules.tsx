@@ -9,7 +9,7 @@ const usersRoutes: RouteGroup[] = [
       {
         name: "Accounts",
         to: path.to.employeeAccounts,
-        icon: <LuUsers />,
+        icon: <LuUsers />
       },
       // {
       //   name: "Customers",
@@ -24,9 +24,9 @@ const usersRoutes: RouteGroup[] = [
       {
         name: "Groups",
         to: path.to.groups,
-        icon: <LuGroup />,
-      },
-    ],
+        icon: <LuGroup />
+      }
+    ]
   },
   {
     name: "Configure",
@@ -34,10 +34,10 @@ const usersRoutes: RouteGroup[] = [
       {
         name: "Employee Types",
         to: path.to.employeeTypes,
-        icon: <LuFileBadge2 />,
-      },
-    ],
-  },
+        icon: <LuFileBadge2 />
+      }
+    ]
+  }
 ];
 
 export default function useUsersSubmodules() {

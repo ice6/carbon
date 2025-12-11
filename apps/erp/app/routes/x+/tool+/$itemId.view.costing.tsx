@@ -10,7 +10,7 @@ import {
   getItemCost,
   getItemCostHistory,
   itemCostValidator,
-  upsertItemCost,
+  upsertItemCost
 } from "~/modules/items";
 import { ItemCostingForm } from "~/modules/items/ui/Item";
 import { ItemCostHistoryChart } from "~/modules/items/ui/Item/ItemCostHistoryChart";
@@ -19,7 +19,7 @@ import { path } from "~/utils/path";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    view: "parts",
+    view: "parts"
   });
 
   const { itemId } = params;
@@ -27,7 +27,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
   const [itemCost, itemCostHistory] = await Promise.all([
     getItemCost(client, itemId, companyId),
-    getItemCostHistory(client, itemId, companyId),
+    getItemCostHistory(client, itemId, companyId)
   ]);
 
   if (itemCost.error) {
@@ -39,14 +39,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
   return json({
     itemCost: itemCost.data,
-    itemCostHistory: itemCostHistory.data ?? [],
+    itemCostHistory: itemCostHistory.data ?? []
   });
 }
 
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    update: "parts",
+    update: "parts"
   });
 
   const { itemId } = params;
@@ -63,7 +63,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     ...validation.data,
     itemId,
     updatedBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
   if (updateItemCost.error) {
     throw redirect(
@@ -90,7 +90,7 @@ export default function ToolCostingRoute() {
         key={itemCost.itemId}
         initialValues={{
           ...itemCost,
-          ...getCustomFields(itemCost.customFields),
+          ...getCustomFields(itemCost.customFields)
         }}
       />
       <ItemCostHistoryChart

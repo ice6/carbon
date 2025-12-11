@@ -9,14 +9,14 @@ import { requirePermissions } from "@carbon/auth/auth.server";
 import { flash } from "@carbon/auth/session.server";
 import {
   bulkPermissionsValidator,
-  userPermissionsValidator,
+  userPermissionsValidator
 } from "~/modules/users";
 import { getParams, path } from "~/utils/path";
 
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { companyId } = await requirePermissions(request, {
-    update: "users",
+    update: "users"
   });
 
   const validation = await validator(bulkPermissionsValidator).validate(
@@ -55,8 +55,8 @@ export async function action({ request }: ActionFunctionArgs) {
       id,
       permissions,
       addOnly,
-      companyId,
-    },
+      companyId
+    }
   }));
 
   await tasks.batchTrigger<typeof updatePermissionsTask>(

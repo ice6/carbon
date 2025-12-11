@@ -2,7 +2,7 @@ import { notificationRegistry } from "./registry";
 import type {
   CompanyIntegration,
   NotificationContext,
-  NotificationEvent,
+  NotificationEvent
 } from "./types";
 
 export class NotificationPipeline {
@@ -30,7 +30,7 @@ export class NotificationPipeline {
 
           try {
             await service.send(event, {
-              serviceRole: this.context.serviceRole || this.context.client,
+              serviceRole: this.context.serviceRole || this.context.client
             });
           } catch (error) {
             console.error(
@@ -82,7 +82,7 @@ export async function notifyIssueCreated(
       companyId: data.companyId,
       userId: data.userId,
       carbonUrl: data.carbonUrl,
-      data: data.issue,
+      data: data.issue
     },
     integrations
   );
@@ -110,7 +110,7 @@ export async function notifyIssueStatusChanged(
       companyId: data.companyId,
       userId: data.userId,
       carbonUrl: data.carbonUrl,
-      data: data.issue,
+      data: data.issue
     },
     integrations
   );
@@ -139,7 +139,7 @@ export async function notifyTaskStatusChanged(
       companyId: data.companyId,
       userId: data.userId,
       carbonUrl: data.carbonUrl,
-      data: data.task,
+      data: data.task
     },
     integrations
   );
@@ -167,7 +167,7 @@ export async function notifyTaskAssigned(
       companyId: data.companyId,
       userId: data.userId,
       carbonUrl: data.carbonUrl,
-      data: data.task,
+      data: data.task
     },
     integrations
   );
@@ -195,7 +195,7 @@ export async function notifyTaskNotesChanged(
       companyId: data.companyId,
       userId: data.userId,
       carbonUrl: data.carbonUrl,
-      data: data.task,
+      data: data.task
     },
     integrations
   );

@@ -30,7 +30,7 @@ import {
   LuSwords,
   LuTimer,
   LuToggleLeft,
-  LuUser,
+  LuUser
 } from "react-icons/lu";
 
 import { RxCodesandboxLogo } from "react-icons/rx";
@@ -59,7 +59,7 @@ export const ModuleIcon = ({ icon }: { icon: ReactNode }) => {
 
 export const MethodItemTypeIcon = ({
   type,
-  className,
+  className
 }: {
   type: string;
   className?: string;
@@ -83,7 +83,7 @@ export const MethodItemTypeIcon = ({
 export const MethodIcon = ({
   type,
   className,
-  isKit,
+  isKit
 }: {
   type: string;
   className?: string;
@@ -142,15 +142,15 @@ function getReplenishmentBadgeColor(
   return type === "Buy"
     ? getColor("blue", mode)
     : type === "Make"
-    ? getColor("green", mode)
-    : type === "Make Inactive"
-    ? getColor("gray", mode)
-    : getColor("orange", mode);
+      ? getColor("green", mode)
+      : type === "Make Inactive"
+        ? getColor("gray", mode)
+        : getColor("orange", mode);
 }
 
 export const OnshapeStatus = ({
   status,
-  className,
+  className
 }: {
   status: string;
   className?: string;
@@ -171,7 +171,7 @@ export const OnshapeStatus = ({
 
 export function OperationStatusIcon({
   status,
-  className,
+  className
 }: {
   status: JobOperation["status"];
   className?: string;
@@ -197,7 +197,7 @@ export function OperationStatusIcon({
 
 export const IssueTaskStatusIcon = ({
   status,
-  className,
+  className
 }: {
   status: (typeof nonConformanceTaskStatus)[number];
   className?: string;
@@ -217,7 +217,7 @@ export const IssueTaskStatusIcon = ({
 };
 
 export const QuoteLineStatusIcon = ({
-  status,
+  status
 }: {
   status: Database["public"]["Enums"]["quoteLineStatus"];
 }) => {
@@ -237,7 +237,7 @@ export const QuoteLineStatusIcon = ({
 
 export const ProcedureStepTypeIcon = ({
   type,
-  className,
+  className
 }: {
   type: Database["public"]["Enums"]["procedureStepType"];
   className?: string;
@@ -266,7 +266,7 @@ export const ProcedureStepTypeIcon = ({
 
 export const ReplenishmentSystemIcon = ({
   type,
-  className,
+  className
 }: {
   type: string;
   className?: string;
@@ -287,7 +287,7 @@ export const ReplenishmentSystemIcon = ({
 
 export const TrackingTypeIcon = ({
   type,
-  className,
+  className
 }: {
   type: string;
   className?: string;
@@ -308,7 +308,7 @@ export const TrackingTypeIcon = ({
 
 export const TimeTypeIcon = ({
   type,
-  className,
+  className
 }: {
   type: string;
   className?: string;

@@ -10,7 +10,7 @@ import {
   ToggleGroup,
   ToggleGroupItem,
   useDebounce,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { Link } from "@remix-run/react";
 import { useId, useState } from "react";
@@ -29,7 +29,7 @@ type Props = {
 
 const linkIssueValidator = z.object({
   actionId: z.string(),
-  issueId: z.string(),
+  issueId: z.string()
 });
 
 export const LinkIssue = (props: Props) => {
@@ -168,6 +168,6 @@ const useLinearIssues = () => {
   return {
     issues: fetcher.data?.issues || [],
     linked: fetcher.data?.linked || null,
-    fetcher,
+    fetcher
   };
 };

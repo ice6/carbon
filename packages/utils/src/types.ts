@@ -1,22 +1,22 @@
-import { z } from 'zod/v3';
+import { z } from "zod/v3";
 
 export enum Edition {
   Cloud = "cloud",
   Enterprise = "enterprise",
-  Community = "community",
+  Community = "community"
 }
 
 export type Mode = "light" | "dark";
 
 export const modeValidator = z.object({
-  mode: z.enum(["light", "dark", "system"]),
+  mode: z.enum(["light", "dark", "system"])
 });
 
 export enum Plan {
   Starter = "STARTER",
   Business = "BUSINESS",
   Partner = "PARTNER",
-  Unknown = "UNKNOWN",
+  Unknown = "UNKNOWN"
 }
 
 export type PickPartial<T, K extends keyof T> = Omit<T, K> &

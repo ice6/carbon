@@ -9,7 +9,7 @@ import {
   NumberIncrementStepper,
   NumberInput,
   NumberInputGroup,
-  NumberInputStepper,
+  NumberInputStepper
 } from "@carbon/react";
 
 import { forwardRef } from "react";
@@ -46,7 +46,7 @@ const Number = forwardRef<HTMLInputElement, FormNumberProps>(
       rest.formatOptions ??
       ({
         minimumFractionDigits: 0,
-        maximumFractionDigits: 10,
+        maximumFractionDigits: 10
       } satisfies Intl.NumberFormatOptions);
 
     return (
@@ -63,7 +63,7 @@ const Number = forwardRef<HTMLInputElement, FormNumberProps>(
         <NumberField
           {...getInputProps({
             id: name,
-            ...rest,
+            ...rest
           })}
           formatOptions={formatOptions}
         >

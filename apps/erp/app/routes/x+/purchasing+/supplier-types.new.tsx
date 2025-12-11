@@ -8,7 +8,7 @@ import type { ActionFunctionArgs, LoaderFunctionArgs } from "@vercel/remix";
 import { json, redirect } from "@vercel/remix";
 import {
   supplierTypeValidator,
-  upsertSupplierType,
+  upsertSupplierType
 } from "~/modules/purchasing";
 import { SupplierTypeForm } from "~/modules/purchasing/ui/SupplierTypes";
 import { setCustomFields } from "~/utils/form";
@@ -17,7 +17,7 @@ import { getCompanyId, supplierTypesQuery } from "~/utils/react-query";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   await requirePermissions(request, {
-    create: "purchasing",
+    create: "purchasing"
   });
 
   return null;
@@ -26,7 +26,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    create: "purchasing",
+    create: "purchasing"
   });
 
   const formData = await request.formData();
@@ -44,7 +44,7 @@ export async function action({ request }: ActionFunctionArgs) {
     ...data,
     companyId,
     createdBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
   if (insertSupplierType.error) {
     return modal
@@ -77,7 +77,7 @@ export async function clientAction({ serverAction }: ClientActionFunctionArgs) {
 export default function NewSupplierTypesRoute() {
   const navigate = useNavigate();
   const initialValues = {
-    name: "",
+    name: ""
   };
 
   return (

@@ -11,7 +11,7 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
-  ModalTitle,
+  ModalTitle
 } from "@carbon/react";
 import { useFetcher, useNavigation, useParams } from "@remix-run/react";
 import { useEffect, useRef } from "react";

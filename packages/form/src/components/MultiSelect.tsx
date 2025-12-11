@@ -5,7 +5,7 @@ import {
   FormErrorMessage,
   FormHelperText,
   FormLabel,
-  MultiSelect as MultiSelectBase,
+  MultiSelect as MultiSelectBase
 } from "@carbon/react";
 
 import { useEffect } from "react";

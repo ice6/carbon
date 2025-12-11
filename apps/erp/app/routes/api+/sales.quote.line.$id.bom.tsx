@@ -8,7 +8,7 @@ import { makeDurations } from "~/utils/duration";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    view: "sales",
+    view: "sales"
   });
 
   const { id } = params;
@@ -37,7 +37,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   const flattenedMethods = methodTree ? flattenTree(methodTree) : [];
 
   const makeMethodIds = [
-    ...new Set(flattenedMethods.map((method) => method.data.quoteMakeMethodId)),
+    ...new Set(flattenedMethods.map((method) => method.data.quoteMakeMethodId))
   ];
 
   let operationsByMakeMethodId: Record<
@@ -63,7 +63,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
         (acc, operation) => {
           acc[operation.quoteMakeMethodId ?? ""] = [
             ...(acc[operation.quoteMakeMethodId ?? ""] || []),
-            operation,
+            operation
           ];
           return acc;
         },
@@ -89,7 +89,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
       methodType: node.data.methodType,
       itemType: node.data.itemType,
       level: node.level,
-      version: node.data.version || null,
+      version: node.data.version || null
     };
 
     if (!withOperations) {
@@ -109,14 +109,17 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
           .map((quantity) => {
             const duration = makeDurations({
               ...operation,
-              operationQuantity: quantity,
+              operationQuantity: quantity
             });
             return [quantity, duration.duration];
           })
-          .reduce((acc, [quantity, duration]) => {
-            acc[`totalDuration${quantity}`] = duration;
-            return acc;
-          }, {} as Record<string, number>);
+          .reduce(
+            (acc, [quantity, duration]) => {
+              acc[`totalDuration${quantity}`] = duration;
+              return acc;
+            },
+            {} as Record<string, number>
+          );
 
         return {
           description: operation.description,
@@ -129,9 +132,9 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
           laborUnit: operation.laborUnit,
           machineTime: operation.machineTime,
           machineUnit: operation.machineUnit,
-          ...durations,
+          ...durations
         };
-      }),
+      })
     };
   });
 

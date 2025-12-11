@@ -4,18 +4,18 @@ import {
   CONTROLLED_ENVIRONMENT,
   getCarbon,
   getCompanies,
-  getUser,
+  getUser
 } from "@carbon/auth";
 import {
   destroyAuthSession,
-  requireAuthSession,
+  requireAuthSession
 } from "@carbon/auth/session.server";
 import { SidebarProvider, TooltipProvider, useMount } from "@carbon/react";
 import {
   AcademyBanner,
   ItarPopup,
   useKeyboardWedge,
-  useNProgress,
+  useNProgress
 } from "@carbon/remix";
 import { getStripeCustomerByCompanyId } from "@carbon/stripe/stripe.server";
 import { Edition } from "@carbon/utils";
@@ -29,13 +29,13 @@ import RealtimeDataProvider from "~/components/RealtimeDataProvider";
 import { getLocation, setLocation } from "~/services/location.server";
 import {
   getActiveJobCount,
-  getLocationsByCompany,
+  getLocationsByCompany
 } from "~/services/operations.service";
 import { ERP_URL, MES_URL, path } from "~/utils/path";
 
 export const shouldRevalidate: ShouldRevalidateFunction = ({
   currentUrl,
-  defaultShouldRevalidate,
+  defaultShouldRevalidate
 }) => {
   if (
     currentUrl.pathname.startsWith("/refresh-session") ||
@@ -57,7 +57,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   // parallelize the requests
   const [companies, user] = await Promise.all([
     getCompanies(client, userId),
-    getUser(client, userId),
+    getUser(client, userId)
   ]);
 
   if (user.error || !user.data) {
@@ -73,14 +73,14 @@ export async function loader({ request }: LoaderFunctionArgs) {
     await Promise.all([
       getLocation(request, client, {
         companyId,
-        userId,
+        userId
       }),
       getStripeCustomerByCompanyId(companyId, userId),
       getLocationsByCompany(client, companyId),
       getActiveJobCount(client, {
         employeeId: userId,
-        companyId,
-      }),
+        companyId
+      })
     ]);
 
   if (!companyPlan && CarbonEdition === Edition.Cloud) {
@@ -96,7 +96,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
       session: {
         accessToken,
         expiresIn,
-        expiresAt,
+        expiresAt
       },
       activeEvents: activeEvents.data ?? 0,
       company,
@@ -104,13 +104,13 @@ export async function loader({ request }: LoaderFunctionArgs) {
       location: storedLocations.location,
       locations: locations.data ?? [],
       plan: companyPlan?.planId,
-      user: user.data,
+      user: user.data
     },
     storedLocations.updated
       ? {
           headers: {
-            "Set-Cookie": setLocation(companyId, storedLocations.location),
-          },
+            "Set-Cookie": setLocation(companyId, storedLocations.location)
+          }
         }
       : undefined
   );
@@ -124,7 +124,7 @@ export default function AuthenticatedRoute() {
     companies,
     location,
     locations,
-    user,
+    user
   } = useLoaderData<typeof loader>();
 
   const navigate = useNavigate();
@@ -141,13 +141,13 @@ export default function AuthenticatedRoute() {
       } catch {
         navigate(input);
       }
-    },
+    }
   });
 
   useMount(() => {
     posthog.identify(user?.id, {
       email: user?.email,
-      name: `${user?.firstName} ${user?.lastName}`,
+      name: `${user?.firstName} ${user?.lastName}`
     });
   });
 

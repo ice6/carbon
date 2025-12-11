@@ -24,7 +24,7 @@ import {
   InputGroup,
   Input,
   InputRightElement,
-  VStack,
+  VStack
 } from "@carbon/react";
 
 import { Link, useFetcher, useParams } from "@remix-run/react";
@@ -42,7 +42,7 @@ import {
   LuCircleStop,
   LuLoaderCircle,
   LuSend,
-  LuTriangleAlert,
+  LuTriangleAlert
 } from "react-icons/lu";
 import { usePanels } from "~/components/Layout";
 import ConfirmDelete from "~/components/Modals/ConfirmDelete";
@@ -55,7 +55,7 @@ import type {
   SupplierInteraction,
   SupplierQuote,
   SupplierQuoteLine,
-  SupplierQuoteLinePrice,
+  SupplierQuoteLinePrice
 } from "../../types";
 import SupplierQuoteStatus from "./SupplierQuoteStatus";
 import SupplierQuoteToOrderDrawer from "./SupplierQuoteToOrderDrawer";
@@ -327,7 +327,7 @@ function SupplierQuoteFinalizeModal({
   lines,
   prices,
   onClose,
-  fetcher,
+  fetcher
 }: {
   quote?: SupplierQuote;
   lines: SupplierQuoteLine[];
@@ -426,7 +426,7 @@ function ShareQuoteModal({
   id,
   externalLinkId,
   onClose,
-  isOpen,
+  isOpen
 }: {
   id?: string;
   externalLinkId?: string;

@@ -5,7 +5,7 @@ import {
   CardHeader,
   CardTitle,
   HStack,
-  useDisclosure,
+  useDisclosure
 } from "@carbon/react";
 import { Outlet, useNavigate, useParams } from "@remix-run/react";
 import { useCallback, useState } from "react";
@@ -43,7 +43,7 @@ const CustomerContacts = ({ contacts }: CustomerContactsProps) => {
         icon: <LuPencil />,
         onClick: () => {
           navigate(contact.id);
-        },
+        }
       });
 
       if (permissions.can("delete", "sales")) {
@@ -54,7 +54,7 @@ const CustomerContacts = ({ contacts }: CustomerContactsProps) => {
           onClick: () => {
             setSelectedContact(contact);
             deleteContactModal.onOpen();
-          },
+          }
         });
       }
 
@@ -66,7 +66,7 @@ const CustomerContacts = ({ contacts }: CustomerContactsProps) => {
             navigate(
               `${path.to.newCustomerAccount}?id=${contact.id}&customer=${customerId}`
             );
-          },
+          }
         });
       }
 

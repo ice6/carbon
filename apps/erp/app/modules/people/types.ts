@@ -7,7 +7,7 @@ import type {
   getEmployeeSummary,
   getHolidays,
   getPeople,
-  getShifts,
+  getShifts
 } from "./people.service";
 
 export type Attribute = NonNullable<

@@ -1,11 +1,19 @@
-import { IconButton, Input, Popover, PopoverContent, PopoverTrigger, Skeleton, useDebounce, useDisclosure } from "@carbon/react";
+import {
+  IconButton,
+  Input,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+  Skeleton,
+  useDebounce,
+  useDisclosure
+} from "@carbon/react";
 
 import { useUrlParams } from "@carbon/remix";
 import { formatTimeAgo } from "@carbon/utils";
 
 import { useState } from "react";
 import { LuMenu, LuSearch, LuTrash } from "react-icons/lu";
-
 
 type Chat = {
   id: string;
@@ -27,16 +35,20 @@ function ChatHistorySkeleton() {
   );
 }
 
-export function ChatHistory({ chats, isLoading }: { chats: Chat[]; isLoading: boolean }) {
+export function ChatHistory({
+  chats,
+  isLoading
+}: {
+  chats: Chat[];
+  isLoading: boolean;
+}) {
   const [, setParams] = useUrlParams();
-  
+
   const [searchQuery, setSearchQuery] = useState("");
   const historyDisclosure = useDisclosure();
 
   // Debounced search to avoid too many API calls
   const debouncedSearch = useDebounce(setSearchQuery, 300);
-
-  
 
   const handleChatSelect = (chatId: string) => {
     setParams({ chatId });
@@ -48,10 +60,16 @@ export function ChatHistory({ chats, isLoading }: { chats: Chat[]; isLoading: bo
   };
 
   return (
-    <Popover open={historyDisclosure.isOpen} onOpenChange={historyDisclosure.onToggle}>
+    <Popover
+      open={historyDisclosure.isOpen}
+      onOpenChange={historyDisclosure.onToggle}
+    >
       <PopoverTrigger asChild>
-        <IconButton variant="secondary" icon={<LuMenu />} aria-label="Open chat history" />
-        
+        <IconButton
+          variant="secondary"
+          icon={<LuMenu />}
+          aria-label="Open chat history"
+        />
       </PopoverTrigger>
       <PopoverContent className="w-[380px] p-0" align="end">
         <div className="p-4">

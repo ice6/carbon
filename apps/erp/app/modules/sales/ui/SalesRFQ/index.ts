@@ -15,5 +15,5 @@ export {
   SalesRFQLineForm,
   SalesRFQProperties,
   SalesRFQStatus,
-  SalesRFQsTable,
+  SalesRFQsTable
 };

@@ -5,18 +5,18 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-  HStack,
+  HStack
 } from "@carbon/react";
 import { useFetcher } from "@remix-run/react";
 import { useState } from "react";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import {
   Customer,
   CustomerContact,
   CustomerLocation,
   Hidden,
   PaymentTerm,
-  Submit,
+  Submit
 } from "~/components/Form";
 import { usePermissions } from "~/hooks";
 import { path } from "~/utils/path";
@@ -27,7 +27,7 @@ type SalesOrderPaymentFormProps = {
 };
 
 const SalesOrderPaymentForm = ({
-  initialValues,
+  initialValues
 }: SalesOrderPaymentFormProps) => {
   const fetcher = useFetcher<{}>();
   const permissions = usePermissions();

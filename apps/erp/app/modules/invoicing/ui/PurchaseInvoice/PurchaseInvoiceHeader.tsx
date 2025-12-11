@@ -12,7 +12,7 @@ import {
   HStack,
   Heading,
   IconButton,
-  useDisclosure,
+  useDisclosure
 } from "@carbon/react";
 import { getItemReadableId } from "@carbon/utils";
 import { Link, useFetcher, useParams } from "@remix-run/react";
@@ -26,7 +26,7 @@ import {
   LuPanelLeft,
   LuPanelRight,
   LuShoppingCart,
-  LuTrash,
+  LuTrash
 } from "react-icons/lu";
 import { usePanels } from "~/components/Layout/Panels";
 import ConfirmDelete from "~/components/Modals/ConfirmDelete";
@@ -86,7 +86,7 @@ const PurchaseInvoiceHeader = () => {
         carbon
           .from("receipt")
           .select("id, receiptId")
-          .eq("supplierInteractionId", purchaseInvoice.supplierInteractionId),
+          .eq("supplierInteractionId", purchaseInvoice.supplierInteractionId)
       ]);
 
       if (purchaseOrdersResult.error)
@@ -97,13 +97,13 @@ const PurchaseInvoiceHeader = () => {
         purchaseOrders:
           purchaseOrdersResult.data?.map((po) => ({
             id: po.id,
-            readableId: po.purchaseOrderId,
+            readableId: po.purchaseOrderId
           })) ?? [],
         receipts:
           receiptsResult.data?.map((r) => ({
             id: r.id,
-            readableId: r.receiptId,
-          })) ?? [],
+            readableId: r.receiptId
+          })) ?? []
       });
     }
 
@@ -130,7 +130,7 @@ const PurchaseInvoiceHeader = () => {
           ...d,
           itemReadableId: getItemReadableId(items, d.itemId) ?? null,
           description: d.description ?? "",
-          quantity: d.quantity * (d.conversionFactor ?? 1),
+          quantity: d.quantity * (d.conversionFactor ?? 1)
         })) ?? []
       )
     );

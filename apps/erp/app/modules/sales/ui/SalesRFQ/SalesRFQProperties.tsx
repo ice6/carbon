@@ -7,12 +7,12 @@ import {
   TooltipContent,
   TooltipTrigger,
   VStack,
-  toast,
+  toast
 } from "@carbon/react";
 import { useFetcher, useParams } from "@remix-run/react";
 import { useCallback, useEffect } from "react";
 import { LuCopy, LuLink } from "react-icons/lu";
-import { z } from 'zod/v3';
+import { z } from "zod/v3";
 import { zfd } from "zod-form-data";
 import { Assignee, useOptimisticAssignment } from "~/components";
 import {
@@ -20,7 +20,7 @@ import {
   CustomerContact,
   CustomerLocation,
   Employee,
-  Location,
+  Location
 } from "~/components/Form";
 import CustomFormInlineFields from "~/components/Form/CustomFormInlineFields";
 import { usePermissions, useRouteData } from "~/hooks";
@@ -56,7 +56,7 @@ const SalesRFQProperties = () => {
       formData.append("value", value ?? "");
       fetcher.submit(formData, {
         method: "post",
-        action: path.to.bulkUpdateSalesRfq,
+        action: path.to.bulkUpdateSalesRfq
       });
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -73,7 +73,7 @@ const SalesRFQProperties = () => {
 
       fetcher.submit(formData, {
         method: "post",
-        action: path.to.customFields,
+        action: path.to.customFields
       });
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -82,7 +82,7 @@ const SalesRFQProperties = () => {
 
   const optimisticAssignment = useOptimisticAssignment({
     id: rfqId,
-    table: "salesRfq",
+    table: "salesRfq"
   });
   const assignee =
     optimisticAssignment !== undefined
@@ -157,7 +157,7 @@ const SalesRFQProperties = () => {
       <ValidatedForm
         defaultValues={{ customerId: routeData?.rfqSummary?.customerId }}
         validator={z.object({
-          customerId: z.string().min(1, { message: "Customer is required" }),
+          customerId: z.string().min(1, { message: "Customer is required" })
         })}
         className="w-full"
       >
@@ -176,10 +176,10 @@ const SalesRFQProperties = () => {
       <ValidatedForm
         defaultValues={{
           customerReference:
-            routeData?.rfqSummary?.customerReference ?? undefined,
+            routeData?.rfqSummary?.customerReference ?? undefined
         }}
         validator={z.object({
-          customerReference: zfd.text(z.string().optional()),
+          customerReference: zfd.text(z.string().optional())
         })}
         className="w-full"
       >
@@ -198,10 +198,10 @@ const SalesRFQProperties = () => {
 
       <ValidatedForm
         defaultValues={{
-          customerLocationId: routeData?.rfqSummary?.customerLocationId ?? "",
+          customerLocationId: routeData?.rfqSummary?.customerLocationId ?? ""
         }}
         validator={z.object({
-          customerLocationId: zfd.text(z.string().optional()),
+          customerLocationId: zfd.text(z.string().optional())
         })}
         className="w-full"
       >
@@ -220,10 +220,10 @@ const SalesRFQProperties = () => {
 
       <ValidatedForm
         defaultValues={{
-          customerContactId: routeData?.rfqSummary?.customerContactId ?? "",
+          customerContactId: routeData?.rfqSummary?.customerContactId ?? ""
         }}
         validator={z.object({
-          customerContactId: zfd.text(z.string().optional()),
+          customerContactId: zfd.text(z.string().optional())
         })}
         className="w-full"
       >
@@ -244,10 +244,10 @@ const SalesRFQProperties = () => {
       <ValidatedForm
         defaultValues={{
           customerEngineeringContactId:
-            routeData?.rfqSummary?.customerEngineeringContactId ?? "",
+            routeData?.rfqSummary?.customerEngineeringContactId ?? ""
         }}
         validator={z.object({
-          customerEngineeringContactId: zfd.text(z.string().optional()),
+          customerEngineeringContactId: zfd.text(z.string().optional())
         })}
         className="w-full"
       >
@@ -270,10 +270,10 @@ const SalesRFQProperties = () => {
 
       <ValidatedForm
         defaultValues={{
-          rfqDate: routeData?.rfqSummary?.rfqDate ?? "",
+          rfqDate: routeData?.rfqSummary?.rfqDate ?? ""
         }}
         validator={z.object({
-          rfqDate: z.string().min(1, { message: "RFQ Date is required" }),
+          rfqDate: z.string().min(1, { message: "RFQ Date is required" })
         })}
         className="w-full"
       >
@@ -289,10 +289,10 @@ const SalesRFQProperties = () => {
 
       <ValidatedForm
         defaultValues={{
-          expirationDate: routeData?.rfqSummary?.expirationDate ?? "",
+          expirationDate: routeData?.rfqSummary?.expirationDate ?? ""
         }}
         validator={z.object({
-          expirationDate: zfd.text(z.string().optional()),
+          expirationDate: zfd.text(z.string().optional())
         })}
         className="w-full"
       >
@@ -309,7 +309,7 @@ const SalesRFQProperties = () => {
       <ValidatedForm
         defaultValues={{ locationId: routeData?.rfqSummary?.locationId }}
         validator={z.object({
-          locationId: z.string().min(1, { message: "Location is required" }),
+          locationId: z.string().min(1, { message: "Location is required" })
         })}
         className="w-full"
       >
@@ -331,7 +331,7 @@ const SalesRFQProperties = () => {
         validator={z.object({
           salesPersonId: z
             .string()
-            .min(1, { message: "Sales person is required" }),
+            .min(1, { message: "Sales person is required" })
         })}
         className="w-full"
       >

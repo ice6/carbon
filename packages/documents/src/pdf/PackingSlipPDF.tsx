@@ -30,16 +30,16 @@ interface PackingSlipProps extends PDF {
 const tw = createTw({
   theme: {
     fontFamily: {
-      sans: ["Helvetica", "Arial", "sans-serif"],
+      sans: ["Helvetica", "Arial", "sans-serif"]
     },
     extend: {
       colors: {
         gray: {
-          500: "#7d7d7d",
-        },
-      },
-    },
-  },
+          500: "#7d7d7d"
+        }
+      }
+    }
+  }
 });
 
 const PackingSlipPDF = ({
@@ -57,7 +57,7 @@ const PackingSlipPDF = ({
   shippingMethod,
   title = "Packing Slip",
   trackedEntities,
-  thumbnails,
+  thumbnails
 }: PackingSlipProps) => {
   const {
     addressLine1,
@@ -65,31 +65,31 @@ const PackingSlipPDF = ({
     city,
     stateProvince,
     postalCode,
-    countryCode,
+    countryCode
   } = shippingAddress ?? {};
 
   const details = [
     {
       label: "Date",
-      value: shipment?.postingDate,
+      value: shipment?.postingDate
     },
     {
       label: "Shipment",
-      value: shipment?.shipmentId,
-    },
+      value: shipment?.shipmentId
+    }
   ];
 
   if (sourceDocument) {
     details.push({
       label: sourceDocument,
-      value: sourceDocumentId,
+      value: sourceDocumentId
     });
   }
 
   if (customerReference) {
     details.push({
       label: "Reference",
-      value: customerReference,
+      value: customerReference
     });
   }
 
@@ -101,7 +101,7 @@ const PackingSlipPDF = ({
       meta={{
         author: meta?.author ?? "Carbon",
         keywords: meta?.keywords ?? "packing slip",
-        subject: meta?.subject ?? "Packing Slip",
+        subject: meta?.subject ?? "Packing Slip"
       }}
     >
       <View style={tw("flex flex-col")}>
@@ -291,7 +291,7 @@ async function generateBarcode(text: string): Promise<string> {
     scale: 3, // 3x scaling factor
     height: 5, // Bar height, in millimeters
     includetext: true, // Show human-readable text
-    textxalign: "center", // Always good to set this
+    textxalign: "center" // Always good to set this
   });
   return `data:image/png;base64,${buffer.toString("base64")}`;
 }

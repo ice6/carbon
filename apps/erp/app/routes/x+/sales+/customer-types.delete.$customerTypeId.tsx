@@ -12,7 +12,7 @@ import { customerTypesQuery, getCompanyId } from "~/utils/react-query";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
-    view: "sales",
+    view: "sales"
   });
   const { customerTypeId } = params;
   if (!customerTypeId) throw notFound("customerTypeId not found");
@@ -33,7 +33,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
 export async function action({ request, params }: ActionFunctionArgs) {
   const { client } = await requirePermissions(request, {
-    delete: "sales",
+    delete: "sales"
   });
 
   const { customerTypeId } = params;

@@ -3,7 +3,7 @@ import { requirePermissions } from "@carbon/auth/auth.server";
 import {
   LinearClient,
   linkActionToLinearIssue,
-  unlinkActionFromLinearIssue,
+  unlinkActionFromLinearIssue
 } from "@carbon/ee/linear";
 import { type ActionFunction, type LoaderFunction, json } from "@vercel/remix";
 import { getIssueAction } from "~/modules/quality/quality.service";
@@ -28,13 +28,13 @@ export const action: ActionFunction = async ({ request }) => {
         if (!issueId) {
           return {
             success: false,
-            message: "Missing required fields: issueId",
+            message: "Missing required fields: issueId"
           };
         }
 
         const [carbonIssue, issue] = await Promise.all([
           getIssueAction(client, actionId),
-          linear.getIssueById(companyId, issueId),
+          linear.getIssueById(companyId, issueId)
         ]);
 
         if (!issue) {
@@ -52,7 +52,7 @@ export const action: ActionFunction = async ({ request }) => {
         const linked = await linkActionToLinearIssue(client, companyId, {
           actionId,
           issue,
-          assignee: assignee.data ? assignee.data.id : null,
+          assignee: assignee.data ? assignee.data.id : null
         });
 
         if (!linked || linked.data?.length === 0) {
@@ -68,7 +68,7 @@ export const action: ActionFunction = async ({ request }) => {
           url,
           title: `Linked Carbon Issue: ${
             carbonIssue.data?.nonConformance?.nonConformanceId ?? ""
-          }`,
+          }`
         });
 
         return json({ success: true, message: "Linked successfully" });
@@ -89,7 +89,7 @@ export const action: ActionFunction = async ({ request }) => {
         }
 
         const unlinked = await unlinkActionFromLinearIssue(client, companyId, {
-          actionId,
+          actionId
         });
 
         if (unlinked.error) {

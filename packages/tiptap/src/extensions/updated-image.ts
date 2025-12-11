@@ -6,13 +6,13 @@ const UpdatedImage = Image.extend({
     return {
       ...this.parent?.(),
       width: {
-        default: null,
+        default: null
       },
       height: {
-        default: null,
-      },
+        default: null
+      }
     };
-  },
+  }
 });
 
 export default UpdatedImage;

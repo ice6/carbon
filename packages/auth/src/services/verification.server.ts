@@ -13,14 +13,14 @@ export async function sendVerificationCode(email: string) {
 
     // Store in Redis with 10-minute expiration
     await redis.set(`verification:${email.toLowerCase()}`, verificationCode, {
-      ex: 600,
+      ex: 600
     });
 
     // Send email with verification code using React template
     const html = await render(
       VerificationEmail({
         email,
-        verificationCode,
+        verificationCode
       })
     );
 
@@ -28,7 +28,7 @@ export async function sendVerificationCode(email: string) {
       from: `Carbon <no-reply@${RESEND_DOMAIN}>`,
       to: email,
       subject: "Verify your email address",
-      html,
+      html
     });
     console.log(result);
 

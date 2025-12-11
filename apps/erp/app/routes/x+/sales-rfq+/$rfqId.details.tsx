@@ -14,12 +14,12 @@ import type { Opportunity, SalesRFQ, SalesRFQLine } from "~/modules/sales";
 import {
   getSalesRFQ,
   salesRfqValidator,
-  upsertSalesRFQ,
+  upsertSalesRFQ
 } from "~/modules/sales";
 import {
   OpportunityDocuments,
   OpportunityNotes,
-  OpportunityState,
+  OpportunityState
 } from "~/modules/sales/ui/Opportunity";
 import { setCustomFields } from "~/utils/form";
 import { path } from "~/utils/path";
@@ -31,7 +31,7 @@ type LoaderData = {
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
-    view: "sales",
+    view: "sales"
   });
 
   const { rfqId } = params;
@@ -47,14 +47,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
   return json<LoaderData>({
     internalNotes: (rfq.data?.internalNotes ?? {}) as JSONContent,
-    externalNotes: (rfq.data?.externalNotes ?? {}) as JSONContent,
+    externalNotes: (rfq.data?.externalNotes ?? {}) as JSONContent
   });
 }
 
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    update: "sales",
+    update: "sales"
   });
 
   const { rfqId: id } = params;
@@ -75,7 +75,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     rfqId,
     ...data,
     customFields: setCustomFields(formData),
-    updatedBy: userId,
+    updatedBy: userId
   });
   if (update.error) {
     throw redirect(

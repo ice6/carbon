@@ -4,7 +4,7 @@
 import type {
   ComponentPropsWithoutRef,
   ElementRef,
-  PropsWithChildren,
+  PropsWithChildren
 } from "react";
 import { createContext, forwardRef, useContext } from "react";
 import {
@@ -13,7 +13,7 @@ import {
   CardDescription,
   CardFooter,
   CardHeader,
-  CardTitle,
+  CardTitle
 } from "./Card";
 
 import {
@@ -23,7 +23,7 @@ import {
   ModalDescription,
   ModalFooter,
   ModalHeader,
-  ModalTitle,
+  ModalTitle
 } from "./Modal";
 
 const ModalCardTypeContext = createContext<"card" | "modal">("card");
@@ -173,5 +173,5 @@ export {
   ModalCardTitle,
   ModalCardTypeContext,
   ModalCardTypeProvider,
-  useModalCardType,
+  useModalCardType
 };

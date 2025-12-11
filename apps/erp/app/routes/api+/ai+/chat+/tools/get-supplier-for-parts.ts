@@ -12,11 +12,11 @@ export const config: ToolConfig = {
   name: "getSupplierForParts",
   icon: LuSearch,
   displayText: "Getting Supplier for Parts",
-  message: "Searching for suppliers for parts...",
+  message: "Searching for suppliers for parts..."
 };
 
 export const getSupplierForPartsSchema = z.object({
-  partIds: z.array(z.string()),
+  partIds: z.array(z.string())
 });
 
 export const getSupplierForPartsTool = tool({
@@ -26,7 +26,7 @@ export const getSupplierForPartsTool = tool({
     const context = executionOptions.experimental_context as ChatContext;
     console.log("[getSupplierForPartsTool]", args);
     return await getSuppliersForParts(context.client, args.partIds, context);
-  },
+  }
 });
 
 export async function getSuppliersForParts(
@@ -45,7 +45,7 @@ export async function getSuppliersForParts(
       .from("itemReplenishment")
       .select("itemId, preferredSupplierId")
       .in("itemId", partIds)
-      .eq("companyId", context.companyId),
+      .eq("companyId", context.companyId)
   ]);
 
   if (partIds.length === 1) {
@@ -54,7 +54,7 @@ export async function getSuppliersForParts(
     );
     if (preferredSupplier && preferredSupplier.preferredSupplierId) {
       return {
-        id: preferredSupplier.preferredSupplierId,
+        id: preferredSupplier.preferredSupplierId
       };
     }
 
@@ -64,20 +64,23 @@ export async function getSuppliersForParts(
     if (firstSupplier) {
       return {
         link: `${getAppUrl()}${path.to.supplier(firstSupplier.supplierId)}`,
-        id: firstSupplier.supplierId,
+        id: firstSupplier.supplierId
       };
     }
   }
 
   // Count occurrences of each supplier in preferred suppliers
   const preferredSupplierCounts =
-    preferredSuppliers.data?.reduce((counts, item) => {
-      if (item.preferredSupplierId) {
-        counts[item.preferredSupplierId] =
-          (counts[item.preferredSupplierId] || 0) + 1;
-      }
-      return counts;
-    }, {} as Record<string, number>) || {};
+    preferredSuppliers.data?.reduce(
+      (counts, item) => {
+        if (item.preferredSupplierId) {
+          counts[item.preferredSupplierId] =
+            (counts[item.preferredSupplierId] || 0) + 1;
+        }
+        return counts;
+      },
+      {} as Record<string, number>
+    ) || {};
 
   // Find the most frequent preferred supplier
   let mostFrequentPreferredSupplierId: string | null = null;
@@ -96,18 +99,21 @@ export async function getSuppliersForParts(
       link: `${getAppUrl()}${path.to.supplier(
         mostFrequentPreferredSupplierId
       )}`,
-      id: mostFrequentPreferredSupplierId,
+      id: mostFrequentPreferredSupplierId
     };
   }
 
   // If no preferred supplier, count occurrences in supplierParts
   const supplierPartCounts =
-    supplierParts.data?.reduce((counts, item) => {
-      if (item.supplierId) {
-        counts[item.supplierId] = (counts[item.supplierId] || 0) + 1;
-      }
-      return counts;
-    }, {} as Record<string, number>) || {};
+    supplierParts.data?.reduce(
+      (counts, item) => {
+        if (item.supplierId) {
+          counts[item.supplierId] = (counts[item.supplierId] || 0) + 1;
+        }
+        return counts;
+      },
+      {} as Record<string, number>
+    ) || {};
 
   // Find the most frequent supplier from supplierParts
   let mostFrequentSupplierId: string | null = null;
@@ -129,7 +135,7 @@ export async function getSuppliersForParts(
       link: `${getAppUrl()}${path.to.supplier(mostFrequentSupplierId)}`,
       id: mostFrequentSupplierId,
       unitPrice: supplier?.unitPrice,
-      supplierUnitOfMeasureCode: supplier?.supplierUnitOfMeasureCode,
+      supplierUnitOfMeasureCode: supplier?.supplierUnitOfMeasureCode
     };
   }
 

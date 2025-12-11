@@ -8,7 +8,7 @@ import {
   Heading,
   ScrollArea,
   toast,
-  VStack,
+  VStack
 } from "@carbon/react";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@vercel/remix";
 import { json, redirect } from "@vercel/remix";
@@ -23,7 +23,7 @@ import {
   getCompanySettings,
   kanbanOutputTypes,
   kanbanOutputValidator,
-  updateKanbanOutputSetting,
+  updateKanbanOutputSetting
 } from "~/modules/settings";
 
 import type { Handle } from "~/utils/handle";
@@ -31,16 +31,16 @@ import { path } from "~/utils/path";
 
 export const handle: Handle = {
   breadcrumb: "Inventory",
-  to: path.to.inventorySettings,
+  to: path.to.inventorySettings
 };
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    view: "settings",
+    view: "settings"
   });
 
   const [companySettings] = await Promise.all([
-    getCompanySettings(client, companyId),
+    getCompanySettings(client, companyId)
   ]);
   if (!companySettings.data)
     throw redirect(
@@ -55,7 +55,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
 export async function action({ request }: ActionFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    update: "settings",
+    update: "settings"
   });
 
   const formData = await request.formData();
@@ -79,7 +79,7 @@ export async function action({ request }: ActionFunctionArgs) {
       if (kanbanOutputResult.error)
         return json({
           success: false,
-          message: kanbanOutputResult.error.message,
+          message: kanbanOutputResult.error.message
         });
 
       return json({ success: true, message: "Kanban output setting updated" });
@@ -91,7 +91,7 @@ export async function action({ request }: ActionFunctionArgs) {
 const outputLabels: Record<(typeof kanbanOutputTypes)[number], string> = {
   label: "Label",
   qrcode: "QR Code",
-  url: "URL",
+  url: "URL"
 };
 
 export default function InventorySettingsRoute() {
@@ -120,7 +120,7 @@ export default function InventorySettingsRoute() {
             method="post"
             validator={kanbanOutputValidator}
             defaultValues={{
-              kanbanOutput: companySettings.kanbanOutput ?? "qrcode",
+              kanbanOutput: companySettings.kanbanOutput ?? "qrcode"
             }}
             fetcher={fetcher}
           >
@@ -141,7 +141,7 @@ export default function InventorySettingsRoute() {
                     label="Output"
                     options={kanbanOutputTypes.map((type) => ({
                       value: type,
-                      label: outputLabels[type],
+                      label: outputLabels[type]
                     }))}
                   />
                 </div>

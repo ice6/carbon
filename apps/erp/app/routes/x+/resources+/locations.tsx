@@ -12,14 +12,14 @@ import { getGenericQueryFilters } from "~/utils/query";
 
 export const handle: Handle = {
   breadcrumb: "Locations",
-  to: path.to.locations,
+  to: path.to.locations
 };
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
     view: "resources",
     role: "employee",
-    bypassRls: true,
+    bypassRls: true
   });
 
   const url = new URL(request.url);
@@ -33,7 +33,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
     limit,
     offset,
     sorts,
-    filters,
+    filters
   });
 
   if (locations.error) {
@@ -45,7 +45,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
   return json({
     locations: locations.data ?? [],
-    count: locations.count ?? 0,
+    count: locations.count ?? 0
   });
 }
 

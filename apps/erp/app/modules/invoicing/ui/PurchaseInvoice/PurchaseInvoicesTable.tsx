@@ -13,7 +13,7 @@ import {
   LuQrCode,
   LuStar,
   LuTrash,
-  LuUser,
+  LuUser
 } from "react-icons/lu";
 import {
   EmployeeAvatar,
@@ -21,7 +21,7 @@ import {
   ItemThumbnail,
   New,
   SupplierAvatar,
-  Table,
+  Table
 } from "~/components";
 import { Enumerable } from "~/components/Enumerable";
 import { ConfirmDelete } from "~/components/Modals";
@@ -30,7 +30,7 @@ import { useCustomColumns } from "~/hooks/useCustomColumns";
 import type { PurchaseInvoice } from "~/modules/invoicing";
 import {
   PurchaseInvoicingStatus,
-  purchaseInvoiceStatusType,
+  purchaseInvoiceStatusType
 } from "~/modules/invoicing";
 import { usePeople, useSuppliers } from "~/stores";
 import { path } from "~/utils/path";
@@ -78,8 +78,8 @@ const PurchaseInvoicesTable = memo(
             </HStack>
           ),
           meta: {
-            icon: <LuBookMarked />,
-          },
+            icon: <LuBookMarked />
+          }
         },
         {
           id: "supplierId",
@@ -92,11 +92,11 @@ const PurchaseInvoicesTable = memo(
               type: "static",
               options: suppliers?.map((supplier) => ({
                 value: supplier.id,
-                label: supplier.name,
-              })),
+                label: supplier.name
+              }))
             },
-            icon: <LuContainer />,
-          },
+            icon: <LuContainer />
+          }
         },
         {
           id: "invoiceSupplierId",
@@ -109,19 +109,19 @@ const PurchaseInvoicesTable = memo(
               type: "static",
               options: suppliers?.map((supplier) => ({
                 value: supplier.id,
-                label: supplier.name,
-              })),
+                label: supplier.name
+              }))
             },
-            icon: <LuContainer />,
-          },
+            icon: <LuContainer />
+          }
         },
         {
           accessorKey: "supplierReference",
           header: "Supplier Ref.",
           cell: (item) => item.getValue(),
           meta: {
-            icon: <LuQrCode />,
-          },
+            icon: <LuQrCode />
+          }
         },
         {
           accessorKey: "status",
@@ -136,12 +136,12 @@ const PurchaseInvoicesTable = memo(
               type: "static",
               options: purchaseInvoiceStatusType.map((status) => ({
                 value: status,
-                label: <PurchaseInvoicingStatus status={status} />,
-              })),
+                label: <PurchaseInvoicingStatus status={status} />
+              }))
             },
             pluralHeader: "Statuses",
-            icon: <LuStar />,
-          },
+            icon: <LuStar />
+          }
         },
         {
           accessorKey: "orderTotal",
@@ -150,8 +150,8 @@ const PurchaseInvoicesTable = memo(
           meta: {
             icon: <LuDollarSign />,
             formatter: currencyFormatter.format,
-            renderTotal: true,
-          },
+            renderTotal: true
+          }
         },
         {
           id: "assignee",
@@ -164,51 +164,51 @@ const PurchaseInvoicesTable = memo(
               type: "static",
               options: people.map((employee) => ({
                 value: employee.id,
-                label: employee.name,
-              })),
+                label: employee.name
+              }))
             },
-            icon: <LuUser />,
-          },
+            icon: <LuUser />
+          }
         },
         {
           accessorKey: "dateIssued",
           header: "Issued Date",
           cell: (item) => formatDate(item.getValue<string>()),
           meta: {
-            icon: <LuCalendar />,
-          },
+            icon: <LuCalendar />
+          }
         },
         {
           accessorKey: "dateDue",
           header: "Due Date",
           cell: (item) => formatDate(item.getValue<string>()),
           meta: {
-            icon: <LuCalendar />,
-          },
+            icon: <LuCalendar />
+          }
         },
         {
           accessorKey: "datePaid",
           header: "Paid Date",
           cell: (item) => formatDate(item.getValue<string>()),
           meta: {
-            icon: <LuCalendar />,
-          },
+            icon: <LuCalendar />
+          }
         },
         {
           accessorKey: "postingDate",
           header: "Posting Date",
           cell: (item) => formatDate(item.getValue<string>()),
           meta: {
-            icon: <LuCalendar />,
-          },
+            icon: <LuCalendar />
+          }
         },
         {
           accessorKey: "paymentTermName",
           header: "Payment Method",
           cell: (item) => <Enumerable value={item.getValue<string>()} />,
           meta: {
-            icon: <LuCreditCard />,
-          },
+            icon: <LuCreditCard />
+          }
         },
         {
           id: "createdBy",
@@ -221,19 +221,19 @@ const PurchaseInvoicesTable = memo(
               type: "static",
               options: people.map((employee) => ({
                 value: employee.id,
-                label: employee.name,
-              })),
+                label: employee.name
+              }))
             },
-            icon: <LuUser />,
-          },
+            icon: <LuUser />
+          }
         },
         {
           accessorKey: "createdAt",
           header: "Created At",
           cell: (item) => formatDate(item.getValue<string>()),
           meta: {
-            icon: <LuCalendar />,
-          },
+            icon: <LuCalendar />
+          }
         },
         {
           id: "updatedBy",
@@ -246,20 +246,20 @@ const PurchaseInvoicesTable = memo(
               type: "static",
               options: people.map((employee) => ({
                 value: employee.id,
-                label: employee.name,
-              })),
+                label: employee.name
+              }))
             },
-            icon: <LuUser />,
-          },
+            icon: <LuUser />
+          }
         },
         {
           accessorKey: "updatedAt",
           header: "Updated At",
           cell: (item) => formatDate(item.getValue<string>()),
           meta: {
-            icon: <LuCalendar />,
-          },
-        },
+            icon: <LuCalendar />
+          }
+        }
       ];
 
       return [...defaultColumns, ...customColumns];
@@ -300,7 +300,7 @@ const PurchaseInvoicesTable = memo(
           columns={columns}
           data={data}
           defaultColumnPinning={{
-            left: ["invoiceId"],
+            left: ["invoiceId"]
           }}
           defaultColumnVisibility={{
             invoiceSupplierId: false,
@@ -311,7 +311,7 @@ const PurchaseInvoicesTable = memo(
             createdAt: false,
             createdBy: false,
             updatedAt: false,
-            updatedBy: false,
+            updatedBy: false
           }}
           primaryAction={
             permissions.can("create", "invoicing") && (

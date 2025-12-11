@@ -15,11 +15,11 @@ import {
   VStack,
   cn,
   toast,
-  useDisclosure,
+  useDisclosure
 } from "@carbon/react";
 import { useState } from "react";
 import { LuDiamond, LuLayers } from "react-icons/lu";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import { ConfiguratorModal } from "~/components/Configurator/ConfiguratorForm";
 import {
   CustomFormFields,
@@ -33,12 +33,12 @@ import {
   Select,
   SequenceOrCustomId,
   Submit,
-  UnitOfMeasure,
+  UnitOfMeasure
 } from "~/components/Form";
 import { usePermissions, useUser } from "~/hooks";
 import type {
   ConfigurationParameter,
-  ConfigurationParameterGroup,
+  ConfigurationParameterGroup
 } from "~/modules/items/types";
 import { type MethodItemType } from "~/modules/shared";
 import { path } from "~/utils/path";
@@ -46,7 +46,7 @@ import type { jobStatus } from "../../production.models";
 import {
   bulkJobValidator,
   deadlineTypes,
-  jobValidator,
+  jobValidator
 } from "../../production.models";
 import { getDeadlineIcon } from "./Deadline";
 
@@ -82,7 +82,7 @@ const JobForm = ({ initialValues }: JobFormProps) => {
     locationId: initialValues.locationId ?? "",
     customerId: initialValues.customerId ?? "",
     modelUploadId: initialValues.modelUploadId ?? "",
-    configuration: initialValues.configuration ?? {},
+    configuration: initialValues.configuration ?? {}
   };
 
   const [itemData, setItemData] = useState<{
@@ -105,7 +105,7 @@ const JobForm = ({ initialValues }: JobFormProps) => {
         ? 0
         : (initialValues.scrapQuantity ?? 0) / initialValues.scrapQuantity,
     uom: initialValues.unitOfMeasureCode ?? "",
-    modelUploadId: initialValues.modelUploadId ?? null,
+    modelUploadId: initialValues.modelUploadId ?? null
   });
 
   const configurationDisclosure = useDisclosure();
@@ -132,7 +132,7 @@ const JobForm = ({ initialValues }: JobFormProps) => {
       quantityPerJob: 1,
       scrapPercentage: 0,
       scrapQuantity: 0,
-      modelUploadId: null,
+      modelUploadId: null
     });
   };
 
@@ -152,7 +152,7 @@ const JobForm = ({ initialValues }: JobFormProps) => {
         .from("itemReplenishment")
         .select("lotSize, leadTime, scrapPercentage, requiresConfiguration")
         .eq("itemId", itemId)
-        .single(),
+        .single()
     ]);
 
     setItemData((current) => ({
@@ -162,17 +162,17 @@ const JobForm = ({ initialValues }: JobFormProps) => {
       quantity:
         (manufacturing?.data?.lotSize ?? 0) === 0
           ? current.quantity
-          : manufacturing?.data?.lotSize ?? 0,
+          : (manufacturing?.data?.lotSize ?? 0),
       quantityPerJob:
         (manufacturing?.data?.lotSize ?? 0) === 0
           ? current.quantityPerJob
-          : manufacturing?.data?.lotSize ?? 0,
+          : (manufacturing?.data?.lotSize ?? 0),
       modelUploadId: item.data?.modelUploadId ?? null,
       scrapPercentage: manufacturing?.data?.scrapPercentage ?? 0,
       scrapQuantity: Math.ceil(
         (manufacturing?.data?.lotSize ?? 0) *
           ((manufacturing?.data?.scrapPercentage ?? 0) / 100)
-      ),
+      )
     }));
 
     if (item.data?.type) {
@@ -191,7 +191,7 @@ const JobForm = ({ initialValues }: JobFormProps) => {
           .from("configurationParameterGroup")
           .select("*")
           .eq("itemId", itemId)
-          .eq("companyId", company.id),
+          .eq("companyId", company.id)
       ]);
 
       if (parameters.error || groups.error) {
@@ -201,7 +201,7 @@ const JobForm = ({ initialValues }: JobFormProps) => {
 
       setConfigurationParameters({
         parameters: parameters.data ?? [],
-        groups: groups.data ?? [],
+        groups: groups.data ?? []
       });
     } else {
       setRequiresConfiguration(false);
@@ -304,7 +304,7 @@ const JobForm = ({ initialValues }: JobFormProps) => {
                             quantity: value,
                             scrapQuantity: Math.ceil(
                               value * prev.scrapPercentage
-                            ),
+                            )
                           }))
                         }
                         minValue={0}
@@ -318,7 +318,7 @@ const JobForm = ({ initialValues }: JobFormProps) => {
                             ...prev,
                             scrapQuantity: value,
                             scrapPercentage:
-                              prev.quantity > 0 ? value / prev.quantity : 1,
+                              prev.quantity > 0 ? value / prev.quantity : 1
                           }))
                         }
                         minValue={0}
@@ -331,7 +331,7 @@ const JobForm = ({ initialValues }: JobFormProps) => {
                           if (value?.value) {
                             setItemData((prev) => ({
                               ...prev,
-                              uom: value.value,
+                              uom: value.value
                             }));
                           }
                         }}
@@ -353,7 +353,7 @@ const JobForm = ({ initialValues }: JobFormProps) => {
                               {getDeadlineIcon(d)}
                               <span>{d}</span>
                             </div>
-                          ),
+                          )
                         }))}
                       />
 
@@ -450,7 +450,7 @@ const JobForm = ({ initialValues }: JobFormProps) => {
                           onChange={(value) =>
                             setItemData((prev) => ({
                               ...prev,
-                              quantity: value,
+                              quantity: value
                             }))
                           }
                           minValue={0}
@@ -463,7 +463,7 @@ const JobForm = ({ initialValues }: JobFormProps) => {
                           onChange={(value) =>
                             setItemData((prev) => ({
                               ...prev,
-                              quantityPerJob: value,
+                              quantityPerJob: value
                             }))
                           }
                           minValue={0}
@@ -476,7 +476,7 @@ const JobForm = ({ initialValues }: JobFormProps) => {
                           onChange={(value) =>
                             setItemData((prev) => ({
                               ...prev,
-                              scrapQuantity: value,
+                              scrapQuantity: value
                             }))
                           }
                           minValue={0}
@@ -489,7 +489,7 @@ const JobForm = ({ initialValues }: JobFormProps) => {
                             if (value?.value) {
                               setItemData((prev) => ({
                                 ...prev,
-                                uom: value.value,
+                                uom: value.value
                               }));
                             }
                           }}
@@ -518,7 +518,7 @@ const JobForm = ({ initialValues }: JobFormProps) => {
                                 {getDeadlineIcon(d)}
                                 <span>{d}</span>
                               </div>
-                            ),
+                            )
                           }))}
                         />
 

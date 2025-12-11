@@ -6,7 +6,7 @@ import { getCompanySettings } from "~/modules/settings";
 
 export async function action({ request }: ActionFunctionArgs) {
   const { client, companyId, userId } = await requirePermissions(request, {
-    update: "parts",
+    update: "parts"
   });
 
   const formData = await request.formData();
@@ -37,7 +37,7 @@ export async function action({ request }: ActionFunctionArgs) {
               // @ts-expect-error
               defaultMethodType: value,
               updatedBy: userId,
-              updatedAt: new Date().toISOString(),
+              updatedAt: new Date().toISOString()
             })
             .in("id", items as string[])
             .eq("companyId", companyId)
@@ -53,7 +53,7 @@ export async function action({ request }: ActionFunctionArgs) {
               // @ts-expect-error
               replenishmentSystem: value,
               updatedBy: userId,
-              updatedAt: new Date().toISOString(),
+              updatedAt: new Date().toISOString()
             })
             .in("id", items as string[])
             .eq("companyId", companyId)
@@ -65,7 +65,7 @@ export async function action({ request }: ActionFunctionArgs) {
           .update({
             [field]: value,
             updatedBy: userId,
-            updatedAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString()
           })
           .in("id", items as string[])
           .eq("companyId", companyId)
@@ -159,7 +159,7 @@ export async function action({ request }: ActionFunctionArgs) {
                 .from("item")
                 .select("id")
                 .eq("readableId", readableId)
-                .eq("companyId", companyId),
+                .eq("companyId", companyId)
             ]);
 
             console.log(`Material details result:`, materialDetails);
@@ -224,7 +224,7 @@ export async function action({ request }: ActionFunctionArgs) {
                   [field]: value || null,
                   id: newMaterialId,
                   updatedBy: userId,
-                  updatedAt: new Date().toISOString(),
+                  updatedAt: new Date().toISOString()
                 };
 
               // If substance changes, reset finishId, gradeId, and materialTypeId
@@ -255,7 +255,7 @@ export async function action({ request }: ActionFunctionArgs) {
                 console.error(`Material update error:`, update.error);
                 return json({
                   error: { message: update.error.message },
-                  data: null,
+                  data: null
                 });
               }
             } else {
@@ -270,7 +270,7 @@ export async function action({ request }: ActionFunctionArgs) {
 
         return json({
           data: null,
-          error: null,
+          error: null
         });
       } else {
         const materialItems = await client
@@ -279,7 +279,7 @@ export async function action({ request }: ActionFunctionArgs) {
           .in("id", items as string[])
           .eq("companyId", companyId);
         const materialIds = [
-          ...new Set(materialItems.data?.map((item) => item.readableId) ?? []),
+          ...new Set(materialItems.data?.map((item) => item.readableId) ?? [])
         ];
         if (materialIds.length === 0) {
           return json({ error: { message: "No materials found" }, data: null });
@@ -288,7 +288,7 @@ export async function action({ request }: ActionFunctionArgs) {
         let updateData: Database["public"]["Tables"]["material"]["Update"] = {
           [field]: value || null,
           updatedBy: userId,
-          updatedAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString()
         };
 
         // If substance changes, reset finishId, gradeId, and materialTypeId
@@ -319,7 +319,7 @@ export async function action({ request }: ActionFunctionArgs) {
           .update({
             active: value === "on",
             updatedBy: userId,
-            updatedAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString()
           })
           .in("id", items as string[])
           .eq("companyId", companyId)
@@ -328,7 +328,7 @@ export async function action({ request }: ActionFunctionArgs) {
       if (items.length > 1) {
         return json({
           error: { message: "Cannot update multiple items" },
-          data: null,
+          data: null
         });
       }
       const [item] = items as string[];
@@ -367,7 +367,7 @@ export async function action({ request }: ActionFunctionArgs) {
             .update({
               readableId: value as string,
               updatedBy: userId,
-              updatedAt: new Date().toISOString(),
+              updatedAt: new Date().toISOString()
             })
             .in("id", relatedItemIds as string[])
             .eq("companyId", companyId),
@@ -376,10 +376,10 @@ export async function action({ request }: ActionFunctionArgs) {
             .update({
               id: value,
               updatedBy: userId,
-              updatedAt: new Date().toISOString(),
+              updatedAt: new Date().toISOString()
             })
             .eq("id", currentReadableId)
-            .eq("companyId", companyId),
+            .eq("companyId", companyId)
         ]);
         if (partUpdate.error) {
           console.error("partUpdate error");
@@ -396,7 +396,7 @@ export async function action({ request }: ActionFunctionArgs) {
       if (items.length > 1) {
         return json({
           error: { message: "Cannot update multiple items" },
-          data: null,
+          data: null
         });
       }
       const [consumableItem] = items as string[];
@@ -414,7 +414,7 @@ export async function action({ request }: ActionFunctionArgs) {
       if (consumableData.data?.type !== "Consumable") {
         return json({
           error: { message: "Item is not a consumable" },
-          data: null,
+          data: null
         });
       }
 
@@ -439,7 +439,7 @@ export async function action({ request }: ActionFunctionArgs) {
             .update({
               readableId: value as string,
               updatedBy: userId,
-              updatedAt: new Date().toISOString(),
+              updatedAt: new Date().toISOString()
             })
             .in("id", relatedConsumableIds as string[])
             .eq("companyId", companyId),
@@ -448,10 +448,10 @@ export async function action({ request }: ActionFunctionArgs) {
             .update({
               id: value,
               updatedBy: userId,
-              updatedAt: new Date().toISOString(),
+              updatedAt: new Date().toISOString()
             })
             .eq("id", currentConsumableId)
-            .eq("companyId", companyId),
+            .eq("companyId", companyId)
         ]);
         if (consumableUpdate.error) {
           console.error("consumableUpdate error");
@@ -468,7 +468,7 @@ export async function action({ request }: ActionFunctionArgs) {
       if (items.length > 1) {
         return json({
           error: { message: "Cannot update multiple items" },
-          data: null,
+          data: null
         });
       }
       const [materialItem] = items as string[];
@@ -486,7 +486,7 @@ export async function action({ request }: ActionFunctionArgs) {
       if (materialData.data?.type !== "Material") {
         return json({
           error: { message: "Item is not a material" },
-          data: null,
+          data: null
         });
       }
 
@@ -509,7 +509,7 @@ export async function action({ request }: ActionFunctionArgs) {
             .update({
               readableId: value as string,
               updatedBy: userId,
-              updatedAt: new Date().toISOString(),
+              updatedAt: new Date().toISOString()
             })
             .in("id", relatedMaterialIds as string[])
             .eq("companyId", companyId),
@@ -518,10 +518,10 @@ export async function action({ request }: ActionFunctionArgs) {
             .update({
               id: value,
               updatedBy: userId,
-              updatedAt: new Date().toISOString(),
+              updatedAt: new Date().toISOString()
             })
             .eq("id", currentMaterialId)
-            .eq("companyId", companyId),
+            .eq("companyId", companyId)
         ]);
         if (materialUpdate.error) {
           console.error("materialUpdate error");
@@ -538,7 +538,7 @@ export async function action({ request }: ActionFunctionArgs) {
       if (items.length > 1) {
         return json({
           error: { message: "Cannot update multiple items" },
-          data: null,
+          data: null
         });
       }
       const [toolItem] = items as string[];
@@ -576,7 +576,7 @@ export async function action({ request }: ActionFunctionArgs) {
             .update({
               readableId: value as string,
               updatedBy: userId,
-              updatedAt: new Date().toISOString(),
+              updatedAt: new Date().toISOString()
             })
             .in("id", relatedToolIds as string[])
             .eq("companyId", companyId),
@@ -585,10 +585,10 @@ export async function action({ request }: ActionFunctionArgs) {
             .update({
               id: value,
               updatedBy: userId,
-              updatedAt: new Date().toISOString(),
+              updatedAt: new Date().toISOString()
             })
             .eq("id", currentToolId)
-            .eq("companyId", companyId),
+            .eq("companyId", companyId)
         ]);
         if (toolUpdate.error) {
           console.error("toolUpdate error");

@@ -25,7 +25,7 @@ export async function generateEmbedding(
 ): Promise<number[]> {
   const response = await client.functions.invoke("embedding", {
     body: { text },
-    region: FunctionRegion.UsEast1,
+    region: FunctionRegion.UsEast1
   });
 
   if (response.error) {
@@ -134,7 +134,7 @@ export async function getModelByItemId(
     return {
       itemId: item.data?.id ?? null,
       type: item.data?.type ?? null,
-      modelPath: null,
+      modelPath: null
     };
   }
 
@@ -148,14 +148,14 @@ export async function getModelByItemId(
     return {
       itemId: item.data?.id ?? null,
       type: item.data?.type ?? null,
-      modelSize: null,
+      modelSize: null
     };
   }
 
   return {
     itemId: item.data!.id,
     type: item.data!.type,
-    ...model.data,
+    ...model.data
   };
 }
 
@@ -223,7 +223,7 @@ export async function importCsv(
 ) {
   return client.functions.invoke("import-csv", {
     body: args,
-    region: FunctionRegion.UsEast1,
+    region: FunctionRegion.UsEast1
   });
 }
 
@@ -295,7 +295,7 @@ export async function getCustomerPortals(
 
   if (args) {
     query = setGenericQueryFilters(query, args, [
-      { column: "createdAt", ascending: false },
+      { column: "createdAt", ascending: false }
     ]);
   }
 
@@ -382,7 +382,7 @@ export async function upsertSavedView(
       .from("tableView")
       .update({
         ...data,
-        updatedBy: userId,
+        updatedBy: userId
       })
       .eq("id", view.id)
       .select("id")
@@ -407,7 +407,7 @@ export async function upsertSavedView(
     .insert({
       ...data,
       createdBy: userId,
-      sortOrder: newSortOrder,
+      sortOrder: newSortOrder
     })
     .select("id")
     .single();

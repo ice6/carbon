@@ -11,7 +11,7 @@ import { error, success } from "../utils/result";
 import {
   getClaims,
   getPermissionCacheKey,
-  makePermissionsFromClaims,
+  makePermissionsFromClaims
 } from "./users";
 
 export async function getUserByEmail(email: string) {
@@ -106,7 +106,7 @@ export async function deactivateCustomer(
         .from("search")
         .delete()
         .eq("uuid", userId)
-        .eq("companyId", companyId),
+        .eq("companyId", companyId)
     ]);
 
   if (updatePermissions.error) {
@@ -173,7 +173,7 @@ export async function deactivateEmployee(
         .delete()
         .eq("uuid", userId)
         .eq("companyId", companyId),
-      serviceRole.from("employeeJob").delete().eq("id", userId),
+      serviceRole.from("employeeJob").delete().eq("id", userId)
     ]);
 
   if (updatePermissions.error) {
@@ -300,7 +300,7 @@ export async function deactivateSupplier(
         .from("search")
         .delete()
         .eq("uuid", userId)
-        .eq("companyId", companyId),
+        .eq("companyId", companyId)
     ]);
 
   if (updatePermissions.error) {

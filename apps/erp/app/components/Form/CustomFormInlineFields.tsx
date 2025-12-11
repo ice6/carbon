@@ -5,10 +5,10 @@ import {
   InputControlled,
   NumberControlled,
   Select,
-  ValidatedForm,
+  ValidatedForm
 } from "@carbon/form";
 import { zfd } from "zod-form-data";
-import { z } from 'zod/v3';
+import { z } from "zod/v3";
 import { useCustomFieldsSchema } from "~/hooks/useCustomFieldsSchema";
 import { DataType } from "~/modules/shared";
 import { Enumerable } from "../Enumerable";
@@ -29,7 +29,7 @@ const CustomFormInlineFields = ({
   table,
   tags = [],
   isDisabled = false,
-  onUpdate,
+  onUpdate
 }: CustomFormInlineFieldsProps) => {
   const customFormSchema = useCustomFieldsSchema();
   const tableFields = customFormSchema?.[table];
@@ -59,10 +59,10 @@ const CustomFormInlineFields = ({
                     [field.id]:
                       fields && field.id in fields
                         ? (fields[field.id] as boolean)
-                        : false,
+                        : false
                   }}
                   validator={z.object({
-                    [field.id]: zfd.checkbox(),
+                    [field.id]: zfd.checkbox()
                   })}
                   className="w-full"
                 >
@@ -75,7 +75,7 @@ const CustomFormInlineFields = ({
                       onUpdate(
                         JSON.stringify({
                           ...fields,
-                          [field.id]: value ? "on" : "",
+                          [field.id]: value ? "on" : ""
                         })
                       );
                     }}
@@ -86,10 +86,10 @@ const CustomFormInlineFields = ({
               return (
                 <ValidatedForm
                   defaultValues={{
-                    [field.id]: fields[field.id] as string,
+                    [field.id]: fields[field.id] as string
                   }}
                   validator={z.object({
-                    [field.id]: zfd.text(z.string().optional()),
+                    [field.id]: zfd.text(z.string().optional())
                   })}
                   className="w-full"
                 >
@@ -104,7 +104,7 @@ const CustomFormInlineFields = ({
                       onUpdate(
                         JSON.stringify({
                           ...fields,
-                          [field.id]: modifiedDate,
+                          [field.id]: modifiedDate
                         })
                       );
                     }}
@@ -115,10 +115,10 @@ const CustomFormInlineFields = ({
               return (
                 <ValidatedForm
                   defaultValues={{
-                    [field.id]: fields[field.id] as string,
+                    [field.id]: fields[field.id] as string
                   }}
                   validator={z.object({
-                    [field.id]: zfd.text(z.string().optional()),
+                    [field.id]: zfd.text(z.string().optional())
                   })}
                   className="w-full"
                 >
@@ -132,14 +132,14 @@ const CustomFormInlineFields = ({
                     options={
                       field.listOptions?.map((option) => ({
                         value: option,
-                        label: option,
+                        label: option
                       })) ?? []
                     }
                     onChange={(value) => {
                       onUpdate(
                         JSON.stringify({
                           ...fields,
-                          [field.id]: value?.value ?? null,
+                          [field.id]: value?.value ?? null
                         })
                       );
                     }}
@@ -150,12 +150,12 @@ const CustomFormInlineFields = ({
               return (
                 <ValidatedForm
                   defaultValues={{
-                    [field.id]: fields[field.id] as number,
+                    [field.id]: fields[field.id] as number
                   }}
                   validator={z.object({
                     [field.id]: zfd.numeric(
                       z.number().min(0, { message: "Quantity is required" })
-                    ),
+                    )
                   })}
                   className="w-full"
                 >
@@ -169,7 +169,7 @@ const CustomFormInlineFields = ({
                       onUpdate(
                         JSON.stringify({
                           ...fields,
-                          [field.id]: value,
+                          [field.id]: value
                         })
                       );
                     }}
@@ -180,10 +180,10 @@ const CustomFormInlineFields = ({
               return (
                 <ValidatedForm
                   defaultValues={{
-                    [field.id]: fields[field.id] as string,
+                    [field.id]: fields[field.id] as string
                   }}
                   validator={z.object({
-                    [field.id]: zfd.text(z.string().optional()),
+                    [field.id]: zfd.text(z.string().optional())
                   })}
                   className="w-full"
                 >
@@ -198,7 +198,7 @@ const CustomFormInlineFields = ({
                       onUpdate(
                         JSON.stringify({
                           ...fields,
-                          [field.id]: e.target.value,
+                          [field.id]: e.target.value
                         })
                       );
                     }}
@@ -209,10 +209,10 @@ const CustomFormInlineFields = ({
               return (
                 <ValidatedForm
                   defaultValues={{
-                    [field.id]: fields[field.id] as string,
+                    [field.id]: fields[field.id] as string
                   }}
                   validator={z.object({
-                    [field.id]: zfd.text(z.string().optional()),
+                    [field.id]: zfd.text(z.string().optional())
                   })}
                   className="w-full"
                 >
@@ -226,7 +226,7 @@ const CustomFormInlineFields = ({
                         onUpdate(
                           JSON.stringify({
                             ...fields,
-                            [field.id]: value.value,
+                            [field.id]: value.value
                           })
                         );
                       }
@@ -238,10 +238,10 @@ const CustomFormInlineFields = ({
               return (
                 <ValidatedForm
                   defaultValues={{
-                    [field.id]: fields[field.id] as string,
+                    [field.id]: fields[field.id] as string
                   }}
                   validator={z.object({
-                    [field.id]: zfd.text(z.string().optional()),
+                    [field.id]: zfd.text(z.string().optional())
                   })}
                   className="w-full"
                 >
@@ -255,7 +255,7 @@ const CustomFormInlineFields = ({
                         onUpdate(
                           JSON.stringify({
                             ...fields,
-                            [field.id]: value.value,
+                            [field.id]: value.value
                           })
                         );
                       }
@@ -267,10 +267,10 @@ const CustomFormInlineFields = ({
               return (
                 <ValidatedForm
                   defaultValues={{
-                    [field.id]: fields[field.id] as string,
+                    [field.id]: fields[field.id] as string
                   }}
                   validator={z.object({
-                    [field.id]: zfd.text(z.string().optional()),
+                    [field.id]: zfd.text(z.string().optional())
                   })}
                   className="w-full"
                 >
@@ -284,7 +284,7 @@ const CustomFormInlineFields = ({
                         onUpdate(
                           JSON.stringify({
                             ...fields,
-                            [field.id]: value.value,
+                            [field.id]: value.value
                           })
                         );
                       }

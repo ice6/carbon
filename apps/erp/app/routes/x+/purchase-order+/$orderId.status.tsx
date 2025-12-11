@@ -2,7 +2,7 @@ import {
   assertIsPost,
   error,
   getCarbonServiceRole,
-  success,
+  success
 } from "@carbon/auth";
 import { requirePermissions } from "@carbon/auth/auth.server";
 import { flash } from "@carbon/auth/session.server";
@@ -11,14 +11,14 @@ import { redirect } from "@vercel/remix";
 import { runMRP } from "~/modules/production";
 import {
   purchaseOrderStatusType,
-  updatePurchaseOrderStatus,
+  updatePurchaseOrderStatus
 } from "~/modules/purchasing";
 import { path, requestReferrer } from "~/utils/path";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId, companyId } = await requirePermissions(request, {
-    update: "purchasing",
+    update: "purchasing"
   });
 
   const { orderId: id } = params;
@@ -41,8 +41,8 @@ export async function action({ request, params }: ActionFunctionArgs) {
       id,
       status,
       assignee: ["Closed"].includes(status) ? null : undefined,
-      updatedBy: userId,
-    }),
+      updatedBy: userId
+    })
   ]);
   if (update.error) {
     throw redirect(
@@ -59,7 +59,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
       type: "purchaseOrder",
       id,
       companyId,
-      userId,
+      userId
     });
   }
 

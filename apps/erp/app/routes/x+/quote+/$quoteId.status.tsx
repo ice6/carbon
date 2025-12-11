@@ -9,7 +9,7 @@ import { path, requestReferrer } from "~/utils/path";
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    update: "sales",
+    update: "sales"
   });
 
   const { quoteId: id } = params;
@@ -29,7 +29,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     id,
     status,
     assignee: ["Closed"].includes(status) ? null : undefined,
-    updatedBy: userId,
+    updatedBy: userId
   });
   if (update.error) {
     throw redirect(

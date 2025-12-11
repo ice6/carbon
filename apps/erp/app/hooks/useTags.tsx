@@ -17,7 +17,7 @@ export function useTags({ id, table }: { id?: string; table: string }) {
 
       fetcher.submit(formData, {
         method: "post",
-        action: path.to.tags,
+        action: path.to.tags
       });
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -11,7 +11,7 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-  useDisclosure,
+  useDisclosure
 } from "@carbon/react";
 import { formatDate } from "@carbon/utils";
 import type { ColumnDef } from "@tanstack/react-table";
@@ -33,7 +33,7 @@ import {
   LuTrash,
   LuTriangleAlert,
   LuTruck,
-  LuUser,
+  LuUser
 } from "react-icons/lu";
 import {
   CustomerAvatar,
@@ -41,7 +41,7 @@ import {
   Hyperlink,
   ItemThumbnail,
   New,
-  Table,
+  Table
 } from "~/components";
 import { Enumerable } from "~/components/Enumerable";
 import { ConfirmDelete } from "~/components/Modals";
@@ -52,7 +52,7 @@ import {
   getLocalTimeZone,
   isSameDay,
   parseDate,
-  today,
+  today
 } from "@internationalized/date";
 import { useLocations } from "~/components/Form/Location";
 import { usePaymentTerm } from "~/components/Form/PaymentTerm";
@@ -110,8 +110,8 @@ const SalesOrdersTable = memo(({ data, count }: SalesOrdersTableProps) => {
           </HStack>
         ),
         meta: {
-          icon: <LuBookMarked />,
-        },
+          icon: <LuBookMarked />
+        }
       },
       {
         id: "customerId",
@@ -124,11 +124,11 @@ const SalesOrdersTable = memo(({ data, count }: SalesOrdersTableProps) => {
             type: "static",
             options: customers?.map((customer) => ({
               value: customer.id,
-              label: customer.name,
-            })),
+              label: customer.name
+            }))
           },
-          icon: <LuSquareUser />,
-        },
+          icon: <LuSquareUser />
+        }
       },
       {
         accessorKey: "status",
@@ -142,12 +142,12 @@ const SalesOrdersTable = memo(({ data, count }: SalesOrdersTableProps) => {
             type: "static",
             options: salesOrderStatusType.map((status) => ({
               value: status,
-              label: <SalesStatus status={status} />,
-            })),
+              label: <SalesStatus status={status} />
+            }))
           },
           pluralHeader: "Statuses",
-          icon: <LuStar />,
-        },
+          icon: <LuStar />
+        }
       },
       {
         id: "jobs",
@@ -255,7 +255,7 @@ const SalesOrdersTable = memo(({ data, count }: SalesOrdersTableProps) => {
                               "Planned",
                               "In Progress",
                               "Ready",
-                              "Paused",
+                              "Paused"
                             ].includes(job.status ?? "") && (
                               <>
                                 {job.dueDate &&
@@ -280,24 +280,24 @@ const SalesOrdersTable = memo(({ data, count }: SalesOrdersTableProps) => {
           );
         },
         meta: {
-          icon: <LuFactory />,
-        },
+          icon: <LuFactory />
+        }
       },
       {
         accessorKey: "customerReference",
         header: "Customer PO",
         cell: (item) => item.getValue(),
         meta: {
-          icon: <LuQrCode />,
-        },
+          icon: <LuQrCode />
+        }
       },
       {
         accessorKey: "orderDate",
         header: "Order Date",
         cell: (item) => formatDate(item.getValue<string>()),
         meta: {
-          icon: <LuCalendar />,
-        },
+          icon: <LuCalendar />
+        }
       },
       {
         accessorKey: "orderTotal",
@@ -306,8 +306,8 @@ const SalesOrdersTable = memo(({ data, count }: SalesOrdersTableProps) => {
         meta: {
           icon: <LuDollarSign />,
           formatter: currencyFormatter.format,
-          renderTotal: true,
-        },
+          renderTotal: true
+        }
       },
 
       {
@@ -321,19 +321,19 @@ const SalesOrdersTable = memo(({ data, count }: SalesOrdersTableProps) => {
             type: "static",
             options: people.map((employee) => ({
               value: employee.id,
-              label: employee.name,
-            })),
+              label: employee.name
+            }))
           },
-          icon: <LuUser />,
-        },
+          icon: <LuUser />
+        }
       },
       {
         accessorKey: "receiptPromisedDate",
         header: "Promised Date",
         cell: (item) => formatDate(item.getValue<string>()),
         meta: {
-          icon: <LuCalendar />,
-        },
+          icon: <LuCalendar />
+        }
       },
       {
         accessorKey: "shippingMethodId",
@@ -347,8 +347,8 @@ const SalesOrdersTable = memo(({ data, count }: SalesOrdersTableProps) => {
           />
         ),
         meta: {
-          icon: <LuTruck />,
-        },
+          icon: <LuTruck />
+        }
       },
       {
         accessorKey: "locationId",
@@ -367,10 +367,10 @@ const SalesOrdersTable = memo(({ data, count }: SalesOrdersTableProps) => {
             type: "static",
             options: locations.map((l) => ({
               value: l.value,
-              label: <Enumerable value={l.label} />,
-            })),
-          },
-        },
+              label: <Enumerable value={l.label} />
+            }))
+          }
+        }
       },
       {
         accessorKey: "paymentTermId",
@@ -384,8 +384,8 @@ const SalesOrdersTable = memo(({ data, count }: SalesOrdersTableProps) => {
           />
         ),
         meta: {
-          icon: <LuCreditCard />,
-        },
+          icon: <LuCreditCard />
+        }
       },
       {
         accessorKey: "dropShipment",
@@ -396,12 +396,12 @@ const SalesOrdersTable = memo(({ data, count }: SalesOrdersTableProps) => {
             type: "static",
             options: [
               { value: "true", label: "Yes" },
-              { value: "false", label: "No" },
-            ],
+              { value: "false", label: "No" }
+            ]
           },
           pluralHeader: "Drop Shipment Statuses",
-          icon: <LuTruck />,
-        },
+          icon: <LuTruck />
+        }
       },
       {
         id: "createdBy",
@@ -414,19 +414,19 @@ const SalesOrdersTable = memo(({ data, count }: SalesOrdersTableProps) => {
             type: "static",
             options: people.map((employee) => ({
               value: employee.id,
-              label: employee.name,
-            })),
+              label: employee.name
+            }))
           },
-          icon: <LuUser />,
-        },
+          icon: <LuUser />
+        }
       },
       {
         accessorKey: "createdAt",
         header: "Created At",
         cell: (item) => formatDate(item.getValue<string>()),
         meta: {
-          icon: <LuCalendar />,
-        },
+          icon: <LuCalendar />
+        }
       },
       {
         id: "updatedBy",
@@ -439,20 +439,20 @@ const SalesOrdersTable = memo(({ data, count }: SalesOrdersTableProps) => {
             type: "static",
             options: people.map((employee) => ({
               value: employee.id,
-              label: employee.name,
-            })),
+              label: employee.name
+            }))
           },
-          icon: <LuUser />,
-        },
+          icon: <LuUser />
+        }
       },
       {
         accessorKey: "updatedAt",
         header: "Updated At",
         cell: (item) => formatDate(item.getValue<string>()),
         meta: {
-          icon: <LuCalendar />,
-        },
-      },
+          icon: <LuCalendar />
+        }
+      }
     ];
 
     return [...defaultColumns, ...customColumns];
@@ -464,7 +464,7 @@ const SalesOrdersTable = memo(({ data, count }: SalesOrdersTableProps) => {
     todaysDate,
     currencyFormatter,
     shippingMethods,
-    paymentTerms,
+    paymentTerms
   ]);
 
   const renderContextMenu = useMemo(() => {
@@ -514,7 +514,7 @@ const SalesOrdersTable = memo(({ data, count }: SalesOrdersTableProps) => {
         columns={columns}
         data={data}
         defaultColumnPinning={{
-          left: ["salesOrderId"],
+          left: ["salesOrderId"]
         }}
         defaultColumnVisibility={{
           receiptPromisedDate: false,
@@ -525,7 +525,7 @@ const SalesOrdersTable = memo(({ data, count }: SalesOrdersTableProps) => {
           createdBy: false,
           createdAt: false,
           updatedBy: false,
-          updatedAt: false,
+          updatedAt: false
         }}
         primaryAction={
           permissions.can("create", "sales") && (

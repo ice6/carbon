@@ -8,7 +8,7 @@ import {
   LuCode,
   LuKeySquare,
   LuPencil,
-  LuTrash,
+  LuTrash
 } from "react-icons/lu";
 import { Hyperlink, New, Table } from "~/components";
 import { Enumerable } from "~/components/Enumerable";
@@ -49,16 +49,16 @@ const MaterialShapesTable = memo(
               </Hyperlink>
             ),
           meta: {
-            icon: <LuBookMarked />,
-          },
+            icon: <LuBookMarked />
+          }
         },
         {
           accessorKey: "code",
           header: "Code",
           cell: ({ row }) => row.original.code,
           meta: {
-            icon: <LuCode />,
-          },
+            icon: <LuCode />
+          }
         },
         {
           accessorKey: "id",
@@ -70,8 +70,8 @@ const MaterialShapesTable = memo(
             </div>
           ),
           meta: {
-            icon: <LuKeySquare />,
-          },
+            icon: <LuKeySquare />
+          }
         },
         {
           accessorKey: "companyId",
@@ -84,9 +84,9 @@ const MaterialShapesTable = memo(
             );
           },
           meta: {
-            icon: <LuCircleCheck />,
-          },
-        },
+            icon: <LuCircleCheck />
+          }
+        }
       ];
       return [...defaultColumns, ...customColumns];
     }, [params, customColumns]);

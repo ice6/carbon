@@ -24,7 +24,7 @@ import {
   Thead,
   Tr,
   VStack,
-  toast,
+  toast
 } from "@carbon/react";
 import { convertKbToString } from "@carbon/utils";
 import { Link, useFetchers, useRevalidator, useSubmit } from "@remix-run/react";
@@ -46,7 +46,7 @@ import { stripSpecialCharacters } from "~/utils/string";
 
 const useJobDocuments = ({
   jobId,
-  itemId,
+  itemId
 }: {
   jobId: string;
   itemId?: string | null;
@@ -171,7 +171,7 @@ const useJobDocuments = ({
       path: filePath,
       name,
       size,
-      bucket = "job",
+      bucket = "job"
     }: {
       path: string;
       name: string;
@@ -189,7 +189,7 @@ const useJobDocuments = ({
         method: "post",
         action: path.to.newDocument,
         navigate: false,
-        fetcherKey: `job:${name}`,
+        fetcherKey: `job:${name}`
       });
     },
     [jobId, submit]
@@ -214,7 +214,7 @@ const useJobDocuments = ({
           .from("private")
           .upload(fileName, file, {
             cacheControl: `${12 * 60 * 60}`,
-            upsert: true,
+            upsert: true
           });
 
         if (fileUpload.error) {
@@ -224,7 +224,7 @@ const useJobDocuments = ({
             path: fileUpload.data.path,
             name: file.name,
             size: file.size,
-            bucket,
+            bucket
           });
         }
       }
@@ -273,7 +273,7 @@ const useJobDocuments = ({
           .from("private")
           .upload(targetPath, downloadData, {
             cacheControl: `${12 * 60 * 60}`,
-            upsert: true,
+            upsert: true
           });
 
         if (uploadError) {
@@ -315,7 +315,7 @@ const useJobDocuments = ({
     getPath,
     getModelPath,
     moveFile,
-    upload,
+    upload
   };
 };
 
@@ -330,7 +330,7 @@ const JobDocuments = ({
   files,
   jobId,
   itemId,
-  modelUpload,
+  modelUpload
 }: JobDocumentsProps) => {
   const {
     canDelete,
@@ -342,10 +342,10 @@ const JobDocuments = ({
     getPath,
     getModelPath,
     moveFile,
-    upload,
+    upload
   } = useJobDocuments({
     jobId,
-    itemId,
+    itemId
   });
 
   const onDrop = useCallback(
@@ -509,8 +509,8 @@ const JobDocuments = ({
                           (file as any).bucket === "parts"
                             ? "Item"
                             : (file as any).bucket === "opportunity-line"
-                            ? "Opportunity"
-                            : "Job"
+                              ? "Opportunity"
+                              : "Job"
                         }
                       />
                     </Td>
@@ -642,8 +642,8 @@ const usePendingItems = () => {
           bucket: "private",
           metadata: {
             size,
-            mimetype: getDocumentType(name),
-          },
+            mimetype: getDocumentType(name)
+          }
         };
         return [...acc, newItem];
       }

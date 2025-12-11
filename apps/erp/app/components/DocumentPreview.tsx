@@ -2,7 +2,7 @@ import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
-  cn,
+  cn
 } from "@carbon/react";
 import type { ComponentPropsWithoutRef, ElementRef } from "react";
 import { forwardRef } from "react";

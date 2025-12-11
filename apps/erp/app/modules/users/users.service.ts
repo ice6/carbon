@@ -60,7 +60,7 @@ export async function getCustomers(
   }
 
   query = setGenericQueryFilters(query, args, [
-    { column: "user(lastName)", ascending: true },
+    { column: "user(lastName)", ascending: true }
   ]);
   return query;
 }
@@ -95,7 +95,7 @@ export async function getEmployees(
   }
 
   query = setGenericQueryFilters(query, args, [
-    { column: "lastName", ascending: true },
+    { column: "lastName", ascending: true }
   ]);
   return query;
 }
@@ -127,7 +127,7 @@ export async function getEmployeeTypes(
 
   if (args) {
     query = setGenericQueryFilters(query, args, [
-      { column: "name", ascending: true },
+      { column: "name", ascending: true }
     ]);
   }
 
@@ -178,7 +178,7 @@ export async function getGroups(
   let query = client
     .rpc("groups_query", {
       _uid: args?.uid ?? "",
-      _name: args?.search ?? "",
+      _name: args?.search ?? ""
     })
     .eq("companyId", companyId);
 
@@ -219,7 +219,7 @@ export async function getSuppliers(
   }
 
   query = setGenericQueryFilters(query, args, [
-    { column: "user(lastName)", ascending: true },
+    { column: "user(lastName)", ascending: true }
   ]);
   return query;
 }
@@ -284,7 +284,7 @@ export async function upsertEmployeeTypePermissions(
     view: permission.view ? [companyId] : [],
     create: permission.create ? [companyId] : [],
     update: permission.update ? [companyId] : [],
-    delete: permission.delete ? [companyId] : [],
+    delete: permission.delete ? [companyId] : []
   }));
 
   return client.from("employeeTypePermission").upsert(employeeTypePermissions);
@@ -295,7 +295,7 @@ export async function upsertGroup(
   {
     id,
     name,
-    companyId,
+    companyId
   }: {
     id: string;
     name: string;
@@ -322,14 +322,14 @@ export async function upsertGroupMembers(
     .filter((id) => id.startsWith("group_"))
     .map((id) => ({
       groupId,
-      memberGroupId: id.slice(6),
+      memberGroupId: id.slice(6)
     }));
 
   const memberUsers = selections
     .filter((id) => id.startsWith("user_"))
     .map((id) => ({
       groupId,
-      memberUserId: id.slice(5),
+      memberUserId: id.slice(5)
     }));
 
   return client.from("membership").insert([...memberGroups, ...memberUsers]);

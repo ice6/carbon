@@ -1,7 +1,7 @@
 import { assertIsPost } from "@carbon/auth";
 import { requirePermissions } from "@carbon/auth/auth.server";
 import { json, type ActionFunctionArgs } from "@vercel/remix";
-import { z } from 'zod/v3';
+import { z } from "zod/v3";
 import { upsertQuoteLinePrices } from "~/modules/sales";
 
 const numberArrayValidator = z.array(z.number());
@@ -10,7 +10,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
 
   const { client, userId } = await requirePermissions(request, {
-    update: "sales",
+    update: "sales"
   });
 
   const { quoteId, lineId } = params;
@@ -48,7 +48,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     unitPrice: unitCost * (1 + markup / 100),
     discountPercent: 0,
     leadTime: 0,
-    createdBy: userId,
+    createdBy: userId
   }));
 
   const insertLinePrices = await upsertQuoteLinePrices(

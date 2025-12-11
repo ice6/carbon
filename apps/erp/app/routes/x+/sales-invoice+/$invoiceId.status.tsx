@@ -10,7 +10,7 @@ import { path, requestReferrer } from "~/utils/path";
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    update: "invoicing",
+    update: "invoicing"
   });
 
   const { invoiceId: id } = params;
@@ -33,8 +33,8 @@ export async function action({ request, params }: ActionFunctionArgs) {
       id,
       status,
       assignee: !["Partially Paid"].includes(status) ? null : undefined,
-      updatedBy: userId,
-    }),
+      updatedBy: userId
+    })
   ]);
 
   console.log("update", update);

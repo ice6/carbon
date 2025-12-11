@@ -23,7 +23,7 @@ import {
   LuShoppingCart,
   LuSquare,
   LuToggleLeft,
-  LuUser,
+  LuUser
 } from "react-icons/lu";
 
 import {
@@ -36,7 +36,7 @@ import {
   BsFilePptFill,
   BsFileTextFill,
   BsFileWordFill,
-  BsFileZipFill,
+  BsFileZipFill
 } from "react-icons/bs";
 import { RxCodesandboxLogo } from "react-icons/rx";
 import { TbTargetOff } from "react-icons/tb";
@@ -58,7 +58,7 @@ const documentIconBaseClase = "w-6 h-6 flex-shrink-0";
 
 export function DeadlineIcon({
   deadlineType,
-  overdue,
+  overdue
 }: {
   deadlineType: Operation["jobDeadlineType"];
   overdue: boolean;
@@ -140,7 +140,7 @@ export const FileIcon = ({ type, className }: FileIconProps) => {
 export const MethodIcon = ({
   type,
   className,
-  isKit,
+  isKit
 }: {
   type: string;
   className?: string;
@@ -168,7 +168,7 @@ export const MethodIcon = ({
 
 export const MethodItemTypeIcon = ({
   type,
-  className,
+  className
 }: {
   type: string;
   className?: string;
@@ -190,7 +190,7 @@ export const MethodItemTypeIcon = ({
 };
 
 export function OperationStatusIcon({
-  status,
+  status
 }: {
   status: Operation["operationStatus"];
 }) {
@@ -215,7 +215,7 @@ export function OperationStatusIcon({
 
 export const ProcedureStepTypeIcon = ({
   type,
-  className,
+  className
 }: {
   type: Database["public"]["Enums"]["procedureStepType"];
   className?: string;
@@ -244,7 +244,7 @@ export const ProcedureStepTypeIcon = ({
 
 export const TrackingTypeIcon = ({
   type,
-  className,
+  className
 }: {
   type: string;
   className?: string;

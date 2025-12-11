@@ -12,7 +12,7 @@ import {
   LuMoon,
   LuShieldCheck,
   LuSun,
-  LuUser,
+  LuUser
 } from "react-icons/lu";
 
 import { CONTROLLED_ENVIRONMENT, type Company } from "@carbon/auth";
@@ -44,7 +44,7 @@ import {
   SidebarRail,
   Switch,
   useDisclosure,
-  useSidebar,
+  useSidebar
 } from "@carbon/react";
 import { ItarDisclosure, useMode } from "@carbon/remix";
 import { Form, Link, useFetcher, useLocation } from "@remix-run/react";
@@ -134,24 +134,24 @@ export function OperationsNav({ activeEvents }: { activeEvents: number }) {
     {
       title: "Schedule",
       icon: LuCalendarDays,
-      to: path.to.operations,
+      to: path.to.operations
     },
     {
       title: "Assigned",
       icon: LuClipboardList,
-      to: path.to.assigned,
+      to: path.to.assigned
     },
     {
       title: "Active",
       icon: LuActivity,
       label: (activeEvents ?? 0).toString(),
-      to: path.to.active,
+      to: path.to.active
     },
     {
       title: "Recent",
       icon: LuClock,
-      to: path.to.recent,
-    },
+      to: path.to.recent
+    }
   ];
 
   const { pathname } = useLocation();
@@ -233,7 +233,7 @@ export function UserNav({
   company,
   companies,
   location,
-  locations,
+  locations
 }: {
   company: Company;
   companies: Company[];
@@ -317,7 +317,7 @@ export function UserNav({
                           form.append("companyId", c.companyId!);
                           fetcher.submit(form, {
                             method: "post",
-                            action: path.to.switchCompany(c.companyId!),
+                            action: path.to.switchCompany(c.companyId!)
                           });
                         }}
                       >

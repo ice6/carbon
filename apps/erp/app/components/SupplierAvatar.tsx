@@ -20,7 +20,7 @@ const SupplierAvatar = ({
 
   const supplier = suppliers.find((s) => s.id === supplierId) ?? {
     name: "",
-    id: "",
+    id: ""
   };
 
   return (

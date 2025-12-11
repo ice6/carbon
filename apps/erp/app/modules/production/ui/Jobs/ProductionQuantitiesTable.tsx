@@ -23,7 +23,7 @@ const ProductionQuantitiesTable = memo(
     data,
     count,
     operations,
-    scrapReasons,
+    scrapReasons
   }: ProductionQuantitiesTableProps) => {
     const { jobId } = useParams();
     if (!jobId) throw new Error("Job ID is required");
@@ -44,10 +44,10 @@ const ProductionQuantitiesTable = memo(
               type: "static",
               options: operations.map((operation) => ({
                 value: operation.id,
-                label: <Enumerable value={operation.description} />,
-              })),
-            },
-          },
+                label: <Enumerable value={operation.description} />
+              }))
+            }
+          }
         },
         {
           id: "item",
@@ -55,7 +55,7 @@ const ProductionQuantitiesTable = memo(
           cell: ({ row }) => {
             return row.original.jobOperation?.jobMakeMethod?.item
               ?.readableIdWithRevision;
-          },
+          }
         },
         {
           accessorKey: "createdBy",
@@ -68,10 +68,10 @@ const ProductionQuantitiesTable = memo(
               type: "static",
               options: people.map((employee) => ({
                 value: employee.id,
-                label: <Enumerable value={employee.name} />,
-              })),
-            },
-          },
+                label: <Enumerable value={employee.name} />
+              }))
+            }
+          }
         },
         {
           accessorKey: "type",
@@ -82,8 +82,8 @@ const ProductionQuantitiesTable = memo(
                 row.original.type === "Production"
                   ? "green"
                   : row.original.type === "Rework"
-                  ? "orange"
-                  : "red"
+                    ? "orange"
+                    : "red"
               }
             >
               {row.original.type}
@@ -100,21 +100,21 @@ const ProductionQuantitiesTable = memo(
                       type === "Production"
                         ? "green"
                         : type === "Rework"
-                        ? "orange"
-                        : "red"
+                          ? "orange"
+                          : "red"
                     }
                   >
                     {type}
                   </Badge>
-                ),
-              })),
-            },
-          },
+                )
+              }))
+            }
+          }
         },
         {
           accessorKey: "quantity",
           header: "Quantity",
-          cell: ({ row }) => row.original.quantity,
+          cell: ({ row }) => row.original.quantity
         },
         {
           accessorKey: "scrapReasonId",
@@ -130,10 +130,10 @@ const ProductionQuantitiesTable = memo(
               type: "static",
               options: scrapReasons?.map((reason) => ({
                 value: reason.id,
-                label: <Enumerable value={reason.name ?? ""} />,
-              })),
-            },
-          },
+                label: <Enumerable value={reason.name ?? ""} />
+              }))
+            }
+          }
         },
         {
           accessorKey: "notes",
@@ -142,8 +142,8 @@ const ProductionQuantitiesTable = memo(
             <span className="max-w-[200px] truncate block">
               {row.original.notes}
             </span>
-          ),
-        },
+          )
+        }
       ];
     }, [operations, people, scrapReasons]);
 

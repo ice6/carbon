@@ -39,5 +39,5 @@ export {
   ProductionEventForm,
   ProductionEventsTable,
   ProductionQuantitiesTable,
-  ProductionQuantityForm,
+  ProductionQuantityForm
 };

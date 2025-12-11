@@ -7,14 +7,14 @@ import {
   MenuIcon,
   MenuItem,
   Progress,
-  VStack,
+  VStack
 } from "@carbon/react";
 import {
   Link,
   Outlet,
   redirect,
   useFetcher,
-  useLoaderData,
+  useLoaderData
 } from "@remix-run/react";
 import type { LoaderFunctionArgs } from "@vercel/remix";
 import { json } from "@vercel/remix";
@@ -30,12 +30,12 @@ import {
   LuPencil,
   LuRepeat,
   LuTrash,
-  LuUsers,
+  LuUsers
 } from "react-icons/lu";
 import { Hyperlink, New, Table } from "~/components";
 import {
   getTrainingAssignmentSummary,
-  getTrainingAssignments,
+  getTrainingAssignments
 } from "~/modules/resources";
 import type { TrainingAssignmentSummaryItem } from "~/modules/resources/types";
 import { usePermissions } from "~/hooks";
@@ -44,18 +44,18 @@ import { path } from "~/utils/path";
 
 export const handle: Handle = {
   breadcrumb: "Assignments",
-  to: path.to.trainingAssignments,
+  to: path.to.trainingAssignments
 };
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
     view: "resources",
-    role: "employee",
+    role: "employee"
   });
 
   const [summary, assignments] = await Promise.all([
     getTrainingAssignmentSummary(client, companyId),
-    getTrainingAssignments(client, companyId),
+    getTrainingAssignments(client, companyId)
   ]);
 
   if (summary.error) {
@@ -82,14 +82,14 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
   return json({
     summary: (summary.data ?? []) as TrainingAssignmentSummaryItem[],
-    assignmentsByTraining,
+    assignmentsByTraining
   });
 }
 
 const TrainingAssignmentsTable = memo(
   ({
     data,
-    assignmentsByTraining,
+    assignmentsByTraining
   }: {
     data: TrainingAssignmentSummaryItem[];
     assignmentsByTraining: Record<string, string[]>;
@@ -109,8 +109,8 @@ const TrainingAssignmentsTable = memo(
             </Hyperlink>
           ),
           meta: {
-            icon: <LuBookOpen />,
-          },
+            icon: <LuBookOpen />
+          }
         },
         {
           accessorKey: "frequency",
@@ -119,16 +119,16 @@ const TrainingAssignmentsTable = memo(
             <Badge variant="secondary">{row.original.frequency}</Badge>
           ),
           meta: {
-            icon: <LuRepeat />,
-          },
+            icon: <LuRepeat />
+          }
         },
         {
           accessorKey: "currentPeriod",
           header: "Period",
           cell: ({ row }) => row.original.currentPeriod ?? "-",
           meta: {
-            icon: <LuClock />,
-          },
+            icon: <LuClock />
+          }
         },
         {
           accessorKey: "totalAssigned",
@@ -142,8 +142,8 @@ const TrainingAssignmentsTable = memo(
             </HStack>
           ),
           meta: {
-            icon: <LuUsers />,
-          },
+            icon: <LuUsers />
+          }
         },
         {
           accessorKey: "completed",
@@ -157,8 +157,8 @@ const TrainingAssignmentsTable = memo(
             </HStack>
           ),
           meta: {
-            icon: <LuCircleCheck />,
-          },
+            icon: <LuCircleCheck />
+          }
         },
         {
           accessorKey: "pending",
@@ -172,8 +172,8 @@ const TrainingAssignmentsTable = memo(
             </HStack>
           ),
           meta: {
-            icon: <LuClock />,
-          },
+            icon: <LuClock />
+          }
         },
         {
           accessorKey: "overdue",
@@ -187,8 +187,8 @@ const TrainingAssignmentsTable = memo(
             </HStack>
           ),
           meta: {
-            icon: <LuTriangleAlert />,
-          },
+            icon: <LuTriangleAlert />
+          }
         },
         {
           accessorKey: "completionPercent",
@@ -205,9 +205,9 @@ const TrainingAssignmentsTable = memo(
             </HStack>
           ),
           meta: {
-            icon: <LuChartColumnIncreasing />,
-          },
-        },
+            icon: <LuChartColumnIncreasing />
+          }
+        }
       ],
       []
     );
@@ -242,7 +242,7 @@ const TrainingAssignmentsTable = memo(
                 onClick={() => {
                   fetcher.submit(null, {
                     method: "post",
-                    action: path.to.deleteTrainingAssignment(assignmentId),
+                    action: path.to.deleteTrainingAssignment(assignmentId)
                   });
                 }}
               >

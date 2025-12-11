@@ -13,7 +13,7 @@ import { path } from "~/utils/path";
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    update: "sales",
+    update: "sales"
   });
 
   const { rfqId: id } = params;
@@ -46,14 +46,14 @@ export async function action({ request, params }: ActionFunctionArgs) {
         event: NotificationEvent.SalesRfqReady,
         recipient: {
           type: "group",
-          groupIds: rfqReadyNotificationGroup,
-        },
+          groupIds: rfqReadyNotificationGroup
+        }
       });
     } catch (err) {
       console.error("Failed to trigger notification", err);
       return json({
         success: false,
-        message: "Failed to send notification",
+        message: "Failed to send notification"
       });
     }
   }
@@ -64,8 +64,8 @@ export async function action({ request, params }: ActionFunctionArgs) {
       status,
       noQuoteReasonId,
       assignee: status === "Closed" ? null : undefined,
-      updatedBy: userId,
-    }),
+      updatedBy: userId
+    })
   ]);
 
   if (update.error) {

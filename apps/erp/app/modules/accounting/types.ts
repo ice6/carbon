@@ -8,7 +8,7 @@ import type {
   getInventoryPostingGroups,
   getPaymentTerms,
   getPurchasingPostingGroups,
-  getSalesPostingGroups,
+  getSalesPostingGroups
 } from "./accounting.service";
 
 export type Account = NonNullable<
@@ -353,7 +353,7 @@ export const currencyCodes = [
   "ZWD",
   "ZWR",
   "ZWL",
-  "XUA",
+  "XUA"
 ] as const;
 
 export type CurrencyCode = (typeof currencyCodes)[number];

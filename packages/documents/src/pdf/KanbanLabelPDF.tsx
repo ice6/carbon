@@ -26,22 +26,22 @@ interface KanbanLabelPDFProps {
 const tw = createTw({
   theme: {
     fontFamily: {
-      sans: ["Helvetica", "Arial", "sans-serif"],
+      sans: ["Helvetica", "Arial", "sans-serif"]
     },
     extend: {
       colors: {
         gray: {
-          500: "#7d7d7d",
-        },
-      },
-    },
-  },
+          500: "#7d7d7d"
+        }
+      }
+    }
+  }
 });
 
 const KanbanLabelPDF = ({
   baseUrl,
   labels,
-  action = "order",
+  action = "order"
 }: KanbanLabelPDFProps) => {
   // Fixed 2x3 layout (6 labels per page)
   const rows = 3;
@@ -91,7 +91,7 @@ const KanbanLabelPDF = ({
               <View
                 key={`row-${rowIndex}`}
                 style={{
-                  flexDirection: "row",
+                  flexDirection: "row"
                 }}
                 wrap={false}
               >
@@ -116,7 +116,7 @@ const KanbanLabelPDF = ({
                           "relative p-4 flex flex-col border border-gray-300"
                         ),
                         width: labelWidth,
-                        height: labelHeight,
+                        height: labelHeight
                       }}
                     >
                       {/* QR Code and Thumbnail row */}
@@ -135,7 +135,7 @@ const KanbanLabelPDF = ({
                           style={{
                             width: qrCodeSize,
                             height: qrCodeSize,
-                            objectFit: "contain",
+                            objectFit: "contain"
                           }}
                         />
 
@@ -147,7 +147,7 @@ const KanbanLabelPDF = ({
                               width: qrCodeSize,
                               height: qrCodeSize,
                               objectFit: "contain",
-                              marginLeft: 8,
+                              marginLeft: 8
                             }}
                           />
                         )}
@@ -160,7 +160,7 @@ const KanbanLabelPDF = ({
                           style={{
                             ...tw("text-center mb-2"),
                             fontSize: "14pt",
-                            fontWeight: "bold",
+                            fontWeight: "bold"
                           }}
                         >
                           {label.itemName}
@@ -170,7 +170,7 @@ const KanbanLabelPDF = ({
                         <Text
                           style={{
                             ...tw("text-center mb-1"),
-                            fontSize: "10pt",
+                            fontSize: "10pt"
                           }}
                         >
                           {label.itemReadableId}
@@ -199,7 +199,7 @@ const KanbanLabelPDF = ({
                             style={{
                               ...tw("text-center"),
                               fontSize: "16pt",
-                              fontWeight: "bold",
+                              fontWeight: "bold"
                             }}
                           >
                             QTY: {label.quantity}
@@ -215,7 +215,7 @@ const KanbanLabelPDF = ({
                         style={{
                           ...tw("text-center"),
                           fontSize: "12pt",
-                          color: "#7d7d7d",
+                          color: "#7d7d7d"
                         }}
                       >
                         {label.supplierName}

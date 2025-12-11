@@ -10,7 +10,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client } = await requirePermissions(request, {
     update: "production",
-    bypassRls: true,
+    bypassRls: true
   });
 
   const { jobId } = params;

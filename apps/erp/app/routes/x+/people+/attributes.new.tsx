@@ -7,7 +7,7 @@ import type { ActionFunctionArgs } from "@vercel/remix";
 import { redirect } from "@vercel/remix";
 import {
   attributeCategoryValidator,
-  insertAttributeCategory,
+  insertAttributeCategory
 } from "~/modules/people";
 import { AttributeCategoryForm } from "~/modules/people/ui/Attributes";
 import { path } from "~/utils/path";
@@ -15,7 +15,7 @@ import { path } from "~/utils/path";
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    update: "people",
+    update: "people"
   });
 
   const validation = await validator(attributeCategoryValidator).validate(
@@ -33,7 +33,7 @@ export async function action({ request }: ActionFunctionArgs) {
     emoji,
     public: isPublic,
     companyId,
-    createdBy: userId,
+    createdBy: userId
   });
   if (createAttributeCategory.error) {
     throw redirect(
@@ -58,7 +58,7 @@ export default function NewAttributeCategoryRoute() {
   const initialValues = {
     name: "",
     emoji: "",
-    isPublic: false,
+    isPublic: false
   };
 
   return (

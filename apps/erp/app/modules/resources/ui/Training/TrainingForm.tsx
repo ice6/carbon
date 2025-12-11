@@ -8,7 +8,7 @@ import {
   ModalDrawerHeader,
   ModalDrawerProvider,
   ModalDrawerTitle,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { useFetcher } from "@remix-run/react";
 import type { PostgrestResponse } from "@supabase/supabase-js";
@@ -27,7 +27,7 @@ type TrainingFormProps = {
 const TrainingForm = ({
   initialValues,
   open = true,
-  onClose,
+  onClose
 }: TrainingFormProps) => {
   const permissions = usePermissions();
   const fetcher = useFetcher<PostgrestResponse<{ id: string }>>();

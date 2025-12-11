@@ -14,27 +14,27 @@ import { useRouteData, useUser } from "~/hooks";
 import type {
   PurchaseInvoice,
   PurchaseInvoiceDelivery,
-  PurchaseInvoiceLine,
+  PurchaseInvoiceLine
 } from "~/modules/invoicing";
 import {
   getPurchaseInvoice,
   PurchaseInvoiceSummary,
   purchaseInvoiceValidator,
-  upsertPurchaseInvoice,
+  upsertPurchaseInvoice
 } from "~/modules/invoicing";
 import { PurchaseInvoiceDeliveryForm } from "~/modules/invoicing/ui/PurchaseInvoice";
 import type { PurchaseInvoiceDeliveryFormRef } from "~/modules/invoicing/ui/PurchaseInvoice/PurchaseInvoiceDeliveryForm";
 import type { SupplierInteraction } from "~/modules/purchasing";
 import {
   SupplierInteractionDocuments,
-  SupplierInteractionNotes,
+  SupplierInteractionNotes
 } from "~/modules/purchasing/ui/SupplierInteraction";
 import { getCustomFields, setCustomFields } from "~/utils/form";
 import { path } from "~/utils/path";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
-    view: "invoicing",
+    view: "invoicing"
   });
 
   const { invoiceId } = params;
@@ -52,14 +52,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   }
 
   return json({
-    internalNotes: (invoice.data?.internalNotes ?? {}) as JSONContent,
+    internalNotes: (invoice.data?.internalNotes ?? {}) as JSONContent
   });
 }
 
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    update: "invoicing",
+    update: "invoicing"
   });
 
   const { invoiceId: id } = params;
@@ -82,7 +82,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     invoiceId,
     ...data,
     updatedBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
   if (updatePurchaseInvoice.error) {
     throw redirect(
@@ -136,7 +136,7 @@ export default function PurchaseInvoiceBasicRoute() {
     dateIssued: purchaseInvoice.dateIssued ?? "",
     dateDue: purchaseInvoice.dateDue ?? "",
     status: purchaseInvoice.status ?? ("Draft" as "Draft"),
-    ...getCustomFields(purchaseInvoice.customFields),
+    ...getCustomFields(purchaseInvoice.customFields)
   };
 
   const deliveryInitialValues = {
@@ -145,7 +145,7 @@ export default function PurchaseInvoiceBasicRoute() {
     supplierShippingCost: purchaseInvoiceDelivery.supplierShippingCost ?? 0,
     shippingMethodId: purchaseInvoiceDelivery.shippingMethodId ?? "",
     shippingTermId: purchaseInvoiceDelivery.shippingTermId ?? "",
-    ...getCustomFields(purchaseInvoiceDelivery.customFields),
+    ...getCustomFields(purchaseInvoiceDelivery.customFields)
   };
 
   const { company } = useUser();

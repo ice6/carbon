@@ -1,18 +1,18 @@
 import { useCarbon } from "@carbon/auth";
 import { useParams } from "@remix-run/react";
 import { useCallback, useEffect, useState } from "react";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import { useUser } from "~/hooks";
 import type {
   shipmentStatusType,
-  shipmentValidator,
+  shipmentValidator
 } from "~/modules/inventory";
 import type { ShipmentSourceDocument } from "~/modules/inventory/types";
 import type { ListItem } from "~/types";
 
 export default function useShipmentForm({
   status,
-  initialValues,
+  initialValues
 }: {
   initialValues: z.infer<typeof shipmentValidator>;
   status: (typeof shipmentStatusType)[number];
@@ -36,8 +36,8 @@ export default function useShipmentForm({
       ? [
           {
             id: initialValues.sourceDocumentId!,
-            name: initialValues.sourceDocumentReadableId!,
-          },
+            name: initialValues.sourceDocumentReadableId!
+          }
         ]
       : [];
   });
@@ -62,7 +62,7 @@ export default function useShipmentForm({
               setSourceDocuments(
                 response.data.map((d) => ({
                   name: d.salesOrderId,
-                  id: d.id,
+                  id: d.id
                 }))
               );
             }
@@ -81,7 +81,7 @@ export default function useShipmentForm({
               setSourceDocuments(
                 response.data.map((d) => ({
                   name: d.purchaseOrderId,
-                  id: d.id,
+                  id: d.id
                 }))
               );
             }
@@ -100,7 +100,7 @@ export default function useShipmentForm({
               setSourceDocuments(
                 response.data.map((d) => ({
                   name: d.transferId,
-                  id: d.id,
+                  id: d.id
                 }))
               );
             }
@@ -125,6 +125,6 @@ export default function useShipmentForm({
     sourceDocuments,
     setLocationId,
     setSourceDocument,
-    setCustomerId,
+    setCustomerId
   };
 }

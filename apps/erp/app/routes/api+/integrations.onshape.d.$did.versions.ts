@@ -17,7 +17,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   if (!did) {
     return json({
       data: [],
-      error: "Document ID is required",
+      error: "Document ID is required"
     });
   }
 
@@ -26,7 +26,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   if (integration.error || !integration.data) {
     return json({
       data: [],
-      error: integration.error,
+      error: integration.error
     });
   }
 
@@ -37,14 +37,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   if (!integrationMetadata.success) {
     return json({
       data: [],
-      error: integrationMetadata.error,
+      error: integrationMetadata.error
     });
   }
 
   const onshapeClient = new OnshapeClient({
     baseUrl: integrationMetadata.data.baseUrl,
     accessKey: integrationMetadata.data.accessKey,
-    secretKey: integrationMetadata.data.secretKey,
+    secretKey: integrationMetadata.data.secretKey
   });
 
   try {
@@ -70,7 +70,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
     return json({
       data: allDocuments,
-      error: null,
+      error: null
     });
   } catch (error) {
     console.error(error);
@@ -79,7 +79,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
       error:
         error instanceof Error
           ? error.message
-          : "Failed to get versions from Onshape",
+          : "Failed to get versions from Onshape"
     });
   }
 }

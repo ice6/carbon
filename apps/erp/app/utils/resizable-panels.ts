@@ -1,4 +1,4 @@
-import { z } from 'zod/v3';
+import { z } from "zod/v3";
 
 const resizableConfig = z
   .object({ layout: z.array(z.number()).optional() })

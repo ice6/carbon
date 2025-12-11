@@ -18,7 +18,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const [company, stripeCustomer, locations] = await Promise.all([
     getCompany(client, companyId),
     getStripeCustomerByCompanyId(companyId, userId),
-    getLocationsList(client, companyId),
+    getLocationsList(client, companyId)
   ]);
 
   const pathname = new URL(request.url).pathname;
@@ -55,7 +55,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
     currentIndex: pathIndex,
     onboardingSteps: onboardingSteps.length,
     previousPath,
-    nextPath,
+    nextPath
   };
 }
 

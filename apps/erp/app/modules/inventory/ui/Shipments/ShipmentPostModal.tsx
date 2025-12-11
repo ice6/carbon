@@ -14,7 +14,7 @@ import {
   ModalOverlay,
   ModalTitle,
   toast,
-  useMount,
+  useMount
 } from "@carbon/react";
 import { useRouteData } from "@carbon/remix";
 import type { TrackedEntityAttributes } from "@carbon/utils";
@@ -50,7 +50,7 @@ const ShipmentPostModal = ({ onClose }: { onClose: () => void }) => {
 
   const { carbon } = useCarbon();
   const {
-    company: { id: companyId },
+    company: { id: companyId }
   } = useUser();
 
   const validateShipmentTracking = async () => {
@@ -79,8 +79,8 @@ const ShipmentPostModal = ({ onClose }: { onClose: () => void }) => {
         {
           itemReadableId: null,
           shippedQuantity: 0,
-          shippedQuantityError: "Shipment is empty",
-        },
+          shippedQuantityError: "Shipment is empty"
+        }
       ]);
     }
 
@@ -95,7 +95,7 @@ const ShipmentPostModal = ({ onClose }: { onClose: () => void }) => {
           errors.push({
             itemReadableId: getItemReadableId(items, line.itemId) ?? null,
             shippedQuantity: line.shippedQuantity ?? 0,
-            shippedQuantityError: "Tracked entity is not available",
+            shippedQuantityError: "Tracked entity is not available"
           });
         }
       }
@@ -118,7 +118,7 @@ const ShipmentPostModal = ({ onClose }: { onClose: () => void }) => {
           errors.push({
             itemReadableId: getItemReadableId(items, line.itemId) ?? null,
             shippedQuantity: line.shippedQuantity ?? 0,
-            shippedQuantityError: "Serial numbers are missing or unavailable",
+            shippedQuantityError: "Serial numbers are missing or unavailable"
           });
         }
       }

@@ -6,14 +6,14 @@ import {
   productionOrderValidator,
   recalculateJobRequirements,
   upsertJob,
-  upsertJobMethod,
+  upsertJobMethod
 } from "~/modules/production";
 import { getNextSequence } from "~/modules/settings/settings.service";
 
 const itemsValidator = z
   .object({
     id: z.string(),
-    orders: z.array(productionOrderValidator),
+    orders: z.array(productionOrderValidator)
   })
   .array();
 
@@ -21,7 +21,7 @@ export async function action({ request }: ActionFunctionArgs) {
   const { client, companyId, userId } = await requirePermissions(request, {
     create: "production",
     role: "employee",
-    bypassRls: true,
+    bypassRls: true
   });
 
   const { items, action, locationId } = await request.json();
@@ -30,7 +30,7 @@ export async function action({ request }: ActionFunctionArgs) {
     return json(
       {
         success: false,
-        message: "Location ID is required and must be a valid string",
+        message: "Location ID is required and must be a valid string"
       },
       { status: 500 }
     );
@@ -40,7 +40,7 @@ export async function action({ request }: ActionFunctionArgs) {
     return json(
       {
         success: false,
-        message: "Action parameter is required and must be a valid string",
+        message: "Action parameter is required and must be a valid string"
       },
       { status: 500 }
     );
@@ -81,7 +81,7 @@ export async function action({ request }: ActionFunctionArgs) {
           {
             success: false,
             message: `Validation failed: ${errorMessages.join(", ")}`,
-            errors: errorMessages,
+            errors: errorMessages
           },
           { status: 500 }
         );
@@ -92,7 +92,7 @@ export async function action({ request }: ActionFunctionArgs) {
         return json(
           {
             success: false,
-            message: "No items were provided to create production orders",
+            message: "No items were provided to create production orders"
           },
           { status: 500 }
         );
@@ -198,7 +198,7 @@ export async function action({ request }: ActionFunctionArgs) {
                   shelfId: shelfId ?? undefined,
                   companyId,
                   createdBy: userId,
-                  unitOfMeasureCode: "EA",
+                  unitOfMeasureCode: "EA"
                 },
                 "Planned"
               );
@@ -222,7 +222,7 @@ export async function action({ request }: ActionFunctionArgs) {
                 sourceId: item.id,
                 targetId: id,
                 companyId,
-                userId,
+                userId
               });
 
               if (upsertMethod.error) {
@@ -249,7 +249,7 @@ export async function action({ request }: ActionFunctionArgs) {
                   startDate: order.startDate ?? undefined,
                   status: "Planned",
                   updatedAt: new Date().toISOString(),
-                  updatedBy: userId,
+                  updatedBy: userId
                 })
                 .eq("id", order.existingId);
 
@@ -286,7 +286,7 @@ export async function action({ request }: ActionFunctionArgs) {
                   periodId,
                   companyId,
                   createdBy: userId,
-                  updatedBy: userId,
+                  updatedBy: userId
                 });
               }
             );
@@ -316,7 +316,7 @@ export async function action({ request }: ActionFunctionArgs) {
             .from("supplyForecast")
             .upsert(uniqueSupplyForecasts, {
               onConflict: "itemId,locationId,periodId",
-              ignoreDuplicates: false,
+              ignoreDuplicates: false
             });
 
           if (insertForecasts.error) {
@@ -332,7 +332,7 @@ export async function action({ request }: ActionFunctionArgs) {
             await recalculateJobRequirements(client, {
               id: jobId,
               companyId,
-              userId,
+              userId
             });
           }
         }
@@ -346,7 +346,7 @@ export async function action({ request }: ActionFunctionArgs) {
                 .join("; ")}${
                 errors.length > 3 ? ` and ${errors.length - 3} more...` : ""
               }`,
-              errors: errors,
+              errors: errors
             },
             { status: 500 }
           );
@@ -366,7 +366,7 @@ export async function action({ request }: ActionFunctionArgs) {
           message,
           processedItems,
           totalItems: itemsToOrder.length,
-          errors: errors.length > 0 ? errors : undefined,
+          errors: errors.length > 0 ? errors : undefined
         });
       } catch (error) {
         console.error("Unexpected error processing production orders:", error);
@@ -375,7 +375,7 @@ export async function action({ request }: ActionFunctionArgs) {
             success: false,
             message: `Unexpected error occurred while processing production orders: ${
               error instanceof Error ? error.message : "Unknown error"
-            }`,
+            }`
           },
           { status: 500 }
         );
@@ -385,7 +385,7 @@ export async function action({ request }: ActionFunctionArgs) {
       return json(
         {
           success: false,
-          message: `Unknown action '${action}'. Expected action: 'order'`,
+          message: `Unknown action '${action}'. Expected action: 'order'`
         },
         { status: 500 }
       );

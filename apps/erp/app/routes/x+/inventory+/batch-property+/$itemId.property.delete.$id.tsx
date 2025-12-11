@@ -7,7 +7,7 @@ import { deleteBatchProperty } from "~/modules/inventory";
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client } = await requirePermissions(request, {
-    delete: "inventory",
+    delete: "inventory"
   });
 
   const { id } = params;
@@ -18,11 +18,11 @@ export async function action({ request, params }: ActionFunctionArgs) {
   if (remove.error) {
     return json({
       success: false,
-      error: "Failed to delete batch property",
+      error: "Failed to delete batch property"
     });
   }
 
   return json({
-    success: true,
+    success: true
   });
 }

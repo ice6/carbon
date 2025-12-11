@@ -11,14 +11,14 @@ export async function action({ request }: ActionFunctionArgs) {
   const locationId = url.searchParams.get("location");
 
   const { companyId, userId } = await requirePermissions(request, {
-    update: "inventory",
+    update: "inventory"
   });
 
   const result = await runMRP(getCarbonServiceRole(), {
     type: locationId ? "location" : "company",
     id: locationId ?? companyId,
     companyId,
-    userId,
+    userId
   });
 
   return json(result);

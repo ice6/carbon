@@ -14,7 +14,7 @@ import {
   ModalOverlay,
   ModalTitle,
   toast,
-  useMount,
+  useMount
 } from "@carbon/react";
 import { useRouteData } from "@carbon/remix";
 import { getItemReadableId } from "@carbon/utils";
@@ -48,7 +48,7 @@ const StockTransferPostModal = ({ onClose }: { onClose: () => void }) => {
 
   const { carbon } = useCarbon();
   const {
-    company: { id: companyId },
+    company: { id: companyId }
   } = useUser();
 
   const validateStockTransferTracking = async () => {
@@ -71,8 +71,8 @@ const StockTransferPostModal = ({ onClose }: { onClose: () => void }) => {
         {
           itemReadableId: null,
           pickedQuantity: 0,
-          pickedQuantityError: "Stock transfer is empty",
-        },
+          pickedQuantityError: "Stock transfer is empty"
+        }
       ]);
     }
 
@@ -88,7 +88,7 @@ const StockTransferPostModal = ({ onClose }: { onClose: () => void }) => {
             errors.push({
               itemReadableId: getItemReadableId(items, line.itemId) ?? null,
               pickedQuantity: line.pickedQuantity ?? 0,
-              pickedQuantityError: "Tracked entity is not available",
+              pickedQuantityError: "Tracked entity is not available"
             });
           }
         }

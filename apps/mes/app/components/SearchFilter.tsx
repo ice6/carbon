@@ -3,7 +3,7 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
-  useDebounce,
+  useDebounce
 } from "@carbon/react";
 import { useState } from "react";
 import { LuSearch } from "react-icons/lu";

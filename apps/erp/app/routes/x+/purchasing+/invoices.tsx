@@ -7,7 +7,7 @@ import type { LoaderFunctionArgs } from "@vercel/remix";
 import { json, redirect } from "@vercel/remix";
 import {
   PurchaseInvoicesTable,
-  getPurchaseInvoices,
+  getPurchaseInvoices
 } from "~/modules/invoicing";
 import type { Handle } from "~/utils/handle";
 import { path } from "~/utils/path";
@@ -15,12 +15,12 @@ import { getGenericQueryFilters } from "~/utils/query";
 
 export const handle: Handle = {
   breadcrumb: "Invoices",
-  to: path.to.purchaseInvoices,
+  to: path.to.purchaseInvoices
 };
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    view: "invoicing",
+    view: "invoicing"
   });
 
   const url = new URL(request.url);
@@ -38,8 +38,8 @@ export async function loader({ request }: LoaderFunctionArgs) {
       limit,
       offset,
       sorts,
-      filters,
-    }),
+      filters
+    })
   ]);
 
   if (purchaseInvoices.error) {
@@ -54,7 +54,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
   return json({
     count: purchaseInvoices.count ?? 0,
-    purchaseInvoices: purchaseInvoices.data ?? [],
+    purchaseInvoices: purchaseInvoices.data ?? []
   });
 }
 

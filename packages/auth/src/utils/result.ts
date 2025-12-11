@@ -5,13 +5,13 @@ export function error(error: any, message = "Request failed"): Result {
 
   return {
     success: false,
-    message: message,
+    message: message
   };
 }
 
 export function success(message = "Request succeeded", data?: any): Result {
   return {
     success: true,
-    message,
+    message
   };
 }

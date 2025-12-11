@@ -5,14 +5,14 @@ import type { ActionFunctionArgs } from "@vercel/remix";
 import { redirect } from "@vercel/remix";
 import {
   supplierQuoteStatusType,
-  updateSupplierQuoteStatus,
+  updateSupplierQuoteStatus
 } from "~/modules/purchasing";
 import { path, requestReferrer } from "~/utils/path";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    update: "purchasing",
+    update: "purchasing"
   });
 
   const { id } = params;
@@ -34,7 +34,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     id,
     status,
     assignee: undefined,
-    updatedBy: userId,
+    updatedBy: userId
   });
   if (update.error) {
     throw redirect(
@@ -51,6 +51,3 @@ export async function action({ request, params }: ActionFunctionArgs) {
     await flash(request, success("Updated supplier quote status"))
   );
 }
-
-
-

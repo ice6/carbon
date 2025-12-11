@@ -12,5 +12,5 @@ export const useUIStore = create<UIStore>()((set) => ({
   openSearchModal: () => set({ isSearchModalOpen: true }),
   closeSearchModal: () => set({ isSearchModalOpen: false }),
   toggleSearchModal: () =>
-    set((state) => ({ isSearchModalOpen: !state.isSearchModalOpen })),
+    set((state) => ({ isSearchModalOpen: !state.isSearchModalOpen }))
 }));

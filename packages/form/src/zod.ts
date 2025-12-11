@@ -1,5 +1,5 @@
 import * as R from "remeda";
-import { z } from 'zod/v3';
+import { z } from "zod/v3";
 import { stringToPathArray } from "./utils";
 import { createValidator } from "./validation/createValidator";
 import type { FieldErrors, Validator } from "./validation/types";
@@ -46,8 +46,8 @@ export function validator<T, U extends z.ZodTypeDef>(
       return {
         error: getIssuesForError(result.error).find((issue) =>
           R.equals(issue.path, stringToPathArray(field))
-        )?.message,
+        )?.message
       };
-    },
+    }
   });
 }

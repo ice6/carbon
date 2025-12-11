@@ -13,13 +13,13 @@ import { getGenericQueryFilters } from "~/utils/query";
 
 export const handle: Handle = {
   breadcrumb: "Custom Fields",
-  to: path.to.customFields,
+  to: path.to.customFields
 };
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
     view: "settings",
-    role: "employee",
+    role: "employee"
   });
 
   const url = new URL(request.url);
@@ -34,9 +34,9 @@ export async function loader({ request }: LoaderFunctionArgs) {
       limit,
       offset,
       sorts,
-      filters,
+      filters
     }),
-    getAttributeDataTypes(client),
+    getAttributeDataTypes(client)
   ]);
 
   if (tables.error) {
@@ -49,7 +49,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   return json({
     count: tables.count ?? 0,
     tables: tables.data ?? [],
-    dataTypes: dataTypes.data ?? [],
+    dataTypes: dataTypes.data ?? []
   });
 }
 
@@ -71,7 +71,7 @@ export async function action({ request }: ActionFunctionArgs) {
     .update({
       customFields: JSON.parse(value),
       updatedBy: userId,
-      updatedAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
     })
     .in(getIdField(table), ids as string[]);
 

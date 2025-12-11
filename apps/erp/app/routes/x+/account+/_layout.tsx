@@ -11,7 +11,7 @@ export const meta: MetaFunction = () => {
 export const handle: Handle = {
   breadcrumb: "Account",
   to: path.to.profile,
-  module: "account",
+  module: "account"
 };
 
 export default function AccountRoute() {

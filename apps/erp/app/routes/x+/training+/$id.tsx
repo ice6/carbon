@@ -16,7 +16,7 @@ import {
   getTraining,
   TrainingExplorer,
   TrainingHeader,
-  TrainingProperties,
+  TrainingProperties
 } from "~/modules/resources";
 import { getTagsList } from "~/modules/shared";
 import type { action } from "~/routes/x+/training+/update";
@@ -26,13 +26,13 @@ import { getPrivateUrl, path } from "~/utils/path";
 export const handle: Handle = {
   breadcrumb: "Training",
   to: path.to.trainings,
-  module: "resources",
+  module: "resources"
 };
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
     view: "resources",
-    bypassRls: true,
+    bypassRls: true
   });
 
   const { id } = params;
@@ -40,7 +40,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
   const [training, tags] = await Promise.all([
     getTraining(client, id),
-    getTagsList(client, companyId, "training"),
+    getTagsList(client, companyId, "training")
   ]);
 
   if (training.error) {
@@ -52,7 +52,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
   return json({
     training: training.data,
-    tags: tags.data ?? [],
+    tags: tags.data ?? []
   });
 }
 
@@ -102,7 +102,7 @@ function TrainingEditor() {
   const { carbon } = useCarbon();
   const {
     id: userId,
-    company: { id: companyId },
+    company: { id: companyId }
   } = useUser();
 
   const updateTraining = useDebounce(
@@ -112,7 +112,7 @@ function TrainingEditor() {
         .update({
           content: content ?? {},
           updatedAt: today(getLocalTimeZone()).toString(),
-          updatedBy: userId,
+          updatedBy: userId
         })
         .eq("id", id!);
     },
@@ -131,7 +131,7 @@ function TrainingEditor() {
 
     fetcher.submit(formData, {
       method: "post",
-      action: path.to.bulkUpdateTraining,
+      action: path.to.bulkUpdateTraining
     });
   };
 
@@ -185,7 +185,7 @@ function TrainingEditor() {
         <div
           className="prose dark:prose-invert"
           dangerouslySetInnerHTML={{
-            __html: generateHTML(content),
+            __html: generateHTML(content)
           }}
         />
       )}

@@ -4,12 +4,12 @@ import {
   LuContact,
   LuCreditCard,
   LuMapPin,
-  LuTruck,
+  LuTruck
 } from "react-icons/lu";
 import {
   RiProgress2Line,
   RiProgress4Line,
-  RiProgress8Line,
+  RiProgress8Line
 } from "react-icons/ri";
 import { usePermissions } from "~/hooks";
 import type { Role } from "~/types";
@@ -29,7 +29,7 @@ export function useCustomerSidebar({ contacts, locations }: Props) {
       name: "Details",
       to: path.to.customerDetails(customerId),
       icon: <LuBuilding />,
-      shortcut: "Command+Shift+d",
+      shortcut: "Command+Shift+d"
     },
     {
       name: "Contacts",
@@ -37,7 +37,7 @@ export function useCustomerSidebar({ contacts, locations }: Props) {
       role: ["employee"],
       count: contacts,
       icon: <LuContact />,
-      shortcut: "Command+Shift+c",
+      shortcut: "Command+Shift+c"
     },
     {
       name: "Locations",
@@ -45,45 +45,45 @@ export function useCustomerSidebar({ contacts, locations }: Props) {
       role: ["employee", "customer"],
       count: locations,
       icon: <LuMapPin />,
-      shortcut: "Command+Shift+l",
+      shortcut: "Command+Shift+l"
     },
     {
       name: "Payment Terms",
       to: path.to.customerPayment(customerId),
       role: ["employee"],
       icon: <LuCreditCard />,
-      shortcut: "Command+Shift+p",
+      shortcut: "Command+Shift+p"
     },
     {
       name: "Shipping",
       to: path.to.customerShipping(customerId),
       role: ["employee"],
       icon: <LuTruck />,
-      shortcut: "Command+Shift+s",
+      shortcut: "Command+Shift+s"
     },
     {
       name: "RFQs",
       to: `${path.to.salesRfqs}?filter=customerId:eq:${customerId}`,
       role: ["employee"],
-      icon: <RiProgress2Line />,
+      icon: <RiProgress2Line />
     },
     {
       name: "Quotes",
       to: `${path.to.quotes}?filter=customerId:eq:${customerId}`,
       role: ["employee"],
-      icon: <RiProgress4Line />,
+      icon: <RiProgress4Line />
     },
     {
       name: "Orders",
       to: `${path.to.salesOrders}?filter=customerId:eq:${customerId}`,
       role: ["employee"],
-      icon: <RiProgress8Line />,
+      icon: <RiProgress8Line />
     },
     {
       name: "Invoices",
       to: `${path.to.salesInvoices}?filter=customerId:eq:${customerId}`,
-      icon: <LuCreditCard />,
-    },
+      icon: <LuCreditCard />
+    }
     // {
     //   name: "Accounting",
     //   to: path.to.customerAccounting(customerId),

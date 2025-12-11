@@ -4,7 +4,7 @@ import type { CSSProperties, ComponentProps } from "react";
 import { memo } from "react";
 import type {
   EditableTableCellComponent,
-  Position,
+  Position
 } from "~/components/Editable";
 import Cell from "./Cell";
 

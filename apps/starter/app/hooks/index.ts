@@ -1,7 +1,7 @@
 import {
   useOptimisticLocation,
   useRouteData,
-  useUrlParams,
+  useUrlParams
 } from "@carbon/remix";
 import { useUser } from "./useUser";
 

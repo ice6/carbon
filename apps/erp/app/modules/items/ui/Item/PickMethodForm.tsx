@@ -7,14 +7,14 @@ import {
   CardHeader,
   CardTitle,
   Combobox,
-  HStack,
+  HStack
 } from "@carbon/react";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import {
   Combobox as ComboboxFormField,
   CustomFormFields,
   Hidden,
-  Submit,
+  Submit
 } from "~/components/Form";
 import { usePermissions } from "~/hooks";
 import type { ListItem } from "~/types";
@@ -32,13 +32,13 @@ const PickMethodForm = ({
   initialValues,
   locations,
   shelves,
-  type,
+  type
 }: PickMethodFormProps) => {
   const permissions = usePermissions();
 
   const locationOptions = locations.map((location) => ({
     label: location.name,
-    value: location.id,
+    value: location.id
   }));
 
   return (

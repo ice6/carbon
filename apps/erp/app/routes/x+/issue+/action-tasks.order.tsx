@@ -7,7 +7,7 @@ import { flash } from "@carbon/auth/session.server";
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    update: "quality",
+    update: "quality"
   });
 
   const updateMap = (await request.formData()).get("updates") as string;
@@ -22,7 +22,7 @@ export async function action({ request }: ActionFunctionArgs) {
     ([id, sortOrderString]) => ({
       id,
       sortOrder: Number(sortOrderString),
-      updatedBy: userId,
+      updatedBy: userId
     })
   );
 

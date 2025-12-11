@@ -9,7 +9,7 @@ export const attributeValidator = z
     userAttributeCategoryId: z.string().min(20),
     attributeDataTypeId: zfd.numeric(),
     listOptions: z.string().min(1).array().optional(),
-    canSelfManage: zfd.checkbox(),
+    canSelfManage: zfd.checkbox()
   })
   .refine((input) => {
     // allows bar to be optional only when foo is 'foo'
@@ -28,13 +28,13 @@ export const attributeCategoryValidator = z.object({
   id: zfd.text(z.string().optional()),
   name: z.string().min(1, { message: "Name is required" }),
   emoji: zfd.text(z.string().optional()),
-  isPublic: zfd.checkbox(),
+  isPublic: zfd.checkbox()
 });
 
 export const departmentValidator = z.object({
   id: zfd.text(z.string().optional()),
   name: z.string().min(1, { message: "Name is required" }),
-  parentDepartmentId: zfd.text(z.string().optional()),
+  parentDepartmentId: zfd.text(z.string().optional())
 });
 
 export const employeeJobValidator = z.object({
@@ -42,13 +42,13 @@ export const employeeJobValidator = z.object({
   startDate: zfd.text(z.string().optional()),
   locationId: zfd.text(z.string().optional()),
   shiftId: zfd.text(z.string().optional()),
-  managerId: zfd.text(z.string().optional()),
+  managerId: zfd.text(z.string().optional())
 });
 
 export const holidayValidator = z.object({
   id: zfd.text(z.string().optional()),
   name: z.string().min(1, { message: "Name is required" }),
-  date: z.string().min(1, { message: "Date is required" }),
+  date: z.string().min(1, { message: "Date is required" })
 });
 
 export const shiftValidator = z.object({
@@ -63,5 +63,5 @@ export const shiftValidator = z.object({
   thursday: zfd.checkbox(),
   friday: zfd.checkbox(),
   saturday: zfd.checkbox(),
-  sunday: zfd.checkbox(),
+  sunday: zfd.checkbox()
 });

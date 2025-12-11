@@ -7,14 +7,14 @@ import type {
   Dispatch,
   HTMLAttributes,
   ReactNode,
-  SetStateAction,
+  SetStateAction
 } from "react";
 import {
   Children,
   createContext,
   forwardRef,
   useContext,
-  useState,
+  useState
 } from "react";
 
 import { cn } from "./utils/cn";
@@ -30,16 +30,16 @@ export const avatarVariants = cva(
         md: "h-12 w-12 text-base",
         sm: "h-8 w-8 text-xs",
         xs: "h-6 w-6 text-xxs",
-        xxs: "h-4 w-4 text-[8px] tracking-tight",
+        xxs: "h-4 w-4 text-[8px] tracking-tight"
       },
       isGroup: {
-        true: "ring-2 ring-background hover:-translate-y-1 hover:scale-110",
-      },
+        true: "ring-2 ring-background hover:-translate-y-1 hover:scale-110"
+      }
     },
     defaultVariants: {
       size: "sm",
-      isGroup: false,
-    },
+      isGroup: false
+    }
   }
 );
 
@@ -74,7 +74,7 @@ const Avatar = forwardRef<HTMLSpanElement, AvatarProps>(
         className={cn(
           avatarVariants({
             size,
-            isGroup,
+            isGroup
           }),
           "bg-muted-foreground",
           className
@@ -124,13 +124,13 @@ type AvatarGroupContextValue = {
 };
 
 const AvatarGroupContext = createContext<AvatarGroupContextValue>({
-  size: undefined,
+  size: undefined
 });
 
 const AvatarGroupProvider = ({
   children,
   limit,
-  size,
+  size
 }: {
   children?: ReactNode;
   limit?: number;
@@ -144,7 +144,7 @@ const AvatarGroupProvider = ({
         count,
         setCount,
         limit,
-        size,
+        size
       }}
     >
       {children}

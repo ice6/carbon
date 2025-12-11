@@ -5,7 +5,7 @@ import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
-  TooltipTrigger,
+  TooltipTrigger
 } from "@carbon/react";
 import { useFetcher } from "@remix-run/react";
 import type { ComponentProps, ReactNode } from "react";
@@ -15,7 +15,7 @@ import { productionEventValidator } from "~/services/models";
 import type {
   Job,
   OperationWithDetails,
-  ProductionEvent,
+  ProductionEvent
 } from "~/services/types";
 import { path } from "~/utils/path";
 
@@ -26,7 +26,7 @@ import { LuHammer, LuHardHat, LuTimer } from "react-icons/lu";
 
 export function Controls({
   children,
-  className,
+  className
 }: {
   children: ReactNode;
   className?: string;
@@ -45,7 +45,7 @@ export function Controls({
 
 export function Times({
   children,
-  className,
+  className
 }: {
   children: ReactNode;
   className?: string;
@@ -114,7 +114,7 @@ export function WorkTypeToggle({
   operation,
   value,
   onChange,
-  className,
+  className
 }: {
   active: { setup: boolean; labor: boolean; machine: boolean };
   operation: OperationWithDetails;
@@ -137,7 +137,7 @@ export function WorkTypeToggle({
   }, [
     operation.laborDuration,
     operation.machineDuration,
-    operation.setupDuration,
+    operation.setupDuration
   ]);
 
   return (
@@ -252,7 +252,7 @@ export function StartStopButton({
     setupProductionEvent,
     laborProductionEvent,
     machineProductionEvent,
-    fetcher.formData,
+    fetcher.formData
   ]);
 
   const id = useMemo(() => {
@@ -267,7 +267,7 @@ export function StartStopButton({
     eventType,
     setupProductionEvent,
     laborProductionEvent,
-    machineProductionEvent,
+    machineProductionEvent
   ]);
 
   return (
@@ -282,7 +282,7 @@ export function StartStopButton({
         timezone: getLocalTimeZone(),
         action: isActive ? "End" : "Start",
         type: eventType,
-        workCenterId: operation.workCenterId ?? undefined,
+        workCenterId: operation.workCenterId ?? undefined
       }}
       fetcher={fetcher}
     >

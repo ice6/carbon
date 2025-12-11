@@ -17,7 +17,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
   const [companySettings, trackedEntities] = await Promise.all([
     getCompanySettings(client, companyId),
-    getTrackedEntitiesByOperationId(client, id),
+    getTrackedEntitiesByOperationId(client, id)
   ]);
 
   // Get the label size from query params or default to avery5160
@@ -38,7 +38,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     throw redirect(
       path.to.file.operationLabelsZpl(id, {
         labelSize: labelSize.id,
-        trackedEntityId: trackedEntityIdParam ?? undefined,
+        trackedEntityId: trackedEntityIdParam ?? undefined
       })
     );
   }
@@ -63,7 +63,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
         "",
       trackedEntityId: tracking.id,
       quantity: tracking.quantity,
-      trackingType: tracking.quantity > 1 ? "Batch" : "Serial",
+      trackingType: tracking.quantity > 1 ? "Batch" : "Serial"
     }))
     .sort((a, b) => {
       if (a.itemId === b.itemId) {

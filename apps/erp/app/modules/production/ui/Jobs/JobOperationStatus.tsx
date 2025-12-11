@@ -6,7 +6,7 @@ import {
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
-  IconButton,
+  IconButton
 } from "@carbon/react";
 import { useFetchers, useParams, useSubmit } from "@remix-run/react";
 import { useCallback } from "react";
@@ -15,7 +15,7 @@ import { usePermissions, useRouteData } from "~/hooks";
 import { path } from "~/utils/path";
 import { jobOperationStatus } from "../../production.models";
 import type { Job, JobOperation } from "../../types";
-import { z } from 'zod/v3';
+import { z } from "zod/v3";
 import { ValidatedForm } from "@carbon/form";
 import { Tags } from "~/components/Form";
 import { useTags } from "~/hooks/useTags";
@@ -35,7 +35,7 @@ function useOptimisticJobStatus(operationId: string) {
 export function JobOperationStatus({
   operation,
   className,
-  onChange,
+  onChange
 }: {
   operation: { id?: string; status: JobOperation["status"]; jobId?: string };
   className?: string;
@@ -59,13 +59,13 @@ export function JobOperationStatus({
       submit(
         {
           id,
-          status,
+          status
         },
         {
           method: "post",
           action: path.to.jobOperationStatus,
           navigate: false,
-          fetcherKey: `jobOperation:${id}`,
+          fetcherKey: `jobOperation:${id}`
         }
       );
     },
@@ -115,7 +115,7 @@ export function JobOperationStatus({
 
 export function JobOperationTags({
   operation,
-  availableTags,
+  availableTags
 }: {
   operation: { id?: string; tags: string[] | null };
   availableTags: { name: string }[];
@@ -127,10 +127,10 @@ export function JobOperationTags({
   return (
     <ValidatedForm
       defaultValues={{
-        tags: operation.tags ?? [],
+        tags: operation.tags ?? []
       }}
       validator={z.object({
-        tags: z.array(z.string()).optional(),
+        tags: z.array(z.string()).optional()
       })}
     >
       <Tags

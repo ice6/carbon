@@ -6,7 +6,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-  Switch,
+  Switch
 } from "@carbon/react";
 import { useMode } from "@carbon/remix";
 import { Form, Link, useFetcher } from "@remix-run/react";

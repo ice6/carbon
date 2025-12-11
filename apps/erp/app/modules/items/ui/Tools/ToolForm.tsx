@@ -13,7 +13,7 @@ import {
   ModalCardTitle,
   VStack,
   cn,
-  toast,
+  toast
 } from "@carbon/react";
 import { convertKbToString, supportedModelTypes } from "@carbon/utils";
 import { useFetcher } from "@remix-run/react";
@@ -23,7 +23,7 @@ import { useEffect, useState } from "react";
 import { flushSync } from "react-dom";
 import { useDropzone } from "react-dropzone";
 import { LuCloudUpload } from "react-icons/lu";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import {
   CustomFormFields,
   DefaultMethodType,
@@ -34,7 +34,7 @@ import {
   Select,
   Submit,
   TextArea,
-  UnitOfMeasure,
+  UnitOfMeasure
 } from "~/components/Form";
 import { ReplenishmentSystemIcon, TrackingTypeIcon } from "~/components/Icons";
 import { useNextItemId, usePermissions, useUser } from "~/hooks";
@@ -42,7 +42,7 @@ import { path } from "~/utils/path";
 import {
   itemReplenishmentSystems,
   itemTrackingTypes,
-  toolValidator,
+  toolValidator
 } from "../../items.models";
 
 type ToolFormProps = {
@@ -68,7 +68,7 @@ const ToolForm = ({ initialValues, type = "card", onClose }: ToolFormProps) => {
   const [modelFile, setModelFile] = useState<File | null>(null);
   const { carbon } = useCarbon();
   const {
-    company: { id: companyId },
+    company: { id: companyId }
   } = useUser();
 
   const modelUpload = async (file: File) => {
@@ -89,8 +89,8 @@ const ToolForm = ({ initialValues, type = "card", onClose }: ToolFormProps) => {
         size: file.size,
         name: file.name,
         companyId: companyId,
-        createdBy: "system",
-      }),
+        createdBy: "system"
+      })
     ]);
 
     if (fileUpload.error || recordInsert.error) {
@@ -140,7 +140,7 @@ const ToolForm = ({ initialValues, type = "card", onClose }: ToolFormProps) => {
         message = errors[0].message;
       }
       toast.error(message);
-    },
+    }
   });
 
   useEffect(() => {
@@ -165,7 +165,7 @@ const ToolForm = ({ initialValues, type = "card", onClose }: ToolFormProps) => {
         {itemTrackingType}
       </span>
     ),
-    value: itemTrackingType,
+    value: itemTrackingType
   }));
 
   const [replenishmentSystem, setReplenishmentSystem] = useState<string>(
@@ -182,7 +182,7 @@ const ToolForm = ({ initialValues, type = "card", onClose }: ToolFormProps) => {
           {itemReplenishmentSystem}
         </span>
       ),
-      value: itemReplenishmentSystem,
+      value: itemReplenishmentSystem
     })) ?? [];
 
   return (
@@ -284,7 +284,7 @@ const ToolForm = ({ initialValues, type = "card", onClose }: ToolFormProps) => {
                     label="Unit Cost"
                     formatOptions={{
                       style: "currency",
-                      currency: baseCurrency,
+                      currency: baseCurrency
                     }}
                     minValue={0}
                     isReadOnly={replenishmentSystem === "Make"}

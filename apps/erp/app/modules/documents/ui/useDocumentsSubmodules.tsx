@@ -3,7 +3,7 @@ import {
   LuFolder,
   LuFolderHeart,
   LuPin,
-  LuTrash,
+  LuTrash
 } from "react-icons/lu";
 import type { Route } from "~/types";
 import { path } from "~/utils/path";
@@ -12,32 +12,32 @@ const documentsRoutes: Route[] = [
   {
     name: "All Documents",
     to: path.to.documents,
-    icon: <LuFolder />,
+    icon: <LuFolder />
   },
   {
     name: "My Documents",
     to: path.to.documents,
     q: "my",
-    icon: <LuFolderHeart />,
+    icon: <LuFolderHeart />
   },
   {
     name: "Recent",
     to: path.to.documents,
     q: "recent",
-    icon: <LuClock />,
+    icon: <LuClock />
   },
   {
     name: "Pinned",
     to: path.to.documents,
     q: "starred",
-    icon: <LuPin />,
+    icon: <LuPin />
   },
   {
     name: "Trash",
     to: path.to.documents,
     q: "trash",
-    icon: <LuTrash />,
-  },
+    icon: <LuTrash />
+  }
 ];
 
 export default function useDocumentsSubmodules() {

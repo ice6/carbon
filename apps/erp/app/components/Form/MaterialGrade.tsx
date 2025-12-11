@@ -2,7 +2,7 @@ import { useFetcher } from "@remix-run/react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type {
   MaterialGrade as MaterialGradeType,
-  getMaterialGradeList,
+  getMaterialGradeList
 } from "~/modules/items";
 import { path } from "~/utils/path";
 
@@ -54,7 +54,7 @@ const MaterialGrade = (props: MaterialGradeSelectProps) => {
     return (materialGradesLoader.data?.data ?? []).map((c) => ({
       value: c.id,
       label: c.name,
-      helper: c.companyId === null ? "Standard" : undefined,
+      helper: c.companyId === null ? "Standard" : undefined
     }));
   }, [materialGradesLoader.data?.data]);
 
@@ -93,7 +93,7 @@ const MaterialGrade = (props: MaterialGradeSelectProps) => {
           }}
           initialValues={{
             name: created,
-            materialSubstanceId: props.substanceId!,
+            materialSubstanceId: props.substanceId!
           }}
         />
       )}

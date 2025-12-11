@@ -5,7 +5,7 @@ import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
-  TooltipTrigger,
+  TooltipTrigger
 } from "@carbon/react";
 import { LuGlobe } from "react-icons/lu";
 import { useChatStore } from "./lib/store";
@@ -37,7 +37,7 @@ function extractDomainFromUrl(url: string): string {
 export const WebSearchSources = ({
   sources: providedSources,
   showSourceCount = true,
-  className,
+  className
 }: WebSearchSourcesProps) => {
   const [animatedSources, setAnimatedSources] = useState<WebSearchSource[]>([]);
 
@@ -122,7 +122,7 @@ interface WebSearchSourceAvatarProps {
 const WebSearchSourceAvatar = ({
   source,
   zIndex = 0,
-  index = 0,
+  index = 0
 }: WebSearchSourceAvatarProps) => {
   const domain = source.domain || extractDomainFromUrl(source.url || "");
 
@@ -140,11 +140,11 @@ const WebSearchSourceAvatar = ({
             delay: index * 0.1,
             type: "spring",
             stiffness: 200,
-            damping: 20,
+            damping: 20
           }}
           whileHover={{
             scale: 1.1,
-            transition: { duration: 0.2 },
+            transition: { duration: 0.2 }
           }}
           whileTap={{ scale: 0.95 }}
           onClick={() =>

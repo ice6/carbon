@@ -2,7 +2,7 @@ import {
   assertIsPost,
   error,
   getCarbonServiceRole,
-  success,
+  success
 } from "@carbon/auth";
 import { requirePermissions } from "@carbon/auth/auth.server";
 import { flash } from "@carbon/auth/session.server";
@@ -10,7 +10,7 @@ import { validator } from "@carbon/form";
 import {
   parseDate,
   parseDateTime,
-  toCalendarDateTime,
+  toCalendarDateTime
 } from "@internationalized/date";
 import { tasks } from "@trigger.dev/sdk";
 import { redirect, type ActionFunctionArgs } from "@vercel/remix";
@@ -19,7 +19,7 @@ import { getItemReplenishment } from "~/modules/items";
 import {
   bulkJobValidator,
   upsertJob,
-  upsertJobMethod,
+  upsertJobMethod
 } from "~/modules/production";
 import { getNextSequence } from "~/modules/settings/settings.service";
 import { setCustomFields } from "~/utils/form";
@@ -29,7 +29,7 @@ export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { companyId, userId } = await requirePermissions(request, {
     create: "production",
-    bypassRls: true,
+    bypassRls: true
   });
 
   const serviceRole = await getCarbonServiceRole();
@@ -148,7 +148,7 @@ export async function action({ request }: ActionFunctionArgs) {
       configuration,
       companyId,
       createdBy: userId,
-      customFields: setCustomFields(formData),
+      customFields: setCustomFields(formData)
     });
 
     if (createJob.error) {
@@ -171,7 +171,7 @@ export async function action({ request }: ActionFunctionArgs) {
       targetId: id,
       companyId,
       userId,
-      configuration,
+      configuration
     });
 
     if (upsertMethod.error) {
@@ -187,8 +187,8 @@ export async function action({ request }: ActionFunctionArgs) {
         type: "jobRequirements",
         id,
         companyId,
-        userId,
-      },
+        userId
+      }
     }))
   );
 

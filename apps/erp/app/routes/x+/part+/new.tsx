@@ -15,13 +15,13 @@ import { path } from "~/utils/path";
 export const handle: Handle = {
   breadcrumb: "Parts",
   to: path.to.parts,
-  module: "items",
+  module: "items"
 };
 
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    create: "parts",
+    create: "parts"
   });
 
   const formData = await request.formData();
@@ -37,7 +37,7 @@ export async function action({ request }: ActionFunctionArgs) {
     ...validation.data,
     companyId,
     customFields: setCustomFields(formData),
-    createdBy: userId,
+    createdBy: userId
   });
   if (createPart.error) {
     return modal
@@ -54,7 +54,7 @@ export async function action({ request }: ActionFunctionArgs) {
   if (validation.data.modelUploadId) {
     await tasks.trigger<typeof modelThumbnailTask>("model-thumbnail", {
       companyId,
-      modelId: validation.data.modelUploadId,
+      modelId: validation.data.modelUploadId
     });
   }
 
@@ -78,7 +78,7 @@ export default function PartsNewRoute() {
     unitOfMeasureCode: "EA",
     unitCost: 0,
     lotSize: 0,
-    active: true,
+    active: true
   };
 
   return (

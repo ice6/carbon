@@ -42,10 +42,10 @@ export function formatDurationMilliseconds(
     units: options?.units
       ? options.units
       : milliseconds < 1000
-      ? belowOneSecondUnits
-      : aboveOneSecondUnits,
+        ? belowOneSecondUnits
+        : aboveOneSecondUnits,
     maxDecimalPoints: options?.maxDecimalPoints ?? 0,
-    largest: 2,
+    largest: 2
   });
 
   if (!options) {
@@ -79,7 +79,7 @@ export function formatDurationInDays(milliseconds: number): string {
   let duration = humanizeDuration(milliseconds, {
     maxDecimalPoints: 0,
     largest: 2,
-    units: ["d"],
+    units: ["d"]
   });
 
   return duration;

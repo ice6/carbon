@@ -4,7 +4,7 @@ import { useRouteData } from "~/hooks";
 import type {
   SupplierContact,
   SupplierDetail,
-  SupplierLocation,
+  SupplierLocation
 } from "~/modules/purchasing";
 import { path } from "~/utils/path";
 import { useSupplierSidebar } from "./useSupplierSidebar";
@@ -25,7 +25,7 @@ const SupplierSidebar = () => {
 
   const links = useSupplierSidebar({
     contacts: routeData?.contacts.length ?? 0,
-    locations: routeData?.locations.length ?? 0,
+    locations: routeData?.locations.length ?? 0
   });
 
   return <DetailSidebar links={links} />;

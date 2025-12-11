@@ -10,5 +10,5 @@ export { EditorCommandItem, EditorCommandEmpty } from "./editor-command-item";
 export {
   MentionList,
   type MentionListRef,
-  type MentionListProps,
+  type MentionListProps
 } from "./mention-list";

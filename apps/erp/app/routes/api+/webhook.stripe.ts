@@ -2,7 +2,7 @@ import { requirePermissions } from "@carbon/auth/auth.server";
 import {
   getStripeCustomerId,
   processStripeEvent,
-  syncStripeDataToKV,
+  syncStripeDataToKV
 } from "@carbon/stripe/stripe.server";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@vercel/remix";
 import { json, redirect } from "@vercel/remix";

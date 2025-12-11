@@ -3,7 +3,7 @@ import {
   callbackValidator,
   carbonClient,
   error,
-  getCarbonServiceRole,
+  getCarbonServiceRole
 } from "@carbon/auth";
 import { refreshAccessToken } from "@carbon/auth/auth.server";
 import { setCompanyId } from "@carbon/auth/company.server";
@@ -11,7 +11,7 @@ import {
   destroyAuthSession,
   flash,
   getAuthSession,
-  setAuthSession,
+  setAuthSession
 } from "@carbon/auth/session.server";
 import { getUserByEmail } from "@carbon/auth/users.server";
 import { validator } from "@carbon/form";
@@ -26,7 +26,7 @@ import {
   AlertDescription,
   AlertTitle,
   Button,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { LuTriangleAlert } from "react-icons/lu";
 import { path } from "~/utils/path";
@@ -48,7 +48,7 @@ export async function action({ request }: ActionFunctionArgs) {
 
   if (validation.error) {
     return json(error(validation.error, "Invalid callback form"), {
-      status: 400,
+      status: 400
     });
   }
 
@@ -75,14 +75,14 @@ export async function action({ request }: ActionFunctionArgs) {
 
   if (user?.data) {
     const sessionCookie = await setAuthSession(request, {
-      authSession,
+      authSession
     });
     const companyIdCookie = setCompanyId(authSession.companyId);
     return redirect(path.to.root, {
       headers: [
         ["Set-Cookie", sessionCookie],
-        ["Set-Cookie", companyIdCookie],
-      ],
+        ["Set-Cookie", companyIdCookie]
+      ]
     });
   } else {
     return redirect(
@@ -109,7 +109,7 @@ export default function AuthCallback() {
 
   useEffect(() => {
     const {
-      data: { subscription },
+      data: { subscription }
     } = carbonClient.auth.onAuthStateChange((event, session) => {
       if (
         ["SIGNED_IN", "INITIAL_SESSION"].includes(event) &&

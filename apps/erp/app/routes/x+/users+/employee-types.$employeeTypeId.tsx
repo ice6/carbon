@@ -12,7 +12,7 @@ import {
   getEmployeeType,
   getPermissionsByEmployeeType,
   upsertEmployeeType,
-  upsertEmployeeTypePermissions,
+  upsertEmployeeTypePermissions
 } from "~/modules/users";
 import { makeCompanyPermissionsFromEmployeeType } from "~/modules/users/users.server";
 import { path } from "~/utils/path";
@@ -20,7 +20,7 @@ import { path } from "~/utils/path";
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
     view: "users",
-    role: "employee",
+    role: "employee"
   });
 
   const { employeeTypeId } = params;
@@ -28,7 +28,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
   const [employeeType, employeeTypePermissions] = await Promise.all([
     getEmployeeType(client, employeeTypeId),
-    getPermissionsByEmployeeType(client, employeeTypeId),
+    getPermissionsByEmployeeType(client, employeeTypeId)
   ]);
 
   return json({
@@ -36,14 +36,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     employeeTypePermissions: makeCompanyPermissionsFromEmployeeType(
       employeeTypePermissions.data ?? [],
       companyId
-    ),
+    )
   });
 }
 
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId } = await requirePermissions(request, {
-    update: "users",
+    update: "users"
   });
 
   const validation = await validator(employeeTypeValidator).validate(
@@ -72,7 +72,7 @@ export async function action({ request }: ActionFunctionArgs) {
 
   const updateEmployeeType = await upsertEmployeeType(client, {
     id,
-    name,
+    name
   });
 
   if (updateEmployeeType.error) {
@@ -118,7 +118,7 @@ export default function EditEmployeeTypesRoute() {
   const initialValues = {
     id: employeeType?.id ?? "",
     name: employeeType?.name ?? "",
-    permissions: employeeTypePermissions,
+    permissions: employeeTypePermissions
   };
 
   return (

@@ -7,7 +7,7 @@ import type { QuotationLine } from "../../types";
 
 export default function DeleteQuoteLine({
   line,
-  onCancel,
+  onCancel
 }: {
   line: QuotationLine;
   onCancel: () => void;

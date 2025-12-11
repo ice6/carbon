@@ -12,14 +12,14 @@ import {
   LuHash,
   LuPencil,
   LuTrash,
-  LuUser,
+  LuUser
 } from "react-icons/lu";
 import {
   CustomerAvatar,
   EmployeeAvatar,
   Hyperlink,
   New,
-  Table,
+  Table
 } from "~/components";
 import { Enumerable } from "~/components/Enumerable";
 import { ConfirmDelete } from "~/components/Modals";
@@ -29,7 +29,7 @@ import { useCustomers, usePeople } from "~/stores";
 import { path } from "~/utils/path";
 import {
   shipmentSourceDocumentType,
-  shipmentStatusType,
+  shipmentStatusType
 } from "../../inventory.models";
 import type { Shipment } from "../../types";
 import ShipmentStatus from "./ShipmentStatus";
@@ -62,8 +62,8 @@ const ShipmentsTable = memo(({ data, count }: ShipmentsTableProps) => {
           </Hyperlink>
         ),
         meta: {
-          icon: <LuBookMarked />,
-        },
+          icon: <LuBookMarked />
+        }
       },
       {
         accessorKey: "sourceDocument",
@@ -74,11 +74,11 @@ const ShipmentsTable = memo(({ data, count }: ShipmentsTableProps) => {
             type: "static",
             options: shipmentSourceDocumentType.map((type) => ({
               value: type,
-              label: <Enumerable value={type} />,
-            })),
+              label: <Enumerable value={type} />
+            }))
           },
-          icon: <LuFileText />,
-        },
+          icon: <LuFileText />
+        }
       },
       {
         accessorKey: "sourceDocumentReadableId",
@@ -129,8 +129,8 @@ const ShipmentsTable = memo(({ data, count }: ShipmentsTableProps) => {
           }
         },
         meta: {
-          icon: <LuHash />,
-        },
+          icon: <LuHash />
+        }
       },
 
       {
@@ -150,12 +150,12 @@ const ShipmentsTable = memo(({ data, count }: ShipmentsTableProps) => {
             type: "static",
             options: shipmentStatusType.map((type) => ({
               value: type,
-              label: <ShipmentStatus status={type} />,
-            })),
+              label: <ShipmentStatus status={type} />
+            }))
           },
           pluralHeader: "Statuses",
-          icon: <LuClock />,
-        },
+          icon: <LuClock />
+        }
       },
       {
         accessorKey: "invoiced",
@@ -166,11 +166,11 @@ const ShipmentsTable = memo(({ data, count }: ShipmentsTableProps) => {
             type: "static",
             options: [
               { value: "true", label: "Yes" },
-              { value: "false", label: "No" },
-            ],
+              { value: "false", label: "No" }
+            ]
           },
-          icon: <LuCheck />,
-        },
+          icon: <LuCheck />
+        }
       },
       {
         id: "postedBy",
@@ -183,19 +183,19 @@ const ShipmentsTable = memo(({ data, count }: ShipmentsTableProps) => {
             type: "static",
             options: people.map((employee) => ({
               value: employee.id,
-              label: employee.name,
-            })),
+              label: employee.name
+            }))
           },
-          icon: <LuUser />,
-        },
+          icon: <LuUser />
+        }
       },
       {
         accessorKey: "postingDate",
         header: "Posting Date",
         cell: (item) => formatDate(item.getValue<string>()),
         meta: {
-          icon: <LuCalendar />,
-        },
+          icon: <LuCalendar />
+        }
       },
       {
         accessorKey: "assignee",
@@ -208,11 +208,11 @@ const ShipmentsTable = memo(({ data, count }: ShipmentsTableProps) => {
             type: "static",
             options: people.map((employee) => ({
               value: employee.id,
-              label: employee.name,
-            })),
+              label: employee.name
+            }))
           },
-          icon: <LuUser />,
-        },
+          icon: <LuUser />
+        }
       },
       {
         id: "customerId",
@@ -225,19 +225,19 @@ const ShipmentsTable = memo(({ data, count }: ShipmentsTableProps) => {
             type: "static",
             options: customers?.map((customer) => ({
               value: customer.id,
-              label: customer.name,
-            })),
+              label: customer.name
+            }))
           },
-          icon: <LuUser />,
-        },
+          icon: <LuUser />
+        }
       },
       {
         accessorKey: "externalDocumentId",
         header: "External Ref.",
         cell: (item) => item.getValue(),
         meta: {
-          icon: <LuHash />,
-        },
+          icon: <LuHash />
+        }
       },
       {
         id: "createdBy",
@@ -250,19 +250,19 @@ const ShipmentsTable = memo(({ data, count }: ShipmentsTableProps) => {
             type: "static",
             options: people.map((employee) => ({
               value: employee.id,
-              label: employee.name,
-            })),
+              label: employee.name
+            }))
           },
-          icon: <LuUser />,
-        },
+          icon: <LuUser />
+        }
       },
       {
         accessorKey: "createdAt",
         header: "Created At",
         cell: (item) => formatDate(item.getValue<string>()),
         meta: {
-          icon: <LuCalendar />,
-        },
+          icon: <LuCalendar />
+        }
       },
       {
         id: "updatedBy",
@@ -275,20 +275,20 @@ const ShipmentsTable = memo(({ data, count }: ShipmentsTableProps) => {
             type: "static",
             options: people.map((employee) => ({
               value: employee.id,
-              label: employee.name,
-            })),
+              label: employee.name
+            }))
           },
-          icon: <LuUser />,
-        },
+          icon: <LuUser />
+        }
       },
       {
         accessorKey: "updatedAt",
         header: "Updated At",
         cell: (item) => formatDate(item.getValue<string>()),
         meta: {
-          icon: <LuCalendar />,
-        },
-      },
+          icon: <LuCalendar />
+        }
+      }
     ];
 
     return [...result, ...customColumns];
@@ -342,13 +342,13 @@ const ShipmentsTable = memo(({ data, count }: ShipmentsTableProps) => {
         columns={columns}
         count={count}
         defaultColumnPinning={{
-          left: ["shipmentId"],
+          left: ["shipmentId"]
         }}
         defaultColumnVisibility={{
           createdAt: false,
           createdBy: false,
           updatedAt: false,
-          updatedBy: false,
+          updatedBy: false
         }}
         primaryAction={
           permissions.can("create", "inventory") && (

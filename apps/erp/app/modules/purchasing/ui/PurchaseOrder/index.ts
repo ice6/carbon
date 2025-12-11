@@ -23,5 +23,5 @@ export {
   PurchaseOrderSummary,
   PurchasingStatus,
   usePurchaseOrder,
-  usePurchaseOrderTotals,
+  usePurchaseOrderTotals
 };

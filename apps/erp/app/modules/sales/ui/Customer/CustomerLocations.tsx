@@ -5,7 +5,7 @@ import {
   CardHeader,
   CardTitle,
   HStack,
-  useDisclosure,
+  useDisclosure
 } from "@carbon/react";
 import { Outlet, useNavigate, useParams } from "@remix-run/react";
 import { useCallback, useState } from "react";
@@ -40,7 +40,7 @@ const CustomerLocations = ({ locations }: CustomerLocationsProps) => {
           icon: <LuPencil />,
           onClick: () => {
             navigate(location.id);
-          },
+          }
         });
       }
       if (permissions.can("delete", "sales")) {
@@ -51,7 +51,7 @@ const CustomerLocations = ({ locations }: CustomerLocationsProps) => {
           onClick: () => {
             setSelectedLocation(location);
             deleteLocationModal.onOpen();
-          },
+          }
         });
       }
 

@@ -7,7 +7,7 @@ import {
   CardContent,
   CardDescription,
   CardHeader,
-  CardTitle,
+  CardTitle
 } from "@carbon/react";
 import { useLoaderData } from "@remix-run/react";
 import type { LoaderFunctionArgs } from "@vercel/remix";
@@ -18,7 +18,7 @@ import { path } from "~/utils/path";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    view: "people",
+    view: "people"
   });
 
   const { personId, categoryId } = params;
@@ -43,7 +43,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   }
 
   return json({
-    category: category.data,
+    category: category.data
   });
 }
 

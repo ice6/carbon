@@ -121,7 +121,7 @@ export async function updateAvatar(
     .from("user")
     .update(
       sanitize({
-        avatarUrl,
+        avatarUrl
       })
     )
     .eq("id", userId);
@@ -156,7 +156,7 @@ export async function upsertUserAttributeValue(
     value,
     type,
     userId,
-    updatedBy,
+    updatedBy
   } = update;
 
   let valueUpdate: Record<string, number | string | boolean> = {};
@@ -198,7 +198,7 @@ export async function upsertUserAttributeValue(
       .from("userAttributeValue")
       .update({
         ...valueUpdate,
-        updatedBy,
+        updatedBy
       })
       .eq("id", userAttributeValueId)
       .select("id")
@@ -210,7 +210,7 @@ export async function upsertUserAttributeValue(
         userAttributeId,
         ...valueUpdate,
         userId,
-        createdBy: updatedBy,
+        createdBy: updatedBy
       })
       .select("id")
       .single();

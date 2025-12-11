@@ -9,7 +9,7 @@ import { getLocale } from "~/utils/request";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    view: "inventory",
+    view: "inventory"
   });
 
   const { id } = params;
@@ -18,7 +18,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   const [company, stockTransfer, stockTransferLines] = await Promise.all([
     getCompany(client, companyId),
     getStockTransfer(client, id),
-    getStockTransferLines(client, id),
+    getStockTransferLines(client, id)
   ]);
 
   if (company.error) {
@@ -75,7 +75,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
             }
             return getBase64ImageFromSupabase(client, path).then((data) => ({
               id,
-              data,
+              data
             }));
           })
         )
@@ -97,7 +97,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
       meta={{
         author: "Carbon",
         keywords: "stock transfer",
-        subject: "Stock Transfer",
+        subject: "Stock Transfer"
       }}
       title="Stock Transfer"
       thumbnails={thumbnails}
@@ -117,7 +117,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
   const headers = new Headers({
     "Content-Type": "application/pdf",
-    "Content-Disposition": `inline; filename="${stockTransfer.data.stockTransferId}.pdf"`,
+    "Content-Disposition": `inline; filename="${stockTransfer.data.stockTransferId}.pdf"`
   });
   return new Response(body, { status: 200, headers });
 }

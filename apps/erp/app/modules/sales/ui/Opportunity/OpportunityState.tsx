@@ -5,7 +5,7 @@ import { LuCircle } from "react-icons/lu";
 import {
   RiProgress2Line,
   RiProgress4Line,
-  RiProgress8Line,
+  RiProgress8Line
 } from "react-icons/ri";
 import { path } from "~/utils/path";
 import type { Opportunity } from "../../types";
@@ -99,7 +99,7 @@ function getItems(opportunity: Opportunity, state: string) {
               rfq.revisionId && rfq.revisionId > 0 ? `-${rfq.revisionId}` : ""
             }`
           : `RFQ ${rfq.id}`,
-        path: path.to.salesRfqDetails(rfq.id!),
+        path: path.to.salesRfqDetails(rfq.id!)
       }));
     case "Quote":
       return opportunity.quotes.map((quote) => ({
@@ -111,7 +111,7 @@ function getItems(opportunity: Opportunity, state: string) {
                 : ""
             }`
           : `Quote ${quote.id}`,
-        path: path.to.quoteDetails(quote.id!),
+        path: path.to.quoteDetails(quote.id!)
       }));
     case "Order":
       return opportunity.salesOrders.map((order) => ({
@@ -123,7 +123,7 @@ function getItems(opportunity: Opportunity, state: string) {
                 : ""
             }`
           : `Order ${order.id}`,
-        path: path.to.salesOrderDetails(order.id!),
+        path: path.to.salesOrderDetails(order.id!)
       }));
     default:
       return [];
@@ -165,7 +165,7 @@ const OpportunityState = ({ opportunity }: { opportunity: Opportunity }) => {
                 onClick={() => navigate(to)}
                 dropdownItems={items.map((item) => ({
                   label: item.label,
-                  onClick: () => navigate(item.path),
+                  onClick: () => navigate(item.path)
                 }))}
               >
                 {state}

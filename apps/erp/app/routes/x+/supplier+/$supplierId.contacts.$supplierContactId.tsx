@@ -3,7 +3,7 @@ import {
   badRequest,
   error,
   notFound,
-  success,
+  success
 } from "@carbon/auth";
 import { requirePermissions } from "@carbon/auth/auth.server";
 import { flash } from "@carbon/auth/session.server";
@@ -15,7 +15,7 @@ import { json, redirect } from "@vercel/remix";
 import {
   getSupplierContact,
   supplierContactValidator,
-  updateSupplierContact,
+  updateSupplierContact
 } from "~/modules/purchasing";
 import SupplierContactForm from "~/modules/purchasing/ui/Supplier/SupplierContactForm";
 import { getCustomFields, setCustomFields } from "~/utils/form";
@@ -24,7 +24,7 @@ import { supplierContactsQuery } from "~/utils/react-query";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
-    view: "purchasing",
+    view: "purchasing"
   });
 
   const { supplierId, supplierContactId } = params;
@@ -43,14 +43,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   }
 
   return json({
-    contact: contact.data,
+    contact: contact.data
   });
 }
 
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client } = await requirePermissions(request, {
-    update: "purchasing",
+    update: "purchasing"
   });
 
   const { supplierId, supplierContactId } = params;
@@ -78,7 +78,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     contactId,
     contact,
     supplierLocationId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
 
   if (update.error) {
@@ -99,7 +99,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
 export async function clientAction({
   serverAction,
-  params,
+  params
 }: ClientActionFunctionArgs) {
   const { supplierId } = params;
   if (supplierId) {
@@ -131,7 +131,7 @@ export default function EditSupplierContactRoute() {
     fax: contact?.contact?.fax ?? "",
     supplierLocationId: contact?.supplierLocationId ?? "",
     notes: contact?.contact?.notes ?? "",
-    ...getCustomFields(contact?.customFields),
+    ...getCustomFields(contact?.customFields)
   };
 
   return (

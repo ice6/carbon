@@ -3,7 +3,7 @@ import {
   error,
   getCarbonServiceRole,
   notFound,
-  success,
+  success
 } from "@carbon/auth";
 import { requirePermissions } from "@carbon/auth/auth.server";
 import { flash } from "@carbon/auth/session.server";
@@ -25,7 +25,7 @@ export async function action({ params, request }: ActionFunctionArgs) {
   const attributeDelete = await deleteAttributeRecord(serviceRole, {
     id,
     companyId,
-    userId,
+    userId
   });
 
   if (attributeDelete.error) {

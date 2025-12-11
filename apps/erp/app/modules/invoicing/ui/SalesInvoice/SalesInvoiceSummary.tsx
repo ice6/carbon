@@ -12,7 +12,7 @@ import {
   Tbody,
   Td,
   Tr,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { formatDate, getItemReadableId } from "@carbon/utils";
 import { useLocale } from "@react-aria/i18n";
@@ -26,14 +26,14 @@ import {
   useCurrencyFormatter,
   usePercentFormatter,
   useRouteData,
-  useUser,
+  useUser
 } from "~/hooks";
 import { useItems } from "~/stores";
 import { getPrivateUrl, path } from "~/utils/path";
 import type {
   SalesInvoice,
   SalesInvoiceLine,
-  SalesInvoiceShipment,
+  SalesInvoiceShipment
 } from "../../types";
 
 const LineItems = ({
@@ -42,7 +42,7 @@ const LineItems = ({
   formatter,
   locale,
   salesInvoiceLines,
-  shouldConvertCurrency,
+  shouldConvertCurrency
 }: {
   currencyCode: string;
   presentationCurrencyFormatter: Intl.NumberFormat;
@@ -165,7 +165,7 @@ const LineItems = ({
                         </VStack>
                         <motion.div
                           animate={{
-                            rotate: openItems.includes(line.id) ? 90 : 0,
+                            rotate: openItems.includes(line.id) ? 90 : 0
                           }}
                           transition={{ duration: 0.3 }}
                         >
@@ -181,9 +181,7 @@ const LineItems = ({
                           <MethodIcon type={line.methodType ?? "Pick"} />
                         </Badge>
                         <Badge variant="green">
-                          {formatter.format(
-                            line.unitPrice ?? 0
-                          )}{" "}
+                          {formatter.format(line.unitPrice ?? 0)}{" "}
                           {
                             unitOfMeasures.find(
                               (uom) => uom.value === line.unitOfMeasureCode
@@ -207,7 +205,7 @@ const LineItems = ({
               animate={openItems.includes(line.id) ? "open" : "collapsed"}
               variants={{
                 open: { opacity: 1, height: "auto", marginTop: 16 },
-                collapsed: { opacity: 0, height: 0, marginTop: 0 },
+                collapsed: { opacity: 0, height: 0, marginTop: 0 }
               }}
               transition={{ duration: 0.3 }}
               className="w-full overflow-hidden"
@@ -326,7 +324,7 @@ type SalesInvoiceSummaryProps = {
 };
 
 const SalesInvoiceSummary = ({
-  onEditShippingCost,
+  onEditShippingCost
 }: SalesInvoiceSummaryProps) => {
   const { invoiceId } = useParams();
   if (!invoiceId) throw new Error("Could not find invoiceId");
@@ -344,10 +342,10 @@ const SalesInvoiceSummary = ({
     routeData?.salesInvoice?.currencyCode !== company?.baseCurrencyCode;
 
   const formatter = useCurrencyFormatter({
-    currency: company?.baseCurrencyCode ?? "USD",
+    currency: company?.baseCurrencyCode ?? "USD"
   });
   const presentationCurrencyFormatter = useCurrencyFormatter({
-    currency: routeData?.salesInvoice?.currencyCode ?? "USD",
+    currency: routeData?.salesInvoice?.currencyCode ?? "USD"
   });
 
   const isEditable = ["Draft", "To Review"].includes(

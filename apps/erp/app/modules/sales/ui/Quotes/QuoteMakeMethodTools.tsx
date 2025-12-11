@@ -23,14 +23,14 @@ import {
   toast,
   useDisclosure,
   useMount,
-  VStack,
+  VStack
 } from "@carbon/react";
 import {
   Await,
   Link,
   useFetcher,
   useLocation,
-  useParams,
+  useParams
 } from "@remix-run/react";
 import { Suspense, useEffect, useState } from "react";
 import {
@@ -39,7 +39,7 @@ import {
   LuGitMerge,
   LuSettings,
   LuSquareStack,
-  LuTriangleAlert,
+  LuTriangleAlert
 } from "react-icons/lu";
 import { RiProgress4Line } from "react-icons/ri";
 import { ConfiguratorModal } from "~/components/Configurator/ConfiguratorForm";
@@ -48,7 +48,7 @@ import type { Tree } from "~/components/TreeView";
 import { usePermissions, useRouteData, useUser } from "~/hooks";
 import type {
   ConfigurationParameter,
-  ConfigurationParameterGroup,
+  ConfigurationParameterGroup
 } from "~/modules/items";
 import { getConfigurationParameters } from "~/modules/items";
 import { getLinkToItemDetails } from "~/modules/items/ui/Item/ItemForm";
@@ -155,12 +155,12 @@ const QuoteMakeMethodTools = () => {
     fetcher.submit(JSON.stringify(configuration), {
       method: "post",
       action: path.to.quoteLineConfigure(quoteId, lineId!),
-      encType: "application/json",
+      encType: "application/json"
     });
   };
 
   const {
-    company: { id: companyId },
+    company: { id: companyId }
   } = useUser();
   const [makeMethods, setMakeMethods] = useState<
     { label: JSX.Element; value: string }[]
@@ -172,7 +172,7 @@ const QuoteMakeMethodTools = () => {
     useState(false);
   const [
     sourceItemConfigurationParameters,
-    setSourceItemConfigurationParameters,
+    setSourceItemConfigurationParameters
   ] = useState<{
     groups: ConfigurationParameterGroup[];
     parameters: ConfigurationParameter[];
@@ -202,7 +202,7 @@ const QuoteMakeMethodTools = () => {
             <MakeMethodVersionStatus status={status} />
           </div>
         ),
-        value: id,
+        value: id
       })) ?? []
     );
 
@@ -290,12 +290,16 @@ const QuoteMakeMethodTools = () => {
                   e.preventDefault();
                   e.stopPropagation();
                 }
-                
+
                 const sourceId = data.sourceId as string;
                 const type = data.type as string;
 
                 // Only check configuration for "item" and "method" types, not "quoteLine"
-                if (sourceId && carbon && (type === "item" || type === "method")) {
+                if (
+                  sourceId &&
+                  carbon &&
+                  (type === "item" || type === "method")
+                ) {
                   // Store the form data for later use
                   setPendingGetMethodData(data);
 
@@ -327,7 +331,7 @@ const QuoteMakeMethodTools = () => {
                     // No configuration needed, proceed with normal submission
                     fetcher.submit(data, {
                       method: "post",
-                      action: path.to.quoteMethodGet,
+                      action: path.to.quoteMethodGet
                     });
                     getMethodModal.onClose();
                   }
@@ -335,7 +339,7 @@ const QuoteMakeMethodTools = () => {
                   // No sourceId, no carbon, or type is "quoteLine" - proceed with normal submission
                   fetcher.submit(data, {
                     method: "post",
-                    action: path.to.quoteMethodGet,
+                    action: path.to.quoteMethodGet
                   });
                   getMethodModal.onClose();
                 }
@@ -466,12 +470,12 @@ const QuoteMakeMethodTools = () => {
               validator={getMethodValidator}
               defaultValues={{
                 sourceId: isQuoteLineMethod
-                  ? line?.itemId ?? undefined
+                  ? (line?.itemId ?? undefined)
                   : undefined,
                 // @ts-expect-error
                 itemId: isQuoteLineMethod
-                  ? line?.itemId ?? undefined
-                  : undefined,
+                  ? (line?.itemId ?? undefined)
+                  : undefined
               }}
               onSubmit={saveMethodModal.onClose}
             >
@@ -577,7 +581,7 @@ const QuoteMakeMethodTools = () => {
                 setSourceItemRequiresConfiguration(false);
                 setSourceItemConfigurationParameters({
                   groups: [],
-                  parameters: [],
+                  parameters: []
                 });
               }}
               onSubmit={(config: Record<string, any>) => {
@@ -585,12 +589,12 @@ const QuoteMakeMethodTools = () => {
                 if (pendingGetMethodData) {
                   const dataWithConfig = {
                     ...pendingGetMethodData,
-                    configuration: JSON.stringify(config),
+                    configuration: JSON.stringify(config)
                   };
 
                   fetcher.submit(dataWithConfig, {
                     method: "post",
-                    action: path.to.quoteMethodGet,
+                    action: path.to.quoteMethodGet
                   });
 
                   setPendingGetMethodData(null);
@@ -600,7 +604,7 @@ const QuoteMakeMethodTools = () => {
                 setSourceItemRequiresConfiguration(false);
                 setSourceItemConfigurationParameters({
                   groups: [],
-                  parameters: [],
+                  parameters: []
                 });
               }}
             />

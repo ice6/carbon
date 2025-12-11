@@ -5,19 +5,19 @@ import {
   defer,
   redirect,
   useLoaderData,
-  useParams,
+  useParams
 } from "@remix-run/react";
 
 import {
   getConfigurationParametersByQuoteLineId,
   getModelByQuoteLineId,
   getQuoteMaterialsByMethodId,
-  getQuoteOperationsByMethodId,
+  getQuoteOperationsByMethodId
 } from "~/modules/sales";
 import {
   QuoteBillOfMaterial,
   QuoteBillOfProcess,
-  QuoteMakeMethodTools,
+  QuoteMakeMethodTools
 } from "~/modules/sales/ui/Quotes";
 import { path } from "~/utils/path";
 
@@ -32,7 +32,7 @@ import { getTagsList } from "~/modules/shared";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    view: "sales",
+    view: "sales"
   });
 
   const { quoteId, lineId, methodId } = params;
@@ -43,7 +43,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   const [materials, operations, tags] = await Promise.all([
     getQuoteMaterialsByMethodId(client, methodId),
     getQuoteOperationsByMethodId(client, methodId),
-    getTagsList(client, companyId, "operation"),
+    getTagsList(client, companyId, "operation")
   ]);
 
   if (materials.error) {
@@ -72,7 +72,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
         ...m,
         itemType: m.itemType as "Part",
         unitOfMeasureCode: m.unitOfMeasureCode ?? "",
-        quoteOperationId: m.quoteOperationId ?? undefined,
+        quoteOperationId: m.quoteOperationId ?? undefined
       })) ?? [],
     operations:
       operations.data?.map((o) => ({
@@ -84,7 +84,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
         operationSupplierProcessId: o.operationSupplierProcessId ?? undefined,
         quoteMakeMethodId: o.quoteMakeMethodId ?? methodId,
         workInstruction: o.workInstruction as JSONContent,
-        tags: o.tags ?? [],
+        tags: o.tags ?? []
       })) ?? [],
     configurationParameters: getConfigurationParametersByQuoteLineId(
       client,
@@ -92,7 +92,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
       companyId
     ),
     model: getModelByQuoteLineId(client, lineId),
-    tags: tags.data ?? [],
+    tags: tags.data ?? []
   });
 }
 
@@ -134,7 +134,7 @@ export default function QuoteMakeMethodRoute() {
               isReadOnly={!permissions.can("update", "sales")}
               metadata={{
                 quoteLineId: lineId ?? undefined,
-                itemId: model?.itemId ?? undefined,
+                itemId: model?.itemId ?? undefined
               }}
               modelPath={model?.modelPath ?? null}
               title="CAD Model"

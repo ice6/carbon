@@ -10,13 +10,13 @@ import { getGenericQueryFilters } from "~/utils/query";
 
 export const handle: Handle = {
   breadcrumb: "Sequences",
-  to: path.to.sequences,
+  to: path.to.sequences
 };
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
     view: "settings",
-    role: "employee",
+    role: "employee"
   });
 
   const url = new URL(request.url);
@@ -31,7 +31,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
       limit,
       offset,
       sorts,
-      filters,
+      filters
     })
   );
 }

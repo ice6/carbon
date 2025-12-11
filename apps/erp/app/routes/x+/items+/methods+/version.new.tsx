@@ -6,14 +6,14 @@ import { json, redirect, type ActionFunctionArgs } from "@vercel/remix";
 import {
   copyMakeMethod,
   makeMethodVersionValidator,
-  upsertMakeMethodVersion,
+  upsertMakeMethodVersion
 } from "~/modules/items";
 import { getPathToMakeMethod } from "~/modules/items/ui/Methods/utils";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    create: "parts",
+    create: "parts"
   });
 
   const formData = await request.formData();
@@ -28,12 +28,12 @@ export async function action({ request, params }: ActionFunctionArgs) {
   const insertMethodOperation = await upsertMakeMethodVersion(client, {
     ...validation.data,
     companyId,
-    createdBy: userId,
+    createdBy: userId
   });
   if (insertMethodOperation.error) {
     return json(
       {
-        id: null,
+        id: null
       },
       await flash(
         request,
@@ -48,7 +48,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   if (!methodOperationId || !itemType) {
     return json(
       {
-        id: null,
+        id: null
       },
       await flash(
         request,
@@ -61,13 +61,13 @@ export async function action({ request, params }: ActionFunctionArgs) {
     sourceId: validation.data.copyFromId,
     targetId: methodOperationId,
     companyId,
-    userId,
+    userId
   });
 
   if (copy.error) {
     return json({
       success: false,
-      message: "Failed to copy make method",
+      message: "Failed to copy make method"
     });
   }
 

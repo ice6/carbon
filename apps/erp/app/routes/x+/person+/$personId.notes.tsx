@@ -12,7 +12,7 @@ import { path } from "~/utils/path";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
-    view: "people",
+    view: "people"
   });
 
   const { personId } = params;
@@ -30,7 +30,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   }
 
   return json({
-    notes: notes.data,
+    notes: notes.data
   });
 }
 

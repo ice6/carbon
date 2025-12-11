@@ -61,5 +61,5 @@ export const typeMap: TypeMap = {
   text: "string",
   enum: "string",
   date: "string",
-  material: "object",
+  material: "object"
 };

@@ -11,7 +11,7 @@ import type {
   departmentValidator,
   employeeJobValidator,
   holidayValidator,
-  shiftValidator,
+  shiftValidator
 } from "./people.models";
 
 export async function deleteAttribute(
@@ -98,7 +98,7 @@ export async function getAttributeCategories(
   let query = client
     .from("userAttributeCategory")
     .select("*, userAttribute(id, name, attributeDataType(id))", {
-      count: "exact",
+      count: "exact"
     })
     .eq("companyId", companyId)
     .eq("active", true)
@@ -110,7 +110,7 @@ export async function getAttributeCategories(
 
   if (args) {
     query = setGenericQueryFilters(query, args, [
-      { column: "name", ascending: true },
+      { column: "name", ascending: true }
     ]);
   }
 
@@ -130,7 +130,7 @@ export async function getAttributeCategory(
         attributeDataType(id, label,  isBoolean, isDate, isList, isNumeric, isText, isUser ))
       `,
       {
-        count: "exact",
+        count: "exact"
       }
     )
     .eq("id", id)
@@ -158,7 +158,7 @@ export async function getDepartments(
   let query = client
     .from("department")
     .select(`*, department(id, name)`, {
-      count: "exact",
+      count: "exact"
     })
     .eq("companyId", companyId);
 
@@ -168,7 +168,7 @@ export async function getDepartments(
 
   if (args) {
     query = setGenericQueryFilters(query, args, [
-      { column: "name", ascending: true },
+      { column: "name", ascending: true }
     ]);
   }
 
@@ -227,7 +227,7 @@ export async function getHolidays(
   let query = client
     .from("holiday")
     .select("*", {
-      count: "exact",
+      count: "exact"
     })
     .eq("companyId", companyId);
 
@@ -237,7 +237,7 @@ export async function getHolidays(
 
   if (args) {
     query = setGenericQueryFilters(query, args, [
-      { column: "date", ascending: true },
+      { column: "date", ascending: true }
     ]);
   }
 
@@ -326,7 +326,7 @@ export async function getPeople(
                   value,
                   user: !Array.isArray(userAttributeValue.user)
                     ? userAttributeValue.user
-                    : undefined,
+                    : undefined
                 };
               }
             }
@@ -337,14 +337,14 @@ export async function getPeople(
 
     return {
       ...employee,
-      attributes: employeeAttributes,
+      attributes: employeeAttributes
     };
   });
 
   return {
     count: employees.count,
     data: people,
-    error: null,
+    error: null
   };
 }
 
@@ -368,7 +368,7 @@ export async function getShifts(
   let query = client
     .from("shifts")
     .select("*", {
-      count: "exact",
+      count: "exact"
     })
     .eq("companyId", companyId)
     .eq("active", true);
@@ -378,7 +378,7 @@ export async function getShifts(
   }
 
   query = setGenericQueryFilters(query, args, [
-    { column: "locationId", ascending: true },
+    { column: "locationId", ascending: true }
   ]);
   return query;
 }
@@ -471,7 +471,7 @@ export async function updateAttribute(
         name: attribute.name,
         listOptions: attribute.listOptions,
         canSelfManage: attribute.canSelfManage,
-        updatedBy: attribute.updatedBy,
+        updatedBy: attribute.updatedBy
       })
     )
     .eq("id", attribute.id);

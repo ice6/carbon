@@ -10,7 +10,7 @@ import { path } from "~/utils/path";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
-    view: "documents",
+    view: "documents"
   });
 
   const { documentId } = params;
@@ -26,7 +26,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   }
 
   return json({
-    document: document.data,
+    document: document.data
   });
 }
 

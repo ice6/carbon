@@ -10,7 +10,7 @@ import {
   ProcessForm,
   getProcess,
   processValidator,
-  upsertProcess,
+  upsertProcess
 } from "~/modules/resources";
 import { getCustomFields, setCustomFields } from "~/utils/form";
 import { path } from "~/utils/path";
@@ -18,7 +18,7 @@ import { getCompanyId, processesQuery } from "~/utils/react-query";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
-    view: "resources",
+    view: "resources"
   });
 
   const { processId } = params;
@@ -34,14 +34,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   }
 
   return json({
-    process: process.data,
+    process: process.data
   });
 }
 
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    create: "resources",
+    create: "resources"
   });
 
   const formData = await request.formData();
@@ -60,7 +60,7 @@ export async function action({ request }: ActionFunctionArgs) {
     ...data,
     companyId,
     updatedBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
 
   if (createProcess.error) {
@@ -98,7 +98,7 @@ export default function ProcessRoute() {
     // @ts-ignore
     suppliers: (process.suppliers ?? []).map((s) => s.id) ?? [],
     ...getCustomFields(process.customFields),
-    completeAllOnScan: process.completeAllOnScan ?? false,
+    completeAllOnScan: process.completeAllOnScan ?? false
   };
 
   return <ProcessForm initialValues={initialValues} onClose={onClose} />;

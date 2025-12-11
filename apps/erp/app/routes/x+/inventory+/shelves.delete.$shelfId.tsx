@@ -12,7 +12,7 @@ import { getCompanyId } from "~/utils/react-query";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
-    view: "inventory",
+    view: "inventory"
   });
   const { shelfId } = params;
   if (!shelfId) throw notFound("shelfId not found");
@@ -30,7 +30,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
 export async function action({ request, params }: ActionFunctionArgs) {
   const { client } = await requirePermissions(request, {
-    delete: "inventory",
+    delete: "inventory"
   });
 
   const { shelfId } = params;
@@ -62,7 +62,7 @@ export async function clientAction({ serverAction }: ClientActionFunctionArgs) {
     predicate: (query) => {
       const queryKey = query.queryKey as string[];
       return queryKey[0] === "shelves" && queryKey[1] === companyId;
-    },
+    }
   });
 
   return await serverAction();

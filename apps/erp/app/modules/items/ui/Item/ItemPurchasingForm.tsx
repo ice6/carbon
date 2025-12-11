@@ -4,17 +4,17 @@ import {
   CardContent,
   CardFooter,
   CardHeader,
-  CardTitle,
+  CardTitle
 } from "@carbon/react";
 import { useParams } from "@remix-run/react";
 import { useState } from "react";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import {
   ConversionFactor,
   Hidden,
   Number,
   Submit,
-  UnitOfMeasure,
+  UnitOfMeasure
 } from "~/components/Form";
 import { usePermissions, useRouteData } from "~/hooks";
 import { useSuppliers } from "~/stores/suppliers";
@@ -29,22 +29,25 @@ type ItemPurchasingFormProps = {
 
 const ItemPurchasingForm = ({
   initialValues,
-  allowedSuppliers,
+  allowedSuppliers
 }: ItemPurchasingFormProps) => {
   const permissions = usePermissions();
   const { itemId } = useParams();
   if (!itemId) throw new Error("itemId not found");
 
   const [suppliers] = useSuppliers();
-  const allowedSuppliersOptions = suppliers?.reduce((acc, supplier) => {
-    if (allowedSuppliers?.includes(supplier.id)) {
-      acc.push({
-        label: supplier.name,
-        value: supplier.id,
-      });
-    }
-    return acc;
-  }, [] as { label: string; value: string }[]);
+  const allowedSuppliersOptions = suppliers?.reduce(
+    (acc, supplier) => {
+      if (allowedSuppliers?.includes(supplier.id)) {
+        acc.push({
+          label: supplier.name,
+          value: supplier.id
+        });
+      }
+      return acc;
+    },
+    [] as { label: string; value: string }[]
+  );
 
   const routeData = useRouteData<{ partSummary: PartSummary }>(
     path.to.part(itemId)

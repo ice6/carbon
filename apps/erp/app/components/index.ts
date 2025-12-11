@@ -20,7 +20,7 @@ import {
   ModuleIcon,
   OperationStatusIcon,
   TimeTypeIcon,
-  TrackingTypeIcon,
+  TrackingTypeIcon
 } from "./Icons";
 import ItemThumbnail from "./ItemThumbnail";
 import Location from "./Location";
@@ -64,5 +64,5 @@ export {
   Table,
   TimeTypeIcon,
   TrackingTypeIcon,
-  useOptimisticAssignment,
+  useOptimisticAssignment
 };

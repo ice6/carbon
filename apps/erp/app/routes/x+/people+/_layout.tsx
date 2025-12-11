@@ -15,7 +15,7 @@ export const meta: MetaFunction = () => {
 export const handle: Handle = {
   breadcrumb: "People",
   to: path.to.people,
-  module: "people",
+  module: "people"
 };
 
 export default function PeopleRoute() {

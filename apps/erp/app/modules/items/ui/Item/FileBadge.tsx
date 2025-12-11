@@ -18,7 +18,7 @@ export function FileBadge({
   file,
   itemId,
   itemType,
-  className,
+  className
 }: FileBadgeProps) {
   const { getPath, download } = useItemDocuments({ itemId, type: itemType });
   const type = getDocumentType(file.name);

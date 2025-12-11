@@ -3,7 +3,7 @@ import {
   badRequest,
   error,
   notFound,
-  success,
+  success
 } from "@carbon/auth";
 import { requirePermissions } from "@carbon/auth/auth.server";
 import { flash } from "@carbon/auth/session.server";
@@ -15,7 +15,7 @@ import { json, redirect } from "@vercel/remix";
 import {
   customerContactValidator,
   getCustomerContact,
-  updateCustomerContact,
+  updateCustomerContact
 } from "~/modules/sales";
 import { CustomerContactForm } from "~/modules/sales/ui/Customer";
 import { getCustomFields, setCustomFields } from "~/utils/form";
@@ -24,7 +24,7 @@ import { customerContactsQuery } from "~/utils/react-query";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
-    view: "sales",
+    view: "sales"
   });
 
   const { customerId, customerContactId } = params;
@@ -43,14 +43,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   }
 
   return json({
-    contact: contact.data,
+    contact: contact.data
   });
 }
 
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client } = await requirePermissions(request, {
-    update: "sales",
+    update: "sales"
   });
 
   const { customerId, customerContactId } = params;
@@ -78,7 +78,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     contactId,
     contact,
     customerLocationId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
 
   if (update.error) {
@@ -99,7 +99,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
 export async function clientAction({
   serverAction,
-  params,
+  params
 }: ClientActionFunctionArgs) {
   const { customerId } = params;
   if (customerId) {
@@ -131,7 +131,7 @@ export default function EditCustomerContactRoute() {
     fax: contact?.contact?.fax ?? "",
     notes: contact?.contact?.notes ?? "",
     customerLocationId: contact?.customerLocationId ?? "",
-    ...getCustomFields(contact?.customFields),
+    ...getCustomFields(contact?.customFields)
   };
 
   return (

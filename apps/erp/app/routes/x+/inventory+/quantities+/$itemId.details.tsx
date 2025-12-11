@@ -11,7 +11,7 @@ import {
   getItemQuantities,
   getItemShelfQuantities,
   getPickMethod,
-  upsertPickMethod,
+  upsertPickMethod
 } from "~/modules/items";
 import { getLocationsList } from "~/modules/resources";
 import { getUserDefaults } from "~/modules/users/users.server";
@@ -20,7 +20,7 @@ import { path } from "~/utils/path";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId, userId } = await requirePermissions(request, {
-    view: "inventory",
+    view: "inventory"
   });
 
   const { itemId } = params;
@@ -60,7 +60,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   }
 
   let [pickMethod] = await Promise.all([
-    getPickMethod(client, itemId, companyId, locationId),
+    getPickMethod(client, itemId, companyId, locationId)
   ]);
 
   if (pickMethod.error || !pickMethod.data) {
@@ -69,7 +69,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
       companyId,
       locationId,
       customFields: {},
-      createdBy: userId,
+      createdBy: userId
     });
 
     if (
@@ -99,7 +99,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
   const [quantities, item] = await Promise.all([
     getItemQuantities(client, itemId, companyId, locationId),
-    getItem(client, itemId),
+    getItem(client, itemId)
   ]);
   if (quantities.error) {
     throw redirect(
@@ -135,7 +135,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     pickMethod: pickMethod.data,
     quantities: quantities.data,
     itemShelfQuantities: itemShelfQuantities.data,
-    item: item.data,
+    item: item.data
   });
 }
 
@@ -157,7 +157,7 @@ export default function ItemInventoryRoute() {
       itemTrackingType={itemTrackingType ?? "Inventory"}
       pickMethod={{
         ...pickMethod,
-        defaultShelfId: pickMethod.defaultShelfId ?? undefined,
+        defaultShelfId: pickMethod.defaultShelfId ?? undefined
       }}
       quantities={quantities}
       shelves={shelves.options}

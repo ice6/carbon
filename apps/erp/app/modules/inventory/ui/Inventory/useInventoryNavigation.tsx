@@ -15,14 +15,14 @@ export function useInventoryNavigation() {
       to: path.to.inventoryItem(itemId),
       role: ["employee"],
       icon: LuFileText,
-      shortcut: "Command+Shift+d",
+      shortcut: "Command+Shift+d"
     },
     {
       name: "Activity",
       to: path.to.inventoryItemActivity(itemId),
       role: ["employee"],
       icon: LuChartBar,
-      shortcut: "Command+Shift+a",
-    },
+      shortcut: "Command+Shift+a"
+    }
   ];
 }

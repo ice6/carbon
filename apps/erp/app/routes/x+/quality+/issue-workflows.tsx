@@ -11,13 +11,13 @@ import { getGenericQueryFilters } from "~/utils/query";
 
 export const handle: Handle = {
   breadcrumb: "Issue Workflows",
-  to: path.to.issueWorkflows,
+  to: path.to.issueWorkflows
 };
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
     view: "quality",
-    role: "employee",
+    role: "employee"
   });
 
   const url = new URL(request.url);
@@ -31,12 +31,12 @@ export async function loader({ request }: LoaderFunctionArgs) {
     limit,
     offset,
     sorts,
-    filters,
+    filters
   });
 
   return json({
     procedures: procedures.data ?? [],
-    count: procedures.count ?? 0,
+    count: procedures.count ?? 0
   });
 }
 

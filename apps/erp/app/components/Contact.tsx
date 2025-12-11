@@ -4,7 +4,7 @@ import {
   DropdownMenuIcon,
   DropdownMenuItem,
   HStack,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { Link } from "@remix-run/react";
 import type { Action } from "~/types";
@@ -26,7 +26,7 @@ type ContactProps = {
 enum UserStatus {
   Active,
   Inactive,
-  None,
+  None
 }
 
 const Contact = ({ contact, url, user, actions }: ContactProps) => {

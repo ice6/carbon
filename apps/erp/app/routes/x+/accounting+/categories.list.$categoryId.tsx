@@ -7,7 +7,7 @@ import { json, redirect } from "@vercel/remix";
 import { useUrlParams } from "~/hooks";
 import {
   getAccountCategory,
-  getAccountSubcategoriesByCategory,
+  getAccountSubcategoriesByCategory
 } from "~/modules/accounting";
 import { AccountCategoryDetail } from "~/modules/accounting/ui/AccountCategories";
 import { path } from "~/utils/path";
@@ -15,7 +15,7 @@ import { path } from "~/utils/path";
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
     view: "accounting",
-    role: "employee",
+    role: "employee"
   });
 
   const { categoryId } = params;
@@ -23,7 +23,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
   const [accountCategory, accountSubcategories] = await Promise.all([
     getAccountCategory(client, categoryId, companyId),
-    getAccountSubcategoriesByCategory(client, categoryId, companyId),
+    getAccountSubcategoriesByCategory(client, categoryId, companyId)
   ]);
   if (accountCategory.error) {
     throw redirect(
@@ -50,7 +50,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
   return json({
     accountCategory: accountCategory.data,
-    accountSubcategories: accountSubcategories.data ?? [],
+    accountSubcategories: accountSubcategories.data ?? []
   });
 }
 

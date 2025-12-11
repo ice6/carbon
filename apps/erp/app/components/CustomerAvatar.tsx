@@ -20,7 +20,7 @@ const CustomerAvatar = ({
 
   const customer = customers.find((s) => s.id === customerId) ?? {
     name: "",
-    id: "",
+    id: ""
   };
 
   return (

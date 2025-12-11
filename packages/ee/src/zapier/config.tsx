@@ -1,5 +1,5 @@
 import type { ComponentProps } from "react";
-import { z } from 'zod/v3';
+import { z } from "zod/v3";
 import type { IntegrationConfig } from "../types";
 
 export const Zapier: IntegrationConfig = {
@@ -13,7 +13,7 @@ export const Zapier: IntegrationConfig = {
   shortDescription: "Automate tasks and workflows in your business.",
   images: [],
   settings: [],
-  schema: z.object({}),
+  schema: z.object({})
 };
 
 function Logo(props: ComponentProps<"svg">) {

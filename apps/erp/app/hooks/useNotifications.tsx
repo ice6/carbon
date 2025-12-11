@@ -6,7 +6,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 export function getSubscriberId({
   companyId,
-  userId,
+  userId
 }: {
   companyId: string;
   userId: string;
@@ -16,7 +16,7 @@ export function getSubscriberId({
 
 export function useNotifications({
   userId,
-  companyId,
+  companyId
 }: {
   userId: string;
   companyId: string;
@@ -34,14 +34,14 @@ export function useNotifications({
         prevNotifications.map((notification) => {
           return {
             ...notification,
-            read: true,
+            read: true
           };
         })
       );
 
       headlessService.markAllMessagesAsRead({
         listener: () => {},
-        onError: () => {},
+        onError: () => {}
       });
     }
   };
@@ -55,7 +55,7 @@ export function useNotifications({
           if (notification._id === messageId) {
             return {
               ...notification,
-              read: true,
+              read: true
             };
           }
 
@@ -66,7 +66,7 @@ export function useNotifications({
       headlessService.markNotificationsAsRead({
         messageId: [messageId],
         listener: (result) => {},
-        onError: (error) => {},
+        onError: (error) => {}
       });
     }
   };
@@ -80,7 +80,7 @@ export function useNotifications({
         onSuccess: (response) => {
           setLoading(false);
           setNotifications(response.data);
-        },
+        }
       });
     }
   }, []);
@@ -92,12 +92,12 @@ export function useNotifications({
       setNotifications((prevNotifications) =>
         prevNotifications.map((notification) => ({
           ...notification,
-          seen: true,
+          seen: true
         }))
       );
       headlessService.markAllMessagesAsSeen({
         listener: () => {},
-        onError: () => {},
+        onError: () => {}
       });
     }
   };
@@ -113,7 +113,7 @@ export function useNotifications({
       headlessService.listenNotificationReceive({
         listener: () => {
           fetchNotifications();
-        },
+        }
       });
     }
   }, [headlessServiceRef.current]);
@@ -122,7 +122,7 @@ export function useNotifications({
     if (subscriberId && !headlessServiceRef.current) {
       const headlessService = new HeadlessService({
         applicationIdentifier: NOVU_APPLICATION_ID,
-        subscriberId,
+        subscriberId
       });
 
       headlessService.initializeSession({
@@ -131,7 +131,7 @@ export function useNotifications({
           headlessServiceRef.current = headlessService;
           fetchNotifications();
         },
-        onError: () => {},
+        onError: () => {}
       });
     }
   }, [fetchNotifications, subscriberId]);
@@ -144,6 +144,6 @@ export function useNotifications({
     hasUnseenNotifications: notifications.some(
       (notification) => !notification.seen
     ),
-    notifications,
+    notifications
   };
 }

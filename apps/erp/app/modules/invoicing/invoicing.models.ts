@@ -10,7 +10,7 @@ export const purchaseInvoiceLineType = [
   "Consumable",
   // "Fixed Asset",
   // "G/L Account",
-  "Comment",
+  "Comment"
 ] as const;
 
 export const purchaseInvoiceStatusType = [
@@ -22,7 +22,7 @@ export const purchaseInvoiceStatusType = [
   "Debit Note Issued",
   "Paid",
   "Voided",
-  "Overdue",
+  "Overdue"
 ] as const;
 
 export const salesInvoiceLineType = [
@@ -33,7 +33,7 @@ export const salesInvoiceLineType = [
   "Consumable",
   // "Fixed Asset",
   // "G/L Account",
-  "Comment",
+  "Comment"
 ] as const;
 
 export const salesInvoiceStatusType = [
@@ -45,7 +45,7 @@ export const salesInvoiceStatusType = [
   "Credit Note Issued",
   "Paid",
   "Voided",
-  "Overdue",
+  "Overdue"
 ] as const;
 
 export const purchaseInvoiceValidator = z.object({
@@ -63,7 +63,7 @@ export const purchaseInvoiceValidator = z.object({
   dateDue: zfd.text(z.string().optional()),
   supplierShippingCost: zfd.numeric(z.number().optional()),
   exchangeRate: zfd.numeric(z.number().optional()),
-  exchangeRateUpdatedAt: zfd.text(z.string().optional()),
+  exchangeRateUpdatedAt: zfd.text(z.string().optional())
 });
 
 export const purchaseInvoiceDeliveryValidator = z.object({
@@ -72,7 +72,7 @@ export const purchaseInvoiceDeliveryValidator = z.object({
   shippingMethodId: zfd.text(z.string().optional()),
   shippingTermId: zfd.text(z.string().optional()),
   supplierShippingCost: zfd.numeric(z.number().optional().default(0)),
-  customFields: z.any().optional(),
+  customFields: z.any().optional()
 });
 
 export const purchaseInvoiceLineValidator = z
@@ -81,8 +81,8 @@ export const purchaseInvoiceLineValidator = z
     invoiceId: z.string().min(1, { message: "Invoice is required" }),
     invoiceLineType: z.enum(methodItemType, {
       errorMap: (issue, ctx) => ({
-        message: "Type is required",
-      }),
+        message: "Type is required"
+      })
     }),
     purchaseOrderId: zfd.text(z.string().optional()),
     purchaseOrderLineId: zfd.text(z.string().optional()),
@@ -99,7 +99,7 @@ export const purchaseInvoiceLineValidator = z
     supplierTaxAmount: zfd.numeric(z.number().optional().default(0)),
     locationId: zfd.text(z.string().optional()),
     shelfId: zfd.text(z.string().optional()),
-    exchangeRate: zfd.numeric(z.number().optional()),
+    exchangeRate: zfd.numeric(z.number().optional())
   })
   .refine(
     (data) =>
@@ -110,7 +110,7 @@ export const purchaseInvoiceLineValidator = z
         : true,
     {
       message: "Item is required",
-      path: ["itemId"], // path of error
+      path: ["itemId"] // path of error
     }
   )
   .refine(
@@ -120,7 +120,7 @@ export const purchaseInvoiceLineValidator = z
         : true,
     {
       message: "Location is required",
-      path: ["locationId"], // path of error
+      path: ["locationId"] // path of error
     }
   );
 // .refine(
@@ -161,19 +161,19 @@ export const salesInvoiceValidator = z.object({
   dateDue: zfd.text(z.string().optional()),
   supplierShippingCost: zfd.numeric(z.number().optional()),
   exchangeRate: zfd.numeric(z.number().optional()),
-  exchangeRateUpdatedAt: zfd.text(z.string().optional()),
+  exchangeRateUpdatedAt: zfd.text(z.string().optional())
 });
 
 export const salesInvoicePostValidator = z
   .object({
     notification: z.enum(["Email", "None"]).optional(),
-    customerContact: zfd.text(z.string().optional()),
+    customerContact: zfd.text(z.string().optional())
   })
   .refine(
     (data) => (data.notification === "Email" ? data.customerContact : true),
     {
       message: "Customer contact is required for email",
-      path: ["customerContact"], // path of error
+      path: ["customerContact"] // path of error
     }
   );
 
@@ -183,7 +183,7 @@ export const salesInvoiceShipmentValidator = z.object({
   shippingMethodId: zfd.text(z.string().optional()),
   shippingTermId: zfd.text(z.string().optional()),
   shippingCost: zfd.numeric(z.number().optional().default(0)),
-  customFields: z.any().optional(),
+  customFields: z.any().optional()
 });
 
 export const salesInvoiceLineValidator = z
@@ -192,13 +192,13 @@ export const salesInvoiceLineValidator = z
     invoiceId: z.string().min(1, { message: "Invoice is required" }),
     invoiceLineType: z.enum(methodItemType, {
       errorMap: (issue, ctx) => ({
-        message: "Type is required",
-      }),
+        message: "Type is required"
+      })
     }),
     methodType: z.enum(methodType, {
       errorMap: (issue, ctx) => ({
-        message: "Method is required",
-      }),
+        message: "Method is required"
+      })
     }),
     purchaseOrderId: zfd.text(z.string().optional()),
     purchaseOrderLineId: zfd.text(z.string().optional()),
@@ -216,7 +216,7 @@ export const salesInvoiceLineValidator = z
     taxPercent: zfd.numeric(z.number().optional().default(0)),
     locationId: zfd.text(z.string().optional()),
     shelfId: zfd.text(z.string().optional()),
-    exchangeRate: zfd.numeric(z.number().optional()),
+    exchangeRate: zfd.numeric(z.number().optional())
   })
   .refine(
     (data) =>
@@ -227,7 +227,7 @@ export const salesInvoiceLineValidator = z
         : true,
     {
       message: "Item is required",
-      path: ["itemId"], // path of error
+      path: ["itemId"] // path of error
     }
   )
   .refine(
@@ -237,6 +237,6 @@ export const salesInvoiceLineValidator = z
         : true,
     {
       message: "Location is required",
-      path: ["locationId"], // path of error
+      path: ["locationId"] // path of error
     }
   );

@@ -4,14 +4,14 @@ import { flash } from "@carbon/auth/session.server";
 import { redirect, type ActionFunctionArgs } from "@vercel/remix";
 import {
   deleteIssueAssociation,
-  nonConformanceAssociationType,
+  nonConformanceAssociationType
 } from "~/modules/quality";
 import { path, requestReferrer } from "~/utils/path";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client } = await requirePermissions(request, {
-    delete: "quality",
+    delete: "quality"
   });
 
   const { id, type, associationId } = params;

@@ -5,13 +5,13 @@ import {
   LuHash,
   LuList,
   LuToggleLeft,
-  LuType,
+  LuType
 } from "react-icons/lu";
 import type { BatchPropertyDataType } from "./types";
 
 export function ConfiguratorDataTypeIcon({
   type,
-  className,
+  className
 }: {
   type: BatchPropertyDataType;
   className?: string;

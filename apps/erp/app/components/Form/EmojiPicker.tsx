@@ -6,7 +6,7 @@ import {
   Popover,
   PopoverContent,
   PopoverFooter,
-  PopoverTrigger,
+  PopoverTrigger
 } from "@carbon/react";
 import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";

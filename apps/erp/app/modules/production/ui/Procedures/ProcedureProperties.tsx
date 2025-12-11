@@ -6,7 +6,7 @@ import {
   TooltipContent,
   TooltipTrigger,
   VStack,
-  toast,
+  toast
 } from "@carbon/react";
 import { useFetcher, useParams } from "@remix-run/react";
 import { useCallback, useEffect } from "react";
@@ -49,7 +49,7 @@ const ProcedureProperties = () => {
       formData.append("value", value?.toString() ?? "");
       fetcher.submit(formData, {
         method: "post",
-        action: path.to.bulkUpdateProcedure,
+        action: path.to.bulkUpdateProcedure
       });
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -58,7 +58,7 @@ const ProcedureProperties = () => {
 
   const optimisticAssignment = useOptimisticAssignment({
     id: id,
-    table: "procedure",
+    table: "procedure"
   });
   const assignee =
     optimisticAssignment !== undefined
@@ -151,10 +151,10 @@ const ProcedureProperties = () => {
 
       <ValidatedForm
         defaultValues={{
-          status: routeData?.procedure?.status ?? undefined,
+          status: routeData?.procedure?.status ?? undefined
         }}
         validator={z.object({
-          status: z.string().min(1, { message: "Status is required" }),
+          status: z.string().min(1, { message: "Status is required" })
         })}
         className="w-full"
       >
@@ -169,7 +169,7 @@ const ProcedureProperties = () => {
             )}
             options={procedureStatus.map((status) => ({
               value: status,
-              label: <ProcedureStatus status={status} />,
+              label: <ProcedureStatus status={status} />
             }))}
             value={routeData?.procedure?.status ?? ""}
             onChange={(value) => {
@@ -181,10 +181,10 @@ const ProcedureProperties = () => {
 
       <ValidatedForm
         defaultValues={{
-          processId: routeData?.procedure?.processId ?? undefined,
+          processId: routeData?.procedure?.processId ?? undefined
         }}
         validator={z.object({
-          processId: z.string().min(1, { message: "Process is required" }),
+          processId: z.string().min(1, { message: "Process is required" })
         })}
         className="w-full"
       >
@@ -200,10 +200,10 @@ const ProcedureProperties = () => {
 
       <ValidatedForm
         defaultValues={{
-          tags: routeData?.procedure?.tags ?? [],
+          tags: routeData?.procedure?.tags ?? []
         }}
         validator={z.object({
-          tags: z.array(z.string()).optional(),
+          tags: z.array(z.string()).optional()
         })}
         className="w-full"
       >

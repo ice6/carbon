@@ -3,7 +3,7 @@ import { json, type ActionFunctionArgs } from "@vercel/remix";
 
 export async function action({ request }: ActionFunctionArgs) {
   const { client, userId } = await requirePermissions(request, {
-    update: "sales",
+    update: "sales"
   });
 
   const formData = await request.formData();
@@ -34,7 +34,7 @@ export async function action({ request }: ActionFunctionArgs) {
           .update({
             [field]: value ? value : null,
             updatedBy: userId,
-            updatedAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString()
           })
           .in("id", ids as string[])
       );

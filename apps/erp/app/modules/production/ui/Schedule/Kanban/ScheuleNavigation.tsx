@@ -8,7 +8,7 @@ import {
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
   DropdownMenuSeparator,
-  DropdownMenuTrigger,
+  DropdownMenuTrigger
 } from "@carbon/react";
 import { useLocation, useNavigate } from "@remix-run/react";
 import {
@@ -16,7 +16,7 @@ import {
   LuCalendarDays,
   LuChevronDown,
   LuCog,
-  LuList,
+  LuList
 } from "react-icons/lu";
 import { path } from "~/utils/path";
 

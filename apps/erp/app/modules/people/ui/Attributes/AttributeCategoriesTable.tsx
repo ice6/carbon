@@ -4,7 +4,7 @@ import {
   HStack,
   MenuIcon,
   MenuItem,
-  useDisclosure,
+  useDisclosure
 } from "@carbon/react";
 import { useNavigate } from "@remix-run/react";
 import type { ColumnDef } from "@tanstack/react-table";
@@ -57,7 +57,7 @@ const AttributeCategoriesTable = memo(
               )}{" "}
               <span>{row.original.name}</span>
             </Hyperlink>
-          ),
+          )
         },
         {
           header: "Attributes",
@@ -66,7 +66,7 @@ const AttributeCategoriesTable = memo(
               <LuListChecks />
               <span>
                 {Array.isArray(row.original.userAttribute)
-                  ? row.original.userAttribute?.length ?? 0
+                  ? (row.original.userAttribute?.length ?? 0)
                   : 0}{" "}
                 Attributes
               </span>
@@ -84,7 +84,7 @@ const AttributeCategoriesTable = memo(
                 Edit
               </Button>
             </HStack>
-          ),
+          )
         },
         {
           accessorKey: "public",
@@ -102,12 +102,12 @@ const AttributeCategoriesTable = memo(
               type: "static",
               options: [
                 { label: "Public", value: "true" },
-                { label: "Private", value: "false" },
-              ],
+                { label: "Private", value: "false" }
+              ]
             },
-            pluralHeader: "Visibilities",
-          },
-        },
+            pluralHeader: "Visibilities"
+          }
+        }
       ];
     }, [navigate, params]);
 

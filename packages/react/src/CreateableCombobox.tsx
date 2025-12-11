@@ -7,7 +7,7 @@ import {
   CommandGroup,
   CommandInput,
   CommandItem,
-  CommandTrigger,
+  CommandTrigger
 } from "./Command";
 import { HStack } from "./HStack";
 import { IconButton } from "./IconButton";
@@ -179,7 +179,7 @@ function VirtualizedCommand({
   setSearch,
   onChange,
   onCreateOption,
-  setOpen,
+  setOpen
 }: VirtualizedCommandProps) {
   const parentRef = useRef<HTMLDivElement>(null);
 
@@ -207,8 +207,8 @@ function VirtualizedCommand({
           ...filtered,
           {
             label: `Create`,
-            value: "create",
-          },
+            value: "create"
+          }
         ];
   }, [options, search]);
 
@@ -216,7 +216,7 @@ function VirtualizedCommand({
     count: filteredOptions.length,
     getScrollElement: () => parentRef.current,
     estimateSize: () => itemHeight,
-    overscan: 5,
+    overscan: 5
   });
 
   const items = virtualizer.getVirtualItems();
@@ -234,14 +234,14 @@ function VirtualizedCommand({
           ref={parentRef}
           className="overflow-auto scrollbar-thin scrollbar-track-transparent scrollbar-thumb-accent"
           style={{
-            height: `${Math.min(filteredOptions.length, 6) * itemHeight + 4}px`,
+            height: `${Math.min(filteredOptions.length, 6) * itemHeight + 4}px`
           }}
         >
           <div
             style={{
               height: `${virtualizer.getTotalSize()}px`,
               width: "100%",
-              position: "relative",
+              position: "relative"
             }}
           >
             {items.map((virtualRow) => {
@@ -273,7 +273,7 @@ function VirtualizedCommand({
                     left: 0,
                     width: "100%",
                     height: `${itemHeight}px`,
-                    transform: `translateY(${virtualRow.start}px)`,
+                    transform: `translateY(${virtualRow.start}px)`
                   }}
                   className="flex items-center justify-between min-w-0"
                 >

@@ -34,7 +34,7 @@ import {
   Tr,
   useDisclosure,
   VStack,
-  type JSONContent,
+  type JSONContent
 } from "@carbon/react";
 import { Await, useFetcher, useNavigate, useParams } from "@remix-run/react";
 import { Suspense, useEffect, useMemo, useState } from "react";
@@ -42,7 +42,7 @@ import {
   DeadlineIcon,
   FileIcon,
   FilePreview,
-  OperationStatusIcon,
+  OperationStatusIcon
 } from "~/components";
 import { useUrlParams, useUser } from "~/hooks";
 import type { productionEventType } from "~/services/models";
@@ -57,7 +57,7 @@ import type {
   ProductionEvent,
   StorageItem,
   TrackedEntity,
-  TrackedInput,
+  TrackedInput
 } from "~/services/types";
 import { path } from "~/utils/path";
 
@@ -73,7 +73,7 @@ import {
   formatDurationMilliseconds,
   formatRelativeTime,
   getItemReadableId,
-  labelSizes,
+  labelSizes
 } from "@carbon/utils";
 import type { PostgrestSingleResponse } from "@supabase/supabase-js";
 import { flushSync } from "react-dom";
@@ -98,7 +98,7 @@ import {
   LuQrCode,
   LuSquareUser,
   LuTimer,
-  LuTriangleAlert,
+  LuTriangleAlert
 } from "react-icons/lu";
 import { MethodIcon, TrackingTypeIcon } from "~/components/Icons";
 import { getFileType } from "~/services/operations.service";
@@ -111,7 +111,7 @@ import {
   IconButtonWithTooltip,
   StartStopButton,
   Times,
-  WorkTypeToggle,
+  WorkTypeToggle
 } from "./components/Controls";
 import { IssueModal } from "./components/IssueModal";
 import { ParametersListItem } from "./components/Parameter";
@@ -121,7 +121,7 @@ import { SerialSelectorModal } from "./components/SerialSelectorModal";
 import {
   DeleteStepRecordModal,
   RecordModal,
-  StepsListItem,
+  StepsListItem
 } from "./components/Step";
 import { TableSkeleton } from "./components/TableSkeleton";
 import { useFiles } from "./hooks/useFiles";
@@ -168,7 +168,7 @@ export const JobOperation = ({
   procedure,
   thumbnailPath,
   trackedEntities,
-  workCenter,
+  workCenter
 }: JobOperationProps) => {
   const [params, setParams] = useUrlParams();
 
@@ -185,7 +185,7 @@ export const JobOperation = ({
   const { carbon } = useCarbon();
   const {
     id: userId,
-    company: { id: companyId },
+    company: { id: companyId }
   } = useUser();
 
   const [items] = useItems();
@@ -227,13 +227,13 @@ export const JobOperation = ({
     setActiveTab,
     setEventType,
     setSelectedMaterial,
-    setupProductionEvent,
+    setupProductionEvent
   } = useOperation({
     operation: originalOperation,
     events,
     trackedEntities,
     pauseInterval: isModalOpen,
-    procedure,
+    procedure
   });
 
   const controlsHeight = useMemo(() => {
@@ -245,7 +245,7 @@ export const JobOperation = ({
   }, [
     operation.laborDuration,
     operation.machineDuration,
-    operation.setupDuration,
+    operation.setupDuration
   ]);
 
   const mode = useMode();
@@ -257,7 +257,7 @@ export const JobOperation = ({
           modelPath: operation.itemModelPath ?? job.modelPath,
           modelId: operation.itemModelId ?? job.modelId,
           modelName: operation.itemModelName ?? job.modelName,
-          modelSize: operation.itemModelSize ?? job.modelSize,
+          modelSize: operation.itemModelSize ?? job.modelSize
         }
       : null;
 
@@ -304,7 +304,7 @@ export const JobOperation = ({
             name: `${action.actionTypeName} - ${action.nonConformanceId}`,
             type: "Inspection" as const,
             sortOrder: ++maxSortOrder,
-            nonConformanceActionId: actionId,
+            nonConformanceActionId: actionId
           });
         }
 
@@ -312,7 +312,7 @@ export const JobOperation = ({
           fetcher.submit(JSON.stringify(newSteps), {
             method: "post",
             action: path.to.inspectionSteps,
-            encType: "application/json",
+            encType: "application/json"
           });
         }
       } catch (error) {
@@ -331,7 +331,7 @@ export const JobOperation = ({
     nonConformanceActions,
     procedure,
     companyId,
-    userId,
+    userId
   ]);
 
   const [selectedStep, setSelectedStep] = useState<JobOperationStep | null>(
@@ -362,7 +362,7 @@ export const JobOperation = ({
     zpl?: boolean,
     {
       labelSize,
-      trackedEntityId,
+      trackedEntityId
     }: { labelSize?: string; trackedEntityId?: string } = {}
   ) => {
     if (!window) return;
@@ -373,7 +373,7 @@ export const JobOperation = ({
         window.location.origin +
           path.to.file.operationLabelsZpl(operationId, {
             labelSize,
-            trackedEntityId,
+            trackedEntityId
           }),
         "_blank"
       );
@@ -382,7 +382,7 @@ export const JobOperation = ({
         window.location.origin +
           path.to.file.operationLabelsPdf(operationId, {
             labelSize,
-            trackedEntityId,
+            trackedEntityId
           }),
         "_blank"
       );
@@ -402,7 +402,7 @@ export const JobOperation = ({
     callback: () => {
       completeFetcher.load(path.to.endOperation(operation.id));
     },
-    active: !!kanban?.id,
+    active: !!kanban?.id
   });
 
   return (
@@ -531,10 +531,10 @@ export const JobOperation = ({
                   {["ASAP", "No Deadline"].includes(operation.jobDeadlineType)
                     ? operation.jobDeadlineType
                     : operation.jobDueDate
-                    ? `Due ${formatRelativeTime(
-                        convertDateStringToIsoString(operation.jobDueDate)
-                      )}`
-                    : "–"}
+                      ? `Due ${formatRelativeTime(
+                          convertDateStringToIsoString(operation.jobDueDate)
+                        )}`
+                      : "–"}
                 </span>
               </HStack>
             )}
@@ -566,7 +566,7 @@ export const JobOperation = ({
                       (progress.machine ?? 0)) /
                       Math.max(operation.quantityComplete, 1),
                     {
-                      style: "short",
+                      style: "short"
                     }
                   )}
                 </Heading>
@@ -627,10 +627,12 @@ export const JobOperation = ({
                         )
                           ? operation.jobDeadlineType
                           : operation.jobDueDate
-                          ? `Due ${formatRelativeTime(
-                              convertDateStringToIsoString(operation.jobDueDate)
-                            )}`
-                          : "–"}
+                            ? `Due ${formatRelativeTime(
+                                convertDateStringToIsoString(
+                                  operation.jobDueDate
+                                )
+                              )}`
+                            : "–"}
                       </Heading>
                       <span className="text-muted-foreground text-sm">
                         {operation.jobDueDate
@@ -669,7 +671,7 @@ export const JobOperation = ({
                             <div
                               className="prose dark:prose-invert prose-sm max-w-none"
                               dangerouslySetInnerHTML={{
-                                __html: generateHTML(action.notes),
+                                __html: generateHTML(action.notes)
                               }}
                             />
                           </div>
@@ -920,15 +922,18 @@ export const JobOperation = ({
                       const kitMaterialsByParentId =
                         resolvedMaterials?.materials
                           .filter((m) => m.isKitComponent ?? false)
-                          .reduce((acc, material) => {
-                            if (material.kitParentId) {
-                              if (!acc[material.kitParentId]) {
-                                acc[material.kitParentId] = [];
+                          .reduce(
+                            (acc, material) => {
+                              if (material.kitParentId) {
+                                if (!acc[material.kitParentId]) {
+                                  acc[material.kitParentId] = [];
+                                }
+                                acc[material.kitParentId].push(material);
                               }
-                              acc[material.kitParentId].push(material);
-                            }
-                            return acc;
-                          }, {} as Record<string, JobMaterial[]>);
+                              return acc;
+                            },
+                            {} as Record<string, JobMaterial[]>
+                          );
 
                       return (
                         <>
@@ -1120,8 +1125,8 @@ export const JobOperation = ({
                                                   kittedChildren.length - 1
                                                   ? "border-b"
                                                   : index === 0
-                                                  ? "border-t"
-                                                  : "",
+                                                    ? "border-t"
+                                                    : "",
                                                 !isRelatedToOperation &&
                                                   "opacity-50 hover:opacity-100"
                                               )}
@@ -1488,8 +1493,8 @@ export const JobOperation = ({
                               label: size.name,
                               onClick: () =>
                                 navigateToTrackingLabels(!!size.zpl, {
-                                  labelSize: size.id,
-                                }),
+                                  labelSize: size.id
+                                })
                             }))}
                             // TODO: if we knew the preferred label size, we could use that here
                             onClick={() => navigateToTrackingLabels(false)}
@@ -1541,7 +1546,7 @@ export const JobOperation = ({
                                     variant="secondary"
                                     onClick={() => {
                                       navigateToTrackingLabels(false, {
-                                        trackedEntityId: entity.id,
+                                        trackedEntityId: entity.id
                                       });
                                     }}
                                   />
@@ -1558,7 +1563,7 @@ export const JobOperation = ({
                                         setActiveStep(entityIndex);
                                       }
                                       setParams({
-                                        trackedEntityId: entity.id,
+                                        trackedEntityId: entity.id
                                       });
                                     }}
                                   >
@@ -1823,7 +1828,7 @@ export const JobOperation = ({
                 dangerouslySetInnerHTML={{
                   __html: generateHTML(
                     (operation.workInstruction ?? {}) as JSONContent
-                  ),
+                  )
                 }}
               />
             </ScrollArea>
@@ -1923,10 +1928,12 @@ export const JobOperation = ({
                         )
                           ? operation.jobDeadlineType
                           : operation.jobDueDate
-                          ? `Due ${formatRelativeTime(
-                              convertDateStringToIsoString(operation.jobDueDate)
-                            )}`
-                          : "–"}
+                            ? `Due ${formatRelativeTime(
+                                convertDateStringToIsoString(
+                                  operation.jobDueDate
+                                )
+                              )}`
+                            : "–"}
                       </span>
                     </HStack>
                   </VStack>
@@ -2196,7 +2203,7 @@ export const JobOperation = ({
               setActiveStep(entityIndex);
             }
             setParams({
-              trackedEntityId: entity.id,
+              trackedEntityId: entity.id
             });
             serialModal.onClose();
           }}

@@ -5,7 +5,7 @@ import {
   useEffect,
   useMemo,
   useRef,
-  useState,
+  useState
 } from "react";
 
 import { Button, type ButtonProps } from "./Button";
@@ -40,18 +40,18 @@ const ActionBar = ({
   children,
   containerRef,
   maxWidth = 900,
-  offsetBottom = 50,
+  offsetBottom = 50
 }: Omit<ActionBarProps, "open">) => {
   const { ref } = useActionBar({
     containerRef,
-    offsetBottom,
+    offsetBottom
   });
 
   return (
     <div
       ref={ref}
       style={{
-        maxWidth,
+        maxWidth
       }}
       className={cn(
         "tw-flex tw-text-white tw-bg-light-900 dark:tw-text-black dark:bg-light-50 tw-w-auto tw-items-center tw-fixed tw-shadow-xl tw-rounded-md tw-p-2 tw-cursor-move tw-z-50",
@@ -176,7 +176,7 @@ const usePersistentCallback = (f: Function) => {
 const useDraggable = ({
   offsetBottom,
   boundingRect,
-  onDrag,
+  onDrag
 }: {
   offsetBottom: number;
   boundingRect?: DOMRect;
@@ -186,13 +186,13 @@ const useDraggable = ({
   const [isDragging, setIsDragging] = useState(false);
   const [position, setPosition] = useState<Position>({
     x: Infinity,
-    y: Infinity,
+    y: Infinity
   });
   const [dimensions, setDimensions] = useState<Dimensions>({
     height: 0,
     width: 0,
     screenHeight: screenDimensions.y,
-    screenWidth: screenDimensions.x,
+    screenWidth: screenDimensions.x
   });
 
   const ref = useRef<HTMLElement>();
@@ -216,7 +216,7 @@ const useDraggable = ({
 
       const newPosition = {
         x: posX,
-        y: posY - offsetBottom,
+        y: posY - offsetBottom
       };
 
       setPosition(newPosition);
@@ -230,7 +230,7 @@ const useDraggable = ({
       height,
       width,
       screenHeight: screenDimensions.y,
-      screenWidth: screenDimensions.x,
+      screenWidth: screenDimensions.x
     });
 
     // Throttle the updatePosition function
@@ -266,7 +266,7 @@ const useDraggable = ({
         width: dimensions.width,
         height: dimensions.height,
         screenHeight: dimensions.screenHeight,
-        screenWidth: dimensions.screenWidth,
+        screenWidth: dimensions.screenWidth
       })(delta);
     },
     [
@@ -274,7 +274,7 @@ const useDraggable = ({
       dimensions.width,
       dimensions.height,
       dimensions.screenHeight,
-      dimensions.screenWidth,
+      dimensions.screenWidth
     ]
   );
 
@@ -343,13 +343,13 @@ const useDraggable = ({
 const useWindowDimensions = () => {
   const [windowDimensions, setWindowDimensions] = useState<Position>({
     x: window.innerWidth,
-    y: window.innerHeight,
+    y: window.innerHeight
   });
 
   const onResize = useCallback(() => {
     setWindowDimensions({
       x: window.innerWidth,
-      y: window.innerHeight,
+      y: window.innerHeight
     });
   }, []);
 
@@ -368,14 +368,14 @@ type UseActionBarProps = {
 
 export default function useActionBar({
   offsetBottom = 50,
-  containerRef,
+  containerRef
 }: UseActionBarProps) {
   const onDrag = useCallback(
     ({ height, width, screenHeight, screenWidth }: Dimensions) =>
       ({ x, y }: Position) => {
         return {
           x: Math.max(0, Math.min(x, screenWidth - width)),
-          y: Math.max(0, Math.min(y, screenHeight - height)),
+          y: Math.max(0, Math.min(y, screenHeight - height))
         };
       },
     []
@@ -389,12 +389,12 @@ export default function useActionBar({
   const [ref, isDragging, position] = useDraggable({
     boundingRect,
     offsetBottom,
-    onDrag,
+    onDrag
   });
 
   return {
     ref,
     isDragging,
-    position,
+    position
   };
 }

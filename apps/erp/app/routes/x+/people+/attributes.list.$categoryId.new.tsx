@@ -23,7 +23,7 @@ export default function NewAttributeRoute() {
         // @ts-ignore
         attributeDataTypeId: DataType.Text.toString(),
         userAttributeCategoryId: categoryId,
-        canSelfManage: false,
+        canSelfManage: false
       }}
       dataTypes={attributesRouteData?.dataTypes ?? []}
       onClose={onClose}

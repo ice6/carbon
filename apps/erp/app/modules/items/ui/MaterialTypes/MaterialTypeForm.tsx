@@ -10,12 +10,12 @@ import {
   ModalDrawerProvider,
   ModalDrawerTitle,
   VStack,
-  toast,
+  toast
 } from "@carbon/react";
 import { useFetcher } from "@remix-run/react";
 import type { PostgrestResponse } from "@supabase/supabase-js";
 import { useEffect, useState } from "react";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import { Hidden, Input, InputControlled, Submit } from "~/components/Form";
 import Shape from "~/components/Form/Shape";
 import Substance from "~/components/Form/Substance";
@@ -34,7 +34,7 @@ const MaterialTypeForm = ({
   initialValues,
   open = true,
   type = "drawer",
-  onClose,
+  onClose
 }: MaterialTypeFormProps) => {
   const permissions = usePermissions();
   const fetcher = useFetcher<PostgrestResponse<{ id: string; name: string }>>();

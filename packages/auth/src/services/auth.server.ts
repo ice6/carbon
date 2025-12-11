@@ -1,7 +1,7 @@
 import type { Database } from "@carbon/database";
 import type {
   AuthSession as SupabaseAuthSession,
-  SupabaseClient,
+  SupabaseClient
 } from "@supabase/supabase-js";
 import { redirect } from "@vercel/remix";
 import { REFRESH_ACCESS_TOKEN_THRESHOLD, VERCEL_URL } from "../config/env";
@@ -10,7 +10,7 @@ import { path } from "../utils/path";
 import {
   destroyAuthSession,
   flash,
-  requireAuthSession,
+  requireAuthSession
 } from "./session.server";
 import { getCompaniesForUser } from "./users";
 import { getUserClaims } from "./users.server";
@@ -29,8 +29,8 @@ export async function createEmailAuthAccount(
     password,
     email_confirm: true,
     app_metadata: {
-      ...meta,
-    },
+      ...meta
+    }
   });
 
   if (!data.user || error) return null;
@@ -44,7 +44,7 @@ export async function deleteAuthAccount(
 ) {
   const [supabaseDelete, carbonDelete] = await Promise.all([
     client.auth.admin.deleteUser(userId),
-    client.from("user").delete().eq("id", userId),
+    client.from("user").delete().eq("id", userId)
   ]);
 
   if (supabaseDelete.error || carbonDelete.error) return null;
@@ -53,9 +53,8 @@ export async function deleteAuthAccount(
 }
 
 export async function getAuthAccountByAccessToken(accessToken: string) {
-  const { data, error } = await getCarbonServiceRole().auth.getUser(
-    accessToken
-  );
+  const { data, error } =
+    await getCarbonServiceRole().auth.getUser(accessToken);
 
   if (!data.user || error) return null;
 
@@ -91,7 +90,7 @@ function makeAuthSession(
     email: supabaseSession.user.email,
     expiresIn:
       (supabaseSession.expires_in ?? 3000) - REFRESH_ACCESS_TOKEN_THRESHOLD,
-    expiresAt: supabaseSession.expires_at ?? -1,
+    expiresAt: supabaseSession.expires_at ?? -1
   };
 }
 
@@ -123,14 +122,13 @@ export async function requirePermissions(
         client,
         companyId,
         userId,
-        email: "",
+        email: ""
       };
     }
   }
 
-  const { accessToken, companyId, email, userId } = await requireAuthSession(
-    request
-  );
+  const { accessToken, companyId, email, userId } =
+    await requireAuthSession(request);
 
   const myClaims = await getUserClaims(userId, companyId);
 
@@ -143,7 +141,7 @@ export async function requirePermissions(
           : getCarbon(accessToken),
       companyId,
       email,
-      userId,
+      userId
     };
   }
 
@@ -197,13 +195,13 @@ export async function requirePermissions(
         : getCarbon(accessToken),
     companyId,
     email,
-    userId,
+    userId
   };
 }
 
 export async function resetPassword(accessToken: string, password: string) {
   const { error } = await getCarbon(accessToken).auth.updateUser({
-    password,
+    password
   });
 
   if (error) return null;
@@ -217,7 +215,7 @@ export async function sendInviteByEmail(
 ) {
   return getCarbonServiceRole().auth.admin.inviteUserByEmail(email, {
     redirectTo: `${VERCEL_URL}`,
-    data,
+    data
   });
 }
 
@@ -225,8 +223,8 @@ export async function sendMagicLink(email: string) {
   return getCarbonServiceRole().auth.signInWithOtp({
     email,
     options: {
-      emailRedirectTo: `${VERCEL_URL}`,
-    },
+      emailRedirectTo: `${VERCEL_URL}`
+    }
   });
 }
 
@@ -234,7 +232,7 @@ export async function signInWithEmail(email: string, password: string) {
   const client = getCarbonServiceRole();
   const { data, error } = await client.auth.signInWithPassword({
     email,
-    password,
+    password
   });
 
   if (!data.session || error) return null;
@@ -252,7 +250,7 @@ export async function refreshAccessToken(
   const client = getCarbonServiceRole();
 
   const { data, error } = await client.auth.refreshSession({
-    refresh_token: refreshToken,
+    refresh_token: refreshToken
   });
 
   if (!data.session || error) return null;

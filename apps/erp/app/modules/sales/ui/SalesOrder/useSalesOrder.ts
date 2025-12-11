@@ -30,6 +30,6 @@ export const useSalesOrder = () => {
   return {
     edit,
     invoice,
-    ship,
+    ship
   };
 };

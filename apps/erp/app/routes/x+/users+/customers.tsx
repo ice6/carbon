@@ -13,13 +13,13 @@ import { getGenericQueryFilters } from "~/utils/query";
 
 export const handle: Handle = {
   breadcrumb: "Customers",
-  to: path.to.customerAccounts,
+  to: path.to.customerAccounts
 };
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
     view: "users",
-    bypassRls: true,
+    bypassRls: true
   });
 
   const url = new URL(request.url);
@@ -31,7 +31,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
   const [customers, customerTypes] = await Promise.all([
     getCustomers(client, companyId, { search, limit, offset, sorts, filters }),
-    getCustomerTypes(client, companyId),
+    getCustomerTypes(client, companyId)
   ]);
 
   if (customers.error) {
@@ -44,7 +44,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   return json({
     count: customers.count ?? 0,
     customers: customers.data ?? [],
-    customerTypes: customerTypes.data ?? [],
+    customerTypes: customerTypes.data ?? []
   });
 }
 

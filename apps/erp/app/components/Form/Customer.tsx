@@ -31,7 +31,7 @@ const Customer = (props: CustomerSelectProps) => {
     () =>
       customers.map((c) => ({
         value: c.id,
-        label: c.name,
+        label: c.name
       })) ?? [],
     [customers]
   );
@@ -62,7 +62,7 @@ const Customer = (props: CustomerSelectProps) => {
           initialValues={{
             name: created,
             currencyCode: company.baseCurrencyCode,
-            taxPercent: 0,
+            taxPercent: 0
           }}
         />
       )}

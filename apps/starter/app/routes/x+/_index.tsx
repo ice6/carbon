@@ -13,7 +13,7 @@ export default function AppIndexRoute() {
     () =>
       new Intl.DateTimeFormat(locale, {
         dateStyle: "full",
-        timeZone: getLocalTimeZone(),
+        timeZone: getLocalTimeZone()
       }),
     [locale]
   );

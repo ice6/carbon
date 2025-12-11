@@ -9,7 +9,7 @@ import {
   CardTitle,
   VStack,
   cn,
-  toast,
+  toast
 } from "@carbon/react";
 import { getLocalTimeZone, today } from "@internationalized/date";
 import { useFetcher } from "@remix-run/react";
@@ -27,14 +27,14 @@ import {
   Submit,
   Supplier,
   SupplierContact,
-  SupplierLocation,
+  SupplierLocation
 } from "~/components/Form";
 import ExchangeRate from "~/components/Form/ExchangeRate";
 import { usePermissions, useUser } from "~/hooks";
 import { path } from "~/utils/path";
 import {
   purchaseOrderTypeType,
-  supplierQuoteValidator,
+  supplierQuoteValidator
 } from "../../purchasing.models";
 
 type SupplierQuoteFormValues = z.infer<typeof supplierQuoteValidator>;
@@ -52,7 +52,7 @@ const SupplierQuoteForm = ({ initialValues }: SupplierQuoteFormProps) => {
     currencyCode: string | undefined;
   }>({
     id: initialValues.supplierId,
-    currencyCode: initialValues.currencyCode,
+    currencyCode: initialValues.currencyCode
   });
 
   const isDisabled = initialValues?.status !== "Draft";
@@ -76,7 +76,7 @@ const SupplierQuoteForm = ({ initialValues }: SupplierQuoteFormProps) => {
         // update the supplier immediately
         setSupplier({
           id: newValue?.value,
-          currencyCode: undefined,
+          currencyCode: undefined
         });
       });
 
@@ -90,13 +90,13 @@ const SupplierQuoteForm = ({ initialValues }: SupplierQuoteFormProps) => {
       } else {
         setSupplier((prev) => ({
           ...prev,
-          currencyCode: data.currencyCode ?? undefined,
+          currencyCode: data.currencyCode ?? undefined
         }));
       }
     } else {
       setSupplier({
         id: undefined,
-        currencyCode: undefined,
+        currencyCode: undefined
       });
     }
   };
@@ -177,7 +177,7 @@ const SupplierQuoteForm = ({ initialValues }: SupplierQuoteFormProps) => {
                   if (newValue?.value) {
                     setSupplier((prevSupplier) => ({
                       ...prevSupplier,
-                      currencyCode: newValue.value,
+                      currencyCode: newValue.value
                     }));
                   }
                 }}
@@ -201,7 +201,7 @@ const SupplierQuoteForm = ({ initialValues }: SupplierQuoteFormProps) => {
                         method: "post",
                         action: path.to.quoteExchangeRate(
                           initialValues.id ?? ""
-                        ),
+                        )
                       });
                     }}
                   />
@@ -211,7 +211,7 @@ const SupplierQuoteForm = ({ initialValues }: SupplierQuoteFormProps) => {
                 label="Type"
                 options={purchaseOrderTypeType.map((type) => ({
                   label: type,
-                  value: type,
+                  value: type
                 }))}
               />
               <CustomFormFields table="supplierQuote" />

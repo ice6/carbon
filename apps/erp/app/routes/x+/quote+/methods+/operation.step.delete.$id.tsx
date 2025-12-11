@@ -7,7 +7,7 @@ import { deleteQuoteOperationStep } from "~/modules/sales";
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client } = await requirePermissions(request, {
-    delete: "parts",
+    delete: "parts"
   });
 
   const { id } = params;
@@ -19,7 +19,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   if (deleteOperationStep.error) {
     return json(
       {
-        id: null,
+        id: null
       },
       await flash(
         request,

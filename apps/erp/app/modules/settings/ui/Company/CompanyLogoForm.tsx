@@ -6,7 +6,7 @@ import {
   HStack,
   VStack,
   cn,
-  toast,
+  toast
 } from "@carbon/react";
 import { useSubmit } from "@remix-run/react";
 import { type ChangeEvent } from "react";
@@ -22,7 +22,7 @@ interface CompanyLogoFormProps {
 const CompanyLogoForm = ({
   company,
   mode,
-  icon = false,
+  icon = false
 }: CompanyLogoFormProps) => {
   const { carbon } = useCarbon();
   const submit = useSubmit();
@@ -41,7 +41,7 @@ const CompanyLogoForm = ({
       dark: company.logoDark,
       light: company.logoLight,
       "dark-icon": company.logoDarkIcon,
-      "light-icon": company.logoLightIcon,
+      "light-icon": company.logoLightIcon
     };
 
     const key = `${mode}${icon ? "-icon" : ""}` as keyof typeof logos;
@@ -64,7 +64,7 @@ const CompanyLogoForm = ({
           `${SUPABASE_URL}/functions/v1/image-resizer`,
           {
             method: "POST",
-            body: formData,
+            body: formData
           }
         );
 
@@ -74,7 +74,7 @@ const CompanyLogoForm = ({
 
         const blob = await response.blob();
         const resizedFile = new File([blob], "logo.png", {
-          type: "image/png",
+          type: "image/png"
         });
 
         logo = resizedFile;
@@ -90,7 +90,7 @@ const CompanyLogoForm = ({
         .from("public")
         .upload(logoPath, logo, {
           cacheControl: "0",
-          upsert: true,
+          upsert: true
         });
 
       if (imageUpload.error) {
@@ -125,7 +125,7 @@ const CompanyLogoForm = ({
     if (logoUrl) formData.append("path", logoUrl);
     submit(formData, {
       method: "post",
-      action: path.to.logos,
+      action: path.to.logos
     });
   };
 

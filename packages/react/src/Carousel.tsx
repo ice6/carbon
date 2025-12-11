@@ -1,7 +1,7 @@
 "use client";
 
 import useEmblaCarousel, {
-  type UseEmblaCarouselType,
+  type UseEmblaCarouselType
 } from "embla-carousel-react";
 
 import type { ComponentProps, HTMLAttributes, KeyboardEvent } from "react";
@@ -11,7 +11,7 @@ import {
   useCallback,
   useContext,
   useEffect,
-  useState,
+  useState
 } from "react";
 import { LuArrowLeft, LuArrowRight } from "react-icons/lu";
 import { IconButton } from "./IconButton";
@@ -69,7 +69,7 @@ const Carousel = forwardRef<
     const [carouselRef, api] = useEmblaCarousel(
       {
         ...opts,
-        axis: orientation === "horizontal" ? "x" : "y",
+        axis: orientation === "horizontal" ? "x" : "y"
       },
       plugins
     );
@@ -139,7 +139,7 @@ const Carousel = forwardRef<
           scrollPrev,
           scrollNext,
           canScrollPrev,
-          canScrollNext,
+          canScrollNext
         }}
       >
         <div
@@ -251,5 +251,5 @@ export {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-  type CarouselApi,
+  type CarouselApi
 };

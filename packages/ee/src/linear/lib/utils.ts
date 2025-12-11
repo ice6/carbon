@@ -7,7 +7,7 @@ export enum LinearWorkStateType {
   Unstarted = "unstarted",
   Started = "started",
   Completed = "completed",
-  Canceled = "canceled",
+  Canceled = "canceled"
 }
 
 type CarbonTaskStatus = Database["public"]["Enums"]["nonConformanceTaskStatus"];

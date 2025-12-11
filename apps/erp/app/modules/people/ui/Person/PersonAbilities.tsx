@@ -9,7 +9,7 @@ import { FaThumbsUp } from "react-icons/fa";
 import {
   AbilityEmployeeStatus,
   getTrainingStatus,
-  type EmployeeAbility,
+  type EmployeeAbility
 } from "~/modules/resources/types";
 import { path } from "~/utils/path";
 
@@ -26,16 +26,16 @@ const AbilityIcons: Record<
 > = {
   [AbilityEmployeeStatus.Complete]: {
     icon: BsCheckLg,
-    description: "Fully trained for",
+    description: "Fully trained for"
   },
   [AbilityEmployeeStatus.InProgress]: {
     icon: BsBarChartFill,
-    description: "Currently training for",
+    description: "Currently training for"
   },
   [AbilityEmployeeStatus.NotStarted]: {
     icon: FaThumbsUp,
-    description: "Not started training for",
-  },
+    description: "Not started training for"
+  }
 };
 
 const PersonAbilities = ({ abilities }: PersonAbilitiesProps) => {
@@ -75,7 +75,7 @@ const PersonAbilities = ({ abilities }: PersonAbilitiesProps) => {
                           "bg-blue-400 text-white dark:bg-blue-500 dark:text-white":
                             abilityStatus === AbilityEmployeeStatus.InProgress,
                           "bg-zinc-200 text-zinc-700 dark:bg-zinc-700 dark:text-zinc-200":
-                            abilityStatus === AbilityEmployeeStatus.NotStarted,
+                            abilityStatus === AbilityEmployeeStatus.NotStarted
                         }
                       )}
                     >
@@ -99,7 +99,7 @@ const PersonAbilities = ({ abilities }: PersonAbilitiesProps) => {
                       <p className="text-sm text-muted-foreground">
                         {formatDate(employeeAbility.lastTrainingDate, {
                           month: "short",
-                          year: "numeric",
+                          year: "numeric"
                         })}
                       </p>
                     </div>

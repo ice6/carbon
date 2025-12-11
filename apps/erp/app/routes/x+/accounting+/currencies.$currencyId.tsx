@@ -10,7 +10,7 @@ import { flash } from "@carbon/auth/session.server";
 import {
   currencyValidator,
   getCurrency,
-  upsertCurrency,
+  upsertCurrency
 } from "~/modules/accounting";
 import { CurrencyForm } from "~/modules/accounting/ui/Currencies";
 import { getCustomFields, setCustomFields } from "~/utils/form";
@@ -20,7 +20,7 @@ import { currenciesQuery } from "~/utils/react-query";
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
     view: "accounting",
-    role: "employee",
+    role: "employee"
   });
 
   const { currencyId } = params;
@@ -29,14 +29,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   const currency = await getCurrency(client, currencyId);
 
   return json({
-    currency: currency?.data ?? null,
+    currency: currency?.data ?? null
   });
 }
 
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    update: "accounting",
+    update: "accounting"
   });
 
   const formData = await request.formData();
@@ -54,7 +54,7 @@ export async function action({ request }: ActionFunctionArgs) {
     ...data,
     companyId,
     customFields: setCustomFields(formData),
-    updatedBy: userId,
+    updatedBy: userId
   });
 
   if (updateCurrency.error) {
@@ -87,7 +87,7 @@ export default function EditCurrencysRoute() {
     code: currency?.code ?? "",
     exchangeRate: currency?.exchangeRate ?? 1,
     decimalPlaces: currency?.decimalPlaces ?? 2,
-    ...getCustomFields(currency?.customFields),
+    ...getCustomFields(currency?.customFields)
   };
 
   return <CurrencyForm key={initialValues.id} initialValues={initialValues} />;

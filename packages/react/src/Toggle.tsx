@@ -14,18 +14,18 @@ const toggleVariants = cva(
       variant: {
         default: "bg-transparent",
         outline:
-          "border border-input bg-transparent hover:bg-primary/80 hover:text-primary-foreground",
+          "border border-input bg-transparent hover:bg-primary/80 hover:text-primary-foreground"
       },
       size: {
         default: "h-10 px-3",
         sm: "h-9 px-2.5",
-        lg: "h-11 px-5",
-      },
+        lg: "h-11 px-5"
+      }
     },
     defaultVariants: {
       variant: "default",
-      size: "default",
-    },
+      size: "default"
+    }
   }
 );
 

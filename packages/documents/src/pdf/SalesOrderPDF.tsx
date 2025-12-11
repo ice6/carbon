@@ -10,7 +10,7 @@ import {
   getLineDescriptionDetails,
   getLineTaxesAndFees,
   getLineTotal,
-  getTotal,
+  getTotal
 } from "../utils/sales-order";
 import { getCurrencyFormatter } from "../utils/shared";
 import { Header, Note, Summary, Template } from "./components";
@@ -29,16 +29,16 @@ interface SalesOrderPDFProps extends PDF {
 const tw = createTw({
   theme: {
     fontFamily: {
-      sans: ["Helvetica", "Arial", "sans-serif"],
+      sans: ["Helvetica", "Arial", "sans-serif"]
     },
     extend: {
       colors: {
         gray: {
-          500: "#7d7d7d",
-        },
-      },
-    },
-  },
+          500: "#7d7d7d"
+        }
+      }
+    }
+  }
 });
 
 const SalesOrderPDF = ({
@@ -52,7 +52,7 @@ const SalesOrderPDF = ({
   paymentTerms,
   shippingMethods,
   thumbnails,
-  title = "Sales Order",
+  title = "Sales Order"
 }: SalesOrderPDFProps) => {
   const {
     customerName,
@@ -68,7 +68,7 @@ const SalesOrderPDF = ({
     paymentCity,
     paymentStateProvince,
     paymentPostalCode,
-    paymentCountryName,
+    paymentCountryName
   } = salesOrderLocations;
 
   const currencyCode = salesOrder.currencyCode ?? company.baseCurrencyCode;
@@ -80,7 +80,7 @@ const SalesOrderPDF = ({
       meta={{
         author: meta?.author ?? "Carbon",
         keywords: meta?.keywords ?? "sales order",
-        subject: meta?.subject ?? "Sales Order",
+        subject: meta?.subject ?? "Sales Order"
       }}
     >
       <View>
@@ -90,12 +90,12 @@ const SalesOrderPDF = ({
           items={[
             {
               label: "Date",
-              value: salesOrder?.orderDate,
+              value: salesOrder?.orderDate
             },
             {
               label: "SO #",
-              value: salesOrder?.salesOrderId,
-            },
+              value: salesOrder?.salesOrderId
+            }
           ]}
         />
         <View style={tw("flex flex-row justify-between mb-5")}>

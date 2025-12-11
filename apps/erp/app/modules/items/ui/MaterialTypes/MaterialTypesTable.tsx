@@ -9,7 +9,7 @@ import {
   LuPencil,
   LuShapes,
   LuTag,
-  LuTrash,
+  LuTrash
 } from "react-icons/lu";
 import { Hyperlink, New, Table } from "~/components";
 import { Enumerable } from "~/components/Enumerable";
@@ -45,10 +45,10 @@ const MaterialTypesTable = memo(({ data, count }: MaterialTypesTableProps) => {
             type: "static",
             options: substances.map((substance) => ({
               label: <Enumerable value={substance.label} />,
-              value: substance.label,
-            })),
-          },
-        },
+              value: substance.label
+            }))
+          }
+        }
       },
       {
         accessorKey: "formName",
@@ -60,10 +60,10 @@ const MaterialTypesTable = memo(({ data, count }: MaterialTypesTableProps) => {
             type: "static",
             options: shapes.map((shape) => ({
               label: <Enumerable value={shape.label} />,
-              value: shape.label,
-            })),
-          },
-        },
+              value: shape.label
+            }))
+          }
+        }
       },
       {
         accessorKey: "name",
@@ -81,8 +81,8 @@ const MaterialTypesTable = memo(({ data, count }: MaterialTypesTableProps) => {
             </Hyperlink>
           ),
         meta: {
-          icon: <LuTag />,
-        },
+          icon: <LuTag />
+        }
       },
       {
         accessorKey: "id",
@@ -94,8 +94,8 @@ const MaterialTypesTable = memo(({ data, count }: MaterialTypesTableProps) => {
           </div>
         ),
         meta: {
-          icon: <LuKeySquare />,
-        },
+          icon: <LuKeySquare />
+        }
       },
       {
         accessorKey: "companyId",
@@ -108,9 +108,9 @@ const MaterialTypesTable = memo(({ data, count }: MaterialTypesTableProps) => {
           );
         },
         meta: {
-          icon: <LuCircleCheck />,
-        },
-      },
+          icon: <LuCircleCheck />
+        }
+      }
     ];
     return [...defaultColumns];
   }, [params, substances, shapes]);

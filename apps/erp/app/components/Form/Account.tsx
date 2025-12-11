@@ -26,7 +26,7 @@ const Account = ({ classes, ...props }: AccountSelectProps) => {
       accountFetcher.data?.data
         ? accountFetcher.data?.data.map((c) => ({
             value: c.number,
-            label: `${c.number} - ${c.name}`,
+            label: `${c.number} - ${c.name}`
           }))
         : [],
     [accountFetcher.data]

@@ -11,7 +11,7 @@ import { path } from "~/utils/path";
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
     view: "people",
-    role: "employee",
+    role: "employee"
   });
 
   const { shiftId } = params;
@@ -26,13 +26,13 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   }
 
   return json({
-    shift: shift.data,
+    shift: shift.data
   });
 }
 
 export async function action({ request, params }: ActionFunctionArgs) {
   const { client } = await requirePermissions(request, {
-    delete: "people",
+    delete: "people"
   });
 
   const { shiftId } = params;

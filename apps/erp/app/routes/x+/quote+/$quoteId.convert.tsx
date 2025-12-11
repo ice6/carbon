@@ -2,7 +2,7 @@ import {
   assertIsPost,
   error,
   getCarbonServiceRole,
-  success,
+  success
 } from "@carbon/auth";
 import { requirePermissions } from "@carbon/auth/auth.server";
 import { flash } from "@carbon/auth/session.server";
@@ -15,7 +15,7 @@ import { path } from "~/utils/path";
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { companyId, userId } = await requirePermissions(request, {
-    create: "sales",
+    create: "sales"
   });
 
   const { quoteId } = params;
@@ -52,7 +52,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     purchaseOrderNumber: poNumber ?? "",
     companyId,
     userId,
-    selectedLines,
+    selectedLines
   });
 
   if (convert.error) {

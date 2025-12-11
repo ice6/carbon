@@ -9,7 +9,7 @@ import {
   generateChanges,
   lastVisibleNode,
   selectedIdFromState,
-  visibleNodes,
+  visibleNodes
 } from "./utils";
 
 export type NodeState = {
@@ -193,12 +193,12 @@ export function reducer(state: TreeState, action: Action): TreeState {
       const newNodes = Object.fromEntries(
         Object.entries(state.nodes).map(([key, value]) => [
           key,
-          { ...value, selected: false },
+          { ...value, selected: false }
         ])
       );
       newNodes[action.payload.id] = {
         ...newNodes[action.payload.id],
-        selected: true,
+        selected: true
       };
 
       if (action.payload.scrollToNode) {
@@ -209,7 +209,7 @@ export function reducer(state: TreeState, action: Action): TreeState {
         ...state,
         tree: state.tree,
         nodes: newNodes,
-        changes: generateChanges(state.nodes, newNodes),
+        changes: generateChanges(state.nodes, newNodes)
       });
     }
     case "DESELECT_NODE": {
@@ -217,27 +217,27 @@ export function reducer(state: TreeState, action: Action): TreeState {
         ...state.nodes,
         [action.payload.id]: {
           ...state.nodes[action.payload.id],
-          selected: false,
-        },
+          selected: false
+        }
       };
 
       return applyFilterToState({
         ...state,
         nodes,
-        changes: generateChanges(state.nodes, nodes),
+        changes: generateChanges(state.nodes, nodes)
       });
     }
     case "DESELECT_ALL_NODES": {
       const nodes = Object.fromEntries(
         Object.entries(state.nodes).map(([key, value]) => [
           key,
-          { ...value, selected: false },
+          { ...value, selected: false }
         ])
       );
       return applyFilterToState({
         ...state,
         nodes,
-        changes: generateChanges(state.nodes, nodes),
+        changes: generateChanges(state.nodes, nodes)
       });
     }
     case "TOGGLE_NODE_SELECTION": {
@@ -246,7 +246,7 @@ export function reducer(state: TreeState, action: Action): TreeState {
       if (currentlySelected) {
         return reducer(state, {
           type: "DESELECT_NODE",
-          payload: { id: action.payload.id },
+          payload: { id: action.payload.id }
         });
       }
 
@@ -255,8 +255,8 @@ export function reducer(state: TreeState, action: Action): TreeState {
         payload: {
           id: action.payload.id,
           scrollToNode: action.payload.scrollToNode,
-          scrollToNodeFn: action.payload.scrollToNodeFn,
-        },
+          scrollToNodeFn: action.payload.scrollToNodeFn
+        }
       });
     }
     case "EXPAND_NODE": {
@@ -264,8 +264,8 @@ export function reducer(state: TreeState, action: Action): TreeState {
         ...state.nodes,
         [action.payload.id]: {
           ...state.nodes[action.payload.id],
-          expanded: true,
-        },
+          expanded: true
+        }
       };
 
       if (action.payload.scrollToNode) {
@@ -276,7 +276,7 @@ export function reducer(state: TreeState, action: Action): TreeState {
       return applyFilterToState({
         ...state,
         nodes: visibleNodes,
-        changes: generateChanges(state.nodes, visibleNodes),
+        changes: generateChanges(state.nodes, visibleNodes)
       });
     }
     case "COLLAPSE_NODE": {
@@ -284,13 +284,13 @@ export function reducer(state: TreeState, action: Action): TreeState {
         ...state.nodes,
         [action.payload.id]: {
           ...state.nodes[action.payload.id],
-          expanded: false,
-        },
+          expanded: false
+        }
       });
       return applyFilterToState({
         ...state,
         nodes: visibleNodes,
-        changes: generateChanges(state.nodes, visibleNodes),
+        changes: generateChanges(state.nodes, visibleNodes)
       });
     }
     case "TOGGLE_EXPAND_NODE": {
@@ -299,7 +299,7 @@ export function reducer(state: TreeState, action: Action): TreeState {
       if (currentlyExpanded) {
         return reducer(state, {
           type: "COLLAPSE_NODE",
-          payload: { id: action.payload.id },
+          payload: { id: action.payload.id }
         });
       }
 
@@ -308,8 +308,8 @@ export function reducer(state: TreeState, action: Action): TreeState {
         payload: {
           id: action.payload.id,
           scrollToNode: action.payload.scrollToNode,
-          scrollToNodeFn: action.payload.scrollToNodeFn,
-        },
+          scrollToNodeFn: action.payload.scrollToNodeFn
+        }
       });
     }
     case "EXPAND_ALL_BELOW_DEPTH": {
@@ -324,8 +324,8 @@ export function reducer(state: TreeState, action: Action): TreeState {
             ...value,
             expanded: nodesToExpand.find((n) => n.id === key)
               ? true
-              : value.expanded,
-          },
+              : value.expanded
+          }
         ])
       );
 
@@ -333,7 +333,7 @@ export function reducer(state: TreeState, action: Action): TreeState {
       return applyFilterToState({
         ...state,
         nodes: visibleNodes,
-        changes: generateChanges(state.nodes, visibleNodes),
+        changes: generateChanges(state.nodes, visibleNodes)
       });
     }
     case "COLLAPSE_ALL_BELOW_DEPTH": {
@@ -348,8 +348,8 @@ export function reducer(state: TreeState, action: Action): TreeState {
             ...value,
             expanded: nodesToCollapse.find((n) => n.id === key)
               ? false
-              : value.expanded,
-          },
+              : value.expanded
+          }
         ])
       );
 
@@ -357,7 +357,7 @@ export function reducer(state: TreeState, action: Action): TreeState {
       return applyFilterToState({
         ...state,
         nodes: visibleNodes,
-        changes: generateChanges(state.nodes, visibleNodes),
+        changes: generateChanges(state.nodes, visibleNodes)
       });
     }
     case "EXPAND_LEVEL": {
@@ -372,8 +372,8 @@ export function reducer(state: TreeState, action: Action): TreeState {
             ...value,
             expanded: nodesToExpand.find((n) => n.id === key)
               ? true
-              : value.expanded,
-          },
+              : value.expanded
+          }
         ])
       );
 
@@ -381,7 +381,7 @@ export function reducer(state: TreeState, action: Action): TreeState {
       return applyFilterToState({
         ...state,
         nodes: visibleNodes,
-        changes: generateChanges(state.nodes, visibleNodes),
+        changes: generateChanges(state.nodes, visibleNodes)
       });
     }
     case "COLLAPSE_LEVEL": {
@@ -396,8 +396,8 @@ export function reducer(state: TreeState, action: Action): TreeState {
             ...value,
             expanded: nodesToCollapse.find((n) => n.id === key)
               ? false
-              : value.expanded,
-          },
+              : value.expanded
+          }
         ])
       );
 
@@ -405,7 +405,7 @@ export function reducer(state: TreeState, action: Action): TreeState {
       return applyFilterToState({
         ...state,
         nodes: visibleNodes,
-        changes: generateChanges(state.nodes, visibleNodes),
+        changes: generateChanges(state.nodes, visibleNodes)
       });
     }
     case "TOGGLE_EXPAND_LEVEL": {
@@ -425,16 +425,16 @@ export function reducer(state: TreeState, action: Action): TreeState {
         return reducer(state, {
           type: "COLLAPSE_LEVEL",
           payload: {
-            level: action.payload.level,
-          },
+            level: action.payload.level
+          }
         });
       }
 
       return reducer(state, {
         type: "EXPAND_LEVEL",
         payload: {
-          level: action.payload.level,
-        },
+          level: action.payload.level
+        }
       });
     }
     case "SELECT_FIRST_VISIBLE_NODE": {
@@ -445,8 +445,8 @@ export function reducer(state: TreeState, action: Action): TreeState {
           payload: {
             id: node.id,
             scrollToNode: action.payload.scrollToNode,
-            scrollToNodeFn: action.payload.scrollToNodeFn,
-          },
+            scrollToNodeFn: action.payload.scrollToNodeFn
+          }
         });
       }
 
@@ -460,8 +460,8 @@ export function reducer(state: TreeState, action: Action): TreeState {
           payload: {
             id: node.id,
             scrollToNode: action.payload.scrollToNode,
-            scrollToNodeFn: action.payload.scrollToNodeFn,
-          },
+            scrollToNodeFn: action.payload.scrollToNodeFn
+          }
         });
       }
 
@@ -474,8 +474,8 @@ export function reducer(state: TreeState, action: Action): TreeState {
           type: "SELECT_FIRST_VISIBLE_NODE",
           payload: {
             scrollToNode: action.payload.scrollToNode,
-            scrollToNodeFn: action.payload.scrollToNodeFn,
-          },
+            scrollToNodeFn: action.payload.scrollToNodeFn
+          }
         });
       }
 
@@ -488,8 +488,8 @@ export function reducer(state: TreeState, action: Action): TreeState {
           payload: {
             id: nextNode.id,
             scrollToNode: action.payload.scrollToNode,
-            scrollToNodeFn: action.payload.scrollToNodeFn,
-          },
+            scrollToNodeFn: action.payload.scrollToNodeFn
+          }
         });
       }
 
@@ -503,8 +503,8 @@ export function reducer(state: TreeState, action: Action): TreeState {
           type: "SELECT_FIRST_VISIBLE_NODE",
           payload: {
             scrollToNode: action.payload.scrollToNode,
-            scrollToNodeFn: action.payload.scrollToNodeFn,
-          },
+            scrollToNodeFn: action.payload.scrollToNodeFn
+          }
         });
       }
 
@@ -517,8 +517,8 @@ export function reducer(state: TreeState, action: Action): TreeState {
           payload: {
             id: previousNode.id,
             scrollToNode: action.payload.scrollToNode,
-            scrollToNodeFn: action.payload.scrollToNodeFn,
-          },
+            scrollToNodeFn: action.payload.scrollToNodeFn
+          }
         });
       }
 
@@ -532,8 +532,8 @@ export function reducer(state: TreeState, action: Action): TreeState {
           type: "SELECT_FIRST_VISIBLE_NODE",
           payload: {
             scrollToNode: action.payload.scrollToNode,
-            scrollToNodeFn: action.payload.scrollToNodeFn,
-          },
+            scrollToNodeFn: action.payload.scrollToNodeFn
+          }
         });
       }
 
@@ -551,8 +551,8 @@ export function reducer(state: TreeState, action: Action): TreeState {
           payload: {
             id: parentNode.id,
             scrollToNode: action.payload.scrollToNode,
-            scrollToNodeFn: action.payload.scrollToNodeFn,
-          },
+            scrollToNodeFn: action.payload.scrollToNodeFn
+          }
         });
       }
 
@@ -567,14 +567,14 @@ export function reducer(state: TreeState, action: Action): TreeState {
         ...state,
         tree: action.payload.tree,
         selectedId,
-        collapsedIds,
+        collapsedIds
       });
       return newState;
     }
     case "UPDATE_FILTER": {
       const newState = applyFilterToState({
         ...state,
-        filter: action.payload.filter,
+        filter: action.payload.filter
       });
       return newState;
     }

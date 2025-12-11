@@ -26,19 +26,19 @@ import {
   Td,
   Th,
   Thead,
-  Tr,
+  Tr
 } from "@carbon/react";
 import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-  type ChartConfig,
+  type ChartConfig
 } from "@carbon/react/Chart";
 import {
   getLocalTimeZone,
   now,
   parseDate,
-  toCalendarDateTime,
+  toCalendarDateTime
 } from "@internationalized/date";
 import { useDateFormatter, useNumberFormatter } from "@react-aria/i18n";
 import type { DateRange } from "@react-types/datepicker";
@@ -53,7 +53,7 @@ import {
   LuEllipsisVertical,
   LuFile,
   LuLayoutList,
-  LuPackageSearch,
+  LuPackageSearch
 } from "react-icons/lu";
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
 import { Empty, Hyperlink, SupplierAvatar } from "~/components";
@@ -76,21 +76,21 @@ const OPEN_INVOICE_STATUSES = [
   "Draft",
   "Return",
   "Pending",
-  "Partially Paid",
+  "Partially Paid"
 ] as const;
 const OPEN_PURCHASE_ORDER_STATUSES = [
   "Draft",
   "To Review",
   "To Receive",
   "To Receive and Invoice",
-  "To Invoice",
+  "To Invoice"
 ] as const;
 
 const chartConfig = {} satisfies ChartConfig;
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, userId, companyId } = await requirePermissions(request, {
-    view: "purchasing",
+    view: "purchasing"
   });
 
   const [openPurchaseOrders, openPurchaseInvoices, openSupplierQuotes] =
@@ -100,7 +100,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
         .select(
           "id, purchaseOrderId, status, supplierId, assignee, createdAt",
           {
-            count: "exact",
+            count: "exact"
           }
         )
         .in("status", OPEN_PURCHASE_ORDER_STATUSES)
@@ -109,7 +109,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
       client
         .from("purchaseInvoice")
         .select("id, invoiceId, status, supplierId, assignee, createdAt", {
-          count: "exact",
+          count: "exact"
         })
         .in("status", OPEN_INVOICE_STATUSES)
         .eq("companyId", companyId)
@@ -119,19 +119,19 @@ export async function loader({ request }: LoaderFunctionArgs) {
         .select(
           "id, supplierQuoteId, status, supplierId, assignee, createdAt",
           {
-            count: "exact",
+            count: "exact"
           }
         )
         .in("status", OPEN_SUPPLIER_QUOTE_STATUSES)
         .eq("companyId", companyId)
-        .limit(10),
+        .limit(10)
     ]);
 
   return defer({
     openPurchaseOrders: openPurchaseOrders,
     openSupplierQuotes: openSupplierQuotes,
     openPurchaseInvoices: openPurchaseInvoices,
-    assignedToMe: getPurchasingDocumentsAssignedToMe(client, userId, companyId),
+    assignedToMe: getPurchasingDocumentsAssignedToMe(client, userId, companyId)
   });
 }
 
@@ -140,23 +140,23 @@ export default function PurchaseDashboard() {
     openPurchaseOrders,
     openSupplierQuotes,
     openPurchaseInvoices,
-    assignedToMe,
+    assignedToMe
   } = useLoaderData<typeof loader>();
 
   const mergedOpenDocs = useMemo(() => {
     const merged = [
       ...(openPurchaseOrders.data?.map((doc) => ({
         ...doc,
-        type: "purchaseOrder",
+        type: "purchaseOrder"
       })) ?? []),
       ...(openSupplierQuotes.data?.map((doc) => ({
         ...doc,
-        type: "supplierQuote",
+        type: "supplierQuote"
       })) ?? []),
       ...(openPurchaseInvoices.data?.map((doc) => ({
         ...doc,
-        type: "purchaseInvoice",
-      })) ?? []),
+        type: "purchaseInvoice"
+      })) ?? [])
     ].sort((a, b) => (b.createdAt ?? "").localeCompare(a.createdAt ?? ""));
 
     return merged;
@@ -167,7 +167,7 @@ export default function PurchaseDashboard() {
 
   const dateFormatter = useDateFormatter({
     month: "short",
-    day: "numeric",
+    day: "numeric"
   });
 
   const { company } = useUser();
@@ -176,13 +176,13 @@ export default function PurchaseDashboard() {
     currency: company.baseCurrencyCode,
     maximumFractionDigits: 0,
     notation: "compact",
-    compactDisplay: "short",
+    compactDisplay: "short"
   });
   const currencyFormatter = useCurrencyFormatter();
   const numberFormatter = useNumberFormatter({
     maximumFractionDigits: 0,
     notation: "compact",
-    compactDisplay: "short",
+    compactDisplay: "short"
   });
 
   const [supplierId, setSupplierId] = useState<string>("all");
@@ -192,8 +192,8 @@ export default function PurchaseDashboard() {
       { label: "All Suppliers", value: "all" },
       ...suppliers.map((supplier) => ({
         label: supplier.name,
-        value: supplier.id,
-      })),
+        value: supplier.id
+      }))
     ];
   }, [suppliers]);
 
@@ -259,8 +259,8 @@ export default function PurchaseDashboard() {
       ["Date", "Value"],
       ...kpiFetcher.data.data.map((item) => [
         "date" in item ? item.date : item.monthKey,
-        item.value,
-      ]),
+        item.value
+      ])
     ];
   }, [kpiFetcher.data?.data]);
 
@@ -499,7 +499,7 @@ export default function PurchaseDashboard() {
                   tickFormatter={(value) => {
                     return [
                       "purchaseOrderAmount",
-                      "purchaseInvoiceAmount",
+                      "purchaseInvoiceAmount"
                     ].includes(selectedKpiData.key)
                       ? currencyCompactFormatter.format(value as number)
                       : numberFormatter.format(value as number);
@@ -538,7 +538,7 @@ export default function PurchaseDashboard() {
                       formatter={(value) =>
                         [
                           "purchaseOrderAmount",
-                          "purchaseInvoiceAmount",
+                          "purchaseInvoiceAmount"
                         ].includes(selectedKpiData.key)
                           ? currencyFormatter.format(value as number)
                           : numberFormatter.format(value as number)

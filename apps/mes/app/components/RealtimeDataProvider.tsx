@@ -16,7 +16,7 @@ let hydratedFromServer = false;
 const RealtimeDataProvider = ({ children }: { children: React.ReactNode }) => {
   const { carbon, accessToken, isRealtimeAuthSet } = useCarbon();
   const {
-    company: { id: companyId },
+    company: { id: companyId }
   } = useUser();
 
   useEffect(() => {
@@ -59,7 +59,7 @@ const RealtimeDataProvider = ({ children }: { children: React.ReactNode }) => {
         "employees",
         "id, name, email, avatarUrl",
         (query) => query.eq("companyId", companyId).order("name")
-      ),
+      )
     ]);
 
     if (items.error) {
@@ -85,7 +85,7 @@ const RealtimeDataProvider = ({ children }: { children: React.ReactNode }) => {
         itemTrackingType: item.itemTrackingType,
         active: item.active,
         thumbnailPath:
-          item.thumbnailPath ?? item.modelUpload?.thumbnailPath ?? null,
+          item.thumbnailPath ?? item.modelUpload?.thumbnailPath ?? null
       }))
     );
     setPeople(
@@ -111,7 +111,7 @@ const RealtimeDataProvider = ({ children }: { children: React.ReactNode }) => {
           event: "*",
           schema: "public",
           table: "item",
-          filter: `companyId=eq.${companyId}`,
+          filter: `companyId=eq.${companyId}`
         },
         (payload) => {
           if ("companyId" in payload.new && payload.new.companyId !== companyId)
@@ -131,8 +131,8 @@ const RealtimeDataProvider = ({ children }: { children: React.ReactNode }) => {
                     itemTrackingType: inserted.itemTrackingType,
                     type: inserted.type,
                     active: inserted.active,
-                    thumbnailPath: inserted.thumbnailPath,
-                  },
+                    thumbnailPath: inserted.thumbnailPath
+                  }
                 ].sort((a, b) =>
                   a.readableIdWithRevision.localeCompare(
                     b.readableIdWithRevision
@@ -155,7 +155,7 @@ const RealtimeDataProvider = ({ children }: { children: React.ReactNode }) => {
                         replenishmentSystem: updated.replenishmentSystem,
                         type: updated.type,
                         active: updated.active,
-                        thumbnailPath: updated.thumbnailPath,
+                        thumbnailPath: updated.thumbnailPath
                       };
                     }
                     return i;
@@ -176,7 +176,7 @@ const RealtimeDataProvider = ({ children }: { children: React.ReactNode }) => {
           }
         }
       );
-    },
+    }
   });
 
   return <>{children}</>;

@@ -12,7 +12,7 @@ import { getItemReplenishment } from "~/modules/items";
 import {
   salesOrderToJobValidator,
   upsertJob,
-  upsertJobMethod,
+  upsertJobMethod
 } from "~/modules/production";
 import { getNextSequence } from "~/modules/settings";
 import { setCustomFields } from "~/utils/form";
@@ -27,7 +27,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   }
 
   const { companyId, userId } = await requirePermissions(request, {
-    create: "production",
+    create: "production"
   });
   const serviceRole = getCarbonServiceRole();
 
@@ -46,7 +46,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   if (useNextSequence) {
     const [nextSequence, manufacturing] = await Promise.all([
       getNextSequence(serviceRole, "job", companyId),
-      getItemReplenishment(serviceRole, validation.data.itemId, companyId),
+      getItemReplenishment(serviceRole, validation.data.itemId, companyId)
     ]);
     if (nextSequence.error) {
       throw redirect(
@@ -87,7 +87,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
       : undefined,
     companyId,
     createdBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
 
   const id = createJob.data?.id!;
@@ -104,7 +104,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
       sourceId: `${data.quoteId}:${data.quoteLineId}`,
       targetId: id,
       companyId,
-      userId,
+      userId
     });
 
     if (upsertMethod.error) {
@@ -122,7 +122,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
       sourceId: data.itemId,
       targetId: id,
       companyId,
-      userId,
+      userId
     });
 
     if (upsertMethod.error) {
@@ -140,7 +140,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     type: "jobRequirements",
     id,
     companyId,
-    userId,
+    userId
   });
 
   throw redirect(path.to.jobDetails(id));

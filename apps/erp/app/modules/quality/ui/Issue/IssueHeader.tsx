@@ -8,7 +8,7 @@ import {
   DropdownMenuTrigger,
   HStack,
   Heading,
-  VStack,
+  VStack
 } from "@carbon/react";
 
 import { Link, useFetcher, useParams } from "@remix-run/react";
@@ -18,7 +18,7 @@ import {
   LuCirclePlay,
   LuExternalLink,
   LuFile,
-  LuLoaderCircle,
+  LuLoaderCircle
 } from "react-icons/lu";
 import { usePermissions, useRouteData } from "~/hooks";
 import { useSuppliers } from "~/stores/suppliers";

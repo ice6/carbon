@@ -1,4 +1,4 @@
-import { z } from 'zod/v3';
+import { z } from "zod/v3";
 
 const methodType = ["Buy", "Make", "Pick"] as const;
 const replenishmentSystems = ["Buy", "Make", "Buy and Make"] as const;
@@ -13,6 +13,6 @@ export const onShapeDataValidator = z
     quantity: z.number(),
     replenishmentSystem: z.enum(replenishmentSystems),
     defaultMethodType: z.enum(methodType),
-    data: z.record(z.string(), z.any()),
+    data: z.record(z.string(), z.any())
   })
   .array();

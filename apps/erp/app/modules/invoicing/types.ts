@@ -1,7 +1,7 @@
 import type { Database } from "@carbon/database";
 import type {
   purchaseInvoiceLineType,
-  purchaseInvoiceStatusType,
+  purchaseInvoiceStatusType
 } from "./invoicing.models";
 import type {
   getPurchaseInvoiceDelivery,
@@ -9,7 +9,7 @@ import type {
   getPurchaseInvoices,
   getSalesInvoiceLines,
   getSalesInvoices,
-  getSalesInvoiceShipment,
+  getSalesInvoiceShipment
 } from "./invoicing.service";
 
 export type PurchaseInvoice = NonNullable<

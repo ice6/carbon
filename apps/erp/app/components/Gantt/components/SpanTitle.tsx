@@ -28,7 +28,7 @@ export function SpanTitle(event: SpanTitleProps) {
 
 function SpanAccessory({
   accessory,
-  size,
+  size
 }: {
   accessory: GantEventStyle["accessory"];
   size: SpanTitleProps["size"];
@@ -65,7 +65,7 @@ function SpanAccessory({
 
 export function SpanBadgeAccessory({
   accessory,
-  className,
+  className
 }: {
   accessory: NonNullable<GantEventStyle["accessory"]>;
   className?: string;

@@ -113,12 +113,12 @@ export function useShelves(locationId?: string, itemId?: string) {
         ...shelvesWithQuantities.map((c: any) => ({
           value: c.id,
           label: c.name,
-          helper: `Qty: ${c.quantity}`,
+          helper: `Qty: ${c.quantity}`
         })),
         ...shelvesWithoutQuantities.map((c: any) => ({
           value: c.id,
-          label: c.name,
-        })),
+          label: c.name
+        }))
       ];
 
       return combinedShelves;
@@ -131,7 +131,7 @@ export function useShelves(locationId?: string, itemId?: string) {
         label: c.name,
         // Add quantity as helper text if available
         // @ts-ignore
-        ...(c.quantity !== undefined && { helper: `Qty: ${c.quantity}` }),
+        ...(c.quantity !== undefined && { helper: `Qty: ${c.quantity}` })
       })) ?? []
     );
   }, [shelvesFetcher.data, shelvesWithQuantitiesFetcher.data, itemId]);

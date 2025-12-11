@@ -13,7 +13,7 @@ import { getCompanyId, locationsQuery } from "~/utils/react-query";
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
     view: "resources",
-    role: "employee",
+    role: "employee"
   });
 
   const { locationId } = params;
@@ -28,13 +28,13 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   }
 
   return json({
-    location: location.data,
+    location: location.data
   });
 }
 
 export async function action({ request, params }: ActionFunctionArgs) {
   const { client } = await requirePermissions(request, {
-    delete: "resources",
+    delete: "resources"
   });
 
   const { locationId } = params;

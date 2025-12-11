@@ -3,7 +3,7 @@ import {
   HStack,
   MenuIcon,
   MenuItem,
-  useDisclosure,
+  useDisclosure
 } from "@carbon/react";
 import { formatDate } from "@carbon/utils";
 import { useNavigate } from "@remix-run/react";
@@ -21,14 +21,14 @@ import {
   LuStar,
   LuTag,
   LuTrash,
-  LuUser,
+  LuUser
 } from "react-icons/lu";
 import {
   CustomerAvatar,
   EmployeeAvatar,
   Hyperlink,
   New,
-  Table,
+  Table
 } from "~/components";
 import { Enumerable } from "~/components/Enumerable";
 import { ConfirmDelete } from "~/components/Modals";
@@ -72,8 +72,8 @@ const CustomersTable = memo(
             </div>
           ),
           meta: {
-            icon: <LuBookMarked />,
-          },
+            icon: <LuBookMarked />
+          }
         },
         {
           accessorKey: "status",
@@ -84,11 +84,11 @@ const CustomersTable = memo(
               type: "static",
               options: customerStatuses?.map((status) => ({
                 value: status.name,
-                label: <Enumerable value={status.name ?? ""} />,
-              })),
+                label: <Enumerable value={status.name ?? ""} />
+              }))
             },
-            icon: <LuStar />,
-          },
+            icon: <LuStar />
+          }
         },
         {
           accessorKey: "customerTypeId",
@@ -106,10 +106,10 @@ const CustomersTable = memo(
               type: "static",
               options: customerTypes?.map((type) => ({
                 value: type.value,
-                label: <Enumerable value={type.label} />,
-              })),
-            },
-          },
+                label: <Enumerable value={type.label} />
+              }))
+            }
+          }
         },
         {
           id: "accountManagerId",
@@ -122,11 +122,11 @@ const CustomersTable = memo(
               type: "static",
               options: people.map((employee) => ({
                 value: employee.id,
-                label: employee.name,
-              })),
+                label: employee.name
+              }))
             },
-            icon: <LuUser />,
-          },
+            icon: <LuUser />
+          }
         },
         {
           accessorKey: "tags",
@@ -145,44 +145,44 @@ const CustomersTable = memo(
               type: "static",
               options: tags?.map((tag) => ({
                 value: tag.name,
-                label: <Badge variant="secondary">{tag.name}</Badge>,
+                label: <Badge variant="secondary">{tag.name}</Badge>
               })),
-              isArray: true,
+              isArray: true
             },
-            icon: <LuTag />,
-          },
+            icon: <LuTag />
+          }
         },
         {
           accessorKey: "currencyCode",
           header: "Currency",
           cell: (item) => item.getValue(),
           meta: {
-            icon: <LuEuro />,
-          },
+            icon: <LuEuro />
+          }
         },
         {
           accessorKey: "phone",
           header: "Phone",
           cell: (item) => item.getValue(),
           meta: {
-            icon: <LuPhone />,
-          },
+            icon: <LuPhone />
+          }
         },
         {
           accessorKey: "fax",
           header: "Fax",
           cell: (item) => item.getValue(),
           meta: {
-            icon: <LuPrinter />,
-          },
+            icon: <LuPrinter />
+          }
         },
         {
           accessorKey: "website",
           header: "Website",
           cell: (item) => item.getValue(),
           meta: {
-            icon: <LuGlobe />,
-          },
+            icon: <LuGlobe />
+          }
         },
         {
           id: "createdBy",
@@ -195,19 +195,19 @@ const CustomersTable = memo(
               type: "static",
               options: people.map((employee) => ({
                 value: employee.id,
-                label: employee.name,
-              })),
+                label: employee.name
+              }))
             },
-            icon: <LuUser />,
-          },
+            icon: <LuUser />
+          }
         },
         {
           accessorKey: "createdAt",
           header: "Created At",
           cell: (item) => formatDate(item.getValue<string>()),
           meta: {
-            icon: <LuCalendar />,
-          },
+            icon: <LuCalendar />
+          }
         },
         {
           id: "updatedBy",
@@ -220,20 +220,20 @@ const CustomersTable = memo(
               type: "static",
               options: people.map((employee) => ({
                 value: employee.id,
-                label: employee.name,
-              })),
+                label: employee.name
+              }))
             },
-            icon: <LuUser />,
-          },
+            icon: <LuUser />
+          }
         },
         {
           accessorKey: "updatedAt",
           header: "Updated At",
           cell: (item) => formatDate(item.getValue<string>()),
           meta: {
-            icon: <LuCalendar />,
-          },
-        },
+            icon: <LuCalendar />
+          }
+        }
       ];
 
       return [...defaultColumns, ...customColumns];
@@ -241,26 +241,25 @@ const CustomersTable = memo(
 
     const renderContextMenu = useMemo(
       // eslint-disable-next-line react/display-name
-      () => (row: Customer) =>
-        (
-          <>
-            <MenuItem onClick={() => navigate(path.to.customer(row.id!))}>
-              <MenuIcon icon={<LuPencil />} />
-              Edit
-            </MenuItem>
-            <MenuItem
-              destructive
-              disabled={!permissions.can("delete", "sales")}
-              onClick={() => {
-                setSelectedCustomer(row);
-                deleteModal.onOpen();
-              }}
-            >
-              <MenuIcon icon={<LuTrash />} />
-              Delete
-            </MenuItem>
-          </>
-        ),
+      () => (row: Customer) => (
+        <>
+          <MenuItem onClick={() => navigate(path.to.customer(row.id!))}>
+            <MenuIcon icon={<LuPencil />} />
+            Edit
+          </MenuItem>
+          <MenuItem
+            destructive
+            disabled={!permissions.can("delete", "sales")}
+            onClick={() => {
+              setSelectedCustomer(row);
+              deleteModal.onOpen();
+            }}
+          >
+            <MenuIcon icon={<LuTrash />} />
+            Delete
+          </MenuItem>
+        </>
+      ),
       [navigate, deleteModal, permissions]
     );
 
@@ -271,7 +270,7 @@ const CustomersTable = memo(
           columns={columns}
           data={data}
           defaultColumnPinning={{
-            left: ["name"],
+            left: ["name"]
           }}
           defaultColumnVisibility={{
             currencyCode: false,
@@ -281,17 +280,17 @@ const CustomersTable = memo(
             createdBy: false,
             createdAt: false,
             updatedBy: false,
-            updatedAt: false,
+            updatedAt: false
           }}
           importCSV={[
             {
               table: "customer",
-              label: "Customers",
+              label: "Customers"
             },
             {
               table: "customerContact",
-              label: "Contacts",
-            },
+              label: "Contacts"
+            }
           ]}
           primaryAction={
             permissions.can("create", "sales") && (

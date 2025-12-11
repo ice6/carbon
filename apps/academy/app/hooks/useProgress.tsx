@@ -37,6 +37,6 @@ export function useProgress(): ProgressData {
   // Return empty arrays if no data or user not authenticated
   return {
     lessonCompletions: [],
-    challengeAttempts: [],
+    challengeAttempts: []
   };
 }

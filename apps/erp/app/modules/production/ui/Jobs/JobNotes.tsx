@@ -8,7 +8,7 @@ import {
   CardTitle,
   generateHTML,
   toast,
-  useDebounce,
+  useDebounce
 } from "@carbon/react";
 import { Editor } from "@carbon/react/Editor";
 import { getLocalTimeZone, today } from "@internationalized/date";
@@ -21,7 +21,7 @@ const JobNotes = ({
   id,
   title,
   subTitle,
-  notes: initialNotes,
+  notes: initialNotes
 }: {
   id: string | null;
   title: string;
@@ -30,7 +30,7 @@ const JobNotes = ({
 }) => {
   const {
     id: userId,
-    company: { id: companyId },
+    company: { id: companyId }
   } = useUser();
   const { carbon } = useCarbon();
   const permissions = usePermissions();
@@ -62,7 +62,7 @@ const JobNotes = ({
         .update({
           notes: content,
           updatedAt: today(getLocalTimeZone()).toString(),
-          updatedBy: userId,
+          updatedBy: userId
         })
         .eq("id", id!);
     },
@@ -94,7 +94,7 @@ const JobNotes = ({
             <div
               className="prose dark:prose-invert"
               dangerouslySetInnerHTML={{
-                __html: generateHTML(notes as JSONContent),
+                __html: generateHTML(notes as JSONContent)
               }}
             />
           )}

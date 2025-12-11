@@ -9,7 +9,7 @@ import {
   LuChevronRight,
   LuCircleCheck,
   LuCirclePlay,
-  LuFlag,
+  LuFlag
 } from "react-icons/lu";
 import Share from "~/components/Share";
 import { useProgress } from "~/hooks";
@@ -18,7 +18,7 @@ import {
   formatDuration,
   getLessonContext,
   getNextLesson,
-  getPreviousLesson,
+  getPreviousLesson
 } from "~/utils/video";
 
 export const loader = async ({ request, params }: LoaderFunctionArgs) => {
@@ -69,7 +69,7 @@ export const action = async ({ request, params }: ActionFunctionArgs) => {
   const insert = await client.from("lessonCompletion").insert({
     userId: session.userId,
     courseId: course.id,
-    lessonId,
+    lessonId
   });
 
   if (insert.error) {
@@ -125,7 +125,7 @@ export default function LessonRoute() {
   const onComplete = async (lessonId: string) => {
     fetcher.submit(null, {
       method: "POST",
-      action: path.to.lesson(id),
+      action: path.to.lesson(id)
     });
   };
 
@@ -142,7 +142,7 @@ export default function LessonRoute() {
               JSON.stringify({
                 method: "addEventListener",
                 value: "ended",
-                context: "player.js",
+                context: "player.js"
               }),
               "*"
             );
@@ -198,7 +198,7 @@ export default function LessonRoute() {
             style={{
               position: "relative",
               paddingBottom: "56.25%",
-              height: "0",
+              height: "0"
             }}
           >
             <div className="absolute inset-0 flex items-center justify-center">
@@ -217,7 +217,7 @@ export default function LessonRoute() {
                 top: 0,
                 left: 0,
                 width: "100%",
-                height: "100%",
+                height: "100%"
               }}
             />
           </div>
@@ -225,7 +225,7 @@ export default function LessonRoute() {
         <div
           className="dark w-full h-12 rounded-b-lg flex items-center justify-end gap-2 px-3"
           style={{
-            backgroundColor: module.background,
+            backgroundColor: module.background
           }}
         >
           <Share
@@ -240,7 +240,7 @@ export default function LessonRoute() {
             className="border rounded-lg rounded-b-none p-4"
             style={{
               backgroundColor: module?.background,
-              color: module?.foreground,
+              color: module?.foreground
             }}
           >
             <div className="flex flex-col gap-4">
@@ -248,7 +248,7 @@ export default function LessonRoute() {
                 <div
                   className="flex-shrink-0 size-12 text-2xl p-3 rounded-lg bg-black/20"
                   style={{
-                    color: module?.foreground,
+                    color: module?.foreground
                   }}
                 >
                   {course.icon}

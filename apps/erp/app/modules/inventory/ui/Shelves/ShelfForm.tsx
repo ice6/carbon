@@ -8,12 +8,12 @@ import {
   ModalDrawerHeader,
   ModalDrawerProvider,
   ModalDrawerTitle,
-  VStack,
+  VStack
 } from "@carbon/react";
 
 import { ValidatedForm } from "@carbon/form";
 import { useFetcher } from "@remix-run/react";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import { Hidden, Input, Location, Submit } from "~/components/Form";
 import { usePermissions } from "~/hooks";
 import { shelfValidator } from "~/modules/inventory";
@@ -32,7 +32,7 @@ const ShelfForm = ({
   initialValues,
   open = true,
   type = "drawer",
-  onClose,
+  onClose
 }: ShelfFormProps) => {
   const fetcher = useFetcher<{}>();
 

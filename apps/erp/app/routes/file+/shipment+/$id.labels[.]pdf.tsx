@@ -10,7 +10,7 @@ import { path } from "~/utils/path";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    view: "inventory",
+    view: "inventory"
   });
 
   const { id } = params;
@@ -18,7 +18,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
   const [companySettings, shipmentTracking] = await Promise.all([
     getCompanySettings(client, companyId),
-    getShipmentTracking(client, id, companyId),
+    getShipmentTracking(client, id, companyId)
   ]);
 
   // Get the label size from query params or default to avery5160
@@ -39,7 +39,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     throw redirect(
       path.to.file.shipmentLabelsZpl(id, {
         labelSize: labelSize.id,
-        lineId: lineIdParam ?? undefined,
+        lineId: lineIdParam ?? undefined
       })
     );
   }
@@ -104,7 +104,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
         "",
       trackedEntityId: tracking.id,
       quantity: tracking.quantity,
-      trackingType: tracking.quantity > 1 ? "Batch" : "Serial",
+      trackingType: tracking.quantity > 1 ? "Batch" : "Serial"
     }))
     .sort((a, b) => {
       if (a.itemId === b.itemId) {

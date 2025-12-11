@@ -12,7 +12,7 @@ import {
   NumberInput,
   NumberInputGroup,
   NumberInputStepper,
-  VStack,
+  VStack
 } from "@carbon/react";
 
 import { useFormContext } from "@carbon/form";
@@ -22,7 +22,7 @@ import {
   LuChevronDown,
   LuChevronUp,
   LuPlus,
-  LuSettings2,
+  LuSettings2
 } from "react-icons/lu";
 import { useControlField, useField } from "../hooks";
 
@@ -118,7 +118,7 @@ const Number = forwardRef<HTMLInputElement, FormNumberProps>(
         <NumberField
           {...getInputProps({
             id: name,
-            ...rest,
+            ...rest
           })}
           value={controlValue}
           onChange={handleChange}

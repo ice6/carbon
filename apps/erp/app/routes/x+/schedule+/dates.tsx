@@ -22,7 +22,7 @@ import {
   Spinner,
   Switch,
   useLocalStorage,
-  VStack,
+  VStack
 } from "@carbon/react";
 import {
   endOfMonth,
@@ -32,7 +32,7 @@ import {
   parseDate,
   startOfMonth,
   startOfWeek,
-  toCalendarDate,
+  toCalendarDate
 } from "@internationalized/date";
 import { useLoaderData, useNavigate, useSearchParams } from "@remix-run/react";
 import { json, redirect, type LoaderFunctionArgs } from "@vercel/remix";
@@ -56,7 +56,7 @@ import { usePeople } from "~/stores";
 export const handle: Handle = {
   breadcrumb: "Schedule",
   to: path.to.scheduleDates,
-  module: "production",
+  module: "production"
 };
 
 type ViewType = "week" | "month";
@@ -64,7 +64,7 @@ type ViewType = "week" | "month";
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId, userId } = await requirePermissions(request, {
     view: "production",
-    bypassRls: true,
+    bypassRls: true
   });
 
   const url = new URL(request.url);
@@ -169,7 +169,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const [jobs, unscheduledJobs, tags] = await Promise.all([
     getJobsByDateRange(client, locationId ?? "", startDate, endDate),
     getUnscheduledJobs(client, locationId ?? ""),
-    getTagsList(client, companyId, "job"),
+    getTagsList(client, companyId, "job")
   ]);
 
   if (jobs.error) {
@@ -256,7 +256,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
     id: "unscheduled",
     title: "Unscheduled",
     type: [],
-    active: false,
+    active: false
   });
 
   if (view === "week") {
@@ -272,10 +272,10 @@ export async function loader({ request }: LoaderFunctionArgs) {
         title: day.toDate(timezone).toLocaleDateString("en-US", {
           weekday: "short",
           month: "short",
-          day: "numeric",
+          day: "numeric"
         }),
         type: [],
-        active: isToday,
+        active: isToday
       });
     }
 
@@ -284,7 +284,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
       id: "next-week",
       title: "Next Week",
       type: [],
-      active: false,
+      active: false
     });
   } else {
     // Month view - create full 7-day week columns starting from the 1st of the month
@@ -311,13 +311,13 @@ export async function loader({ request }: LoaderFunctionArgs) {
         id: currentWeekStart.toString(),
         title: `${weekStartDate.toLocaleDateString("en-US", {
           month: "short",
-          day: "numeric",
+          day: "numeric"
         })} - ${weekEndDate.toLocaleDateString("en-US", {
           month: "short",
-          day: "numeric",
+          day: "numeric"
         })}`,
         type: [],
-        active: isTodayInWeek,
+        active: isTodayInWeek
       });
 
       // Move to the next week (7 days later)
@@ -329,13 +329,13 @@ export async function loader({ request }: LoaderFunctionArgs) {
     const nextMonthName = nextMonth
       .toDate(timezone)
       .toLocaleDateString("en-US", {
-        month: "long",
+        month: "long"
       });
     columns.push({
       id: "next-month",
       title: nextMonthName,
       type: [],
-      active: false,
+      active: false
     });
   }
 
@@ -412,7 +412,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
       laborDuration: 0,
       machineDuration: 0,
       thumbnailPath: job.thumbnailPath,
-      hasConflict: job.hasConflict,
+      hasConflict: job.hasConflict
     };
   });
 
@@ -449,7 +449,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
     laborDuration: 0,
     machineDuration: 0,
     thumbnailPath: job.thumbnailPath,
-    hasConflict: job.hasConflict,
+    hasConflict: job.hasConflict
   }));
 
   // Combine all jobs for sales orders and tags
@@ -459,25 +459,31 @@ export async function loader({ request }: LoaderFunctionArgs) {
     columns,
     items: [...unscheduledItems, ...scheduledItems] satisfies JobItem[],
     salesOrders: Object.entries(
-      allJobs.reduce((acc, job) => {
-        if (job.salesOrderId) {
-          acc[job.salesOrderId] = job.salesOrderReadableId;
-        }
-        return acc;
-      }, {} as Record<string, string>)
+      allJobs.reduce(
+        (acc, job) => {
+          if (job.salesOrderId) {
+            acc[job.salesOrderId] = job.salesOrderReadableId;
+          }
+          return acc;
+        },
+        {} as Record<string, string>
+      )
     ).map(([id, readableId]) => ({ id, readableId })),
     availableTags: Object.entries(
-      allJobs.reduce((acc, job) => {
-        if (job.tags) {
-          job.tags.forEach((tag: string) => (acc[tag] = true));
-        }
-        return acc;
-      }, {} as Record<string, boolean>)
+      allJobs.reduce(
+        (acc, job) => {
+          if (job.tags) {
+            job.tags.forEach((tag: string) => (acc[tag] = true));
+          }
+          return acc;
+        },
+        {} as Record<string, boolean>
+      )
     ).map(([tag]) => tag),
     tags: tags.data ?? [],
     locationId,
     view,
-    currentDate: currentDate.toString(),
+    currentDate: currentDate.toString()
   });
 }
 
@@ -491,7 +497,7 @@ const defaultDisplaySettings: DisplaySettings = {
   showQuantity: true,
   showStatus: true,
   showSalesOrder: true,
-  showThumbnail: true,
+  showThumbnail: true
 };
 
 const DISPLAY_SETTINGS_KEY = "kanban-schedule-dates-display-settings";
@@ -505,7 +511,7 @@ function DateKanbanSchedule() {
     tags,
     locationId,
     view,
-    currentDate,
+    currentDate
   } = useLoaderData<typeof loader>();
 
   const locations = useLocations();
@@ -544,9 +550,9 @@ function DateKanbanSchedule() {
           type: "static",
           options: salesOrders.map((so) => ({
             label: so.readableId,
-            value: so.id,
-          })),
-        },
+            value: so.id
+          }))
+        }
       },
       {
         accessorKey: "assignee",
@@ -555,9 +561,9 @@ function DateKanbanSchedule() {
           type: "static",
           options: people.map((p) => ({
             label: p.name,
-            value: p.id,
-          })),
-        },
+            value: p.id
+          }))
+        }
       },
       {
         accessorKey: "tag",
@@ -566,10 +572,10 @@ function DateKanbanSchedule() {
           type: "static",
           options: availableTags.map((tag) => ({
             label: tag,
-            value: tag,
-          })),
-        },
-      },
+            value: tag
+          }))
+        }
+      }
     ];
   }, [salesOrders, people, availableTags]);
 
@@ -585,15 +591,15 @@ function DateKanbanSchedule() {
         const weekEnd = endOfWeek(date, "en-GB");
         return `${weekStart.toDate(tz).toLocaleDateString("en-US", {
           month: "short",
-          day: "numeric",
+          day: "numeric"
         })} - ${weekEnd.toDate(tz).toLocaleDateString("en-US", {
           month: "short",
-          day: "numeric",
+          day: "numeric"
         })}`;
       } else {
         return date.toDate(tz).toLocaleDateString("en-US", {
           month: "short",
-          year: "numeric",
+          year: "numeric"
         });
       }
     },
@@ -632,7 +638,7 @@ function DateKanbanSchedule() {
       if (prevSpanStart.compare(todaySpanStart) >= 0) {
         spans.push({
           date: prevDate.toString(),
-          label: getDateSpanLabel(prevDate, view),
+          label: getDateSpanLabel(prevDate, view)
         });
       }
     }
@@ -640,7 +646,7 @@ function DateKanbanSchedule() {
     // Add current span
     spans.push({
       date: parsedDate.toString(),
-      label: currentDateSpanLabel,
+      label: currentDateSpanLabel
     });
 
     // Add next 4 spans
@@ -651,7 +657,7 @@ function DateKanbanSchedule() {
           : parsedDate.add({ months: i });
       spans.push({
         date: nextDate.toString(),
-        label: getDateSpanLabel(nextDate, view),
+        label: getDateSpanLabel(nextDate, view)
       });
     }
 
@@ -662,7 +668,7 @@ function DateKanbanSchedule() {
     todayDate,
     getDateSpanLabel,
     getSpanStartDate,
-    currentDateSpanLabel,
+    currentDateSpanLabel
   ]);
 
   const navigateToDate = (dateStr: string) => {
@@ -777,7 +783,7 @@ function DateKanbanSchedule() {
                     { key: "showQuantity", label: "Quantity" },
                     { key: "showStatus", label: "Status" },
                     { key: "showSalesOrder", label: "Sales Order" },
-                    { key: "showThumbnail", label: "Thumbnail" },
+                    { key: "showThumbnail", label: "Thumbnail" }
                   ].map(({ key, label }) => (
                     <Switch
                       key={key}
@@ -789,7 +795,7 @@ function DateKanbanSchedule() {
                       onCheckedChange={(checked) =>
                         setDisplaySettings((prev) => ({
                           ...prev,
-                          [key]: checked,
+                          [key]: checked
                         }))
                       }
                     />

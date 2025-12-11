@@ -7,7 +7,7 @@ import { triggerJobReschedule } from "~/modules/production/production.service";
 
 export async function action({ request }: ActionFunctionArgs) {
   const { client, userId, companyId } = await requirePermissions(request, {
-    update: "production",
+    update: "production"
   });
 
   const validation = await validator(scheduleJobUpdateValidator).validate(
@@ -17,7 +17,7 @@ export async function action({ request }: ActionFunctionArgs) {
   if (validation.error) {
     return json({
       success: false,
-      message: "Invalid form data",
+      message: "Invalid form data"
     });
   }
 
@@ -38,7 +38,7 @@ export async function action({ request }: ActionFunctionArgs) {
     dueDate,
     priority: validation.data.priority,
     updatedBy: userId,
-    updatedAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString()
   };
 
   const { error } = await client

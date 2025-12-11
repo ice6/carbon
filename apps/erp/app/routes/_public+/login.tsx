@@ -7,7 +7,7 @@ import {
   CONTROLLED_ENVIRONMENT,
   error,
   magicLinkValidator,
-  RATE_LIMIT,
+  RATE_LIMIT
 } from "@carbon/auth";
 import { sendMagicLink, verifyAuthSession } from "@carbon/auth/auth.server";
 import { flash, getAuthSession } from "@carbon/auth/session.server";
@@ -22,7 +22,7 @@ import {
   Button,
   Heading,
   toast,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { ItarLoginDisclaimer, useMode } from "@carbon/remix";
 import { Edition } from "@carbon/utils";
@@ -32,7 +32,7 @@ import { Ratelimit } from "@upstash/ratelimit";
 import type {
   ActionFunctionArgs,
   LoaderFunctionArgs,
-  MetaFunction,
+  MetaFunction
 } from "@vercel/remix";
 import { json, redirect } from "@vercel/remix";
 import { useEffect, useState } from "react";
@@ -57,7 +57,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 const ratelimit = new Ratelimit({
   redis,
   limiter: Ratelimit.slidingWindow(RATE_LIMIT, "1 h"),
-  analytics: true,
+  analytics: true
 });
 
 export async function action({ request }: ActionFunctionArgs): FormActionData {
@@ -91,13 +91,13 @@ export async function action({ request }: ActionFunctionArgs): FormActionData {
       {
         method: "POST",
         headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
+          "Content-Type": "application/x-www-form-urlencoded"
         },
         body: new URLSearchParams({
           secret: CLOUDFLARE_TURNSTILE_SECRET_KEY ?? "",
           response: turnstileToken ?? "",
-          remoteip: ip,
-        }),
+          remoteip: ip
+        })
       }
     );
 
@@ -180,8 +180,8 @@ export default function LoginRoute() {
       options: {
         redirectTo: `${window.location.origin}/callback${
           redirectTo ? `?redirectTo=${redirectTo}` : ""
-        }`,
-      },
+        }`
+      }
     });
 
     if (error) {
@@ -196,8 +196,8 @@ export default function LoginRoute() {
         scopes: "email",
         redirectTo: `${window.location.origin}/callback${
           redirectTo ? `?redirectTo=${redirectTo}` : ""
-        }`,
-      },
+        }`
+      }
     });
 
     if (error) {
@@ -288,7 +288,7 @@ export default function LoginRoute() {
                     onError={() => setTurnstileToken("")}
                     onExpire={() => setTurnstileToken("")}
                     options={{
-                      theme: theme === "dark" ? "dark" : "light",
+                      theme: theme === "dark" ? "dark" : "light"
                     }}
                   />
                 </div>

@@ -4,7 +4,7 @@ import { getCurrencyByCode } from "~/modules/accounting";
 
 export async function action({ request }: ActionFunctionArgs) {
   const { client, companyId, userId } = await requirePermissions(request, {
-    update: "sales",
+    update: "sales"
   });
 
   const formData = await request.formData();
@@ -38,7 +38,7 @@ export async function action({ request }: ActionFunctionArgs) {
                 customerId: value ?? undefined,
                 currencyCode: currencyCode ? currencyCode : undefined,
                 updatedBy: userId,
-                updatedAt: new Date().toISOString(),
+                updatedAt: new Date().toISOString()
               })
               .in("id", ids as string[])
           );
@@ -51,7 +51,7 @@ export async function action({ request }: ActionFunctionArgs) {
           .update({
             customerId: value ?? undefined,
             updatedBy: userId,
-            updatedAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString()
           })
           .in("id", ids as string[])
       );
@@ -69,7 +69,7 @@ export async function action({ request }: ActionFunctionArgs) {
               currencyCode: value,
               exchangeRate: currency.data.exchangeRate,
               updatedBy: userId,
-              updatedAt: new Date().toISOString(),
+              updatedAt: new Date().toISOString()
             })
             .in("id", ids as string[])
         );
@@ -91,7 +91,7 @@ export async function action({ request }: ActionFunctionArgs) {
           .update({
             [field]: value ? value : null,
             updatedBy: userId,
-            updatedAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString()
           })
           .in("id", ids as string[])
       );

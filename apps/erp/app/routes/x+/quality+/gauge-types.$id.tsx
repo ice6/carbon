@@ -8,7 +8,7 @@ import { json, redirect } from "@vercel/remix";
 import {
   gaugeTypeValidator,
   getGaugeType,
-  upsertGaugeType,
+  upsertGaugeType
 } from "~/modules/quality";
 import GaugeTypeForm from "~/modules/quality/ui/GaugeTypes/GaugeTypeForm";
 import { getCustomFields, setCustomFields } from "~/utils/form";
@@ -17,7 +17,7 @@ import { path } from "~/utils/path";
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
     view: "quality",
-    role: "employee",
+    role: "employee"
   });
 
   const { id } = params;
@@ -33,14 +33,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   }
 
   return json({
-    gaugeType: gaugeType.data,
+    gaugeType: gaugeType.data
   });
 }
 
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    update: "quality",
+    update: "quality"
   });
 
   const formData = await request.formData();
@@ -57,7 +57,7 @@ export async function action({ request }: ActionFunctionArgs) {
     id,
     ...data,
     updatedBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
 
   if (updateGaugeType.error) {
@@ -83,7 +83,7 @@ export default function EditGaugeTypeRoute() {
   const initialValues = {
     id: gaugeType.id ?? undefined,
     name: gaugeType.name ?? "",
-    ...getCustomFields(gaugeType.customFields),
+    ...getCustomFields(gaugeType.customFields)
   };
 
   return (

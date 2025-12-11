@@ -17,7 +17,7 @@ const bomHeaders = [
   "Method Type",
   "Item Type",
   "Level",
-  "Version",
+  "Version"
 ];
 
 const operationHeaders = [
@@ -30,12 +30,12 @@ const operationHeaders = [
   "Labor Time",
   "Labor Unit",
   "Machine Time",
-  "Machine Unit",
+  "Machine Unit"
 ];
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    view: "sales",
+    view: "sales"
   });
 
   const { id } = params;
@@ -45,8 +45,8 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     return new Response(bomHeaders.join(",") + "\n", {
       headers: {
         "Content-Type": "text/csv",
-        "Content-Disposition": "attachment; filename=bom.csv",
-      },
+        "Content-Disposition": "attachment; filename=bom.csv"
+      }
     });
   }
 
@@ -60,8 +60,8 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     return new Response(bomHeaders.join(",") + "\n", {
       headers: {
         "Content-Type": "text/csv",
-        "Content-Disposition": `attachment; filename=${fileName}`,
-      },
+        "Content-Disposition": `attachment; filename=${fileName}`
+      }
     });
   }
 
@@ -71,8 +71,8 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     return new Response(bomHeaders.join(",") + "\n", {
       headers: {
         "Content-Type": "text/csv",
-        "Content-Disposition": "attachment; filename=bom.csv",
-      },
+        "Content-Disposition": "attachment; filename=bom.csv"
+      }
     });
   }
 
@@ -80,7 +80,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   const flattenedMethods = methodTree ? flattenTree(methodTree) : [];
 
   const makeMethodIds = [
-    ...new Set(flattenedMethods.map((method) => method.data.quoteMakeMethodId)),
+    ...new Set(flattenedMethods.map((method) => method.data.quoteMakeMethodId))
   ];
 
   let operationsByMakeMethodId: Record<
@@ -106,7 +106,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
         (acc, operation) => {
           acc[operation.quoteMakeMethodId ?? ""] = [
             ...(acc[operation.quoteMakeMethodId ?? ""] || []),
-            operation,
+            operation
           ];
           return acc;
         },
@@ -153,14 +153,17 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
             .map((quantity) => {
               const duration = makeDurations({
                 ...operation,
-                operationQuantity: quantity,
+                operationQuantity: quantity
               });
               return [quantity, duration.duration];
             })
-            .reduce((acc, [quantity, duration]) => {
-              acc[`totalDuration${quantity}`] = duration;
-              return acc;
-            }, {} as Record<string, number>);
+            .reduce(
+              (acc, [quantity, duration]) => {
+                acc[`totalDuration${quantity}`] = duration;
+                return acc;
+              },
+              {} as Record<string, number>
+            );
 
           csv += Array(bomHeaders.length).fill(",").join("");
           csv += `${operation.description},${operation.processName},${
@@ -186,7 +189,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   return new Response(csv, {
     headers: {
       "Content-Type": "text/csv",
-      "Content-Disposition": `attachment; filename=${fileName}`,
-    },
+      "Content-Disposition": `attachment; filename=${fileName}`
+    }
   });
 }

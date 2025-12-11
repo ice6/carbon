@@ -2,7 +2,7 @@ import {
   assertIsPost,
   error,
   getCarbonServiceRole,
-  success,
+  success
 } from "@carbon/auth";
 import { requirePermissions } from "@carbon/auth/auth.server";
 import { flash } from "@carbon/auth/session.server";
@@ -13,7 +13,7 @@ import { json, redirect } from "@vercel/remix";
 import { nonScrapQuantityValidator } from "~/services/models";
 import {
   finishJobOperation,
-  insertProductionQuantity,
+  insertProductionQuantity
 } from "~/services/operations.service";
 import { path } from "~/utils/path";
 
@@ -43,7 +43,7 @@ export async function action({ request }: ActionFunctionArgs) {
       .from("productionQuantity")
       .select("*")
       .eq("type", "Production")
-      .eq("jobOperationId", validation.data.jobOperationId),
+      .eq("jobOperationId", validation.data.jobOperationId)
   ]);
 
   if (jobOperation.error || !jobOperation.data) {
@@ -51,7 +51,7 @@ export async function action({ request }: ActionFunctionArgs) {
       {},
       await flash(request, {
         ...error(jobOperation.error, "Failed to fetch job operation"),
-        flash: "error",
+        flash: "error"
       })
     );
   }
@@ -70,9 +70,9 @@ export async function action({ request }: ActionFunctionArgs) {
         type: "jobOperationSerialComplete",
         ...validation.data,
         companyId,
-        userId,
+        userId
       },
-      region: FunctionRegion.UsEast1,
+      region: FunctionRegion.UsEast1
     });
 
     const trackedEntityId = response.data?.newTrackedEntityId;
@@ -80,7 +80,7 @@ export async function action({ request }: ActionFunctionArgs) {
     if (willBeFinished) {
       const finishOperation = await finishJobOperation(serviceRole, {
         jobOperationId: jobOperation.data.id,
-        userId,
+        userId
       });
 
       if (finishOperation.error) {
@@ -88,7 +88,7 @@ export async function action({ request }: ActionFunctionArgs) {
           {},
           await flash(request, {
             ...error(finishOperation.error, "Failed to finish operation"),
-            flash: "error",
+            flash: "error"
           })
         );
       }
@@ -97,7 +97,7 @@ export async function action({ request }: ActionFunctionArgs) {
         path.to.operations,
         await flash(request, {
           ...success("Operation finished successfully"),
-          flash: "success",
+          flash: "success"
         })
       );
     }
@@ -118,9 +118,9 @@ export async function action({ request }: ActionFunctionArgs) {
         type: "jobOperationBatchComplete",
         ...validation.data,
         companyId,
-        userId,
+        userId
       },
-      region: FunctionRegion.UsEast1,
+      region: FunctionRegion.UsEast1
     });
 
     if (response.error) {
@@ -128,7 +128,7 @@ export async function action({ request }: ActionFunctionArgs) {
         {},
         await flash(request, {
           ...error(response.error, "Failed to complete job operation"),
-          flash: "error",
+          flash: "error"
         })
       );
     }
@@ -136,7 +136,7 @@ export async function action({ request }: ActionFunctionArgs) {
     if (willBeFinished) {
       const finishOperation = await finishJobOperation(serviceRole, {
         jobOperationId: jobOperation.data.id,
-        userId,
+        userId
       });
 
       if (finishOperation.error) {
@@ -144,7 +144,7 @@ export async function action({ request }: ActionFunctionArgs) {
           {},
           await flash(request, {
             ...error(finishOperation.error, "Failed to finish operation"),
-            flash: "error",
+            flash: "error"
           })
         );
       }
@@ -153,7 +153,7 @@ export async function action({ request }: ActionFunctionArgs) {
         path.to.operations,
         await flash(request, {
           ...success("Operation finished successfully"),
-          flash: "success",
+          flash: "success"
         })
       );
     }
@@ -164,7 +164,7 @@ export async function action({ request }: ActionFunctionArgs) {
     const insertProduction = await insertProductionQuantity(client, {
       ...data,
       companyId,
-      createdBy: userId,
+      createdBy: userId
     });
 
     if (insertProduction.error) {
@@ -175,7 +175,7 @@ export async function action({ request }: ActionFunctionArgs) {
             insertProduction.error,
             "Failed to record production quantity"
           ),
-          flash: "error",
+          flash: "error"
         })
       );
     }
@@ -186,9 +186,9 @@ export async function action({ request }: ActionFunctionArgs) {
         type: "jobOperation",
         quantity: validation.data.quantity,
         companyId,
-        userId,
+        userId
       },
-      region: FunctionRegion.UsEast1,
+      region: FunctionRegion.UsEast1
     });
 
     if (issue.error) {
@@ -196,7 +196,7 @@ export async function action({ request }: ActionFunctionArgs) {
         insertProduction.data,
         await flash(request, {
           ...error(issue.error, "Failed to issue materials"),
-          flash: "error",
+          flash: "error"
         })
       );
     }
@@ -204,7 +204,7 @@ export async function action({ request }: ActionFunctionArgs) {
     if (willBeFinished) {
       const finishOperation = await finishJobOperation(serviceRole, {
         jobOperationId: jobOperation.data.id,
-        userId,
+        userId
       });
 
       if (finishOperation.error) {
@@ -212,7 +212,7 @@ export async function action({ request }: ActionFunctionArgs) {
           {},
           await flash(request, {
             ...error(finishOperation.error, "Failed to finish operation"),
-            flash: "error",
+            flash: "error"
           })
         );
       }
@@ -221,7 +221,7 @@ export async function action({ request }: ActionFunctionArgs) {
         path.to.operations,
         await flash(request, {
           ...success("Operation finished successfully"),
-          flash: "success",
+          flash: "success"
         })
       );
     }
@@ -230,7 +230,7 @@ export async function action({ request }: ActionFunctionArgs) {
       insertProduction.data,
       await flash(request, {
         ...success("Successfully completed part"),
-        flash: "success",
+        flash: "success"
       })
     );
   }

@@ -14,13 +14,13 @@ describe("getInputProps", () => {
         hasBeenSubmitted: false,
         setTouched: vi.fn(),
         clearError: vi.fn(),
-        validate: vi.fn(),
+        validate: vi.fn()
       };
       const getInputProps = createGetInputProps(options);
 
       const provided = {
         onBlur: vi.fn(),
-        onChange: vi.fn(),
+        onChange: vi.fn()
       };
       const { onChange, onBlur } = getInputProps(provided);
 
@@ -48,14 +48,14 @@ describe("getInputProps", () => {
         clearError: vi.fn(),
         validate: vi.fn(),
         validationBehavior: {
-          initial: "onChange",
-        },
+          initial: "onChange"
+        }
       };
       const getInputProps = createGetInputProps(options);
 
       const provided = {
         onBlur: vi.fn(),
-        onChange: vi.fn(),
+        onChange: vi.fn()
       };
       const { onChange, onBlur } = getInputProps(provided);
 
@@ -83,14 +83,14 @@ describe("getInputProps", () => {
         clearError: vi.fn(),
         validate: vi.fn(),
         validationBehavior: {
-          initial: "onSubmit",
-        },
+          initial: "onSubmit"
+        }
       };
       const getInputProps = createGetInputProps(options);
 
       const provided = {
         onBlur: vi.fn(),
-        onChange: vi.fn(),
+        onChange: vi.fn()
       };
       const { onChange, onBlur } = getInputProps(provided);
 
@@ -118,13 +118,13 @@ describe("getInputProps", () => {
         hasBeenSubmitted: false,
         setTouched: vi.fn(),
         clearError: vi.fn(),
-        validate: vi.fn(),
+        validate: vi.fn()
       };
       const getInputProps = createGetInputProps(options);
 
       const provided = {
         onBlur: vi.fn(),
-        onChange: vi.fn(),
+        onChange: vi.fn()
       };
       const { onChange, onBlur } = getInputProps(provided);
 
@@ -152,14 +152,14 @@ describe("getInputProps", () => {
         clearError: vi.fn(),
         validate: vi.fn(),
         validationBehavior: {
-          whenTouched: "onBlur",
-        },
+          whenTouched: "onBlur"
+        }
       };
       const getInputProps = createGetInputProps(options);
 
       const provided = {
         onBlur: vi.fn(),
-        onChange: vi.fn(),
+        onChange: vi.fn()
       };
       const { onChange, onBlur } = getInputProps(provided);
 
@@ -187,13 +187,13 @@ describe("getInputProps", () => {
         hasBeenSubmitted: true,
         setTouched: vi.fn(),
         clearError: vi.fn(),
-        validate: vi.fn(),
+        validate: vi.fn()
       };
       const getInputProps = createGetInputProps(options);
 
       const provided = {
         onBlur: vi.fn(),
-        onChange: vi.fn(),
+        onChange: vi.fn()
       };
       const { onChange, onBlur } = getInputProps(provided);
 
@@ -221,14 +221,14 @@ describe("getInputProps", () => {
         clearError: vi.fn(),
         validate: vi.fn(),
         validationBehavior: {
-          whenSubmitted: "onBlur",
-        },
+          whenSubmitted: "onBlur"
+        }
       };
       const getInputProps = createGetInputProps(options);
 
       const provided = {
         onBlur: vi.fn(),
-        onChange: vi.fn(),
+        onChange: vi.fn()
       };
       const { onChange, onBlur } = getInputProps(provided);
 

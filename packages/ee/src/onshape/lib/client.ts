@@ -28,7 +28,7 @@ export class OnshapeClient {
 
     this.axiosInstance = axios.create({
       baseURL: this.baseUrl,
-      headers: this.getAuthHeaders(),
+      headers: this.getAuthHeaders()
     });
   }
 
@@ -43,7 +43,7 @@ export class OnshapeClient {
     return {
       "Content-Type": "application/json",
       Accept: "application/json;charset=UTF-8; qs=0.09",
-      Authorization: `Basic ${auth}`,
+      Authorization: `Basic ${auth}`
     };
   }
 
@@ -59,7 +59,7 @@ export class OnshapeClient {
       const response = await this.axiosInstance.request<T>({
         method,
         url: path,
-        data: body,
+        data: body
       });
       return response.data;
     } catch (error) {

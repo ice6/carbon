@@ -55,9 +55,9 @@ class TwentyClient {
       method,
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${this.apiKey}`,
+        Authorization: `Bearer ${this.apiKey}`
       },
-      body: body ? JSON.stringify(body) : undefined,
+      body: body ? JSON.stringify(body) : undefined
     });
 
     if (!response.ok) {

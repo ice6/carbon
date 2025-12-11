@@ -14,13 +14,13 @@ import {
   Progress as ProgressComponent,
   Tooltip,
   TooltipContent,
-  TooltipTrigger,
+  TooltipTrigger
 } from "@carbon/react";
 import {
   convertDateStringToIsoString,
   formatDate,
   formatDurationMilliseconds,
-  formatRelativeTime,
+  formatRelativeTime
 } from "@carbon/utils";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
@@ -38,7 +38,7 @@ import {
   LuSquareUser,
   LuTimer,
   LuTrash,
-  LuUsers,
+  LuUsers
 } from "react-icons/lu";
 
 import { Link } from "@remix-run/react";
@@ -47,7 +47,7 @@ import { Assignee, CustomerAvatar, EmployeeAvatarGroup } from "~/components";
 
 import { ValidatedForm } from "@carbon/form";
 import { FaTasks } from "react-icons/fa";
-import { z } from 'zod/v3';
+import { z } from "zod/v3";
 import { Tags } from "~/components/Form";
 import { useTags } from "~/hooks/useTags";
 import { getDeadlineIcon } from "~/modules/production/ui/Jobs/Deadline";
@@ -69,11 +69,11 @@ const cardVariants = cva(
     variants: {
       highlighted: {
         true: "ring-2 ring-primary opacity-100",
-        false: "",
+        false: ""
       },
       dragging: {
         over: "ring-2 ring-primary opacity-30",
-        overlay: "ring-2 ring-primary hover:bg-muted",
+        overlay: "ring-2 ring-primary hover:bg-muted"
       },
       status: {
         "In Progress": "border-emerald-600/30",
@@ -82,12 +82,12 @@ const cardVariants = cva(
         Paused: "",
         Canceled: "border-red-500/30",
         Waiting: "opacity-50",
-        Todo: "border-border",
-      },
+        Todo: "border-border"
+      }
     },
     defaultVariants: {
-      status: "Todo",
-    },
+      status: "Todo"
+    }
   }
 );
 
@@ -102,12 +102,12 @@ const cardHeaderVariants = cva(
         Todo: "",
         Paused: "",
         Canceled: "",
-        Waiting: "",
-      },
+        Waiting: ""
+      }
     },
     defaultVariants: {
-      status: "Todo",
-    },
+      status: "Todo"
+    }
   }
 );
 
@@ -126,23 +126,23 @@ export function ItemCard({ item, isOverlay, progressByItemId }: ItemCardProps) {
     listeners,
     transform,
     transition,
-    isDragging,
+    isDragging
   } = useSortable({
     id: item.id,
     data: {
       type: "item",
-      item,
+      item
     },
     attributes: {
-      roleDescription: "item",
-    },
+      roleDescription: "item"
+    }
   });
 
   const isHighlighted = selectedGroup === item.jobReadableId;
 
   const style = {
     transition,
-    transform: CSS.Translate.toString(transform),
+    transform: CSS.Translate.toString(transform)
   };
 
   const isOverdue =
@@ -167,14 +167,14 @@ export function ItemCard({ item, isOverlay, progressByItemId }: ItemCardProps) {
         cardVariants({
           dragging: isOverlay ? "overlay" : isDragging ? "over" : undefined,
           status: status,
-          highlighted: isHighlighted,
+          highlighted: isHighlighted
         })
       )}
     >
       <CardHeader
         className={cn(
           cardHeaderVariants({
-            status: status,
+            status: status
           })
         )}
       >
@@ -255,8 +255,8 @@ export function ItemCard({ item, isOverlay, progressByItemId }: ItemCardProps) {
                   (progress ?? 0) > (item.duration ?? 0)
                     ? "bg-red-500"
                     : status === "Paused"
-                    ? "bg-yellow-500"
-                    : ""
+                      ? "bg-yellow-500"
+                      : ""
                 }
                 numerator={progress ? formatDurationMilliseconds(progress) : ""}
                 denominator={
@@ -315,7 +315,7 @@ export function ItemCard({ item, isOverlay, progressByItemId }: ItemCardProps) {
               operation={{
                 id: item.id,
                 status: status ?? "Todo",
-                jobId: item.jobId,
+                jobId: item.jobId
               }}
               className="size-4 p-0 hover:bg-transparent"
             />
@@ -341,10 +341,10 @@ export function ItemCard({ item, isOverlay, progressByItemId }: ItemCardProps) {
                   {["ASAP", "No Deadline"].includes(item.deadlineType)
                     ? item.deadlineType
                     : item.dueDate
-                    ? `Due ${formatRelativeTime(
-                        convertDateStringToIsoString(item.dueDate)
-                      )}`
-                    : "–"}
+                      ? `Due ${formatRelativeTime(
+                          convertDateStringToIsoString(item.dueDate)
+                        )}`
+                      : "–"}
                 </span>
               </TooltipTrigger>
               <TooltipContent side="right">{item.deadlineType}</TooltipContent>
@@ -416,7 +416,7 @@ export function ItemCard({ item, isOverlay, progressByItemId }: ItemCardProps) {
 
 function JobOperationTags({
   operation,
-  availableTags,
+  availableTags
 }: {
   operation: Item;
   availableTags: { name: string }[];
@@ -426,10 +426,10 @@ function JobOperationTags({
   return (
     <ValidatedForm
       defaultValues={{
-        tags: operation.tags ?? [],
+        tags: operation.tags ?? []
       }}
       validator={z.object({
-        tags: z.array(z.string()).optional(),
+        tags: z.array(z.string()).optional()
       })}
       className="w-full"
     >

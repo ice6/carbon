@@ -15,7 +15,7 @@ import { getGenericQueryFilters } from "~/utils/query";
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
     view: "production",
-    role: "employee",
+    role: "employee"
   });
 
   const { jobId } = params;
@@ -33,7 +33,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     offset,
     sorts,
     filters,
-    search,
+    search
   });
 
   if (stepRecords.error) {
@@ -48,7 +48,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
   return json({
     count: stepRecords.count ?? 0,
-    stepRecords: stepRecords.data ?? [],
+    stepRecords: stepRecords.data ?? []
   });
 }
 

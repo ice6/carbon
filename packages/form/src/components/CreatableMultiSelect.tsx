@@ -4,7 +4,7 @@ import {
   FormControl,
   FormErrorMessage,
   FormHelperText,
-  FormLabel,
+  FormLabel
 } from "@carbon/react";
 import { forwardRef, useEffect, useMemo } from "react";
 

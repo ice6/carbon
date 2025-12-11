@@ -18,5 +18,5 @@ export {
   QuotePDF,
   SalesInvoicePDF,
   SalesOrderPDF,
-  StockTransferPDF,
+  StockTransferPDF
 };

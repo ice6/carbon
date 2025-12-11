@@ -5,7 +5,7 @@ import {
   Popover,
   PopoverContent,
   PopoverHeader,
-  PopoverTrigger,
+  PopoverTrigger
 } from "@carbon/react";
 import { parseDate } from "@internationalized/date";
 import { LuCalendarDays, LuX } from "react-icons/lu";
@@ -22,7 +22,7 @@ const ChartOfAccountsTableFilters = () => {
 
   const incomeBalanceOptions = incomeBalanceTypes.map((type) => ({
     label: type,
-    value: type,
+    value: type
   }));
 
   return (
@@ -74,7 +74,7 @@ const ChartOfAccountsTableFilters = () => {
               setParams({
                 incomeBalance: undefined,
                 startDate: undefined,
-                endDate: undefined,
+                endDate: undefined
               })
             }
           >

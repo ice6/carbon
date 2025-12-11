@@ -8,7 +8,7 @@ import {
   LuPencil,
   LuToggleRight,
   LuUser,
-  LuUsers,
+  LuUsers
 } from "react-icons/lu";
 import { Avatar, EmployeeAvatar, Hyperlink, New, Table } from "~/components";
 import { Enumerable } from "~/components/Enumerable";
@@ -102,8 +102,8 @@ const PeopleTable = memo(
             </HStack>
           ),
           meta: {
-            icon: <LuUsers />,
-          },
+            icon: <LuUsers />
+          }
         },
 
         {
@@ -111,24 +111,24 @@ const PeopleTable = memo(
           header: "First Name",
           cell: (item) => item.getValue(),
           meta: {
-            icon: <LuUser />,
-          },
+            icon: <LuUser />
+          }
         },
         {
           accessorKey: "lastName",
           header: "Last Name",
           cell: (item) => item.getValue(),
           meta: {
-            icon: <LuUser />,
-          },
+            icon: <LuUser />
+          }
         },
         {
           accessorKey: "email",
           header: "Email",
           cell: (item) => item.getValue(),
           meta: {
-            icon: <LuMail />,
-          },
+            icon: <LuMail />
+          }
         },
         {
           id: "employeeTypeId",
@@ -145,11 +145,11 @@ const PeopleTable = memo(
               type: "static",
               options: employeeTypes.map((type) => ({
                 value: type.id!,
-                label: <Enumerable value={type.name!} />,
-              })),
+                label: <Enumerable value={type.name!} />
+              }))
             },
-            icon: <LuBriefcase />,
-          },
+            icon: <LuBriefcase />
+          }
         },
         {
           accessorKey: "active",
@@ -160,12 +160,12 @@ const PeopleTable = memo(
               type: "static",
               options: [
                 { value: "true", label: "Active" },
-                { value: "false", label: "Inactive" },
-              ],
+                { value: "false", label: "Inactive" }
+              ]
             },
-            icon: <LuToggleRight />,
-          },
-        },
+            icon: <LuToggleRight />
+          }
+        }
       ];
 
       const additionalColumns: ColumnDef<(typeof data)[number]>[] = [];
@@ -181,7 +181,7 @@ const PeopleTable = memo(
                   row?.original?.attributes?.[attribute?.id]?.value,
                   row?.original?.attributes?.[attribute?.id]?.dataType,
                   row?.original?.attributes?.[attribute?.id]?.user
-                ),
+                )
             });
           });
         }
@@ -192,7 +192,7 @@ const PeopleTable = memo(
       attributeCategories,
       employeeTypes,
       employeeTypesById,
-      renderGenericAttribute,
+      renderGenericAttribute
     ]);
 
     const renderContextMenu = useMemo(() => {
@@ -221,7 +221,7 @@ const PeopleTable = memo(
           columns={columns}
           data={data}
           defaultColumnPinning={{
-            left: ["Select", "User"],
+            left: ["Select", "User"]
           }}
           primaryAction={
             permissions.can("create", "users") && (

@@ -16,12 +16,12 @@ import {
   getOpportunity,
   getOpportunityDocuments,
   getSalesRFQ,
-  getSalesRFQLines,
+  getSalesRFQLines
 } from "~/modules/sales";
 import {
   SalesRFQExplorer,
   SalesRFQHeader,
-  SalesRFQProperties,
+  SalesRFQProperties
 } from "~/modules/sales/ui/SalesRFQ";
 import { useOptimisticDocumentDrag } from "~/modules/sales/ui/SalesRFQ/useOptimiticDocumentDrag";
 import type { Handle } from "~/utils/handle";
@@ -29,12 +29,12 @@ import { path } from "~/utils/path";
 
 export const handle: Handle = {
   breadcrumb: "RFQs",
-  to: path.to.salesRfqs,
+  to: path.to.salesRfqs
 };
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { companyId } = await requirePermissions(request, {
-    view: "sales",
+    view: "sales"
   });
 
   const { rfqId } = params;
@@ -44,7 +44,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
   const [rfqSummary, lines] = await Promise.all([
     getSalesRFQ(serviceRole, rfqId),
-    getSalesRFQLines(serviceRole, rfqId),
+    getSalesRFQLines(serviceRole, rfqId)
   ]);
 
   const opportunity = await getOpportunity(
@@ -85,10 +85,10 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
         externalNotes: (line.externalNotes ?? {}) as JSONContent,
         internalNotes: (line.internalNotes ?? {}) as JSONContent,
         itemId: line.itemId ?? "",
-        quantity: line.quantity ?? [1],
+        quantity: line.quantity ?? [1]
       })) ?? [],
     files: getOpportunityDocuments(serviceRole, companyId, opportunity.data.id),
-    opportunity: opportunity.data,
+    opportunity: opportunity.data
   });
 }
 
@@ -122,7 +122,7 @@ export default function SalesRFQRoute() {
         : undefined,
       path: document.path,
       size: document.metadata?.size,
-      salesRfqId: rfqId,
+      salesRfqId: rfqId
     };
 
     formData.append("payload", JSON.stringify(payload));
@@ -131,7 +131,7 @@ export default function SalesRFQRoute() {
       method: "post",
       action: path.to.salesRfqDrag(rfqId),
       navigate: false,
-      fetcherKey: `drag-${document.id}`,
+      fetcherKey: `drag-${document.id}`
     });
   };
 

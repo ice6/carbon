@@ -5,7 +5,7 @@ import {
   defer,
   redirect,
   useLoaderData,
-  useParams,
+  useParams
 } from "@remix-run/react";
 import type { LoaderFunctionArgs } from "@vercel/remix";
 
@@ -21,30 +21,30 @@ import type {
   ConfigurationParameter,
   ConfigurationParameterGroup,
   ConfigurationRule,
-  itemManufacturingValidator,
+  itemManufacturingValidator
 } from "~/modules/items";
 import {
   getMakeMethodById,
   getMakeMethods,
   getMethodMaterialsByMakeMethod,
-  getMethodOperationsByMakeMethodId,
+  getMethodOperationsByMakeMethodId
 } from "~/modules/items";
 import {
   BillOfMaterial,
   BillOfProcess,
-  MakeMethodTools,
+  MakeMethodTools
 } from "~/modules/items/ui/Item";
 import {
   getModelByItemId,
   getTagsList,
   type MethodItemType,
-  type MethodType,
+  type MethodType
 } from "~/modules/shared";
 import { path } from "~/utils/path";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    view: "parts",
+    view: "parts"
   });
 
   const { itemId, makeMethodId } = params;
@@ -56,7 +56,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
       getMakeMethodById(client, makeMethodId, companyId),
       getMethodMaterialsByMakeMethod(client, makeMethodId),
       getMethodOperationsByMakeMethodId(client, makeMethodId),
-      getTagsList(client, companyId, "operation"),
+      getTagsList(client, companyId, "operation")
     ]);
 
   if (makeMethod.error) {
@@ -97,7 +97,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
         description: m.item?.name ?? "",
         methodOperationId: m.methodOperationId ?? undefined,
         methodType: m.methodType as MethodType,
-        itemType: m.itemType as MethodItemType,
+        itemType: m.itemType as MethodItemType
       })) ?? [],
     methodOperations:
       methodOperations.data?.map((operation) => ({
@@ -111,11 +111,11 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
         operationUnitCost: operation.operationUnitCost ?? 0,
         tags: operation.tags ?? [],
         workCenterId: operation.workCenterId ?? undefined,
-        workInstruction: operation.workInstruction as JSONContent | null,
+        workInstruction: operation.workInstruction as JSONContent | null
       })) ?? [],
     makeMethods: getMakeMethods(client, makeMethod.data.itemId, companyId),
     model: getModelByItemId(client, makeMethod.data.itemId),
-    tags: tags.data ?? [],
+    tags: tags.data ?? []
   });
 }
 
@@ -183,7 +183,7 @@ export default function MethodMaterialMakePage() {
               key={`cad:${model.itemId}`}
               isReadOnly={!permissions.can("update", "parts")}
               metadata={{
-                itemId: model?.itemId ?? undefined,
+                itemId: model?.itemId ?? undefined
               }}
               modelPath={model?.modelPath ?? null}
               title="CAD Model"

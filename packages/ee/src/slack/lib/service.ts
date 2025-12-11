@@ -4,7 +4,7 @@ import type {
   slackDocumentAssignmentUpdate,
   slackDocumentCreated,
   slackDocumentStatusUpdate,
-  slackDocumentTaskUpdate,
+  slackDocumentTaskUpdate
 } from "@carbon/jobs/trigger/slack-document-sync";
 import { redis } from "@carbon/kv";
 import { isUrl } from "@carbon/utils";
@@ -61,8 +61,8 @@ export async function createIssueSlackThread(
         type: "header",
         text: {
           type: "plain_text",
-          text: `Issue ${data.nonConformanceId}`,
-        },
+          text: `Issue ${data.nonConformanceId}`
+        }
       },
       {
         type: "section",
@@ -70,27 +70,27 @@ export async function createIssueSlackThread(
           type: "mrkdwn",
           text: `*${data.title}*\n${
             data.description || "_No description provided_"
-          }`,
+          }`
         },
         fields: [
           {
             type: "mrkdwn",
-            text: `*Status:*\nRegistered`,
+            text: `*Status:*\nRegistered`
           },
           {
             type: "mrkdwn",
-            text: `*Severity:*\n${data.severity}`,
-          },
-        ],
+            text: `*Severity:*\n${data.severity}`
+          }
+        ]
       },
       {
         type: "context",
         elements: [
           {
             type: "mrkdwn",
-            text: `Created by <@${auth.slackUserId}>`,
-          },
-        ],
+            text: `Created by <@${auth.slackUserId}>`
+          }
+        ]
       },
       ...(data.carbonUrl && isUrl(data.carbonUrl)
         ? [
@@ -101,15 +101,15 @@ export async function createIssueSlackThread(
                   type: "button",
                   text: {
                     type: "plain_text",
-                    text: "View in Carbon",
+                    text: "View in Carbon"
                   },
                   url: data.carbonUrl,
-                  action_id: "view_in_carbon",
-                },
-              ],
-            },
+                  action_id: "view_in_carbon"
+                }
+              ]
+            }
           ]
-        : []),
+        : [])
     ];
 
     console.log({ blocks, data });
@@ -118,7 +118,7 @@ export async function createIssueSlackThread(
       channel: auth.channelId,
       unfurl_links: false,
       unfurl_media: false,
-      blocks,
+      blocks
     });
 
     if (threadMessage.ts) {
@@ -130,7 +130,7 @@ export async function createIssueSlackThread(
           companyId: data.companyId,
           channelId: auth.channelId,
           threadTs: threadMessage.ts,
-          createdBy: data.userId,
+          createdBy: data.userId
         })
         .select("*")
         .single();
@@ -144,15 +144,15 @@ export async function createIssueSlackThread(
 
     return {
       data: null,
-      error: { message: "Failed to post message to Slack" },
+      error: { message: "Failed to post message to Slack" }
     };
   } catch (error) {
     console.error("Error creating Issue Slack thread:", error);
     return {
       data: null,
       error: {
-        message: error instanceof Error ? error.message : "Unknown error",
-      },
+        message: error instanceof Error ? error.message : "Unknown error"
+      }
     };
   }
 }
@@ -234,7 +234,7 @@ export async function getSlackAuth(
   return {
     slackToken: metadata.access_token,
     channelId: metadata.channel_id,
-    slackUserId: slackUserId || undefined,
+    slackUserId: slackUserId || undefined
   };
 }
 
@@ -261,7 +261,7 @@ export async function getSlackUserIdByCarbonId(
   try {
     const slackClient = createSlackWebClient({ token: accessToken });
     const slackUser = await slackClient.users.lookupByEmail({
-      email: user.data.email,
+      email: user.data.email
     });
 
     if (slackUser.ok && slackUser.user?.id) {
@@ -309,7 +309,7 @@ export async function getCarbonEmployeeFromSlackId(
     const slackClient = createSlackWebClient({ token: accessToken });
 
     const userInfo = await slackClient.users.info({
-      user: slackUserId,
+      user: slackUserId
     });
 
     if (!userInfo.ok || !userInfo.user?.profile?.email) {
@@ -332,9 +332,9 @@ export async function getCarbonEmployeeFromSlackId(
       return {
         data: {
           id: "system",
-          locationId: location.data?.[0]?.id,
+          locationId: location.data?.[0]?.id
         },
-        error: null,
+        error: null
       };
     }
     const job = await client
@@ -352,9 +352,9 @@ export async function getCarbonEmployeeFromSlackId(
       return {
         data: {
           id: user.data.id,
-          locationId: location.data?.[0]?.id,
+          locationId: location.data?.[0]?.id
         },
-        error: null,
+        error: null
       };
     }
 
@@ -363,7 +363,7 @@ export async function getCarbonEmployeeFromSlackId(
     console.error("Error getting Carbon employee from Slack ID:", error);
     return {
       data: null,
-      error: error instanceof Error ? error.message : "Unknown error",
+      error: error instanceof Error ? error.message : "Unknown error"
     };
   }
 }
@@ -392,14 +392,14 @@ export async function syncDocumentToSlack(
       data.documentId,
       data.companyId
     ),
-    getSlackAuth(serviceRole, data.companyId, data.userId),
+    getSlackAuth(serviceRole, data.companyId, data.userId)
   ]);
 
   if (!slackAuth) {
     console.error("Slack auth not found for company", data.companyId);
     return {
       data: null,
-      error: "Slack auth not found",
+      error: "Slack auth not found"
     };
   }
 
@@ -415,7 +415,7 @@ export async function syncDocumentToSlack(
               documentId: data.documentId,
               companyId: data.companyId,
               channelId: thread.data.channelId,
-              threadTs: thread.data.threadTs,
+              threadTs: thread.data.threadTs
             }
           );
           break;
@@ -429,7 +429,7 @@ export async function syncDocumentToSlack(
               companyId: data.companyId,
               previousStatus: data.payload.previousStatus,
               newStatus: data.payload.newStatus,
-              updatedBy: slackAuth.slackUserId || data.payload.updatedBy,
+              updatedBy: slackAuth.slackUserId || data.payload.updatedBy
             }
           );
           break;
@@ -495,7 +495,7 @@ export async function syncDocumentToSlack(
               taskName,
               taskType: data.payload.taskType,
               status: data.payload.status,
-              completedAt: data.payload.completedAt,
+              completedAt: data.payload.completedAt
             }
           );
           break;
@@ -525,7 +525,7 @@ export async function syncDocumentToSlack(
               companyId: data.companyId,
               previousAssignee,
               newAssignee,
-              updatedBy: slackAuth.slackUserId || data.payload.updatedBy,
+              updatedBy: slackAuth.slackUserId || data.payload.updatedBy
             }
           );
           break;
@@ -544,7 +544,7 @@ export async function syncDocumentToSlack(
       console.error("slack-document-sync error:", error);
       return {
         data: null,
-        error: error instanceof Error ? error.message : "Unknown error",
+        error: error instanceof Error ? error.message : "Unknown error"
       };
     }
   }
@@ -573,8 +573,8 @@ export async function syncDocumentCreatedToSlack(
     payload: {
       channelId: data.channelId,
       threadTs: data.threadTs,
-      metadata: data.metadata,
-    },
+      metadata: data.metadata
+    }
   });
 }
 
@@ -602,8 +602,8 @@ export async function syncDocumentStatusToSlack(
       newStatus: data.newStatus,
       updatedBy: data.userId,
       reason: data.reason,
-      metadata: data.metadata,
-    },
+      metadata: data.metadata
+    }
   });
 }
 
@@ -629,8 +629,8 @@ export async function syncDocumentAssignmentToSlack(
       previousAssignee: data.previousAssignee,
       newAssignee: data.newAssignee,
       updatedBy: data.userId,
-      metadata: data.metadata,
-    },
+      metadata: data.metadata
+    }
   });
 }
 
@@ -653,8 +653,8 @@ export async function syncDocumentCustomToSlack(
     type: "custom",
     payload: {
       customType: data.customType,
-      ...data.payload,
-    },
+      ...data.payload
+    }
   });
 }
 
@@ -676,7 +676,7 @@ export async function syncIssueStatusToSlack(
     userId: data.userId,
     previousStatus: data.previousStatus,
     newStatus: data.newStatus,
-    reason: data.reason,
+    reason: data.reason
   });
 }
 
@@ -727,8 +727,8 @@ export async function syncIssueTaskToSlack(
       taskId: data.id,
       taskType: data.taskType,
       status: data.status,
-      completedAt: data.completedAt,
-    },
+      completedAt: data.completedAt
+    }
   });
 }
 
@@ -748,7 +748,7 @@ export async function syncIssueAssignmentToSlack(
     companyId: data.companyId,
     userId: data.userId,
     previousAssignee: data.previousAssignee,
-    newAssignee: data.newAssignee,
+    newAssignee: data.newAssignee
   });
 }
 
@@ -765,7 +765,7 @@ export async function updateSlackDocumentThread(
     .from("slackDocumentThread")
     .update({
       ...updates,
-      updatedAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
     })
     .eq("id", id)
     .select("*")

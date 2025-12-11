@@ -14,7 +14,7 @@ import {
   TabsTrigger,
   generateHTML,
   toast,
-  useDebounce,
+  useDebounce
 } from "@carbon/react";
 import { Editor } from "@carbon/react/Editor";
 import { getLocalTimeZone, today } from "@internationalized/date";
@@ -29,7 +29,7 @@ const OpportunityLineNotes = ({
   title,
   subTitle,
   internalNotes: initialInternalNotes,
-  externalNotes: initialExternalNotes,
+  externalNotes: initialExternalNotes
 }: {
   id: string | null;
   table: "salesRfqLine" | "quoteLine" | "salesOrderLine" | "salesInvoiceLine";
@@ -40,7 +40,7 @@ const OpportunityLineNotes = ({
 }) => {
   const {
     id: userId,
-    company: { id: companyId },
+    company: { id: companyId }
   } = useUser();
   const { carbon } = useCarbon();
   const permissions = usePermissions();
@@ -78,7 +78,7 @@ const OpportunityLineNotes = ({
         .update({
           externalNotes: content,
           updatedAt: today(getLocalTimeZone()).toString(),
-          updatedBy: userId,
+          updatedBy: userId
         })
         .eq("id", id!);
     },
@@ -93,7 +93,7 @@ const OpportunityLineNotes = ({
         .update({
           internalNotes: content,
           updatedAt: today(getLocalTimeZone()).toString(),
-          updatedBy: userId,
+          updatedBy: userId
         })
         .eq("id", id!);
     },
@@ -139,7 +139,7 @@ const OpportunityLineNotes = ({
                 <div
                   className="prose dark:prose-invert"
                   dangerouslySetInnerHTML={{
-                    __html: generateHTML(internalNotes as JSONContent),
+                    __html: generateHTML(internalNotes as JSONContent)
                   }}
                 />
               )}
@@ -158,7 +158,7 @@ const OpportunityLineNotes = ({
                 <div
                   className="prose dark:prose-invert"
                   dangerouslySetInnerHTML={{
-                    __html: generateHTML(externalNotes as JSONContent),
+                    __html: generateHTML(externalNotes as JSONContent)
                   }}
                 />
               )}

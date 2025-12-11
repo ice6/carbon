@@ -8,15 +8,15 @@ import { json, redirect } from "@vercel/remix";
 import { useRouteData } from "~/hooks";
 import type {
   WarehouseTransfer,
-  WarehouseTransferLine,
+  WarehouseTransferLine
 } from "~/modules/inventory";
 import {
   upsertWarehouseTransfer,
-  warehouseTransferValidator,
+  warehouseTransferValidator
 } from "~/modules/inventory";
 import {
   WarehouseTransferForm,
-  WarehouseTransferLines,
+  WarehouseTransferLines
 } from "~/modules/inventory/ui/WarehouseTransfers";
 import { getCustomFields, setCustomFields } from "~/utils/form";
 import { path } from "~/utils/path";
@@ -24,7 +24,7 @@ import { path } from "~/utils/path";
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    update: "inventory",
+    update: "inventory"
   });
 
   const formData = await request.formData();
@@ -45,7 +45,7 @@ export async function action({ request }: ActionFunctionArgs) {
     transferId,
     ...data,
     updatedBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
 
   if (updateTransfer.error) {
@@ -84,7 +84,7 @@ export default function WarehouseTransferDetailsRoute() {
     transferId: routeData.warehouseTransfer.transferId ?? undefined,
     reference: routeData.warehouseTransfer.reference ?? undefined,
     notes: routeData.warehouseTransfer.notes ?? undefined,
-    ...getCustomFields(routeData.warehouseTransfer.customFields),
+    ...getCustomFields(routeData.warehouseTransfer.customFields)
   };
 
   return (

@@ -2,7 +2,7 @@ import {
   useNanoStore,
   useOptimisticLocation,
   useRouteData,
-  useUrlParams,
+  useUrlParams
 } from "@carbon/remix";
 
 import { useRealtime } from "./useRealtime";
@@ -14,5 +14,5 @@ export {
   useRealtime,
   useRouteData,
   useUrlParams,
-  useUser,
+  useUser
 };

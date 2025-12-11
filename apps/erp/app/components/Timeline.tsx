@@ -6,7 +6,7 @@ import {
   useCallback,
   useContext,
   useRef,
-  useState,
+  useState
 } from "react";
 
 interface MousePosition {
@@ -93,7 +93,7 @@ export function Root({
   minWidth,
   maxWidth,
   children,
-  className,
+  className
 }: RootProps) {
   const pixelWidth = calculatePixelWidth(minWidth, maxWidth, scale);
 
@@ -103,7 +103,7 @@ export function Root({
         className={className}
         style={{
           position: "relative",
-          width: `${pixelWidth}px`,
+          width: `${pixelWidth}px`
         }}
       >
         <MousePositionProvider>{children}</MousePositionProvider>
@@ -143,7 +143,7 @@ export function Point({ ms, className, children }: PointProps) {
       className={className}
       style={{
         position: "absolute",
-        left: `${position * 100}%`,
+        left: `${position * 100}%`
       }}
     >
       {children && children(ms)}
@@ -178,7 +178,7 @@ export function Span({ startMs, durationMs, className, children }: SpanProps) {
       style={{
         position: "absolute",
         left: `${position * 100}%`,
-        width: `${width * 100}%`,
+        width: `${width * 100}%`
       }}
     >
       {children}
@@ -226,7 +226,7 @@ export function FollowCursor({ children }: FollowCursorProps) {
         top: 0,
         left: relativeMousePosition ? `${relativeMousePosition?.x * 100}%` : 0,
         height: "100%",
-        pointerEvents: "none",
+        pointerEvents: "none"
       }}
     >
       {children(ms)}

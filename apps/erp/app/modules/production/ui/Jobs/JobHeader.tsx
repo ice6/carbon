@@ -26,7 +26,7 @@ import {
   SplitButton,
   VStack,
   useDisclosure,
-  useMount,
+  useMount
 } from "@carbon/react";
 
 import { useCarbon } from "@carbon/auth";
@@ -35,7 +35,7 @@ import {
   getLocalTimeZone,
   isSameDay,
   parseDate,
-  today,
+  today
 } from "@internationalized/date";
 import type { FetcherWithComponents } from "@remix-run/react";
 import { Link, useFetcher, useNavigate, useParams } from "@remix-run/react";
@@ -62,7 +62,7 @@ import {
   LuSquareSigma,
   LuTable,
   LuTrash,
-  LuTriangleAlert,
+  LuTriangleAlert
 } from "react-icons/lu";
 import { RiProgress8Line } from "react-icons/ri";
 import { Location, Shelf } from "~/components/Form";
@@ -114,7 +114,7 @@ const JobHeader = () => {
   const markAsPlanned = () => {
     statusFetcher.submit(
       {
-        status: "Planned",
+        status: "Planned"
       },
       { method: "post", action: path.to.jobStatus(jobId) }
     );
@@ -292,8 +292,8 @@ const JobHeader = () => {
               {
                 label: <JobStatus status="Planned" />,
                 icon: <LuCheckCheck />,
-                onClick: markAsPlanned,
-              },
+                onClick: markAsPlanned
+              }
             ]}
           >
             Release
@@ -461,7 +461,7 @@ const getExplorePath = (jobId: string, type: string) => {
 export function JobStartModal({
   job,
   onClose,
-  fetcher,
+  fetcher
 }: {
   job?: Job;
   fetcher: FetcherWithComponents<{}>;
@@ -473,16 +473,16 @@ export function JobStartModal({
     useState(false);
   const [
     eachOutsideOperationHasASupplier,
-    setEachOutsideOperationHasASupplier,
+    setEachOutsideOperationHasASupplier
   ] = useState(false);
   const [hasOutsideOperations, setHasOutsideOperations] = useState(false);
   const [
     existingPurchaseOrdersBySupplierId,
-    setExistingPurchaseOrdersBySupplierId,
+    setExistingPurchaseOrdersBySupplierId
   ] = useState<Record<string, { id: string; purchaseOrderId: string }[]>>({});
   const [
     selectedPurchaseOrdersBySupplierId,
-    setSelectedPurchaseOrdersBySupplierId,
+    setSelectedPurchaseOrdersBySupplierId
   ] = useState<Record<string, string>>({});
 
   const validate = async () => {
@@ -498,7 +498,7 @@ export function JobStartModal({
         .from("jobMaterialWithMakeMethodId")
         .select("*")
         .eq("jobId", job.id!),
-      carbon.from("jobOperation").select("*").eq("jobId", job.id!),
+      carbon.from("jobOperation").select("*").eq("jobId", job.id!)
     ]);
 
     // Check for existing purchase order lines for outside operations
@@ -555,7 +555,7 @@ export function JobStartModal({
           acc[po.supplierId] = acc[po.supplierId] || [];
           acc[po.supplierId].push({
             id: po.id,
-            purchaseOrderId: po.purchaseOrderId,
+            purchaseOrderId: po.purchaseOrderId
           });
           return acc;
         }, {}) ?? {}
@@ -692,18 +692,18 @@ export function JobStartModal({
                               options={[
                                 {
                                   value: "new",
-                                  label: "Create New",
+                                  label: "Create New"
                                 },
                                 ...purchaseOrders.map((po) => ({
                                   label: po.purchaseOrderId,
-                                  value: po.id,
-                                })),
+                                  value: po.id
+                                }))
                               ]}
                               onChange={(value) => {
                                 setSelectedPurchaseOrdersBySupplierId(
                                   (prev) => ({
                                     ...prev,
-                                    [supplierId]: value,
+                                    [supplierId]: value
                                   })
                                 );
                               }}
@@ -780,7 +780,7 @@ export function JobStartModal({
 function JobCancelModal({
   job,
   onClose,
-  fetcher,
+  fetcher
 }: {
   job?: Job;
   fetcher: FetcherWithComponents<{}>;
@@ -827,7 +827,7 @@ function JobCancelModal({
 function JobCompleteModal({
   job,
   onClose,
-  fetcher,
+  fetcher
 }: {
   job?: Job;
   fetcher: FetcherWithComponents<{}>;
@@ -861,7 +861,7 @@ function JobCompleteModal({
         .select("*")
         .eq("jobId", job?.id!)
         .is("parentMaterialId", null)
-        .single(),
+        .single()
     ]);
 
     if (
@@ -921,7 +921,7 @@ function JobCompleteModal({
               salesOrderId: job.salesOrderId ?? undefined,
               salesOrderLineId: job.salesOrderLineId ?? undefined,
               locationId: job.locationId ?? undefined,
-              shelfId: job.shelfId ?? defaultShelfId ?? undefined,
+              shelfId: job.shelfId ?? defaultShelfId ?? undefined
             }}
             fetcher={fetcher}
           >

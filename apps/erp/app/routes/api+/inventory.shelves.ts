@@ -7,7 +7,7 @@ import { getCompanyId, shelvesQuery } from "~/utils/react-query";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    view: "parts",
+    view: "parts"
   });
 
   const url = new URL(request.url);
@@ -15,7 +15,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   if (!locationId) {
     return json({
       data: [],
-      error: null,
+      error: null
     });
   }
 
@@ -24,7 +24,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
 export async function clientLoader({
   request,
-  serverLoader,
+  serverLoader
 }: ClientLoaderFunctionArgs) {
   const companyId = getCompanyId();
 

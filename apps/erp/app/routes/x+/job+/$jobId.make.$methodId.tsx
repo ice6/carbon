@@ -5,7 +5,7 @@ import {
   defer,
   redirect,
   useLoaderData,
-  useParams,
+  useParams
 } from "@remix-run/react";
 import type { LoaderFunctionArgs } from "@vercel/remix";
 
@@ -22,12 +22,12 @@ import {
   getJobMakeMethodById,
   getJobMaterialsByMethodId,
   getJobOperationsByMethodId,
-  getProductionDataByOperations,
+  getProductionDataByOperations
 } from "~/modules/production";
 import {
   JobBillOfMaterial,
   JobBillOfProcess,
-  JobEstimatesVsActuals,
+  JobEstimatesVsActuals
 } from "~/modules/production/ui/Jobs";
 import JobMakeMethodTools from "~/modules/production/ui/Jobs/JobMakeMethodTools";
 import { getModelByItemId, getTagsList } from "~/modules/shared";
@@ -36,7 +36,7 @@ import { path } from "~/utils/path";
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
     view: "production",
-    bypassRls: true,
+    bypassRls: true
   });
 
   const { jobId, methodId } = params;
@@ -48,7 +48,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     getJobMakeMethodById(client, methodId, companyId),
     getJobMaterialsByMethodId(client, methodId),
     getJobOperationsByMethodId(client, methodId),
-    getTagsList(client, companyId, "operation"),
+    getTagsList(client, companyId, "operation")
   ]);
 
   if (job.error) {
@@ -95,7 +95,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
         ...m,
         itemType: m.itemType as "Part",
         unitOfMeasureCode: m.unitOfMeasureCode ?? "",
-        jobOperationId: m.jobOperationId ?? undefined,
+        jobOperationId: m.jobOperationId ?? undefined
       })) ?? [],
     operations:
       operations.data?.map((o) => ({
@@ -106,7 +106,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
         machineRate: o.machineRate ?? 0,
         operationSupplierProcessId: o.operationSupplierProcessId ?? undefined,
         jobMakeMethodId: o.jobMakeMethodId ?? methodId,
-        workInstruction: o.workInstruction as JSONContent | null,
+        workInstruction: o.workInstruction as JSONContent | null
       })) ?? [],
     makeMethod: makeMethod.data,
     productionData: getProductionDataByOperations(
@@ -114,7 +114,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
       operations?.data?.map((o) => o.id)
     ),
     model: getModelByItemId(client, makeMethod.data.itemId!),
-    tags: tags.data ?? [],
+    tags: tags.data ?? []
   });
 }
 
@@ -186,7 +186,7 @@ export default function JobMakeMethodRoute() {
               key={`cad:${model.itemId}`}
               isReadOnly={!permissions.can("update", "sales")}
               metadata={{
-                itemId: model?.itemId ?? undefined,
+                itemId: model?.itemId ?? undefined
               }}
               modelPath={model?.modelPath ?? null}
               title="CAD Model"

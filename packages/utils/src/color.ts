@@ -12,7 +12,7 @@ const colorIndex = {
   blue: 6,
   purple: 7,
   pink: 8,
-  red: 9,
+  red: 9
 };
 
 export type Color = keyof typeof colorIndex;
@@ -27,7 +27,7 @@ const colors = [
   { background: "#d3e5ef", color: "#183347" },
   { background: "#e8deee", color: "#412454" },
   { background: "#f5e0e9", color: "#4c2337" },
-  { background: "#ffe2dd", color: "#5d1715" },
+  { background: "#ffe2dd", color: "#5d1715" }
 ];
 
 const darkColors = [
@@ -40,7 +40,7 @@ const darkColors = [
   { background: "#28456c", color: "#ffffff" },
   { background: "#492f64", color: "#ffffff" },
   { background: "#69314c", color: "#ffffff" },
-  { background: "#6e3630", color: "#ffffff" },
+  { background: "#6e3630", color: "#ffffff" }
 ];
 
 export function getColor(color: Color, mode = "light") {

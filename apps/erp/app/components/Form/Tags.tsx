@@ -52,7 +52,7 @@ const Tags = ({ table, availableTags, ...props }: TagsSelectProps) => {
     () =>
       availableTags.map((c) => ({
         value: c.name,
-        label: c.name,
+        label: c.name
       })),
     [availableTags]
   );
@@ -73,7 +73,7 @@ const Tags = ({ table, availableTags, ...props }: TagsSelectProps) => {
         formData.append("table", table ?? "");
         newTagFetcher.submit(formData, {
           method: "post",
-          action: path.to.newTag,
+          action: path.to.newTag
         });
       }}
     />

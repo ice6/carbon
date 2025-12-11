@@ -8,7 +8,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-  HStack,
+  HStack
 } from "@carbon/react";
 import { useParams } from "@remix-run/react";
 import { Avatar } from "~/components";

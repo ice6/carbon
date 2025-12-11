@@ -3,7 +3,7 @@ import {
   FormControl,
   FormErrorMessage,
   FormLabel,
-  Textarea as TextAreaBase,
+  Textarea as TextAreaBase
 } from "@carbon/react";
 import type { ChangeEvent } from "react";
 import { forwardRef, useState } from "react";
@@ -34,7 +34,7 @@ const TextArea = forwardRef<HTMLTextAreaElement, FormTextArea>(
           ref={ref}
           {...getInputProps({
             id: name,
-            ...rest,
+            ...rest
           })}
           maxLength={characterLimit}
           onChange={onChange}

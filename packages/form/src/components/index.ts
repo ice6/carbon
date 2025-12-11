@@ -55,7 +55,7 @@ export {
   TextArea,
   TextAreaControlled,
   TimePicker,
-  Timezone,
+  Timezone
 };
 
 export type {
@@ -63,5 +63,5 @@ export type {
   CreatableComboboxProps,
   CreatableMultiSelectProps,
   MultiSelectProps,
-  SelectProps,
+  SelectProps
 };

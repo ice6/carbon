@@ -3,7 +3,7 @@ import {
   HStack,
   MenuIcon,
   MenuItem,
-  useDisclosure,
+  useDisclosure
 } from "@carbon/react";
 import { useNavigate } from "@remix-run/react";
 import type { ColumnDef } from "@tanstack/react-table";
@@ -18,7 +18,7 @@ import {
   LuShapes,
   LuStar,
   LuTrash,
-  LuUser,
+  LuUser
 } from "react-icons/lu";
 import { EmployeeAvatar, Hyperlink, New, Table } from "~/components";
 import { ConfirmDelete } from "~/components/Modals";
@@ -52,8 +52,8 @@ const TrainingsTable = memo(({ data, count, tags }: TrainingsTableProps) => {
           </Hyperlink>
         ),
         meta: {
-          icon: <LuBookOpen />,
-        },
+          icon: <LuBookOpen />
+        }
       },
       {
         accessorKey: "status",
@@ -67,12 +67,12 @@ const TrainingsTable = memo(({ data, count, tags }: TrainingsTableProps) => {
               { value: "Active", label: <TrainingStatus status="Active" /> },
               {
                 value: "Archived",
-                label: <TrainingStatus status="Archived" />,
-              },
-            ],
+                label: <TrainingStatus status="Archived" />
+              }
+            ]
           },
-          icon: <LuStar />,
-        },
+          icon: <LuStar />
+        }
       },
       {
         accessorKey: "type",
@@ -91,11 +91,11 @@ const TrainingsTable = memo(({ data, count, tags }: TrainingsTableProps) => {
             type: "static",
             options: [
               { value: "Mandatory", label: "Mandatory" },
-              { value: "Optional", label: "Optional" },
-            ],
+              { value: "Optional", label: "Optional" }
+            ]
           },
-          icon: <LuShapes />,
-        },
+          icon: <LuShapes />
+        }
       },
       {
         accessorKey: "frequency",
@@ -110,10 +110,10 @@ const TrainingsTable = memo(({ data, count, tags }: TrainingsTableProps) => {
             options: [
               { value: "Once", label: "Once" },
               { value: "Quarterly", label: "Quarterly" },
-              { value: "Annual", label: "Annual" },
-            ],
-          },
-        },
+              { value: "Annual", label: "Annual" }
+            ]
+          }
+        }
       },
       {
         accessorKey: "estimatedDuration",
@@ -130,8 +130,8 @@ const TrainingsTable = memo(({ data, count, tags }: TrainingsTableProps) => {
             "-"
           ),
         meta: {
-          icon: <LuClock />,
-        },
+          icon: <LuClock />
+        }
       },
       {
         accessorKey: "assignee",
@@ -140,8 +140,8 @@ const TrainingsTable = memo(({ data, count, tags }: TrainingsTableProps) => {
           <EmployeeAvatar employeeId={row.original.assignee} />
         ),
         meta: {
-          icon: <LuUser />,
-        },
+          icon: <LuUser />
+        }
       },
       {
         accessorKey: "tags",
@@ -160,13 +160,13 @@ const TrainingsTable = memo(({ data, count, tags }: TrainingsTableProps) => {
             type: "static",
             options: tags.map((tag) => ({
               value: tag.name,
-              label: <Badge variant="secondary">{tag.name}</Badge>,
+              label: <Badge variant="secondary">{tag.name}</Badge>
             })),
-            isArray: true,
+            isArray: true
           },
-          icon: <LuTag />,
-        },
-      },
+          icon: <LuTag />
+        }
+      }
     ];
     return [...defaultColumns];
   }, [tags]);

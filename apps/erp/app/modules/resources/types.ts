@@ -10,11 +10,11 @@ import type {
   getTrainingAssignment,
   getTrainingQuestions,
   getTrainings,
-  getWorkCenters,
+  getWorkCenters
 } from "./resources.service";
 import type {
   trainingAssignmentStatusOptions,
-  trainingFrequency,
+  trainingFrequency
 } from "./resources.models";
 
 export type Ability = NonNullable<
@@ -37,7 +37,7 @@ export type AbilityEmployees = NonNullable<
 export enum AbilityEmployeeStatus {
   NotStarted = "Not Started",
   InProgress = "In Progress",
-  Complete = "Complete",
+  Complete = "Complete"
 }
 
 export function getTrainingStatus(

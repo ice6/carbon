@@ -11,7 +11,7 @@ import {
   gaugeCalibrationRecordValidator,
   getGaugeCalibrationRecord,
   getQualityFiles,
-  upsertGaugeCalibrationRecord,
+  upsertGaugeCalibrationRecord
 } from "~/modules/quality";
 import GaugeCalibrationRecordForm from "~/modules/quality/ui/Calibrations/GaugeCalibrationRecordForm";
 import { getCustomFields, setCustomFields } from "~/utils/form";
@@ -19,13 +19,13 @@ import type { Handle } from "~/utils/handle";
 import { getParams, path } from "~/utils/path";
 export const handle: Handle = {
   breadcrumb: "Gauges",
-  to: path.to.gauges,
+  to: path.to.gauges
 };
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
     view: "quality",
-    bypassRls: true,
+    bypassRls: true
   });
 
   const { id } = params;
@@ -33,7 +33,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
   const [record, files] = await Promise.all([
     getGaugeCalibrationRecord(client, id),
-    getQualityFiles(client, id, companyId),
+    getQualityFiles(client, id, companyId)
   ]);
 
   if (record.error) {
@@ -48,14 +48,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
   return json({
     record: record.data,
-    files: files ?? [],
+    files: files ?? []
   });
 }
 
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    create: "quality",
+    create: "quality"
   });
 
   const formData = await request.formData();
@@ -81,7 +81,7 @@ export async function action({ request }: ActionFunctionArgs) {
     inspectionStatus,
     companyId,
     updatedBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
 
   if (updateGauge.error) {
@@ -122,7 +122,7 @@ export default function GaugeCalibrationRecordRoute() {
     calibrationAttempts: (record.calibrationAttempts || []) as z.infer<
       typeof calibrationAttempt
     >[],
-    ...getCustomFields(record.customFields),
+    ...getCustomFields(record.customFields)
   };
 
   const navigate = useNavigate();

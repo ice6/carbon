@@ -2,7 +2,7 @@ import {
   ResizableHandle,
   ResizablePanel,
   ResizablePanelGroup,
-  useIsMobile,
+  useIsMobile
 } from "@carbon/react";
 import { createContext, useContext, useEffect, useRef, useState } from "react";
 import type { ImperativePanelHandle } from "react-resizable-panels";
@@ -22,7 +22,7 @@ const PanelContext = createContext<PanelContextType>({
   toggleExplorer: () => {},
   toggleProperties: () => {},
   setIsExplorerCollapsed: () => {},
-  setIsPropertiesCollapsed: () => {},
+  setIsPropertiesCollapsed: () => {}
 });
 
 export function usePanels() {
@@ -54,7 +54,7 @@ export function PanelProvider({ children }: PanelProviderProps) {
     toggleExplorer: () => setIsExplorerCollapsed((prev) => !prev),
     toggleProperties: () => setIsPropertiesCollapsed((prev) => !prev),
     setIsExplorerCollapsed,
-    setIsPropertiesCollapsed,
+    setIsPropertiesCollapsed
   };
 
   useEffect(() => {
@@ -78,7 +78,7 @@ interface ResizablePanelsProps {
 export function ResizablePanels({
   explorer,
   content,
-  properties,
+  properties
 }: ResizablePanelsProps) {
   const { isExplorerCollapsed, isPropertiesCollapsed, setIsExplorerCollapsed } =
     usePanels();

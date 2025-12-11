@@ -10,7 +10,7 @@ import { customerContactsQuery } from "~/utils/react-query";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   const { client } = await requirePermissions(request, {
-    delete: "sales",
+    delete: "sales"
   });
 
   const { customerId, customerContactId } = params;
@@ -46,7 +46,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
 export async function clientAction({
   serverAction,
-  params,
+  params
 }: ClientActionFunctionArgs) {
   const { customerId } = params;
   if (customerId) {

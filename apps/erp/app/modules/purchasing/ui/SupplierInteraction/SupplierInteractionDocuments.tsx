@@ -19,14 +19,14 @@ import {
   Th,
   Thead,
   Tr,
-  toast,
+  toast
 } from "@carbon/react";
 import { convertKbToString } from "@carbon/utils";
 import {
   Outlet,
   useFetchers,
   useRevalidator,
-  useSubmit,
+  useSubmit
 } from "@remix-run/react";
 import type { FileObject } from "@supabase/storage-js";
 import type { ChangeEvent } from "react";
@@ -50,13 +50,13 @@ const SupplierInteractionDocuments = ({
   attachments,
   id,
   interactionId,
-  type,
+  type
 }: SupplierInteractionDocumentsProps) => {
   const { canDelete, download, deleteAttachment, getPath, upload } =
     useSupplierInteractionDocuments({
       interactionId,
       id,
-      type,
+      type
     });
 
   const onDrop = useCallback(
@@ -183,7 +183,7 @@ type SupplierInteractionDocumentFormProps = {
 export const useSupplierInteractionDocuments = ({
   id,
   interactionId,
-  type,
+  type
 }: SupplierInteractionDocumentFormProps) => {
   const permissions = usePermissions();
   const { company } = useUser();
@@ -247,7 +247,7 @@ export const useSupplierInteractionDocuments = ({
     ({
       path: filePath,
       name,
-      size,
+      size
     }: {
       path: string;
       name: string;
@@ -264,7 +264,7 @@ export const useSupplierInteractionDocuments = ({
         method: "post",
         action: path.to.newDocument,
         navigate: false,
-        fetcherKey: `interaction:${name}`,
+        fetcherKey: `interaction:${name}`
       });
     },
     [id, submit, type]
@@ -285,7 +285,7 @@ export const useSupplierInteractionDocuments = ({
           .from("private")
           .upload(fileName, file, {
             cacheControl: `${12 * 60 * 60}`,
-            upsert: true,
+            upsert: true
           });
 
         if (fileUpload.error) {
@@ -295,7 +295,7 @@ export const useSupplierInteractionDocuments = ({
           createDocumentRecord({
             path: fileUpload.data.path,
             name: file.name,
-            size: file.size,
+            size: file.size
           });
         }
       }
@@ -309,7 +309,7 @@ export const useSupplierInteractionDocuments = ({
     deleteAttachment,
     download,
     upload,
-    getPath,
+    getPath
   };
 };
 
@@ -367,8 +367,8 @@ export const usePendingItems = () => {
           bucket_id: "private",
           metadata: {
             size,
-            mimetype: getDocumentType(name),
-          },
+            mimetype: getDocumentType(name)
+          }
         };
         return [...acc, newItem];
       }

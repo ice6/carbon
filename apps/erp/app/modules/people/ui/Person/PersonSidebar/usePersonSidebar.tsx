@@ -6,18 +6,18 @@ export function usePersonSidebar(attributeCategories: PublicAttributes[]) {
     {
       name: "Profile",
       to: "details",
-      icon: <LuUser />,
+      icon: <LuUser />
     },
     {
       name: "Job",
       to: "job",
-      icon: <LuHardHat />,
+      icon: <LuHardHat />
     },
     {
       name: "Notes",
       to: "notes",
-      icon: <LuStickyNote />,
-    },
+      icon: <LuStickyNote />
+    }
   ];
 
   const categoryLinks = attributeCategories.map((category) => ({
@@ -27,7 +27,7 @@ export function usePersonSidebar(attributeCategories: PublicAttributes[]) {
       <span className="text-base">{category.emoji}</span>
     ) : (
       <LuList />
-    ),
+    )
   }));
 
   return [...baseLinks, ...categoryLinks];

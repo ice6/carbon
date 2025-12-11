@@ -6,7 +6,7 @@ import { LuActivity } from "react-icons/lu";
 export function ParametersListItem({
   parameter,
   operationId,
-  className,
+  className
 }: {
   parameter: JobOperationParameter;
   operationId?: string;

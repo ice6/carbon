@@ -8,7 +8,7 @@ import { path } from "~/utils/path";
 
 export async function action({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    delete: "settings",
+    delete: "settings"
   });
 
   const { table, id } = params;

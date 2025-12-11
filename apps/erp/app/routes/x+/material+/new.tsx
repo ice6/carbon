@@ -13,13 +13,13 @@ import { path } from "~/utils/path";
 export const handle: Handle = {
   breadcrumb: "Materials",
   to: path.to.materials,
-  module: "items",
+  module: "items"
 };
 
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    create: "parts",
+    create: "parts"
   });
 
   const formData = await request.formData();
@@ -36,7 +36,7 @@ export async function action({ request }: ActionFunctionArgs) {
     active: true,
     companyId,
     customFields: setCustomFields(formData),
-    createdBy: userId,
+    createdBy: userId
   });
   if (createMaterial.error) {
     return modal
@@ -76,7 +76,7 @@ export default function MaterialsNewRoute() {
     itemTrackingType: "Inventory" as "Inventory",
     unitOfMeasureCode: "EA",
     unitCost: 0,
-    active: true,
+    active: true
   };
 
   return (

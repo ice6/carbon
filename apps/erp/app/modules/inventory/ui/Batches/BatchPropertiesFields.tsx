@@ -13,7 +13,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-  Switch,
+  Switch
 } from "@carbon/react";
 import { parseDate } from "@internationalized/date";
 import { useEffect, useState } from "react";
@@ -24,7 +24,7 @@ import {
   LuHash,
   LuList,
   LuText,
-  LuToggleRight,
+  LuToggleRight
 } from "react-icons/lu";
 import type { BatchProperty } from "~/modules/inventory/types";
 
@@ -43,7 +43,7 @@ function PropertyField({
   property,
   value,
   isReadOnly,
-  onChange,
+  onChange
 }: PropertyFieldProps) {
   const [localTextValue, setLocalTextValue] = useState((value as string) || "");
 
@@ -188,7 +188,7 @@ export function BatchPropertiesFields({
   properties,
   values,
   isReadOnly = false,
-  onChange,
+  onChange
 }: BatchPropertiesFieldsProps) {
   return properties.map((property) => (
     <PropertyField
@@ -199,7 +199,7 @@ export function BatchPropertiesFields({
       onChange={(value) => {
         onChange({
           ...values,
-          [property.id]: value,
+          [property.id]: value
         });
       }}
     />

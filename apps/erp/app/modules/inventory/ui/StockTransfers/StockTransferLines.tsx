@@ -16,14 +16,14 @@ import {
   IconButton,
   VStack,
   cn,
-  useDisclosure,
+  useDisclosure
 } from "@carbon/react";
 import {
   Link,
   useFetchers,
   useNavigate,
   useParams,
-  useSubmit,
+  useSubmit
 } from "@remix-run/react";
 import { useState } from "react";
 import {
@@ -33,7 +33,7 @@ import {
   LuPencilLine,
   LuQrCode,
   LuTrash,
-  LuUndo2,
+  LuUndo2
 } from "react-icons/lu";
 import { Empty, ItemThumbnail } from "~/components";
 import { Enumerable } from "~/components/Enumerable";
@@ -70,7 +70,7 @@ function StockTransferLineComponent({
   onPick,
   onUnpick,
   onDelete,
-  permissions,
+  permissions
 }: StockTransferLineProps) {
   const navigate = useNavigate();
   const params = useParams();
@@ -289,7 +289,7 @@ export default function StockTransferLines() {
       method: "post",
       action: path.to.stockTransferLineQuantity(id),
       navigate: false,
-      fetcherKey: `stockTransferLine:${line.id}`,
+      fetcherKey: `stockTransferLine:${line.id}`
     });
   };
 
@@ -306,7 +306,7 @@ export default function StockTransferLines() {
       method: "post",
       action: path.to.stockTransferLineQuantity(id),
       navigate: false,
-      fetcherKey: `stockTransferLine:${line.id}`,
+      fetcherKey: `stockTransferLine:${line.id}`
     });
   };
 

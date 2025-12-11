@@ -7,7 +7,7 @@ import {
   DrawerHeader,
   DrawerTitle,
   HStack,
-  VStack,
+  VStack
 } from "@carbon/react";
 
 import { ValidatedForm } from "@carbon/form";
@@ -19,7 +19,7 @@ import {
   Hidden,
   Input,
   Select,
-  Submit,
+  Submit
 } from "~/components/Form";
 import { usePermissions } from "~/hooks";
 import { DataType } from "~/modules/shared";
@@ -43,14 +43,14 @@ type AttributeFormProps = {
 const AttributeForm = ({
   initialValues,
   dataTypes,
-  onClose,
+  onClose
 }: AttributeFormProps) => {
   const permissions = usePermissions();
 
   const options =
     dataTypes?.map((dt) => ({
       value: dt.id.toString(),
-      label: dt.label,
+      label: dt.label
     })) ?? [];
 
   const isEditing = initialValues.id !== undefined;

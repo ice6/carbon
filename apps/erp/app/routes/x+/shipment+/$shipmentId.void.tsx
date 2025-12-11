@@ -8,7 +8,7 @@ import { path } from "~/utils/path";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   const { client, companyId, userId } = await requirePermissions(request, {
-    update: "inventory",
+    update: "inventory"
   });
 
   const { shipmentId } = params;
@@ -42,9 +42,9 @@ export async function action({ request, params }: ActionFunctionArgs) {
         type: "void",
         shipmentId: shipmentId,
         userId: userId,
-        companyId: companyId,
+        companyId: companyId
       },
-      region: FunctionRegion.UsEast1,
+      region: FunctionRegion.UsEast1
     });
 
     if (voidShipment.error) {

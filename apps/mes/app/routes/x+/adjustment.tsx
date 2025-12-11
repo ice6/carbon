@@ -4,7 +4,7 @@ import { validationError, validator } from "@carbon/form";
 import { json, type ActionFunctionArgs } from "@vercel/remix";
 import {
   insertManualInventoryAdjustment,
-  inventoryAdjustmentValidator,
+  inventoryAdjustmentValidator
 } from "~/services/inventory.service";
 
 export async function action({ request }: ActionFunctionArgs) {
@@ -25,7 +25,7 @@ export async function action({ request }: ActionFunctionArgs) {
   const itemLedger = await insertManualInventoryAdjustment(serviceRole, {
     ...data,
     companyId,
-    createdBy: userId,
+    createdBy: userId
   });
 
   if (itemLedger.error) {
@@ -37,11 +37,11 @@ export async function action({ request }: ActionFunctionArgs) {
 
     return json({
       success: false,
-      message: flashMessage,
+      message: flashMessage
     });
   }
 
   return json({
-    success: true,
+    success: true
   });
 }

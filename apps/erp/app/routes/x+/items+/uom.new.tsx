@@ -14,7 +14,7 @@ import { getCompanyId, uomsQuery } from "~/utils/react-query";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   await requirePermissions(request, {
-    create: "parts",
+    create: "parts"
   });
 
   return null;
@@ -23,7 +23,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    create: "parts",
+    create: "parts"
   });
 
   const formData = await request.formData();
@@ -41,7 +41,7 @@ export async function action({ request }: ActionFunctionArgs) {
     ...data,
     companyId,
     createdBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
   if (insertUnitOfMeasure.error) {
     return json(
@@ -71,7 +71,7 @@ export default function NewUnitOfMeasuresRoute() {
   const navigate = useNavigate();
   const initialValues = {
     name: "",
-    code: "",
+    code: ""
   };
 
   return (

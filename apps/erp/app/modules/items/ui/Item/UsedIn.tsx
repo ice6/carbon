@@ -15,7 +15,7 @@ import {
   InputLeftElement,
   Skeleton,
   useDisclosure,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { useParams } from "@remix-run/react";
 import { useState } from "react";
@@ -28,9 +28,9 @@ import {
   LuSearch,
   LuShieldX,
   LuStar,
-  LuTruck,
+  LuTruck
 } from "react-icons/lu";
-import { z } from 'zod/v3';
+import { z } from "zod/v3";
 import { Hyperlink, MethodIcon } from "~/components";
 import { Confirm } from "~/components/Modals";
 import { LevelLine } from "~/components/TreeView";
@@ -87,7 +87,7 @@ const revisionValidator = z.array(
     id: z.string(),
     revision: z.string(),
     methodType: z.string(),
-    type: z.string(),
+    type: z.string()
   })
 );
 
@@ -96,7 +96,7 @@ export function UsedInTree({
   revisions: revisionsJson,
   itemReadableId,
   itemReadableIdWithRevision,
-  hasSizesInsteadOfRevisions = false,
+  hasSizesInsteadOfRevisions = false
 }: {
   tree: UsedInNode[];
   revisions?: Json;
@@ -113,7 +113,7 @@ export function UsedInTree({
     documentReadableId: getReadableIdWithRevision(itemReadableId, r.revision),
     methodType: r.methodType,
     type: r.type,
-    revision: r.revision,
+    revision: r.revision
   }));
 
   return (
@@ -137,7 +137,7 @@ export function UsedInTree({
             key: (revisions?.[0]?.type as UsedInKey) ?? "Part",
             name: hasSizesInsteadOfRevisions ? "Sizes" : "Revisions",
             module: "parts",
-            children: revisions,
+            children: revisions
           }}
           maxRevision={revisions?.[0]?.revision ?? ""}
           hasSizesInsteadOfRevisions={hasSizesInsteadOfRevisions}
@@ -159,7 +159,7 @@ export function RevisionsItem({
   node,
   filterText,
   maxRevision,
-  hasSizesInsteadOfRevisions = false,
+  hasSizesInsteadOfRevisions = false
 }: {
   node: UsedInNode;
   filterText: string;
@@ -222,7 +222,7 @@ export function RevisionsItem({
                   type: node.key as "Part",
                   revision: hasSizesInsteadOfRevisions
                     ? ""
-                    : getNextRevision(maxRevision),
+                    : getNextRevision(maxRevision)
                 });
                 revisionDisclosure.onOpen();
               });
@@ -276,7 +276,7 @@ export function RevisionsItem({
                               setSelectedRevision({
                                 id: child.id,
                                 type: node.key as "Part",
-                                revision: child.revision ?? "",
+                                revision: child.revision ?? ""
                               });
                               revisionDisclosure.onOpen();
                             });
@@ -291,7 +291,7 @@ export function RevisionsItem({
                               setSelectedRevision({
                                 id: child.id,
                                 type: node.key as "Part",
-                                revision: child.revision ?? "",
+                                revision: child.revision ?? ""
                               });
                               defaultDisclosure.onOpen();
                             });
@@ -364,7 +364,7 @@ function getNextRevision(maxRevision: string) {
 export function UsedInItem({
   node,
   itemReadableIdWithRevision,
-  filterText,
+  filterText
 }: {
   node: UsedInNode;
   filterText: string;

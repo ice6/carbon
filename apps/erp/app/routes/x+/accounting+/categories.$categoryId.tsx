@@ -8,7 +8,7 @@ import { json, redirect } from "@vercel/remix";
 import {
   accountCategoryValidator,
   getAccountCategory,
-  upsertAccountCategory,
+  upsertAccountCategory
 } from "~/modules/accounting";
 import { AccountCategoryForm } from "~/modules/accounting/ui/AccountCategories";
 import { getCustomFields, setCustomFields } from "~/utils/form";
@@ -17,7 +17,7 @@ import { getParams, path } from "~/utils/path";
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
     view: "accounting",
-    role: "employee",
+    role: "employee"
   });
 
   const { categoryId } = params;
@@ -44,7 +44,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    update: "accounting",
+    update: "accounting"
   });
 
   const formData = await request.formData();
@@ -63,7 +63,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     id,
     ...data,
     customFields: setCustomFields(formData),
-    updatedBy: userId,
+    updatedBy: userId
   });
   if (updateCategory.error) {
     throw redirect(
@@ -88,7 +88,7 @@ export default function EditAccountCategoryRoute() {
 
   const initialValues = {
     ...accountCategory,
-    ...getCustomFields(accountCategory.customFields),
+    ...getCustomFields(accountCategory.customFields)
   };
 
   return (

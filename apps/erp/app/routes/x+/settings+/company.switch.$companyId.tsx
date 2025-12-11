@@ -4,7 +4,7 @@ import { setCompanyId } from "@carbon/auth/company.server";
 import {
   destroyAuthSession,
   flash,
-  updateCompanySession,
+  updateCompanySession
 } from "@carbon/auth/session.server";
 import { redirect, type ActionFunctionArgs } from "@vercel/remix";
 import { getCompanies } from "~/modules/settings";
@@ -39,7 +39,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   throw redirect(path.to.authenticatedRoot, {
     headers: [
       ["Set-Cookie", sessionCookie],
-      ["Set-Cookie", companyIdCookie],
-    ],
+      ["Set-Cookie", companyIdCookie]
+    ]
   });
 }

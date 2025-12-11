@@ -5,5 +5,5 @@ import SalesPostingGroupsTable from "./SalesPostingGroupsTable";
 export {
   InventoryPostingGroupsTable,
   PurchasingPostingGroupsTable,
-  SalesPostingGroupsTable,
+  SalesPostingGroupsTable
 };

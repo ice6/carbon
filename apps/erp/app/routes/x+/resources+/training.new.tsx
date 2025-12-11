@@ -8,13 +8,13 @@ import { json, redirect } from "@vercel/remix";
 import {
   trainingValidator,
   upsertTraining,
-  TrainingForm,
+  TrainingForm
 } from "~/modules/resources";
 import { path } from "~/utils/path";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   await requirePermissions(request, {
-    create: "resources",
+    create: "resources"
   });
 
   return null;
@@ -23,7 +23,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    create: "resources",
+    create: "resources"
   });
   const formData = await request.formData();
   const validation = await validator(trainingValidator).validate(formData);
@@ -54,7 +54,7 @@ export async function action({ request }: ActionFunctionArgs) {
     ...data,
     content: contentJSON,
     companyId,
-    createdBy: userId,
+    createdBy: userId
   });
 
   if (insertTraining.error || !insertTraining.data?.id) {
@@ -76,7 +76,7 @@ export async function action({ request }: ActionFunctionArgs) {
 export default function NewTrainingRoute() {
   const navigate = useNavigate();
   const initialValues = {
-    name: "",
+    name: ""
   };
 
   return (

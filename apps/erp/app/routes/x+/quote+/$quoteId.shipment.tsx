@@ -10,7 +10,7 @@ import { path } from "~/utils/path";
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    update: "sales",
+    update: "sales"
   });
 
   const { quoteId } = params;
@@ -26,7 +26,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   const updateQuoteShipment = await upsertQuoteShipment(client, {
     ...validation.data,
     id: quoteId,
-    updatedBy: userId,
+    updatedBy: userId
   });
   if (updateQuoteShipment.error) {
     throw redirect(

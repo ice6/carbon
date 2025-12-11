@@ -14,7 +14,7 @@ import type {
   getProductionPlanning,
   getProductionProjections,
   getProductionQuantities,
-  getScrapReasons,
+  getScrapReasons
 } from "./production.service";
 
 export type ActiveProductionEvent = NonNullable<

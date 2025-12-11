@@ -6,15 +6,15 @@ import {
   getLocalTimeZone,
   parseDate,
   startOfWeek,
-  today,
+  today
 } from "@internationalized/date";
 import type { ActionFunctionArgs } from "@vercel/remix";
 import { json } from "@vercel/remix";
-import { z } from 'zod/v3';
+import { z } from "zod/v3";
 import {
   deleteStockTransfer,
   upsertStockTransfer,
-  upsertStockTransferLines,
+  upsertStockTransferLines
 } from "~/modules/inventory";
 import { getJob } from "~/modules/production";
 import { getNextSequence } from "~/modules/settings";
@@ -36,23 +36,23 @@ const jobMaterialsSessionValidator = z.object({
           quantity: z.number().optional(),
           requiresSerialTracking: z.boolean(),
           requiresBatchTracking: z.boolean(),
-          shelfId: z.string().nullable().optional(),
+          shelfId: z.string().nullable().optional()
         })
       );
       return itemsSchema.parse(parsed);
     } catch (error) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
-        message: "Invalid JSON format for items",
+        message: "Invalid JSON format for items"
       });
       return z.NEVER;
     }
-  }),
+  })
 });
 
 export async function action({ request, params }: ActionFunctionArgs) {
   const { client, companyId, userId } = await requirePermissions(request, {
-    create: "production",
+    create: "production"
   });
 
   const { jobId } = params;
@@ -86,7 +86,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
         "itemId",
         sessionItems.map((item) => item.itemId)
       )
-      .eq("companyId", companyId),
+      .eq("companyId", companyId)
   ]);
   if (jobResult.error || !jobResult.data) {
     return json(
@@ -118,7 +118,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
   const periods = await getPeriods(client, {
     startDate: startDate.toString(),
-    endDate: (jobStartDate ?? startDate.add({ weeks: 8 })).toString(),
+    endDate: (jobStartDate ?? startDate.add({ weeks: 8 })).toString()
   });
 
   if (periods.error || !periods.data) {
@@ -154,7 +154,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
         {
           company_id: companyId,
           location_id: locationId,
-          item_id: item.itemId,
+          item_id: item.itemId
         }
       );
 
@@ -198,7 +198,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
             toShelfId: item.shelfId,
             quantity: transferQuantity,
             requiresSerialTracking: item.requiresSerialTracking,
-            requiresBatchTracking: item.requiresBatchTracking,
+            requiresBatchTracking: item.requiresBatchTracking
           };
 
           transferLines.push(transferLine);
@@ -222,7 +222,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
         acc.push(
           ...Array.from({ length: line.quantity }, () => ({
             ...line,
-            quantity: 1,
+            quantity: 1
           }))
         );
       } else {
@@ -254,7 +254,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
         stockTransferId: nextSequence.data,
         locationId,
         companyId,
-        createdBy: userId,
+        createdBy: userId
       });
 
       if (createStockTransfer.error) {
@@ -272,7 +272,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
         lines: linesWithExpandedSerialTracking,
         stockTransferId: createStockTransfer.data.id,
         companyId,
-        createdBy: userId,
+        createdBy: userId
       });
 
       if (createStockTransferLines.error) {
@@ -369,7 +369,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
           itemsBySupplier.get(selectedSupplier.supplierId)!.push({
             item,
             supplier: selectedSupplier,
-            replenishment,
+            replenishment
           });
         }
 
@@ -428,13 +428,13 @@ export async function action({ request, params }: ActionFunctionArgs) {
                 supplierId: supplierId,
                 unitPrice: supplier.unitPrice || 0,
                 unitOfMeasureCode: supplier.supplierUnitOfMeasureCode || "EA",
-                description: item.description,
-              },
+                description: item.description
+              }
             ];
 
             purchasePlanningItems.push({
               id: item.itemId,
-              orders,
+              orders
             });
           }
         }
@@ -443,7 +443,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
           const purchasePlanningPayload = {
             action: "order" as const,
             items: purchasePlanningItems,
-            locationId,
+            locationId
           };
 
           const purchasePlanningUrl = `${new URL(request.url).origin}${
@@ -455,9 +455,9 @@ export async function action({ request, params }: ActionFunctionArgs) {
             headers: {
               "Content-Type": "application/json",
               Authorization: request.headers.get("Authorization") || "",
-              Cookie: request.headers.get("Cookie") || "",
+              Cookie: request.headers.get("Cookie") || ""
             },
-            body: JSON.stringify(purchasePlanningPayload),
+            body: JSON.stringify(purchasePlanningPayload)
           });
 
           if (result.ok) {
@@ -476,7 +476,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
             console.error(`[Purchase Orders] API call failed:`, {
               status: result.status,
               statusText: result.statusText,
-              error: errorText,
+              error: errorText
             });
           }
         }
@@ -548,7 +548,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
             dueDate: productionOrderDueDate,
             startDate: productionOrderStartDate,
             isASAP: startDate.compare(today(getLocalTimeZone())) < 0,
-            periodId: periodId,
+            periodId: periodId
           });
         } else {
           // If lot size > 0, use lot size chunking
@@ -559,7 +559,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
               dueDate: productionOrderDueDate,
               startDate: productionOrderStartDate,
               isASAP: false,
-              periodId: periodId,
+              periodId: periodId
             });
           } else if (requiredQuantity <= lotSize) {
             // If required quantity is less than or equal to lot size, order the lot size
@@ -568,7 +568,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
               dueDate: productionOrderDueDate,
               startDate: productionOrderStartDate,
               isASAP: false,
-              periodId: periodId,
+              periodId: periodId
             });
           } else {
             // If required quantity is greater than lot size, create multiple orders
@@ -579,7 +579,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
                 dueDate: productionOrderDueDate,
                 startDate: productionOrderStartDate,
                 isASAP: false,
-                periodId: periodId,
+                periodId: periodId
               });
             }
           }
@@ -587,14 +587,14 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
         return {
           id: item.itemId,
-          orders,
+          orders
         };
       });
 
       const productionPlanningPayload = {
         action: "order" as const,
         items: productionPlanningItems,
-        locationId,
+        locationId
       };
 
       const result = await fetch(productionPlanningUrl, {
@@ -602,9 +602,9 @@ export async function action({ request, params }: ActionFunctionArgs) {
         headers: {
           "Content-Type": "application/json",
           Authorization: request.headers.get("Authorization") || "",
-          Cookie: request.headers.get("Cookie") || "",
+          Cookie: request.headers.get("Cookie") || ""
         },
-        body: JSON.stringify(productionPlanningPayload),
+        body: JSON.stringify(productionPlanningPayload)
       });
 
       const data = await result.json();

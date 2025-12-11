@@ -7,13 +7,13 @@ import { validator } from "@carbon/form";
 import type { ActionFunctionArgs } from "@vercel/remix";
 import {
   trainingQuestionValidator,
-  upsertTrainingQuestion,
+  upsertTrainingQuestion
 } from "~/modules/resources";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    create: "resources",
+    create: "resources"
   });
 
   const { id: trainingId } = params;
@@ -56,13 +56,13 @@ export async function action({ request, params }: ActionFunctionArgs) {
     matchingPairs: parsedMatchingPairs,
     correctBoolean: correctBoolean === true || correctBoolean === "true",
     companyId,
-    createdBy: userId,
+    createdBy: userId
   });
 
   if (create.error) {
     return json(
       {
-        success: false,
+        success: false
       },
       await flash(
         request,

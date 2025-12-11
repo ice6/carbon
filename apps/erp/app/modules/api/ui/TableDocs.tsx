@@ -40,10 +40,10 @@ const TableDocs = ({ endpoint, selectedLang, resourceId }: TableDocsProps) => {
           ...a.resources,
           ...(!trimmedName.includes(functionPath)
             ? {
-                [id]: enriched,
+                [id]: enriched
               }
-            : {}),
-        },
+            : {})
+        }
       };
     },
     { resources: {} }
@@ -60,7 +60,7 @@ const TableDocs = ({ endpoint, selectedLang, resourceId }: TableDocsProps) => {
     ([id, val]: any) => ({
       ...val,
       id,
-      required: resourceDefinition?.required?.includes(id),
+      required: resourceDefinition?.required?.includes(id)
     })
   );
 
@@ -91,7 +91,7 @@ const TableDocs = ({ endpoint, selectedLang, resourceId }: TableDocsProps) => {
                   isOptional={!x.required}
                   metadata={{
                     table: resourceId,
-                    column: x.id,
+                    column: x.id
                   }}
                 />
               </div>
@@ -103,7 +103,7 @@ const TableDocs = ({ endpoint, selectedLang, resourceId }: TableDocsProps) => {
                     resourceId,
                     endpoint: endpoint,
                     apiKey: SUPABASE_ANON_KEY,
-                    columnName: x.id,
+                    columnName: x.id
                   })}
                 />
               </div>
@@ -144,7 +144,7 @@ const TableDocs = ({ endpoint, selectedLang, resourceId }: TableDocsProps) => {
                 snippet={Snippets.readColumns({
                   resourceId,
                   endpoint: endpoint,
-                  apiKey: SUPABASE_ANON_KEY,
+                  apiKey: SUPABASE_ANON_KEY
                 })}
               />
               <CodeSnippet
@@ -401,7 +401,7 @@ const Param = ({
   type,
   format,
   children,
-  isPrimitive,
+  isPrimitive
 }: ParamProps) => {
   return (
     <>

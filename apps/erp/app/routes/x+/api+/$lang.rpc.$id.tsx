@@ -25,10 +25,10 @@ export default function Route() {
           ...a.rpcs,
           ...(trimmedName.includes(functionPath)
             ? {
-                [id]: enriched,
+                [id]: enriched
               }
-            : {}),
-        },
+            : {})
+        }
       };
     },
     { rpcs: {} }

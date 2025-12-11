@@ -30,5 +30,5 @@ export {
   MakeMethodTools,
   PickMethodForm,
   SupplierPartForm,
-  SupplierParts,
+  SupplierParts
 };

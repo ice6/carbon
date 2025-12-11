@@ -4,7 +4,7 @@ import { json } from "@vercel/remix";
 
 export async function action({ request }: ActionFunctionArgs) {
   const { client } = await requirePermissions(request, {
-    delete: "parts",
+    delete: "parts"
   });
 
   const formData = await request.formData();
@@ -14,7 +14,7 @@ export async function action({ request }: ActionFunctionArgs) {
     return json(
       { error: "Operation ID is required" },
       {
-        status: 400,
+        status: 400
       }
     );
   }
@@ -25,7 +25,7 @@ export async function action({ request }: ActionFunctionArgs) {
     return json(
       { success: false, error: error.message },
       {
-        status: 400,
+        status: 400
       }
     );
   }

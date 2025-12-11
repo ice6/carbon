@@ -8,7 +8,7 @@ import { path, requestReferrer } from "~/utils/path";
 export async function action({ request, params }: ActionFunctionArgs) {
   const { client, companyId, userId } = await requirePermissions(request, {
     update: "production",
-    role: "employee",
+    role: "employee"
   });
   const { quoteId, lineId } = params;
   if (!quoteId) throw new Error("Could not find quoteId");
@@ -22,11 +22,11 @@ export async function action({ request, params }: ActionFunctionArgs) {
         .update({
           configuration,
           updatedAt: new Date().toISOString(),
-          updatedBy: userId,
+          updatedBy: userId
         })
         .eq("id", lineId),
       client.from("quoteLine").select("itemId").eq("id", lineId).single(),
-      client.from("quoteLinePrice").delete().eq("quoteLineId", lineId),
+      client.from("quoteLinePrice").delete().eq("quoteLineId", lineId)
     ]);
 
     if (result.error) {
@@ -50,7 +50,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
       itemId: quoteLine.data.itemId,
       configuration,
       companyId,
-      userId,
+      userId
     });
 
     if (upsertMethod.error) {

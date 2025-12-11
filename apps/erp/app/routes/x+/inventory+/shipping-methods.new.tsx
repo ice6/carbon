@@ -10,7 +10,7 @@ import type { ShippingCarrier } from "~/modules/inventory";
 import {
   ShippingMethodForm,
   shippingMethodValidator,
-  upsertShippingMethod,
+  upsertShippingMethod
 } from "~/modules/inventory";
 import { setCustomFields } from "~/utils/form";
 import { getParams, path } from "~/utils/path";
@@ -18,7 +18,7 @@ import { getCompanyId, shippingMethodsQuery } from "~/utils/react-query";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   await requirePermissions(request, {
-    create: "inventory",
+    create: "inventory"
   });
 
   return null;
@@ -27,7 +27,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    create: "inventory",
+    create: "inventory"
   });
 
   const formData = await request.formData();
@@ -47,7 +47,7 @@ export async function action({ request }: ActionFunctionArgs) {
     ...data,
     companyId,
     createdBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
   if (insertShippingMethod.error) {
     return json(
@@ -80,7 +80,7 @@ export default function NewShippingMethodsRoute() {
 
   const initialValues = {
     name: "",
-    carrier: "" as ShippingCarrier,
+    carrier: "" as ShippingCarrier
   };
 
   return (

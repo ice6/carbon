@@ -11,22 +11,22 @@ import { defer, redirect } from "@vercel/remix";
 import { Fragment, Suspense } from "react";
 import type {
   SupplierQuote,
-  SupplierQuoteLinePrice,
+  SupplierQuoteLinePrice
 } from "~/modules/purchasing";
 import {
   getSupplierInteractionLineDocuments,
   getSupplierQuoteLine,
   getSupplierQuoteLinePrices,
   supplierQuoteLineValidator,
-  upsertSupplierQuoteLine,
+  upsertSupplierQuoteLine
 } from "~/modules/purchasing";
 import {
   SupplierInteractionLineDocuments,
-  SupplierInteractionLineNotes,
+  SupplierInteractionLineNotes
 } from "~/modules/purchasing/ui/SupplierInteraction";
 import {
   SupplierQuoteLineForm,
-  SupplierQuoteLinePricing,
+  SupplierQuoteLinePricing
 } from "~/modules/purchasing/ui/SupplierQuote";
 import type { MethodItemType } from "~/modules/shared";
 import { setCustomFields } from "~/utils/form";
@@ -34,7 +34,7 @@ import { path } from "~/utils/path";
 
 export const loader = async ({ request, params }: LoaderFunctionArgs) => {
   const { companyId } = await requirePermissions(request, {
-    view: "purchasing",
+    view: "purchasing"
   });
 
   const { id, lineId } = params;
@@ -45,7 +45,7 @@ export const loader = async ({ request, params }: LoaderFunctionArgs) => {
 
   const [line, prices] = await Promise.all([
     getSupplierQuoteLine(serviceRole, lineId),
-    getSupplierQuoteLinePrices(serviceRole, lineId),
+    getSupplierQuoteLinePrices(serviceRole, lineId)
   ]);
 
   if (line.error) {
@@ -63,14 +63,14 @@ export const loader = async ({ request, params }: LoaderFunctionArgs) => {
     >((acc, price) => {
       acc[price.quantity] = price;
       return acc;
-    }, {}),
+    }, {})
   });
 };
 
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    create: "purchasing",
+    create: "purchasing"
   });
 
   const { id, lineId } = params;
@@ -93,7 +93,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     id: lineId,
     ...data,
     updatedBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
 
   if (updateSupplierQuoteLine.error) {
@@ -137,7 +137,7 @@ export default function SupplierQuoteLine() {
     inventoryUnitOfMeasureCode: line.inventoryUnitOfMeasureCode ?? "",
     purchaseUnitOfMeasureCode: line.purchaseUnitOfMeasureCode ?? "",
     conversionFactor: line.conversionFactor ?? undefined,
-    itemType: (line.itemType ?? "Part") as MethodItemType,
+    itemType: (line.itemType ?? "Part") as MethodItemType
   };
 
   return (

@@ -6,12 +6,12 @@ import { useUser } from "~/hooks";
 import {
   Conversation,
   ConversationContent,
-  ConversationScrollButton,
+  ConversationScrollButton
 } from "../Conversation";
 import { Markdown } from "../Markdown/Markdown";
 import {
   type SupportedToolName,
-  ToolCallIndicator,
+  ToolCallIndicator
 } from "../ToolCallIndicator";
 import { WebSearchSources } from "../WebSearch";
 import { MessageActions } from "./MessageActions";

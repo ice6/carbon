@@ -8,7 +8,7 @@ import { updateQuoteMaterialOrder } from "~/modules/sales";
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    update: "sales",
+    update: "sales"
   });
 
   const updateMap = (await request.formData()).get("updates") as string;
@@ -23,7 +23,7 @@ export async function action({ request }: ActionFunctionArgs) {
     ([id, orderString]) => ({
       id,
       order: Number(orderString),
-      updatedBy: userId,
+      updatedBy: userId
     })
   );
 

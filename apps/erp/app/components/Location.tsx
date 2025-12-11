@@ -2,7 +2,7 @@ import {
   ActionMenu,
   DropdownMenuIcon,
   DropdownMenuItem,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { formatAddressLines, formatCityStatePostalCode } from "@carbon/utils";
 import { LuMapPin } from "react-icons/lu";

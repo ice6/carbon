@@ -19,12 +19,12 @@ import {
   useSubmitForm,
   useSyncedDefaultValues,
   useTouchedFields,
-  useValidate,
+  useValidate
 } from "../internal/hooks";
 import type {
   FieldErrors,
   TouchedFields,
-  ValidationResult,
+  ValidationResult
 } from "../validation/types";
 
 export type FormState = {
@@ -70,7 +70,7 @@ export const useFormState = (formId?: string): FormState => {
       hasBeenSubmitted,
       isSubmitting,
       touchedFields,
-      isValid,
+      isValid
     }),
     [
       action,
@@ -80,7 +80,7 @@ export const useFormState = (formId?: string): FormState => {
       isSubmitting,
       isValid,
       subaction,
-      touchedFields,
+      touchedFields
     ]
   );
 };
@@ -145,7 +145,7 @@ export const useFormHelpers = (formId?: string): FormHelpers => {
       setTouched,
       validateField: async (fieldName: string) => {
         const res = await validateField({
-          alwaysIncludeErrorsFromFields: [fieldName],
+          alwaysIncludeErrorsFromFields: [fieldName]
         });
         return res.error?.fieldErrors[fieldName] ?? null;
       },
@@ -154,7 +154,7 @@ export const useFormHelpers = (formId?: string): FormHelpers => {
       clearAllErrors: () => setFieldErrors({}),
       reset,
       submit,
-      getValues,
+      getValues
     }),
     [
       clearError,
@@ -164,7 +164,7 @@ export const useFormHelpers = (formId?: string): FormHelpers => {
       submit,
       validate,
       validateField,
-      getValues,
+      getValues
     ]
   );
 };

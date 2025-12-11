@@ -5,7 +5,7 @@ import { getQuoteLinesList } from "~/modules/sales";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
-    view: "sales",
+    view: "sales"
   });
 
   const { id } = params;

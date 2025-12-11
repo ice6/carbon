@@ -5,7 +5,7 @@ import type {
   KeyboardEvent,
   MutableRefObject,
   ReactNode,
-  RefObject,
+  RefObject
 } from "react";
 
 import type { Group, User } from "~/modules/users";

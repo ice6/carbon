@@ -8,7 +8,7 @@ import {
   getJob,
   getJobMakeMethodById,
   getJobOperationsByMethodId,
-  getTrackedEntityByJobId,
+  getTrackedEntityByJobId
 } from "~/modules/production/production.service";
 import { getCompany } from "~/modules/settings";
 import { getBase64ImageFromSupabase } from "~/modules/shared";
@@ -32,7 +32,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
   const [company, job] = await Promise.all([
     getCompany(serviceRole, jobMakeMethod.data?.companyId ?? ""),
-    getJob(serviceRole, jobMakeMethod.data?.jobId ?? ""),
+    getJob(serviceRole, jobMakeMethod.data?.jobId ?? "")
   ]);
 
   if (company.error) {
@@ -56,7 +56,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
       .from("item")
       .select("*, modelUpload(thumbnailPath)")
       .eq("id", jobMakeMethod.data.itemId ?? "")
-      .single(),
+      .single()
   ]);
 
   if (jobOperations.error || !jobOperations.data) {
@@ -110,7 +110,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
       meta={{
         author: "Carbon",
         keywords: "job traveler, manufacturing",
-        subject: "Job Traveler",
+        subject: "Job Traveler"
       }}
       notes={jobNotes}
       thumbnail={thumbnail}
@@ -131,7 +131,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
   const headers = new Headers({
     "Content-Type": "application/pdf",
-    "Content-Disposition": `inline; filename="${job.data.jobId}.pdf"`,
+    "Content-Disposition": `inline; filename="${job.data.jobId}.pdf"`
   });
   return new Response(body, { status: 200, headers });
 }

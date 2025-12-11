@@ -9,5 +9,5 @@ export {
   OpportunityLineDocuments,
   OpportunityLineNotes,
   OpportunityNotes,
-  OpportunityState,
+  OpportunityState
 };

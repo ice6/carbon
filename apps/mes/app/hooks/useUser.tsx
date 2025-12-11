@@ -36,7 +36,7 @@ export function useUser(): User {
   ) {
     return {
       ...data.user,
-      company: data.company,
+      company: data.company
     };
   }
 

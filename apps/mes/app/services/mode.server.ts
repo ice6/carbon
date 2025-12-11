@@ -20,7 +20,7 @@ export function setMode(mode: Mode | "system") {
     return cookie.serialize(cookieName, mode, {
       path: "/",
       maxAge: 31536000,
-      domain: DOMAIN,
+      domain: DOMAIN
     });
   }
 }

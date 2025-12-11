@@ -9,7 +9,7 @@ import {
   TiptapLink,
   TiptapUnderline,
   UpdatedImage,
-  UploadImagesPlugin,
+  UploadImagesPlugin
 } from "@carbon/tiptap";
 import { Extension, Node } from "@tiptap/core";
 import Table from "@tiptap/extension-table";
@@ -35,19 +35,19 @@ const HTMLContent = Node.create({
   addAttributes() {
     return {
       html: {
-        default: "",
+        default: ""
       },
       type: {
-        default: "loom", // or "youtube"
-      },
+        default: "loom" // or "youtube"
+      }
     };
   },
 
   parseHTML() {
     return [
       {
-        tag: "div[data-video-embed]",
-      },
+        tag: "div[data-video-embed]"
+      }
     ];
   },
 
@@ -59,7 +59,7 @@ const HTMLContent = Node.create({
       "focus:ring-2 focus:ring-primary hover:bg-zinc-200 dark:hover:bg-zinc-800 p-2 border bg-zinc-100 dark:bg-zinc-900 cursor-move rounded-lg";
     container.innerHTML = node.attrs.html;
     return container;
-  },
+  }
 });
 
 const VideoEmbed = Extension.create({
@@ -95,7 +95,7 @@ const VideoEmbed = Extension.create({
             // Create an HTML content node
             const node = view.state.schema.nodes.htmlContent.create({
               html: embedHtml,
-              type: videoType,
+              type: videoType
             });
             const transaction = view.state.tr.replaceSelectionWith(node);
             view.dispatch(transaction);
@@ -121,11 +121,11 @@ const VideoEmbed = Extension.create({
               }
             }
             return false;
-          },
-        },
-      }),
+          }
+        }
+      })
     ];
-  },
+  }
 });
 
 const aiHighlight = AIHighlight;
@@ -134,89 +134,89 @@ const tiptapLink = TiptapLink.configure({
   HTMLAttributes: {
     class: cx(
       "text-muted-foreground underline underline-offset-[3px] hover:text-primary transition-colors cursor-pointer"
-    ),
-  },
+    )
+  }
 });
 
 const tiptapImage = TiptapImage.extend({
   addProseMirrorPlugins() {
     return [
       UploadImagesPlugin({
-        imageClass: cx("opacity-40 rounded-lg border border-stone-200"),
-      }),
+        imageClass: cx("opacity-40 rounded-lg border border-stone-200")
+      })
     ];
-  },
+  }
 }).configure({
   allowBase64: true,
   HTMLAttributes: {
-    class: cx("rounded-lg border border-muted"),
-  },
+    class: cx("rounded-lg border border-muted")
+  }
 });
 
 const updatedImage = UpdatedImage.configure({
   HTMLAttributes: {
-    class: cx("rounded-lg border border-muted"),
-  },
+    class: cx("rounded-lg border border-muted")
+  }
 });
 
 const taskList = TaskList.configure({
   HTMLAttributes: {
-    class: cx("not-prose pl-2 "),
-  },
+    class: cx("not-prose pl-2 ")
+  }
 });
 const taskItem = TaskItem.configure({
   HTMLAttributes: {
-    class: cx("flex gap-2 items-start my-4"),
+    class: cx("flex gap-2 items-start my-4")
   },
-  nested: true,
+  nested: true
 });
 
 const horizontalRule = HorizontalRule.configure({
   HTMLAttributes: {
-    class: cx("mt-4 mb-6 border-t border-muted-foreground"),
-  },
+    class: cx("mt-4 mb-6 border-t border-muted-foreground")
+  }
 });
 
 const starterKit = StarterKit.configure({
   bulletList: {
     HTMLAttributes: {
-      class: cx("list-disc list-outside leading-3 -mt-2"),
-    },
+      class: cx("list-disc list-outside leading-3 -mt-2")
+    }
   },
   orderedList: {
     HTMLAttributes: {
-      class: cx("list-decimal list-outside leading-3 -mt-2"),
-    },
+      class: cx("list-decimal list-outside leading-3 -mt-2")
+    }
   },
   listItem: {
     HTMLAttributes: {
-      class: cx("leading-normal -mb-2"),
-    },
+      class: cx("leading-normal -mb-2")
+    }
   },
   blockquote: {
     HTMLAttributes: {
-      class: cx("border-l-4 border-primary"),
-    },
+      class: cx("border-l-4 border-primary")
+    }
   },
   codeBlock: {
     HTMLAttributes: {
       class: cx(
         "rounded-md bg-muted text-muted-foreground border p-5 font-mono font-medium"
-      ),
-    },
+      )
+    }
   },
   code: {
     HTMLAttributes: {
       class: cx("rounded-md bg-muted  px-1.5 py-1 font-mono font-medium"),
-      spellcheck: "false",
-    },
+      spellcheck: "false"
+    }
   },
   horizontalRule: false,
   dropcursor: {
     color: "#DBEAFE",
-    width: 4,
+    width: 4
   },
-  gapcursor: false,
+  gapcursor: false
 });
 
 export const defaultExtensions = [
@@ -235,5 +235,5 @@ export const defaultExtensions = [
   Table,
   TableCell,
   TableHeader,
-  TableRow,
+  TableRow
 ];

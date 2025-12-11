@@ -4,7 +4,7 @@ import {
   Heading,
   Input,
   SidebarTrigger,
-  useIsMobile,
+  useIsMobile
 } from "@carbon/react";
 import { json, useLoaderData, useParams } from "@remix-run/react";
 import type { LoaderFunctionArgs } from "@vercel/remix";
@@ -22,12 +22,12 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   const [operations] = await Promise.all([
     getActiveJobOperationsByEmployee(client, {
       employeeId: userId,
-      companyId,
-    }),
+      companyId
+    })
   ]);
 
   return json({
-    operations: operations?.data?.map(makeDurations) ?? [],
+    operations: operations?.data?.map(makeDurations) ?? []
   });
 }
 

@@ -4,7 +4,7 @@ import {
   FormControl,
   FormErrorMessage,
   FormHelperText,
-  FormLabel,
+  FormLabel
 } from "@carbon/react";
 import { forwardRef, useEffect } from "react";
 
@@ -83,7 +83,7 @@ const CreatableCombobox = forwardRef<HTMLButtonElement, CreatableComboboxProps>(
         )}
         <input
           {...getInputProps({
-            id: name,
+            id: name
           })}
           type="hidden"
           name={name}

@@ -9,14 +9,14 @@ import { flash } from "@carbon/auth/session.server";
 import {
   getProductionQuantity,
   productionQuantityValidator,
-  updateProductionQuantity,
+  updateProductionQuantity
 } from "~/modules/production";
 import { ProductionQuantityForm } from "~/modules/production/ui/Jobs";
 import { getParams, path } from "~/utils/path";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
-    view: "production",
+    view: "production"
   });
 
   const { id } = params;
@@ -25,14 +25,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   const productionQuantity = await getProductionQuantity(client, id);
 
   return json({
-    productionQuantity: productionQuantity?.data ?? null,
+    productionQuantity: productionQuantity?.data ?? null
   });
 }
 
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    update: "accounting",
+    update: "accounting"
   });
 
   const { jobId } = params;
@@ -59,7 +59,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     id,
     ...data,
     companyId,
-    updatedBy: userId,
+    updatedBy: userId
   });
 
   if (update.error) {
@@ -88,7 +88,7 @@ export default function EditProductionQuantityRoute() {
     quantity: productionQuantity?.quantity ?? 0,
     scrapReasonId: productionQuantity?.scrapReasonId ?? "",
     notes: productionQuantity?.notes ?? "",
-    createdBy: productionQuantity?.createdBy ?? "",
+    createdBy: productionQuantity?.createdBy ?? ""
   };
 
   return (

@@ -10,7 +10,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-  HStack,
+  HStack
 } from "@carbon/react";
 import { useMode } from "@carbon/remix";
 import { Form, Link } from "@remix-run/react";

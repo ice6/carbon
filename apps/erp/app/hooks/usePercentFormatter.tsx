@@ -9,7 +9,7 @@ export function usePercentFormatter() {
       new Intl.NumberFormat(locale, {
         style: "percent",
 
-        maximumFractionDigits: 2,
+        maximumFractionDigits: 2
       }),
     [locale]
   );

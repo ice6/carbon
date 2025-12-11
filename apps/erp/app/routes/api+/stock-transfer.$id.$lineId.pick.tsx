@@ -7,7 +7,7 @@ import { path } from "~/utils/path";
 
 export async function loader({ request, params }: ActionFunctionArgs) {
   const { client } = await requirePermissions(request, {
-    update: "inventory",
+    update: "inventory"
   });
 
   const url = new URL(request.url);
@@ -27,7 +27,7 @@ export async function loader({ request, params }: ActionFunctionArgs) {
 
   const [stockTransferLine, stockTransfer] = await Promise.all([
     client.from("stockTransferLine").select("*").eq("id", lineId).single(),
-    client.from("stockTransfer").select("*").eq("id", id).single(),
+    client.from("stockTransfer").select("*").eq("id", id).single()
   ]);
 
   if (stockTransferLine.error || stockTransfer.error) {
@@ -75,9 +75,9 @@ export async function loader({ request, params }: ActionFunctionArgs) {
     method: "POST",
     headers: {
       Authorization: request.headers.get("Authorization") || "",
-      Cookie: request.headers.get("Cookie") || "",
+      Cookie: request.headers.get("Cookie") || ""
     },
-    body: formData,
+    body: formData
   });
 
   const { data } = await result.json();

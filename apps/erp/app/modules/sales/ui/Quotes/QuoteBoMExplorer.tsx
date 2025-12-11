@@ -11,7 +11,7 @@ import {
   InputLeftElement,
   Spinner,
   VStack,
-  cn,
+  cn
 } from "@carbon/react";
 import { Link, useFetchers, useNavigate, useParams } from "@remix-run/react";
 import { useEffect, useRef, useState } from "react";
@@ -19,7 +19,7 @@ import {
   LuChevronDown,
   LuChevronRight,
   LuExternalLink,
-  LuSearch,
+  LuSearch
 } from "react-icons/lu";
 import { MethodIcon, MethodItemTypeIcon } from "~/components";
 import { OnshapeStatus } from "~/components/Icons";
@@ -39,7 +39,7 @@ type QuoteBoMExplorerProps = {
 
 const QuoteBoMExplorer = ({
   methods,
-  isSearchExpanded = false,
+  isSearchExpanded = false
 }: QuoteBoMExplorerProps) => {
   const parentRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
@@ -68,7 +68,7 @@ const QuoteBoMExplorer = ({
     collapseAllBelowDepth,
     selectNode,
     scrollToNode,
-    virtualizer,
+    virtualizer
   } = useTree({
     tree: methods,
     // selectedId,
@@ -86,9 +86,9 @@ const QuoteBoMExplorer = ({
           return true;
         }
         return false;
-      },
+      }
     },
-    isEager: true,
+    isEager: true
   });
 
   const params = useParams();
@@ -367,14 +367,14 @@ function getNodePath(node: FlatTreeItem<QuoteMethod>) {
         node.data.quoteMaterialMakeMethodId
       )
     : node.data.methodType === "Make"
-    ? path.to.quoteLineMakeMethod(
-        node.data.quoteId,
-        node.data.quoteLineId,
-        node.data.quoteMaterialMakeMethodId
-      )
-    : path.to.quoteLineMakeMethod(
-        node.data.quoteId,
-        node.data.quoteLineId,
-        node.data.quoteMakeMethodId
-      );
+      ? path.to.quoteLineMakeMethod(
+          node.data.quoteId,
+          node.data.quoteLineId,
+          node.data.quoteMaterialMakeMethodId
+        )
+      : path.to.quoteLineMakeMethod(
+          node.data.quoteId,
+          node.data.quoteLineId,
+          node.data.quoteMakeMethodId
+        );
 }

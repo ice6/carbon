@@ -15,7 +15,7 @@ import {
   Th,
   Thead,
   Tr,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { formatDate } from "@carbon/utils";
 import { useLocale } from "@react-aria/i18n";
@@ -33,7 +33,7 @@ import type {
   QuotationLine,
   QuotationPrice,
   QuotationShipment,
-  SalesOrderLine,
+  SalesOrderLine
 } from "../../types";
 
 type SelectedLine = {
@@ -63,7 +63,7 @@ const deselectedLine: SelectedLine = {
   taxPercent: 0,
   discountPercent: 0,
   unitPrice: 0,
-  convertedUnitPrice: 0,
+  convertedUnitPrice: 0
 };
 
 const LineItems = ({
@@ -71,7 +71,7 @@ const LineItems = ({
   formatter,
   locale,
   selectedLines,
-  setSelectedLines,
+  setSelectedLines
 }: {
   currencyCode: string;
   formatter: Intl.NumberFormat;
@@ -191,13 +191,13 @@ const LineItems = ({
                         }
                         format={{
                           style: "currency",
-                          currency: currencyCode,
+                          currency: currencyCode
                         }}
                         locales={locale}
                       />
                       <motion.div
                         animate={{
-                          rotate: openItems.includes(line.id) ? 90 : 0,
+                          rotate: openItems.includes(line.id) ? 90 : 0
                         }}
                         transition={{ duration: 0.3 }}
                       >
@@ -217,7 +217,7 @@ const LineItems = ({
               animate={openItems.includes(line.id) ? "open" : "collapsed"}
               variants={{
                 open: { opacity: 1, height: "auto", marginTop: 16 },
-                collapsed: { opacity: 0, height: 0, marginTop: 0 },
+                collapsed: { opacity: 0, height: 0, marginTop: 0 }
               }}
               transition={{ duration: 0.3 }}
               className="w-full overflow-hidden"
@@ -262,7 +262,7 @@ const LinePricingOptions = ({
   locale,
   formatter,
   selectedLine,
-  setSelectedLines,
+  setSelectedLines
 }: LinePricingOptionsProps) => {
   const percentFormatter = usePercentFormatter();
   const { quoteId } = useParams();
@@ -306,13 +306,13 @@ const LinePricingOptions = ({
   if (selectedLine.convertedShippingCost) {
     additionalCharges.push({
       name: "Shipping",
-      amount: selectedLine.convertedShippingCost,
+      amount: selectedLine.convertedShippingCost
     });
   }
   Object.entries(line.additionalCharges ?? {}).forEach(([name, charge]) => {
     additionalCharges.push({
       name: charge.description,
-      amount: charge.amounts?.[selectedLine.quantity] * quoteExchangeRate,
+      amount: charge.amounts?.[selectedLine.quantity] * quoteExchangeRate
     });
   });
 
@@ -351,8 +351,8 @@ const LinePricingOptions = ({
                 taxPercent: line.taxPercent ?? 0,
                 discountPercent: selectedOption.discountPercent ?? 0,
                 unitPrice: selectedOption.unitPrice ?? 0,
-                convertedUnitPrice: selectedOption.convertedUnitPrice ?? 0,
-              },
+                convertedUnitPrice: selectedOption.convertedUnitPrice ?? 0
+              }
             }));
             setSelectedValue(value);
           }
@@ -414,7 +414,7 @@ const LinePricingOptions = ({
                       <Td>
                         {new Intl.NumberFormat(locale, {
                           style: "unit",
-                          unit: "day",
+                          unit: "day"
                         }).format(option.leadTime)}
                       </Td>
                       <Td>
@@ -507,7 +507,7 @@ const LinePricingOptions = ({
                     }
                     format={{
                       style: "currency",
-                      currency: quoteCurrency,
+                      currency: quoteCurrency
                     }}
                     locales={locale}
                   />
@@ -529,7 +529,7 @@ const LinePricingOptions = ({
                     }
                     format={{
                       style: "currency",
-                      currency: quoteCurrency,
+                      currency: quoteCurrency
                     }}
                     locales={locale}
                   />
@@ -549,7 +549,7 @@ const LinePricingOptions = ({
                     }
                     format={{
                       style: "currency",
-                      currency: quoteCurrency,
+                      currency: quoteCurrency
                     }}
                     locales={locale}
                   />
@@ -564,7 +564,7 @@ const LinePricingOptions = ({
 };
 
 const QuoteSummary = ({
-  onEditShippingCost,
+  onEditShippingCost
 }: {
   onEditShippingCost: () => void;
 }) => {
@@ -587,7 +587,7 @@ const QuoteSummary = ({
     () =>
       new Intl.NumberFormat(locale, {
         style: "currency",
-        currency: routeData?.quote.currencyCode ?? "USD",
+        currency: routeData?.quote.currencyCode ?? "USD"
       }),
     [locale, routeData?.quote.currencyCode]
   );
@@ -631,26 +631,31 @@ const QuoteSummary = ({
         }
 
         const additionalChargesByQuantity =
-          line.quantity?.reduce((acc, quantity) => {
-            const charges = Object.values(line.additionalCharges ?? {}).reduce(
-              (chargeAcc, charge) => {
+          line.quantity?.reduce(
+            (acc, quantity) => {
+              const charges = Object.values(
+                line.additionalCharges ?? {}
+              ).reduce((chargeAcc, charge) => {
                 const amount = charge.amounts?.[quantity];
                 return chargeAcc + amount;
-              },
-              0
-            );
-            acc[quantity] = charges;
-            return acc;
-          }, {} as Record<number, number>) ?? {};
+              }, 0);
+              acc[quantity] = charges;
+              return acc;
+            },
+            {} as Record<number, number>
+          ) ?? {};
 
         const convertedAdditionalChargesByQuantity =
           Object.entries(additionalChargesByQuantity).reduce<
             Record<number, number>
-          >((acc, [quantity, amount]) => {
-            acc[Number(quantity)] =
-              amount * (routeData?.quote.exchangeRate ?? 1);
-            return acc;
-          }, {} as Record<number, number>) ?? {};
+          >(
+            (acc, [quantity, amount]) => {
+              acc[Number(quantity)] =
+                amount * (routeData?.quote.exchangeRate ?? 1);
+              return acc;
+            },
+            {} as Record<number, number>
+          ) ?? {};
 
         acc[line.id] = {
           quantity: price.quantity ?? 0,
@@ -665,7 +670,7 @@ const QuoteSummary = ({
           taxPercent: line.taxPercent ?? 0,
           discountPercent: price.discountPercent ?? 0,
           unitPrice: price.unitPrice ?? 0,
-          convertedUnitPrice: price.convertedUnitPrice ?? 0,
+          convertedUnitPrice: price.convertedUnitPrice ?? 0
         };
         return acc;
       }, {}) ?? {}
@@ -744,7 +749,7 @@ const QuoteSummary = ({
               value={subtotal + totalDiscount}
               format={{
                 style: "currency",
-                currency: routeData?.quote?.currencyCode ?? "USD",
+                currency: routeData?.quote?.currencyCode ?? "USD"
               }}
               locales={locale}
             />
@@ -758,7 +763,7 @@ const QuoteSummary = ({
                   value={totalDiscount}
                   format={{
                     style: "currency",
-                    currency: routeData?.quote?.currencyCode ?? "USD",
+                    currency: routeData?.quote?.currencyCode ?? "USD"
                   }}
                   locales={locale}
                 />
@@ -771,7 +776,7 @@ const QuoteSummary = ({
               value={tax}
               format={{
                 style: "currency",
-                currency: routeData?.quote?.currencyCode ?? "USD",
+                currency: routeData?.quote?.currencyCode ?? "USD"
               }}
               locales={locale}
             />
@@ -794,7 +799,7 @@ const QuoteSummary = ({
                   value={convertedShippingCost}
                   format={{
                     style: "currency",
-                    currency: routeData?.quote.currencyCode ?? "USD",
+                    currency: routeData?.quote.currencyCode ?? "USD"
                   }}
                   locales={locale}
                 />
@@ -816,7 +821,7 @@ const QuoteSummary = ({
               value={total}
               format={{
                 style: "currency",
-                currency: routeData?.quote.currencyCode ?? "USD",
+                currency: routeData?.quote.currencyCode ?? "USD"
               }}
               locales={locale}
             />

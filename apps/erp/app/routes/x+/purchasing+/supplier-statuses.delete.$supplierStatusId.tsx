@@ -11,7 +11,7 @@ import { getParams, path } from "~/utils/path";
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
     view: "purchasing",
-    role: "employee",
+    role: "employee"
   });
   const { supplierStatusId } = params;
   if (!supplierStatusId) throw notFound("supplierStatusId not found");
@@ -32,7 +32,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
 export async function action({ request, params }: ActionFunctionArgs) {
   const { client } = await requirePermissions(request, {
-    delete: "purchasing",
+    delete: "purchasing"
   });
 
   const { supplierStatusId } = params;

@@ -20,7 +20,7 @@ const bomHeaders = [
   "Method Type",
   "Item Type",
   "Level",
-  "Version",
+  "Version"
 ];
 
 const operationHeaders = [
@@ -36,12 +36,12 @@ const operationHeaders = [
   "Machine Unit",
   "Total Duration x 1 (ms)",
   "Total Duration x 100 (ms)",
-  "Total Duration x 1000 (ms)",
+  "Total Duration x 1000 (ms)"
 ];
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    view: "parts",
+    view: "parts"
   });
 
   const { id } = params;
@@ -56,8 +56,8 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     return new Response(headers, {
       headers: {
         "Content-Type": "text/csv",
-        "Content-Disposition": "attachment; filename=bom.csv",
-      },
+        "Content-Disposition": "attachment; filename=bom.csv"
+      }
     });
   }
 
@@ -66,8 +66,8 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     return new Response(headers, {
       headers: {
         "Content-Type": "text/csv",
-        "Content-Disposition": "attachment; filename=bom.csv",
-      },
+        "Content-Disposition": "attachment; filename=bom.csv"
+      }
     });
   }
 
@@ -78,7 +78,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   ) satisfies FlatTreeItem<Method>[];
 
   const makeMethodIds = [
-    ...new Set(methods.map((method) => method.data.makeMethodId)),
+    ...new Set(methods.map((method) => method.data.makeMethodId))
   ];
 
   let operationsByMakeMethodId: Record<
@@ -104,7 +104,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
         (acc, operation) => {
           acc[operation.makeMethodId] = [
             ...(acc[operation.makeMethodId] || []),
-            operation,
+            operation
           ];
           return acc;
         },
@@ -139,11 +139,11 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
           const op1 = makeDurations({ ...operation, operationQuantity: total });
           const op100 = makeDurations({
             ...operation,
-            operationQuantity: total * 100,
+            operationQuantity: total * 100
           });
           const op1000 = makeDurations({
             ...operation,
-            operationQuantity: total * 1000,
+            operationQuantity: total * 1000
           });
 
           csv += Array(bomHeaders.length).fill(",").join("");
@@ -164,7 +164,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   return new Response(csv, {
     headers: {
       "Content-Type": "text/csv",
-      "Content-Disposition": `attachment; filename=${fileName}`,
-    },
+      "Content-Disposition": `attachment; filename=${fileName}`
+    }
   });
 }

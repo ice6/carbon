@@ -9,11 +9,11 @@ import {
   CardTitle,
   VStack,
   cn,
-  toast,
+  toast
 } from "@carbon/react";
 import { useState } from "react";
 import { flushSync } from "react-dom";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import {
   Currency,
   CustomFormFields,
@@ -23,12 +23,12 @@ import {
   Submit,
   Supplier,
   SupplierContact,
-  SupplierLocation,
+  SupplierLocation
 } from "~/components/Form";
 import { usePermissions } from "~/hooks";
 import {
   purchaseOrderTypeType,
-  purchaseOrderValidator,
+  purchaseOrderValidator
 } from "~/modules/purchasing";
 
 type PurchaseOrderFormValues = z.infer<typeof purchaseOrderValidator>;
@@ -45,7 +45,7 @@ const PurchaseOrderForm = ({ initialValues }: PurchaseOrderFormProps) => {
     currencyCode: string | undefined;
   }>({
     id: initialValues.supplierId,
-    currencyCode: initialValues.currencyCode,
+    currencyCode: initialValues.currencyCode
   });
   const isEditing = initialValues.id !== undefined;
 
@@ -65,7 +65,7 @@ const PurchaseOrderForm = ({ initialValues }: PurchaseOrderFormProps) => {
         // update the supplier immediately
         setSupplier({
           id: newValue?.value,
-          currencyCode: undefined,
+          currencyCode: undefined
         });
       });
 
@@ -79,13 +79,13 @@ const PurchaseOrderForm = ({ initialValues }: PurchaseOrderFormProps) => {
       } else {
         setSupplier((prev) => ({
           ...prev,
-          currencyCode: data.currencyCode ?? undefined,
+          currencyCode: data.currencyCode ?? undefined
         }));
       }
     } else {
       setSupplier({
         id: undefined,
-        currencyCode: undefined,
+        currencyCode: undefined
       });
     }
   };
@@ -153,7 +153,7 @@ const PurchaseOrderForm = ({ initialValues }: PurchaseOrderFormProps) => {
                   if (newValue?.value) {
                     setSupplier((prevSupplier) => ({
                       ...prevSupplier,
-                      currencyCode: newValue.value,
+                      currencyCode: newValue.value
                     }));
                   }
                 }}
@@ -163,7 +163,7 @@ const PurchaseOrderForm = ({ initialValues }: PurchaseOrderFormProps) => {
                 label="Type"
                 options={purchaseOrderTypeType.map((type) => ({
                   label: type,
-                  value: type,
+                  value: type
                 }))}
               />
               <CustomFormFields table="purchaseOrder" />

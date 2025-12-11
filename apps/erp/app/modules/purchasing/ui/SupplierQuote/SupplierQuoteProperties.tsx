@@ -8,7 +8,7 @@ import {
   TooltipContent,
   TooltipTrigger,
   VStack,
-  toast,
+  toast
 } from "@carbon/react";
 import { useLocale } from "@react-aria/i18n";
 import { useFetcher, useParams } from "@remix-run/react";
@@ -21,7 +21,7 @@ import {
   Currency,
   Supplier,
   SupplierContact,
-  SupplierLocation,
+  SupplierLocation
 } from "~/components/Form";
 import CustomFormInlineFields from "~/components/Form/CustomFormInlineFields";
 import { usePermissions, useRouteData, useUser } from "~/hooks";
@@ -53,7 +53,7 @@ const SupplierQuoteProperties = () => {
     () =>
       new Intl.DateTimeFormat(locale, {
         dateStyle: "medium",
-        timeStyle: "short",
+        timeStyle: "short"
       }),
     [locale]
   );
@@ -70,7 +70,7 @@ const SupplierQuoteProperties = () => {
       formData.append("value", value ?? "");
       fetcher.submit(formData, {
         method: "post",
-        action: path.to.bulkUpdateSupplierQuote,
+        action: path.to.bulkUpdateSupplierQuote
       });
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -87,7 +87,7 @@ const SupplierQuoteProperties = () => {
 
       fetcher.submit(formData, {
         method: "post",
-        action: path.to.customFields,
+        action: path.to.customFields
       });
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -96,7 +96,7 @@ const SupplierQuoteProperties = () => {
 
   const optimisticAssignment = useOptimisticAssignment({
     id,
-    table: "supplierQuote",
+    table: "supplierQuote"
   });
   const assignee =
     optimisticAssignment !== undefined
@@ -169,7 +169,7 @@ const SupplierQuoteProperties = () => {
       <ValidatedForm
         defaultValues={{ supplierId: routeData?.quote?.supplierId }}
         validator={z.object({
-          supplierId: z.string().min(1, { message: "Supplier is required" }),
+          supplierId: z.string().min(1, { message: "Supplier is required" })
         })}
         className="w-full"
       >
@@ -187,10 +187,10 @@ const SupplierQuoteProperties = () => {
 
       <ValidatedForm
         defaultValues={{
-          supplierReference: routeData?.quote?.supplierReference ?? undefined,
+          supplierReference: routeData?.quote?.supplierReference ?? undefined
         }}
         validator={z.object({
-          supplierReference: zfd.text(z.string().optional()),
+          supplierReference: zfd.text(z.string().optional())
         })}
         className="w-full"
       >
@@ -209,10 +209,10 @@ const SupplierQuoteProperties = () => {
 
       <ValidatedForm
         defaultValues={{
-          supplierLocationId: routeData?.quote?.supplierLocationId ?? "",
+          supplierLocationId: routeData?.quote?.supplierLocationId ?? ""
         }}
         validator={z.object({
-          supplierLocationId: zfd.text(z.string().optional()),
+          supplierLocationId: zfd.text(z.string().optional())
         })}
         className="w-full"
       >
@@ -231,10 +231,10 @@ const SupplierQuoteProperties = () => {
 
       <ValidatedForm
         defaultValues={{
-          supplierContactId: routeData?.quote?.supplierContactId ?? "",
+          supplierContactId: routeData?.quote?.supplierContactId ?? ""
         }}
         validator={z.object({
-          supplierContactId: zfd.text(z.string().optional()),
+          supplierContactId: zfd.text(z.string().optional())
         })}
         className="w-full"
       >
@@ -253,12 +253,12 @@ const SupplierQuoteProperties = () => {
 
       <ValidatedForm
         defaultValues={{
-          expirationDate: routeData?.quote?.expirationDate ?? "",
+          expirationDate: routeData?.quote?.expirationDate ?? ""
         }}
         validator={z.object({
           expirationDate: z
             .string()
-            .min(1, { message: "Expiration date is required" }),
+            .min(1, { message: "Expiration date is required" })
         })}
         className="w-full"
       >
@@ -274,10 +274,10 @@ const SupplierQuoteProperties = () => {
 
       <ValidatedForm
         defaultValues={{
-          quotedDate: routeData?.quote?.quotedDate ?? "",
+          quotedDate: routeData?.quote?.quotedDate ?? ""
         }}
         validator={z.object({
-          quotedDate: zfd.text(z.string().optional()),
+          quotedDate: zfd.text(z.string().optional())
         })}
         className="w-full"
       >
@@ -293,10 +293,10 @@ const SupplierQuoteProperties = () => {
 
       <ValidatedForm
         defaultValues={{
-          currencyCode: routeData?.quote?.currencyCode ?? undefined,
+          currencyCode: routeData?.quote?.currencyCode ?? undefined
         }}
         validator={z.object({
-          currencyCode: zfd.text(z.string().optional()),
+          currencyCode: zfd.text(z.string().optional())
         })}
         className="w-full"
       >
@@ -351,7 +351,7 @@ const SupplierQuoteProperties = () => {
                   );
                   exchangeRateFetcher.submit(formData, {
                     method: "post",
-                    action: path.to.supplierQuoteExchangeRate(id),
+                    action: path.to.supplierQuoteExchangeRate(id)
                   });
                 }}
               />

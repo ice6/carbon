@@ -3,7 +3,7 @@ import { json, type ActionFunctionArgs } from "@vercel/remix";
 
 export async function action({ request }: ActionFunctionArgs) {
   const { client, companyId, userId } = await requirePermissions(request, {
-    update: "inventory",
+    update: "inventory"
   });
 
   const formData = await request.formData();
@@ -26,7 +26,7 @@ export async function action({ request }: ActionFunctionArgs) {
         .update({
           [field]: value ? value : null,
           updatedBy: userId,
-          updatedAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString()
         })
         .in("id", ids as string[])
         .eq("companyId", companyId);
@@ -35,7 +35,7 @@ export async function action({ request }: ActionFunctionArgs) {
     default:
       return json({
         error: { message: `Invalid field: ${field}` },
-        data: null,
+        data: null
       });
   }
 }

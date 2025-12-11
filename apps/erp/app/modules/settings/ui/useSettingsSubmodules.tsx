@@ -11,7 +11,7 @@ import {
   LuShoppingCart,
   LuSquareStack,
   LuWebhook,
-  LuWorkflow,
+  LuWorkflow
 } from "react-icons/lu";
 import { usePermissions } from "~/hooks";
 import { useFlags } from "~/hooks/useFlags";
@@ -29,7 +29,7 @@ const settingsRoutes: AuthenticatedRouteGroup<{
         name: "Company",
         to: path.to.company,
         role: "employee",
-        icon: <LuFactory />,
+        icon: <LuFactory />
       },
       {
         name: "Billing",
@@ -37,21 +37,21 @@ const settingsRoutes: AuthenticatedRouteGroup<{
         role: "employee",
         icon: <LuCreditCard />,
         requiresOwnership: true,
-        requiresCloudEnvironment: true,
+        requiresCloudEnvironment: true
       },
       {
         name: "Labels",
         to: path.to.labelsSettings,
         role: "employee",
-        icon: <LuBarcode />,
+        icon: <LuBarcode />
       },
       {
         name: "Logos",
         to: path.to.logos,
         role: "employee",
-        icon: <LuImage />,
-      },
-    ],
+        icon: <LuImage />
+      }
+    ]
   },
   {
     name: "Modules",
@@ -60,39 +60,39 @@ const settingsRoutes: AuthenticatedRouteGroup<{
         name: "Inventory",
         to: path.to.inventorySettings,
         role: "employee",
-        icon: <LuBox />,
+        icon: <LuBox />
       },
       {
         name: "Items",
         to: path.to.itemsSettings,
         role: "employee",
-        icon: <LuSquareStack />,
+        icon: <LuSquareStack />
       },
       {
         name: "Purchasing",
         to: path.to.purchasingSettings,
         role: "employee",
-        icon: <LuShoppingCart />,
+        icon: <LuShoppingCart />
       },
       {
         name: "Production",
         to: path.to.productionSettings,
         role: "employee",
-        icon: <LuFactory />,
+        icon: <LuFactory />
       },
       {
         name: "Quality",
         to: path.to.qualitySettings,
         role: "employee",
-        icon: <LuClipboardCheck />,
+        icon: <LuClipboardCheck />
       },
       {
         name: "Sales",
         to: path.to.salesSettings,
         role: "employee",
-        icon: <LuCrown />,
-      },
-    ],
+        icon: <LuCrown />
+      }
+    ]
   },
   {
     name: "System",
@@ -101,28 +101,28 @@ const settingsRoutes: AuthenticatedRouteGroup<{
         name: "Custom Fields",
         to: path.to.customFields,
         role: "employee",
-        icon: <LuLayoutDashboard />,
+        icon: <LuLayoutDashboard />
       },
       {
         name: "Integrations",
         to: path.to.integrations,
         role: "employee",
-        icon: <LuWorkflow />,
+        icon: <LuWorkflow />
       },
       {
         name: "Sequences",
         to: path.to.sequences,
         role: "employee",
-        icon: <LuSheet />,
+        icon: <LuSheet />
       },
       {
         name: "Webhooks",
         to: path.to.webhooks,
         role: "employee",
-        icon: <LuWebhook />,
-      },
-    ],
-  },
+        icon: <LuWebhook />
+      }
+    ]
+  }
 ];
 
 export default function useSettingsSubmodules() {
@@ -161,7 +161,7 @@ export default function useSettingsSubmodules() {
           }
 
           return true;
-        }),
-      })),
+        })
+      }))
   };
 }

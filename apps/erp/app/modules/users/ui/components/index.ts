@@ -7,5 +7,5 @@ export {
   DeactivateUsersModal,
   PermissionCheckboxes,
   ResendInviteModal,
-  RevokeInviteModal,
+  RevokeInviteModal
 };

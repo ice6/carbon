@@ -7,7 +7,7 @@ import type { ActionFunctionArgs, LoaderFunctionArgs } from "@vercel/remix";
 import { json, redirect } from "@vercel/remix";
 import {
   materialDimensionValidator,
-  upsertMaterialDimension,
+  upsertMaterialDimension
 } from "~/modules/items";
 import MaterialDimensionForm from "~/modules/items/ui/MaterialDimensions/MaterialDimensionForm";
 import { getCompanySettings } from "~/modules/settings";
@@ -16,7 +16,7 @@ import { getParams, path } from "~/utils/path";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   await requirePermissions(request, {
-    create: "parts",
+    create: "parts"
   });
 
   return null;
@@ -25,7 +25,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId } = await requirePermissions(request, {
-    create: "parts",
+    create: "parts"
   });
 
   const formData = await request.formData();
@@ -46,7 +46,7 @@ export async function action({ request }: ActionFunctionArgs) {
   const insertMaterialDimension = await upsertMaterialDimension(client, {
     ...data,
     companyId,
-    isMetric: settings?.data?.useMetric ?? false,
+    isMetric: settings?.data?.useMetric ?? false
   });
 
   if (insertMaterialDimension.error) {
@@ -85,7 +85,7 @@ export default function NewMaterialDimensionsRoute() {
   const navigate = useNavigate();
   const initialValues = {
     name: "",
-    materialFormId: "",
+    materialFormId: ""
   };
 
   return (

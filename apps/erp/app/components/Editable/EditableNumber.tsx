@@ -19,7 +19,7 @@ const EditableNumber =
     row,
     accessorKey,
     onError,
-    onUpdate,
+    onUpdate
   }: EditableTableCellComponentProps<T>) => {
     const updateNumber = async (newValue: string) => {
       const numberValue = Number(newValue);

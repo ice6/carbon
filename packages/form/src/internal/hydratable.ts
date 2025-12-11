@@ -10,12 +10,12 @@ export type Hydratable<T> = {
 
 const serverData = <T>(data: T): Hydratable<T> => ({
   hydrateTo: () => data,
-  map: (fn) => serverData(fn(data)),
+  map: (fn) => serverData(fn(data))
 });
 
 const hydratedData = <T>(): Hydratable<T> => ({
   hydrateTo: (hydratedData: T) => hydratedData,
-  map: <U>() => hydratedData<U>(),
+  map: <U>() => hydratedData<U>()
 });
 
 const from = <T>(data: T, hydrated: boolean): Hydratable<T> =>
@@ -24,5 +24,5 @@ const from = <T>(data: T, hydrated: boolean): Hydratable<T> =>
 export const hydratable = {
   serverData,
   hydratedData,
-  from,
+  from
 };

@@ -40,7 +40,7 @@ export function TreeView<TData>({
   virtualizer,
   parentRef,
   scrollRef,
-  onScroll,
+  onScroll
 }: TreeViewProps<TData>) {
   useEffect(() => {
     if (autoFocus) {
@@ -89,7 +89,7 @@ export function TreeView<TData>({
           height: `${virtualizer.getTotalSize()}px`,
           width: "100%",
           position: "relative",
-          overflowY: "visible",
+          overflowY: "visible"
         }}
       >
         <div
@@ -99,7 +99,7 @@ export function TreeView<TData>({
             top: 0,
             left: 0,
             width: "100%",
-            transform: `translateY(${virtualItems.at(0)?.start ?? 0}px)`,
+            transform: `translateY(${virtualItems.at(0)?.start ?? 0}px)`
           }}
         >
           {virtualItems.map((virtualItem) => {
@@ -121,7 +121,7 @@ export function TreeView<TData>({
                   state,
                   index: virtualItem.index,
                   virtualizer: virtualizer,
-                  virtualItem,
+                  virtualItem
                 })}
               </div>
             );
@@ -193,7 +193,7 @@ export function useTree<TData, TFilterValue>({
   parentRef,
   estimatedRowHeight,
   filter,
-  isEager,
+  isEager
 }: TreeStateHookProps<TData, TFilterValue>): UseTreeStateOutput {
   const previousNodeCount = useRef(tree.length);
   const previousSelectedId = useRef<string | undefined>(selectedId);
@@ -243,10 +243,10 @@ export function useTree<TData, TFilterValue>({
       return estimatedRowHeight({
         node: tree[index],
         state: state.nodes[tree[index]?.id],
-        index,
+        index
       });
     },
-    overscan: 20,
+    overscan: 20
   });
 
   const scrollToNodeFn = useCallback(
@@ -264,7 +264,7 @@ export function useTree<TData, TFilterValue>({
     (id: string, scrollToNode = true) => {
       dispatch({
         type: "SELECT_NODE",
-        payload: { id, scrollToNode, scrollToNodeFn },
+        payload: { id, scrollToNode, scrollToNodeFn }
       });
     },
     [state]
@@ -285,7 +285,7 @@ export function useTree<TData, TFilterValue>({
     (id: string, scrollToNode = true) => {
       dispatch({
         type: "TOGGLE_NODE_SELECTION",
-        payload: { id, scrollToNode, scrollToNodeFn },
+        payload: { id, scrollToNode, scrollToNodeFn }
       });
     },
     [state]
@@ -295,7 +295,7 @@ export function useTree<TData, TFilterValue>({
     (id: string, scrollToNode = true) => {
       dispatch({
         type: "EXPAND_NODE",
-        payload: { id, scrollToNode, scrollToNodeFn },
+        payload: { id, scrollToNode, scrollToNodeFn }
       });
     },
     [state]
@@ -312,7 +312,7 @@ export function useTree<TData, TFilterValue>({
     (id: string, scrollToNode = true) => {
       dispatch({
         type: "TOGGLE_EXPAND_NODE",
-        payload: { id, scrollToNode, scrollToNodeFn },
+        payload: { id, scrollToNode, scrollToNodeFn }
       });
     },
     [state]
@@ -322,7 +322,7 @@ export function useTree<TData, TFilterValue>({
     (scrollToNode = true) => {
       dispatch({
         type: "SELECT_FIRST_VISIBLE_NODE",
-        payload: { scrollToNode, scrollToNodeFn },
+        payload: { scrollToNode, scrollToNodeFn }
       });
     },
     [tree, state]
@@ -332,7 +332,7 @@ export function useTree<TData, TFilterValue>({
     (scrollToNode = true) => {
       dispatch({
         type: "SELECT_LAST_VISIBLE_NODE",
-        payload: { scrollToNode, scrollToNodeFn },
+        payload: { scrollToNode, scrollToNodeFn }
       });
     },
     [tree, state]
@@ -342,7 +342,7 @@ export function useTree<TData, TFilterValue>({
     (scrollToNode = true) => {
       dispatch({
         type: "SELECT_NEXT_VISIBLE_NODE",
-        payload: { scrollToNode, scrollToNodeFn },
+        payload: { scrollToNode, scrollToNodeFn }
       });
     },
     [state]
@@ -352,7 +352,7 @@ export function useTree<TData, TFilterValue>({
     (scrollToNode = true) => {
       dispatch({
         type: "SELECT_PREVIOUS_VISIBLE_NODE",
-        payload: { scrollToNode, scrollToNodeFn },
+        payload: { scrollToNode, scrollToNodeFn }
       });
     },
     [state]
@@ -362,7 +362,7 @@ export function useTree<TData, TFilterValue>({
     (scrollToNode = true) => {
       dispatch({
         type: "SELECT_PARENT_NODE",
-        payload: { scrollToNode, scrollToNodeFn },
+        payload: { scrollToNode, scrollToNodeFn }
       });
     },
     [state]
@@ -490,7 +490,7 @@ export function useTree<TData, TFilterValue>({
             break;
           }
         }
-      },
+      }
     };
   }, [state]);
 
@@ -504,7 +504,7 @@ export function useTree<TData, TFilterValue>({
         "aria-expanded": node.expanded,
         "aria-level": treeItem.level + 1,
         role: "treeitem",
-        tabIndex: node.selected ? -1 : undefined,
+        tabIndex: node.selected ? -1 : undefined
       };
     },
     [state]
@@ -533,7 +533,7 @@ export function useTree<TData, TFilterValue>({
     selectPreviousVisibleNode,
     selectParentNode,
     scrollToNode: scrollToNodeFn,
-    virtualizer,
+    virtualizer
   };
 }
 
@@ -572,7 +572,7 @@ export function flattenTree<TData>(tree: Tree<TData>): FlatTree<TData> {
       children,
       hasChildren: children.length > 0,
       level,
-      data: node.data,
+      data: node.data
     });
 
     node.children?.forEach((child) => {
@@ -622,7 +622,7 @@ export function createTreeFromFlatItems<TData>(
 export function LevelLine({
   isError = false,
   isSelected,
-  className,
+  className
 }: {
   isError?: boolean;
   isSelected: boolean;

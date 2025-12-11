@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from "@remix-run/react";
 import {
   accountSubcategoryValidator,
-  upsertAccountSubcategory,
+  upsertAccountSubcategory
 } from "~/modules/accounting";
 import { AccountSubcategoryForm } from "~/modules/accounting/ui/AccountCategories";
 
@@ -17,7 +17,7 @@ import { getParams, path } from "~/utils/path";
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    create: "accounting",
+    create: "accounting"
   });
 
   const formData = await request.formData();
@@ -35,7 +35,7 @@ export async function action({ request }: ActionFunctionArgs) {
   const createSubcategory = await upsertAccountSubcategory(client, {
     ...data,
     customFields: setCustomFields(formData),
-    createdBy: userId,
+    createdBy: userId
   });
   if (createSubcategory.error) {
     return json(
@@ -62,7 +62,7 @@ export default function NewAccountSubcategoryRoute() {
 
   const initialValues = {
     name: "",
-    accountCategoryId: categoryId,
+    accountCategoryId: categoryId
   };
 
   return (

@@ -11,7 +11,7 @@ import { getParams, path } from "~/utils/path";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   await requirePermissions(request, {
-    view: "settings",
+    view: "settings"
   });
 
   return null;
@@ -20,7 +20,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    view: "settings",
+    view: "settings"
   });
 
   const formData = await request.formData();
@@ -33,7 +33,7 @@ export async function action({ request }: ActionFunctionArgs) {
   const createWebhook = await upsertWebhook(client, {
     ...validation.data,
     companyId,
-    createdBy: userId,
+    createdBy: userId
   });
   if (createWebhook.error) {
     return json(
@@ -60,7 +60,7 @@ export default function NewWebhookRoute() {
     onInsert: false,
     onUpdate: false,
     onDelete: false,
-    active: false,
+    active: false
   };
 
   return (

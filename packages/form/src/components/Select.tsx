@@ -11,7 +11,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-  Spinner,
+  Spinner
 } from "@carbon/react";
 
 import type { ComponentPropsWithoutRef } from "react";
@@ -72,7 +72,7 @@ const Select = ({
 
       <input
         {...getInputProps({
-          id: name,
+          id: name
         })}
         type="hidden"
         name={name}

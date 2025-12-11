@@ -6,7 +6,7 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-  useKeyboardShortcuts,
+  useKeyboardShortcuts
 } from "@carbon/react";
 import { Link } from "@remix-run/react";
 import { useRef } from "react";
@@ -24,7 +24,7 @@ const New = ({ label, to, variant = "primary" }: NewProps) => {
     n: (event: KeyboardEvent) => {
       event.stopPropagation();
       buttonRef.current?.click();
-    },
+    }
   });
 
   return (

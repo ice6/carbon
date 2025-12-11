@@ -9,7 +9,7 @@ export const config: AgentConfig = {
   name: "triage",
   displayName: "Triage Agent",
   description: "Routes user requests to the appropriate specialist",
-  executingMessage: "Thinking...",
+  executingMessage: "Thinking..."
 };
 
 export const orchestrationAgent = createAgent({
@@ -19,8 +19,8 @@ export const orchestrationAgent = createAgent({
   modelSettings: {
     toolChoice: {
       type: "tool",
-      toolName: "handoff_to_agent",
-    },
+      toolName: "handoff_to_agent"
+    }
   },
   instructions: (ctx) => `Route user requests to the appropriate specialist.
 
@@ -35,5 +35,5 @@ purchasing: creating purchase orders or getting quotes from suppliers
 </agent-capabilities>
 </background-data>`,
   handoffs: [purchasingAgent, searchAgent],
-  maxTurns: 1,
+  maxTurns: 1
 });

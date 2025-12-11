@@ -32,7 +32,7 @@ export function getToolMessage(toolName: SupportedToolName): string | null {
 
 export function ToolCallIndicator({
   toolName,
-  className,
+  className
 }: ToolCallIndicatorProps) {
   const config = toolDisplayConfig[toolName];
 

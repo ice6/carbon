@@ -18,7 +18,7 @@ import { ChatWidgets } from "./ChatWidgets";
 import {
   Conversation,
   ConversationContent,
-  ConversationScrollButton,
+  ConversationScrollButton
 } from "./Conversation";
 import { useChatInterface } from "./hooks/useChatInterface";
 import { useChatStatus } from "./hooks/useChatStatus";
@@ -68,8 +68,8 @@ export function ChatInterface({ geo }: Props) {
     company: {
       id: companyId,
       name: companyName,
-      baseCurrencyCode: baseCurrency,
-    },
+      baseCurrencyCode: baseCurrency
+    }
   } = useUser();
 
   const authenticatedFetch = useMemo(
@@ -83,8 +83,8 @@ export function ChatInterface({ geo }: Props) {
               Authorization: `Bearer ${accessToken}`,
               "Content-Type": "application/json",
               "x-company-id": companyId,
-              "x-user-id": userId,
-            },
+              "x-user-id": userId
+            }
           });
         }
       ),
@@ -115,11 +115,11 @@ export function ChatInterface({ geo }: Props) {
             agentChoice,
             toolChoice,
             timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-            locale,
-          },
+            locale
+          }
         };
-      },
-    }),
+      }
+    })
   });
 
   const { agentStatus, currentToolCall } = useChatStatus(messages, status);

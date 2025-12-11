@@ -9,7 +9,7 @@ import {
   ModalOverlay,
   ModalTitle,
   VStack,
-  useMount,
+  useMount
 } from "@carbon/react";
 import { useFetcher, useNavigate } from "@remix-run/react";
 import { Input, Location, Select, Submit } from "~/components/Form";
@@ -37,7 +37,7 @@ const CreateEmployeeModal = ({ invitable }: CreateEmployeeModalProps) => {
   const employeeTypeOptions =
     employeeTypeFetcher.data?.data?.map((et) => ({
       value: et.id,
-      label: et.name,
+      label: et.name
     })) ?? [];
 
   return (
@@ -54,7 +54,7 @@ const CreateEmployeeModal = ({ invitable }: CreateEmployeeModalProps) => {
           action={path.to.newEmployee}
           validator={createEmployeeValidator}
           defaultValues={{
-            locationId: defaults?.locationId ?? undefined,
+            locationId: defaults?.locationId ?? undefined
           }}
           fetcher={formFetcher}
           className="flex flex-col h-full"

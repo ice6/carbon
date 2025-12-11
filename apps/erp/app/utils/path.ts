@@ -172,14 +172,14 @@ export const path = {
         generatePath(`${api}/resources/work-centers?location=${id}`),
       workCenters: `${api}/resources/work-centers`,
       paymentTerms: `${api}/accounting/payment-terms`,
-      shippingMethods: `${api}/inventory/shipping-methods`,
+      shippingMethods: `${api}/inventory/shipping-methods`
     },
     external: {
       mes: MES_URL,
       mesJobOperation: (id: string) => `${MES_URL}/x/operation/${id}`,
       mesJobOperationStart: (id: string, type: "Setup" | "Labor" | "Machine") =>
         `${MES_URL}/x/start/${id}?type=${type}`,
-      mesJobOperationComplete: (id: string) => `${MES_URL}/x/end/${id}`,
+      mesJobOperationComplete: (id: string) => `${MES_URL}/x/end/${id}`
     },
     file: {
       cadModel: (id: string) => generatePath(`${file}/model/${id}`),
@@ -200,7 +200,7 @@ export const path = {
         id: string,
         {
           labelSize,
-          trackedEntityId,
+          trackedEntityId
         }: { labelSize?: string; trackedEntityId?: string } = {}
       ) => {
         let url = `${file}/operation/${id}/labels.pdf`;
@@ -218,7 +218,7 @@ export const path = {
         id: string,
         {
           labelSize,
-          trackedEntityId,
+          trackedEntityId
         }: { labelSize?: string; trackedEntityId?: string } = {}
       ) => {
         let url = `${file}/operation/${id}/labels.zpl`;
@@ -306,11 +306,11 @@ export const path = {
       },
       stockTransfer: (id: string) =>
         generatePath(`${file}/stock-transfer/${id}.pdf`),
-      quote: (id: string) => generatePath(`${file}/quote/${id}.pdf`),
+      quote: (id: string) => generatePath(`${file}/quote/${id}.pdf`)
     },
     legal: {
       termsAndConditions: "https://carbon.ms/terms",
-      privacyPolicy: "https://carbon.ms/privacy",
+      privacyPolicy: "https://carbon.ms/privacy"
     },
     onboarding: {
       company: `${onboarding}/company`,
@@ -318,7 +318,7 @@ export const path = {
       plan: `${onboarding}/plan`,
       root: `${onboarding}`,
       theme: `${onboarding}/theme`,
-      user: `${onboarding}/user`,
+      user: `${onboarding}/user`
     },
     authenticatedRoot: x,
     acknowledge: `${x}/acknowledge`,
@@ -1486,15 +1486,15 @@ export const path = {
     workCenter: (id: string) =>
       generatePath(`${x}/resources/work-centers/${id}`),
     workCenterActivate: (id: string) =>
-      generatePath(`${x}/resources/work-centers/activate/${id}`),
-  },
+      generatePath(`${x}/resources/work-centers/activate/${id}`)
+  }
 } as const;
 
 export const onboardingSequence = [
   path.to.onboarding.theme,
   path.to.onboarding.user,
   path.to.onboarding.company,
-  path.to.onboarding.plan,
+  path.to.onboarding.plan
 ] as const;
 
 export const getStoragePath = (bucket: string, path: string) => {

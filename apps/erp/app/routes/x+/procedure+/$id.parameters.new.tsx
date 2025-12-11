@@ -11,7 +11,7 @@ import { procedureParameterValidator } from "~/modules/production/production.mod
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    create: "production",
+    create: "production"
   });
 
   const { id: procedureId } = params;
@@ -36,12 +36,12 @@ export async function action({ request, params }: ActionFunctionArgs) {
   const create = await upsertProcedureParameter(client, {
     ...data,
     companyId,
-    createdBy: userId,
+    createdBy: userId
   });
   if (create.error) {
     return json(
       {
-        success: false,
+        success: false
       },
       await flash(
         request,

@@ -49,7 +49,7 @@ const useCurrencyCodes = () => {
       currencyFetcher.data?.data
         ? currencyFetcher.data?.data.map((c) => ({
             value: c.code,
-            label: c.name,
+            label: c.name
           }))
         : [],
     [currencyFetcher.data]

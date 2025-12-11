@@ -8,7 +8,7 @@ import {
   FormLabel,
   IconButton,
   Input,
-  cn,
+  cn
 } from "@carbon/react";
 import { forwardRef, useState } from "react";
 import { LuToggleLeft, LuToggleRight } from "react-icons/lu";
@@ -55,7 +55,7 @@ const SequenceOrCustomId = forwardRef<
               {...getInputProps({
                 id: name,
                 placeholder: `Custom ${label}`,
-                ...rest,
+                ...rest
               })}
               className="w-full"
             />

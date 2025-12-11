@@ -4,7 +4,7 @@ import {
   LuListChecks,
   LuSquareChartGantt,
   LuSquareKanban,
-  LuTrash,
+  LuTrash
 } from "react-icons/lu";
 import { usePermissions } from "~/hooks";
 import { useSavedViews } from "~/hooks/useSavedViews";
@@ -19,9 +19,9 @@ const productionRoutes: AuthenticatedRouteGroup[] = [
         name: "Jobs",
         to: path.to.jobs,
         icon: <LuHardHat />,
-        table: "job",
-      },
-    ],
+        table: "job"
+      }
+    ]
   },
   {
     name: "Plan",
@@ -30,20 +30,20 @@ const productionRoutes: AuthenticatedRouteGroup[] = [
         name: "Planning",
         to: path.to.productionPlanning,
         icon: <LuSquareChartGantt />,
-        table: "production-planning",
+        table: "production-planning"
       },
       {
         name: "Projections",
         to: path.to.demandProjections,
         icon: <LuChartLine />,
-        table: "demand-projection",
+        table: "demand-projection"
       },
       {
         name: "Schedule",
         to: path.to.scheduleDates,
-        icon: <LuSquareKanban />,
-      },
-    ],
+        icon: <LuSquareKanban />
+      }
+    ]
   },
   {
     name: "Configure",
@@ -53,16 +53,16 @@ const productionRoutes: AuthenticatedRouteGroup[] = [
         to: path.to.procedures,
         icon: <LuListChecks />,
         table: "procedure",
-        role: "employee",
+        role: "employee"
       },
       {
         name: "Scrap Reasons",
         to: path.to.scrapReasons,
         role: "employee",
-        icon: <LuTrash />,
-      },
-    ],
-  },
+        icon: <LuTrash />
+      }
+    ]
+  }
 ];
 
 export default function useProductionSubmodules() {
@@ -92,7 +92,7 @@ export default function useProductionSubmodules() {
               return true;
             }
           })
-          .map(addSavedViewsToRoutes),
-      })),
+          .map(addSavedViewsToRoutes)
+      }))
   };
 }

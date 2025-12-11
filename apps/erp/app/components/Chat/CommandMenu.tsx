@@ -15,7 +15,7 @@ export function CommandMenu() {
     // handleCommandSelect,
     resetCommandState,
     setInput,
-    setShowCommands,
+    setShowCommands
   } = useChatStore();
 
   const { sendMessage } = useChatActions();
@@ -44,9 +44,9 @@ export function CommandMenu() {
       metadata: {
         toolCall: {
           toolName: command.toolName,
-          toolParams: command.toolParams,
-        },
-      },
+          toolParams: command.toolParams
+        }
+      }
     });
 
     setInput("");
@@ -79,10 +79,10 @@ export function CommandMenu() {
           type: "spring",
           duration: 0.2,
           bounce: 0.1,
-          ease: "easeOut",
+          ease: "easeOut"
         }}
         style={{
-          transformOrigin: "bottom center",
+          transformOrigin: "bottom center"
         }}
       >
         <div className="p-2">

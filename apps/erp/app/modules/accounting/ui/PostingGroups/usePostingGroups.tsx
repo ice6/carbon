@@ -4,7 +4,7 @@ import { usePermissions } from "~/hooks";
 import type {
   InventoryPostingGroup,
   PurchasingPostingGroup,
-  SalesPostingGroup,
+  SalesPostingGroup
 } from "../../types";
 
 export default function usePostingGroups(table: string) {
@@ -25,7 +25,7 @@ export default function usePostingGroups(table: string) {
         // @ts-ignore
         .from(table)
         .update({
-          [id]: value,
+          [id]: value
         })
         .eq("id", row.id);
     },
@@ -36,6 +36,6 @@ export default function usePostingGroups(table: string) {
     canDelete,
     canEdit,
     carbon,
-    onCellEdit,
+    onCellEdit
   };
 }

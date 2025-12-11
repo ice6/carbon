@@ -8,7 +8,7 @@ import {
   ModalFooter,
   ModalHeader,
   ModalTitle,
-  VStack,
+  VStack
 } from "@carbon/react";
 import type { FetcherWithComponents } from "@remix-run/react";
 import { useParams } from "@remix-run/react";
@@ -28,7 +28,7 @@ type PurchaseOrderFinalizeModalProps = {
 const PurchaseOrderFinalizeModal = ({
   purchaseOrder,
   onClose,
-  fetcher,
+  fetcher
 }: PurchaseOrderFinalizeModalProps) => {
   const { orderId } = useParams();
   if (!orderId) throw new Error("orderId not found");
@@ -57,7 +57,7 @@ const PurchaseOrderFinalizeModal = ({
           onSubmit={onClose}
           defaultValues={{
             notification: notificationType as "Email" | "None",
-            supplierContact: purchaseOrder?.supplierContactId ?? undefined,
+            supplierContact: purchaseOrder?.supplierContactId ?? undefined
           }}
           fetcher={fetcher}
         >
@@ -78,12 +78,12 @@ const PurchaseOrderFinalizeModal = ({
                   options={[
                     {
                       label: "None",
-                      value: "None",
+                      value: "None"
                     },
                     {
                       label: "Email",
-                      value: "Email",
-                    },
+                      value: "Email"
+                    }
                   ]}
                   value={notificationType}
                   onChange={(t) => {

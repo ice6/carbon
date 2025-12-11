@@ -12,11 +12,11 @@ import {
   getSupplierInteractionDocuments,
   getSupplierQuote,
   getSupplierQuoteLinePricesByQuoteId,
-  getSupplierQuoteLines,
+  getSupplierQuoteLines
 } from "~/modules/purchasing";
 import {
   SupplierQuoteHeader,
-  SupplierQuoteProperties,
+  SupplierQuoteProperties
 } from "~/modules/purchasing/ui/SupplierQuote";
 import SupplierQuoteExplorer from "~/modules/purchasing/ui/SupplierQuote/SupplierQuoteExplorer";
 import type { Handle } from "~/utils/handle";
@@ -25,12 +25,12 @@ import { path } from "~/utils/path";
 export const handle: Handle = {
   breadcrumb: "Supplier Quotes",
   to: path.to.supplierQuotes,
-  module: "purchasing",
+  module: "purchasing"
 };
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { companyId } = await requirePermissions(request, {
-    view: "purchasing",
+    view: "purchasing"
   });
 
   const { id } = params;
@@ -40,7 +40,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   const [quote, lines, prices] = await Promise.all([
     getSupplierQuote(serviceRole, id),
     getSupplierQuoteLines(serviceRole, id),
-    getSupplierQuoteLinePricesByQuoteId(serviceRole, id),
+    getSupplierQuoteLinePricesByQuoteId(serviceRole, id)
   ]);
 
   if (quote.error) {
@@ -52,7 +52,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
   const [supplierInteraction, presentationCurrency] = await Promise.all([
     getSupplierInteraction(serviceRole, quote.data.supplierInteractionId!),
-    getCurrencyByCode(serviceRole, companyId, quote.data.currencyCode!),
+    getCurrencyByCode(serviceRole, companyId, quote.data.currencyCode!)
   ]);
 
   if (supplierInteraction.error) {
@@ -83,7 +83,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
       quote.data.supplierInteractionId!
     ),
     interaction: supplierInteraction.data,
-    exchangeRate,
+    exchangeRate
   });
 }
 

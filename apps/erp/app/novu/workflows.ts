@@ -1,10 +1,10 @@
 import {
   NotificationEvent,
   NotificationType,
-  NotificationWorkflow,
+  NotificationWorkflow
 } from "@carbon/notifications";
 import { workflow } from "@novu/framework";
-import { z } from 'zod/v3';
+import { z } from "zod/v3";
 
 const payloadSchema = z.object({
   recordId: z.string(),
@@ -27,9 +27,9 @@ const payloadSchema = z.object({
     NotificationEvent.SalesRfqReady,
     NotificationEvent.StockTransferAssignment,
     NotificationEvent.SupplierQuoteAssignment,
-    NotificationEvent.TrainingAssignment,
+    NotificationEvent.TrainingAssignment
   ]),
-  from: z.string().optional(),
+  from: z.string().optional()
 });
 
 export const assignmentWorkflow = workflow(
@@ -37,11 +37,11 @@ export const assignmentWorkflow = workflow(
   async ({ payload, step }) => {
     await step.inApp(NotificationType.AssignmentInApp, () => ({
       body: "New Assignment",
-      payload,
+      payload
     }));
   },
   {
-    payloadSchema,
+    payloadSchema
   }
 );
 
@@ -50,11 +50,11 @@ export const digitalQuoteResponseWorkflow = workflow(
   async ({ payload, step }) => {
     await step.inApp(NotificationType.DigitalQuoteResponseInApp, () => ({
       body: "New Digital Quote Response",
-      payload,
+      payload
     }));
   },
   {
-    payloadSchema,
+    payloadSchema
   }
 );
 
@@ -63,7 +63,7 @@ export const expirationWorkflow = workflow(
   async ({ payload, step }) => {
     await step.inApp(NotificationType.ExpirationInApp, () => ({
       body: "Expired",
-      payload,
+      payload
     }));
   },
   { payloadSchema }
@@ -74,7 +74,7 @@ export const gaugeCalibrationExpiredWorkflow = workflow(
   async ({ payload, step }) => {
     await step.inApp(NotificationType.ExpirationInApp, () => ({
       body: "Gauge Calibration Expired",
-      payload,
+      payload
     }));
   },
   { payloadSchema }
@@ -85,7 +85,7 @@ export const jobCompletedWorkflow = workflow(
   async ({ payload, step }) => {
     await step.inApp(NotificationType.JobCompletedInApp, () => ({
       body: "Job Completed",
-      payload,
+      payload
     }));
   },
   { payloadSchema }
@@ -96,7 +96,7 @@ export const messageWorkflow = workflow(
   async ({ payload, step }) => {
     await step.inApp(NotificationType.MessageInApp, () => ({
       body: "New Message",
-      payload,
+      payload
     }));
   },
   { payloadSchema }

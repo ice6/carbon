@@ -10,7 +10,7 @@ import {
   getItemCustomerParts,
   getItemUnitSalePrice,
   itemUnitSalePriceValidator,
-  upsertItemUnitSalePrice,
+  upsertItemUnitSalePrice
 } from "~/modules/items";
 import { ItemSalePriceForm } from "~/modules/items/ui/Item";
 import CustomerParts from "~/modules/items/ui/Item/CustomerParts";
@@ -20,7 +20,7 @@ import { path } from "~/utils/path";
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
     view: "parts",
-    role: "employee",
+    role: "employee"
   });
 
   const { itemId } = params;
@@ -28,7 +28,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
   const [partUnitSalePrice, customerParts] = await Promise.all([
     getItemUnitSalePrice(client, itemId, companyId),
-    getItemCustomerParts(client, itemId, companyId),
+    getItemCustomerParts(client, itemId, companyId)
   ]);
 
   if (partUnitSalePrice.error) {
@@ -44,14 +44,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   return json({
     partUnitSalePrice: partUnitSalePrice.data,
     customerParts: customerParts.data,
-    itemId,
+    itemId
   });
 }
 
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    update: "parts",
+    update: "parts"
   });
 
   const { itemId } = params;
@@ -70,7 +70,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     ...validation.data,
     itemId,
     updatedBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
   if (updatePartUnitSalePrice.error) {
     throw redirect(
@@ -96,7 +96,7 @@ export default function PartSalesRoute() {
     ...partUnitSalePrice,
     salesUnitOfMeasureCode: partUnitSalePrice?.salesUnitOfMeasureCode ?? "",
     ...getCustomFields(partUnitSalePrice.customFields),
-    itemId: itemId,
+    itemId: itemId
   };
 
   return (

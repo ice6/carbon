@@ -32,9 +32,9 @@ export async function action({ request }: ActionFunctionArgs) {
       quantity,
       adjustmentType,
       companyId,
-      userId,
+      userId
     },
-    region: FunctionRegion.UsEast1,
+    region: FunctionRegion.UsEast1
   });
 
   if (issue.error) {

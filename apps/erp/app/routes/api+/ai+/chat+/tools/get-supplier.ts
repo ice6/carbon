@@ -12,7 +12,7 @@ export const config: ToolConfig = {
   name: "getSupplier",
   icon: LuSearch,
   displayText: "Getting Supplier",
-  message: "Searching for a supplier...",
+  message: "Searching for a supplier..."
 };
 
 export const getSupplierSchema = z
@@ -20,10 +20,10 @@ export const getSupplierSchema = z
     id: z.string().optional(),
     name: z.string().optional(),
     description: z.string().optional(),
-    partIds: z.array(z.string()).optional(),
+    partIds: z.array(z.string()).optional()
   })
   .refine((data) => data.id || data.name || data.description || data.partIds, {
-    message: "Either id, name, description, orpartIds must be provided",
+    message: "Either id, name, description, orpartIds must be provided"
   });
 
 export const getSupplierTool = tool({
@@ -48,7 +48,7 @@ export const getSupplierTool = tool({
         return {
           link: `${getAppUrl()}${path.to.supplier(supplier.data.id)}`,
           id: supplier.data.id,
-          name: supplier.data.name,
+          name: supplier.data.name
         };
       }
     }
@@ -67,7 +67,7 @@ export const getSupplierTool = tool({
 
       if (supplier.data) {
         return {
-          id: supplier.data.id,
+          id: supplier.data.id
         };
       }
       if (!description) {
@@ -82,7 +82,7 @@ export const getSupplierTool = tool({
         query_embedding: JSON.stringify(embedding),
         match_threshold: 0.8,
         match_count: 10,
-        p_company_id: context.companyId,
+        p_company_id: context.companyId
       });
 
       if (search.data && search.data.length > 0) {
@@ -91,5 +91,5 @@ export const getSupplierTool = tool({
     }
 
     return null;
-  },
+  }
 });

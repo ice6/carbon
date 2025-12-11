@@ -9,7 +9,7 @@ import {
   LuList,
   LuSquareUser,
   LuToggleLeft,
-  LuUser,
+  LuUser
 } from "react-icons/lu";
 import { CustomerAvatar, EmployeeAvatar, SupplierAvatar } from "~/components";
 import { Enumerable } from "~/components/Enumerable";
@@ -41,48 +41,48 @@ export function useCustomColumns<T extends { customFields: Json }>(
                 type: "static",
                 options: [
                   { value: "on", label: "Yes" },
-                  { value: "", label: "No" },
-                ],
+                  { value: "", label: "No" }
+                ]
               }
             : field.dataTypeId === DataType.List
-            ? {
-                type: "static",
-                options:
-                  field.listOptions?.map((option) => ({
-                    value: option,
-                    label: <Enumerable value={option} />,
-                  })) || [],
-              }
-            : field.dataTypeId === DataType.User
-            ? {
-                type: "static",
-                options: people.map((person) => ({
-                  value: person.id,
-                  label: person.name,
-                })),
-              }
-            : field.dataTypeId === DataType.Text
-            ? {
-                type: "fetcher",
-                endpoint: path.to.api.customFieldOptions(table, field.id),
-              }
-            : field.dataTypeId === DataType.Customer
-            ? {
-                type: "static",
-                options: customers.map((customer) => ({
-                  value: customer.id,
-                  label: customer.name,
-                })),
-              }
-            : field.dataTypeId === DataType.Supplier
-            ? {
-                type: "static",
-                options: suppliers.map((supplier) => ({
-                  value: supplier.id,
-                  label: supplier.name,
-                })),
-              }
-            : undefined,
+              ? {
+                  type: "static",
+                  options:
+                    field.listOptions?.map((option) => ({
+                      value: option,
+                      label: <Enumerable value={option} />
+                    })) || []
+                }
+              : field.dataTypeId === DataType.User
+                ? {
+                    type: "static",
+                    options: people.map((person) => ({
+                      value: person.id,
+                      label: person.name
+                    }))
+                  }
+                : field.dataTypeId === DataType.Text
+                  ? {
+                      type: "fetcher",
+                      endpoint: path.to.api.customFieldOptions(table, field.id)
+                    }
+                  : field.dataTypeId === DataType.Customer
+                    ? {
+                        type: "static",
+                        options: customers.map((customer) => ({
+                          value: customer.id,
+                          label: customer.name
+                        }))
+                      }
+                    : field.dataTypeId === DataType.Supplier
+                      ? {
+                          type: "static",
+                          options: suppliers.map((supplier) => ({
+                            value: supplier.id,
+                            label: supplier.name
+                          }))
+                        }
+                      : undefined
       },
       cell: (item) => {
         switch (field.dataTypeId) {
@@ -157,7 +157,7 @@ export function useCustomColumns<T extends { customFields: Json }>(
           default:
             return null;
         }
-      },
+      }
     });
   });
 

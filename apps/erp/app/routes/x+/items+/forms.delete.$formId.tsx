@@ -10,7 +10,7 @@ import { getParams, path } from "~/utils/path";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
-    view: "parts",
+    view: "parts"
   });
   const { formId } = params;
   if (!formId) throw notFound("formId not found");
@@ -31,7 +31,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
 export async function action({ request, params }: ActionFunctionArgs) {
   const { client } = await requirePermissions(request, {
-    delete: "parts",
+    delete: "parts"
   });
 
   const { formId } = params;

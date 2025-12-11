@@ -5,9 +5,9 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-  VStack,
+  VStack
 } from "@carbon/react";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import {
   DatePicker,
   Hidden,
@@ -15,7 +15,7 @@ import {
   Location,
   SequenceOrCustomId,
   Submit,
-  TextArea,
+  TextArea
 } from "~/components/Form";
 import { usePermissions } from "~/hooks";
 import { warehouseTransferValidator } from "../../inventory.models";
@@ -25,7 +25,7 @@ type WarehouseTransferFormProps = {
 };
 
 const WarehouseTransferForm = ({
-  initialValues,
+  initialValues
 }: WarehouseTransferFormProps) => {
   const permissions = usePermissions();
   const isEditing = !!initialValues.id;

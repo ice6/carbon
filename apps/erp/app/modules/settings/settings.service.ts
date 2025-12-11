@@ -3,7 +3,7 @@ import { SUPABASE_URL } from "@carbon/auth";
 import type { Database } from "@carbon/database";
 import { FunctionRegion, type SupabaseClient } from "@supabase/supabase-js";
 import { nanoid } from "nanoid";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import type { GenericQueryFilters } from "~/utils/query";
 import { setGenericQueryFilters } from "~/utils/query";
 import { interpolateSequenceDate } from "~/utils/string";
@@ -14,7 +14,7 @@ import type {
   kanbanOutputTypes,
   purchasePriceUpdateTimingTypes,
   sequenceValidator,
-  webhookValidator,
+  webhookValidator
 } from "./settings.models";
 
 export async function deleteApiKey(
@@ -49,7 +49,7 @@ export async function getApiKeys(
   let query = client
     .from("apiKey")
     .select("*", {
-      count: "exact",
+      count: "exact"
     })
     .eq("companyId", companyId);
 
@@ -59,7 +59,7 @@ export async function getApiKeys(
 
   if (args) {
     query = setGenericQueryFilters(query, args, [
-      { column: "createdAt", ascending: true },
+      { column: "createdAt", ascending: true }
     ]);
   }
 
@@ -94,9 +94,9 @@ export async function getCompanies(
         : null,
       logoLight: company.logoLight
         ? `${SUPABASE_URL}/storage/v1/object/public/public/${company.logoLight}`
-        : null,
+        : null
     })),
-    error: null,
+    error: null
   };
 }
 
@@ -127,9 +127,9 @@ export async function getCompany(
         : null,
       logoLight: company.data.logoLight
         ? `${SUPABASE_URL}/storage/v1/object/public/public/${company.data.logoLight}`
-        : null,
+        : null
     },
-    error: null,
+    error: null
   };
 }
 
@@ -183,7 +183,7 @@ export async function getCurrentSequence(
 
   return {
     data: `${derivedPrefix}${currentSequence}${derivedSuffix}`,
-    error: null,
+    error: null
   };
 }
 
@@ -217,7 +217,7 @@ export async function getCustomFieldsTables(
   let query = client
     .from("customFieldTables")
     .select("*", {
-      count: "exact",
+      count: "exact"
     })
     .eq("companyId", companyId);
 
@@ -226,7 +226,7 @@ export async function getCustomFieldsTables(
   }
 
   query = setGenericQueryFilters(query, args, [
-    { column: "name", ascending: true },
+    { column: "name", ascending: true }
   ]);
   return query;
 }
@@ -277,7 +277,7 @@ export async function getNextSequence(
 ) {
   return client.rpc("get_next_sequence", {
     sequence_name: table,
-    company_id: companyId,
+    company_id: companyId
   });
 }
 
@@ -304,7 +304,7 @@ export async function getSequences(
   let query = client
     .from("sequence")
     .select("*", {
-      count: "exact",
+      count: "exact"
     })
     .eq("companyId", companyId);
 
@@ -313,7 +313,7 @@ export async function getSequences(
   }
 
   query = setGenericQueryFilters(query, args, [
-    { column: "name", ascending: true },
+    { column: "name", ascending: true }
   ]);
   return query;
 }
@@ -354,7 +354,7 @@ export async function getWebhooks(
   let query = client
     .from("webhook")
     .select("*", {
-      count: "exact",
+      count: "exact"
     })
     .eq("companyId", companyId);
 
@@ -364,7 +364,7 @@ export async function getWebhooks(
 
   if (args) {
     query = setGenericQueryFilters(query, args, [
-      { column: "createdAt", ascending: true },
+      { column: "createdAt", ascending: true }
     ]);
   }
 
@@ -407,9 +407,9 @@ export async function seedCompany(
   return client.functions.invoke("seed-company", {
     body: {
       companyId,
-      userId,
+      userId
     },
-    region: FunctionRegion.UsEast1,
+    region: FunctionRegion.UsEast1
   });
 }
 
@@ -480,7 +480,7 @@ export async function updateDigitalQuoteSetting(
       sanitize({
         digitalQuoteEnabled,
         digitalQuoteNotificationGroup,
-        digitalQuoteIncludesPurchaseOrders,
+        digitalQuoteIncludesPurchaseOrders
       })
     )
     .eq("id", companyId);
@@ -495,7 +495,7 @@ export async function updateLogoDark(
     .from("company")
     .update(
       sanitize({
-        logoDark,
+        logoDark
       })
     )
     .eq("id", companyId);

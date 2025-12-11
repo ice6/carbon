@@ -21,7 +21,7 @@ export function useRealtime(table: string, filter?: string) {
           revalidator.revalidate();
         }
       );
-    },
+    }
   });
 
   return channel;

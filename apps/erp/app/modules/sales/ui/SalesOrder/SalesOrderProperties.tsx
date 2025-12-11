@@ -8,13 +8,13 @@ import {
   TooltipContent,
   TooltipTrigger,
   VStack,
-  toast,
+  toast
 } from "@carbon/react";
 import { useLocale } from "@react-aria/i18n";
 import { useFetcher, useParams } from "@remix-run/react";
 import { useCallback, useEffect, useMemo } from "react";
 import { LuCopy, LuInfo, LuLink, LuRefreshCcw } from "react-icons/lu";
-import { z } from 'zod/v3';
+import { z } from "zod/v3";
 import { zfd } from "zod-form-data";
 import { Assignee, useOptimisticAssignment } from "~/components";
 import {
@@ -23,7 +23,7 @@ import {
   CustomerContact,
   CustomerLocation,
   Employee,
-  Location,
+  Location
 } from "~/components/Form";
 import CustomFormInlineFields from "~/components/Form/CustomFormInlineFields";
 import { usePermissions, useRouteData, useUser } from "~/hooks";
@@ -55,7 +55,7 @@ const SalesOrderProperties = () => {
     () =>
       new Intl.DateTimeFormat(locale, {
         dateStyle: "medium",
-        timeStyle: "short",
+        timeStyle: "short"
       }),
     [locale]
   );
@@ -75,7 +75,7 @@ const SalesOrderProperties = () => {
       formData.append("value", value ?? "");
       fetcher.submit(formData, {
         method: "post",
-        action: path.to.bulkUpdateSalesOrder,
+        action: path.to.bulkUpdateSalesOrder
       });
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -92,7 +92,7 @@ const SalesOrderProperties = () => {
 
       fetcher.submit(formData, {
         method: "post",
-        action: path.to.customFields,
+        action: path.to.customFields
       });
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -102,7 +102,7 @@ const SalesOrderProperties = () => {
   const permissions = usePermissions();
   const optimisticAssignment = useOptimisticAssignment({
     id: orderId,
-    table: "salesOrder",
+    table: "salesOrder"
   });
   const assignee =
     optimisticAssignment !== undefined
@@ -179,7 +179,7 @@ const SalesOrderProperties = () => {
       <ValidatedForm
         defaultValues={{ customerId: routeData?.salesOrder?.customerId }}
         validator={z.object({
-          customerId: z.string().min(1, { message: "Customer is required" }),
+          customerId: z.string().min(1, { message: "Customer is required" })
         })}
         className="w-full"
       >
@@ -198,10 +198,10 @@ const SalesOrderProperties = () => {
       <ValidatedForm
         defaultValues={{
           customerReference:
-            routeData?.salesOrder?.customerReference ?? undefined,
+            routeData?.salesOrder?.customerReference ?? undefined
         }}
         validator={z.object({
-          customerReference: zfd.text(z.string().optional()),
+          customerReference: zfd.text(z.string().optional())
         })}
         className="w-full"
       >
@@ -219,10 +219,10 @@ const SalesOrderProperties = () => {
 
       <ValidatedForm
         defaultValues={{
-          customerLocationId: routeData?.salesOrder?.customerLocationId ?? "",
+          customerLocationId: routeData?.salesOrder?.customerLocationId ?? ""
         }}
         validator={z.object({
-          customerLocationId: zfd.text(z.string().optional()),
+          customerLocationId: zfd.text(z.string().optional())
         })}
         className="w-full"
       >
@@ -241,10 +241,10 @@ const SalesOrderProperties = () => {
 
       <ValidatedForm
         defaultValues={{
-          customerContactId: routeData?.salesOrder?.customerContactId ?? "",
+          customerContactId: routeData?.salesOrder?.customerContactId ?? ""
         }}
         validator={z.object({
-          customerContactId: zfd.text(z.string().optional()),
+          customerContactId: zfd.text(z.string().optional())
         })}
         className="w-full"
       >
@@ -265,10 +265,10 @@ const SalesOrderProperties = () => {
       <ValidatedForm
         defaultValues={{
           customerEngineeringContactId:
-            routeData?.salesOrder?.customerEngineeringContactId ?? "",
+            routeData?.salesOrder?.customerEngineeringContactId ?? ""
         }}
         validator={z.object({
-          customerEngineeringContactId: zfd.text(z.string().optional()),
+          customerEngineeringContactId: zfd.text(z.string().optional())
         })}
         className="w-full"
       >
@@ -291,10 +291,10 @@ const SalesOrderProperties = () => {
 
       <ValidatedForm
         defaultValues={{
-          orderDate: routeData?.salesOrder?.orderDate ?? "",
+          orderDate: routeData?.salesOrder?.orderDate ?? ""
         }}
         validator={z.object({
-          orderDate: z.string().min(1, { message: "Order date is required" }),
+          orderDate: z.string().min(1, { message: "Order date is required" })
         })}
         className="w-full"
       >
@@ -311,10 +311,10 @@ const SalesOrderProperties = () => {
       <ValidatedForm
         defaultValues={{
           receiptRequestedDate:
-            routeData?.salesOrder?.receiptRequestedDate ?? "",
+            routeData?.salesOrder?.receiptRequestedDate ?? ""
         }}
         validator={z.object({
-          receiptRequestedDate: z.string(),
+          receiptRequestedDate: z.string()
         })}
         className="w-full"
       >
@@ -330,10 +330,10 @@ const SalesOrderProperties = () => {
 
       <ValidatedForm
         defaultValues={{
-          receiptPromisedDate: routeData?.salesOrder?.receiptPromisedDate ?? "",
+          receiptPromisedDate: routeData?.salesOrder?.receiptPromisedDate ?? ""
         }}
         validator={z.object({
-          receiptPromisedDate: z.string(),
+          receiptPromisedDate: z.string()
         })}
         className="w-full"
       >
@@ -350,7 +350,7 @@ const SalesOrderProperties = () => {
       <ValidatedForm
         defaultValues={{ locationId: routeData?.salesOrder?.locationId }}
         validator={z.object({
-          locationId: z.string().min(1, { message: "Location is required" }),
+          locationId: z.string().min(1, { message: "Location is required" })
         })}
         className="w-full"
       >
@@ -369,7 +369,7 @@ const SalesOrderProperties = () => {
 
       <ValidatedForm
         defaultValues={{
-          salesPersonId: routeData?.salesOrder?.salesPersonId ?? undefined,
+          salesPersonId: routeData?.salesOrder?.salesPersonId ?? undefined
         }}
         validator={zfd.text(z.string().optional())}
         className="w-full"
@@ -389,10 +389,10 @@ const SalesOrderProperties = () => {
 
       <ValidatedForm
         defaultValues={{
-          currencyCode: routeData?.salesOrder?.currencyCode ?? undefined,
+          currencyCode: routeData?.salesOrder?.currencyCode ?? undefined
         }}
         validator={z.object({
-          currencyCode: zfd.text(z.string().optional()),
+          currencyCode: zfd.text(z.string().optional())
         })}
         className="w-full"
       >
@@ -449,7 +449,7 @@ const SalesOrderProperties = () => {
                   );
                   exchangeRateFetcher.submit(formData, {
                     method: "post",
-                    action: path.to.salesOrderExchangeRate(orderId),
+                    action: path.to.salesOrderExchangeRate(orderId)
                   });
                 }}
               />

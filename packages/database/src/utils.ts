@@ -1,7 +1,7 @@
 import type { Database } from "@carbon/database";
 import type {
   PostgrestError,
-  PostgrestFilterBuilder,
+  PostgrestFilterBuilder
 } from "@supabase/postgrest-js";
 import type { SupabaseClient } from "@supabase/supabase-js";
 
@@ -45,7 +45,7 @@ export async function fetchAllRecords<T extends object>(
       return {
         data: null,
         count: null,
-        error: result.error,
+        error: result.error
       };
     }
 
@@ -66,7 +66,7 @@ export async function fetchAllRecords<T extends object>(
   return {
     data: allData,
     count: totalCount,
-    error: null,
+    error: null
   };
 }
 
@@ -124,7 +124,7 @@ export async function* fetchRecordsInBatches<T extends object>(
     yield {
       data: result.data || [],
       batch,
-      hasMore,
+      hasMore
     };
 
     offset += batchSize;

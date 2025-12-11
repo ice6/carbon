@@ -13,7 +13,7 @@ interface InfiniteScrollProps<T extends { id: string }> {
 }
 
 export function LoadingSkeleton({
-  ref,
+  ref
 }: {
   ref?: React.RefObject<HTMLDivElement>;
 }) {
@@ -48,10 +48,10 @@ export default function InfiniteScroll<T extends { id: string }>({
   component: Component,
   items,
   loadMore,
-  hasMore,
+  hasMore
 }: InfiniteScrollProps<T>) {
   const { ref, inView } = useInView({
-    threshold: 0,
+    threshold: 0
   });
 
   useEffect(() => {

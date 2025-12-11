@@ -23,7 +23,7 @@ export function usePagination(
       setParams({
         ...Object.fromEntries(params),
         offset: (page - 1) * pageSize,
-        limit: pageSize,
+        limit: pageSize
       });
     });
 
@@ -41,7 +41,7 @@ export function usePagination(
   const setPageSize = (pageSize: number) => {
     setParams({
       offset: 0,
-      limit: pageSize,
+      limit: pageSize
     });
   };
 
@@ -56,6 +56,6 @@ export function usePagination(
     gotoPage,
     nextPage,
     previousPage,
-    setPageSize,
+    setPageSize
   };
 }

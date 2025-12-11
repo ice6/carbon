@@ -11,7 +11,7 @@ import {
   getTrainingsList,
   trainingAssignmentValidator,
   upsertTrainingAssignment,
-  TrainingAssignmentForm,
+  TrainingAssignmentForm
 } from "~/modules/resources";
 import type { TrainingListItem } from "~/modules/resources/types";
 import type { Handle } from "~/utils/handle";
@@ -19,13 +19,13 @@ import { path } from "~/utils/path";
 
 export const handle: Handle = {
   breadcrumb: "New Assignment",
-  to: path.to.newTrainingAssignment,
+  to: path.to.newTrainingAssignment
 };
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
     create: "resources",
-    role: "employee",
+    role: "employee"
   });
 
   const trainings = await getTrainingsList(client, companyId);
@@ -38,14 +38,14 @@ export async function loader({ request }: LoaderFunctionArgs) {
   }
 
   return json({
-    trainings: (trainings.data ?? []) as TrainingListItem[],
+    trainings: (trainings.data ?? []) as TrainingListItem[]
   });
 }
 
 export async function action({ request }: ActionFunctionArgs) {
   const { client, companyId, userId } = await requirePermissions(request, {
     create: "resources",
-    role: "employee",
+    role: "employee"
   });
 
   const formData = await request.formData();
@@ -63,7 +63,7 @@ export async function action({ request }: ActionFunctionArgs) {
     trainingId,
     groupIds,
     companyId,
-    createdBy: userId,
+    createdBy: userId
   });
 
   if (result.error) {
@@ -74,7 +74,7 @@ export async function action({ request }: ActionFunctionArgs) {
         headers: await flash(
           request,
           error(result.error, "Failed to create assignment")
-        ),
+        )
       }
     );
   }
@@ -88,9 +88,9 @@ export async function action({ request }: ActionFunctionArgs) {
         event: NotificationEvent.TrainingAssignment,
         recipient: {
           type: "group",
-          groupIds,
+          groupIds
         },
-        from: userId,
+        from: userId
       });
     } catch (err) {
       console.error("Failed to send training assignment notifications", err);
@@ -110,7 +110,7 @@ export default function NewTrainingAssignmentRoute() {
   const initialValues = {
     id: undefined,
     trainingId: "",
-    groupIds: [] as string[],
+    groupIds: [] as string[]
   };
 
   return (

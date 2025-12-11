@@ -9,7 +9,7 @@ export {
   getEmployeeAndSalesPersonId,
   getOrCreatePart,
   getOrderLocationId,
-  insertOrderLines,
+  insertOrderLines
 } from "./lib";
 export { OrderSchema } from "./schemas";
 

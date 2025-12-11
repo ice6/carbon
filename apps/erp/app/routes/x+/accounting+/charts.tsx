@@ -13,14 +13,14 @@ import { path } from "~/utils/path";
 
 export const handle: Handle = {
   breadcrumb: "Chart of Accounts",
-  to: path.to.chartOfAccounts,
+  to: path.to.chartOfAccounts
 };
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
     view: "accounting",
     role: "employee",
-    bypassRls: true,
+    bypassRls: true
   });
 
   const url = new URL(request.url);
@@ -34,7 +34,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
     name,
     incomeBalance,
     startDate,
-    endDate,
+    endDate
   });
 
   if (chartOfAccounts.error) {
@@ -48,7 +48,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   }
 
   return json({
-    chartOfAccounts: chartOfAccounts.data ?? [],
+    chartOfAccounts: chartOfAccounts.data ?? []
   });
 }
 

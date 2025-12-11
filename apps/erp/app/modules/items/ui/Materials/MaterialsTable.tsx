@@ -19,7 +19,7 @@ import {
   MenuSubTrigger,
   toast,
   useDisclosure,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { formatDate } from "@carbon/utils";
 import { useFetcher, useNavigate } from "@remix-run/react";
@@ -41,7 +41,7 @@ import {
   LuStar,
   LuTag,
   LuTrash,
-  LuUser,
+  LuUser
 } from "react-icons/lu";
 import { RxCodesandboxLogo } from "react-icons/rx";
 import { TbTargetArrow } from "react-icons/tb";
@@ -52,7 +52,7 @@ import {
   MethodIcon,
   New,
   Table,
-  TrackingTypeIcon,
+  TrackingTypeIcon
 } from "~/components";
 import { Enumerable } from "~/components/Enumerable";
 import { useUnitOfMeasure } from "~/components/Form/UnitOfMeasure";
@@ -113,8 +113,8 @@ const MaterialsTable = memo(({ data, tags, count }: MaterialsTableProps) => {
           </HStack>
         ),
         meta: {
-          icon: <LuBookMarked />,
-        },
+          icon: <LuBookMarked />
+        }
       },
       {
         accessorKey: "description",
@@ -125,8 +125,8 @@ const MaterialsTable = memo(({ data, tags, count }: MaterialsTableProps) => {
           </div>
         ),
         meta: {
-          icon: <LuAlignJustify />,
-        },
+          icon: <LuAlignJustify />
+        }
       },
       {
         accessorKey: "materialSubstanceId",
@@ -141,11 +141,11 @@ const MaterialsTable = memo(({ data, tags, count }: MaterialsTableProps) => {
             transform: (data: { id: string; name: string }[] | null) =>
               data?.map(({ id, name }) => ({
                 value: id,
-                label: <Enumerable value={name} />,
-              })) ?? [],
+                label: <Enumerable value={name} />
+              })) ?? []
           },
-          icon: <LuGlassWater />,
-        },
+          icon: <LuGlassWater />
+        }
       },
       {
         accessorKey: "materialFormId",
@@ -158,11 +158,11 @@ const MaterialsTable = memo(({ data, tags, count }: MaterialsTableProps) => {
             transform: (data: { id: string; name: string }[] | null) =>
               data?.map(({ id, name }) => ({
                 value: id,
-                label: <Enumerable value={name} />,
-              })) ?? [],
+                label: <Enumerable value={name} />
+              })) ?? []
           },
-          icon: <LuShapes />,
-        },
+          icon: <LuShapes />
+        }
       },
       {
         accessorKey: "finish",
@@ -176,10 +176,10 @@ const MaterialsTable = memo(({ data, tags, count }: MaterialsTableProps) => {
             transform: (data: { id: string; name: string }[] | null) =>
               data?.map(({ name }) => ({
                 value: name,
-                label: name,
-              })) ?? [],
-          },
-        },
+                label: name
+              })) ?? []
+          }
+        }
       },
       {
         accessorKey: "grade",
@@ -193,10 +193,10 @@ const MaterialsTable = memo(({ data, tags, count }: MaterialsTableProps) => {
             transform: (data: { id: string; name: string }[] | null) =>
               data?.map(({ name }) => ({
                 value: name,
-                label: name,
-              })) ?? [],
-          },
-        },
+                label: name
+              })) ?? []
+          }
+        }
       },
       {
         accessorKey: "dimensions",
@@ -210,10 +210,10 @@ const MaterialsTable = memo(({ data, tags, count }: MaterialsTableProps) => {
             transform: (data: { id: string; name: string }[] | null) =>
               data?.map(({ name }) => ({
                 value: name,
-                label: name,
-              })) ?? [],
-          },
-        },
+                label: name
+              })) ?? []
+          }
+        }
       },
       {
         accessorKey: "materialType",
@@ -230,10 +230,10 @@ const MaterialsTable = memo(({ data, tags, count }: MaterialsTableProps) => {
             transform: (data: { id: string; name: string }[] | null) =>
               data?.map(({ id, name }) => ({
                 value: id,
-                label: name,
-              })) ?? [],
-          },
-        },
+                label: name
+              })) ?? []
+          }
+        }
       },
       {
         accessorKey: "itemTrackingType",
@@ -254,11 +254,11 @@ const MaterialsTable = memo(({ data, tags, count }: MaterialsTableProps) => {
                   <TrackingTypeIcon type={type} className="mr-2" />
                   <span>{type}</span>
                 </Badge>
-              ),
-            })),
+              )
+            }))
           },
-          icon: <TbTargetArrow />,
-        },
+          icon: <TbTargetArrow />
+        }
       },
       {
         accessorKey: "unitOfMeasureCode",
@@ -269,11 +269,11 @@ const MaterialsTable = memo(({ data, tags, count }: MaterialsTableProps) => {
             type: "static",
             options: unitsOfMeasure.map((unit) => ({
               value: unit.value,
-              label: <Enumerable value={unit.label} />,
-            })),
+              label: <Enumerable value={unit.label} />
+            }))
           },
-          icon: <LuRuler />,
-        },
+          icon: <LuRuler />
+        }
       },
       {
         accessorKey: "defaultMethodType",
@@ -294,11 +294,11 @@ const MaterialsTable = memo(({ data, tags, count }: MaterialsTableProps) => {
                   <MethodIcon type={value} className="mr-2" />
                   <span>{value}</span>
                 </Badge>
-              ),
-            })),
+              )
+            }))
           },
-          icon: <RxCodesandboxLogo />,
-        },
+          icon: <RxCodesandboxLogo />
+        }
       },
       {
         accessorKey: "tags",
@@ -317,12 +317,12 @@ const MaterialsTable = memo(({ data, tags, count }: MaterialsTableProps) => {
             type: "static",
             options: tags?.map((tag) => ({
               value: tag.name,
-              label: <Badge variant="secondary">{tag.name}</Badge>,
+              label: <Badge variant="secondary">{tag.name}</Badge>
             })),
-            isArray: true,
+            isArray: true
           },
-          icon: <LuTag />,
-        },
+          icon: <LuTag />
+        }
       },
       {
         accessorKey: "active",
@@ -333,12 +333,12 @@ const MaterialsTable = memo(({ data, tags, count }: MaterialsTableProps) => {
             type: "static",
             options: [
               { value: "true", label: "Active" },
-              { value: "false", label: "Inactive" },
-            ],
+              { value: "false", label: "Inactive" }
+            ]
           },
           pluralHeader: "Active Statuses",
-          icon: <LuCheck />,
-        },
+          icon: <LuCheck />
+        }
       },
       {
         id: "createdBy",
@@ -351,19 +351,19 @@ const MaterialsTable = memo(({ data, tags, count }: MaterialsTableProps) => {
             type: "static",
             options: people.map((employee) => ({
               value: employee.id,
-              label: employee.name,
-            })),
+              label: employee.name
+            }))
           },
-          icon: <LuUser />,
-        },
+          icon: <LuUser />
+        }
       },
       {
         accessorKey: "createdAt",
         header: "Created At",
         cell: (item) => formatDate(item.getValue<string>()),
         meta: {
-          icon: <LuCalendar />,
-        },
+          icon: <LuCalendar />
+        }
       },
       {
         id: "updatedBy",
@@ -376,20 +376,20 @@ const MaterialsTable = memo(({ data, tags, count }: MaterialsTableProps) => {
             type: "static",
             options: people.map((employee) => ({
               value: employee.id,
-              label: employee.name,
-            })),
+              label: employee.name
+            }))
           },
-          icon: <LuUser />,
-        },
+          icon: <LuUser />
+        }
       },
       {
         accessorKey: "updatedAt",
         header: "Updated At",
         cell: (item) => formatDate(item.getValue<string>()),
         meta: {
-          icon: <LuCalendar />,
-        },
-      },
+          icon: <LuCalendar />
+        }
+      }
     ];
     return [...defaultColumns, ...customColumns];
   }, [
@@ -398,7 +398,7 @@ const MaterialsTable = memo(({ data, tags, count }: MaterialsTableProps) => {
     unitsOfMeasure,
     tags,
     people,
-    customColumns,
+    customColumns
   ]);
 
   const fetcher = useFetcher<typeof action>();
@@ -426,7 +426,7 @@ const MaterialsTable = memo(({ data, tags, count }: MaterialsTableProps) => {
       formData.append("value", value);
       fetcher.submit(formData, {
         method: "post",
-        action: path.to.bulkUpdateItems,
+        action: path.to.bulkUpdateItems
       });
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -545,7 +545,7 @@ const MaterialsTable = memo(({ data, tags, count }: MaterialsTableProps) => {
         columns={columns}
         data={data}
         defaultColumnPinning={{
-          left: ["id"],
+          left: ["id"]
         }}
         defaultColumnVisibility={{
           description: false,
@@ -553,13 +553,13 @@ const MaterialsTable = memo(({ data, tags, count }: MaterialsTableProps) => {
           createdBy: false,
           createdAt: false,
           updatedBy: false,
-          updatedAt: false,
+          updatedAt: false
         }}
         importCSV={[
           {
             table: "material" as const,
-            label: "Materials",
-          },
+            label: "Materials"
+          }
         ]}
         primaryAction={
           permissions.can("create", "parts") && (

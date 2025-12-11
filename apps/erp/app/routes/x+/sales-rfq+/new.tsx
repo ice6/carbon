@@ -16,13 +16,13 @@ import { path } from "~/utils/path";
 
 export const handle: Handle = {
   breadcrumb: "RFQs",
-  to: path.to.salesRfqs,
+  to: path.to.salesRfqs
 };
 
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    create: "sales",
+    create: "sales"
   });
 
   const formData = await request.formData();
@@ -56,7 +56,7 @@ export async function action({ request }: ActionFunctionArgs) {
     rfqId,
     companyId,
     createdBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
 
   if (createSalesRFQ.error || !createSalesRFQ.data?.[0]) {
@@ -85,7 +85,7 @@ export default function SalesRFQNewRoute() {
     rfqDate: today(getLocalTimeZone()).toString(),
     rfqId: undefined,
     status: "Draft" as SalesRFQStatusType,
-    salesPersonId: userId,
+    salesPersonId: userId
   };
 
   return (

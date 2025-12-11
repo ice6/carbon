@@ -3,13 +3,13 @@ import {
   Container,
   Heading,
   Preview,
-  Text,
+  Text
 } from "@react-email/components";
 import { Logo } from "./components/Logo";
 import {
   EmailThemeProvider,
   getEmailInlineStyles,
-  getEmailThemeClasses,
+  getEmailThemeClasses
 } from "./components/Theme";
 
 interface Props {
@@ -19,7 +19,7 @@ interface Props {
 
 export const GetStartedEmail = ({
   firstName = "Huckleberry",
-  academyUrl = "https://learn.carbon.ms",
+  academyUrl = "https://learn.carbon.ms"
 }: Props) => {
   const text = `Hi ${firstName}, Just checking in to help you get started. Here are a few things you can try today.`;
   const themeClasses = getEmailThemeClasses();
@@ -36,7 +36,7 @@ export const GetStartedEmail = ({
           style={{
             borderStyle: "solid",
             borderWidth: 1,
-            borderColor: lightStyles.container.borderColor,
+            borderColor: lightStyles.container.borderColor
           }}
         >
           <Logo />

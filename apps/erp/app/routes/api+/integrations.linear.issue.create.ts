@@ -3,7 +3,7 @@ import { requirePermissions } from "@carbon/auth/auth.server";
 import {
   getCompanyEmployees,
   LinearClient,
-  linkActionToLinearIssue,
+  linkActionToLinearIssue
 } from "@carbon/ee/linear";
 import { json, type ActionFunction, type LoaderFunction } from "@vercel/remix";
 import { getIssueAction } from "~/modules/quality/quality.service";
@@ -28,8 +28,8 @@ export const action: ActionFunction = async ({ request }) => {
         teamId,
         title,
         description: description || undefined,
-        assigneeId: assigneeId || null,
-      }),
+        assigneeId: assigneeId || null
+      })
     ]);
 
     if (!issue) {
@@ -38,7 +38,7 @@ export const action: ActionFunction = async ({ request }) => {
 
     const linked = await linkActionToLinearIssue(client, companyId, {
       actionId,
-      issue: issue,
+      issue: issue
     });
 
     if (!linked || linked.data?.length === 0) {
@@ -52,7 +52,7 @@ export const action: ActionFunction = async ({ request }) => {
     await linear.createAttachmentLink(companyId, {
       issueId: issue.id,
       url,
-      title: `Linked Carbon Issue: ${carbonIssue.data?.nonConformanceId ?? ""}`,
+      title: `Linked Carbon Issue: ${carbonIssue.data?.nonConformanceId ?? ""}`
     });
 
     return new Response("Linear issue created");
@@ -93,7 +93,7 @@ export const loader: LoaderFunction = async ({ request }) => {
           }
           return v.user.email.toLowerCase() === m.email.toLowerCase();
         })
-      ),
+      )
     };
   }
 

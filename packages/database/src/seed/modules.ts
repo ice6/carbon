@@ -10,7 +10,7 @@ const modules = [
   "Resources",
   "Sales",
   "Settings",
-  "Users",
+  "Users"
 ] as const;
 
 export type Module = (typeof modules)[number];

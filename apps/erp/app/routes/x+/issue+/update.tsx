@@ -5,7 +5,7 @@ import { json, type ActionFunctionArgs } from "@vercel/remix";
 
 export async function action({ request }: ActionFunctionArgs) {
   const { client, companyId, userId } = await requirePermissions(request, {
-    update: "quality",
+    update: "quality"
   });
 
   const formData = await request.formData();
@@ -30,7 +30,7 @@ export async function action({ request }: ActionFunctionArgs) {
         .update({
           [field]: arrayValue,
           updatedBy: userId,
-          updatedAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString()
         })
         .in("id", ids as string[]);
 
@@ -38,7 +38,7 @@ export async function action({ request }: ActionFunctionArgs) {
         console.error(update.error);
         return json({
           error: { message: "Failed to update issue" },
-          data: null,
+          data: null
         });
       }
 
@@ -50,9 +50,9 @@ export async function action({ request }: ActionFunctionArgs) {
               type: "nonConformanceTasks",
               id,
               companyId,
-              userId,
+              userId
             },
-            region: FunctionRegion.UsEast1,
+            region: FunctionRegion.UsEast1
           });
         })
       );
@@ -76,14 +76,14 @@ export async function action({ request }: ActionFunctionArgs) {
           .update({
             [field]: value ? value : null,
             updatedBy: userId,
-            updatedAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString()
           })
           .in("id", ids as string[])
       );
     default:
       return json({
         error: { message: `Invalid field: ${field}` },
-        data: null,
+        data: null
       });
   }
 }

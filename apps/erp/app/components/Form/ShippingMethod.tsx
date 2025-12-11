@@ -40,7 +40,7 @@ const ShippingMethod = (props: ShippingMethodSelectProps) => {
           }}
           initialValues={{
             name: created,
-            carrier: "" as "FedEx",
+            carrier: "" as "FedEx"
           }}
         />
       )}
@@ -69,7 +69,7 @@ export const useShippingMethod = () => {
   const options = useMemo(() => {
     return (shippingMethodFetcher.data?.data ?? []).map((c) => ({
       value: c.id,
-      label: c.name,
+      label: c.name
     }));
   }, [shippingMethodFetcher.data?.data]);
 

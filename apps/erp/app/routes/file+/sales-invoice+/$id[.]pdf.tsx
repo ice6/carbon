@@ -9,7 +9,7 @@ import {
   getSalesInvoice,
   getSalesInvoiceCustomerDetails,
   getSalesInvoiceLines,
-  getSalesInvoiceShipment,
+  getSalesInvoiceShipment
 } from "~/modules/invoicing";
 import { getSalesTerms } from "~/modules/sales";
 import { getCompany } from "~/modules/settings";
@@ -18,7 +18,7 @@ import { getLocale } from "~/utils/request";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    view: "sales",
+    view: "sales"
   });
 
   const { id } = params;
@@ -32,7 +32,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     salesInvoiceShipment,
     terms,
     paymentTerms,
-    shippingMethods,
+    shippingMethods
   ] = await Promise.all([
     getCompany(client, companyId),
     getSalesInvoice(client, id),
@@ -41,7 +41,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     getSalesInvoiceShipment(client, id),
     getSalesTerms(client, companyId),
     getPaymentTermsList(client, companyId),
-    getShippingMethodsList(client, companyId),
+    getShippingMethodsList(client, companyId)
   ]);
 
   if (company.error) {
@@ -97,7 +97,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
             }
             return getBase64ImageFromSupabase(client, path).then((data) => ({
               id,
-              data,
+              data
             }));
           })
         )
@@ -118,7 +118,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
       meta={{
         author: "Carbon",
         keywords: "sales order",
-        subject: "Sales Invoice",
+        subject: "Sales Invoice"
       }}
       salesInvoice={salesInvoice.data}
       salesInvoiceLines={salesInvoiceLines.data ?? []}
@@ -145,7 +145,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
   const headers = new Headers({
     "Content-Type": "application/pdf",
-    "Content-Disposition": `inline; filename="${salesInvoice.data.invoiceId}.pdf"`,
+    "Content-Disposition": `inline; filename="${salesInvoice.data.invoiceId}.pdf"`
   });
   return new Response(body, { status: 200, headers });
 }

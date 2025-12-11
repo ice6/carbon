@@ -60,6 +60,6 @@ export const useScrollPosition = (
 
   return {
     canScrollLeft,
-    canScrollRight,
+    canScrollRight
   };
 };

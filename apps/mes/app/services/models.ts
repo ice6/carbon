@@ -1,4 +1,4 @@
-import { z } from 'zod/v3';
+import { z } from "zod/v3";
 import { zfd } from "zod-form-data";
 
 export const documentTypes = [
@@ -11,14 +11,14 @@ export const documentTypes = [
   "Image",
   "Video",
   "Audio",
-  "Other",
+  "Other"
 ] as const;
 
 export const deadlineTypes = [
   "ASAP",
   "Hard Deadline",
   "Soft Deadline",
-  "No Deadline",
+  "No Deadline"
 ] as const;
 
 export const jobStatus = [
@@ -28,7 +28,7 @@ export const jobStatus = [
   "In Progress",
   "Paused",
   "Completed",
-  "Cancelled",
+  "Cancelled"
 ] as const;
 
 export const jobOperationStatus = [
@@ -38,13 +38,13 @@ export const jobOperationStatus = [
   "In Progress",
   "Paused",
   "Done",
-  "Canceled",
+  "Canceled"
 ] as const;
 
 export const convertEntityValidator = z.object({
   trackedEntityId: z.string(),
   newRevision: z.string(),
-  quantity: z.coerce.number().positive().default(1),
+  quantity: z.coerce.number().positive().default(1)
 });
 
 export const stepRecordValidator = z.object({
@@ -55,7 +55,7 @@ export const stepRecordValidator = z.object({
   booleanValue: zfd
     .text(z.enum(["true", "false"]).transform((val) => val === "true"))
     .optional(),
-  userValue: zfd.text(z.string().optional()),
+  userValue: zfd.text(z.string().optional())
 });
 
 export const issueValidator = z.object({
@@ -63,17 +63,13 @@ export const issueValidator = z.object({
   jobOperationId: z.string().min(1, { message: "Job Operation is required" }),
   materialId: zfd.text(z.string().optional()),
   quantity: zfd.numeric(z.number()),
-  adjustmentType: z.enum([
-    "Set Quantity",
-    "Positive Adjmt.",
-    "Negative Adjmt.",
-  ]),
+  adjustmentType: z.enum(["Set Quantity", "Positive Adjmt.", "Negative Adjmt."])
 });
 
 export const feedbackValidator = z.object({
   feedback: z.string().min(1, { message: "" }),
   attachmentPath: z.string().optional(),
-  location: z.string(),
+  location: z.string()
 });
 
 export const productionEventType = ["Setup", "Labor", "Machine"] as const;
@@ -88,23 +84,23 @@ export const productionEventValidator = z.object({
   timezone: zfd.text(z.string()),
   action: z.enum(productionEventAction, {
     errorMap: (issue, ctx) => ({
-      message: "Action is required",
-    }),
+      message: "Action is required"
+    })
   }),
   type: z.enum(productionEventType, {
     errorMap: (issue, ctx) => ({
-      message: "Type is required",
-    }),
+      message: "Type is required"
+    })
   }),
   workCenterId: zfd.text(z.string().optional()),
-  trackedEntityId: zfd.text(z.string().optional()),
+  trackedEntityId: zfd.text(z.string().optional())
 });
 
 export const finishValidator = z.object({
   jobOperationId: z.string(),
   setupProductionEventId: zfd.text(z.string().optional()),
   laborProductionEventId: zfd.text(z.string().optional()),
-  machineProductionEventId: zfd.text(z.string().optional()),
+  machineProductionEventId: zfd.text(z.string().optional())
 });
 
 export const issueTrackedEntityValidator = z.object({
@@ -113,21 +109,21 @@ export const issueTrackedEntityValidator = z.object({
   children: z.array(
     z.object({
       trackedEntityId: z.string(),
-      quantity: z.number(),
+      quantity: z.number()
     })
-  ),
+  )
 });
 
 export const baseQuantityValidator = finishValidator.extend({
   trackedEntityId: zfd.text(z.string().optional()),
   trackingType: z.enum(["Serial", "Batch", ""]).optional(),
   quantity: zfd.numeric(z.number().positive()),
-  notes: zfd.text(z.string().optional()),
+  notes: zfd.text(z.string().optional())
 });
 
 export const nonScrapQuantityValidator = baseQuantityValidator;
 
 export const scrapQuantityValidator = baseQuantityValidator.extend({
   scrapReasonId: zfd.text(z.string()),
-  notes: zfd.text(z.string().optional()),
+  notes: zfd.text(z.string().optional())
 });

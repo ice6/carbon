@@ -8,7 +8,7 @@ export enum NotificationWorkflow {
   Expiration = "expiration",
   GaugeCalibration = "gauge-calibration",
   JobCompleted = "job-completed",
-  Message = "message",
+  Message = "message"
 }
 
 export enum NotificationEvent {
@@ -29,7 +29,7 @@ export enum NotificationEvent {
   SalesRfqReady = "sales-rfq-ready",
   StockTransferAssignment = "stock-transfer-assignment",
   SupplierQuoteAssignment = "supplier-quote-assignment",
-  TrainingAssignment = "training-assignment",
+  TrainingAssignment = "training-assignment"
 }
 
 export enum NotificationType {
@@ -37,7 +37,7 @@ export enum NotificationType {
   DigitalQuoteResponseInApp = "digital-quote-response-in-app",
   JobCompletedInApp = "job-completed-in-app",
   ExpirationInApp = "expiration-in-app",
-  MessageInApp = "message-in-app",
+  MessageInApp = "message-in-app"
 }
 
 export type TriggerUser = {
@@ -61,7 +61,7 @@ export type TriggerPayload = {
 
 export function getSubscriberId({
   companyId,
-  userId,
+  userId
 }: {
   companyId: string;
   userId: string;
@@ -80,10 +80,10 @@ export async function trigger(novu, data: TriggerPayload) {
           replyTo: data.replyTo,
           // @ts-ignore
           headers: {
-            "X-Entity-Ref-ID": nanoid(),
-          },
-        },
-      },
+            "X-Entity-Ref-ID": nanoid()
+          }
+        }
+      }
     });
   } catch (error) {
     console.log(error);
@@ -102,10 +102,10 @@ export async function triggerBulk(novu, events: TriggerPayload[]) {
           email: {
             replyTo: data.replyTo,
             headers: {
-              "X-Entity-Ref-ID": nanoid(),
-            },
-          },
-        },
+              "X-Entity-Ref-ID": nanoid()
+            }
+          }
+        }
       }))
     );
   } catch (error) {
@@ -120,15 +120,15 @@ type GetSubscriberPreferencesParams = {
 
 export async function getSubscriberPreferences({
   subscriberId,
-  teamId,
+  teamId
 }: GetSubscriberPreferencesParams) {
   const response = await fetch(
     `${API_ENDPOINT}/subscribers/${teamId}_${subscriberId}/preferences`,
     {
       method: "GET",
       headers: {
-        Authorization: `ApiKey ${process.env.NOVU_SECRET_KEY!}`,
-      },
+        Authorization: `ApiKey ${process.env.NOVU_SECRET_KEY!}`
+      }
     }
   );
 
@@ -148,7 +148,7 @@ export async function updateSubscriberPreference({
   teamId,
   templateId,
   type,
-  enabled,
+  enabled
 }: UpdateSubscriberPreferenceParams) {
   const response = await fetch(
     `${API_ENDPOINT}/subscribers/${teamId}_${subscriberId}/preferences/${templateId}`,
@@ -156,14 +156,14 @@ export async function updateSubscriberPreference({
       method: "PATCH",
       headers: {
         Authorization: `ApiKey ${process.env.NOVU_SECRET_KEY!}`,
-        "Content-Type": "application/json",
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({
         channel: {
           type,
-          enabled,
-        },
-      }),
+          enabled
+        }
+      })
     }
   );
 

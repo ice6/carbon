@@ -10,7 +10,7 @@ import { supplierContactsQuery } from "~/utils/react-query";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   const { client } = await requirePermissions(request, {
-    delete: "purchasing",
+    delete: "purchasing"
   });
 
   const { supplierId, supplierContactId } = params;
@@ -46,7 +46,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
 export async function clientAction({
   serverAction,
-  params,
+  params
 }: ClientActionFunctionArgs) {
   const { supplierId } = params;
   if (supplierId) {

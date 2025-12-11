@@ -6,7 +6,7 @@ import { json } from "@vercel/remix";
 import {
   getIssueTypesList,
   getQualityActions,
-  getRequiredActionsList,
+  getRequiredActionsList
 } from "~/modules/quality";
 import ActionsTable from "~/modules/quality/ui/Actions/ActionsTable";
 import type { Handle } from "~/utils/handle";
@@ -15,13 +15,13 @@ import { getGenericQueryFilters } from "~/utils/query";
 
 export const handle: Handle = {
   breadcrumb: "Actions",
-  to: path.to.qualityActions,
+  to: path.to.qualityActions
 };
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
     view: "quality",
-    role: "employee",
+    role: "employee"
   });
 
   const url = new URL(request.url);
@@ -36,10 +36,10 @@ export async function loader({ request }: LoaderFunctionArgs) {
       limit,
       offset,
       sorts,
-      filters,
+      filters
     }),
     getIssueTypesList(client, companyId),
-    getRequiredActionsList(client, companyId),
+    getRequiredActionsList(client, companyId)
   ]);
 
   if (actions.error) {
@@ -50,7 +50,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
     actions: actions.data ?? [],
     count: actions.count ?? 0,
     issueTypes: issueTypes.data ?? [],
-    requiredActions: requiredActions.data ?? [],
+    requiredActions: requiredActions.data ?? []
   });
 }
 

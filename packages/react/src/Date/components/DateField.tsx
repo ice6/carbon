@@ -16,7 +16,7 @@ const DateField = ({ size, ...props }: DateFieldProps) => {
   const state = useDateFieldState({
     ...props,
     locale,
-    createCalendar,
+    createCalendar
   });
 
   const ref = useRef<HTMLDivElement>(null);

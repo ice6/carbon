@@ -7,5 +7,5 @@ export {
   SupplierInteractionDocuments,
   SupplierInteractionLineDocuments,
   SupplierInteractionLineNotes,
-  SupplierInteractionNotes,
+  SupplierInteractionNotes
 };

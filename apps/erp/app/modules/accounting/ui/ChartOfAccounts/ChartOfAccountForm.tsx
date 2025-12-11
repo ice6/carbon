@@ -8,11 +8,11 @@ import {
   DrawerFooter,
   DrawerHeader,
   DrawerTitle,
-  HStack,
+  HStack
 } from "@carbon/react";
 import { useNavigate } from "@remix-run/react";
 import { useState } from "react";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import {
   AccountCategory,
   AccountSubcategory,
@@ -22,7 +22,7 @@ import {
   Hidden,
   Input,
   Select,
-  Submit,
+  Submit
 } from "~/components/Form";
 import { usePermissions } from "~/hooks";
 import { path } from "~/utils/path";
@@ -31,12 +31,12 @@ import {
   accountTypes,
   accountValidator,
   consolidatedRateTypes,
-  incomeBalanceTypes,
+  incomeBalanceTypes
 } from "../../accounting.models";
 import type {
   AccountCategory as AccountCategoryType,
   AccountClass,
-  AccountIncomeBalance,
+  AccountIncomeBalance
 } from "../../types";
 
 type ChartOfAccountFormProps = {
@@ -109,7 +109,7 @@ const ChartOfAccountForm = ({ initialValues }: ChartOfAccountFormProps) => {
                 label="Type"
                 options={accountTypes.map((accountType) => ({
                   label: accountType,
-                  value: accountType,
+                  value: accountType
                 }))}
               />
 
@@ -126,7 +126,7 @@ const ChartOfAccountForm = ({ initialValues }: ChartOfAccountFormProps) => {
                 label="Income/Balance"
                 options={incomeBalanceTypes.map((incomeBalance) => ({
                   label: incomeBalance,
-                  value: incomeBalance,
+                  value: incomeBalance
                 }))}
                 value={incomeBalance}
                 onChange={(newValue) => {
@@ -139,7 +139,7 @@ const ChartOfAccountForm = ({ initialValues }: ChartOfAccountFormProps) => {
                 label="Class"
                 options={accountClassTypes.map((accountClass) => ({
                   label: accountClass,
-                  value: accountClass,
+                  value: accountClass
                 }))}
                 value={accountClass}
                 onChange={(newValue) => {
@@ -151,7 +151,7 @@ const ChartOfAccountForm = ({ initialValues }: ChartOfAccountFormProps) => {
                 label="Consolidated Rate"
                 options={consolidatedRateTypes.map((consolidatedRateType) => ({
                   label: consolidatedRateType,
-                  value: consolidatedRateType,
+                  value: consolidatedRateType
                 }))}
               />
               <Boolean name="directPosting" label="Direct Posting" />

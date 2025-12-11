@@ -3,7 +3,7 @@ import {
   getLocalTimeZone,
   isToday as isDateToday,
   isSameDay,
-  isSameMonth,
+  isSameMonth
 } from "@internationalized/date";
 import { useCalendarCell } from "@react-aria/calendar";
 import type { RangeCalendarState } from "@react-stately/calendar";
@@ -33,7 +33,7 @@ export function CalendarRangeCell({
     isDisabled,
     isUnavailable,
     isFocused,
-    formattedDate,
+    formattedDate
   } = useCalendarCell({ date }, state, ref);
 
   const isOutsideMonth = !isSameMonth(currentMonth, date);
@@ -70,7 +70,7 @@ export function CalendarRangeCell({
             "!rounded-r-full !rounded-l-none": isRoundedRight,
             "!rounded-full":
               (isFocused && !isSelected) ||
-              (isSelected && isRoundedLeft && isRoundedRight),
+              (isSelected && isRoundedLeft && isRoundedRight)
           }
         )}
       >
@@ -82,7 +82,7 @@ export function CalendarRangeCell({
             "absolute w-1 h-1 bottom-1 rounded-full left-1/2 transform -translate-x-1/2",
             {
               "bg-card": isSelected,
-              "bg-primary ": !isSelected,
+              "bg-primary ": !isSelected
             }
           )}
         />

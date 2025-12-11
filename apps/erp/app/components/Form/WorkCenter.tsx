@@ -24,7 +24,7 @@ const WorkCenter = (props: WorkCenterSelectProps) => {
 
   const { options, workCenterFetcher } = useWorkCenters({
     processId: props?.processId,
-    locationId: props?.locationId,
+    locationId: props?.locationId
   });
 
   return (
@@ -61,7 +61,7 @@ const WorkCenter = (props: WorkCenterSelectProps) => {
             locationId: props?.locationId ?? defaults?.locationId ?? "",
             machineRate: 0,
             processes: props?.processId ? [props.processId] : [],
-            defaultStandardFactor: "Minutes/Piece" as "Total Hours",
+            defaultStandardFactor: "Minutes/Piece" as "Total Hours"
           }}
         />
       )}
@@ -109,7 +109,7 @@ export const useWorkCenters = (args: {
             })
             .map((c) => ({
               value: c.id!,
-              label: c.name!,
+              label: c.name!
             }))
         : [],
     [workCenterFetcher.data, processId, locationId]

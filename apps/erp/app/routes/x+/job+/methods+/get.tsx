@@ -7,13 +7,13 @@ import {
   recalculateJobOperationDependencies,
   recalculateJobRequirements,
   upsertJobMaterialMakeMethod,
-  upsertJobMethod,
+  upsertJobMethod
 } from "~/modules/production";
 import { path, requestReferrer } from "~/utils/path";
 
 export async function action({ request }: ActionFunctionArgs) {
   const { companyId, userId } = await requirePermissions(request, {
-    update: "production",
+    update: "production"
   });
 
   const formData = await request.formData();
@@ -34,7 +34,7 @@ export async function action({ request }: ActionFunctionArgs) {
     const jobMethodPayload: any = {
       ...validation.data,
       companyId,
-      userId,
+      userId
     };
 
     // Only add configuration if it exists
@@ -52,29 +52,29 @@ export async function action({ request }: ActionFunctionArgs) {
       recalculateJobRequirements(serviceRole, {
         id: validation.data.targetId,
         companyId: companyId,
-        userId: userId,
+        userId: userId
       }),
       recalculateJobOperationDependencies(serviceRole, {
         jobId: validation.data.targetId,
         companyId: companyId,
-        userId: userId,
-      }),
+        userId: userId
+      })
     ]);
 
     if (calculateQuantities.error) {
       return json({
-        error: "Failed to calculate job quantities",
+        error: "Failed to calculate job quantities"
       });
     }
 
     if (calculateDependencies.error) {
       return json({
-        error: "Failed to calculate job dependencies",
+        error: "Failed to calculate job dependencies"
       });
     }
 
     return json({
-      error: jobMethod.error ? "Failed to get job method" : null,
+      error: jobMethod.error ? "Failed to get job method" : null
     });
   }
 
@@ -82,7 +82,7 @@ export async function action({ request }: ActionFunctionArgs) {
     const makeMethodPayload: any = {
       ...validation.data,
       companyId,
-      userId,
+      userId
     };
 
     // Only add configuration if it exists
@@ -99,7 +99,7 @@ export async function action({ request }: ActionFunctionArgs) {
       return json({
         error: makeMethod.error
           ? "Failed to update method from job method"
-          : null,
+          : null
       });
     }
 

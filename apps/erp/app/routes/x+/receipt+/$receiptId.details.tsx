@@ -2,7 +2,7 @@ import {
   assertIsPost,
   error,
   getCarbonServiceRole,
-  success,
+  success
 } from "@carbon/auth";
 import { requirePermissions } from "@carbon/auth/auth.server";
 import { flash } from "@carbon/auth/session.server";
@@ -18,7 +18,7 @@ import {
   ReceiptLines,
   getReceipt,
   receiptValidator,
-  upsertReceipt,
+  upsertReceipt
 } from "~/modules/inventory";
 import { SupplierInteractionNotes } from "~/modules/purchasing/ui/SupplierInteraction";
 import type { Note } from "~/modules/shared";
@@ -28,7 +28,7 @@ import { path } from "~/utils/path";
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    update: "inventory",
+    update: "inventory"
   });
 
   const formData = await request.formData();
@@ -70,8 +70,8 @@ export async function action({ request }: ActionFunctionArgs) {
             locationId: data.locationId,
             purchaseOrderId: data.sourceDocumentId,
             receiptId: id,
-            userId: userId,
-          },
+            userId: userId
+          }
         });
         if (!purchaseOrderReceipt.data || purchaseOrderReceipt.error) {
           throw redirect(
@@ -93,8 +93,8 @@ export async function action({ request }: ActionFunctionArgs) {
             companyId,
             warehouseTransferId: data.sourceDocumentId,
             receiptId: id,
-            userId: userId,
-          },
+            userId: userId
+          }
         });
         if (!warehouseTransferReceipt.data || warehouseTransferReceipt.error) {
           throw redirect(
@@ -115,7 +115,7 @@ export async function action({ request }: ActionFunctionArgs) {
       id,
       ...data,
       updatedBy: userId,
-      customFields: setCustomFields(formData),
+      customFields: setCustomFields(formData)
     });
 
     if (updateReceipt.error) {
@@ -152,13 +152,14 @@ export default function ReceiptDetailsRoute() {
     ...routeData.receipt,
     receiptId: routeData.receipt.receiptId ?? undefined,
     externalDocumentId: routeData.receipt.externalDocumentId ?? undefined,
-    sourceDocument: (routeData.receipt.sourceDocument ??
-      "Purchase Order") as "Purchase Order" | "Inbound Transfer",
+    sourceDocument: (routeData.receipt.sourceDocument ?? "Purchase Order") as
+      | "Purchase Order"
+      | "Inbound Transfer",
     sourceDocumentId: routeData.receipt.sourceDocumentId ?? undefined,
     sourceDocumentReadableId:
       routeData.receipt.sourceDocumentReadableId ?? undefined,
     locationId: routeData.receipt.locationId ?? undefined,
-    ...getCustomFields(routeData.receipt.customFields),
+    ...getCustomFields(routeData.receipt.customFields)
   };
 
   return (

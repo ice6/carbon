@@ -18,7 +18,7 @@ import {
   ModalCardTitle,
   toast,
   useDisclosure,
-  VStack,
+  VStack
 } from "@carbon/react";
 
 import { useCarbon } from "@carbon/auth";
@@ -36,7 +36,7 @@ import {
   InputControlled,
   Item,
   Submit,
-  UnitOfMeasure,
+  UnitOfMeasure
 } from "~/components/Form";
 import { usePermissions, useRouteData, useUser } from "~/hooks";
 
@@ -57,7 +57,7 @@ type SupplierQuoteLineFormProps = {
 const SupplierQuoteLineForm = ({
   initialValues,
   type,
-  onClose,
+  onClose
 }: SupplierQuoteLineFormProps) => {
   const permissions = usePermissions();
   const { company } = useUser();
@@ -89,7 +89,7 @@ const SupplierQuoteLineForm = ({
     description: initialValues.description ?? "",
     inventoryUom: initialValues.inventoryUnitOfMeasureCode ?? "",
     purchaseUom: initialValues.purchaseUnitOfMeasureCode ?? "",
-    conversionFactor: initialValues.conversionFactor ?? 1,
+    conversionFactor: initialValues.conversionFactor ?? 1
   });
 
   const onSupplierPartChange = async (supplierPartId: string) => {
@@ -127,7 +127,7 @@ const SupplierQuoteLineForm = ({
         .select("supplierPartId, supplierUnitOfMeasureCode, conversionFactor")
         .eq("itemId", itemId)
         .eq("supplierId", routeData?.quote?.supplierId!)
-        .maybeSingle(),
+        .maybeSingle()
     ]);
 
     if (item.error) {
@@ -145,7 +145,7 @@ const SupplierQuoteLineForm = ({
         supplierPart.data?.supplierUnitOfMeasureCode ??
         item.data?.unitOfMeasureCode ??
         "EA",
-      conversionFactor: supplierPart.data?.conversionFactor ?? 1,
+      conversionFactor: supplierPart.data?.conversionFactor ?? 1
     };
 
     if (supplierPart.data && !itemData.supplierPartId) {
@@ -258,7 +258,7 @@ const SupplierQuoteLineForm = ({
                             inventoryUom: "",
                             purchaseUom: "",
                             conversionFactor: 1,
-                            supplierPartId: "",
+                            supplierPartId: ""
                           });
                         }}
                       />
@@ -276,7 +276,7 @@ const SupplierQuoteLineForm = ({
                         onChange={(newValue) => {
                           setItemData((d) => ({
                             ...d,
-                            supplierPartId: newValue,
+                            supplierPartId: newValue
                           }));
                         }}
                         onBlur={(e) => onSupplierPartChange(e.target.value)}
@@ -289,7 +289,7 @@ const SupplierQuoteLineForm = ({
                           if (newValue) {
                             setItemData((d) => ({
                               ...d,
-                              purchaseUom: newValue?.value as string,
+                              purchaseUom: newValue?.value as string
                             }));
                           }
                         }}
@@ -302,7 +302,7 @@ const SupplierQuoteLineForm = ({
                         onChange={(value) => {
                           setItemData((d) => ({
                             ...d,
-                            conversionFactor: value,
+                            conversionFactor: value
                           }));
                         }}
                       />
@@ -340,7 +340,7 @@ const SupplierQuoteLineForm = ({
         <DeleteSupplierQuoteLine
           line={{
             itemId: itemData.itemId ?? "",
-            id: initialValues.id,
+            id: initialValues.id
           }}
           onCancel={deleteDisclosure.onClose}
         />

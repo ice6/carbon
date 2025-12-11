@@ -8,7 +8,7 @@ import { groupDataByDay, groupDataByMonth } from "~/utils/chart";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    view: "purchasing",
+    view: "purchasing"
   });
   const url = new URL(request.url);
   const searchParams = new URLSearchParams(url.search);
@@ -39,14 +39,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   )
     return json({
       data: [],
-      previousPeriodData: [],
+      previousPeriodData: []
     });
 
   const kpi = KPIs.find((k) => k.key === key);
   if (!kpi)
     return json({
       data: [],
-      previousPeriodData: [],
+      previousPeriodData: []
     });
 
   switch (kpi.key) {
@@ -57,14 +57,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
           companyId,
           supplierId,
           start,
-          end,
+          end
         }),
         getPurchaseOrdersQuery(client, {
           companyId,
           supplierId,
           start: previousStartDate.toString(),
-          end: previousEndDate.toString(),
-        }),
+          end: previousEndDate.toString()
+        })
       ]);
 
       if (daysBetween < 60) {
@@ -72,18 +72,18 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
           groupDataByDay(orders.data ?? [], {
             start,
             end,
-            groupBy: "orderDate",
+            groupBy: "orderDate"
           }),
           groupDataByDay(previousOrders.data ?? [], {
             start: previousStartDate.toString(),
             end: previousEndDate.toString(),
-            groupBy: "orderDate",
-          }),
+            groupBy: "orderDate"
+          })
         ];
 
         const [data, previousPeriodData] = [
           groupedData,
-          previousGroupedData,
+          previousGroupedData
         ].map((data) =>
           Object.entries(data)
             .map(([date, d]) => ({
@@ -91,7 +91,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
               value:
                 kpi.key === "purchaseOrderAmount"
                   ? d.reduce((sum, i) => sum + (i.orderTotal ?? 0), 0)
-                  : d.length,
+                  : d.length
             }))
             .sort((a, b) => a.date.localeCompare(b.date))
         );
@@ -102,18 +102,18 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
           groupDataByMonth(orders.data ?? [], {
             start,
             end,
-            groupBy: "orderDate",
+            groupBy: "orderDate"
           }),
           groupDataByMonth(previousOrders.data ?? [], {
             start: previousStartDate.toString(),
             end: previousEndDate.toString(),
-            groupBy: "orderDate",
-          }),
+            groupBy: "orderDate"
+          })
         ];
 
         const [data, previousPeriodData] = [
           groupedData,
-          previousGroupedData,
+          previousGroupedData
         ].map((data) =>
           Object.entries(data)
             .map(([date, d]) => ({
@@ -122,7 +122,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
               value:
                 kpi.key === "purchaseOrderAmount"
                   ? d.reduce((sum, i) => sum + (i.orderTotal ?? 0), 0)
-                  : d.length,
+                  : d.length
             }))
             .sort((a, b) => a.monthKey.localeCompare(b.monthKey))
         );
@@ -138,14 +138,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
           companyId,
           supplierId,
           start,
-          end,
+          end
         }),
         getPurchaseInvoicesQuery(client, {
           companyId,
           supplierId,
           start: previousStartDate.toString(),
-          end: previousEndDate.toString(),
-        }),
+          end: previousEndDate.toString()
+        })
       ]);
 
       if (daysBetween < 60) {
@@ -153,18 +153,18 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
           groupDataByDay(invoices.data ?? [], {
             start,
             end,
-            groupBy: "dateIssued",
+            groupBy: "dateIssued"
           }),
           groupDataByDay(previousInvoices.data ?? [], {
             start: previousStartDate.toString(),
             end: previousEndDate.toString(),
-            groupBy: "dateIssued",
-          }),
+            groupBy: "dateIssued"
+          })
         ];
 
         const [data, previousPeriodData] = [
           groupedData,
-          previousGroupedData,
+          previousGroupedData
         ].map((data) =>
           Object.entries(data)
             .map(([date, d]) => ({
@@ -172,7 +172,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
               value:
                 kpi.key === "purchaseInvoiceAmount"
                   ? d.reduce((sum, i) => sum + (i.orderTotal ?? 0), 0)
-                  : d.length,
+                  : d.length
             }))
             .sort((a, b) => a.date.localeCompare(b.date))
         );
@@ -183,18 +183,18 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
           groupDataByMonth(invoices.data ?? [], {
             start,
             end,
-            groupBy: "dateIssued",
+            groupBy: "dateIssued"
           }),
           groupDataByMonth(previousInvoices.data ?? [], {
             start: previousStartDate.toString(),
             end: previousEndDate.toString(),
-            groupBy: "dateIssued",
-          }),
+            groupBy: "dateIssued"
+          })
         ];
 
         const [data, previousPeriodData] = [
           groupedData,
-          previousGroupedData,
+          previousGroupedData
         ].map((data) =>
           Object.entries(data)
             .map(([date, d]) => ({
@@ -203,7 +203,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
               value:
                 kpi.key === "purchaseInvoiceAmount"
                   ? d.reduce((sum, i) => sum + (i.orderTotal ?? 0), 0)
-                  : d.length,
+                  : d.length
             }))
             .sort((a, b) => a.monthKey.localeCompare(b.monthKey))
         );
@@ -218,48 +218,48 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
           companyId,
           supplierId,
           start,
-          end,
+          end
         }),
         getSupplierQuotesQuery(client, {
           companyId,
           supplierId,
           start: previousStartDate.toString(),
-          end: previousEndDate.toString(),
-        }),
+          end: previousEndDate.toString()
+        })
       ]);
 
       if (daysBetween < 60) {
         const [groupedData, previousGroupedData] = [
           groupDataByDay(
             quotes.data?.map((q) => ({
-              createdAt: q.createdAt,
+              createdAt: q.createdAt
             })) ?? [],
             {
               start,
               end,
-              groupBy: "createdAt",
+              groupBy: "createdAt"
             }
           ),
           groupDataByDay(
             previousQuotes.data?.map((q) => ({
-              createdAt: q.createdAt,
+              createdAt: q.createdAt
             })) ?? [],
             {
               start: previousStartDate.toString(),
               end: previousEndDate.toString(),
-              groupBy: "createdAt",
+              groupBy: "createdAt"
             }
-          ),
+          )
         ];
 
         const [data, previousPeriodData] = [
           groupedData,
-          previousGroupedData,
+          previousGroupedData
         ].map((data) =>
           Object.entries(data)
             .map(([date, d]) => ({
               date,
-              value: d.length,
+              value: d.length
             }))
             .sort((a, b) => a.date.localeCompare(b.date))
         );
@@ -269,35 +269,35 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
         const [groupedData, previousGroupedData] = [
           groupDataByMonth(
             quotes.data?.map((q) => ({
-              createdAt: q.createdAt,
+              createdAt: q.createdAt
             })) ?? [],
             {
               start,
               end,
-              groupBy: "createdAt",
+              groupBy: "createdAt"
             }
           ),
           groupDataByMonth(
             previousQuotes.data?.map((q) => ({
-              createdAt: q.createdAt,
+              createdAt: q.createdAt
             })) ?? [],
             {
               start: previousStartDate.toString(),
               end: previousEndDate.toString(),
-              groupBy: "createdAt",
+              groupBy: "createdAt"
             }
-          ),
+          )
         ];
 
         const [data, previousPeriodData] = [
           groupedData,
-          previousGroupedData,
+          previousGroupedData
         ].map((data) =>
           Object.entries(data)
             .map(([date, d]) => ({
               month: months[Number(date.split("-")[1]) - 1],
               monthKey: date,
-              value: d.length,
+              value: d.length
             }))
             .sort((a, b) => a.monthKey.localeCompare(b.monthKey))
         );
@@ -317,7 +317,7 @@ async function getPurchaseOrdersQuery(
     companyId,
     supplierId,
     start,
-    end,
+    end
   }: {
     companyId: string;
     supplierId: string | null;
@@ -328,7 +328,7 @@ async function getPurchaseOrdersQuery(
   let query = client
     .from("purchaseOrders")
     .select("orderTotal, orderDate", {
-      count: "exact",
+      count: "exact"
     })
     .eq("companyId", companyId)
     .in("status", [
@@ -336,7 +336,7 @@ async function getPurchaseOrdersQuery(
       "To Receive",
       "To Invoice",
       "To Receive and Invoice",
-      "Completed",
+      "Completed"
     ])
     .gte("orderDate", start)
     .lte("orderDate", end);
@@ -356,7 +356,7 @@ async function getPurchaseInvoicesQuery(
     companyId,
     supplierId,
     start,
-    end,
+    end
   }: {
     companyId: string;
     supplierId: string | null;
@@ -367,7 +367,7 @@ async function getPurchaseInvoicesQuery(
   let query = client
     .from("purchaseInvoices")
     .select("orderTotal, dateIssued", {
-      count: "exact",
+      count: "exact"
     })
     .eq("companyId", companyId)
     .in("status", ["Pending", "Partially Paid", "Paid", "Submitted", "Overdue"])
@@ -389,7 +389,7 @@ async function getSupplierQuotesQuery(
     companyId,
     supplierId,
     start,
-    end,
+    end
   }: {
     companyId: string;
     supplierId: string | null;
@@ -401,7 +401,7 @@ async function getSupplierQuotesQuery(
   let query = client
     .from("supplierQuote")
     .select("createdAt", {
-      count: "exact",
+      count: "exact"
     })
     .eq("companyId", companyId)
     .gte("createdAt", start)

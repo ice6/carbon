@@ -2,7 +2,7 @@ import {
   useNanoStore,
   useOptimisticLocation,
   useRouteData,
-  useUrlParams,
+  useUrlParams
 } from "@carbon/remix";
 
 import { useCurrencyFormatter } from "./useCurrencyFormatter";
@@ -35,5 +35,5 @@ export {
   useRouteData,
   useScrollPosition,
   useUrlParams,
-  useUser,
+  useUser
 };

@@ -8,14 +8,14 @@ import { json, redirect } from "@vercel/remix";
 import {
   getWebhook,
   upsertWebhook,
-  webhookValidator,
+  webhookValidator
 } from "~/modules/settings";
 import { WebhookForm } from "~/modules/settings/ui/Webhooks";
 import { getParams, path } from "~/utils/path";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
-    view: "settings",
+    view: "settings"
   });
 
   const { id } = params;
@@ -30,14 +30,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   }
 
   return json({
-    webhook: webhook.data,
+    webhook: webhook.data
   });
 }
 
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client } = await requirePermissions(request, {
-    view: "settings",
+    view: "settings"
   });
 
   const { id } = params;
@@ -52,7 +52,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
   const updateWebhook = await upsertWebhook(client, {
     id,
-    ...validation.data,
+    ...validation.data
   });
 
   if (updateWebhook.error) {
@@ -83,7 +83,7 @@ export default function EditWebhookRoute() {
     onInsert: webhook?.onInsert ?? false,
     onUpdate: webhook?.onUpdate ?? false,
     onDelete: webhook?.onDelete ?? false,
-    active: webhook?.active ?? false,
+    active: webhook?.active ?? false
   };
 
   return (

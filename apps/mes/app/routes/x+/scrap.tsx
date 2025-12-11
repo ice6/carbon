@@ -2,7 +2,7 @@ import {
   assertIsPost,
   error,
   getCarbonServiceRole,
-  success,
+  success
 } from "@carbon/auth";
 import { requirePermissions } from "@carbon/auth/auth.server";
 import { flash } from "@carbon/auth/session.server";
@@ -29,7 +29,7 @@ export async function action({ request }: ActionFunctionArgs) {
   const insertScrap = await insertScrapQuantity(client, {
     ...data,
     companyId,
-    createdBy: userId,
+    createdBy: userId
   });
 
   if (insertScrap.error) {
@@ -48,9 +48,9 @@ export async function action({ request }: ActionFunctionArgs) {
       type: "jobOperation",
       quantity: validation.data.quantity,
       companyId,
-      userId,
+      userId
     },
-    region: FunctionRegion.UsEast1,
+    region: FunctionRegion.UsEast1
   });
 
   if (issue.error) {

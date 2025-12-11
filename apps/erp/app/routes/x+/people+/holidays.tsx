@@ -13,14 +13,14 @@ import { getGenericQueryFilters } from "~/utils/query";
 
 export const handle: Handle = {
   breadcrumb: "Holidays",
-  to: path.to.holidays,
+  to: path.to.holidays
 };
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
     view: "people",
     role: "employee",
-    bypassRls: true,
+    bypassRls: true
   });
 
   const url = new URL(request.url);
@@ -35,9 +35,9 @@ export async function loader({ request }: LoaderFunctionArgs) {
       limit,
       offset,
       sorts,
-      filters,
+      filters
     }),
-    getHolidayYears(client, companyId),
+    getHolidayYears(client, companyId)
   ]);
 
   if (holidays.error) {
@@ -51,7 +51,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
     holidays: holidays.data ?? [],
     years:
       years?.data?.map((d) => d.year as number).sort((a, b) => b - a) ?? [],
-    count: holidays.count ?? 0,
+    count: holidays.count ?? 0
   });
 }
 

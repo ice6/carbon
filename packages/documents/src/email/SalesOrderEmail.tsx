@@ -9,20 +9,20 @@ import {
   Preview,
   Row,
   Section,
-  Text,
+  Text
 } from "@react-email/components";
 import type { Email } from "../types";
 import {
   getLineDescription,
   getLineDescriptionDetails,
   getLineTotal,
-  getTotal,
+  getTotal
 } from "../utils/sales-order";
 import { getCurrencyFormatter } from "../utils/shared";
 import {
   EmailThemeProvider,
   getEmailInlineStyles,
-  getEmailThemeClasses,
+  getEmailThemeClasses
 } from "./components/Theme";
 
 interface SalesOrderEmailProps extends Email {
@@ -40,7 +40,7 @@ const SalesOrderEmail = ({
   salesOrderLocations,
   recipient,
   sender,
-  paymentTerms,
+  paymentTerms
 }: SalesOrderEmailProps) => {
   const {
     customerName,
@@ -49,7 +49,7 @@ const SalesOrderEmail = ({
     customerCity,
     customerStateProvince,
     customerPostalCode,
-    customerCountryName,
+    customerCountryName
     // paymentCustomerName,
     // paymentAddressLine1,
     // paymentAddressLine2,
@@ -80,7 +80,7 @@ const SalesOrderEmail = ({
           style={{
             borderStyle: "solid",
             borderWidth: "1px",
-            borderColor: lightStyles.container.borderColor,
+            borderColor: lightStyles.container.borderColor
           }}
         >
           <Section>

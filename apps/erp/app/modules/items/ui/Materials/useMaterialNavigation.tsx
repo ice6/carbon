@@ -5,7 +5,7 @@ import {
   LuChartLine,
   LuFileText,
   LuShoppingCart,
-  LuTags,
+  LuTags
 } from "react-icons/lu";
 import { usePermissions, useRouteData } from "~/hooks";
 import type { Role } from "~/types";
@@ -30,7 +30,7 @@ export function useMaterialNavigation() {
       name: "Details",
       to: path.to.materialDetails(itemId),
       icon: LuFileText,
-      shortcut: "Command+Shift+d",
+      shortcut: "Command+Shift+d"
     },
     {
       name: "Purchasing",
@@ -38,7 +38,7 @@ export function useMaterialNavigation() {
       role: ["employee", "supplier"],
       permission: "purchasing",
       icon: LuShoppingCart,
-      shortcut: "Command+Shift+p",
+      shortcut: "Command+Shift+p"
     },
     {
       name: "Costing",
@@ -46,7 +46,7 @@ export function useMaterialNavigation() {
       role: ["employee"],
       permission: "purchasing",
       icon: LuTags,
-      shortcut: "Command+Shift+c",
+      shortcut: "Command+Shift+c"
     },
     {
       name: "Planning",
@@ -54,7 +54,7 @@ export function useMaterialNavigation() {
       isDisabled: itemTrackingType === "Non-Inventory",
       role: ["employee"],
       icon: LuChartLine,
-      shortcut: "Command+Shift+p",
+      shortcut: "Command+Shift+p"
     },
     {
       name: "Inventory",
@@ -62,8 +62,8 @@ export function useMaterialNavigation() {
       isDisabled: itemTrackingType === "Non-Inventory",
       role: ["employee", "supplier"],
       icon: LuBox,
-      shortcut: "Command+Shift+i",
-    },
+      shortcut: "Command+Shift+i"
+    }
   ].filter(
     (item) =>
       !item.isDisabled &&

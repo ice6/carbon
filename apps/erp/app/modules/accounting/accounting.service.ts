@@ -1,7 +1,7 @@
 import type { Database, Json } from "@carbon/database";
 import { getDateNYearsAgo } from "@carbon/utils";
 import type { SupabaseClient } from "@supabase/supabase-js";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import type { GenericQueryFilters } from "~/utils/query";
 import { setGenericQueryFilters } from "~/utils/query";
 import { sanitize } from "~/utils/supabase";
@@ -13,7 +13,7 @@ import type {
   defaultBalanceSheetAccountValidator,
   defaultIncomeAcountValidator,
   fiscalYearSettingsValidator,
-  paymentTermValidator,
+  paymentTermValidator
 } from "./accounting.models";
 import type { Account, Transaction } from "./types";
 
@@ -53,7 +53,7 @@ function addLevelsAndTotalsToAccounts(
     result.push({
       ...account,
       level,
-      totaling,
+      totaling
     });
   });
 
@@ -111,7 +111,7 @@ export async function getAccounts(
   let query = client
     .from("account")
     .select("*", {
-      count: "exact",
+      count: "exact"
     })
     .eq("companyId", companyId)
     .eq("active", true);
@@ -121,7 +121,7 @@ export async function getAccounts(
   }
 
   query = setGenericQueryFilters(query, args, [
-    { column: "name", ascending: true },
+    { column: "name", ascending: true }
   ]);
   return query;
 }
@@ -167,7 +167,7 @@ export async function getAccountCategories(
   let query = client
     .from("accountCategories")
     .select("*", {
-      count: "exact",
+      count: "exact"
     })
     .eq("companyId", companyId);
 
@@ -178,7 +178,7 @@ export async function getAccountCategories(
   query = setGenericQueryFilters(query, args, [
     { column: "incomeBalance", ascending: true },
     { column: "class", ascending: true },
-    { column: "category", ascending: true },
+    { column: "category", ascending: true }
   ]);
   return query;
 }
@@ -217,7 +217,7 @@ export async function getAccountSubcategories(
   let query = client
     .from("accountSubcategory")
     .select("*", {
-      count: "exact",
+      count: "exact"
     })
     .eq("companyId", companyId)
     .eq("active", true);
@@ -227,7 +227,7 @@ export async function getAccountSubcategories(
   }
 
   query = setGenericQueryFilters(query, args, [
-    { column: "name", ascending: true },
+    { column: "name", ascending: true }
   ]);
   return query;
 }
@@ -344,18 +344,18 @@ export async function getChartOfAccounts(
   }
 
   accountsQuery = setGenericQueryFilters(accountsQuery, args, [
-    { column: "number", ascending: true },
+    { column: "number", ascending: true }
   ]);
 
   let transactionsQuery = client.rpc("journalLinesByAccountNumber", {
     from_date:
       args.startDate ?? getDateNYearsAgo(50).toISOString().split("T")[0],
-    to_date: args.endDate ?? new Date().toISOString().split("T")[0],
+    to_date: args.endDate ?? new Date().toISOString().split("T")[0]
   });
 
   const [accountsResponse, transactionsResponse] = await Promise.all([
     accountsQuery,
-    transactionsQuery,
+    transactionsQuery
   ]);
 
   if (transactionsResponse.error) return transactionsResponse;
@@ -393,9 +393,9 @@ export async function getChartOfAccounts(
         account,
         "balanceAtDate",
         transactionsByAccount
-      ),
+      )
     })),
-    error: null,
+    error: null
   };
 }
 
@@ -429,7 +429,7 @@ export async function getCurrencies(
   let query = client
     .from("currencies")
     .select("*", {
-      count: "exact",
+      count: "exact"
     })
     .eq("companyId", companyId)
     .eq("active", true);
@@ -520,12 +520,12 @@ export async function getInventoryPostingGroups(
   let query = client
     .from("postingGroupInventory")
     .select("*", {
-      count: "exact",
+      count: "exact"
     })
     .eq("companyId", companyId);
 
   query = setGenericQueryFilters(query, args, [
-    { column: "itemPostingGroupId", ascending: false },
+    { column: "itemPostingGroupId", ascending: false }
   ]);
   return query;
 }
@@ -551,7 +551,7 @@ export async function getPaymentTerms(
   let query = client
     .from("paymentTerm")
     .select("*", {
-      count: "exact",
+      count: "exact"
     })
     .eq("companyId", companyId)
     .eq("active", true);
@@ -561,7 +561,7 @@ export async function getPaymentTerms(
   }
 
   query = setGenericQueryFilters(query, args, [
-    { column: "name", ascending: true },
+    { column: "name", ascending: true }
   ]);
   return query;
 }
@@ -614,12 +614,12 @@ export async function getPurchasingPostingGroups(
   let query = client
     .from("postingGroupPurchasing")
     .select("*", {
-      count: "exact",
+      count: "exact"
     })
     .eq("companyId", companyId);
 
   query = setGenericQueryFilters(query, args, [
-    { column: "itemPostingGroupId", ascending: false },
+    { column: "itemPostingGroupId", ascending: false }
   ]);
   return query;
 }
@@ -656,12 +656,12 @@ export async function getSalesPostingGroups(
   let query = client
     .from("postingGroupSales")
     .select("*", {
-      count: "exact",
+      count: "exact"
     })
     .eq("companyId", companyId);
 
   query = setGenericQueryFilters(query, args, [
-    { column: "itemPostingGroupId", ascending: false },
+    { column: "itemPostingGroupId", ascending: false }
   ]);
   return query;
 }

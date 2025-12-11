@@ -10,11 +10,11 @@ import {
   ModalDrawerProvider,
   ModalDrawerTitle,
   toast,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { useFetcher, useNavigate } from "@remix-run/react";
 import { useEffect } from "react";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import { Hidden, Input, Submit } from "~/components/Form";
 import { usePermissions } from "~/hooks";
 import { path } from "~/utils/path";
@@ -31,7 +31,7 @@ const RevisionForm = ({
   initialValues,
   hasSizesInsteadOfRevisions = false,
   open = true,
-  onClose,
+  onClose
 }: RevisionFormProps) => {
   const permissions = usePermissions();
   const fetcher = useFetcher<

@@ -17,7 +17,7 @@ export async function action({ request }: ActionFunctionArgs) {
 
   throw redirect(path.to.authenticatedRoot, {
     headers: {
-      "Set-Cookie": setLocation(companyId, currentLocation),
-    },
+      "Set-Cookie": setLocation(companyId, currentLocation)
+    }
   });
 }

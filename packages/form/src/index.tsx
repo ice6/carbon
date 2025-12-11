@@ -4,7 +4,7 @@ export {
   FieldArray,
   useFieldArray,
   type FieldArrayHelpers,
-  type FieldArrayProps,
+  type FieldArrayProps
 } from "./internal/state/fieldArray";
 export * from "./server";
 export * from "./state/formStateHooks";

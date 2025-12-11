@@ -8,9 +8,12 @@ export function Greeting(props: ComponentProps<typeof Heading>) {
   const user = useUser();
   const [currentTime, setCurrentTime] = useState(() => now(getLocalTimeZone()));
 
-  useInterval(() => {
-    setCurrentTime(now(getLocalTimeZone()));
-  }, 60 * 60 * 1000);
+  useInterval(
+    () => {
+      setCurrentTime(now(getLocalTimeZone()));
+    },
+    60 * 60 * 1000
+  );
 
   const greeting = useMemo(() => {
     if (currentTime.hour >= 3 && currentTime.hour < 11) {

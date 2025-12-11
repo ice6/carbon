@@ -22,7 +22,7 @@ const DateTimePicker = (
 ) => {
   const state = useDatePickerState({
     ...props,
-    shouldCloseOnSelect: false,
+    shouldCloseOnSelect: false
   });
   const ref = useRef<HTMLDivElement>(null);
   const { groupProps, fieldProps, buttonProps, dialogProps, calendarProps } =
@@ -30,7 +30,7 @@ const DateTimePicker = (
 
   useOutsideClick({
     ref,
-    handler: () => state.setOpen(false),
+    handler: () => state.setOpen(false)
   });
 
   return (

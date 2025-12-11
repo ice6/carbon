@@ -12,8 +12,8 @@ const supabaseAdmin = createClient<Database>(
   {
     auth: {
       autoRefreshToken: false,
-      persistSession: false,
-    },
+      persistSession: false
+    }
   }
 );
 
@@ -24,8 +24,8 @@ async function seed() {
       apiUrl: process.env.SUPABASE_URL!.includes("localhost")
         ? "http://host.docker.internal:54321"
         : process.env.SUPABASE_URL,
-      anonKey: process.env.SUPABASE_ANON_KEY!,
-    },
+      anonKey: process.env.SUPABASE_ANON_KEY!
+    }
   ]);
   if (upsertConfig.error) throw upsertConfig.error;
 
@@ -33,7 +33,7 @@ async function seed() {
     Object.entries(devPrices).map(([id, { stripePriceId, name }]) => ({
       id,
       stripePriceId,
-      name,
+      name
     })),
     { onConflict: "id" }
   );

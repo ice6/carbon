@@ -2,28 +2,28 @@ import Bolt from "@slack/bolt";
 import { InstallProvider } from "@slack/oauth";
 import { WebClient } from "@slack/web-api";
 import { createHmac } from "node:crypto";
-import { z } from 'zod/v3';
+import { z } from "zod/v3";
 
 import {
   SLACK_CLIENT_ID,
   SLACK_CLIENT_SECRET,
   SLACK_OAUTH_REDIRECT_URL,
   SLACK_SIGNING_SECRET,
-  SLACK_STATE_SECRET,
+  SLACK_STATE_SECRET
 } from "@carbon/auth";
 
 const { App } = Bolt;
 
 export const slackOAuthCallbackSchema = z.object({
   code: z.string(),
-  state: z.string(),
+  state: z.string()
 });
 
 export const slackOAuthTokenResponseSchema = z.object({
   ok: z.literal(true),
   app_id: z.string(),
   authed_user: z.object({
-    id: z.string(),
+    id: z.string()
   }),
   scope: z.string(),
   token_type: z.literal("bot"),
@@ -31,7 +31,7 @@ export const slackOAuthTokenResponseSchema = z.object({
   bot_user_id: z.string(),
   team: z.object({
     id: z.string(),
-    name: z.string(),
+    name: z.string()
   }),
 
   // incoming_webhook is only present when the app has incoming-webhook scope
@@ -40,17 +40,17 @@ export const slackOAuthTokenResponseSchema = z.object({
       channel: z.string(),
       channel_id: z.string(),
       configuration_url: z.string().url(),
-      url: z.string().url(),
+      url: z.string().url()
     })
     .optional(),
   // Enterprise field can be an object, null, or missing
   enterprise: z
     .object({
       name: z.string(),
-      id: z.string(),
+      id: z.string()
     })
     .nullable()
-    .optional(),
+    .optional()
 });
 
 // Legacy export for backward compatibility - should be removed eventually
@@ -60,7 +60,7 @@ let slackInstaller: InstallProvider | null = null;
 
 export const createSlackApp = ({
   token,
-  botId,
+  botId
 }: {
   token: string;
   botId: string;
@@ -68,7 +68,7 @@ export const createSlackApp = ({
   return new App({
     signingSecret: SLACK_SIGNING_SECRET,
     token,
-    botId,
+    botId
   });
 };
 
@@ -87,9 +87,7 @@ export const getSlackInstaller = (): InstallProvider => {
       clientSecret: SLACK_CLIENT_SECRET,
       stateSecret: SLACK_STATE_SECRET,
       logLevel:
-        process.env.NODE_ENV === "development"
-          ? Bolt.LogLevel.DEBUG
-          : undefined,
+        process.env.NODE_ENV === "development" ? Bolt.LogLevel.DEBUG : undefined
     });
   }
   return slackInstaller;
@@ -97,7 +95,7 @@ export const getSlackInstaller = (): InstallProvider => {
 
 export const getSlackInstallUrl = ({
   companyId,
-  userId,
+  userId
 }: {
   companyId: string;
   userId: string;
@@ -113,10 +111,10 @@ export const getSlackInstallUrl = ({
       "incoming-webhook",
       "team:read",
       "users:read",
-      "users:read.email",
+      "users:read.email"
     ],
     redirectUri: SLACK_OAUTH_REDIRECT_URL,
-    metadata: JSON.stringify({ companyId, userId }),
+    metadata: JSON.stringify({ companyId, userId })
   });
 };
 
@@ -163,7 +161,7 @@ export async function postToSlackThread({
   channelId,
   threadTs,
   blocks,
-  text,
+  text
 }: {
   token: string;
   channelId: string;
@@ -179,7 +177,7 @@ export async function postToSlackThread({
     blocks,
     text: text || "Message from Carbon",
     unfurl_links: false,
-    unfurl_media: false,
+    unfurl_media: false
   });
 }
 
@@ -190,7 +188,7 @@ export async function createSlackThread({
   token,
   channelId,
   blocks,
-  text,
+  text
 }: {
   token: string;
   channelId: string;
@@ -204,7 +202,7 @@ export async function createSlackThread({
     blocks,
     text: text || "New thread from Carbon",
     unfurl_links: false,
-    unfurl_media: false,
+    unfurl_media: false
   });
 }
 
@@ -216,7 +214,7 @@ export async function updateSlackMessage({
   channelId,
   ts,
   blocks,
-  text,
+  text
 }: {
   token: string;
   channelId: string;
@@ -230,7 +228,7 @@ export async function updateSlackMessage({
     channel: channelId,
     ts,
     blocks,
-    text: text || "Updated message from Carbon",
+    text: text || "Updated message from Carbon"
   });
 }
 
@@ -241,7 +239,7 @@ export async function getSlackThreadReplies({
   token,
   channelId,
   threadTs,
-  limit = 100,
+  limit = 100
 }: {
   token: string;
   channelId: string;
@@ -253,6 +251,6 @@ export async function getSlackThreadReplies({
   return client.conversations.replies({
     channel: channelId,
     ts: threadTs,
-    limit,
+    limit
   });
 }

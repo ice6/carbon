@@ -5,7 +5,7 @@ import {
   LuPackageSearch,
   LuShapes,
   LuSquareChartGantt,
-  LuStar,
+  LuStar
 } from "react-icons/lu";
 import { usePermissions } from "~/hooks";
 import { useSavedViews } from "~/hooks/useSavedViews";
@@ -20,28 +20,28 @@ const purchasingRoutes: AuthenticatedRouteGroup[] = [
         name: "Suppliers",
         to: path.to.suppliers,
         icon: <LuContainer />,
-        table: "supplier",
+        table: "supplier"
       },
       {
         name: "Quotes",
         to: path.to.supplierQuotes,
         icon: <LuPackageSearch />,
-        table: "supplierQuote",
+        table: "supplierQuote"
       },
       {
         name: "Orders",
         to: path.to.purchaseOrders,
         icon: <LuLayoutList />,
-        table: "purchaseOrder",
+        table: "purchaseOrder"
       },
       {
         name: "Invoices",
         to: path.to.purchaseInvoices,
         icon: <LuCreditCard />,
         table: "purchaseInvoice",
-        permission: "invoicing",
-      },
-    ],
+        permission: "invoicing"
+      }
+    ]
   },
   {
     name: "Plan",
@@ -50,9 +50,9 @@ const purchasingRoutes: AuthenticatedRouteGroup[] = [
         name: "Planning",
         to: path.to.purchasingPlanning,
         icon: <LuSquareChartGantt />,
-        table: "purchase-planning",
-      },
-    ],
+        table: "purchase-planning"
+      }
+    ]
   },
   {
     name: "Configure",
@@ -61,16 +61,16 @@ const purchasingRoutes: AuthenticatedRouteGroup[] = [
         name: "Statuses",
         to: path.to.supplierStatuses,
         role: "employee",
-        icon: <LuShapes />,
+        icon: <LuShapes />
       },
       {
         name: "Types",
         to: path.to.supplierTypes,
         role: "employee",
-        icon: <LuStar />,
-      },
-    ],
-  },
+        icon: <LuStar />
+      }
+    ]
+  }
 ];
 
 export default function usePurchasingSubmodules() {
@@ -104,7 +104,7 @@ export default function usePurchasingSubmodules() {
               return true;
             }
           })
-          .map(addSavedViewsToRoutes),
-      })),
+          .map(addSavedViewsToRoutes)
+      }))
   };
 }

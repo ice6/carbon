@@ -12,7 +12,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   }
 
   return json({
-    success: true,
+    success: true
   });
 }
 
@@ -55,7 +55,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
   const parsed = syncIssueFromLinearSchema.safeParse({
     companyId,
-    event: body,
+    event: body
   });
 
   if (!parsed.success) {

@@ -1,5 +1,5 @@
 import { CONTROLLED_ENVIRONMENT } from "@carbon/auth";
-import { z } from 'zod/v3';
+import { z } from "zod/v3";
 import type { IntegrationConfig } from "../types";
 
 export const Slack: IntegrationConfig = {
@@ -47,7 +47,7 @@ export const Slack: IntegrationConfig = {
 
     window.addEventListener("message", listener);
   },
-  onUninstall: () => {},
+  onUninstall: () => {}
 };
 
 function Logo() {

@@ -8,14 +8,14 @@ import {
   ModalFooter,
   ModalHeader,
   ModalTitle,
-  toast,
+  toast
 } from "@carbon/react";
 import { Form, useFetcher } from "@remix-run/react";
 import { useEffect } from "react";
 import { LuArrowUpRight, LuX } from "react-icons/lu";
 
 export function AcademyBanner({
-  acknowledgeAction,
+  acknowledgeAction
 }: {
   acknowledgeAction: string;
 }) {
@@ -67,7 +67,7 @@ export function ItarLoginDisclaimer() {
 }
 
 export function ItarDisclosure({
-  disclosure,
+  disclosure
 }: {
   disclosure: ReturnType<typeof useDisclosure>;
 }) {
@@ -100,7 +100,7 @@ export function ItarDisclosure({
 
 export function ItarPopup({
   acknowledgeAction,
-  logoutAction,
+  logoutAction
 }: {
   acknowledgeAction: string;
   logoutAction: string;

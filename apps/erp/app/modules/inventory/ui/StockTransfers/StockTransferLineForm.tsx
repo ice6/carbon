@@ -9,12 +9,12 @@ import {
   ModalDrawerProvider,
   ModalDrawerTitle,
   VStack,
-  toast,
+  toast
 } from "@carbon/react";
 import { useFetcher, useParams } from "@remix-run/react";
 import type { PostgrestResponse } from "@supabase/supabase-js";
 import { useEffect, useState } from "react";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import { Hidden, Item, Number, Shelf, Submit } from "~/components/Form";
 import { usePermissions } from "~/hooks";
 import { stockTransferLineValidator } from "~/modules/inventory";
@@ -35,7 +35,7 @@ const StockTransferLineForm = ({
   locationId,
   open = true,
   type = "drawer",
-  onClose,
+  onClose
 }: StockTransferLineFormProps) => {
   const { id } = useParams();
   if (!id) throw new Error("id not found");

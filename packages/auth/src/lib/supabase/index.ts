@@ -6,5 +6,5 @@ export {
   CarbonProvider,
   getCarbon,
   getCarbonServiceRole,
-  useCarbon,
+  useCarbon
 };

@@ -48,7 +48,7 @@ export function SuggestedPrompts() {
             transition={{
               duration: 0.2,
               delay: delay + index * 0.05,
-              ease: "easeOut",
+              ease: "easeOut"
             }}
           >
             <Button

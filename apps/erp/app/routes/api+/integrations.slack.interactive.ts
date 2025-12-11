@@ -4,7 +4,7 @@ import {
   createIssueSlackThread,
   createSlackWebClient,
   getCarbonEmployeeFromSlackId,
-  getSlackIntegrationByTeamId,
+  getSlackIntegrationByTeamId
 } from "@carbon/ee/slack.server";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { FunctionRegion } from "@supabase/supabase-js";
@@ -13,7 +13,7 @@ import { z } from "zod/v3";
 import {
   getIssueTypesList,
   getIssueWorkflowsList,
-  upsertIssue,
+  upsertIssue
 } from "~/modules/quality/quality.service";
 
 import { getNextSequence } from "~/modules/settings/settings.service";
@@ -24,18 +24,18 @@ const slackInteractivePayloadSchema = z.object({
   team: z
     .object({
       id: z.string(),
-      domain: z.string(),
+      domain: z.string()
     })
     .optional(),
   user: z.object({
     id: z.string(),
     name: z.string().optional(),
-    username: z.string().optional(),
+    username: z.string().optional()
   }),
   channel: z
     .object({
       id: z.string(),
-      name: z.string(),
+      name: z.string()
     })
     .optional(),
   trigger_id: z.string().optional(),
@@ -48,7 +48,7 @@ const slackInteractivePayloadSchema = z.object({
   enterprise: z.any().optional(),
   message: z.any().optional(),
   // Shortcut specific fields
-  callback_id: z.string().optional(),
+  callback_id: z.string().optional()
 });
 
 export async function action({ request }: ActionFunctionArgs) {
@@ -72,7 +72,7 @@ export async function action({ request }: ActionFunctionArgs) {
       return json(
         {
           response_type: "ephemeral",
-          text: "Invalid payload format received.",
+          text: "Invalid payload format received."
         },
         { status: 400 }
       );
@@ -83,7 +83,7 @@ export async function action({ request }: ActionFunctionArgs) {
     if (!payload.data.team?.id) {
       return json({
         response_type: "ephemeral",
-        text: "Invalid payload: missing team information.",
+        text: "Invalid payload: missing team information."
       });
     }
 
@@ -96,7 +96,7 @@ export async function action({ request }: ActionFunctionArgs) {
       console.error("Failed to get Slack integration", integration.error);
       return json({
         response_type: "ephemeral",
-        text: "Slack integration not found for this workspace.",
+        text: "Slack integration not found for this workspace."
       });
     }
 
@@ -107,7 +107,7 @@ export async function action({ request }: ActionFunctionArgs) {
       console.error("Slack token not found");
       return json({
         response_type: "ephemeral",
-        text: "Slack token not found. Please reconfigure the integration.",
+        text: "Slack token not found. Please reconfigure the integration."
       });
     }
 
@@ -133,7 +133,7 @@ export async function action({ request }: ActionFunctionArgs) {
       default:
         return json({
           response_type: "ephemeral",
-          text: `Unknown interaction type: ${payload.data.type}`,
+          text: `Unknown interaction type: ${payload.data.type}`
         });
     }
   } catch (error) {
@@ -141,7 +141,7 @@ export async function action({ request }: ActionFunctionArgs) {
     return json(
       {
         response_type: "ephemeral",
-        text: "An error occurred processing your interaction. Please try again.",
+        text: "An error occurred processing your interaction. Please try again."
       },
       { status: 500 }
     );
@@ -204,14 +204,14 @@ async function handleCreateNcrShortcut(
   if (!payload.trigger_id) {
     return json({
       response_type: "ephemeral",
-      text: "Missing trigger ID for modal interaction.",
+      text: "Missing trigger ID for modal interaction."
     });
   }
 
   try {
     const [types, workflows] = await Promise.all([
       getIssueTypesList(serviceRole, companyId),
-      getIssueWorkflowsList(serviceRole, companyId),
+      getIssueWorkflowsList(serviceRole, companyId)
     ]);
 
     const slackClient = createSlackWebClient({ token: slackToken });
@@ -223,15 +223,15 @@ async function handleCreateNcrShortcut(
         callback_id: "create_ncr_modal",
         title: {
           type: "plain_text",
-          text: "Create Issue",
+          text: "Create Issue"
         },
         submit: {
           type: "plain_text",
-          text: "Create",
+          text: "Create"
         },
         close: {
           type: "plain_text",
-          text: "Cancel",
+          text: "Cancel"
         },
         blocks: [
           {
@@ -239,23 +239,23 @@ async function handleCreateNcrShortcut(
             block_id: "title_block",
             label: {
               type: "plain_text",
-              text: "Title",
+              text: "Title"
             },
             element: {
               type: "plain_text_input",
               action_id: "title",
               placeholder: {
                 type: "plain_text",
-                text: "Brief description of the non-conformance",
-              },
-            },
+                text: "Brief description of the non-conformance"
+              }
+            }
           },
           {
             type: "input",
             block_id: "description_block",
             label: {
               type: "plain_text",
-              text: "Description",
+              text: "Description"
             },
             element: {
               type: "plain_text_input",
@@ -263,34 +263,34 @@ async function handleCreateNcrShortcut(
               multiline: true,
               placeholder: {
                 type: "plain_text",
-                text: "Detailed description of the issue",
-              },
+                text: "Detailed description of the issue"
+              }
             },
-            optional: true,
+            optional: true
           },
           {
             type: "input",
             block_id: "type_block",
             label: {
               type: "plain_text",
-              text: "Type",
+              text: "Type"
             },
             element: {
               type: "static_select",
               action_id: "type",
               placeholder: {
                 type: "plain_text",
-                text: "Select issue type",
+                text: "Select issue type"
               },
               options:
                 types.data?.map((type) => ({
                   text: {
                     type: "plain_text",
-                    text: type.name,
+                    text: type.name
                   },
-                  value: type.id,
-                })) || [],
-            },
+                  value: type.id
+                })) || []
+            }
           },
           // Only include workflow block if workflows are available
           ...(workflows.data && workflows.data.length > 0
@@ -300,25 +300,25 @@ async function handleCreateNcrShortcut(
                   block_id: "workflow_block",
                   label: {
                     type: "plain_text" as const,
-                    text: "Workflow",
+                    text: "Workflow"
                   },
                   element: {
                     type: "static_select" as const,
                     action_id: "workflow",
                     placeholder: {
                       type: "plain_text" as const,
-                      text: "Select workflow",
+                      text: "Select workflow"
                     },
                     options: workflows.data.map((workflow) => ({
                       text: {
                         type: "plain_text" as const,
-                        text: workflow.name,
+                        text: workflow.name
                       },
-                      value: workflow.id,
-                    })),
+                      value: workflow.id
+                    }))
                   },
-                  optional: true,
-                },
+                  optional: true
+                }
               ]
             : []),
           {
@@ -326,36 +326,36 @@ async function handleCreateNcrShortcut(
             block_id: "severity_block",
             label: {
               type: "plain_text",
-              text: "Severity",
+              text: "Severity"
             },
             element: {
               type: "static_select",
               action_id: "severity",
               placeholder: {
                 type: "plain_text",
-                text: "Select severity",
+                text: "Select severity"
               },
               options: [
                 { text: { type: "plain_text", text: "Low" }, value: "Low" },
                 {
                   text: { type: "plain_text", text: "Medium" },
-                  value: "Medium",
+                  value: "Medium"
                 },
                 { text: { type: "plain_text", text: "High" }, value: "High" },
                 {
                   text: { type: "plain_text", text: "Critical" },
-                  value: "Critical",
-                },
-              ],
+                  value: "Critical"
+                }
+              ]
             },
-            optional: true,
-          },
+            optional: true
+          }
         ],
         private_metadata: JSON.stringify({
           channel_id: payload.channel?.id || "",
-          user_id: payload.user.id,
-        }),
-      },
+          user_id: payload.user.id
+        })
+      }
     });
 
     return json({ ok: true });
@@ -363,7 +363,7 @@ async function handleCreateNcrShortcut(
     console.error("Error opening Issue modal:", error);
     return json({
       response_type: "ephemeral",
-      text: "Failed to open Issue form. Please try again.",
+      text: "Failed to open Issue form. Please try again."
     });
   }
 }
@@ -404,7 +404,7 @@ async function handleViewSubmission(
 
     const [nextSequence, employee] = await Promise.all([
       getNextSequence(serviceRole, "nonConformance", companyId),
-      getCarbonEmployeeFromSlackId(serviceRole, slackToken, user_id, companyId),
+      getCarbonEmployeeFromSlackId(serviceRole, slackToken, user_id, companyId)
     ]);
 
     if (nextSequence.error || !nextSequence.data) {
@@ -430,7 +430,7 @@ async function handleViewSubmission(
       openDate: new Date().toISOString(),
       priority: severity,
       requiredActionIds: [],
-      source: "Internal",
+      source: "Internal"
     });
 
     if (createResult.error || !createResult.data) {
@@ -451,12 +451,12 @@ async function handleViewSubmission(
           nonConformanceId: nextSequence.data,
           severity,
           title,
-          userId: employee.data?.id,
+          userId: employee.data?.id
         },
         {
           slackToken,
           slackUserId: user_id,
-          channelId: configuredChannelId,
+          channelId: configuredChannelId
         }
       ),
       serviceRole.functions.invoke("create", {
@@ -464,10 +464,10 @@ async function handleViewSubmission(
           type: "nonConformanceTasks",
           id: ncrId,
           companyId,
-          userId: employee.data?.id ?? "system",
+          userId: employee.data?.id ?? "system"
         },
-        region: FunctionRegion.UsEast1,
-      }),
+        region: FunctionRegion.UsEast1
+      })
     ]);
 
     if (tasksResult.error) {
@@ -479,7 +479,7 @@ async function handleViewSubmission(
     }
 
     return json({
-      response_action: "clear",
+      response_action: "clear"
     });
   } catch (error) {
     console.error("Error creating Issue:", error);
@@ -487,8 +487,8 @@ async function handleViewSubmission(
     return json({
       response_action: "errors",
       errors: {
-        title_block: "Failed to create Issue. Please try again.",
-      },
+        title_block: "Failed to create Issue. Please try again."
+      }
     });
   }
 }

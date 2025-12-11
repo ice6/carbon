@@ -10,7 +10,7 @@ import {
   Heading,
   HStack,
   toast,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { Editor } from "@carbon/react/Editor";
 import { Reorder, useDragControls } from "framer-motion";
@@ -26,7 +26,7 @@ import {
   issueWorkflowValidator,
   nonConformanceApprovalRequirement,
   nonConformancePriority,
-  nonConformanceSource,
+  nonConformanceSource
 } from "../../quality.models";
 import { getPriorityIcon } from "../Issue/IssueIcons";
 
@@ -38,7 +38,7 @@ type IssueWorkflowFormProps = {
 
 function ReorderableActionItem({
   action,
-  onRemove,
+  onRemove
 }: {
   action: ListItem;
   onRemove: () => void;
@@ -75,7 +75,7 @@ function ReorderableActionItem({
 const IssueWorkflowForm = ({
   initialValues,
   requiredActions,
-  onClose,
+  onClose
 }: IssueWorkflowFormProps) => {
   const permissions = usePermissions();
 
@@ -124,7 +124,7 @@ const IssueWorkflowForm = ({
 
   const { carbon } = useCarbon();
   const {
-    company: { id: companyId },
+    company: { id: companyId }
   } = useUser();
 
   const onUploadImage = async (file: File) => {
@@ -202,7 +202,7 @@ const IssueWorkflowForm = ({
                 <div
                   className="prose dark:prose-invert"
                   dangerouslySetInnerHTML={{
-                    __html: generateHTML(content),
+                    __html: generateHTML(content)
                   }}
                 />
               )}
@@ -220,7 +220,7 @@ const IssueWorkflowForm = ({
                   <span>{priority}</span>
                 </div>
               ),
-              value: priority,
+              value: priority
             }))}
           />
           <Select
@@ -228,7 +228,7 @@ const IssueWorkflowForm = ({
             label="Source"
             options={nonConformanceSource.map((source) => ({
               label: source,
-              value: source,
+              value: source
             }))}
           />
         </div>
@@ -294,7 +294,7 @@ const IssueWorkflowForm = ({
           label="Approval Requirements"
           options={nonConformanceApprovalRequirement.map((requirement) => ({
             label: requirement,
-            value: requirement,
+            value: requirement
           }))}
         />
 

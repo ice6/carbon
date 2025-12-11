@@ -7,7 +7,7 @@ import { deleteConfigurationParameter } from "~/modules/items";
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client } = await requirePermissions(request, {
-    delete: "parts",
+    delete: "parts"
   });
 
   const { id } = params;
@@ -18,11 +18,11 @@ export async function action({ request, params }: ActionFunctionArgs) {
   if (remove.error) {
     return json({
       success: false,
-      error: "Failed to delete configuration parameter",
+      error: "Failed to delete configuration parameter"
     });
   }
 
   return json({
-    success: true,
+    success: true
   });
 }

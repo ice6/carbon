@@ -5,7 +5,7 @@ import {
   DatePicker,
   Input,
   Number,
-  ValidatedForm,
+  ValidatedForm
 } from "@carbon/form";
 import type { JSONContent } from "@carbon/react";
 import {
@@ -39,7 +39,7 @@ import {
   toast,
   Tr,
   useDisclosure,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { Editor } from "@carbon/react/Editor";
 import { useFetcher, useLocation } from "@remix-run/react";
@@ -56,7 +56,7 @@ import {
   Employee,
   Hidden,
   Submit,
-  Supplier,
+  Supplier
 } from "~/components/Form";
 import { useGauges } from "~/components/Form/Gauge";
 import { usePermissions, useRouteData, useUser } from "~/hooks";
@@ -78,11 +78,11 @@ const GaugeCalibrationRecordForm = ({
   open = true,
   files,
   type = "drawer",
-  onClose,
+  onClose
 }: GaugeCalibrationRecordFormProps) => {
   const permissions = usePermissions();
   const {
-    company: { id: companyId },
+    company: { id: companyId }
   } = useUser();
   const fetcher = useFetcher<{}>();
   const location = useLocation();
@@ -98,7 +98,7 @@ const GaugeCalibrationRecordForm = ({
 
   const [selectedGauge, setSelectedGauge] = useState<Gauge | null>(null);
   const gaugeSelectionModal = useDisclosure({
-    defaultIsOpen: !initialValues.gaugeId,
+    defaultIsOpen: !initialValues.gaugeId
   });
   const [loading, setLoading] = useState(false);
 
@@ -300,7 +300,7 @@ const GaugeCalibrationRecordForm = ({
                   formatOptions={{
                     maximumFractionDigits: 2,
                     style: "unit",
-                    unit: isMetric ? "celsius" : "fahrenheit",
+                    unit: isMetric ? "celsius" : "fahrenheit"
                   }}
                 />
                 <Number
@@ -309,7 +309,7 @@ const GaugeCalibrationRecordForm = ({
                   formatOptions={{
                     maximumFractionDigits: 2,
                     style: "percent",
-                    minimumFractionDigits: 0,
+                    minimumFractionDigits: 0
                   }}
                 />
                 <Input

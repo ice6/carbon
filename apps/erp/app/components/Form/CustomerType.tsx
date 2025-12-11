@@ -37,7 +37,7 @@ const CustomerType = (props: CustomerTypeSelectProps) => {
             triggerRef.current?.click();
           }}
           initialValues={{
-            name: created,
+            name: created
           }}
         />
       )}
@@ -62,7 +62,7 @@ export const useCustomerTypes = () => {
 
     return dataSource.map((c) => ({
       value: c.id,
-      label: c.name,
+      label: c.name
     }));
   }, [customerTypeFetcher.data?.data]);
 

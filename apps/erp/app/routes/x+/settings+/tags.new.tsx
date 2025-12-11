@@ -20,7 +20,7 @@ export async function action({ request }: ActionFunctionArgs) {
     name,
     table,
     companyId,
-    createdBy: userId,
+    createdBy: userId
   });
 
   if (tag.error) {

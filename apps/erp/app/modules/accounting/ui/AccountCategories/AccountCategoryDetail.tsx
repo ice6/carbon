@@ -12,7 +12,7 @@ import {
   DropdownMenuItem,
   HStack,
   VStack,
-  useDisclosure,
+  useDisclosure
 } from "@carbon/react";
 import { Link } from "@remix-run/react";
 import { useState } from "react";
@@ -32,7 +32,7 @@ type AccountCategoryDetailProps = {
 const AccountCategoryDetail = ({
   accountCategory,
   accountSubcategories,
-  onClose,
+  onClose
 }: AccountCategoryDetailProps) => {
   const [params] = useUrlParams();
 

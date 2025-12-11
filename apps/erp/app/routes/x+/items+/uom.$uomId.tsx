@@ -9,7 +9,7 @@ import { json, redirect } from "@vercel/remix";
 import {
   getUnitOfMeasure,
   unitOfMeasureValidator,
-  upsertUnitOfMeasure,
+  upsertUnitOfMeasure
 } from "~/modules/items";
 import { UnitOfMeasureForm } from "~/modules/items/ui/UnitOfMeasure";
 import { getCustomFields, setCustomFields } from "~/utils/form";
@@ -19,7 +19,7 @@ import { getCompanyId, uomsQuery } from "~/utils/react-query";
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
     view: "parts",
-    role: "employee",
+    role: "employee"
   });
 
   const { uomId } = params;
@@ -28,14 +28,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   const unitOfMeasure = await getUnitOfMeasure(client, uomId, companyId);
 
   return json({
-    unitOfMeasure: unitOfMeasure?.data ?? null,
+    unitOfMeasure: unitOfMeasure?.data ?? null
   });
 }
 
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    update: "parts",
+    update: "parts"
   });
 
   const formData = await request.formData();
@@ -52,7 +52,7 @@ export async function action({ request }: ActionFunctionArgs) {
     id,
     ...data,
     updatedBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
 
   if (updateUnitOfMeasure.error) {
@@ -84,7 +84,7 @@ export default function EditUnitOfMeasuresRoute() {
     id: unitOfMeasure?.id ?? undefined,
     name: unitOfMeasure?.name ?? "",
     code: unitOfMeasure?.code ?? "",
-    ...getCustomFields(unitOfMeasure?.customFields),
+    ...getCustomFields(unitOfMeasure?.customFields)
   };
 
   return (

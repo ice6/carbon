@@ -9,7 +9,7 @@ import { procedureSyncValidator } from "~/modules/production";
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { companyId, userId } = await requirePermissions(request, {
-    update: "production",
+    update: "production"
   });
 
   const formData = await request.formData();
@@ -29,9 +29,9 @@ export async function action({ request }: ActionFunctionArgs) {
       sourceId: validation.data.procedureId,
       targetId: validation.data.operationId,
       companyId,
-      userId,
+      userId
     },
-    region: FunctionRegion.UsEast1,
+    region: FunctionRegion.UsEast1
   });
 
   if (sync.error) {

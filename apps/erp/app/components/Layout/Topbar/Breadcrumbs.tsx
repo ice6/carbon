@@ -20,7 +20,7 @@ import {
   ModalTitle,
   VStack,
   useDisclosure,
-  useIsMobile,
+  useIsMobile
 } from "@carbon/react";
 import { Form, Link, useMatches } from "@remix-run/react";
 import { BsFillHexagonFill } from "react-icons/bs";
@@ -30,7 +30,7 @@ import { z } from "zod/v3";
 import {
   BreadcrumbItem,
   BreadcrumbLink,
-  Breadcrumbs as BreadcrumbsBase,
+  Breadcrumbs as BreadcrumbsBase
 } from "~/components";
 
 import { useMode } from "@carbon/remix";
@@ -38,7 +38,7 @@ import {
   AddressAutocomplete,
   Currency,
   Input,
-  Submit,
+  Submit
 } from "~/components/Form";
 import { useRouteData, useUser } from "~/hooks";
 import type { Company } from "~/modules/settings";
@@ -47,12 +47,12 @@ import { path } from "~/utils/path";
 
 export const BreadcrumbHandle = z.object({
   breadcrumb: z.any(),
-  to: z.string().optional(),
+  to: z.string().optional()
 });
 export type BreadcrumbHandleType = z.infer<typeof BreadcrumbHandle>;
 
 const BreadcrumbHandleMatch = z.object({
-  handle: BreadcrumbHandle,
+  handle: BreadcrumbHandle
 });
 
 const Breadcrumbs = () => {
@@ -65,7 +65,7 @@ const Breadcrumbs = () => {
 
       return {
         breadcrumb: result.data.handle.breadcrumb,
-        to: result.data.handle?.to ?? m.pathname,
+        to: result.data.handle?.to ?? m.pathname
       };
     })
     .filter(Boolean);
@@ -202,7 +202,7 @@ function CompanyBreadcrumb() {
                 onSubmit={companyForm.onClose}
                 defaultValues={{
                   countryCode: "US",
-                  baseCurrencyCode: "USD",
+                  baseCurrencyCode: "USD"
                 }}
               >
                 <ModalHeader>

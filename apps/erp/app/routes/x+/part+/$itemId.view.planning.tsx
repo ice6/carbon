@@ -10,7 +10,7 @@ import { useRouteData } from "~/hooks";
 import {
   getItemPlanning,
   itemPlanningValidator,
-  upsertItemPlanning,
+  upsertItemPlanning
 } from "~/modules/items";
 import { ItemPlanningForm } from "~/modules/items/ui/Item";
 import { ItemPlanningChart } from "~/modules/items/ui/Item/ItemPlanningChart";
@@ -22,7 +22,7 @@ import { path } from "~/utils/path";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId, userId } = await requirePermissions(request, {
-    view: "parts",
+    view: "parts"
   });
 
   const { itemId } = params;
@@ -80,14 +80,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
   return json({
     partPlanning: partPlanning.data,
-    locationId,
+    locationId
   });
 }
 
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    update: "parts",
+    update: "parts"
   });
 
   const { itemId } = params;
@@ -104,7 +104,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     ...validation.data,
     itemId,
     updatedBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
   if (updatePartPlanning.error) {
     throw redirect(
@@ -137,7 +137,7 @@ export default function PartPlanningRoute() {
         key={partPlanning.itemId}
         initialValues={{
           ...partPlanning,
-          ...getCustomFields(partPlanning.customFields),
+          ...getCustomFields(partPlanning.customFields)
         }}
         locations={sharedPartsData.locations ?? []}
         type="Part"
@@ -147,7 +147,7 @@ export default function PartPlanningRoute() {
         locationId={locationId}
         safetyStock={
           partPlanning.reorderingPolicy === "Demand-Based Reorder"
-            ? partPlanning.demandAccumulationSafetyStock ?? 0
+            ? (partPlanning.demandAccumulationSafetyStock ?? 0)
             : undefined
         }
       />

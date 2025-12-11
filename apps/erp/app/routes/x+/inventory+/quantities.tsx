@@ -10,7 +10,7 @@ import { getInventoryItems } from "~/modules/inventory";
 import InventoryTable from "~/modules/inventory/ui/Inventory/InventoryTable";
 import {
   getMaterialFormsList,
-  getMaterialSubstancesList,
+  getMaterialSubstancesList
 } from "~/modules/items";
 import { getLocationsList } from "~/modules/resources";
 import { getUserDefaults } from "~/modules/users/users.server";
@@ -20,7 +20,7 @@ import { getGenericQueryFilters } from "~/utils/query";
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId, userId } = await requirePermissions(request, {
     view: "inventory",
-    bypassRls: true,
+    bypassRls: true
   });
 
   const url = new URL(request.url);
@@ -67,11 +67,11 @@ export async function loader({ request }: LoaderFunctionArgs) {
       limit,
       offset,
       sorts,
-      filters,
+      filters
     }),
 
     getMaterialFormsList(client, companyId),
-    getMaterialSubstancesList(client, companyId),
+    getMaterialSubstancesList(client, companyId)
   ]);
 
   if (inventoryItems.error) {
@@ -89,7 +89,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
     inventoryItems: (inventoryItems.data ?? []) as InventoryItem[],
     locationId,
     forms: forms.data ?? [],
-    substances: substances.data ?? [],
+    substances: substances.data ?? []
   });
 }
 

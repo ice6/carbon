@@ -15,13 +15,13 @@ import { useRealtime } from "../../../hooks";
 
 export const handle: Handle = {
   breadcrumb: "Parts",
-  to: path.to.parts,
+  to: path.to.parts
 };
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
     view: "parts",
-    bypassRls: true,
+    bypassRls: true
   });
 
   const url = new URL(request.url);
@@ -39,9 +39,9 @@ export async function loader({ request }: LoaderFunctionArgs) {
       limit,
       offset,
       sorts,
-      filters,
+      filters
     }),
-    getTagsList(client, companyId, "part"),
+    getTagsList(client, companyId, "part")
   ]);
 
   if (parts.error) {
@@ -54,7 +54,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   return json({
     count: parts.count ?? 0,
     parts: parts.data ?? [],
-    tags: tags.data ?? [],
+    tags: tags.data ?? []
   });
 }
 

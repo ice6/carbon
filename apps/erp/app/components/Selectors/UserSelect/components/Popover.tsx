@@ -5,7 +5,7 @@ import useUserSelectContext from "../provider";
 const Popover = ({ children }: PropsWithChildren) => {
   const {
     aria: { popoverProps },
-    refs: { listBoxRef, popoverRef, focusableNodes },
+    refs: { listBoxRef, popoverRef, focusableNodes }
   } = useUserSelectContext();
 
   useEffect(() => {
@@ -71,7 +71,7 @@ const Popover = ({ children }: PropsWithChildren) => {
         expandable: parent === undefined,
         parentId: parent,
         previousId: previous?.[0] || undefined,
-        nextId: next?.[0] || undefined,
+        nextId: next?.[0] || undefined
       };
     }
   }, [children, focusableNodes, listBoxRef]);

@@ -5,7 +5,7 @@ import { path } from "~/utils/path";
 import type {
   CustomerContact,
   CustomerDetail,
-  CustomerLocation,
+  CustomerLocation
 } from "../../../types";
 import { useCustomerSidebar } from "./useCustomerSidebar";
 
@@ -20,7 +20,7 @@ const CustomerSidebar = () => {
   }>(path.to.customer(customerId));
   const links = useCustomerSidebar({
     contacts: routeData?.contacts.length ?? 0,
-    locations: routeData?.locations.length ?? 0,
+    locations: routeData?.locations.length ?? 0
   });
 
   return <DetailSidebar links={links} />;

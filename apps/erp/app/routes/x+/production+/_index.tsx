@@ -24,7 +24,7 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-  useRealtimeChannel,
+  useRealtimeChannel
 } from "@carbon/react";
 import {
   ChartContainer,
@@ -32,12 +32,12 @@ import {
   ChartLegendContent,
   ChartTooltip,
   ChartTooltipContent,
-  type ChartConfig,
+  type ChartConfig
 } from "@carbon/react/Chart";
 import {
   convertDateStringToIsoString,
   formatDurationMilliseconds,
-  formatRelativeTime,
+  formatRelativeTime
 } from "@carbon/utils";
 import { now, toCalendarDateTime } from "@internationalized/date";
 import type { DateRange } from "@react-types/datepicker";
@@ -46,7 +46,7 @@ import {
   defer,
   Link,
   useFetcher,
-  useLoaderData,
+  useLoaderData
 } from "@remix-run/react";
 import { Suspense, useEffect, useMemo, useState } from "react";
 import { CSVLink } from "react-csv";
@@ -58,7 +58,7 @@ import {
   LuFile,
   LuHardHat,
   LuSquareUser,
-  LuUserRoundCheck,
+  LuUserRoundCheck
 } from "react-icons/lu";
 import { Bar, BarChart, LabelList, XAxis, YAxis } from "recharts";
 import {
@@ -66,7 +66,7 @@ import {
   EmployeeAvatar,
   EmployeeAvatarGroup,
   Empty,
-  Hyperlink,
+  Hyperlink
 } from "~/components";
 import { useUser } from "~/hooks/useUser";
 import type { ActiveProductionEvent } from "~/modules/production";
@@ -89,21 +89,21 @@ const OPEN_JOB_STATUSES = ["Ready", "In Progress", "Paused"] as const;
 
 const chartConfig = {
   value: {
-    color: "hsl(var(--primary))",
+    color: "hsl(var(--primary))"
   },
   actual: {
     color: "hsl(var(--chart-1))",
-    label: "Actual",
+    label: "Actual"
   },
   estimate: {
     color: "hsl(var(--chart-2))",
-    label: "Estimate",
-  },
+    label: "Estimate"
+  }
 } satisfies ChartConfig;
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId, userId } = await requirePermissions(request, {
-    view: "production",
+    view: "production"
   });
 
   const [activeJobs, assignedJobs, workCenters] = await Promise.all([
@@ -117,14 +117,14 @@ export async function loader({ request }: LoaderFunctionArgs) {
       .select("id,status,assignee")
       .eq("companyId", companyId)
       .eq("assignee", userId),
-    getWorkCentersList(client, companyId),
+    getWorkCentersList(client, companyId)
   ]);
 
   return defer({
     activeJobs: activeJobs.data?.length ?? 0,
     assignedJobs: assignedJobs.data?.length ?? 0,
     workCenters: workCenters.data ?? [],
-    events: getActiveProductionEvents(client, companyId),
+    events: getActiveProductionEvents(client, companyId)
   });
 }
 
@@ -247,8 +247,8 @@ export default function ProductionDashboard() {
           ...kpiFetcher.data.data.map((item) => [
             item.key,
             // @ts-expect-error
-            (item.value / totalTimeInInterval) * 100,
-          ]),
+            (item.value / totalTimeInInterval) * 100
+          ])
         ];
       case "estimatesVsActuals":
         return [
@@ -258,8 +258,8 @@ export default function ProductionDashboard() {
             // @ts-expect-error
             item.actual,
             // @ts-expect-error
-            item.estimate,
-          ]),
+            item.estimate
+          ])
         ];
       default:
         return [];
@@ -466,7 +466,7 @@ export default function ProductionDashboard() {
                     height: `${
                       (kpiFetcher.data?.data?.length ?? 5) *
                       (selectedKpi === "estimatesVsActuals" ? 80 : 40)
-                    }px`,
+                    }px`
                   }}
                 >
                   <BarChart
@@ -474,7 +474,7 @@ export default function ProductionDashboard() {
                     data={kpiFetcher.data?.data ?? []}
                     layout="vertical"
                     margin={{
-                      right: 30,
+                      right: 30
                     }}
                   >
                     <YAxis
@@ -638,7 +638,7 @@ type JobOperationMetaData = {
 
 function WorkCenterCards({
   events: initialEvents,
-  workCenters,
+  workCenters
 }: {
   events: ActiveProductionEvent[];
   workCenters: WorkCenter[];
@@ -658,7 +658,7 @@ function WorkCenterCards({
           customerId: event.customerId,
           description: event.description,
           dueDate: event.dueDate,
-          deadlineType: event.deadlineType,
+          deadlineType: event.deadlineType
         };
       }
       return acc;
@@ -682,7 +682,7 @@ function WorkCenterCards({
 
     if (wcEvents.length === 0) {
       acc[workCenter.id!] = {
-        hasEvents: false,
+        hasEvents: false
       };
       return acc;
     }
@@ -690,7 +690,7 @@ function WorkCenterCards({
     const firstEvent = wcEvents?.[0];
     if (!firstEvent) {
       acc[workCenter.id!] = {
-        hasEvents: false,
+        hasEvents: false
       };
       return acc;
     }
@@ -721,7 +721,7 @@ function WorkCenterCards({
         employeeIds,
         ...jobOperationMetaData[jobOperationId],
         descriptionCount: uniqueDescriptions,
-        jobCount: uniqueJobs,
+        jobCount: uniqueJobs
       };
     }
 
@@ -730,7 +730,7 @@ function WorkCenterCards({
 
   const { carbon, accessToken } = useCarbon();
   const {
-    company: { id: companyId },
+    company: { id: companyId }
   } = useUser();
 
   const ensureMetaData = async (event: { jobOperationId: string }) => {
@@ -750,7 +750,7 @@ function WorkCenterCards({
       flushSync(() => {
         setJobOperationMetaData((prev) => ({
           ...prev,
-          [event.jobOperationId]: jobOperation.data,
+          [event.jobOperationId]: jobOperation.data
         }));
       });
     }
@@ -769,7 +769,7 @@ function WorkCenterCards({
           event: "*",
           schema: "public",
           table: "productionEvent",
-          filter: `companyId=eq.${companyId}`,
+          filter: `companyId=eq.${companyId}`
         },
         (payload) => {
           if (payload.eventType === "INSERT") {
@@ -798,7 +798,7 @@ function WorkCenterCards({
           }
         }
       );
-    },
+    }
   });
 
   return (
@@ -817,7 +817,7 @@ function WorkCenterCards({
           jobReadableId,
           salesOrderId,
           salesOrderReadableId,
-          salesOrderLineId,
+          salesOrderLineId
         } = eventsByWorkCenterId[workCenter?.id ?? ""];
 
         const isOverdue =
@@ -915,10 +915,10 @@ function WorkCenterCards({
                             {["ASAP", "No Deadline"].includes(deadlineType)
                               ? deadlineType
                               : dueDate
-                              ? `Due ${formatRelativeTime(
-                                  convertDateStringToIsoString(dueDate)
-                                )}`
-                              : "–"}
+                                ? `Due ${formatRelativeTime(
+                                    convertDateStringToIsoString(dueDate)
+                                  )}`
+                                : "–"}
                           </span>
                         </TooltipTrigger>
                         <TooltipContent side="right">

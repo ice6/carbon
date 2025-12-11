@@ -7,7 +7,7 @@ import {
   HoverCardContent,
   HoverCardTrigger,
   Separator,
-  Status,
+  Status
 } from "@carbon/react";
 import { formatDate } from "@carbon/utils";
 import { useNumberFormatter } from "@react-aria/i18n";
@@ -21,19 +21,19 @@ import {
   LuImage,
   LuPaperclip,
   LuShield,
-  LuShieldCheck,
+  LuShieldCheck
 } from "react-icons/lu";
-import { z } from 'zod/v3';
+import { z } from "zod/v3";
 import {
   BreadcrumbItem,
   BreadcrumbLink,
   Breadcrumbs,
   MethodIcon,
-  Table,
+  Table
 } from "~/components";
 import {
   getJobOperationAttachments,
-  jobOperationStatus,
+  jobOperationStatus
 } from "~/modules/production";
 import { JobStatus } from "~/modules/production/ui/Jobs";
 import { getExternalSalesOrderLines } from "~/modules/sales/sales.service";
@@ -42,7 +42,7 @@ import { getCompany } from "~/modules/settings/settings.service";
 import { operationTypes } from "~/modules/shared";
 import {
   getBase64ImageFromSupabase,
-  getCustomerPortal,
+  getCustomerPortal
 } from "~/modules/shared/shared.service";
 import { path } from "~/utils/path";
 import { getGenericQueryFilters } from "~/utils/query";
@@ -59,12 +59,12 @@ const jobOperationValidator = z
     order: z.number(),
     operationType: z.enum(operationTypes),
     operationQuantity: z.number(),
-    quantityComplete: z.number(),
+    quantityComplete: z.number()
   })
   .array();
 
 const defaultColumnPinning = {
-  left: ["customerReference"],
+  left: ["customerReference"]
 };
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
@@ -99,8 +99,8 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
       limit,
       offset,
       sorts,
-      filters,
-    }),
+      filters
+    })
   ]);
 
   if (salesOrderLines.error) {
@@ -131,7 +131,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
             return getBase64ImageFromSupabase(serviceRole, path).then(
               (data) => ({
                 id,
-                data,
+                data
               })
             );
           })
@@ -143,7 +143,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
       }
       return acc;
     }, {}) ?? {},
-    getJobOperationAttachments(serviceRole, jobOperationIds ?? []),
+    getJobOperationAttachments(serviceRole, jobOperationIds ?? [])
   ]);
 
   return defer({
@@ -152,7 +152,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     salesOrderLines: salesOrderLines.data ?? [],
     jobOperationAttachments,
     count: salesOrderLines.count,
-    thumbnails,
+    thumbnails
   });
 }
 
@@ -163,16 +163,16 @@ export default function CustomerPortal() {
     company,
     salesOrderLines,
     thumbnails,
-    jobOperationAttachments,
+    jobOperationAttachments
   } = useLoaderData<typeof loader>();
 
   console.log({
-    salesOrderLines,
+    salesOrderLines
   });
 
   const formatter = useNumberFormatter({
     minimumFractionDigits: 0,
-    maximumFractionDigits: 2,
+    maximumFractionDigits: 2
   });
 
   const columns = useMemo<ColumnDef<(typeof salesOrderLines)[number]>[]>(() => {
@@ -209,8 +209,8 @@ export default function CustomerPortal() {
           </div>
         ),
         meta: {
-          icon: <LuBookMarked />,
-        },
+          icon: <LuBookMarked />
+        }
       },
 
       {
@@ -229,7 +229,7 @@ export default function CustomerPortal() {
               salesOrderStatus={row.original.salesOrderStatus}
             />
           );
-        },
+        }
       },
       {
         accessorKey: "customerContactName",
@@ -240,7 +240,7 @@ export default function CustomerPortal() {
               <Avatar name={row.original.customerContactName} size="xs" />
               <span>{row.original.customerContactName}</span>
             </div>
-          ) : null,
+          ) : null
       },
       {
         accessorKey: "customerEngineeringContactName",
@@ -254,12 +254,12 @@ export default function CustomerPortal() {
               />
               <span>{row.original.customerEngineeringContactName}</span>
             </div>
-          ) : null,
+          ) : null
       },
       {
         accessorKey: "orderDate",
         header: "Order Date",
-        cell: ({ row }) => formatDate(row.original.orderDate),
+        cell: ({ row }) => formatDate(row.original.orderDate)
       },
       {
         accessorKey: "promisedDate",
@@ -269,17 +269,17 @@ export default function CustomerPortal() {
             row.original.promisedDate ??
               row.original.receiptPromisedDate ??
               row.original.receiptRequestedDate
-          ),
+          )
       },
       {
         accessorKey: "readableId",
         header: "Part Number",
-        cell: ({ row }) => row.original.readableId,
+        cell: ({ row }) => row.original.readableId
       },
       {
         accessorKey: "revision",
         header: "Rev.",
-        cell: ({ row }) => row.original.revision,
+        cell: ({ row }) => row.original.revision
       },
       {
         id: "quantity",
@@ -299,7 +299,7 @@ export default function CustomerPortal() {
               <MethodIcon type="Pick" />
               <span>{formatter.format(row.original.saleQuantity ?? 0)}</span>
             </div>
-          ),
+          )
       },
       {
         id: "shipped",
@@ -311,7 +311,7 @@ export default function CustomerPortal() {
               )}/${formatter.format(row.original.jobProductionQuantity)}`
             : `${formatter.format(
                 row.original.quantitySent ?? 0
-              )}/${formatter.format(row.original.saleQuantity ?? 0)}`,
+              )}/${formatter.format(row.original.saleQuantity ?? 0)}`
       },
       {
         id: "jobOperations",
@@ -337,8 +337,8 @@ export default function CustomerPortal() {
               jobOperationAttachments={jobOperationAttachments}
             />
           );
-        },
-      },
+        }
+      }
     ];
   }, [formatter, thumbnails, jobOperationAttachments]);
 
@@ -376,7 +376,7 @@ function SalesOrderLineStatus({
   quantityShipped,
   jobStatus,
   jobOperations,
-  salesOrderStatus,
+  salesOrderStatus
 }: {
   quantityOrdered: number;
   quantityShipped: number;
@@ -420,7 +420,7 @@ function JobOperationProgress({
   quantityShipped,
   quantityComplete,
   jobOperations,
-  jobOperationAttachments,
+  jobOperationAttachments
 }: {
   quantityShipped: number;
   quantityComplete: number;
@@ -457,8 +457,8 @@ function JobOperationProgress({
                 operation.status === "Done" || isComplete
                   ? "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/50 dark:text-emerald-400"
                   : operation.status === "In Progress"
-                  ? "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/50 dark:text-yellow-300"
-                  : "",
+                    ? "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/50 dark:text-yellow-300"
+                    : "",
                 isFirst ? "rounded-l-full" : "-ml-px",
                 isLast ? "rounded-r-full" : ""
               )}

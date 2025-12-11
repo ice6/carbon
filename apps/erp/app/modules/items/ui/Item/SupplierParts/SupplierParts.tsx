@@ -6,7 +6,7 @@ import { SupplierAvatar } from "~/components";
 import {
   EditableList,
   EditableNumber,
-  EditableText,
+  EditableText
 } from "~/components/Editable";
 import { useUnitOfMeasure } from "~/components/Form/UnitOfMeasure";
 import Grid from "~/components/Grid";
@@ -34,7 +34,7 @@ type SupplierPartsProps = {
 
 const SupplierParts = ({
   supplierParts,
-  compact = false,
+  compact = false
 }: SupplierPartsProps) => {
   const navigate = useNavigate();
   const { canEdit, onCellEdit } = useSupplierParts();
@@ -50,12 +50,12 @@ const SupplierParts = ({
         header: "Supplier",
         cell: ({ row }) => (
           <SupplierAvatar supplierId={row.original.supplierId} />
-        ),
+        )
       },
       {
         accessorKey: "supplierPartId",
         header: "Supplier ID",
-        cell: (item) => item.getValue(),
+        cell: (item) => item.getValue()
       },
       {
         accessorKey: "unitPrice",
@@ -63,24 +63,24 @@ const SupplierParts = ({
         cell: (item) => formatter.format(item.getValue<number>()),
         meta: {
           formatter: formatter.format,
-          renderTotal: true,
+          renderTotal: true
         }
       },
       {
         accessorKey: "supplierUnitOfMeasureCode",
         header: "Unit of Measure",
-        cell: (item) => item.getValue(),
+        cell: (item) => item.getValue()
       },
       {
         accessorKey: "minimumOrderQuantity",
         header: "Minimum Order Quantity",
-        cell: (item) => item.getValue(),
+        cell: (item) => item.getValue()
       },
       {
         accessorKey: "conversionFactor",
         header: "Conversion Factor",
-        cell: (item) => item.getValue(),
-      },
+        cell: (item) => item.getValue()
+      }
     ];
     return [...defaultColumns, ...customColumns];
   }, [customColumns, formatter]);
@@ -91,7 +91,7 @@ const SupplierParts = ({
       supplierUnitOfMeasureCode: EditableList(onCellEdit, unitOfMeasureOptions),
       minimumOrderQuantity: EditableNumber(onCellEdit),
       conversionFactor: EditableNumber(onCellEdit),
-      unitPrice: EditableNumber(onCellEdit),
+      unitPrice: EditableNumber(onCellEdit)
     }),
     [onCellEdit, unitOfMeasureOptions]
   );

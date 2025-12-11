@@ -7,7 +7,7 @@ import { getCompanyId, proceduresQuery } from "~/utils/react-query";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    view: "production",
+    view: "production"
   });
 
   return json(await getProceduresList(client, companyId));

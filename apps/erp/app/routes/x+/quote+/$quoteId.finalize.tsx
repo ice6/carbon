@@ -14,7 +14,7 @@ import {
   getCustomer,
   getCustomerContact,
   getQuote,
-  quoteFinalizeValidator,
+  quoteFinalizeValidator
 } from "~/modules/sales";
 import { getCompany, getCompanySettings } from "~/modules/settings";
 import { upsertExternalLink } from "~/modules/shared";
@@ -30,7 +30,7 @@ export async function action(args: ActionFunctionArgs) {
   const { client, companyId, userId } = await requirePermissions(request, {
     create: "sales",
     role: "employee",
-    bypassRls: true,
+    bypassRls: true
   });
 
   const { quoteId } = params;
@@ -54,8 +54,8 @@ export async function action(args: ActionFunctionArgs) {
       documentId: quoteId,
       customerId: quote.data.customerId,
       expiresAt: quote.data.expirationDate,
-      companyId,
-    }),
+      companyId
+    })
   ]);
 
   if (externalLink.data && quote.data.externalLinkId !== externalLink.data.id) {
@@ -63,7 +63,7 @@ export async function action(args: ActionFunctionArgs) {
       .from("quote")
       .update({
         externalLinkId: externalLink.data.id,
-        completedDate: now(getLocalTimeZone()).toAbsoluteString(),
+        completedDate: now(getLocalTimeZone()).toAbsoluteString()
       })
       .eq("id", quoteId);
   }
@@ -85,7 +85,7 @@ export async function action(args: ActionFunctionArgs) {
       .upload(documentFilePath, file, {
         cacheControl: `${12 * 60 * 60}`,
         contentType: "application/pdf",
-        upsert: true,
+        upsert: true
       });
 
     if (documentFileUpload.error) {
@@ -107,7 +107,7 @@ export async function action(args: ActionFunctionArgs) {
       readGroups: [userId],
       writeGroups: [userId],
       createdBy: userId,
-      companyId,
+      companyId
     });
 
     if (createDocument.error) {
@@ -155,7 +155,7 @@ export async function action(args: ActionFunctionArgs) {
             getCompanySettings(client, companyId),
             getCustomer(client, quote.data.customerId!),
             getCustomerContact(client, customerContactId),
-            getUser(client, userId),
+            getUser(client, userId)
           ]);
 
         if (!company.data) throw new Error("Failed to get company");
@@ -174,13 +174,13 @@ export async function action(args: ActionFunctionArgs) {
           recipient: {
             email: customerContact.data?.contact!.email!,
             firstName: customerContact.data.contact!.firstName!,
-            lastName: customerContact.data.contact!.lastName!,
+            lastName: customerContact.data.contact!.lastName!
           },
           sender: {
             email: user.data.email,
             firstName: user.data.firstName,
-            lastName: user.data.lastName,
-          },
+            lastName: user.data.lastName
+          }
         });
 
         const html = await renderAsync(emailTemplate);
@@ -195,10 +195,10 @@ export async function action(args: ActionFunctionArgs) {
           attachments: [
             {
               content: Buffer.from(file).toString("base64"),
-              filename: fileName,
-            },
+              filename: fileName
+            }
           ],
-          companyId,
+          companyId
         });
       } catch (err) {
         throw redirect(

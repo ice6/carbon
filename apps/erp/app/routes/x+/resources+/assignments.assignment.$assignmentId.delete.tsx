@@ -13,7 +13,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 export async function action({ request, params }: ActionFunctionArgs) {
   const { client } = await requirePermissions(request, {
     delete: "resources",
-    role: "employee",
+    role: "employee"
   });
 
   const { assignmentId } = params;

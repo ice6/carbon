@@ -81,7 +81,7 @@ const NumberIncrementStepper = ({
           // Pressed
           "pressed:bg-slate-100 dark:pressed:bg-slate-700",
           // Disabled
-          "disabled:opacity-40 disabled:cursor-not-allowed",
+          "disabled:opacity-40 disabled:cursor-not-allowed"
         ],
         className
       )}
@@ -103,7 +103,7 @@ const NumberDecrementStepper = ({
           // Pressed
           "pressed:bg-slate-100 dark:pressed:bg-slate-700",
           // Disabled
-          "disabled:opacity-40 disabled:cursor-not-allowed",
+          "disabled:opacity-40 disabled:cursor-not-allowed"
         ],
         className
       )}
@@ -118,5 +118,5 @@ export {
   NumberIncrementStepper,
   NumberInput,
   NumberInputGroup,
-  NumberInputStepper,
+  NumberInputStepper
 };

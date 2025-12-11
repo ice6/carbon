@@ -3,7 +3,7 @@ import {
   Combobox,
   MenuIcon,
   MenuItem,
-  useDisclosure,
+  useDisclosure
 } from "@carbon/react";
 import { formatDate } from "@carbon/utils";
 import { useNavigate } from "@remix-run/react";
@@ -17,7 +17,7 @@ import {
   LuMapPin,
   LuPencil,
   LuTrash,
-  LuUser,
+  LuUser
 } from "react-icons/lu";
 import { EmployeeAvatar, Hyperlink, Table } from "~/components";
 import { Enumerable } from "~/components/Enumerable";
@@ -63,8 +63,8 @@ const StockTransfersTable = memo(
             </Hyperlink>
           ),
           meta: {
-            icon: <LuBookMarked />,
-          },
+            icon: <LuBookMarked />
+          }
         },
         {
           accessorKey: "locationId",
@@ -82,11 +82,11 @@ const StockTransfersTable = memo(
               type: "static",
               options: locations.map((type) => ({
                 value: type.value,
-                label: <Enumerable value={type.label} />,
-              })),
+                label: <Enumerable value={type.label} />
+              }))
             },
-            icon: <LuMapPin />,
-          },
+            icon: <LuMapPin />
+          }
         },
         {
           accessorKey: "status",
@@ -101,12 +101,12 @@ const StockTransfersTable = memo(
               type: "static",
               options: stockTransferStatusType.map((type) => ({
                 value: type,
-                label: <StockTransferStatus status={type} />,
-              })),
+                label: <StockTransferStatus status={type} />
+              }))
             },
             pluralHeader: "Statuses",
-            icon: <LuClock />,
-          },
+            icon: <LuClock />
+          }
         },
         {
           accessorKey: "assignee",
@@ -119,19 +119,19 @@ const StockTransfersTable = memo(
               type: "static",
               options: people.map((employee) => ({
                 value: employee.id,
-                label: employee.name,
-              })),
+                label: employee.name
+              }))
             },
-            icon: <LuUser />,
-          },
+            icon: <LuUser />
+          }
         },
         {
           accessorKey: "completedAt",
           header: "Completed At",
           cell: (item) => formatDate(item.getValue<string>()),
           meta: {
-            icon: <LuCalendar />,
-          },
+            icon: <LuCalendar />
+          }
         },
         {
           id: "createdBy",
@@ -144,19 +144,19 @@ const StockTransfersTable = memo(
               type: "static",
               options: people.map((employee) => ({
                 value: employee.id,
-                label: employee.name,
-              })),
+                label: employee.name
+              }))
             },
-            icon: <LuUser />,
-          },
+            icon: <LuUser />
+          }
         },
         {
           accessorKey: "createdAt",
           header: "Created At",
           cell: (item) => formatDate(item.getValue<string>()),
           meta: {
-            icon: <LuCalendar />,
-          },
+            icon: <LuCalendar />
+          }
         },
         {
           id: "updatedBy",
@@ -169,20 +169,20 @@ const StockTransfersTable = memo(
               type: "static",
               options: people.map((employee) => ({
                 value: employee.id,
-                label: employee.name,
-              })),
+                label: employee.name
+              }))
             },
-            icon: <LuUser />,
-          },
+            icon: <LuUser />
+          }
         },
         {
           accessorKey: "updatedAt",
           header: "Updated At",
           cell: (item) => formatDate(item.getValue<string>()),
           meta: {
-            icon: <LuCalendar />,
-          },
-        },
+            icon: <LuCalendar />
+          }
+        }
       ];
 
       return [...result, ...customColumns];
@@ -235,11 +235,11 @@ const StockTransfersTable = memo(
           columns={columns}
           count={count}
           defaultColumnPinning={{
-            left: ["shipmentId"],
+            left: ["shipmentId"]
           }}
           defaultColumnVisibility={{
             updatedAt: false,
-            updatedBy: false,
+            updatedBy: false
           }}
           primaryAction={
             <div className="flex items-center gap-2">

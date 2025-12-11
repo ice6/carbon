@@ -25,7 +25,7 @@ export function useReplaceLocation() {
       }
       replaceLocation({
         ...optimisticLocation,
-        search: "?" + searchParams.toString(),
+        search: "?" + searchParams.toString()
       });
     },
     [optimisticLocation, replaceLocation]

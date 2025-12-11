@@ -6,7 +6,7 @@ import {
   CardTitle,
   Heading,
   ScrollArea,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { json, type ActionFunctionArgs } from "@vercel/remix";
 import type { Company } from "~/modules/settings";
@@ -15,7 +15,7 @@ import {
   updateLogoDark,
   updateLogoDarkIcon,
   updateLogoLight,
-  updateLogoLightIcon,
+  updateLogoLightIcon
 } from "~/modules/settings";
 
 import { requirePermissions } from "@carbon/auth/auth.server";
@@ -26,12 +26,12 @@ import { path } from "~/utils/path";
 
 export const handle: Handle = {
   breadcrumb: "Logos",
-  to: path.to.logos,
+  to: path.to.logos
 };
 
 export async function action({ request }: ActionFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    update: "settings",
+    update: "settings"
   });
 
   const formData = await request.formData();

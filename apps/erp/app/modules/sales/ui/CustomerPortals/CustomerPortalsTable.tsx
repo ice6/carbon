@@ -7,7 +7,7 @@ import {
   LuExternalLink,
   LuPencil,
   LuSquareUser,
-  LuTrash,
+  LuTrash
 } from "react-icons/lu";
 import { CustomerAvatar, Hyperlink, New, Table } from "~/components";
 import { usePermissions, useUrlParams } from "~/hooks";
@@ -46,8 +46,8 @@ const CustomerPortalsTable = memo(
             </Hyperlink>
           ),
           meta: {
-            icon: <LuSquareUser />,
-          },
+            icon: <LuSquareUser />
+          }
         },
         {
           accessorKey: "portalLink",
@@ -69,9 +69,9 @@ const CustomerPortalsTable = memo(
             );
           },
           meta: {
-            icon: <LuExternalLink />,
-          },
-        },
+            icon: <LuExternalLink />
+          }
+        }
       ];
       return defaultColumns;
     }, [appUrl]);

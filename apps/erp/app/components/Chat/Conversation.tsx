@@ -4,7 +4,6 @@ import { useCallback } from "react";
 import { LuArrowDown } from "react-icons/lu";
 import { StickToBottom, useStickToBottomContext } from "use-stick-to-bottom";
 
-
 export type ConversationProps = ComponentProps<typeof StickToBottom>;
 
 export const Conversation = ({ className, ...props }: ConversationProps) => (
@@ -45,7 +44,7 @@ export const ConversationEmptyState = ({
   <div
     className={cn(
       "flex size-full flex-col items-center justify-center gap-3 p-8 text-center",
-      className,
+      className
     )}
     {...props}
   >
@@ -78,10 +77,10 @@ export const ConversationScrollButton = ({
   return (
     !isAtBottom && (
       <IconButton
-      icon={<LuArrowDown  />}
+        icon={<LuArrowDown />}
         className={cn(
           "absolute bottom-42 left-[50%] translate-x-[-50%] rounded-full",
-          className,
+          className
         )}
         onClick={handleScrollToBottom}
         size="icon"
@@ -89,7 +88,6 @@ export const ConversationScrollButton = ({
         variant="secondary"
         {...props}
       />
-       
     )
   );
 };

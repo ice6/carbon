@@ -7,7 +7,7 @@ import { deleteProcedureStep } from "~/modules/production/production.service";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    delete: "production",
+    delete: "production"
   });
 
   const { stepId } = params;
@@ -18,7 +18,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   if (deleteStep.error) {
     return json(
       {
-        success: false,
+        success: false
       },
       await flash(request, error(deleteStep.error, "Failed to delete step"))
     );
@@ -26,7 +26,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
   return json(
     {
-      success: true,
+      success: true
     },
     await flash(request, success("Successfully deleted step"))
   );

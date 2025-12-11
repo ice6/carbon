@@ -4,7 +4,7 @@ import { useCalendarGrid } from "@react-aria/calendar";
 import { useLocale } from "@react-aria/i18n";
 import type {
   CalendarState,
-  RangeCalendarState,
+  RangeCalendarState
 } from "@react-stately/calendar";
 import { CalendarCell } from "./CalendarCell";
 import { CalendarRangeCell } from "./CalendarRangeCell";
@@ -12,7 +12,7 @@ import { CalendarRangeCell } from "./CalendarRangeCell";
 export const CalendarGrid = ({
   state,
   offset = {},
-  isRangeCalendar = false,
+  isRangeCalendar = false
 }: {
   state: CalendarState | RangeCalendarState;
   offset?: DateDuration;
@@ -24,7 +24,7 @@ export const CalendarGrid = ({
   const { gridProps, headerProps, weekDays } = useCalendarGrid(
     {
       startDate,
-      endDate,
+      endDate
     },
     state
   );

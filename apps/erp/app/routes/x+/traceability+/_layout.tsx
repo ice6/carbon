@@ -10,7 +10,7 @@ export const meta: MetaFunction = () => {
 export const handle: Handle = {
   breadcrumb: "Inventory",
   to: path.to.inventory,
-  module: "inventory",
+  module: "inventory"
 };
 
 export default function TraceabilityLayout() {

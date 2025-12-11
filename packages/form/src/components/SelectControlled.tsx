@@ -2,7 +2,7 @@ import {
   FormControl,
   FormErrorMessage,
   FormHelperText,
-  FormLabel,
+  FormLabel
 } from "@carbon/react";
 import { useEffect } from "react";
 
@@ -65,7 +65,7 @@ const SelectControlled = ({
       )}
       <input
         {...getInputProps({
-          id: name,
+          id: name
         })}
         type="hidden"
         name={name}

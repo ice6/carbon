@@ -12,7 +12,7 @@ import { path } from "~/utils/path";
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
     view: "accounting",
-    role: "employee",
+    role: "employee"
   });
 
   const { categoryId, subcategoryId } = params;
@@ -31,7 +31,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   }
 
   return json({
-    subcategory: subcategory.data,
+    subcategory: subcategory.data
   });
 }
 
@@ -45,7 +45,7 @@ export default function EditAccountSubcategoryRoute() {
 
   const initialValues = {
     ...subcategory,
-    ...getCustomFields(subcategory.customFields),
+    ...getCustomFields(subcategory.customFields)
   };
 
   return (

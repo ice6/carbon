@@ -9,7 +9,7 @@ import {
   DropdownMenuTrigger,
   Heading,
   HStack,
-  toast,
+  toast
 } from "@carbon/react";
 import { Link, useFetcher } from "@remix-run/react";
 import { useCallback, useEffect, useState } from "react";
@@ -20,7 +20,7 @@ import {
   LuCircleStop,
   LuHandCoins,
   LuLoaderCircle,
-  LuTruck,
+  LuTruck
 } from "react-icons/lu";
 import { usePermissions } from "~/hooks";
 import type { action as statusAction } from "~/routes/x+/warehouse-transfer+/$transferId.status";
@@ -35,7 +35,7 @@ type WarehouseTransferHeaderProps = {
 };
 
 const WarehouseTransferHeader = ({
-  warehouseTransfer,
+  warehouseTransfer
 }: WarehouseTransferHeaderProps) => {
   const permissions = usePermissions();
   const statusFetcher = useFetcher<typeof statusAction>();
@@ -305,7 +305,7 @@ export const useWarehouseTransferRelatedDocuments = (
         carbon
           .from("warehouseTransferLine")
           .select("shippedQuantity")
-          .eq("transferId", warehouseTransferId),
+          .eq("transferId", warehouseTransferId)
       ]);
 
       if (receipts.error) {

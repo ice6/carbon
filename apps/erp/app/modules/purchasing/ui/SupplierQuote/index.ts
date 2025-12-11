@@ -15,5 +15,5 @@ export {
   SupplierQuoteLinePricing,
   SupplierQuoteProperties,
   SupplierQuoteStatus,
-  SupplierQuotesTable,
+  SupplierQuotesTable
 };

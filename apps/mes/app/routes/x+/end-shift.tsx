@@ -12,7 +12,7 @@ export async function action({ request }: ActionFunctionArgs) {
   const updates = await endProductionEvents(client, {
     companyId,
     employeeId: userId,
-    endTime: now(timezone ?? getLocalTimeZone()).toAbsoluteString(),
+    endTime: now(timezone ?? getLocalTimeZone()).toAbsoluteString()
   });
 
   if (updates.error) {

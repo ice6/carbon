@@ -12,7 +12,7 @@ import { getParams, path } from "~/utils/path";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   const { client } = await requirePermissions(request, {
-    update: "users",
+    update: "users"
   });
 
   const { id } = params;

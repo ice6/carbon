@@ -15,13 +15,13 @@ import { getGenericQueryFilters } from "~/utils/query";
 
 export const handle: Handle = {
   breadcrumb: "Dimensions",
-  to: path.to.materialDimensions,
+  to: path.to.materialDimensions
 };
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
     view: "parts",
-    role: "employee",
+    role: "employee"
   });
 
   const url = new URL(request.url);
@@ -39,8 +39,8 @@ export async function loader({ request }: LoaderFunctionArgs) {
       sorts,
       search,
       filters,
-      isMetric: settings?.data?.useMetric ?? false,
-    }),
+      isMetric: settings?.data?.useMetric ?? false
+    })
   ]);
 
   if (materialDimensions.error) {
@@ -53,7 +53,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
   return json({
     materialDimensions: materialDimensions.data ?? [],
-    count: materialDimensions.count ?? 0,
+    count: materialDimensions.count ?? 0
   });
 }
 

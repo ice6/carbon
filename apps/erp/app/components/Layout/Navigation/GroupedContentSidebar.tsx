@@ -8,7 +8,7 @@ import {
   DropdownMenuTrigger,
   IconButton,
   useDebounce,
-  VStack,
+  VStack
 } from "@carbon/react";
 
 import { Link, useSubmit } from "@remix-run/react";
@@ -19,7 +19,7 @@ import {
   LuChevronRight,
   LuEllipsisVertical,
   LuGripVertical,
-  LuTrash,
+  LuTrash
 } from "react-icons/lu";
 import { ConfirmDelete } from "~/components/Modals";
 import { useOptimisticLocation } from "~/hooks";
@@ -30,7 +30,7 @@ import { CollapsibleSidebar } from "./CollapsibleSidebar";
 const GroupedContentSidebar = ({
   groups,
   width = 240,
-  exactMatch = false,
+  exactMatch = false
 }: {
   groups: RouteGroup[];
   width?: number;
@@ -41,14 +41,17 @@ const GroupedContentSidebar = ({
 
   const [expandedViews, setExpandedViews] = useState<Record<string, boolean>>(
     () =>
-      groups.reduce((acc, group) => {
-        group.routes.forEach((route) => {
-          if (route.views?.length) {
-            acc[route.name] = true;
-          }
-        });
-        return acc;
-      }, {} as Record<string, boolean>)
+      groups.reduce(
+        (acc, group) => {
+          group.routes.forEach((route) => {
+            if (route.views?.length) {
+              acc[route.name] = true;
+            }
+          });
+          return acc;
+        },
+        {} as Record<string, boolean>
+      )
   );
 
   const [selectedView, setSelectedView] = useState<{
@@ -61,7 +64,7 @@ const GroupedContentSidebar = ({
   const toggleViews = (routeName: string) => {
     setExpandedViews((prev) => ({
       ...prev,
-      [routeName]: !prev[routeName],
+      [routeName]: !prev[routeName]
     }));
   };
 
@@ -89,7 +92,7 @@ const GroupedContentSidebar = ({
                 if (hasViews && !(route.name in expandedViews)) {
                   setExpandedViews((prev) => ({
                     ...prev,
-                    [route.name]: true,
+                    [route.name]: true
                   }));
                 }
 
@@ -136,7 +139,7 @@ const GroupedContentSidebar = ({
                           submit(formData, {
                             action: path.to.saveViewOrder,
                             method: "post",
-                            navigate: false,
+                            navigate: false
                           });
                         }}
                         onDelete={(view) => setSelectedView(view)}
@@ -169,7 +172,7 @@ const ViewsReorderGroup = ({
   views,
   location,
   onReorder,
-  onDelete,
+  onDelete
 }: {
   views: { id: string; name: string; to: string; sortOrder: number }[];
   location: ReturnType<typeof useOptimisticLocation>;
@@ -209,7 +212,7 @@ const ViewsReorderGroup = ({
       onReorder={(newOrder) => {
         const updates = newOrder.map((view, index) => ({
           ...view,
-          sortOrder: index,
+          sortOrder: index
         }));
 
         setSortedViews(updates);

@@ -7,7 +7,7 @@ import { requestReferrer } from "~/utils/path";
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { companyId, userId } = await requirePermissions(request, {
-    update: "parts",
+    update: "parts"
   });
 
   const url = new URL(request.url);
@@ -21,20 +21,20 @@ export async function action({ request, params }: ActionFunctionArgs) {
   const update = await activateMethodVersion(getCarbonServiceRole(), {
     id,
     companyId,
-    userId,
+    userId
   });
 
   if (update.error) {
     return json({
       success: false,
-      message: "Failed to activate method version",
+      message: "Failed to activate method version"
     });
   }
 
   if (!methodToReplace) {
     return json({
       success: false,
-      message: "Method to replace is required",
+      message: "Method to replace is required"
     });
   }
 
@@ -46,7 +46,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   if (!redirectPath) {
     return json({
       success: false,
-      message: "Failed to redirect to the correct page",
+      message: "Failed to redirect to the correct page"
     });
   }
 

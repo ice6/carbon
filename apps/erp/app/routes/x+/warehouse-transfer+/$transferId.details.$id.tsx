@@ -5,13 +5,13 @@ import { validationError, validator } from "@carbon/form";
 import { useLoaderData, useNavigate, useParams } from "@remix-run/react";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@vercel/remix";
 import { json, redirect } from "@vercel/remix";
-import { z } from 'zod/v3';
+import { z } from "zod/v3";
 import { zfd } from "zod-form-data";
 import {
   deleteWarehouseTransferLine,
   getWarehouseTransferLine,
   upsertWarehouseTransferLine,
-  WarehouseTransferLineForm,
+  WarehouseTransferLineForm
 } from "~/modules/inventory";
 import { path } from "~/utils/path";
 
@@ -23,7 +23,7 @@ const warehouseTransferLineActionValidator = z.discriminatedUnion("type", [
     quantity: zfd.numeric(z.number().min(0.0001)),
     fromShelfId: zfd.text(z.string().optional()),
     toShelfId: zfd.text(z.string().optional()),
-    notes: zfd.text(z.string().optional()),
+    notes: zfd.text(z.string().optional())
   }),
   z.object({
     type: z.literal("update"),
@@ -31,17 +31,17 @@ const warehouseTransferLineActionValidator = z.discriminatedUnion("type", [
     quantity: zfd.numeric(z.number().min(0.0001)),
     fromShelfId: zfd.text(z.string().optional()),
     toShelfId: zfd.text(z.string().optional()),
-    notes: zfd.text(z.string().optional()),
+    notes: zfd.text(z.string().optional())
   }),
   z.object({
     type: z.literal("delete"),
-    id: z.string().min(1),
-  }),
+    id: z.string().min(1)
+  })
 ]);
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
-    update: "inventory",
+    update: "inventory"
   });
 
   const { transferId, id } = params;
@@ -72,7 +72,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    update: "inventory",
+    update: "inventory"
   });
 
   const { transferId, id } = params;
@@ -97,7 +97,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
         ...data,
         transferId,
         companyId,
-        updatedBy: userId,
+        updatedBy: userId
       });
 
       if (result.error) {
@@ -164,7 +164,7 @@ export default function WarehouseTransferLineDetailsRoute() {
     quantity: warehouseTransferLine.quantity ?? 1,
     fromShelfId: warehouseTransferLine.fromShelfId ?? "",
     toShelfId: warehouseTransferLine.toShelfId ?? "",
-    notes: warehouseTransferLine.notes ?? "",
+    notes: warehouseTransferLine.notes ?? ""
   };
 
   const navigate = useNavigate();

@@ -18,7 +18,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   if (deleteView.error) {
     return json(
       {
-        id: null,
+        id: null
       },
       await flash(request, error(deleteView.error, "Failed to delete view"))
     );

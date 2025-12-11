@@ -10,7 +10,7 @@ import { cn } from "./utils/cn";
 
 const ToggleGroupContext = createContext<VariantProps<typeof toggleVariants>>({
   size: "default",
-  variant: "default",
+  variant: "default"
 });
 
 const ToggleGroup = forwardRef<
@@ -44,7 +44,7 @@ const ToggleGroupItem = forwardRef<
       className={cn(
         toggleVariants({
           variant: context.variant || variant,
-          size: context.size || size,
+          size: context.size || size
         }),
         className
       )}

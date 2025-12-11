@@ -2,11 +2,11 @@ import {
   CONTROLLED_ENVIRONMENT,
   error,
   getBrowserEnv,
-  getCarbon,
+  getCarbon
 } from "@carbon/auth";
 import {
   getOrRefreshAuthSession,
-  getSessionFlash,
+  getSessionFlash
 } from "@carbon/auth/session.server";
 import { validator } from "@carbon/form";
 import {
@@ -18,7 +18,7 @@ import {
   toast,
   Toaster,
   TooltipProvider,
-  useDisclosure,
+  useDisclosure
 } from "@carbon/react";
 import {
   isRouteErrorResponse,
@@ -31,13 +31,13 @@ import {
   ScrollRestoration,
   useFetcher,
   useLoaderData,
-  useRouteError,
+  useRouteError
 } from "@remix-run/react";
 import { Analytics } from "@vercel/analytics/react";
 import type {
   ActionFunctionArgs,
   LoaderFunctionArgs,
-  MetaFunction,
+  MetaFunction
 } from "@vercel/remix";
 import { json } from "@vercel/remix";
 import React, { useEffect } from "react";
@@ -58,15 +58,15 @@ import { path } from "./utils/path";
 export function links() {
   return [
     { rel: "stylesheet", href: Tailwind },
-    { rel: "stylesheet", href: NProgress },
+    { rel: "stylesheet", href: NProgress }
   ];
 }
 
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "Carbon Academy",
-    },
+      title: "Carbon Academy"
+    }
   ];
 };
 
@@ -76,7 +76,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
     POSTHOG_API_HOST,
     POSTHOG_PROJECT_PUBLIC_KEY,
     SUPABASE_URL,
-    SUPABASE_ANON_KEY,
+    SUPABASE_ANON_KEY
   } = getBrowserEnv();
 
   let session = await getOrRefreshAuthSession(request);
@@ -104,7 +104,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
       client
         .from("challengeAttempt")
         .select("topicId, courseId, passed")
-        .eq("userId", session.userId),
+        .eq("userId", session.userId)
     ]);
 
     if (authUser.data) {
@@ -125,16 +125,16 @@ export async function loader({ request }: LoaderFunctionArgs) {
         POSTHOG_API_HOST,
         POSTHOG_PROJECT_PUBLIC_KEY,
         SUPABASE_URL,
-        SUPABASE_ANON_KEY,
+        SUPABASE_ANON_KEY
       },
       lessonCompletions,
       mode: getMode(request),
       result: sessionFlash?.result,
       user,
-      session,
+      session
     },
     {
-      headers: sessionFlash?.headers,
+      headers: sessionFlash?.headers
     }
   );
 }
@@ -146,14 +146,14 @@ export async function action({ request }: ActionFunctionArgs) {
 
   if (validation.error) {
     return json(error(validation.error, "Invalid mode"), {
-      status: 400,
+      status: 400
     });
   }
 
   return json(
     {},
     {
-      headers: { "Set-Cookie": setMode(validation.data.mode) },
+      headers: { "Set-Cookie": setMode(validation.data.mode) }
     }
   );
 }
@@ -161,7 +161,7 @@ export async function action({ request }: ActionFunctionArgs) {
 function Document({
   children,
   title = "Carbon",
-  mode = "light",
+  mode = "light"
 }: {
   children: React.ReactNode;
   title?: string;
@@ -332,18 +332,18 @@ export default function App() {
             initial={{ height: 0, opacity: 0 }}
             animate={{
               height: disclosure.isOpen ? "auto" : 0,
-              opacity: disclosure.isOpen ? 1 : 0,
+              opacity: disclosure.isOpen ? 1 : 0
             }}
             transition={{
               height: {
                 duration: 0.3,
-                ease: "easeInOut",
+                ease: "easeInOut"
               },
               opacity: {
                 duration: 0.2,
                 delay: disclosure.isOpen ? 0.1 : 0,
-                ease: "easeInOut",
-              },
+                ease: "easeInOut"
+              }
             }}
           >
             <div className="max-w-5xl mx-auto px-3 py-4 flex gap-8 z-logo items-center text-white w-full">
@@ -384,7 +384,7 @@ export default function App() {
                           className="size-8 rounded-lg flex items-center justify-center"
                           style={{
                             backgroundColor: module.background,
-                            color: module.foreground,
+                            color: module.foreground
                           }}
                         >
                           {course.icon}
@@ -408,7 +408,7 @@ export default function App() {
       <Outlet />
       <script
         dangerouslySetInnerHTML={{
-          __html: `window.env = ${JSON.stringify(env)}`,
+          __html: `window.env = ${JSON.stringify(env)}`
         }}
       />
     </Document>
@@ -419,10 +419,10 @@ export function ErrorBoundary() {
   const error = useRouteError();
 
   const message = isRouteErrorResponse(error)
-    ? error.data.message ?? error.data
+    ? (error.data.message ?? error.data)
     : error instanceof Error
-    ? error.message
-    : String(error);
+      ? error.message
+      : String(error);
 
   return (
     <Document title="Error!">

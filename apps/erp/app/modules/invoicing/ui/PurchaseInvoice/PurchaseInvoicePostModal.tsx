@@ -14,7 +14,7 @@ import {
   Thead,
   toast,
   Tr,
-  VStack,
+  VStack
 } from "@carbon/react";
 
 import { getItemReadableId } from "@carbon/utils";
@@ -39,7 +39,7 @@ const PurchaseInvoicePostModal = ({
   isOpen,
   onClose,
   invoiceId,
-  linesToReceive,
+  linesToReceive
 }: PurchaseInvoicePostModalProps) => {
   const [items] = useItems();
   const hasLinesToReceive = linesToReceive.length > 0;

@@ -9,7 +9,7 @@ import { path } from "~/utils/path";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    view: "inventory",
+    view: "inventory"
   });
 
   const { id } = params;
@@ -17,7 +17,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
   const [companySettings, receiptLineTracking] = await Promise.all([
     getCompanySettings(client, companyId),
-    getReceiptTracking(client, id, companyId),
+    getReceiptTracking(client, id, companyId)
   ]);
 
   // Get the label size from query params or default to zebra2x1
@@ -38,7 +38,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     throw redirect(
       path.to.file.receiptLabelsPdf(id, {
         labelSize: labelSize.id,
-        lineId: lineIdParam ?? undefined,
+        lineId: lineIdParam ?? undefined
       })
     );
   }
@@ -66,7 +66,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
         "",
       trackedEntityId: tracking.id,
       quantity: tracking.quantity,
-      trackingType: tracking.quantity > 1 ? "Batch" : "Serial",
+      trackingType: tracking.quantity > 1 ? "Batch" : "Serial"
     }))
     .sort((a, b) => {
       if (a.itemId === b.itemId) {
@@ -96,7 +96,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
   const headers = new Headers({
     "Content-Type": "application/zpl",
-    "Content-Disposition": `attachment; filename="labels-${id}.zpl"`,
+    "Content-Disposition": `attachment; filename="labels-${id}.zpl"`
   });
 
   return new Response(zplOutput, { status: 200, headers });

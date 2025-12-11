@@ -4,7 +4,7 @@ import {
   FormErrorMessage,
   FormHelperText,
   FormLabel,
-  Textarea as TextAreaBase,
+  Textarea as TextAreaBase
 } from "@carbon/react";
 import type { ChangeEvent } from "react";
 import { forwardRef, useEffect } from "react";
@@ -66,7 +66,7 @@ const TextAreaControlled = forwardRef<
           ref={ref}
           {...getInputProps({
             id: name,
-            ...rest,
+            ...rest
           })}
           value={controlValue}
           onChange={handleChange}

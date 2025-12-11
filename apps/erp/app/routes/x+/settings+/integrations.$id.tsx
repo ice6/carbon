@@ -11,7 +11,7 @@ import { path } from "~/utils/path";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    update: "settings",
+    update: "settings"
   });
 
   const { id: integrationId } = params;
@@ -29,20 +29,20 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   if (integrationData.error || !integrationData.data) {
     return {
       installed: false,
-      metadata: {},
+      metadata: {}
     };
   }
 
   return {
     installed: integrationData.data.active,
-    metadata: (integrationData.data.metadata ?? {}) as Record<string, unknown>,
+    metadata: (integrationData.data.metadata ?? {}) as Record<string, unknown>
   };
 }
 
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    update: "settings",
+    update: "settings"
   });
 
   const { id: integrationId } = params;
@@ -66,10 +66,10 @@ export async function action({ request, params }: ActionFunctionArgs) {
     id: integrationId,
     active: true,
     metadata: {
-      ...data,
+      ...data
     },
     companyId,
-    updatedBy: userId,
+    updatedBy: userId
   });
   if (update.error) {
     throw redirect(

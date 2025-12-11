@@ -15,7 +15,7 @@ import { path } from "~/utils/path";
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    create: "sales",
+    create: "sales"
   });
 
   const { orderId } = params;
@@ -36,7 +36,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     ...data,
     companyId,
     createdBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
 
   if (createSalesOrderLine.error) {
@@ -77,7 +77,7 @@ export default function NewSalesOrderLineRoute() {
       salesOrderData?.salesOrder?.receiptPromisedDate ??
       salesOrderData?.salesOrder?.receiptRequestedDate ??
       "",
-    shippingCost: 0,
+    shippingCost: 0
   };
 
   return (

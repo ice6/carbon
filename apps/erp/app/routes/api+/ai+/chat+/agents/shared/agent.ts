@@ -9,40 +9,40 @@ import { PROFILE_PROMPT, SUGGESTION_PROMPT, TITLE_PROMPT } from "./prompts";
 export const memoryProvider = new UpstashProvider(
   new Redis({
     url: UPSTASH_REDIS_REST_URL,
-    token: UPSTASH_REDIS_REST_TOKEN,
+    token: UPSTASH_REDIS_REST_TOKEN
   })
 );
 
 export const createAgent = (config: AgentConfig<ChatContext>) => {
   return new Agent({
     modelSettings: {
-      parallel_tool_calls: true,
+      parallel_tool_calls: true
     },
     ...config,
     memory: {
       provider: memoryProvider,
       history: {
         enabled: true,
-        limit: 10,
+        limit: 10
       },
       workingMemory: {
         enabled: false, // Disabled to prevent multiple system messages in multi-agent handoffs
         template: PROFILE_PROMPT,
-        scope: "user",
+        scope: "user"
       },
       chats: {
         enabled: true,
         generateTitle: {
           model: openai("gpt-4.1-nano"),
-          instructions: TITLE_PROMPT,
+          instructions: TITLE_PROMPT
         },
         generateSuggestions: {
           enabled: true,
           model: openai("gpt-4.1-nano"),
           limit: 5,
-          instructions: SUGGESTION_PROMPT,
-        },
-      },
-    },
+          instructions: SUGGESTION_PROMPT
+        }
+      }
+    }
   });
 };

@@ -6,7 +6,7 @@ import { useMemo, useRef, useState } from "react";
 import { useRouteData } from "~/hooks";
 import type {
   UnitOfMeasureListItem,
-  getUnitOfMeasuresList,
+  getUnitOfMeasuresList
 } from "~/modules/items";
 import UnitOfMeasureForm from "~/modules/items/ui/UnitOfMeasure/UnitOfMeasureForm";
 import { path } from "~/utils/path";
@@ -56,7 +56,7 @@ const UnitOfMeasure = (props: UnitOfMeasureSelectProps) => {
           }}
           initialValues={{
             name: created,
-            code: "",
+            code: ""
           }}
         />
       )}
@@ -90,12 +90,12 @@ export const useUnitOfMeasure = () => {
 
     return dataSource.map((c) => ({
       value: c.code,
-      label: c.name,
+      label: c.name
     }));
   }, [
     hasSharedPartData,
     sharedPartData?.unitOfMeasures,
-    uomFetcher.data?.data,
+    uomFetcher.data?.data
   ]);
 
   return options;

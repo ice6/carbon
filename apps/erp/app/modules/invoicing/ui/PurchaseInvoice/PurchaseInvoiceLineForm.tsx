@@ -12,7 +12,7 @@ import {
   ModalCardHeader,
   ModalCardProvider,
   ModalCardTitle,
-  VStack,
+  VStack
 } from "@carbon/react";
 
 import { useCarbon } from "@carbon/auth";
@@ -30,14 +30,14 @@ import {
   NumberControlled,
   Shelf,
   Submit,
-  UnitOfMeasure,
+  UnitOfMeasure
 } from "~/components/Form";
 import {
   useCurrencyFormatter,
   usePercentFormatter,
   usePermissions,
   useRouteData,
-  useUser,
+  useUser
 } from "~/hooks";
 import type { PurchaseInvoice } from "~/modules/invoicing";
 import { purchaseInvoiceLineValidator } from "~/modules/invoicing";
@@ -56,7 +56,7 @@ type PurchaseInvoiceLineFormProps = {
 const PurchaseInvoiceLineForm = ({
   initialValues,
   type,
-  onClose,
+  onClose
 }: PurchaseInvoiceLineFormProps) => {
   const permissions = usePermissions();
   const { carbon } = useCarbon();
@@ -104,7 +104,7 @@ const PurchaseInvoiceLineForm = ({
     shelfId: initialValues.shelfId ?? "",
     minimumOrderQuantity: undefined,
     taxAmount: initialValues.supplierTaxAmount ?? 0,
-    taxPercent: initialValues.taxPercent ?? 0,
+    taxPercent: initialValues.taxPercent ?? 0
   });
 
   // update tax amount when quantity or unit price changes
@@ -115,22 +115,22 @@ const PurchaseInvoiceLineForm = ({
     if (itemData.taxPercent !== 0) {
       setItemData((d) => ({
         ...d,
-        taxAmount: subtotal * itemData.taxPercent,
+        taxAmount: subtotal * itemData.taxPercent
       }));
     }
   }, [
     itemData.supplierUnitPrice,
     itemData.quantity,
     itemData.supplierShippingCost,
-    itemData.taxPercent,
+    itemData.taxPercent
   ]);
 
   const isEditing = initialValues.id !== undefined;
   const isDisabled = !isEditable
     ? true
     : isEditing
-    ? !permissions.can("update", "purchasing")
-    : !permissions.can("create", "purchasing");
+      ? !permissions.can("update", "purchasing")
+      : !permissions.can("create", "purchasing");
 
   const currencyFormatter = useCurrencyFormatter();
   const percentFormatter = usePercentFormatter();
@@ -150,7 +150,7 @@ const PurchaseInvoiceLineForm = ({
       shelfId: "",
       minimumOrderQuantity: undefined,
       taxAmount: 0,
-      taxPercent: 0,
+      taxPercent: 0
     });
   };
 
@@ -185,7 +185,7 @@ const PurchaseInvoiceLineForm = ({
             .eq("itemId", itemId)
             .eq("companyId", company.id)
             .eq("locationId", locationId!)
-            .maybeSingle(),
+            .maybeSingle()
         ]);
 
         const itemCost = item?.data?.itemCost?.[0];
@@ -211,7 +211,7 @@ const PurchaseInvoiceLineForm = ({
             1,
           shelfId: inventory.data?.defaultShelfId ?? null,
           taxAmount: 0,
-          taxPercent: 0,
+          taxPercent: 0
         });
 
         if (item.data?.type) {
@@ -243,7 +243,7 @@ const PurchaseInvoiceLineForm = ({
 
     setItemData((d) => ({
       ...d,
-      shelfId: shelf?.data?.defaultShelfId ?? "",
+      shelfId: shelf?.data?.defaultShelfId ?? ""
     }));
   };
 
@@ -276,7 +276,7 @@ const PurchaseInvoiceLineForm = ({
                 )}
               >
                 {isEditing
-                  ? getItemReadableId(items, itemData?.itemId) ?? "..."
+                  ? (getItemReadableId(items, itemData?.itemId) ?? "...")
                   : "New Purchase Invoice Line"}
               </ModalCardTitle>
               <ModalCardDescription>
@@ -342,7 +342,7 @@ const PurchaseInvoiceLineForm = ({
                       onChange={(e) =>
                         setItemData((d) => ({
                           ...d,
-                          description: e.target.value,
+                          description: e.target.value
                         }))
                       }
                     />
@@ -360,7 +360,7 @@ const PurchaseInvoiceLineForm = ({
                         onChange={(value) => {
                           setItemData((d) => ({
                             ...d,
-                            quantity: value,
+                            quantity: value
                           }));
                         }}
                       />
@@ -373,7 +373,7 @@ const PurchaseInvoiceLineForm = ({
                           if (newValue) {
                             setItemData((d) => ({
                               ...d,
-                              purchaseUom: newValue?.value as string,
+                              purchaseUom: newValue?.value as string
                             }));
                           }
                         }}
@@ -386,7 +386,7 @@ const PurchaseInvoiceLineForm = ({
                         onChange={(value) => {
                           setItemData((d) => ({
                             ...d,
-                            conversionFactor: value,
+                            conversionFactor: value
                           }));
                         }}
                       />
@@ -399,12 +399,12 @@ const PurchaseInvoiceLineForm = ({
                           style: "currency",
                           currency:
                             routeData?.purchaseInvoice?.currencyCode ??
-                            company.baseCurrencyCode,
+                            company.baseCurrencyCode
                         }}
                         onChange={(value) =>
                           setItemData((d) => ({
                             ...d,
-                            supplierUnitPrice: value,
+                            supplierUnitPrice: value
                           }))
                         }
                       />
@@ -417,12 +417,12 @@ const PurchaseInvoiceLineForm = ({
                           style: "currency",
                           currency:
                             routeData?.purchaseInvoice?.currencyCode ??
-                            company.baseCurrencyCode,
+                            company.baseCurrencyCode
                         }}
                         onChange={(value) =>
                           setItemData((d) => ({
                             ...d,
-                            supplierShippingCost: value,
+                            supplierShippingCost: value
                           }))
                         }
                       />
@@ -435,7 +435,7 @@ const PurchaseInvoiceLineForm = ({
                           style: "currency",
                           currency:
                             routeData?.purchaseInvoice?.currencyCode ??
-                            company.baseCurrencyCode,
+                            company.baseCurrencyCode
                         }}
                         onChange={(value) => {
                           const subtotal =
@@ -444,7 +444,7 @@ const PurchaseInvoiceLineForm = ({
                           setItemData((d) => ({
                             ...d,
                             taxAmount: value,
-                            taxPercent: subtotal > 0 ? value / subtotal : 0,
+                            taxPercent: subtotal > 0 ? value / subtotal : 0
                           }));
                         }}
                       />
@@ -464,7 +464,7 @@ const PurchaseInvoiceLineForm = ({
                           if (newValue) {
                             setItemData((d) => ({
                               ...d,
-                              shelfId: newValue?.id,
+                              shelfId: newValue?.id
                             }));
                           }
                         }}
@@ -481,7 +481,7 @@ const PurchaseInvoiceLineForm = ({
                     formatOptions={{
                       style: "percent",
                       minimumFractionDigits: 0,
-                      maximumFractionDigits: 2,
+                      maximumFractionDigits: 2
                     }}
                     onChange={(value) => {
                       const subtotal =
@@ -490,7 +490,7 @@ const PurchaseInvoiceLineForm = ({
                       setItemData((d) => ({
                         ...d,
                         taxPercent: value,
-                        taxAmount: subtotal * value,
+                        taxAmount: subtotal * value
                       }));
                     }}
                   />

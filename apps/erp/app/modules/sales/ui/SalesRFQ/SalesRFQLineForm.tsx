@@ -18,7 +18,7 @@ import {
   ModalCardTitle,
   toast,
   useDisclosure,
-  VStack,
+  VStack
 } from "@carbon/react";
 
 import { useCarbon } from "@carbon/auth";
@@ -27,7 +27,7 @@ import { useParams } from "@remix-run/react";
 import { useState } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { LuTrash } from "react-icons/lu";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import {
   ArrayNumeric,
   CustomFormFields,
@@ -35,7 +35,7 @@ import {
   InputControlled,
   Item,
   Submit,
-  UnitOfMeasure,
+  UnitOfMeasure
 } from "~/components/Form";
 import { usePermissions, useRouteData, useUser } from "~/hooks";
 import { path } from "~/utils/path";
@@ -52,7 +52,7 @@ type SalesRFQLineFormProps = {
 const SalesRFQLineForm = ({
   initialValues,
   type,
-  onClose,
+  onClose
 }: SalesRFQLineFormProps) => {
   const permissions = usePermissions();
   const { company } = useUser();
@@ -85,7 +85,7 @@ const SalesRFQLineForm = ({
     itemId: initialValues.itemId ?? "",
     description: initialValues.description ?? "",
     unitOfMeasureCode: initialValues.unitOfMeasureCode ?? "EA",
-    modelUploadId: initialValues.modelUploadId ?? null,
+    modelUploadId: initialValues.modelUploadId ?? null
   });
 
   const onCustomerPartChange = async (customerPartId: string) => {
@@ -150,7 +150,7 @@ const SalesRFQLineForm = ({
         .select("customerPartId, customerPartRevision")
         .eq("itemId", itemId)
         .eq("customerId", routeData?.rfqSummary?.customerId!)
-        .maybeSingle(),
+        .maybeSingle()
     ]);
 
     if (item.error) {
@@ -163,7 +163,7 @@ const SalesRFQLineForm = ({
       itemId,
       description: item.data?.name ?? "",
       unitOfMeasureCode: item.data?.unitOfMeasureCode ?? "EA",
-      modelUploadId: item.data?.modelUploadId ?? null,
+      modelUploadId: item.data?.modelUploadId ?? null
     };
 
     if (customerPart.data && !itemData.customerPartId) {
@@ -267,7 +267,7 @@ const SalesRFQLineForm = ({
                         onChange={(newValue) => {
                           setItemData((d) => ({
                             ...d,
-                            customerPartId: newValue,
+                            customerPartId: newValue
                           }));
                         }}
                         onBlur={(e) => onCustomerPartChange(e.target.value)}
@@ -280,7 +280,7 @@ const SalesRFQLineForm = ({
                         onChange={(newValue) => {
                           setItemData((d) => ({
                             ...d,
-                            customerPartRevision: newValue,
+                            customerPartRevision: newValue
                           }));
                         }}
                         onBlur={(e) =>
@@ -309,7 +309,7 @@ const SalesRFQLineForm = ({
                         onChange={(newValue) =>
                           setItemData((d) => ({
                             ...d,
-                            unitOfMeasureCode: newValue?.value ?? "EA",
+                            unitOfMeasureCode: newValue?.value ?? "EA"
                           }))
                         }
                       />

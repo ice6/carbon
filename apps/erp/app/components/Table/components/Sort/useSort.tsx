@@ -25,11 +25,11 @@ export function useSort() {
 
     if (!existingSort.includes(sortAsc)) {
       setParams({
-        sort: [sortAsc, ...existingSort.filter((s) => s !== sortDesc)],
+        sort: [sortAsc, ...existingSort.filter((s) => s !== sortDesc)]
       });
     } else {
       setParams({
-        sort: existingSort.filter((s) => s !== sortAsc),
+        sort: existingSort.filter((s) => s !== sortAsc)
       });
     }
   };
@@ -41,11 +41,11 @@ export function useSort() {
 
     if (!existingSort.includes(sortDesc)) {
       setParams({
-        sort: [sortDesc, ...existingSort.filter((s) => s !== sortAsc)],
+        sort: [sortDesc, ...existingSort.filter((s) => s !== sortAsc)]
       });
     } else {
       setParams({
-        sort: existingSort.filter((s) => s !== sortDesc),
+        sort: existingSort.filter((s) => s !== sortDesc)
       });
     }
   };
@@ -57,7 +57,7 @@ export function useSort() {
 
     if (existingSort.includes(sortAsc)) {
       setParams({
-        sort: existingSort.filter((s) => s !== sortAsc).concat(sortDesc),
+        sort: existingSort.filter((s) => s !== sortAsc).concat(sortDesc)
       });
     } else if (existingSort.includes(sortDesc)) {
       setParams({ sort: existingSort.filter((s) => s !== sortDesc) });
@@ -73,11 +73,11 @@ export function useSort() {
 
     if (existingSort.includes(sortAsc)) {
       setParams({
-        sort: existingSort.map((s) => (s === sortAsc ? sortDesc : s)),
+        sort: existingSort.map((s) => (s === sortAsc ? sortDesc : s))
       });
     } else if (existingSort.includes(sortDesc)) {
       setParams({
-        sort: existingSort.map((s) => (s === sortDesc ? sortAsc : s)),
+        sort: existingSort.map((s) => (s === sortDesc ? sortAsc : s))
       });
     }
   };
@@ -90,6 +90,6 @@ export function useSort() {
     toggleSortBy,
     toggleSortByAscending,
     toggleSortByDirection,
-    toggleSortByDescending,
+    toggleSortByDescending
   };
 }

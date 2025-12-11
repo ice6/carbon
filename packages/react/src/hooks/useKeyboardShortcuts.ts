@@ -50,12 +50,12 @@ export default function useKeyboardShortcuts(keyMap: {
     return event.metaKey && event.shiftKey
       ? `Command+Shift+${event.key}`
       : event.metaKey
-      ? `Command+${event.key}`
-      : event.shiftKey && event.key === "Enter"
-      ? `Shift+${event.key}`
-      : event.ctrlKey && event.key
-      ? `Control+${event.key}`
-      : event.key;
+        ? `Command+${event.key}`
+        : event.shiftKey && event.key === "Enter"
+          ? `Shift+${event.key}`
+          : event.ctrlKey && event.key
+            ? `Control+${event.key}`
+            : event.key;
   }
 
   useEffect(() => {

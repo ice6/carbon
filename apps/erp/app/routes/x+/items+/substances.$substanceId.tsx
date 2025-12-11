@@ -8,7 +8,7 @@ import { json, redirect } from "@vercel/remix";
 import {
   getMaterialSubstance,
   materialSubstanceValidator,
-  upsertMaterialSubstance,
+  upsertMaterialSubstance
 } from "~/modules/items";
 import { MaterialSubstanceForm } from "~/modules/items/ui/MaterialSubstances";
 import { getCustomFields, setCustomFields } from "~/utils/form";
@@ -17,7 +17,7 @@ import { getParams, path } from "~/utils/path";
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
     view: "parts",
-    role: "employee",
+    role: "employee"
   });
 
   const { substanceId } = params;
@@ -39,14 +39,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   }
 
   return json({
-    materialSubstance: materialSubstance?.data ?? null,
+    materialSubstance: materialSubstance?.data ?? null
   });
 }
 
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    update: "parts",
+    update: "parts"
   });
 
   const { substanceId } = params;
@@ -65,7 +65,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     id: substanceId,
     ...validation.data,
     updatedBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
 
   if (updateMaterialSubstance.error) {
@@ -95,7 +95,7 @@ export default function EditMaterialSubstancesRoute() {
     id: materialSubstance?.id ?? undefined,
     name: materialSubstance?.name ?? "",
     code: materialSubstance?.code ?? "",
-    ...getCustomFields(materialSubstance?.customFields),
+    ...getCustomFields(materialSubstance?.customFields)
   };
 
   return (

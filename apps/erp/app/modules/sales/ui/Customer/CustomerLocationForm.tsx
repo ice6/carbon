@@ -8,18 +8,18 @@ import {
   ModalDrawerHeader,
   ModalDrawerProvider,
   ModalDrawerTitle,
-  VStack,
+  VStack
 } from "@carbon/react";
 
 import { ValidatedForm } from "@carbon/form";
 import { useFetcher } from "@remix-run/react";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import {
   AddressAutocomplete,
   CustomFormFields,
   Hidden,
   Input,
-  Submit,
+  Submit
 } from "~/components/Form";
 import { usePermissions } from "~/hooks";
 import { path } from "~/utils/path";
@@ -38,7 +38,7 @@ const CustomerLocationForm = ({
   initialValues,
   open = true,
   type = "drawer",
-  onClose,
+  onClose
 }: CustomerLocationFormProps) => {
   const fetcher = useFetcher<{}>();
 

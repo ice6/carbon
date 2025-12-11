@@ -8,7 +8,7 @@ import { json, redirect } from "@vercel/remix";
 import { usePanels } from "~/components/Layout";
 import {
   getJobOperationsList,
-  getProductionEvents,
+  getProductionEvents
 } from "~/modules/production";
 import { ProductionEventsTable } from "~/modules/production/ui/Jobs";
 import { getWorkCentersList } from "~/modules/resources";
@@ -17,7 +17,7 @@ import { getGenericQueryFilters } from "~/utils/query";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    view: "production",
+    view: "production"
   });
 
   const { jobId } = params;
@@ -45,7 +45,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
       count: 0,
       events: [],
       workCenters: [],
-      operations: [],
+      operations: []
     });
   }
 
@@ -55,9 +55,9 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
       limit,
       offset,
       sorts,
-      filters,
+      filters
     }),
-    getWorkCentersList(client, companyId),
+    getWorkCentersList(client, companyId)
   ]);
 
   if (events.error) {
@@ -71,7 +71,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     count: events.count ?? 0,
     events: events.data ?? [],
     workCenters: workCenters.data ?? [],
-    operations: operations.data ?? [],
+    operations: operations.data ?? []
   });
 }
 

@@ -131,9 +131,7 @@ const getActivityText = (ledgerRecord: ItemLedger) => {
         <>
           <span>
             received {ledgerRecord.quantity} units
-            {ledgerRecord.shelf?.name
-              ? ` to ${ledgerRecord.shelf.name}`
-              : ""}{" "}
+            {ledgerRecord.shelf?.name ? ` to ${ledgerRecord.shelf.name}` : ""}{" "}
             from a
           </span>{" "}
           <Hyperlink

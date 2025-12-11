@@ -35,9 +35,9 @@ const SupplierTypesTable = memo(({ data, count }: SupplierTypesTableProps) => {
           />
         ),
         meta: {
-          icon: <LuShapes />,
-        },
-      },
+          icon: <LuShapes />
+        }
+      }
     ];
     return [...defaultColumns, ...customColumns];
   }, [navigate, customColumns]);

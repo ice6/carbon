@@ -10,7 +10,7 @@ import { path } from "~/utils/path";
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    update: "settings",
+    update: "settings"
   });
 
   const { id: integrationId } = params;
@@ -23,7 +23,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   const update = await deactivateIntegration(client, {
     id: integrationId,
     companyId,
-    updatedBy: userId,
+    updatedBy: userId
   });
 
   if (update.error) {

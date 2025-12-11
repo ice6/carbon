@@ -3,10 +3,10 @@ import { Modal, ModalContent, toast } from "@carbon/react";
 import { useFetcher } from "@remix-run/react";
 import { useEffect, useState } from "react";
 import { flushSync } from "react-dom";
-import { z } from 'zod/v3';
+import { z } from "zod/v3";
 import {
   importSchemas,
-  type fieldMappings,
+  type fieldMappings
 } from "~/modules/shared/imports.models";
 import type { action } from "~/routes/x+/shared+/import.$tableId";
 import { path } from "~/utils/path";
@@ -17,7 +17,7 @@ import { ImportCsvContext } from "./useCsvContext";
 
 enum ImportCSVPage {
   UploadCSV = "upload-csv",
-  FieldMappings = "field-mapping",
+  FieldMappings = "field-mapping"
 }
 
 const pages = [ImportCSVPage.UploadCSV, ImportCSVPage.FieldMappings] as const;
@@ -81,7 +81,7 @@ export const ImportCSVModal = ({ table, onClose }: ImportCSVModalProps) => {
                   setFile,
                   setFileColumns,
                   setFirstRows,
-                  setFilePath,
+                  setFilePath
                 }}
               >
                 <div>
@@ -94,7 +94,7 @@ export const ImportCSVModal = ({ table, onClose }: ImportCSVModalProps) => {
                       filePath: z
                         .string()
                         .min(1, { message: "Path is required" }),
-                      enumMappings: z.string().optional(),
+                      enumMappings: z.string().optional()
                     })}
                     id={formId}
                     onSubmit={() => {

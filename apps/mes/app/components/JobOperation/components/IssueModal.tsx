@@ -7,7 +7,7 @@ import {
   ModalFooter,
   ModalHeader,
   ModalTitle,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { useMemo } from "react";
 import { issueValidator } from "~/services/models";
@@ -20,7 +20,7 @@ import { useItems } from "~/stores";
 export function IssueModal({
   operationId,
   material,
-  onClose,
+  onClose
 }: {
   operationId: string;
   material?: JobMaterial;
@@ -33,7 +33,7 @@ export function IssueModal({
       .map((item) => ({
         label: item.readableIdWithRevision,
         helper: item.name,
-        value: item.id,
+        value: item.id
       }));
   }, [items]);
 
@@ -59,7 +59,7 @@ export function IssueModal({
             quantity:
               (material?.estimatedQuantity ?? 0) -
               (material?.quantityIssued ?? 0),
-            adjustmentType: "Negative Adjmt.",
+            adjustmentType: "Negative Adjmt."
           }}
         >
           <ModalBody>
@@ -77,12 +77,12 @@ export function IssueModal({
                   options={[
                     {
                       label: "Add to Inventory",
-                      value: "Positive Adjmt.",
+                      value: "Positive Adjmt."
                     },
                     {
                       label: "Pull from Inventory",
-                      value: "Negative Adjmt.",
-                    },
+                      value: "Negative Adjmt."
+                    }
                   ]}
                 />
               )}

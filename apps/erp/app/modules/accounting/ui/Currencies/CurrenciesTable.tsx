@@ -31,25 +31,25 @@ const CurrenciesTable = memo(({ data, count }: CurrenciesTableProps) => {
           </Hyperlink>
         ),
         meta: {
-          icon: <LuBookMarked />,
-        },
+          icon: <LuBookMarked />
+        }
       },
       {
         accessorKey: "code",
         header: "Code",
         cell: (item) => item.getValue(),
         meta: {
-          icon: <LuEuro />,
-        },
+          icon: <LuEuro />
+        }
       },
       {
         accessorKey: "exchangeRate",
         header: "Exchange Rate",
         cell: (item) => item.getValue(),
         meta: {
-          icon: <LuPercent />,
-        },
-      },
+          icon: <LuPercent />
+        }
+      }
     ];
     return [...defaultColumns, ...customColumns];
   }, [customColumns]);

@@ -14,18 +14,18 @@ import type {
   Opportunity,
   Quotation,
   QuotationPayment,
-  QuotationShipment,
+  QuotationShipment
 } from "~/modules/sales";
 import { getQuote, quoteValidator, upsertQuote } from "~/modules/sales";
 import {
   OpportunityDocuments,
   OpportunityNotes,
-  OpportunityState,
+  OpportunityState
 } from "~/modules/sales/ui/Opportunity";
 import {
   QuotePaymentForm,
   QuoteShipmentForm,
-  QuoteSummary,
+  QuoteSummary
 } from "~/modules/sales/ui/Quotes";
 import type { QuoteShipmentFormRef } from "~/modules/sales/ui/Quotes/QuoteShipmentForm";
 import { setCustomFields } from "~/utils/form";
@@ -38,7 +38,7 @@ type LoaderData = {
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
-    view: "sales",
+    view: "sales"
   });
 
   const { quoteId } = params;
@@ -54,14 +54,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
   return json<LoaderData>({
     internalNotes: (quote.data?.internalNotes ?? {}) as JSONContent,
-    externalNotes: (quote.data?.externalNotes ?? {}) as JSONContent,
+    externalNotes: (quote.data?.externalNotes ?? {}) as JSONContent
   });
 }
 
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    update: "sales",
+    update: "sales"
   });
 
   const { quoteId: id } = params;
@@ -82,7 +82,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     quoteId,
     ...data,
     customFields: setCustomFields(formData),
-    updatedBy: userId,
+    updatedBy: userId
   });
   if (update.error) {
     throw redirect(
@@ -133,7 +133,7 @@ export default function QuoteDetailsRoute() {
     status: quoteData?.quote?.status ?? "Draft",
     currencyCode: quoteData?.quote?.currencyCode ?? undefined,
     exchangeRate: quoteData?.quote?.exchangeRate ?? undefined,
-    exchangeRateUpdatedAt: quoteData?.quote?.exchangeRateUpdatedAt ?? "",
+    exchangeRateUpdatedAt: quoteData?.quote?.exchangeRateUpdatedAt ?? ""
   };
 
   const shipmentInitialValues = {
@@ -142,7 +142,7 @@ export default function QuoteDetailsRoute() {
     shippingMethodId: quoteData?.shipment?.shippingMethodId ?? "",
     shippingTermId: quoteData?.shipment?.shippingTermId ?? "",
     receiptRequestedDate: quoteData?.shipment?.receiptRequestedDate ?? "",
-    shippingCost: quoteData?.shipment?.shippingCost ?? 0,
+    shippingCost: quoteData?.shipment?.shippingCost ?? 0
   };
 
   const paymentInitialValues = {
@@ -151,7 +151,7 @@ export default function QuoteDetailsRoute() {
     invoiceCustomerLocationId:
       quoteData?.payment.invoiceCustomerLocationId ?? "",
     invoiceCustomerContactId: quoteData?.payment.invoiceCustomerContactId ?? "",
-    paymentTermId: quoteData?.payment.paymentTermId ?? "",
+    paymentTermId: quoteData?.payment.paymentTermId ?? ""
   };
 
   return (

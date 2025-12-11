@@ -15,7 +15,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
     view: "people",
     role: "employee",
-    bypassRls: true,
+    bypassRls: true
   });
 
   const url = new URL(request.url);
@@ -28,7 +28,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const [attributeCategories, employeeTypes, people] = await Promise.all([
     getAttributeCategories(client, companyId),
     getEmployeeTypes(client, companyId),
-    getPeople(client, companyId, { search, limit, offset, sorts, filters }),
+    getPeople(client, companyId, { search, limit, offset, sorts, filters })
   ]);
   if (attributeCategories.error) {
     throw redirect(
@@ -59,7 +59,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
     attributeCategories: attributeCategories.data,
     employeeTypes: employeeTypes.data ?? [],
     people: people.data?.filter((p) => !p.email?.includes("@carbon.ms")) ?? [],
-    count: people.count,
+    count: people.count
   });
 }
 

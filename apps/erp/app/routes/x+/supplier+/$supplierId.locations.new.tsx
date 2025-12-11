@@ -9,7 +9,7 @@ import { json, redirect } from "@vercel/remix";
 import { useUser } from "~/hooks";
 import {
   insertSupplierLocation,
-  supplierLocationValidator,
+  supplierLocationValidator
 } from "~/modules/purchasing";
 import SupplierLocationForm from "~/modules/purchasing/ui/Supplier/SupplierLocationForm";
 import { setCustomFields } from "~/utils/form";
@@ -19,7 +19,7 @@ import { supplierLocationsQuery } from "~/utils/react-query";
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId } = await requirePermissions(request, {
-    create: "purchasing",
+    create: "purchasing"
   });
 
   const formData = await request.formData();
@@ -43,7 +43,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     companyId,
     name,
     address,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
   if (createSupplierLocation.error) {
     return modal
@@ -76,7 +76,7 @@ export default function SupplierLocationsNewRoute() {
 
   const initialValues = {
     name: "",
-    countryCode: company?.countryCode ?? "",
+    countryCode: company?.countryCode ?? ""
   };
 
   return (
@@ -90,7 +90,7 @@ export default function SupplierLocationsNewRoute() {
 
 export async function clientAction({
   serverAction,
-  params,
+  params
 }: ClientActionFunctionArgs) {
   const { supplierId } = params;
   if (supplierId) {

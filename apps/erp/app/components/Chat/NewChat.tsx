@@ -4,7 +4,7 @@ import { LuCirclePlus } from "react-icons/lu";
 import { useUrlParams } from "~/hooks";
 
 export function NewChat() {
-  const [,setParams] = useUrlParams();
+  const [, setParams] = useUrlParams();
 
   const handleNewChat = () => {
     setParams({ chatId: generateId() });

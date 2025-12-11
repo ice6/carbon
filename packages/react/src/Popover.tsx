@@ -67,5 +67,5 @@ export {
   PopoverContent,
   PopoverFooter,
   PopoverHeader,
-  PopoverTrigger,
+  PopoverTrigger
 };

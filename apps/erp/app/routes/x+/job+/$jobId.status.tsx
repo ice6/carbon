@@ -2,7 +2,7 @@ import {
   assertIsPost,
   error,
   getCarbonServiceRole,
-  success,
+  success
 } from "@carbon/auth";
 import { requirePermissions } from "@carbon/auth/auth.server";
 import { flash } from "@carbon/auth/session.server";
@@ -13,14 +13,14 @@ import {
   jobStatus,
   recalculateJobRequirements,
   runMRP,
-  updateJobStatus,
+  updateJobStatus
 } from "~/modules/production";
 import { path, requestReferrer } from "~/utils/path";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    update: "production",
+    update: "production"
   });
 
   const { jobId: id } = params;
@@ -62,13 +62,13 @@ export async function action({ request, params }: ActionFunctionArgs) {
     await recalculateJobRequirements(serviceRole, {
       id,
       companyId,
-      userId,
+      userId
     });
     await runMRP(getCarbonServiceRole(), {
       type: "job",
       id,
       companyId,
-      userId,
+      userId
     });
   }
 
@@ -86,9 +86,9 @@ export async function action({ request, params }: ActionFunctionArgs) {
             companyId,
             userId,
             mode: "initial",
-            direction: "backward",
+            direction: "backward"
           },
-          region: FunctionRegion.UsEast1,
+          region: FunctionRegion.UsEast1
         }),
         serviceRole.functions.invoke("create", {
           body: {
@@ -96,10 +96,10 @@ export async function action({ request, params }: ActionFunctionArgs) {
             jobId: id,
             purchaseOrdersBySupplierId,
             companyId,
-            userId,
+            userId
           },
-          region: FunctionRegion.UsEast1,
-        }),
+          region: FunctionRegion.UsEast1
+        })
       ]);
 
       if (scheduler.error) {
@@ -113,7 +113,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
         await client
           .from("job")
           .update({
-            releasedDate: new Date().toISOString(),
+            releasedDate: new Date().toISOString()
           })
           .eq("id", id);
       }
@@ -130,7 +130,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     id,
     status,
     assignee: ["Cancelled"].includes(status) ? null : undefined,
-    updatedBy: userId,
+    updatedBy: userId
   });
   if (update.error) {
     throw redirect(

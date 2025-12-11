@@ -15,10 +15,10 @@ import {
   HStack,
   IconButton,
   useDisclosure,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { LuEllipsisVertical, LuTrash } from "react-icons/lu";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import {
   Combobox,
   CustomFormFields,
@@ -27,18 +27,18 @@ import {
   Input,
   Location,
   Select,
-  ShippingMethod,
+  ShippingMethod
 } from "~/components/Form";
 import { ConfirmDelete } from "~/components/Modals";
 import { usePermissions } from "~/hooks";
 import type {
   ShipmentLine,
   ShipmentSourceDocument,
-  shipmentStatusType,
+  shipmentStatusType
 } from "~/modules/inventory";
 import {
   shipmentSourceDocumentType,
-  shipmentValidator,
+  shipmentValidator
 } from "~/modules/inventory";
 import { path } from "~/utils/path";
 import useShipmentForm from "./useShipmentForm";
@@ -58,7 +58,7 @@ const ShipmentForm = ({ initialValues, status }: ShipmentFormProps) => {
     sourceDocuments,
     customerId,
     setLocationId,
-    setSourceDocument,
+    setSourceDocument
   } = useShipmentForm({ status, initialValues });
 
   const isPosted = status === "Posted";
@@ -132,7 +132,7 @@ const ShipmentForm = ({ initialValues, status }: ShipmentFormProps) => {
                   label="Source Document"
                   options={shipmentSourceDocumentType.map((v) => ({
                     label: v,
-                    value: v,
+                    value: v
                   }))}
                   onChange={(newValue) => {
                     if (newValue) {
@@ -148,7 +148,7 @@ const ShipmentForm = ({ initialValues, status }: ShipmentFormProps) => {
                   label="Source Document ID"
                   options={sourceDocuments.map((d) => ({
                     label: d.name,
-                    value: d.id,
+                    value: d.id
                   }))}
                   isReadOnly={isPosted}
                 />

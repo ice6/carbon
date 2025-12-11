@@ -7,24 +7,24 @@ import { methodItemType } from "../shared";
 export const KPIs = [
   {
     key: "supplierQuoteCount",
-    label: "Supplier Quotes",
+    label: "Supplier Quotes"
   },
   {
     key: "purchaseOrderCount",
-    label: "Purchase Orders",
+    label: "Purchase Orders"
   },
   {
     key: "purchaseInvoiceCount",
-    label: "Purchase Invoices",
+    label: "Purchase Invoices"
   },
   {
     key: "purchaseOrderAmount",
-    label: "Purchase Order Amount",
+    label: "Purchase Order Amount"
   },
   {
     key: "purchaseInvoiceAmount",
-    label: "Purchase Invoice Amount",
-  },
+    label: "Purchase Invoice Amount"
+  }
   // {
   //   key: "turnaroundTime",
   //   label: "Turnaround Time",
@@ -39,12 +39,12 @@ export const purchaseOrderLineType = [
   "Consumable",
   // "G/L Account",
   // "Fixed Asset",
-  "Comment",
+  "Comment"
 ] as const;
 
 export const purchaseOrderTypeType = [
   "Purchase",
-  "Outside Processing",
+  "Outside Processing"
 ] as const;
 
 export const purchaseOrderStatusType = [
@@ -56,7 +56,7 @@ export const purchaseOrderStatusType = [
   "To Invoice",
   "Completed",
   "Rejected",
-  "Closed",
+  "Closed"
 ] as const;
 
 export const externalSupplierQuoteValidator = z.object({
@@ -66,7 +66,7 @@ export const externalSupplierQuoteValidator = z.object({
   digitalSupplierQuoteSubmittedByEmail: zfd.text(
     z.string().email({ message: "Email is invalid" })
   ),
-  note: zfd.text(z.string().optional()),
+  note: zfd.text(z.string().optional())
 });
 
 export const plannedOrderValidator = z.object({
@@ -83,7 +83,7 @@ export const plannedOrderValidator = z.object({
   supplierId: zfd.text(z.string().optional()),
   itemReadableId: zfd.text(z.string().optional()),
   unitPrice: zfd.numeric(z.number().optional()),
-  unitOfMeasureCode: zfd.text(z.string().optional()),
+  unitOfMeasureCode: zfd.text(z.string().optional())
 });
 
 export type PlannedOrder = z.infer<typeof plannedOrderValidator>;
@@ -93,8 +93,8 @@ export const purchaseOrderValidator = z.object({
   purchaseOrderId: zfd.text(z.string().optional()),
   purchaseOrderType: z.enum(purchaseOrderTypeType, {
     errorMap: (issue, ctx) => ({
-      message: "Type is required",
-    }),
+      message: "Type is required"
+    })
   }),
   supplierId: z.string().min(1, { message: "Supplier is required" }),
   supplierLocationId: zfd.text(z.string().optional()),
@@ -102,19 +102,19 @@ export const purchaseOrderValidator = z.object({
   supplierReference: zfd.text(z.string().optional()),
   currencyCode: zfd.text(z.string().optional()),
   exchangeRate: zfd.numeric(z.number().optional()),
-  exchangeRateUpdatedAt: zfd.text(z.string().optional()),
+  exchangeRateUpdatedAt: zfd.text(z.string().optional())
 });
 
 export const supplierQuoteFinalizeValidator = z
   .object({
     notification: z.enum(["Email", "None"]).optional(),
-    supplierContact: zfd.text(z.string().optional()),
+    supplierContact: zfd.text(z.string().optional())
   })
   .refine(
     (data) => (data.notification === "Email" ? data.supplierContact : true),
     {
       message: "Supplier contact is required for email",
-      path: ["supplierContact"], // path of error
+      path: ["supplierContact"] // path of error
     }
   );
 
@@ -132,7 +132,7 @@ export const purchaseOrderDeliveryValidator = z
     customerId: zfd.text(z.string().optional()),
     customerLocationId: zfd.text(z.string().optional()),
     supplierShippingCost: zfd.numeric(z.number().optional()),
-    notes: zfd.text(z.string().optional()),
+    notes: zfd.text(z.string().optional())
   })
   .refine(
     (data) => {
@@ -143,7 +143,7 @@ export const purchaseOrderDeliveryValidator = z
     },
     {
       message: "Drop shipment requires customer and location",
-      path: ["dropShipment"], // path of error
+      path: ["dropShipment"] // path of error
     }
   )
   .refine(
@@ -155,7 +155,7 @@ export const purchaseOrderDeliveryValidator = z
     },
     {
       message: "Location is not required for drop shipment",
-      path: ["locationId"], // path of error
+      path: ["locationId"] // path of error
     }
   );
 
@@ -165,8 +165,8 @@ export const purchaseOrderLineValidator = z
     purchaseOrderId: z.string().min(1, { message: "Order is required" }),
     purchaseOrderLineType: z.enum(methodItemType, {
       errorMap: (issue, ctx) => ({
-        message: "Type is required",
-      }),
+        message: "Type is required"
+      })
     }),
     itemId: zfd.text(z.string().optional()),
     accountNumber: zfd.text(z.string().optional()),
@@ -184,7 +184,7 @@ export const purchaseOrderLineValidator = z
     shelfId: zfd.text(z.string().optional()),
     supplierShippingCost: zfd.numeric(z.number().optional()),
     supplierTaxAmount: zfd.numeric(z.number().optional()),
-    supplierUnitPrice: zfd.numeric(z.number().optional()),
+    supplierUnitPrice: zfd.numeric(z.number().optional())
   })
   .refine(
     (data) =>
@@ -195,7 +195,7 @@ export const purchaseOrderLineValidator = z
         : true,
     {
       message: "Part is required",
-      path: ["itemId"], // path of error
+      path: ["itemId"] // path of error
     }
   );
 // .refine(
@@ -229,19 +229,19 @@ export const purchaseOrderPaymentValidator = z.object({
   invoiceSupplierLocationId: zfd.text(z.string().optional()),
   invoiceSupplierContactId: zfd.text(z.string().optional()),
   paymentTermId: zfd.text(z.string().optional()),
-  paymentComplete: zfd.checkbox(),
+  paymentComplete: zfd.checkbox()
 });
 
 export const purchaseOrderFinalizeValidator = z
   .object({
     notification: z.enum(["Email", "None"]).optional(),
-    supplierContact: zfd.text(z.string().optional()),
+    supplierContact: zfd.text(z.string().optional())
   })
   .refine(
     (data) => (data.notification === "Email" ? data.supplierContact : true),
     {
       message: "Supplier contact is required for email",
-      path: ["supplierContact"], // path of error
+      path: ["supplierContact"] // path of error
     }
   );
 
@@ -252,7 +252,7 @@ export const selectedLineSchema = z.object({
   supplierShippingCost: z.number(),
   supplierUnitPrice: z.number(),
   supplierTaxAmount: z.number(),
-  unitPrice: z.number(),
+  unitPrice: z.number()
 });
 
 export const selectedLinesValidator = z.record(z.string(), selectedLineSchema);
@@ -266,19 +266,19 @@ export const supplierValidator = z.object({
   currencyCode: zfd.text(z.string().optional()),
   phone: zfd.text(z.string().optional()),
   fax: zfd.text(z.string().optional()),
-  website: zfd.text(z.string().optional()),
+  website: zfd.text(z.string().optional())
 });
 
 export const supplierContactValidator = z.object({
   id: zfd.text(z.string().optional()),
   ...contact,
-  supplierLocationId: zfd.text(z.string().optional()),
+  supplierLocationId: zfd.text(z.string().optional())
 });
 
 export const supplierLocationValidator = z.object({
   id: zfd.text(z.string().optional()),
   name: zfd.text(z.string()),
-  ...address,
+  ...address
 });
 
 export const supplierPaymentValidator = z.object({
@@ -286,7 +286,7 @@ export const supplierPaymentValidator = z.object({
   invoiceSupplierId: zfd.text(z.string().optional()),
   invoiceSupplierLocationId: zfd.text(z.string().optional()),
   invoiceSupplierContactId: zfd.text(z.string().optional()),
-  paymentTermId: zfd.text(z.string().optional()),
+  paymentTermId: zfd.text(z.string().optional())
 });
 
 export const supplierProcessValidator = z.object({
@@ -294,7 +294,7 @@ export const supplierProcessValidator = z.object({
   supplierId: z.string().min(1, { message: "Supplier is required" }),
   processId: z.string().min(1, { message: "Process is required" }),
   minimumCost: zfd.numeric(z.number().min(0)),
-  leadTime: zfd.numeric(z.number().min(0)),
+  leadTime: zfd.numeric(z.number().min(0))
 });
 
 export const supplierShippingValidator = z.object({
@@ -303,23 +303,23 @@ export const supplierShippingValidator = z.object({
   shippingSupplierLocationId: zfd.text(z.string().optional()),
   shippingSupplierContactId: zfd.text(z.string().optional()),
   // shippingTermId: zfd.text(z.string().optional()),
-  shippingMethodId: zfd.text(z.string().optional()),
+  shippingMethodId: zfd.text(z.string().optional())
 });
 
 export const supplierAccountingValidator = z.object({
   id: zfd.text(z.string()),
   supplierTypeId: zfd.text(z.string().optional()),
-  taxId: zfd.text(z.string().optional()),
+  taxId: zfd.text(z.string().optional())
 });
 
 export const supplierTypeValidator = z.object({
   id: zfd.text(z.string().optional()),
-  name: z.string().min(1, { message: "Name is required" }),
+  name: z.string().min(1, { message: "Name is required" })
 });
 
 export const supplierStatusValidator = z.object({
   id: zfd.text(z.string().optional()),
-  name: z.string().min(1, { message: "Name is required" }),
+  name: z.string().min(1, { message: "Name is required" })
 });
 
 export const supplierQuoteStatusType = [
@@ -327,7 +327,7 @@ export const supplierQuoteStatusType = [
   "Active",
   "Expired",
   "Declined",
-  "Cancelled",
+  "Cancelled"
 ] as const;
 
 export const supplierQuoteValidator = z
@@ -336,8 +336,8 @@ export const supplierQuoteValidator = z
     supplierQuoteId: zfd.text(z.string().optional()),
     supplierQuoteType: z.enum(purchaseOrderTypeType, {
       errorMap: (issue, ctx) => ({
-        message: "Type is required",
-      }),
+        message: "Type is required"
+      })
     }),
     supplierId: z.string().min(1, { message: "Supplier is required" }),
     supplierLocationId: zfd.text(z.string().optional()),
@@ -349,7 +349,7 @@ export const supplierQuoteValidator = z
     expirationDate: zfd.text(z.string().optional()),
     currencyCode: zfd.text(z.string().optional()),
     exchangeRate: zfd.numeric(z.number().optional()),
-    exchangeRateUpdatedAt: zfd.text(z.string().optional()),
+    exchangeRateUpdatedAt: zfd.text(z.string().optional())
   })
   .refine(
     (data) => {
@@ -360,7 +360,7 @@ export const supplierQuoteValidator = z
     },
     {
       message: "Expiration date must be today or after",
-      path: ["expirationDate"], // path of error
+      path: ["expirationDate"] // path of error
     }
   );
 
@@ -379,5 +379,5 @@ export const supplierQuoteLineValidator = z.object({
   conversionFactor: zfd.numeric(z.number().optional()),
   quantity: z.array(
     zfd.numeric(z.number().min(0.00001, { message: "Quantity is required" }))
-  ),
+  )
 });

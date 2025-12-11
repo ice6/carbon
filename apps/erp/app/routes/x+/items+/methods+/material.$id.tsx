@@ -9,7 +9,7 @@ import { setCustomFields } from "~/utils/form";
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    create: "parts",
+    create: "parts"
   });
 
   const { id } = params;
@@ -31,12 +31,12 @@ export async function action({ request, params }: ActionFunctionArgs) {
     id: id,
     companyId,
     updatedBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
   if (updateMethodMaterial.error) {
     return json(
       {
-        id: null,
+        id: null
       },
       await flash(
         request,
@@ -49,7 +49,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   if (!methodMaterialId) {
     return json(
       {
-        id: null,
+        id: null
       },
       await flash(
         request,
@@ -61,6 +61,6 @@ export async function action({ request, params }: ActionFunctionArgs) {
   return json({
     id: methodMaterialId,
     success: true,
-    message: "Material updated",
+    message: "Material updated"
   });
 }

@@ -13,7 +13,7 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { getLocalTimeZone, parseDate } from "@internationalized/date";
 import { useDateFormatter, useNumberFormatter } from "@react-aria/i18n";
@@ -25,7 +25,7 @@ import {
   useEffect,
   useMemo,
   useState,
-  useTransition,
+  useTransition
 } from "react";
 import {
   LuBookMarked,
@@ -35,13 +35,13 @@ import {
   LuClock,
   LuContainer,
   LuPackage,
-  LuSquareChartGantt,
+  LuSquareChartGantt
 } from "react-icons/lu";
 import {
   ItemThumbnail,
   MethodItemTypeIcon,
   SupplierAvatar,
-  Table,
+  Table
 } from "~/components";
 import { Enumerable } from "~/components/Enumerable";
 import { useLocations } from "~/components/Form/Location";
@@ -54,7 +54,7 @@ import {
   clearOrdersCache,
   getPurchaseOrdersFromPlanning,
   getReorderPolicyDescription,
-  ItemReorderPolicy,
+  ItemReorderPolicy
 } from "~/modules/items/ui/Item/ItemReorderPolicy";
 import type { action as mrpAction } from "~/routes/api+/mrp";
 import type { action as bulkUpdateAction } from "~/routes/x+/production+/planning.update";
@@ -78,7 +78,7 @@ const PlanningTable = memo(
 
     const dateFormatter = useDateFormatter({
       month: "short",
-      day: "numeric",
+      day: "numeric"
     });
 
     const numberFormatter = useNumberFormatter();
@@ -152,7 +152,7 @@ const PlanningTable = memo(
                   ) {
                     return {
                       ...order,
-                      periodId: periods[0].id,
+                      periodId: periods[0].id
                     };
                   }
 
@@ -166,22 +166,22 @@ const PlanningTable = memo(
                   return {
                     ...order,
                     supplierId: suppliersMap[row.id!],
-                    periodId: period?.id ?? periods[periods.length - 1].id,
+                    periodId: period?.id ?? periods[periods.length - 1].id
                   };
                 }
               );
 
               return {
                 id: row.id,
-                orders: ordersWithPeriods,
+                orders: ordersWithPeriods
               };
             }),
-          action: action,
+          action: action
         };
         bulkUpdateFetcher.submit(payload, {
           method: "post",
           action: path.to.bulkUpdatePurchasingPlanning,
-          encType: "application/json",
+          encType: "application/json"
         });
       },
       // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -196,7 +196,7 @@ const PlanningTable = memo(
         if (item.id) {
           setOrdersMap((prev) => ({
             ...prev,
-            [item.id!]: orders,
+            [item.id!]: orders
           }));
         }
       },
@@ -261,7 +261,7 @@ const PlanningTable = memo(
                   {numberFormatter.format(value)}
                 </span>
               );
-            },
+            }
           };
         }
       );
@@ -292,8 +292,8 @@ const PlanningTable = memo(
             </HStack>
           ),
           meta: {
-            icon: <LuBookMarked />,
-          },
+            icon: <LuBookMarked />
+          }
         },
         {
           accessorKey: "unitOfMeasureCode",
@@ -306,7 +306,7 @@ const PlanningTable = memo(
                 )?.label ?? null
               }
             />
-          ),
+          )
         },
         {
           accessorKey: "preferredSupplierId",
@@ -322,11 +322,11 @@ const PlanningTable = memo(
               type: "static",
               options: suppliers.map((supplier) => ({
                 label: supplier.name,
-                value: supplier.id,
-              })),
+                value: supplier.id
+              }))
             },
-            icon: <LuContainer />,
-          },
+            icon: <LuContainer />
+          }
         },
         {
           accessorKey: "leadTime",
@@ -341,8 +341,8 @@ const PlanningTable = memo(
             );
           },
           meta: {
-            icon: <LuClock />,
-          },
+            icon: <LuClock />
+          }
         },
         {
           accessorKey: "reorderingPolicy",
@@ -368,11 +368,11 @@ const PlanningTable = memo(
               type: "static",
               options: itemReorderingPolicies.map((policy) => ({
                 label: <ItemReorderPolicy reorderingPolicy={policy} />,
-                value: policy,
-              })),
+                value: policy
+              }))
             },
-            icon: <LuCircleCheck />,
-          },
+            icon: <LuCircleCheck />
+          }
         },
         {
           accessorKey: "quantityOnHand",
@@ -381,8 +381,8 @@ const PlanningTable = memo(
             numberFormatter.format(row.original.quantityOnHand),
           meta: {
             icon: <LuPackage />,
-            renderTotal: true,
-          },
+            renderTotal: true
+          }
         },
         ...periodColumns,
         {
@@ -407,18 +407,18 @@ const PlanningTable = memo(
                       <span>{type}</span>
                     </HStack>
                   ),
-                  value: type,
-                })),
+                  value: type
+                }))
             },
-            icon: <LuBox />,
-          },
+            icon: <LuBox />
+          }
         },
         {
           id: "Order",
           header: "",
           cell: ({ row }) => {
             const orders = row.original.id
-              ? ordersByItemId.get(row.original.id) ?? []
+              ? (ordersByItemId.get(row.original.id) ?? [])
               : [];
             const orderQuantity = orders.reduce(
               (acc, order) =>
@@ -450,8 +450,8 @@ const PlanningTable = memo(
                 </Button>
               </div>
             );
-          },
-        },
+          }
+        }
       ];
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [
@@ -460,7 +460,7 @@ const PlanningTable = memo(
       numberFormatter,
       unitOfMeasures,
       suppliersMap,
-      isDisabled,
+      isDisabled
       // Note: ordersMap is intentionally not in deps to avoid column regeneration
       // getOrdersForItem inside the cell will access the latest ordersMap via closure
     ]);
@@ -487,12 +487,12 @@ const PlanningTable = memo(
 
     const defaultColumnVisibility = {
       active: false,
-      type: false,
+      type: false
     };
 
     const defaultColumnPinning = {
       left: ["readableIdWithRevision"],
-      right: ["Order"],
+      right: ["Order"]
     };
 
     return (
@@ -569,7 +569,7 @@ const PlanningTable = memo(
             onSupplierChange={(itemId, supplierId) => {
               setSuppliersMap((prev) => ({
                 ...prev,
-                [itemId]: supplierId,
+                [itemId]: supplierId
               }));
             }}
           />

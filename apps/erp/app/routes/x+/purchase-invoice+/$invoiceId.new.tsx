@@ -11,7 +11,7 @@ import type { PurchaseInvoice } from "~/modules/invoicing";
 import {
   PurchaseInvoiceLineForm,
   purchaseInvoiceLineValidator,
-  upsertPurchaseInvoiceLine,
+  upsertPurchaseInvoiceLine
 } from "~/modules/invoicing";
 import type { MethodItemType } from "~/modules/shared";
 import { setCustomFields } from "~/utils/form";
@@ -20,7 +20,7 @@ import { path } from "~/utils/path";
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    create: "invoicing",
+    create: "invoicing"
   });
 
   const { invoiceId } = params;
@@ -41,7 +41,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     ...data,
     companyId,
     createdBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
 
   if (createPurchaseInvoiceLine.error) {
@@ -81,7 +81,7 @@ export default function NewPurchaseInvoiceLineRoute() {
     supplierUnitPrice: 0,
     supplierShippingCost: 0,
     supplierTaxAmount: 0,
-    exchangeRate: purchaseInvoiceData?.purchaseInvoice?.exchangeRate ?? 1,
+    exchangeRate: purchaseInvoiceData?.purchaseInvoice?.exchangeRate ?? 1
   };
 
   return <PurchaseInvoiceLineForm initialValues={initialValues} />;

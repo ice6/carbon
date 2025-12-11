@@ -1,11 +1,11 @@
 import type { Database, Json } from "@carbon/database";
 import { getLocalTimeZone, now, today } from "@internationalized/date";
 import { FunctionRegion, type SupabaseClient } from "@supabase/supabase-js";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import {
   getSupplierPayment,
   getSupplierShipping,
-  insertSupplierInteraction,
+  insertSupplierInteraction
 } from "~/modules/purchasing";
 import type { GenericQueryFilters } from "~/utils/query";
 import { setGenericQueryFilters } from "~/utils/query";
@@ -14,7 +14,7 @@ import { getCurrencyByCode } from "../accounting/accounting.service";
 import { getEmployeeJob } from "../people/people.service";
 import {
   getCustomerPayment,
-  getCustomerShipping,
+  getCustomerShipping
 } from "../sales/sales.service";
 import type {
   purchaseInvoiceDeliveryValidator,
@@ -24,7 +24,7 @@ import type {
   salesInvoiceLineValidator,
   salesInvoiceShipmentValidator,
   salesInvoiceStatusType,
-  salesInvoiceValidator,
+  salesInvoiceValidator
 } from "./invoicing.models";
 
 export async function createPurchaseInvoiceFromPurchaseOrder(
@@ -38,9 +38,9 @@ export async function createPurchaseInvoiceFromPurchaseOrder(
       type: "purchaseOrderToPurchaseInvoice",
       id: purchaseOrderId,
       companyId,
-      userId,
+      userId
     },
-    region: FunctionRegion.UsEast1,
+    region: FunctionRegion.UsEast1
   });
 }
 
@@ -55,9 +55,9 @@ export async function createSalesInvoiceFromSalesOrder(
       type: "salesOrderToSalesInvoice",
       id: salesOrderId,
       companyId,
-      userId,
+      userId
     },
-    region: FunctionRegion.UsEast1,
+    region: FunctionRegion.UsEast1
   });
 }
 
@@ -72,9 +72,9 @@ export async function createSalesInvoiceFromShipment(
       type: "shipmentToSalesInvoice",
       id: shipmentId,
       companyId,
-      userId,
+      userId
     },
-    region: FunctionRegion.UsEast1,
+    region: FunctionRegion.UsEast1
   });
 }
 
@@ -148,7 +148,7 @@ export async function getPurchaseInvoices(
   }
 
   query = setGenericQueryFilters(query, args, [
-    { column: "invoiceId", ascending: false },
+    { column: "invoiceId", ascending: false }
   ]);
   return query;
 }
@@ -230,7 +230,7 @@ export async function getSalesInvoices(
   }
 
   query = setGenericQueryFilters(query, args, [
-    { column: "invoiceId", ascending: false },
+    { column: "invoiceId", ascending: false }
   ]);
   return query;
 }
@@ -278,7 +278,7 @@ export async function updatePurchaseInvoiceExchangeRate(
   const update = {
     id: data.id,
     exchangeRate: data.exchangeRate,
-    exchangeRateUpdatedAt: new Date().toISOString(),
+    exchangeRateUpdatedAt: new Date().toISOString()
   };
 
   return client.from("purchaseInvoice").update(update).eq("id", update.id);
@@ -301,7 +301,7 @@ export async function updatePurchaseInvoiceStatus(
     ...rest,
     ...(["Paid"].includes(status)
       ? { datePaid: now(getLocalTimeZone()).toAbsoluteString() }
-      : {}),
+      : {})
   };
 
   return client.from("purchaseInvoice").update(updateData).eq("id", update.id);
@@ -317,7 +317,7 @@ export async function updateSalesInvoiceExchangeRate(
   const update = {
     id: data.id,
     exchangeRate: data.exchangeRate,
-    exchangeRateUpdatedAt: new Date().toISOString(),
+    exchangeRateUpdatedAt: new Date().toISOString()
   };
 
   return client.from("salesInvoice").update(update).eq("id", update.id);
@@ -339,7 +339,7 @@ export async function updateSalesInvoiceStatus(
     ...rest,
     ...(["Paid"].includes(status)
       ? { datePaid: now(getLocalTimeZone()).toAbsoluteString() }
-      : {}),
+      : {})
   };
 
   return client.from("salesInvoice").update(updateData).eq("id", update.id);
@@ -366,7 +366,7 @@ export async function upsertPurchaseInvoice(
       .from("purchaseInvoice")
       .update({
         ...sanitize(purchaseInvoice),
-        updatedAt: today(getLocalTimeZone()).toString(),
+        updatedAt: today(getLocalTimeZone()).toString()
       })
       .eq("id", purchaseInvoice.id)
       .select("id, invoiceId");
@@ -385,7 +385,7 @@ export async function upsertPurchaseInvoice(
         client,
         purchaseInvoice.createdBy,
         purchaseInvoice.companyId
-      ),
+      )
     ]);
 
   if (supplierInteraction.error) return supplierInteraction;
@@ -422,8 +422,8 @@ export async function upsertPurchaseInvoice(
         invoiceSupplierId: invoiceSupplierId ?? purchaseInvoice.supplierId,
         supplierInteractionId: supplierInteraction.data?.id,
         currencyCode: purchaseInvoice.currencyCode ?? "USD",
-        paymentTermId: purchaseInvoice.paymentTermId ?? paymentTermId,
-      },
+        paymentTermId: purchaseInvoice.paymentTermId ?? paymentTermId
+      }
     ])
     .select("id, invoiceId");
 
@@ -437,8 +437,8 @@ export async function upsertPurchaseInvoice(
       locationId: locationId,
       shippingMethodId: shippingMethodId,
       shippingTermId: shippingTermId,
-      companyId: purchaseInvoice.companyId,
-    },
+      companyId: purchaseInvoice.companyId
+    }
   ]);
 
   if (delivery.error) {
@@ -529,7 +529,7 @@ export async function upsertSalesInvoice(
       .from("salesInvoice")
       .update({
         ...sanitize(salesInvoice),
-        updatedAt: today(getLocalTimeZone()).toString(),
+        updatedAt: today(getLocalTimeZone()).toString()
       })
       .eq("id", salesInvoice.id)
       .select("id, invoiceId");
@@ -542,14 +542,14 @@ export async function upsertSalesInvoice(
         .insert([
           {
             companyId: salesInvoice.companyId,
-            customerId: salesInvoice.customerId,
-          },
+            customerId: salesInvoice.customerId
+          }
         ])
         .select("id")
         .single(),
       getCustomerPayment(client, salesInvoice.customerId),
       getCustomerShipping(client, salesInvoice.customerId),
-      getEmployeeJob(client, salesInvoice.createdBy, salesInvoice.companyId),
+      getEmployeeJob(client, salesInvoice.createdBy, salesInvoice.companyId)
     ]);
 
   if (opportunity.error) return opportunity;
@@ -585,8 +585,8 @@ export async function upsertSalesInvoice(
         invoiceCustomerId: invoiceCustomerId ?? salesInvoice.customerId,
         opportunityId: opportunity.data?.id,
         currencyCode: salesInvoice.currencyCode ?? "USD",
-        paymentTermId: salesInvoice.paymentTermId ?? paymentTermId,
-      },
+        paymentTermId: salesInvoice.paymentTermId ?? paymentTermId
+      }
     ])
     .select("id, invoiceId");
 
@@ -601,8 +601,8 @@ export async function upsertSalesInvoice(
       shippingMethodId: shippingMethodId,
       shippingTermId: shippingTermId,
       companyId: salesInvoice.companyId,
-      createdBy: salesInvoice.createdBy,
-    },
+      createdBy: salesInvoice.createdBy
+    }
   ]);
 
   if (delivery.error) {

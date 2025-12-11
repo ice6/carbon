@@ -18,7 +18,7 @@ import {
   NumberInput,
   NumberInputGroup,
   NumberInputStepper,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { twoDecimals } from "@carbon/utils";
 import type { ElementRef } from "react";
@@ -27,13 +27,13 @@ import {
   LuArrowRightLeft,
   LuChevronDown,
   LuChevronUp,
-  LuLanguages,
+  LuLanguages
 } from "react-icons/lu";
 import { useUnitOfMeasure } from "./UnitOfMeasure";
 
 enum ConversionDirection {
   PurchasedToInventory,
-  InventoryToPurchased,
+  InventoryToPurchased
 }
 
 type ConversionFactorProps = {
@@ -62,7 +62,7 @@ const ConversionFactor = forwardRef<
       value,
       onChange,
       purchasingCode,
-      inventoryCode,
+      inventoryCode
     },
     ref
   ) => {
@@ -147,7 +147,7 @@ const ConversionFactor = forwardRef<
       conversionFactor,
       inventoryCode,
       purchasingCode,
-      unitOfMeasureOptions,
+      unitOfMeasureOptions
     ]);
 
     useEffect(() => {
@@ -184,7 +184,7 @@ const ConversionFactor = forwardRef<
         {label && <FormLabel htmlFor={name}>{label}</FormLabel>}
         <input
           {...getInputProps({
-            id: name,
+            id: name
           })}
           type="hidden"
           name={name}

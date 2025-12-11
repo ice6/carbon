@@ -11,7 +11,7 @@ import {
   LuSquareStack,
   LuTruck,
   LuTvMinimalPlay,
-  LuUpload,
+  LuUpload
 } from "react-icons/lu";
 
 type Config = Module[];
@@ -83,9 +83,9 @@ export const modules: Config = [
                   "A programming language",
                   "A powerful ERP/MES/QMS software",
                   "A database management system",
-                  "A web framework",
+                  "A web framework"
                 ],
-                correctAnswer: 1,
+                correctAnswer: 1
               },
               {
                 id: "q2",
@@ -94,9 +94,9 @@ export const modules: Config = [
                   "Mobile apps",
                   "Desktop software",
                   "Web technology",
-                  "Cloud computing only",
+                  "Cloud computing only"
                 ],
-                correctAnswer: 2,
+                correctAnswer: 2
               },
               {
                 id: "q3",
@@ -105,10 +105,10 @@ export const modules: Config = [
                   "Complex and difficult to use",
                   "Approachable and easy to get started with",
                   "Only for large enterprises",
-                  "Limited in functionality",
+                  "Limited in functionality"
                 ],
-                correctAnswer: 1,
-              },
+                correctAnswer: 1
+              }
             ],
             lessons: [
               {
@@ -118,7 +118,7 @@ export const modules: Config = [
                 name: "What is Carbon?",
                 description:
                   "Meet Carbon, the next generation of accessible, scalable, and data-centric ERP/MES/QMS software. Carbon was designed from the ground up to be approachable and easy to get started with, but highly flexible and capable of scaling up to the largest projects.",
-                duration: 216,
+                duration: 216
               },
               {
                 id: "carbon-modules",
@@ -127,7 +127,7 @@ export const modules: Config = [
                 name: "Carbon's Modules",
                 description:
                   "Learn about Carbon's modular architecture and how different modules work together to provide comprehensive business management capabilities.",
-                duration: 371,
+                duration: 371
               },
               {
                 id: "architecture-overview",
@@ -136,11 +136,11 @@ export const modules: Config = [
                 name: "Architecture Overview",
                 description:
                   "Understand Carbon's technical architecture, including its web-based design, database structure, and API capabilities.",
-                duration: 123,
-              },
-            ],
-          },
-        ],
+                duration: 123
+              }
+            ]
+          }
+        ]
       },
       {
         name: "The Basics",
@@ -160,15 +160,15 @@ export const modules: Config = [
                 question:
                   "Which component is used to display and manage data in Carbon?",
                 options: ["Forms", "Tables", "Documents", "Custom Fields"],
-                correctAnswer: 1,
+                correctAnswer: 1
               },
               {
                 id: "q2",
                 question:
                   "What allows you to collect and edit information in Carbon?",
                 options: ["Tables", "Forms", "Documents", "Custom Fields"],
-                correctAnswer: 1,
-              },
+                correctAnswer: 1
+              }
             ],
             lessons: [
               {
@@ -178,7 +178,7 @@ export const modules: Config = [
                 name: "Tables & Views",
                 description:
                   "Learn how to use tables to view, sort, filter, and manage your data effectively in Carbon.",
-                duration: 151,
+                duration: 151
               },
               {
                 id: "forms",
@@ -187,7 +187,7 @@ export const modules: Config = [
                 name: "Forms",
                 description:
                   "Master the art of creating and using forms to input and edit data in Carbon.",
-                duration: 99,
+                duration: 99
               },
               {
                 id: "documents",
@@ -196,7 +196,7 @@ export const modules: Config = [
                 name: "Documents",
                 description:
                   "Understand how to work with documents, including creation, editing, and sharing capabilities.",
-                duration: 109,
+                duration: 109
               },
               {
                 id: "custom-fields",
@@ -205,13 +205,13 @@ export const modules: Config = [
                 name: "Custom Fields",
                 description:
                   "Learn how to extend Carbon's functionality by creating custom fields to capture additional data.",
-                duration: 166,
-              },
-            ],
-          },
-        ],
-      },
-    ],
+                duration: 166
+              }
+            ]
+          }
+        ]
+      }
+    ]
   },
   {
     name: "Getting Started",
@@ -240,9 +240,9 @@ export const modules: Config = [
                   "Setting up integrations",
                   "Creating your company",
                   "Adding users",
-                  "Setting up resources",
+                  "Setting up resources"
                 ],
-                correctAnswer: 1,
+                correctAnswer: 1
               },
               {
                 id: "q2",
@@ -252,10 +252,10 @@ export const modules: Config = [
                   "Creating your company",
                   "Adding users",
                   "Setting up preferences",
-                  "Installing software",
+                  "Installing software"
                 ],
-                correctAnswer: 3,
-              },
+                correctAnswer: 3
+              }
             ],
             lessons: [
               {
@@ -265,7 +265,7 @@ export const modules: Config = [
                   "https://www.loom.com/share/d327844f2da4420c9a579f73b343601b?sid=f7f94b5a-68f5-47b5-a1bd-948247be1cda",
                 description:
                   "Learn how to setup your company in Carbon. This includes creating your company, adding users, and setting up your company's preferences.",
-                duration: 158,
+                duration: 158
               },
               {
                 id: "users-permissions",
@@ -274,7 +274,7 @@ export const modules: Config = [
                   "https://www.loom.com/share/39927f9213224b91a071f4b907ee55bd?sid=1fb2d1f0-28e3-43f4-a0b4-e490a36c8e4c",
                 description:
                   "Learn how to setup your users in Carbon. This includes creating users, setting permissions, and managing access levels.",
-                duration: 150,
+                duration: 150
               },
               {
                 id: "locations-resources",
@@ -283,7 +283,7 @@ export const modules: Config = [
                   "https://www.loom.com/share/f05bf13276d341a284670b0792b216c4?sid=324008b1-08bd-4c10-80ee-d1ad23e033a0",
                 description:
                   "Learn how to setup your work centers, machines, and processes in Carbon. This is essential for manufacturing and resource planning.",
-                duration: 301,
+                duration: 301
               },
               {
                 id: "integrations",
@@ -292,11 +292,11 @@ export const modules: Config = [
                   "https://www.loom.com/share/ee50229e2f294170878038639479a18e?sid=49a1a785-5a45-42b8-bc30-809f2e50fb43",
                 description:
                   "Learn how to setup your integrations in Carbon to connect with other business systems and tools.",
-                duration: 91,
-              },
-            ],
-          },
-        ],
+                duration: 91
+              }
+            ]
+          }
+        ]
       },
       {
         name: "Migrating Data",
@@ -319,10 +319,10 @@ export const modules: Config = [
                   "Manual entry",
                   "Import tools",
                   "API only",
-                  "Database migration",
+                  "Database migration"
                 ],
-                correctAnswer: 1,
-              },
+                correctAnswer: 1
+              }
             ],
             lessons: [
               {
@@ -332,8 +332,8 @@ export const modules: Config = [
                   "https://www.loom.com/share/48df93ff658342e19a75c178a744c032?sid=0da5594c-26f9-4b51-aa80-670d02ad839c",
                 description:
                   "Learn how to use Carbon's built-in import tools to efficiently migrate your data from other systems.",
-                duration: 174,
-              },
+                duration: 174
+              }
             ],
             supplemental: [
               {
@@ -343,13 +343,13 @@ export const modules: Config = [
                 name: "Importing Data with the API",
                 description:
                   "Learn how to use Carbon's API to programmatically import data and integrate with other systems.",
-                duration: 0,
-              },
-            ],
-          },
-        ],
-      },
-    ],
+                duration: 0
+              }
+            ]
+          }
+        ]
+      }
+    ]
   },
   {
     name: "Parts and Materials",
@@ -375,8 +375,8 @@ export const modules: Config = [
                 question:
                   "Which of the following is NOT a type of item in Carbon?",
                 options: ["Parts", "Materials", "Consumables", "Services"],
-                correctAnswer: 3,
-              },
+                correctAnswer: 3
+              }
             ],
             lessons: [
               {
@@ -386,7 +386,7 @@ export const modules: Config = [
                 name: "Parts, Materials and Tools",
                 description:
                   "Learn the differences between various item types and when to use each one in your business processes.",
-                duration: 140,
+                duration: 140
               },
               {
                 id: "raw-materials",
@@ -395,7 +395,7 @@ export const modules: Config = [
                 name: "Raw Materials",
                 description:
                   "Learn how to define and manage raw materials in Carbon.",
-                duration: 242,
+                duration: 242
               },
               {
                 id: "method-types",
@@ -404,7 +404,7 @@ export const modules: Config = [
                 name: "Method Types",
                 description:
                   "Understand the different method types available for items and how they affect manufacturing processes.",
-                duration: 289,
+                duration: 289
               },
               {
                 id: "tracking-types",
@@ -413,9 +413,9 @@ export const modules: Config = [
                 name: "Tracking Types",
                 description:
                   "Learn about different tracking types and how they help manage inventory and traceability.",
-                duration: 242,
-              },
-            ],
+                duration: 242
+              }
+            ]
           },
           {
             name: "Manufacturing Methods",
@@ -430,10 +430,10 @@ export const modules: Config = [
                   "Bill of Materials",
                   "Method",
                   "Process",
-                  "Work Order",
+                  "Work Order"
                 ],
-                correctAnswer: 1,
-              },
+                correctAnswer: 1
+              }
             ],
             lessons: [
               {
@@ -443,7 +443,7 @@ export const modules: Config = [
                 name: "Methods",
                 description:
                   "Learn how to create and manage manufacturing methods that define how items are produced.",
-                duration: 179,
+                duration: 179
               },
 
               {
@@ -453,7 +453,7 @@ export const modules: Config = [
                 name: "Bill of Materials",
                 description:
                   "Learn how to create and manage bills of materials that define what components are needed.",
-                duration: 173,
+                duration: 173
               },
               {
                 id: "bill-of-process",
@@ -462,7 +462,7 @@ export const modules: Config = [
                 name: "Bill of Process",
                 description:
                   "Understand how to create and manage bills of process that define the manufacturing steps.",
-                duration: 269,
+                duration: 269
               },
 
               {
@@ -472,7 +472,7 @@ export const modules: Config = [
                 name: "Revisions and Versions",
                 description:
                   "Master the revision and version control system for managing changes to methods and bills.",
-                duration: 212,
+                duration: 212
               },
               {
                 id: "get-method-save-method",
@@ -481,9 +481,9 @@ export const modules: Config = [
                 name: "Get Method and Save Method",
                 description:
                   "Learn how to retrieve and save methods programmatically using Carbon's API.",
-                duration: 200,
-              },
-            ],
+                duration: 200
+              }
+            ]
           },
           {
             name: "Advanced Manufacturing",
@@ -499,10 +499,10 @@ export const modules: Config = [
                   "To track customer preferences",
                   "To standardize the manufacturing process",
                   "To manage inventory levels",
-                  "To create invoices",
+                  "To create invoices"
                 ],
-                correctAnswer: 1,
-              },
+                correctAnswer: 1
+              }
             ],
             lessons: [
               {
@@ -512,7 +512,7 @@ export const modules: Config = [
                 name: "Procedures",
                 description:
                   "Learn how to create and manage procedures that define the manufacturing steps.",
-                duration: 215,
+                duration: 215
               },
               {
                 id: "subassemblies-vs-kits",
@@ -521,7 +521,7 @@ export const modules: Config = [
                 name: "Subassemblies vs Kits",
                 description:
                   "Learn the difference between subassemblies and kits and when to use each one.",
-                duration: 214,
+                duration: 214
               },
               {
                 id: "product-configurator",
@@ -530,12 +530,12 @@ export const modules: Config = [
                 name: "Product Configurator",
                 description:
                   "Learn how to use Carbon's product configurator to create complex, configurable products.",
-                duration: 328,
-              },
+                duration: 328
+              }
             ],
-            supplemental: [],
-          },
-        ],
+            supplemental: []
+          }
+        ]
       },
       {
         name: "Replenishing an Item",
@@ -558,10 +558,10 @@ export const modules: Config = [
                   "Manual stock adjustment",
                   "Automated planning and purchasing",
                   "Job creation for manufacturing",
-                  "Ignoring low stock alerts",
+                  "Ignoring low stock alerts"
                 ],
-                correctAnswer: 3,
-              },
+                correctAnswer: 3
+              }
             ],
             lessons: [
               {
@@ -571,7 +571,7 @@ export const modules: Config = [
                 name: "Inventory Levels",
                 description:
                   "Learn how to monitor and manage inventory levels, set reorder points, and handle stock movements.",
-                duration: 171,
+                duration: 171
               },
               {
                 id: "planning",
@@ -580,7 +580,7 @@ export const modules: Config = [
                 name: "Planning",
                 description:
                   "See how Carbon's planning tools help you forecast demand and generate replenishment requirements.",
-                duration: 370,
+                duration: 370
               },
               {
                 id: "demand-forecasting",
@@ -589,7 +589,7 @@ export const modules: Config = [
                 name: "Demand Forecasting",
                 description:
                   "Learn how to use Carbon's demand forecasting tools to help you plan your inventory.",
-                duration: 246,
+                duration: 246
               },
               {
                 id: "reorder-policy",
@@ -598,7 +598,7 @@ export const modules: Config = [
                 name: "Reorder Policies",
                 description:
                   "Learn how different reorder-policies affect planning",
-                duration: 236,
+                duration: 236
               },
               {
                 id: "kanbans",
@@ -606,7 +606,7 @@ export const modules: Config = [
                   "https://www.loom.com/share/fc22c1b734bc49c990e7e1fcea654853?sid=e88f5a81-ba6e-4dc5-83fe-3ef83241d529",
                 name: "Kanbans",
                 description: "Learn how to use kanbans to replenish inventory.",
-                duration: 376,
+                duration: 376
               },
               {
                 id: "stock-transfers",
@@ -615,13 +615,13 @@ export const modules: Config = [
                 name: "Stock Transfers",
                 description:
                   "Learn how to use stock transfers to move inventory between shelves.",
-                duration: 390,
-              },
-            ],
-          },
-        ],
-      },
-    ],
+                duration: 390
+              }
+            ]
+          }
+        ]
+      }
+    ]
   },
   {
     name: "Selling",
@@ -649,10 +649,10 @@ export const modules: Config = [
                   "Creating a quote",
                   "Recording an RFQ",
                   "Calculating costs",
-                  "Sending to customer",
+                  "Sending to customer"
                 ],
-                correctAnswer: 1,
-              },
+                correctAnswer: 1
+              }
             ],
             lessons: [
               {
@@ -662,7 +662,7 @@ export const modules: Config = [
                 name: "Recording an RFQ",
                 description:
                   "Learn how to record and manage Request for Quote (RFQ) documents from customers.",
-                duration: 206,
+                duration: 206
               },
               {
                 id: "quote-overview",
@@ -671,7 +671,7 @@ export const modules: Config = [
                 name: "Quote Overview",
                 description:
                   "Understand the structure and components of a quote in Carbon.",
-                duration: 108,
+                duration: 108
               },
 
               {
@@ -681,7 +681,7 @@ export const modules: Config = [
                 name: "Digital Quotes",
                 description:
                   "Create professional digital quotes that can be easily shared with customers.",
-                duration: 177,
+                duration: 177
               },
               {
                 id: "quote-revisions",
@@ -690,9 +690,9 @@ export const modules: Config = [
                 name: "Quote Revisions",
                 description:
                   "Learn how to manage quote revisions and track changes throughout the quoting process.",
-                duration: 66,
-              },
-            ],
+                duration: 66
+              }
+            ]
           },
           {
             name: "Estimating",
@@ -708,10 +708,10 @@ export const modules: Config = [
                   "To track customer preferences",
                   "To standardize the estimation process",
                   "To manage inventory levels",
-                  "To create invoices",
+                  "To create invoices"
                 ],
-                correctAnswer: 1,
-              },
+                correctAnswer: 1
+              }
             ],
             lessons: [
               {
@@ -721,7 +721,7 @@ export const modules: Config = [
                 name: "Quote Methods",
                 description:
                   "Learn how to use different quote methods to standardize your estimation process and ensure consistency.",
-                duration: 202,
+                duration: 202
               },
               {
                 id: "quote-costing",
@@ -730,11 +730,11 @@ export const modules: Config = [
                 name: "Quote Costing and Pricing",
                 description:
                   "Master the art of calculating accurate costs for quotes including materials, labor, and overhead.",
-                duration: 186,
-              },
-            ],
-          },
-        ],
+                duration: 186
+              }
+            ]
+          }
+        ]
       },
       {
         name: "Sales to Shipment",
@@ -756,10 +756,10 @@ export const modules: Config = [
                   "Immediate shipping",
                   "Production planning",
                   "Customer payment",
-                  "Order cancellation",
+                  "Order cancellation"
                 ],
-                correctAnswer: 1,
-              },
+                correctAnswer: 1
+              }
             ],
             lessons: [
               {
@@ -769,7 +769,7 @@ export const modules: Config = [
                 name: "Sales Orders",
                 description:
                   "Learn how to create and manage sales orders in Carbon.",
-                duration: 235,
+                duration: 235
               },
               {
                 id: "make-to-order-parts",
@@ -778,7 +778,7 @@ export const modules: Config = [
                 name: "Make to Order Parts",
                 description:
                   "Understand how to handle make-to-order parts and production planning.",
-                duration: 187,
+                duration: 187
               },
               {
                 id: "shipping-orders",
@@ -786,7 +786,7 @@ export const modules: Config = [
                   "https://www.loom.com/share/77ceffd533f94ffe9ef5b54499b6e267?sid=c8e70b7b-808e-4b05-8960-076f0ef8d653",
                 name: "Shipping Orders",
                 description: "Learn how to process and track order shipments.",
-                duration: 148,
+                duration: 148
               },
               {
                 id: "sales-invoices",
@@ -795,13 +795,13 @@ export const modules: Config = [
                 name: "Sales Invoices",
                 description:
                   "Master the creation and management of sales invoices.",
-                duration: 276,
-              },
-            ],
-          },
-        ],
-      },
-    ],
+                duration: 276
+              }
+            ]
+          }
+        ]
+      }
+    ]
   },
   {
     name: "Manufacturing",
@@ -829,9 +829,9 @@ export const modules: Config = [
                   "To track customer orders",
                   "To manage production work",
                   "To handle inventory",
-                  "To process invoices",
+                  "To process invoices"
                 ],
-                correctAnswer: 1,
+                correctAnswer: 1
               },
               {
                 id: "q2",
@@ -840,9 +840,9 @@ export const modules: Config = [
                   "To maximize inventory levels",
                   "To optimize resource utilization",
                   "To minimize customer orders",
-                  "To reduce quality checks",
+                  "To reduce quality checks"
                 ],
-                correctAnswer: 1,
+                correctAnswer: 1
               },
               {
                 id: "q3",
@@ -851,9 +851,9 @@ export const modules: Config = [
                   "Customer preferences",
                   "Resource requirements and timelines",
                   "Supplier pricing",
-                  "Quality standards",
+                  "Quality standards"
                 ],
-                correctAnswer: 1,
+                correctAnswer: 1
               },
               {
                 id: "q4",
@@ -862,10 +862,10 @@ export const modules: Config = [
                   "Starting the job",
                   "Scheduling the job",
                   "Closing the job",
-                  "Planning the job",
+                  "Planning the job"
                 ],
-                correctAnswer: 2,
-              },
+                correctAnswer: 2
+              }
             ],
             lessons: [
               {
@@ -875,7 +875,7 @@ export const modules: Config = [
                 name: "Job Overview",
                 description:
                   "Learn the fundamentals of job management and how jobs drive production in Carbon.",
-                duration: 292,
+                duration: 292
               },
               {
                 id: "scheduling",
@@ -884,7 +884,7 @@ export const modules: Config = [
                 name: "Scheduling",
                 description:
                   "Learn how to schedule jobs and manage production timelines effectively.",
-                duration: 205,
+                duration: 205
               },
               {
                 id: "production-planning",
@@ -893,7 +893,7 @@ export const modules: Config = [
                 name: "Production Planning",
                 description:
                   "Learn how to plan production activities and coordinate resources effectively.",
-                duration: 498,
+                duration: 498
               },
               {
                 id: "closing-job",
@@ -902,11 +902,11 @@ export const modules: Config = [
                 name: "Closing a Job",
                 description:
                   "Learn the proper process for completing and closing jobs in the production system.",
-                duration: 221,
-              },
-            ],
-          },
-        ],
+                duration: 221
+              }
+            ]
+          }
+        ]
       },
       {
         name: "Shop Floor",
@@ -928,9 +928,9 @@ export const modules: Config = [
                   "Manufacturing Execution System",
                   "Material Exchange System",
                   "Management Execution System",
-                  "Manufacturing Exchange System",
+                  "Manufacturing Exchange System"
                 ],
-                correctAnswer: 0,
+                correctAnswer: 0
               },
               {
                 id: "q2",
@@ -939,9 +939,9 @@ export const modules: Config = [
                   "For inventory management only",
                   "For accurate job costing and efficiency analysis",
                   "For customer satisfaction",
-                  "For supplier management",
+                  "For supplier management"
                 ],
-                correctAnswer: 1,
+                correctAnswer: 1
               },
               {
                 id: "q3",
@@ -951,9 +951,9 @@ export const modules: Config = [
                   "To increase inventory levels",
                   "To provide traceability and quality control",
                   "To reduce production costs",
-                  "To speed up shipping",
+                  "To speed up shipping"
                 ],
-                correctAnswer: 1,
+                correctAnswer: 1
               },
               {
                 id: "q4",
@@ -962,9 +962,9 @@ export const modules: Config = [
                   "Inventory levels increase",
                   "Inventory levels decrease",
                   "Customer orders are created",
-                  "Suppliers are notified",
+                  "Suppliers are notified"
                 ],
-                correctAnswer: 1,
+                correctAnswer: 1
               },
               {
                 id: "q5",
@@ -973,10 +973,10 @@ export const modules: Config = [
                   "Customer communication",
                   "Guiding production processes and instructions",
                   "Supplier management",
-                  "Quality control only",
+                  "Quality control only"
                 ],
-                correctAnswer: 1,
-              },
+                correctAnswer: 1
+              }
             ],
             lessons: [
               {
@@ -986,7 +986,7 @@ export const modules: Config = [
                 name: "MES Overview",
                 description:
                   "Learn about Manufacturing Execution Systems and how Carbon implements MES functionality.",
-                duration: 166,
+                duration: 166
               },
               {
                 id: "tracking-time-quantities",
@@ -995,7 +995,7 @@ export const modules: Config = [
                 name: "Tracking Time and Quantities",
                 description:
                   "Learn how to track production time and quantities for accurate job costing and efficiency analysis.",
-                duration: 296,
+                duration: 296
               },
               {
                 id: "tracking-batch-serial",
@@ -1004,7 +1004,7 @@ export const modules: Config = [
                 name: "Tracking Batch and Serial Parts",
                 description:
                   "Learn how to track batch and serial numbered parts for traceability and quality control.",
-                duration: 202,
+                duration: 202
               },
               {
                 id: "issuing-parts",
@@ -1013,7 +1013,7 @@ export const modules: Config = [
                 name: "Issuing Parts",
                 description:
                   "Learn how to issue parts to jobs and track material consumption accurately.",
-                duration: 88,
+                duration: 88
               },
               {
                 id: "job-traveler",
@@ -1022,13 +1022,13 @@ export const modules: Config = [
                 name: "Job Traveler",
                 description:
                   "Learn how to use job travelers to guide production processes and provide instructions.",
-                duration: 222,
-              },
-            ],
-          },
-        ],
-      },
-    ],
+                duration: 222
+              }
+            ]
+          }
+        ]
+      }
+    ]
   },
   {
     name: "Buying",
@@ -1055,9 +1055,9 @@ export const modules: Config = [
                   "Creating a purchase order",
                   "Receiving goods",
                   "Identifying needs",
-                  "Paying suppliers",
+                  "Paying suppliers"
                 ],
-                correctAnswer: 2,
+                correctAnswer: 2
               },
               {
                 id: "q2",
@@ -1066,9 +1066,9 @@ export const modules: Config = [
                   "To increase inventory",
                   "To compare pricing and select the best supplier",
                   "To reduce quality checks",
-                  "To speed up shipping",
+                  "To speed up shipping"
                 ],
-                correctAnswer: 1,
+                correctAnswer: 1
               },
               {
                 id: "q3",
@@ -1077,9 +1077,9 @@ export const modules: Config = [
                   "A customer order",
                   "A formal request to buy goods or services",
                   "A quality inspection report",
-                  "A shipping document",
+                  "A shipping document"
                 ],
-                correctAnswer: 1,
+                correctAnswer: 1
               },
               {
                 id: "q4",
@@ -1089,10 +1089,10 @@ export const modules: Config = [
                   "Immediately pay the supplier",
                   "Inspect goods and update inventory",
                   "Create a new purchase order",
-                  "Contact the customer",
+                  "Contact the customer"
                 ],
-                correctAnswer: 1,
-              },
+                correctAnswer: 1
+              }
             ],
             lessons: [
               {
@@ -1102,7 +1102,7 @@ export const modules: Config = [
                 name: "Purchasing Overview",
                 description:
                   "Learn about the complete purchasing process from supplier selection to payment.",
-                duration: 0,
+                duration: 0
               },
               {
                 id: "supplier-quotes",
@@ -1111,7 +1111,7 @@ export const modules: Config = [
                 name: "Supplier Quotes",
                 description:
                   "Learn how to manage supplier quotes and compare pricing effectively.",
-                duration: 0,
+                duration: 0
               },
               {
                 id: "purchase-orders",
@@ -1120,7 +1120,7 @@ export const modules: Config = [
                 name: "Purchase Orders",
                 description:
                   "Learn how to create and manage purchase orders effectively.",
-                duration: 0,
+                duration: 0
               },
               {
                 id: "receiving-purchase-order",
@@ -1129,11 +1129,11 @@ export const modules: Config = [
                 name: "Receiving a Purchase Order",
                 description:
                   "Learn how to receive and inspect purchased goods properly.",
-                duration: 0,
-              },
-            ],
-          },
-        ],
+                duration: 0
+              }
+            ]
+          }
+        ]
       },
       {
         name: "Advanced Purchasing",
@@ -1155,9 +1155,9 @@ export const modules: Config = [
                   "To track customer orders",
                   "To request payment from suppliers",
                   "To record received goods and request payment",
-                  "To manage inventory levels",
+                  "To manage inventory levels"
                 ],
-                correctAnswer: 2,
+                correctAnswer: 2
               },
               {
                 id: "q2",
@@ -1166,9 +1166,9 @@ export const modules: Config = [
                   "Supplier preferences only",
                   "Demand forecasts and inventory levels",
                   "Customer orders only",
-                  "Quality requirements only",
+                  "Quality requirements only"
                 ],
-                correctAnswer: 1,
+                correctAnswer: 1
               },
               {
                 id: "q3",
@@ -1177,9 +1177,9 @@ export const modules: Config = [
                   "To increase inventory levels",
                   "To make better purchasing decisions and negotiate prices",
                   "To reduce quality checks",
-                  "To speed up shipping",
+                  "To speed up shipping"
                 ],
-                correctAnswer: 1,
+                correctAnswer: 1
               },
               {
                 id: "q4",
@@ -1188,10 +1188,10 @@ export const modules: Config = [
                   "To increase costs",
                   "To optimize costs and improve supplier relationships",
                   "To reduce quality",
-                  "To slow down delivery",
+                  "To slow down delivery"
                 ],
-                correctAnswer: 1,
-              },
+                correctAnswer: 1
+              }
             ],
             lessons: [
               {
@@ -1201,7 +1201,7 @@ export const modules: Config = [
                 name: "Purchase Invoices",
                 description:
                   "Learn how to process and manage purchase invoices for payment.",
-                duration: 0,
+                duration: 0
               },
               {
                 id: "purchasing-planning",
@@ -1210,7 +1210,7 @@ export const modules: Config = [
                 name: "Purchasing Planning",
                 description:
                   "Learn how to plan purchasing activities based on demand and inventory levels.",
-                duration: 0,
+                duration: 0
               },
               {
                 id: "historical-costs",
@@ -1219,7 +1219,7 @@ export const modules: Config = [
                 name: "Historical Costs",
                 description:
                   "Learn how to analyze historical costs for better purchasing decisions.",
-                duration: 0,
+                duration: 0
               },
               {
                 id: "supplier-pricing",
@@ -1228,13 +1228,13 @@ export const modules: Config = [
                 name: "Supplier Pricing",
                 description:
                   "Learn how to analyze supplier pricing and develop negotiation strategies.",
-                duration: 0,
-              },
-            ],
-          },
-        ],
-      },
-    ],
+                duration: 0
+              }
+            ]
+          }
+        ]
+      }
+    ]
   },
   {
     name: "Quality",
@@ -1262,9 +1262,9 @@ export const modules: Config = [
                   "A successful product",
                   "A product or material that doesn't meet specifications",
                   "A customer order",
-                  "A supplier invoice",
+                  "A supplier invoice"
                 ],
-                correctAnswer: 1,
+                correctAnswer: 1
               },
               {
                 id: "q2",
@@ -1273,10 +1273,10 @@ export const modules: Config = [
                   "To increase costs",
                   "To ensure measurement accuracy and quality control",
                   "To reduce inventory",
-                  "To speed up production",
+                  "To speed up production"
                 ],
-                correctAnswer: 1,
-              },
+                correctAnswer: 1
+              }
             ],
             lessons: [
               {
@@ -1286,7 +1286,7 @@ export const modules: Config = [
                 name: "Issues",
                 description:
                   "Learn how to track and manage non-conforming materials and products.",
-                duration: 0,
+                duration: 0
               },
               {
                 id: "gauges-calibrations",
@@ -1295,13 +1295,13 @@ export const modules: Config = [
                 name: "Gauges and Calibrations",
                 description:
                   "Learn how to manage measurement equipment and calibration schedules.",
-                duration: 0,
-              },
-            ],
-          },
-        ],
-      },
-    ],
+                duration: 0
+              }
+            ]
+          }
+        ]
+      }
+    ]
   },
   {
     name: "Developing",
@@ -1329,9 +1329,9 @@ export const modules: Config = [
                   "To increase costs",
                   "To provide secure access to Carbon's API",
                   "To reduce quality",
-                  "To slow down performance",
+                  "To slow down performance"
                 ],
-                correctAnswer: 1,
+                correctAnswer: 1
               },
               {
                 id: "q2",
@@ -1341,9 +1341,9 @@ export const modules: Config = [
                   "To increase costs",
                   "To provide type safety and better development experience",
                   "To reduce quality",
-                  "To slow down performance",
+                  "To slow down performance"
                 ],
-                correctAnswer: 1,
+                correctAnswer: 1
               },
               {
                 id: "q3",
@@ -1352,9 +1352,9 @@ export const modules: Config = [
                   "Web browsers",
                   ".NET applications",
                   "Mobile apps",
-                  "Linux systems",
+                  "Linux systems"
                 ],
-                correctAnswer: 1,
+                correctAnswer: 1
               },
               {
                 id: "q4",
@@ -1364,9 +1364,9 @@ export const modules: Config = [
                   "Web development only",
                   "Data analysis, automation, and integration",
                   "Mobile development",
-                  "Database management only",
+                  "Database management only"
                 ],
-                correctAnswer: 1,
+                correctAnswer: 1
               },
               {
                 id: "q5",
@@ -1375,10 +1375,10 @@ export const modules: Config = [
                   "To increase costs",
                   "To receive real-time event notifications",
                   "To reduce quality",
-                  "To slow down performance",
+                  "To slow down performance"
                 ],
-                correctAnswer: 1,
-              },
+                correctAnswer: 1
+              }
             ],
             lessons: [
               {
@@ -1388,7 +1388,7 @@ export const modules: Config = [
                 name: "API Keys",
                 description:
                   "Learn how to create and manage API keys for secure access to Carbon's API.",
-                duration: 0,
+                duration: 0
               },
               {
                 id: "typescript-api-client",
@@ -1397,7 +1397,7 @@ export const modules: Config = [
                 name: "TypeScript API Client",
                 description:
                   "Learn how to use Carbon's TypeScript API client for seamless integration.",
-                duration: 0,
+                duration: 0
               },
               {
                 id: "csharp-api-client",
@@ -1406,7 +1406,7 @@ export const modules: Config = [
                 name: "C# API Client",
                 description:
                   "Learn how to use Carbon's C# API client for .NET applications.",
-                duration: 0,
+                duration: 0
               },
               {
                 id: "python-api-client",
@@ -1415,7 +1415,7 @@ export const modules: Config = [
                 name: "Python API Client",
                 description:
                   "Learn how to integrate with Carbon using the Python API client.",
-                duration: 0,
+                duration: 0
               },
               {
                 id: "webhooks",
@@ -1424,11 +1424,11 @@ export const modules: Config = [
                 name: "Webhooks",
                 description:
                   "Learn how to use webhooks for real-time event notifications from Carbon.",
-                duration: 0,
-              },
-            ],
-          },
-        ],
+                duration: 0
+              }
+            ]
+          }
+        ]
       },
       {
         name: "Integrating with Carbon",
@@ -1450,9 +1450,9 @@ export const modules: Config = [
                   "To increase complexity",
                   "To streamline workflows and improve efficiency",
                   "To reduce functionality",
-                  "To slow down processes",
+                  "To slow down processes"
                 ],
-                correctAnswer: 1,
+                correctAnswer: 1
               },
               {
                 id: "q2",
@@ -1461,10 +1461,10 @@ export const modules: Config = [
                   "Only mobile apps",
                   "Custom applications, dashboards, and tools",
                   "Only web applications",
-                  "Only desktop software",
+                  "Only desktop software"
                 ],
-                correctAnswer: 1,
-              },
+                correctAnswer: 1
+              }
             ],
             lessons: [
               {
@@ -1474,7 +1474,7 @@ export const modules: Config = [
                 name: "Integrations",
                 description:
                   "Learn how to integrate Carbon with other business systems and tools.",
-                duration: 91,
+                duration: 91
               },
               {
                 id: "paperless-integration",
@@ -1483,7 +1483,7 @@ export const modules: Config = [
                 name: "Paperless Parts Integration",
                 description:
                   "Learn how to sync orders from Paperless Parts to Carbon.",
-                duration: 160,
+                duration: 160
               },
               {
                 id: "linear-integration",
@@ -1491,7 +1491,7 @@ export const modules: Config = [
                   "https://www.loom.com/share/714bda8164a64ad28ce7cb6f02b3260a?sid=85542655-886a-4053-9c2f-79426e62232b",
                 name: "Linear Integration",
                 description: "Learn how to sync issues from Linear to Carbon.",
-                duration: 143,
+                duration: 143
               },
 
               {
@@ -1501,7 +1501,7 @@ export const modules: Config = [
                 name: "Slack Integration",
                 description:
                   "Learn how to integrate Carbon with Slack for real-time notifications and updates.",
-                duration: 89,
+                duration: 89
               },
               {
                 id: "applications",
@@ -1510,12 +1510,12 @@ export const modules: Config = [
                 name: "Applications",
                 description:
                   "Learn how to build custom applications that integrate with Carbon's platform.",
-                duration: 0,
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  },
+                duration: 0
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
 ];

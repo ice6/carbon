@@ -9,14 +9,14 @@ import {
   Heading,
   IconButton,
   VStack,
-  useDisclosure,
+  useDisclosure
 } from "@carbon/react";
 import { useParams } from "@remix-run/react";
 import {
   LuEllipsisVertical,
   LuPanelLeft,
   LuPanelRight,
-  LuTrash,
+  LuTrash
 } from "react-icons/lu";
 import { usePanels } from "~/components/Layout";
 import ConfirmDelete from "~/components/Modals/ConfirmDelete";

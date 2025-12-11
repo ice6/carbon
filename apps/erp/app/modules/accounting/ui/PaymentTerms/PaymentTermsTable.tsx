@@ -8,7 +8,7 @@ import {
   LuClock,
   LuPencil,
   LuPercent,
-  LuTrash,
+  LuTrash
 } from "react-icons/lu";
 import { Hyperlink, New, Table } from "~/components";
 import { Enumerable } from "~/components/Enumerable";
@@ -40,32 +40,32 @@ const PaymentTermsTable = memo(({ data, count }: PaymentTermsTableProps) => {
           </Hyperlink>
         ),
         meta: {
-          icon: <LuBookMarked />,
-        },
+          icon: <LuBookMarked />
+        }
       },
       {
         accessorKey: "daysDue",
         header: "Days Due",
         cell: (item) => item.getValue(),
         meta: {
-          icon: <LuCalendar />,
-        },
+          icon: <LuCalendar />
+        }
       },
       {
         accessorKey: "daysDiscount",
         header: "Days Discount",
         cell: (item) => item.getValue(),
         meta: {
-          icon: <LuCalendar />,
-        },
+          icon: <LuCalendar />
+        }
       },
       {
         accessorKey: "discountPercentage",
         header: "Discount Percentage",
         cell: (item) => item.getValue(),
         meta: {
-          icon: <LuPercent />,
-        },
+          icon: <LuPercent />
+        }
       },
       {
         accessorKey: "calculationMethod",
@@ -76,12 +76,12 @@ const PaymentTermsTable = memo(({ data, count }: PaymentTermsTableProps) => {
             type: "static",
             options: paymentTermsCalculationMethod.map((v) => ({
               label: <Enumerable value={v} />,
-              value: v,
-            })),
+              value: v
+            }))
           },
-          icon: <LuClock />,
-        },
-      },
+          icon: <LuClock />
+        }
+      }
     ];
     return [...defaultColumns, ...customColumns];
   }, [params, customColumns]);

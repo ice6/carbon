@@ -14,7 +14,7 @@ import { path } from "~/utils/path";
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
     view: "sales",
-    role: "employee",
+    role: "employee"
   });
 
   const { id } = params;
@@ -33,14 +33,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   }
 
   return json({
-    customerPortal: customerPortal.data,
+    customerPortal: customerPortal.data
   });
 }
 
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client } = await requirePermissions(request, {
-    update: "sales",
+    update: "sales"
   });
 
   const formData = await request.formData();
@@ -59,7 +59,7 @@ export async function action({ request }: ActionFunctionArgs) {
     id,
     documentType: "Customer",
     documentId: customerId,
-    customerId,
+    customerId
   });
 
   if (updateCustomerPortal.error) {
@@ -84,7 +84,7 @@ export default function EditCustomerPortalRoute() {
 
   const initialValues = {
     id: customerPortal.id ?? undefined,
-    customerId: customerPortal.customerId ?? "",
+    customerId: customerPortal.customerId ?? ""
   };
 
   return (

@@ -18,7 +18,7 @@ import {
   ModalFooter,
   ModalHeader,
   ModalTitle,
-  toast,
+  toast
 } from "@carbon/react";
 import { useFetcher, useNavigate, useParams } from "@remix-run/react";
 import type { ActionFunctionArgs } from "@vercel/remix";
@@ -29,7 +29,7 @@ import {
   LuCircleCheck,
   LuQrCode,
   LuTriangleAlert,
-  LuX,
+  LuX
 } from "react-icons/lu";
 import { useRouteData } from "~/hooks";
 import type { StockTransfer, StockTransferLine } from "~/modules/inventory";
@@ -39,7 +39,7 @@ import { path } from "~/utils/path";
 
 export async function action({ request }: ActionFunctionArgs) {
   const { client, companyId, userId } = await requirePermissions(request, {
-    update: "inventory",
+    update: "inventory"
   });
 
   const payload = await request.json();
@@ -56,14 +56,14 @@ export async function action({ request }: ActionFunctionArgs) {
 
   const [stockTransferLine, itemShelfQuantities] = await Promise.all([
     client.from("stockTransferLines").select("*").eq("id", id!).single(),
-    getItemShelfQuantities(client, itemId, companyId, locationId),
+    getItemShelfQuantities(client, itemId, companyId, locationId)
   ]);
 
   if (stockTransferLine.error || itemShelfQuantities.error) {
     return json(
       {
         success: false,
-        message: "Failed to load stock transfer line or item shelf quantities",
+        message: "Failed to load stock transfer line or item shelf quantities"
       },
       await flash(
         request,
@@ -92,17 +92,17 @@ export async function action({ request }: ActionFunctionArgs) {
     stockTransferLineId: id,
     trackedEntityId,
     quantity:
-      transferType === "batch" ? stockTransferLine.data?.quantity ?? 1 : 1,
+      transferType === "batch" ? (stockTransferLine.data?.quantity ?? 1) : 1,
     fromShelfId: currentShelfId,
     locationId: locationId,
     userId,
-    companyId,
+    companyId
   };
 
   const { error: functionError } = await client.functions.invoke(
     "post-stock-transfer",
     {
-      body: JSON.stringify(functionPayload),
+      body: JSON.stringify(functionPayload)
     }
   );
 
@@ -171,11 +171,11 @@ export default function StockTransferScan() {
         stockTransferId: stockTransferLine.stockTransferId!,
         trackedEntityId: trackedEntityId!,
         itemId: stockTransferLine.itemId!,
-        locationId: locationId,
+        locationId: locationId
       },
       {
         method: "POST",
-        encType: "application/json",
+        encType: "application/json"
       }
     );
   };
@@ -270,7 +270,7 @@ export default function StockTransferScan() {
           stockTransferId: stockTransferLine.stockTransferId!,
           itemId: stockTransferLine.itemId!,
           locationId: locationId,
-          trackedEntityId: "",
+          trackedEntityId: ""
         }}
       >
         <ModalContent>

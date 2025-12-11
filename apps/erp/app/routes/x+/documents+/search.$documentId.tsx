@@ -9,13 +9,13 @@ import {
   DocumentForm,
   documentValidator,
   getDocument,
-  upsertDocument,
+  upsertDocument
 } from "~/modules/documents";
 import { path } from "~/utils/path";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
-    view: "documents",
+    view: "documents"
   });
 
   const { documentId } = params;
@@ -31,14 +31,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   }
 
   return json({
-    document: document.data,
+    document: document.data
   });
 }
 
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    update: "documents",
+    update: "documents"
   });
 
   const validation = await validator(documentValidator).validate(
@@ -56,7 +56,7 @@ export async function action({ request }: ActionFunctionArgs) {
     id,
     ...document,
     name: `${document.name}.${extension}`,
-    updatedBy: userId,
+    updatedBy: userId
   });
 
   if (updateDocument.error) {
@@ -89,7 +89,7 @@ export default function EditDocumentRoute() {
     extension: document.extension ?? "",
     size: document.size ?? 0,
     readGroups: document.readGroups ?? [],
-    writeGroups: document.writeGroups ?? [],
+    writeGroups: document.writeGroups ?? []
   };
 
   return (

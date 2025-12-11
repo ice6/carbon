@@ -20,13 +20,13 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-  useDisclosure,
+  useDisclosure
 } from "@carbon/react";
 import { useFetcher } from "@remix-run/react";
 import type {
   Column,
   ColumnOrderState,
-  ColumnPinningState,
+  ColumnPinningState
 } from "@tanstack/react-table";
 import { useEffect, useState, type ReactNode } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
@@ -35,7 +35,7 @@ import {
   LuDownload,
   LuFilePen,
   LuLayers,
-  LuLock,
+  LuLock
 } from "react-icons/lu";
 import { SearchFilter } from "~/components";
 import { ImportCSVModal } from "~/components/ImportCSVModal";
@@ -106,7 +106,7 @@ const TableHeader = <T extends object>({
   withPagination,
   withSavedView,
   withSearch,
-  withSelectableRows,
+  withSelectableRows
 }: HeaderProps<T>) => {
   const [params, setParams] = useUrlParams();
   const currentFilters = params.getAll("filter").filter(Boolean);
@@ -158,7 +158,7 @@ const TableHeader = <T extends object>({
                 columnPinning,
                 columnVisibility,
                 filters: currentFilters,
-                sorts: currentSorts,
+                sorts: currentSorts
               })}
             />
             <Hidden name="table" value={table} />

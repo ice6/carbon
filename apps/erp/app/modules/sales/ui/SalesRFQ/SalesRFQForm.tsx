@@ -7,10 +7,10 @@ import {
   CardHeader,
   CardTitle,
   VStack,
-  cn,
+  cn
 } from "@carbon/react";
 import { useState } from "react";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import {
   CustomFormFields,
   Customer,
@@ -22,7 +22,7 @@ import {
   Input,
   Location,
   SequenceOrCustomId,
-  Submit,
+  Submit
 } from "~/components/Form";
 import { usePermissions } from "~/hooks";
 import { salesRfqValidator } from "../../sales.models";

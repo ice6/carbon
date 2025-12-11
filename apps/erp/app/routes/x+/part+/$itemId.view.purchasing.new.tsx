@@ -14,7 +14,7 @@ import { path } from "~/utils/path";
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    create: "parts",
+    create: "parts"
   });
 
   const { itemId } = params;
@@ -26,7 +26,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   if (validation.error) {
     return json({
       success: false,
-      message: "Invalid form data",
+      message: "Invalid form data"
     });
   }
 
@@ -36,19 +36,19 @@ export async function action({ request, params }: ActionFunctionArgs) {
     ...data,
     companyId,
     createdBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
 
   if (createPartSupplier.error) {
     return json({
       success: false,
-      message: "Failed to create part supplier",
+      message: "Failed to create part supplier"
     });
   }
 
   return json({
     success: true,
-    message: "Part supplier created",
+    message: "Part supplier created"
   });
 }
 
@@ -68,7 +68,7 @@ export default function NewPartSupplierRoute() {
     unitPrice: 0,
     supplierUnitOfMeasureCode: "EA",
     minimumOrderQuantity: 1,
-    conversionFactor: 1,
+    conversionFactor: 1
   };
 
   const navigate = useNavigate();

@@ -9,14 +9,14 @@ import { updateRevision } from "~/modules/items/items.service";
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    update: "parts",
+    update: "parts"
   });
 
   const { id } = params;
   if (!id) {
     return json({
       success: false,
-      message: "Revision ID is required",
+      message: "Revision ID is required"
     });
   }
 
@@ -26,25 +26,25 @@ export async function action({ request, params }: ActionFunctionArgs) {
   if (validation.error) {
     return json({
       success: false,
-      message: "Invalid form data",
+      message: "Invalid form data"
     });
   }
 
   const result = await updateRevision(client, {
     id: id,
     revision: validation.data.revision,
-    updatedBy: userId,
+    updatedBy: userId
   });
 
   if (result.error) {
     return json({
       success: false,
-      message: result.error.message || "Failed to update revision",
+      message: result.error.message || "Failed to update revision"
     });
   }
 
   return json({
     success: true,
-    link: `/x/items/${id}`, // Redirect back to the item
+    link: `/x/items/${id}` // Redirect back to the item
   });
 }

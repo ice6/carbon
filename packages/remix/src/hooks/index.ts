@@ -17,5 +17,5 @@ export {
   useOptimisticLocation,
   usePlan,
   useRouteData,
-  useUrlParams,
+  useUrlParams
 };

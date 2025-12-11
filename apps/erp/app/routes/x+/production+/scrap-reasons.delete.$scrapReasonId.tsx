@@ -11,7 +11,7 @@ import { getParams, path } from "~/utils/path";
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
     view: "production",
-    role: "employee",
+    role: "employee"
   });
   const { scrapReasonId } = params;
   if (!scrapReasonId) throw notFound("scrapReasonId not found");
@@ -32,7 +32,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
 export async function action({ request, params }: ActionFunctionArgs) {
   const { client } = await requirePermissions(request, {
-    delete: "production",
+    delete: "production"
   });
 
   const { scrapReasonId } = params;

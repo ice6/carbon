@@ -2,7 +2,7 @@ import {
   CarbonEdition,
   error,
   getCarbonServiceRole,
-  success,
+  success
 } from "@carbon/auth";
 import { requirePermissions } from "@carbon/auth/auth.server";
 import { flash } from "@carbon/auth/session.server";
@@ -17,7 +17,7 @@ import { revokeInviteValidator } from "~/modules/users";
 
 export async function action({ request }: ActionFunctionArgs) {
   const { companyId } = await requirePermissions(request, {
-    create: "users",
+    create: "users"
   });
 
   const validation = await validator(revokeInviteValidator).validate(
@@ -65,8 +65,8 @@ export async function action({ request }: ActionFunctionArgs) {
       payload: {
         id,
         type: "deactivate" as const,
-        companyId,
-      },
+        companyId
+      }
     }));
 
     await tasks.batchTrigger<typeof userAdminTask>("user-admin", batchPayload);

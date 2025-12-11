@@ -14,11 +14,11 @@ import {
   getOpportunityLineDocuments,
   getSalesRFQLine,
   salesRfqLineValidator,
-  upsertSalesRFQLine,
+  upsertSalesRFQLine
 } from "~/modules/sales";
 import {
   OpportunityLineDocuments,
-  OpportunityLineNotes,
+  OpportunityLineNotes
 } from "~/modules/sales/ui/Opportunity";
 import { SalesRFQLineForm } from "~/modules/sales/ui/SalesRFQ";
 import { setCustomFields } from "~/utils/form";
@@ -26,7 +26,7 @@ import { path } from "~/utils/path";
 
 export const loader = async ({ request, params }: LoaderFunctionArgs) => {
   const { companyId } = await requirePermissions(request, {
-    view: "sales",
+    view: "sales"
   });
 
   const { rfqId, lineId } = params;
@@ -48,14 +48,14 @@ export const loader = async ({ request, params }: LoaderFunctionArgs) => {
 
   return defer({
     line: line.data,
-    files: getOpportunityLineDocuments(serviceRole, companyId, lineId, itemId),
+    files: getOpportunityLineDocuments(serviceRole, companyId, lineId, itemId)
   });
 };
 
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    create: "sales",
+    create: "sales"
   });
 
   const { rfqId, lineId } = params;
@@ -76,7 +76,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     id: lineId,
     ...data,
     updatedBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
 
   if (updateLine.error) {
@@ -112,7 +112,7 @@ export default function SalesRFQLine() {
     quantity: line.quantity ?? [1],
     order: line.order ?? 1,
     unitOfMeasureCode: line.unitOfMeasureCode ?? "",
-    modelUploadId: line.modelUploadId ?? undefined,
+    modelUploadId: line.modelUploadId ?? undefined
   };
 
   return (
@@ -151,7 +151,7 @@ export default function SalesRFQLine() {
         isReadOnly={!permissions.can("update", "sales")}
         metadata={{
           salesRfqLineId: line.id ?? undefined,
-          itemId: line.itemId ?? undefined,
+          itemId: line.itemId ?? undefined
         }}
         modelPath={line?.modelPath ?? null}
         title="CAD Model"

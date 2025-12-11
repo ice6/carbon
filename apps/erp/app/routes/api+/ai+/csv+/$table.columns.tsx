@@ -4,12 +4,12 @@ import { requirePermissions } from "@carbon/auth/auth.server";
 import type { ActionFunctionArgs } from "@vercel/remix";
 import { json } from "@vercel/remix";
 import { generateObject } from "ai";
-import type { ZodSchema } from 'zod/v3';
-import { z } from 'zod/v3';
+import type { ZodSchema } from "zod/v3";
+import { z } from "zod/v3";
 import { importSchemas } from "~/modules/shared";
 
 const inputSchema = z.object({
-  fileColumns: z.array(z.string()),
+  fileColumns: z.array(z.string())
   // firstRows: z.array(z.record(z.string())),
 });
 
@@ -41,7 +41,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
       prompt: `
       The following columns are the headings from a CSV import file for importing a ${table}. 
       Map these column names to the correct fields in our database (${[
-        ...Object.keys(getZodSchemaFieldsShallow(schema)),
+        ...Object.keys(getZodSchemaFieldsShallow(schema))
       ].join(", ")}) by providing the matching column name for each field.
       
       If you are not sure or there is no matching column, please return "N/A". 
@@ -49,7 +49,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
       Columns:
       ${fileColumns.join(",")}
       `,
-      temperature: 0.2,
+      temperature: 0.2
     });
 
     return json(object);
@@ -67,7 +67,7 @@ export function getZodSchemaFieldsShallow(schema: ZodSchema) {
         return;
       }
       fields[key] = true;
-    },
+    }
   });
   schema.safeParse(proxy);
   return fields;

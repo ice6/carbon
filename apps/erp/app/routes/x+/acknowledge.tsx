@@ -13,7 +13,7 @@ export async function action({ request }: ActionFunctionArgs) {
     await client
       .from("user")
       .update({
-        acknowledgedUniversity: true,
+        acknowledgedUniversity: true
       })
       .eq("id", userId);
 
@@ -28,14 +28,14 @@ export async function action({ request }: ActionFunctionArgs) {
     const updateResult = await client
       .from("user")
       .update({
-        acknowledgedITAR: true,
+        acknowledgedITAR: true
       })
       .eq("id", userId);
 
     if (updateResult.error) {
       return {
         success: false,
-        message: "Failed to update ITAR acknowledgement",
+        message: "Failed to update ITAR acknowledgement"
       };
     }
 

@@ -9,7 +9,7 @@ import { json, redirect } from "@vercel/remix";
 import {
   getRequiredAction,
   requiredActionValidator,
-  upsertRequiredAction,
+  upsertRequiredAction
 } from "~/modules/quality";
 import { RequiredActionForm } from "~/modules/quality/ui/RequiredActions";
 
@@ -21,7 +21,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
   const { client } = await requirePermissions(request, {
     view: "quality",
-    role: "employee",
+    role: "employee"
   });
 
   const result = await getRequiredAction(client, id);
@@ -41,7 +41,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   if (!id) throw new Error("Required action ID is required");
 
   const { client, userId } = await requirePermissions(request, {
-    update: "quality",
+    update: "quality"
   });
 
   const formData = await request.formData();
@@ -59,7 +59,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     id,
     name,
     active: active ?? true,
-    updatedBy: userId,
+    updatedBy: userId
   });
 
   if (updateResult.error) {
@@ -84,9 +84,9 @@ export default function EditRequiredActionRoute() {
   const onClose = () => navigate(path.to.requiredActions);
 
   return (
-    <RequiredActionForm 
+    <RequiredActionForm
       type="modal"
-      initialValues={requiredAction} 
+      initialValues={requiredAction}
       onClose={onClose}
     />
   );

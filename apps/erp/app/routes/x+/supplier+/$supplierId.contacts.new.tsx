@@ -3,7 +3,7 @@ import {
   error,
   getCarbonServiceRole,
   notFound,
-  success,
+  success
 } from "@carbon/auth";
 import { requirePermissions } from "@carbon/auth/auth.server";
 import { flash } from "@carbon/auth/session.server";
@@ -14,7 +14,7 @@ import type { ActionFunctionArgs } from "@vercel/remix";
 import { json, redirect } from "@vercel/remix";
 import {
   insertSupplierContact,
-  supplierContactValidator,
+  supplierContactValidator
 } from "~/modules/purchasing";
 import SupplierContactForm from "~/modules/purchasing/ui/Supplier/SupplierContactForm";
 import { setCustomFields } from "~/utils/form";
@@ -24,7 +24,7 @@ import { supplierContactsQuery } from "~/utils/react-query";
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { companyId } = await requirePermissions(request, {
-    create: "purchasing",
+    create: "purchasing"
   });
 
   // RLS doesn't work for selecting a contact with no supplier
@@ -51,7 +51,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     companyId,
     contact,
     supplierLocationId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
 
   if (createSupplierContact.error) {
@@ -112,7 +112,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
 export async function clientAction({
   serverAction,
-  params,
+  params
 }: ClientActionFunctionArgs) {
   const { supplierId } = params;
   if (supplierId) {
@@ -132,7 +132,7 @@ export default function SupplierContactsNewRoute() {
   const initialValues = {
     firstName: "",
     lastName: "",
-    email: "",
+    email: ""
   };
 
   return (

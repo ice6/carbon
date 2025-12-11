@@ -11,7 +11,7 @@ import {
   HStack,
   VStack,
   cn,
-  useKeyboardShortcuts,
+  useKeyboardShortcuts
 } from "@carbon/react";
 import { useMode } from "@carbon/remix";
 import { themes, type Theme } from "@carbon/utils";
@@ -20,7 +20,7 @@ import {
   useFetcher,
   useLoaderData,
   useNavigation,
-  useSubmit,
+  useSubmit
 } from "@remix-run/react";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@vercel/remix";
 import { json, redirect } from "@vercel/remix";
@@ -36,14 +36,14 @@ import { path } from "~/utils/path";
 
 export const handle: Handle = {
   breadcrumb: "Theme",
-  to: path.to.theme,
+  to: path.to.theme
 };
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const theme = getTheme(request);
 
   return json({
-    theme: theme ?? "zinc",
+    theme: theme ?? "zinc"
   });
 }
 
@@ -61,7 +61,7 @@ export async function action({ request }: ActionFunctionArgs) {
   if (!next) throw new Error("Fatal: next is required");
 
   throw redirect(next, {
-    headers: { "Set-Cookie": setTheme(theme) },
+    headers: { "Set-Cookie": setTheme(theme) }
   });
 }
 
@@ -99,7 +99,7 @@ export default function OnboardingTheme() {
     formData.append("theme", theme);
     formData.append("next", next);
     submit(formData, {
-      method: "post",
+      method: "post"
     });
   };
 
@@ -110,7 +110,7 @@ export default function OnboardingTheme() {
   useKeyboardShortcuts({
     Enter: () => {
       nextRef.current?.click();
-    },
+    }
   });
 
   return (
@@ -186,7 +186,7 @@ export default function OnboardingTheme() {
                       })`,
                       borderColor: `hsl(${
                         t?.activeColor[mode === "dark" ? "dark" : "light"]
-                      })`,
+                      })`
                     } as React.CSSProperties
                   }
                 >

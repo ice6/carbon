@@ -2,7 +2,7 @@ import { useFetcher } from "@remix-run/react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
   type CustomerLocation as CustomerLocationType,
-  type getCustomerLocations,
+  type getCustomerLocations
 } from "~/modules/sales";
 import { path } from "~/utils/path";
 
@@ -56,7 +56,7 @@ const CustomerLocation = (props: CustomerLocationSelectProps) => {
           c.address?.addressLine2,
           c.address?.city,
           c.address?.stateProvince
-        )} (${c.name})`,
+        )} (${c.name})`
       })) ?? [],
 
     [customerLocationsFetcher.data]

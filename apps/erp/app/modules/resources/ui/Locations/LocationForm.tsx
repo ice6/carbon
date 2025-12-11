@@ -10,18 +10,18 @@ import {
   ModalDrawerProvider,
   ModalDrawerTitle,
   VStack,
-  toast,
+  toast
 } from "@carbon/react";
 import { useFetcher } from "@remix-run/react";
 import type { PostgrestResponse } from "@supabase/supabase-js";
 import { useEffect } from "react";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import {
   CustomFormFields,
   Hidden,
   Input,
   Submit,
-  Timezone,
+  Timezone
 } from "~/components/Form";
 import AddressAutocomplete from "~/components/Form/AddressAutocomplete";
 import { usePermissions } from "~/hooks";
@@ -39,7 +39,7 @@ const LocationForm = ({
   initialValues,
   open = true,
   type = "drawer",
-  onClose,
+  onClose
 }: LocationFormProps) => {
   const permissions = usePermissions();
   const fetcher = useFetcher<PostgrestResponse<{ id: string }>>();

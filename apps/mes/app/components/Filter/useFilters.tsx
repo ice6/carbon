@@ -53,16 +53,16 @@ export function useFilters() {
       setParams({
         filter: urlFiltersParams.map((f, index) =>
           index === filterIndex ? newFilter : f
-        ),
+        )
       });
     } else {
       if (isArray) {
         setParams({
-          filter: urlFiltersParams.concat(`${newKey}:contains:${newValue}`),
+          filter: urlFiltersParams.concat(`${newKey}:contains:${newValue}`)
         });
       } else {
         setParams({
-          filter: urlFiltersParams.concat(`${newKey}:eq:${newValue}`),
+          filter: urlFiltersParams.concat(`${newKey}:eq:${newValue}`)
         });
       }
     }
@@ -78,22 +78,22 @@ export function useFilters() {
         setParams({
           filter: urlFiltersParams.map((f, index) =>
             index === filterIndex ? `${key}:eq:${values[0]}` : f
-          ),
+          )
         });
       } else if (values.length === 0) {
         setParams({
-          filter: urlFiltersParams.filter((_, index) => index !== filterIndex),
+          filter: urlFiltersParams.filter((_, index) => index !== filterIndex)
         });
       } else {
         setParams({
           filter: urlFiltersParams.map((f, index) =>
             index === filterIndex ? `${key}:${operator}:${values.join(",")}` : f
-          ),
+          )
         });
       }
     } else {
       setParams({
-        filter: urlFiltersParams.filter((_, index) => index !== filterIndex),
+        filter: urlFiltersParams.filter((_, index) => index !== filterIndex)
       });
     }
   };
@@ -103,7 +103,7 @@ export function useFilters() {
       filter: urlFiltersParams.filter((f) => {
         const [filterKey] = f.split(":");
         return filterKey !== key;
-      }),
+      })
     });
   };
 
@@ -128,6 +128,6 @@ export function useFilters() {
     hasFilterKey,
     removeKey,
     toggleFilter,
-    urlFiltersParams,
+    urlFiltersParams
   };
 }

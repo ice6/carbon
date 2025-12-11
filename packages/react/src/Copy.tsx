@@ -10,7 +10,7 @@ const Copy = ({
   icon,
   className,
   withTextInTooltip = false,
-  size = "sm",
+  size = "sm"
 }: {
   text: string;
   icon?: JSX.Element;
@@ -32,7 +32,7 @@ const Copy = ({
         <IconButton
           variant="secondary"
           aria-label="Copy"
-          icon={isCopied ? <LuCheck /> : icon ?? <LuCopy />}
+          icon={isCopied ? <LuCheck /> : (icon ?? <LuCopy />)}
           size={size}
           className={cn(
             isCopied && "text-emerald-500 hover:text-emerald-500",
@@ -46,8 +46,8 @@ const Copy = ({
           {isCopied
             ? "Copied!"
             : withTextInTooltip
-            ? text
-            : "Copy to clipboard"}
+              ? text
+              : "Copy to clipboard"}
         </span>
       </TooltipContent>
     </Tooltip>

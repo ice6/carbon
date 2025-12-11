@@ -5,7 +5,7 @@ import { getLocalTimeZone, now } from "@internationalized/date";
 import { redirect, type LoaderFunctionArgs } from "@vercel/remix";
 import {
   getTrackedEntitiesByMakeMethodId,
-  startProductionEvent,
+  startProductionEvent
 } from "~/services/operations.service";
 import { path } from "~/utils/path";
 
@@ -36,10 +36,10 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
       .from("productionEvent")
       .update({
         endTime: null,
-        updatedBy: userId,
+        updatedBy: userId
       })
       .eq("jobOperationId", operationId)
-      .is("endTime", null),
+      .is("endTime", null)
   ]);
 
   if (jobOperation.error || !jobOperation.data) {
@@ -85,7 +85,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
       .update({
         endTime: currentTime,
         updatedAt: currentTime,
-        updatedBy: userId,
+        updatedBy: userId
       })
       .eq("jobOperationId", operationId)
       .in("type", ["Setup", "Labor"])
@@ -101,7 +101,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
       startTime: now(getLocalTimeZone()).toAbsoluteString(),
       employeeId: userId,
       companyId,
-      createdBy: userId,
+      createdBy: userId
     },
     trackedEntityId || undefined
   );

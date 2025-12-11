@@ -6,7 +6,7 @@ import { useMemo, useRef, useState } from "react";
 import { useRouteData } from "~/hooks";
 import type {
   SupplierStatus as SupplierStatusStatus,
-  getSupplierStatusesList,
+  getSupplierStatusesList
 } from "~/modules/purchasing";
 import { SupplierStatusForm } from "~/modules/purchasing/ui/SupplierStatuses";
 
@@ -42,7 +42,7 @@ const SupplierStatus = (props: SupplierStatusSelectProps) => {
             triggerRef.current?.click();
           }}
           initialValues={{
-            name: created,
+            name: created
           }}
         />
       )}
@@ -77,12 +77,12 @@ export const useSupplierStatuses = () => {
 
     return dataSource.map((c) => ({
       value: c.id,
-      label: c.name,
+      label: c.name
     }));
   }, [
     supplierStatusFetcher.data?.data,
     hasSupplierData,
-    sharedSupplierData?.supplierStatuses,
+    sharedSupplierData?.supplierStatuses
   ]);
 
   return options;

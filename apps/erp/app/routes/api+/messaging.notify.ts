@@ -10,8 +10,8 @@ import { z } from "zod/v3";
 export const messagingNotifySchema = z.discriminatedUnion("type", [
   z.object({
     type: z.literal("jobOperationNote"),
-    operationId: z.string(),
-  }),
+    operationId: z.string()
+  })
 ]);
 
 export async function action({ request }: ActionFunctionArgs) {
@@ -33,7 +33,7 @@ export async function action({ request }: ActionFunctionArgs) {
           client
             .from("jobOperationNote")
             .select("*")
-            .eq("jobOperationId", operationId),
+            .eq("jobOperationId", operationId)
         ]);
 
         const assignee = job.data?.job?.assignee;
@@ -45,8 +45,8 @@ export async function action({ request }: ActionFunctionArgs) {
           ...new Set([
             ...(previousMessages.data?.map((m) => m.createdBy) ?? []).filter(
               (id) => id !== userId
-            ),
-          ]),
+            )
+          ])
         ];
 
         if (assignee && assignee !== userId) {
@@ -64,9 +64,9 @@ export async function action({ request }: ActionFunctionArgs) {
               event: notificationEvent,
               recipient: {
                 type: "users",
-                userIds: usersToNotify,
+                userIds: usersToNotify
               },
-              from: userId,
+              from: userId
             });
           }
         }

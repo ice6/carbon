@@ -2,7 +2,7 @@ import { useFetcher } from "@remix-run/react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type {
   SupplierContact as SupplierContactType,
-  getSupplierContacts,
+  getSupplierContacts
 } from "~/modules/purchasing";
 import { path } from "~/utils/path";
 
@@ -59,7 +59,7 @@ const SupplierContact = (props: SupplierContactSelectProps) => {
     () =>
       supplierContactsFetcher.data?.data?.map((c) => ({
         value: c.id,
-        label: c.contact?.fullName ?? c.contact?.email ?? "Unknown",
+        label: c.contact?.fullName ?? c.contact?.email ?? "Unknown"
       })) ?? [],
 
     [supplierContactsFetcher.data]
@@ -100,7 +100,7 @@ const SupplierContact = (props: SupplierContactSelectProps) => {
           initialValues={{
             email: "",
             firstName: firstName,
-            lastName: lastName.join(" "),
+            lastName: lastName.join(" ")
           }}
         />
       )}

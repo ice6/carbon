@@ -8,7 +8,7 @@ import { path, requestReferrer } from "~/utils/path";
 export async function action({ request, params }: ActionFunctionArgs) {
   const { companyId, userId } = await requirePermissions(request, {
     update: "production",
-    role: "employee",
+    role: "employee"
   });
   const { jobId } = params;
   if (!jobId) throw new Error("Could not find jobId");
@@ -16,7 +16,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   const recalculate = await recalculateJobRequirements(getCarbonServiceRole(), {
     id: jobId,
     companyId,
-    userId,
+    userId
   });
   if (recalculate.error) {
     throw redirect(

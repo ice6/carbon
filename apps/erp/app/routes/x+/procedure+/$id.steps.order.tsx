@@ -10,7 +10,7 @@ import { updateProcedureStepOrder } from "~/modules/production";
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    update: "production",
+    update: "production"
   });
 
   const updateMap = (await request.formData()).get("updates") as string;
@@ -25,7 +25,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     ([id, sortOrderString]) => ({
       id,
       sortOrder: Number(sortOrderString),
-      updatedBy: userId,
+      updatedBy: userId
     })
   );
 

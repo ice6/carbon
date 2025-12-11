@@ -16,13 +16,13 @@ import { getGenericQueryFilters } from "~/utils/query";
 export const handle: Handle = {
   breadcrumb: "Shelves",
   to: path.to.shelves,
-  module: "inventory",
+  module: "inventory"
 };
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId, userId } = await requirePermissions(request, {
     view: "inventory",
-    bypassRls: true,
+    bypassRls: true
   });
 
   const url = new URL(request.url);
@@ -68,7 +68,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
     limit,
     offset,
     sorts,
-    filters,
+    filters
   });
 
   if (shelves.error) {
@@ -81,7 +81,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   return json({
     count: shelves.count ?? 0,
     shelves: shelves.data ?? [],
-    locationId,
+    locationId
   });
 }
 

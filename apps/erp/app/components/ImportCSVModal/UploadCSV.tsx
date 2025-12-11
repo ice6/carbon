@@ -5,7 +5,7 @@ import {
   ModalTitle,
   Spinner,
   cn,
-  toast,
+  toast
 } from "@carbon/react";
 import { nanoid } from "nanoid";
 import Papa from "papaparse";
@@ -66,7 +66,7 @@ export const UploadCSV = ({ table }: { table: keyof typeof importSchemas }) => {
         setFileColumns(meta.fields);
         setFirstRows(data as Record<string, string>[]);
         setLoading(false);
-      },
+      }
     });
   };
 
@@ -112,7 +112,7 @@ export const UploadCSV = ({ table }: { table: keyof typeof importSchemas }) => {
         setFile(acceptedFiles[0]);
         await Promise.all([
           processFile(acceptedFiles[0]),
-          uploadFile(acceptedFiles[0]),
+          uploadFile(acceptedFiles[0])
         ]);
       }
 
@@ -126,7 +126,7 @@ export const UploadCSV = ({ table }: { table: keyof typeof importSchemas }) => {
       accept: { "text/csv": [".csv"] },
       maxFiles: 1,
       maxSize: 5 * 1024 * 1024, // 5MB
-      disabled: uploading,
+      disabled: uploading
     });
 
   return (

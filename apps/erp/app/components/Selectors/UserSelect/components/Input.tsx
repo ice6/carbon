@@ -7,7 +7,7 @@ import {
   InputGroup,
   InputLeftElement,
   InputRightElement,
-  Spinner,
+  Spinner
 } from "@carbon/react";
 import { LuX } from "react-icons/lu";
 import useUserSelectContext from "../provider";
@@ -22,7 +22,7 @@ const Input = () => {
     onClearInput,
     onInputBlur,
     onInputChange,
-    onInputFocus,
+    onInputFocus
   } = useUserSelectContext();
 
   return (

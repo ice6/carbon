@@ -1,7 +1,7 @@
 import type { Database, Json } from "@carbon/database";
 import { redis } from "@carbon/kv";
 import type { SupabaseClient } from "@supabase/supabase-js";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import { sanitize } from "~/utils/supabase";
 import type { customFieldValidator } from "./settings.models";
 
@@ -39,7 +39,7 @@ export async function clearAllIntegrationCaches(): Promise<void> {
 
     const [oldKeys, newKeys] = await Promise.all([
       redis.keys(oldPattern),
-      redis.keys(newPattern),
+      redis.keys(newPattern)
     ]);
 
     const allKeys = [...oldKeys, ...newKeys];
@@ -67,7 +67,7 @@ export async function deactivateIntegration(
     .update({
       active: false,
       updatedBy,
-      updatedAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
     })
     .eq("id", id)
     .eq("companyId", companyId);
@@ -129,7 +129,7 @@ export async function getCompanyIntegrations(
         type: typeof cached,
         isArray: Array.isArray(cached),
         value: cached,
-        constructor: cached?.constructor?.name,
+        constructor: cached?.constructor?.name
       });
 
       // Handle different response types from Upstash
@@ -240,7 +240,7 @@ export async function getSlackIntegration(
 
   return {
     token: metadata.access_token,
-    channelId: metadata.channel_id || metadata.default_channel_id,
+    channelId: metadata.channel_id || metadata.default_channel_id
   };
 }
 
@@ -264,7 +264,7 @@ export async function upsertCompanyIntegration(
   const result = await client
     .from("companyIntegration")
     .upsert([update], {
-      onConflict: "id,companyId",
+      onConflict: "id,companyId"
     })
     .select()
     .single();
@@ -313,7 +313,7 @@ export async function upsertCustomField(
       .update(
         sanitize({
           ...customField,
-          updatedBy: customField.updatedBy,
+          updatedBy: customField.updatedBy
         })
       )
       .eq("id", customField.id);

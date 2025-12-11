@@ -1,7 +1,7 @@
 import { getCarbonServiceRole } from "@carbon/auth";
 import { validator } from "@carbon/form";
 import { json, type ActionFunctionArgs } from "@vercel/remix";
-import { z } from 'zod/v3';
+import { z } from "zod/v3";
 
 const oauthTokenValidator = z.object({
   grant_type: z.enum(["authorization_code", "refresh_token"]),
@@ -9,7 +9,7 @@ const oauthTokenValidator = z.object({
   client_secret: z.string(),
   code: z.string().optional(),
   redirect_uri: z.string().url().optional(),
-  refresh_token: z.string().optional(),
+  refresh_token: z.string().optional()
 });
 
 export async function action({ request }: ActionFunctionArgs) {
@@ -28,18 +28,18 @@ export async function action({ request }: ActionFunctionArgs) {
     client_secret,
     code,
     redirect_uri,
-    refresh_token,
+    refresh_token
   } = validation.data;
 
   const [oauthClient] = await Promise.all([
-    client.from("oauthClient").select("*").eq("clientId", client_id).single(),
+    client.from("oauthClient").select("*").eq("clientId", client_id).single()
   ]);
 
   if (!oauthClient.data || oauthClient.data.clientSecret !== client_secret) {
     return json(
       {
         data: null,
-        error: "Invalid client credentials",
+        error: "Invalid client credentials"
       },
       { status: 401 }
     );
@@ -50,7 +50,7 @@ export async function action({ request }: ActionFunctionArgs) {
       return json(
         {
           data: null,
-          error: "Invalid request",
+          error: "Invalid request"
         },
         { status: 400 }
       );
@@ -58,7 +58,7 @@ export async function action({ request }: ActionFunctionArgs) {
 
     // Verify the authorization code
     const [oauthCode] = await Promise.all([
-      client.from("oauthCode").select("*").eq("code", code).single(),
+      client.from("oauthCode").select("*").eq("code", code).single()
     ]);
 
     if (
@@ -69,7 +69,7 @@ export async function action({ request }: ActionFunctionArgs) {
       return json(
         {
           data: null,
-          error: "Invalid authorization code",
+          error: "Invalid authorization code"
         },
         { status: 400 }
       );
@@ -88,9 +88,9 @@ export async function action({ request }: ActionFunctionArgs) {
           userId: oauthCode.data.userId,
           companyId: oauthCode.data.companyId,
           createdAt: new Date(Date.now()).toISOString(),
-          expiresAt: new Date(Date.now() + 3600 * 1000).toISOString(), // 1 hour expiration
-        },
-      ]),
+          expiresAt: new Date(Date.now() + 3600 * 1000).toISOString() // 1 hour expiration
+        }
+      ])
     ]);
 
     if (tokenResult.error) {
@@ -108,16 +108,16 @@ export async function action({ request }: ActionFunctionArgs) {
         access_token: accessToken,
         token_type: "Bearer",
         expires_in: 3600,
-        refresh_token: refreshToken,
+        refresh_token: refreshToken
       },
-      error: null,
+      error: null
     });
   } else if (grant_type === "refresh_token") {
     if (!refresh_token) {
       return json(
         {
           data: null,
-          error: "Invalid request",
+          error: "Invalid request"
         },
         { status: 400 }
       );
@@ -129,7 +129,7 @@ export async function action({ request }: ActionFunctionArgs) {
         .from("oauthToken")
         .select("*")
         .eq("refreshToken", refresh_token)
-        .single(),
+        .single()
     ]);
 
     if (!tokenResult.data || tokenResult.data.clientId !== client_id) {
@@ -147,9 +147,9 @@ export async function action({ request }: ActionFunctionArgs) {
         .from("oauthToken")
         .update({
           accessToken: newAccessToken,
-          expiresAt: new Date(Date.now() + 3600 * 1000).toISOString(), // 1 hour expiration
+          expiresAt: new Date(Date.now() + 3600 * 1000).toISOString() // 1 hour expiration
         })
-        .eq("refreshToken", refresh_token),
+        .eq("refreshToken", refresh_token)
     ]);
 
     if (updateResult.error) {
@@ -163,9 +163,9 @@ export async function action({ request }: ActionFunctionArgs) {
       data: {
         access_token: newAccessToken,
         token_type: "Bearer",
-        expires_in: 3600,
+        expires_in: 3600
       },
-      error: null,
+      error: null
     });
   }
 
@@ -173,7 +173,7 @@ export async function action({ request }: ActionFunctionArgs) {
   return json(
     {
       data: null,
-      error: "Unsupported grant type",
+      error: "Unsupported grant type"
     },
     { status: 400 }
   );

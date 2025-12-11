@@ -7,7 +7,7 @@ import { abilitiesQuery, getCompanyId } from "~/utils/react-query";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    view: "people",
+    view: "people"
   });
 
   return json(await getAbilitiesList(client, companyId));

@@ -17,14 +17,14 @@ const WEEKS_TO_PROJECT = 52;
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
-    create: "production",
+    create: "production"
   });
 
   const startDate = startOfWeek(today(getLocalTimeZone()), "en-US");
   const endDate = startDate.add({ weeks: WEEKS_TO_PROJECT });
   const periods = await getPeriods(client, {
     startDate: startDate.toString(),
-    endDate: endDate.toString(),
+    endDate: endDate.toString()
   });
 
   if (periods.error) {
@@ -37,7 +37,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    create: "production",
+    create: "production"
   });
 
   const formData = await request.formData();
@@ -70,7 +70,7 @@ export async function action({ request }: ActionFunctionArgs) {
         periodId: periods[i],
         forecastQuantity: quantity,
         companyId,
-        createdBy: userId,
+        createdBy: userId
       });
     }
   }
@@ -109,9 +109,7 @@ export default function NewProjectionRoute() {
   const initialValues = {
     itemId: "",
     locationId: routeData?.locationId ?? "",
-    ...Object.fromEntries(
-      Array.from({ length: 52 }, (_, i) => [`week${i}`, 0])
-    ),
+    ...Object.fromEntries(Array.from({ length: 52 }, (_, i) => [`week${i}`, 0]))
   };
 
   return (

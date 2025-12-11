@@ -1,7 +1,7 @@
 import { useEffect, useMemo } from "react";
 import type {
   GetInputProps,
-  ValidationBehaviorOptions,
+  ValidationBehaviorOptions
 } from "./internal/getInputProps";
 import { createGetInputProps } from "./internal/getInputProps";
 import {
@@ -14,11 +14,11 @@ import {
   useInternalIsSubmitting,
   useInternalIsValid,
   useRegisterReceiveFocus,
-  useSmartValidate,
+  useSmartValidate
 } from "./internal/hooks";
 import {
   useControllableValue,
-  useUpdateControllableValue,
+  useUpdateControllableValue
 } from "./internal/state/controlledFields";
 
 /**
@@ -121,17 +121,17 @@ export const useField = (
       validate: () => smartValidate({ alwaysIncludeErrorsFromFields: [name] }),
       defaultValue,
       touched,
-      setTouched,
+      setTouched
     };
     const getInputProps = createGetInputProps({
       ...helpers,
       name,
       hasBeenSubmitted,
-      validationBehavior: options?.validationBehavior,
+      validationBehavior: options?.validationBehavior
     });
     return {
       ...helpers,
-      getInputProps,
+      getInputProps
     };
   }, [
     error,
@@ -142,7 +142,7 @@ export const useField = (
     name,
     hasBeenSubmitted,
     options?.validationBehavior,
-    smartValidate,
+    smartValidate
   ]);
 
   return field;

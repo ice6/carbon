@@ -5,14 +5,14 @@ import { validationError, validator } from "@carbon/form";
 import { json, type ActionFunctionArgs } from "@vercel/remix";
 import {
   jobOperationValidator,
-  upsertJobOperation,
+  upsertJobOperation
 } from "~/modules/production";
 import { setCustomFields } from "~/utils/form";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    create: "production",
+    create: "production"
   });
 
   const { jobId, id } = params;
@@ -36,12 +36,12 @@ export async function action({ request, params }: ActionFunctionArgs) {
     id: id,
     companyId,
     updatedBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
   if (updateJobOperation.error) {
     return json(
       {
-        id: null,
+        id: null
       },
       await flash(
         request,
@@ -54,7 +54,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   if (!jobOperationId) {
     return json(
       {
-        id: null,
+        id: null
       },
       await flash(
         request,
@@ -66,6 +66,6 @@ export async function action({ request, params }: ActionFunctionArgs) {
   return json({
     id: jobOperationId,
     success: true,
-    message: "Operation updated",
+    message: "Operation updated"
   });
 }

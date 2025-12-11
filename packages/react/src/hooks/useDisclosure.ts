@@ -23,7 +23,7 @@ export default function useDisclosure(props: UseDisclosureProps = {}) {
     onClose: onCloseProp,
     onOpen: onOpenProp,
     isOpen: isOpenProp,
-    id: idProp,
+    id: idProp
   } = props;
 
   const handleOpen = useCallbackRef(onOpenProp);
@@ -68,7 +68,7 @@ export default function useDisclosure(props: UseDisclosureProps = {}) {
       onClick(event) {
         props.onClick?.(event);
         onToggle();
-      },
+      }
     };
   }
 
@@ -76,7 +76,7 @@ export default function useDisclosure(props: UseDisclosureProps = {}) {
     return {
       ...props,
       hidden: !isOpen,
-      id,
+      id
     };
   }
 
@@ -87,6 +87,6 @@ export default function useDisclosure(props: UseDisclosureProps = {}) {
     onToggle,
     isControlled,
     getButtonProps,
-    getDisclosureProps,
+    getDisclosureProps
   };
 }

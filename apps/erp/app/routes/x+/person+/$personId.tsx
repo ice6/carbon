@@ -8,7 +8,7 @@ import { json, redirect } from "@vercel/remix";
 import {
   accountProfileValidator,
   getAllAttributeCategories,
-  updatePublicAccount,
+  updatePublicAccount
 } from "~/modules/account";
 import { getEmployeeSummary } from "~/modules/people";
 import { PersonPreview, PersonSidebar } from "~/modules/people/ui/Person";
@@ -17,12 +17,12 @@ import { path } from "~/utils/path";
 
 export const handle: Handle = {
   breadcrumb: "People",
-  to: path.to.people,
+  to: path.to.people
 };
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    view: "people",
+    view: "people"
   });
 
   const { personId } = params;
@@ -30,7 +30,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
   const [employeeSummary, attributeCategories] = await Promise.all([
     getEmployeeSummary(client, personId, companyId),
-    getAllAttributeCategories(client, personId, companyId),
+    getAllAttributeCategories(client, personId, companyId)
   ]);
 
   if (employeeSummary.error) {
@@ -45,14 +45,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
   return json({
     employeeSummary: employeeSummary.data,
-    attributeCategories: attributeCategories.data ?? [],
+    attributeCategories: attributeCategories.data ?? []
   });
 }
 
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client } = await requirePermissions(request, {
-    update: "people",
+    update: "people"
   });
   const { personId } = params;
   if (!personId) throw new Error("No person ID provided");
@@ -71,7 +71,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     id: personId,
     firstName,
     lastName,
-    about,
+    about
   });
   if (updateAccount.error)
     return json(

@@ -11,7 +11,7 @@ const UserTreeSelect = () => {
     innerProps: { isMulti },
     loading,
     onMouseOver,
-    refs: { listBoxRef },
+    refs: { listBoxRef }
   } = useUserSelectContext();
 
   return (
@@ -38,7 +38,7 @@ const MoreIcon = ({ isExpanded }: { isExpanded: boolean }) => (
     className="h-3 w-3"
     style={{
       transition: "transform .25s ease",
-      transform: isExpanded ? "rotate(0.25turn)" : undefined,
+      transform: isExpanded ? "rotate(0.25turn)" : undefined
     }}
   />
 );
@@ -51,7 +51,7 @@ const Group = ({ group }: { group: OptionGroup }) => {
     focusedId,
     onSelect,
     onDeselect,
-    selectionItemsById,
+    selectionItemsById
   } = useUserSelectContext();
 
   const isFocused = group.uid === focusedId;
@@ -115,7 +115,7 @@ const Option = ({
   isDisabled,
   isFocused,
   isSelected,
-  onClick,
+  onClick
 }: {
   id?: string;
   item: IndividualOrGroup;

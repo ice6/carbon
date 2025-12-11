@@ -15,7 +15,7 @@ let hydratedFromServer = false;
 const RealtimeDataProvider = ({ children }: { children: React.ReactNode }) => {
   const { carbon, accessToken } = useCarbon();
   const {
-    company: { id: companyId },
+    company: { id: companyId }
   } = useUser();
 
   useEffect(() => {
@@ -88,7 +88,7 @@ const RealtimeDataProvider = ({ children }: { children: React.ReactNode }) => {
         avatarUrl: string;
       }>(carbon, "employees", "id, name, email, avatarUrl", (query) =>
         query.eq("companyId", companyId).order("name")
-      ),
+      )
     ]);
 
     if (items.error) {
@@ -138,7 +138,7 @@ const RealtimeDataProvider = ({ children }: { children: React.ReactNode }) => {
           {
             event: "*",
             schema: "public",
-            table: "item",
+            table: "item"
           },
           (payload) => {
             switch (payload.eventType) {
@@ -162,8 +162,8 @@ const RealtimeDataProvider = ({ children }: { children: React.ReactNode }) => {
                       itemTrackingType: inserted.itemTrackingType,
                       unitOfMeasureCode: inserted.unitOfMeasureCode,
                       type: inserted.type,
-                      active: inserted.active,
-                    },
+                      active: inserted.active
+                    }
                   ].sort((a, b) =>
                     a.readableIdWithRevision.localeCompare(
                       b.readableIdWithRevision
@@ -187,7 +187,7 @@ const RealtimeDataProvider = ({ children }: { children: React.ReactNode }) => {
                           replenishmentSystem: updated.replenishmentSystem,
                           unitOfMeasureCode: updated.unitOfMeasureCode,
                           type: updated.type,
-                          active: updated.active,
+                          active: updated.active
                         };
                       }
                       return i;
@@ -213,7 +213,7 @@ const RealtimeDataProvider = ({ children }: { children: React.ReactNode }) => {
           {
             event: "*",
             schema: "public",
-            table: "customer",
+            table: "customer"
           },
           (payload) => {
             switch (payload.eventType) {
@@ -229,8 +229,8 @@ const RealtimeDataProvider = ({ children }: { children: React.ReactNode }) => {
                     ...customers,
                     {
                       id: inserted.id,
-                      name: inserted.name,
-                    },
+                      name: inserted.name
+                    }
                   ].sort((a, b) => a.name.localeCompare(b.name))
                 );
                 break;
@@ -242,7 +242,7 @@ const RealtimeDataProvider = ({ children }: { children: React.ReactNode }) => {
                       if (p.id === updated.id) {
                         return {
                           ...p,
-                          name: updated.name,
+                          name: updated.name
                         };
                       }
                       return p;
@@ -266,7 +266,7 @@ const RealtimeDataProvider = ({ children }: { children: React.ReactNode }) => {
           {
             event: "*",
             schema: "public",
-            table: "supplier",
+            table: "supplier"
           },
           (payload) => {
             switch (payload.eventType) {
@@ -283,8 +283,8 @@ const RealtimeDataProvider = ({ children }: { children: React.ReactNode }) => {
                     ...suppliers,
                     {
                       id: inserted.id,
-                      name: inserted.name,
-                    },
+                      name: inserted.name
+                    }
                   ].sort((a, b) => a.name.localeCompare(b.name))
                 );
                 break;
@@ -296,7 +296,7 @@ const RealtimeDataProvider = ({ children }: { children: React.ReactNode }) => {
                       if (p.id === updated.id) {
                         return {
                           ...p,
-                          name: updated.name,
+                          name: updated.name
                         };
                       }
                       return p;
@@ -320,7 +320,7 @@ const RealtimeDataProvider = ({ children }: { children: React.ReactNode }) => {
           {
             event: "*",
             schema: "public",
-            table: "employee",
+            table: "employee"
           },
           async (payload) => {
             // TODO: there's a cleaner way of doing this, but since customers and suppliers
@@ -337,7 +337,7 @@ const RealtimeDataProvider = ({ children }: { children: React.ReactNode }) => {
             }
           }
         );
-    },
+    }
   });
 
   return <>{children}</>;

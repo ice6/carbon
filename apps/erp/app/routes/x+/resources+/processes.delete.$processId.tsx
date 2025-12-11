@@ -13,7 +13,7 @@ import { getCompanyId, processesQuery } from "~/utils/react-query";
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
     view: "resources",
-    role: "employee",
+    role: "employee"
   });
 
   const { processId } = params;
@@ -28,13 +28,13 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   }
 
   return json({
-    process: process.data,
+    process: process.data
   });
 }
 
 export async function action({ request, params }: ActionFunctionArgs) {
   const { client } = await requirePermissions(request, {
-    delete: "resources",
+    delete: "resources"
   });
 
   const { processId } = params;

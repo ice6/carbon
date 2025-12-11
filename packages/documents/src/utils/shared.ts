@@ -6,6 +6,6 @@ export const getCurrencyFormatter = (
   return new Intl.NumberFormat(locale, {
     style: "currency",
     currency: baseCurrencyCode,
-    maximumFractionDigits: maximumFractionDigits ?? 2,
+    maximumFractionDigits: maximumFractionDigits ?? 2
   });
 };

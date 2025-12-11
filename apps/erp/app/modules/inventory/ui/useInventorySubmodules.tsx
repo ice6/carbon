@@ -6,7 +6,7 @@ import {
   LuQrCode,
   LuTally5,
   LuTruck,
-  LuWarehouse,
+  LuWarehouse
 } from "react-icons/lu";
 import { usePermissions } from "~/hooks";
 import { useSavedViews } from "~/hooks/useSavedViews";
@@ -21,27 +21,27 @@ const inventoryRoutes: AuthenticatedRouteGroup[] = [
         name: "Receipts",
         to: path.to.receipts,
         icon: <LuHandCoins />,
-        table: "receipt",
+        table: "receipt"
       },
       {
         name: "Shipments",
         to: path.to.shipments,
         icon: <LuTruck />,
-        table: "shipment",
+        table: "shipment"
       },
       {
         name: "Stock Transfers",
         to: path.to.stockTransfers,
         icon: <LuListChecks />,
-        table: "stockTransfer",
+        table: "stockTransfer"
       },
       {
         name: "Warehouse Transfers",
         to: path.to.warehouseTransfers,
         icon: <LuArrowRightLeft />,
-        table: "warehouseTransfer",
-      },
-    ],
+        table: "warehouseTransfer"
+      }
+    ]
   },
   {
     name: "Track",
@@ -50,28 +50,28 @@ const inventoryRoutes: AuthenticatedRouteGroup[] = [
         name: "Kanbans",
         to: path.to.kanbans,
         role: "employee",
-        icon: <LuQrCode />,
+        icon: <LuQrCode />
       },
       {
         name: "Quantities",
         to: path.to.inventory,
         role: "employee",
         icon: <LuTally5 />,
-        table: "inventory",
+        table: "inventory"
       },
       {
         name: "Tracked Entities",
         to: path.to.trackedEntities,
         role: "employee",
-        icon: <LuQrCode />,
+        icon: <LuQrCode />
       },
       {
         name: "Traceability",
         to: path.to.traceability,
         role: "employee",
-        icon: <LuNetwork />,
-      },
-    ],
+        icon: <LuNetwork />
+      }
+    ]
   },
   {
     name: "Configure",
@@ -81,16 +81,16 @@ const inventoryRoutes: AuthenticatedRouteGroup[] = [
         to: path.to.shelves,
         role: "employee",
         icon: <LuWarehouse />,
-        table: "shelf",
+        table: "shelf"
       },
       {
         name: "Shipping Methods",
         to: path.to.shippingMethods,
         role: "employee",
-        icon: <LuTruck />,
-      },
-    ],
-  },
+        icon: <LuTruck />
+      }
+    ]
+  }
 ];
 
 export default function useInventorySubmodules() {
@@ -120,7 +120,7 @@ export default function useInventorySubmodules() {
               return true;
             }
           })
-          .map(addSavedViewsToRoutes),
-      })),
+          .map(addSavedViewsToRoutes)
+      }))
   };
 }

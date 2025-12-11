@@ -8,11 +8,11 @@ import {
   DrawerFooter,
   DrawerHeader,
   HStack,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { getLocalTimeZone, startOfWeek, today } from "@internationalized/date";
 import { useFetcher, useLoaderData } from "@remix-run/react";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import { Hidden, Item, Location, Number, Submit } from "~/components/Form";
 import { usePermissions } from "~/hooks";
 import { path } from "~/utils/path";
@@ -32,7 +32,7 @@ type DemandProjectionsFormProps = {
 const DemandProjectionsForm = ({
   initialValues: propInitialValues,
   isEditing = false,
-  onClose,
+  onClose
 }: DemandProjectionsFormProps) => {
   const permissions = usePermissions();
   const fetcher = useFetcher<{ id: string }>();
@@ -44,7 +44,7 @@ const DemandProjectionsForm = ({
       locationId: "",
       ...Object.fromEntries(
         Array.from({ length: 52 }, (_, i) => [`week${i}`, 0])
-      ),
+      )
     };
 
   const isDisabled = isEditing

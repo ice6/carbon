@@ -10,7 +10,7 @@ function PosthogInit() {
   useEffect(() => {
     if (!window?.location.href.includes("localhost")) {
       posthog.init(POSTHOG_PROJECT_PUBLIC_KEY, {
-        api_host: POSTHOG_API_HOST,
+        api_host: POSTHOG_API_HOST
       });
     }
   }, []);

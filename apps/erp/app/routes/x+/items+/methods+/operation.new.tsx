@@ -5,14 +5,14 @@ import { validationError, validator } from "@carbon/form";
 import { json, type ActionFunctionArgs } from "@vercel/remix";
 import {
   methodOperationValidator,
-  upsertMethodOperation,
+  upsertMethodOperation
 } from "~/modules/items";
 import { setCustomFields } from "~/utils/form";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    create: "parts",
+    create: "parts"
   });
 
   const formData = await request.formData();
@@ -28,12 +28,12 @@ export async function action({ request, params }: ActionFunctionArgs) {
     ...validation.data,
     companyId,
     createdBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
   if (insertMethodOperation.error) {
     return json(
       {
-        id: null,
+        id: null
       },
       await flash(
         request,
@@ -46,7 +46,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   if (!methodOperationId) {
     return json(
       {
-        id: null,
+        id: null
       },
       await flash(
         request,
@@ -58,6 +58,6 @@ export async function action({ request, params }: ActionFunctionArgs) {
   return json({
     id: methodOperationId,
     success: true,
-    message: "Operation created",
+    message: "Operation created"
   });
 }

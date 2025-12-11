@@ -8,7 +8,7 @@ import { json, redirect } from "@vercel/remix";
 import {
   getScrapReason,
   scrapReasonValidator,
-  upsertScrapReason,
+  upsertScrapReason
 } from "~/modules/production";
 import ScrapReasonForm from "~/modules/production/ui/ScrapReasons/ScrapReasonForm";
 import { getCustomFields, setCustomFields } from "~/utils/form";
@@ -17,7 +17,7 @@ import { path } from "~/utils/path";
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
     view: "production",
-    role: "employee",
+    role: "employee"
   });
 
   const { scrapReasonId } = params;
@@ -36,14 +36,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   }
 
   return json({
-    scrapReason: scrapReason.data,
+    scrapReason: scrapReason.data
   });
 }
 
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    update: "production",
+    update: "production"
   });
 
   const formData = await request.formData();
@@ -60,7 +60,7 @@ export async function action({ request }: ActionFunctionArgs) {
     id,
     ...data,
     updatedBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
 
   if (updateScrapReason.error) {
@@ -86,7 +86,7 @@ export default function EditScrapReasonRoute() {
   const initialValues = {
     id: scrapReason.id ?? undefined,
     name: scrapReason.name ?? "",
-    ...getCustomFields(scrapReason.customFields),
+    ...getCustomFields(scrapReason.customFields)
   };
 
   return (

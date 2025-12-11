@@ -33,9 +33,9 @@ const GaugeTypesTable = memo(({ data, count }: GaugeTypesTableProps) => {
           </Hyperlink>
         ),
         meta: {
-          icon: <LuCircleGauge />,
-        },
-      },
+          icon: <LuCircleGauge />
+        }
+      }
     ];
     return [...defaultColumns, ...customColumns];
   }, [customColumns]);

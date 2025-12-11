@@ -11,7 +11,7 @@ import {
   ShippingMethodForm,
   getShippingMethod,
   shippingMethodValidator,
-  upsertShippingMethod,
+  upsertShippingMethod
 } from "~/modules/inventory";
 import { getCustomFields, setCustomFields } from "~/utils/form";
 import { getParams, path } from "~/utils/path";
@@ -20,7 +20,7 @@ import { getCompanyId, shippingMethodsQuery } from "~/utils/react-query";
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
     view: "inventory",
-    role: "employee",
+    role: "employee"
   });
 
   const { shippingMethodId } = params;
@@ -29,14 +29,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   const shippingMethod = await getShippingMethod(client, shippingMethodId);
 
   return json({
-    shippingMethod: shippingMethod?.data ?? null,
+    shippingMethod: shippingMethod?.data ?? null
   });
 }
 
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    update: "inventory",
+    update: "inventory"
   });
 
   const formData = await request.formData();
@@ -55,7 +55,7 @@ export async function action({ request }: ActionFunctionArgs) {
     id,
     ...data,
     updatedBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
 
   if (updateShippingMethod.error) {
@@ -92,7 +92,7 @@ export default function EditShippingMethodsRoute() {
     carrier: (shippingMethod?.carrier ?? "") as ShippingCarrier,
     carrierAccountId: shippingMethod?.carrierAccountId ?? "",
     trackingUrl: shippingMethod?.trackingUrl ?? "",
-    ...getCustomFields(shippingMethod?.customFields),
+    ...getCustomFields(shippingMethod?.customFields)
   };
 
   return (

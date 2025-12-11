@@ -6,7 +6,7 @@ import { path } from "~/utils/path";
 
 export default function DeleteSupplierQuoteLine({
   line,
-  onCancel,
+  onCancel
 }: {
   line: { itemId: string; id: string };
   onCancel: () => void;

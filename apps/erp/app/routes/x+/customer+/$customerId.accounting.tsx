@@ -9,7 +9,7 @@ import { useRouteData } from "~/hooks";
 import type { CustomerDetail } from "~/modules/sales";
 import {
   customerAccountingValidator,
-  updateCustomerAccounting,
+  updateCustomerAccounting
 } from "~/modules/sales";
 import CustomerAccountingForm from "~/modules/sales/ui/Customer/CustomerAccountingForm";
 import { path } from "~/utils/path";
@@ -17,7 +17,7 @@ import { path } from "~/utils/path";
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    create: "purchasing",
+    create: "purchasing"
   });
   const formData = await request.formData();
   const validation = await validator(customerAccountingValidator).validate(
@@ -40,7 +40,7 @@ export async function action({ request }: ActionFunctionArgs) {
   const update = await updateCustomerAccounting(client, {
     id,
     ...data,
-    updatedBy: userId,
+    updatedBy: userId
   });
 
   if (update.error) {
@@ -71,7 +71,7 @@ export default function CustomerAccountingRoute() {
   const initialValues = {
     id: routeData?.customer?.id ?? "",
     customerTypeId: routeData?.customer?.customerTypeId ?? undefined,
-    taxId: routeData?.customer?.taxId ?? "",
+    taxId: routeData?.customer?.taxId ?? ""
   };
 
   return (

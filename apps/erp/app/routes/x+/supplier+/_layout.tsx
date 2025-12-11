@@ -15,27 +15,27 @@ export const meta: MetaFunction = () => {
 export const handle: Handle = {
   breadcrumb: "Purchasing",
   to: path.to.purchasing,
-  module: "purchasing",
+  module: "purchasing"
 };
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    view: "purchasing",
+    view: "purchasing"
   });
 
   const [
     supplierTypes,
-    supplierStatuses,
+    supplierStatuses
     // shippingTerms,
   ] = await Promise.all([
     getSupplierTypes(client, companyId),
     getSupplierStatuses(client, companyId),
-    getShippingTermsList(client, companyId),
+    getShippingTermsList(client, companyId)
   ]);
 
   return json({
     supplierStatuses: supplierStatuses.data ?? [],
-    supplierTypes: supplierTypes.data ?? [],
+    supplierTypes: supplierTypes.data ?? []
     // shippingTerms: shippingTerms.data ?? [],
   });
 }

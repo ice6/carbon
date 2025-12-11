@@ -10,20 +10,20 @@ import {
   ModalFooter,
   ModalHeader,
   ModalTitle,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { useFetcher } from "@remix-run/react";
 import { useMemo, useState } from "react";
 import {
   finishValidator,
   nonScrapQuantityValidator,
-  scrapQuantityValidator,
+  scrapQuantityValidator
 } from "~/services/models";
 import type {
   JobMaterial,
   OperationWithDetails,
   ProductionEvent,
-  ProductionQuantity,
+  ProductionQuantity
 } from "~/services/types";
 import { path } from "~/utils/path";
 
@@ -31,7 +31,7 @@ import {
   Hidden,
   NumberControlled,
   TextArea,
-  ValidatedForm,
+  ValidatedForm
 } from "@carbon/form";
 import { LuTriangleAlert } from "react-icons/lu";
 import ScrapReason from "./ScrapReason";
@@ -47,7 +47,7 @@ export function QuantityModal({
   setupProductionEvent,
   trackedEntityId,
   type,
-  onClose,
+  onClose
 }: {
   allStepsRecorded?: boolean;
   laborProductionEvent: ProductionEvent | undefined;
@@ -68,7 +68,7 @@ export function QuantityModal({
     scrap: `Log scrap for ${operation.itemReadableId}`,
     rework: `Log rework for ${operation.itemReadableId}`,
     complete: `Log completed for ${operation.itemReadableId}`,
-    finish: `Close out ${operation.itemReadableId}`,
+    finish: `Close out ${operation.itemReadableId}`
   };
 
   const isOperationComplete =
@@ -79,28 +79,28 @@ export function QuantityModal({
     rework: "Select a rework quantity",
     complete: "Select a completion quantity",
     finish:
-      "Are you sure you want to close out this operation? This will end all active production events for this operation.",
+      "Are you sure you want to close out this operation? This will end all active production events for this operation."
   };
 
   const actionMap = {
     scrap: path.to.scrap,
     rework: path.to.rework,
     complete: path.to.complete,
-    finish: path.to.finish,
+    finish: path.to.finish
   };
 
   const actionButtonMap = {
     scrap: "Log Scrap",
     rework: "Log Rework",
     complete: "Log Completed",
-    finish: isOperationComplete ? "Close" : "Close Anyways",
+    finish: isOperationComplete ? "Close" : "Close Anyways"
   };
 
   const validatorMap = {
     scrap: scrapQuantityValidator,
     rework: nonScrapQuantityValidator,
     complete: nonScrapQuantityValidator,
-    finish: finishValidator,
+    finish: finishValidator
   };
 
   const hasUnissuedMaterials = useMemo(() => {
@@ -137,7 +137,7 @@ export function QuantityModal({
             quantity: type === "finish" ? undefined : 1,
             setupProductionEventId: setupProductionEvent?.id,
             laborProductionEventId: laborProductionEvent?.id,
-            machineProductionEventId: machineProductionEvent?.id,
+            machineProductionEventId: machineProductionEvent?.id
           }}
           fetcher={fetcher}
           onSubmit={() => {

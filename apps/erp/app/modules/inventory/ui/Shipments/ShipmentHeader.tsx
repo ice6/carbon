@@ -11,7 +11,7 @@ import {
   Heading,
   IconButton,
   SplitButton,
-  useDisclosure,
+  useDisclosure
 } from "@carbon/react";
 import { Await, Link, useNavigate, useParams } from "@remix-run/react";
 import {
@@ -25,7 +25,7 @@ import {
   LuShoppingCart,
   LuTicketX,
   LuTrash,
-  LuTruck,
+  LuTruck
 } from "react-icons/lu";
 import ConfirmDelete from "~/components/Modals/ConfirmDelete";
 import { usePermissions, useRouteData } from "~/hooks";
@@ -80,7 +80,7 @@ const ShipmentHeader = () => {
       window.open(
         window.location.origin +
           path.to.file.shipmentLabelsZpl(shipmentId, {
-            labelSize,
+            labelSize
           }),
         "_blank"
       );
@@ -146,7 +146,7 @@ const ShipmentHeader = () => {
                 leftIcon={<LuQrCode />}
                 dropdownItems={labelSizes.map((size) => ({
                   label: size.name,
-                  onClick: () => navigateToTrackingLabels(!!size.zpl, size.id),
+                  onClick: () => navigateToTrackingLabels(!!size.zpl, size.id)
                 }))}
                 // TODO: if we knew the preferred label size, we could use that here
                 onClick={() => navigateToTrackingLabels(false)}
@@ -397,7 +397,7 @@ const ShipmentHeader = () => {
 function SourceDocumentLink({
   sourceDocument,
   sourceDocumentId,
-  sourceDocumentReadableId,
+  sourceDocumentReadableId
 }: {
   sourceDocument?: string;
   sourceDocumentId?: string;

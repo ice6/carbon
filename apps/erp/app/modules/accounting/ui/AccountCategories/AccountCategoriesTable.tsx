@@ -3,7 +3,7 @@ import {
   HStack,
   MenuIcon,
   MenuItem,
-  useDisclosure,
+  useDisclosure
 } from "@carbon/react";
 import { Link, useNavigate } from "@remix-run/react";
 import type { ColumnDef } from "@tanstack/react-table";
@@ -56,7 +56,7 @@ const AccountCategoriesTable = memo(
             <Hyperlink to={row.original.id as string}>
               {row.original.category}
             </Hyperlink>
-          ),
+          )
         },
         {
           header: "Income/Balance",
@@ -67,11 +67,11 @@ const AccountCategoriesTable = memo(
               type: "static",
               options: incomeBalanceTypes.map((incomeBalance) => ({
                 value: incomeBalance,
-                label: <Enumerable value={incomeBalance} />,
-              })),
+                label: <Enumerable value={incomeBalance} />
+              }))
             },
-            pluralHeader: "Income/Balance",
-          },
+            pluralHeader: "Income/Balance"
+          }
         },
         {
           header: "Class",
@@ -82,11 +82,11 @@ const AccountCategoriesTable = memo(
               type: "static",
               options: accountClassTypes.map((accountClass) => ({
                 value: accountClass,
-                label: <Enumerable value={accountClass} />,
-              })),
+                label: <Enumerable value={accountClass} />
+              }))
             },
-            pluralHeader: "Income/Balance",
-          },
+            pluralHeader: "Income/Balance"
+          }
         },
 
         {
@@ -106,8 +106,8 @@ const AccountCategoriesTable = memo(
                 </Link>
               </Button>
             </HStack>
-          ),
-        },
+          )
+        }
       ];
 
       return [...defaultColumns, ...customColumns];

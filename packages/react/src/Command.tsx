@@ -7,7 +7,7 @@ import { Command as CommandPrimitive } from "cmdk";
 import type {
   ComponentPropsWithoutRef,
   ElementRef,
-  HTMLAttributes,
+  HTMLAttributes
 } from "react";
 import { forwardRef } from "react";
 import { RxMagnifyingGlass } from "react-icons/rx";
@@ -51,9 +51,9 @@ const commandInputVariants = cva(
       size: {
         lg: "h-12 px-4 py-3 rounded-lg text-base",
         md: "h-10 px-3 py-2 rounded-md text-base",
-        sm: "h-8  px-3 py-2 rounded text-sm",
-      },
-    },
+        sm: "h-8  px-3 py-2 rounded text-sm"
+      }
+    }
   }
 );
 
@@ -74,7 +74,7 @@ const CommandInput = forwardRef<
       ref={ref}
       className={cn(
         commandInputVariants({
-          size,
+          size
         }),
         className
       )}
@@ -93,30 +93,30 @@ const commandInputTextFieldVariants = cva(
         lg: "h-12 rounded-lg px-4 text-base",
         md: "h-10 rounded-md px-4 text-sm",
         sm: "h-8 rounded-md px-3 text-sm",
-        xs: "h-6 rounded px-2 text-sm",
+        xs: "h-6 rounded px-2 text-sm"
       },
       isInvalid: {
         true: "border-destructive ring-destructive focus-visible:ring-destructive",
-        false: "",
+        false: ""
       },
       isReadOnly: {
         true: "bg-muted text-muted-foreground",
-        false: "",
+        false: ""
       },
       isDisabled: {
         true: "bg-muted text-muted-foreground",
-        false: "",
+        false: ""
       },
       borderless: {
         true: "border-none px-0 outline-none ring-transparent focus:ring-transparent focus:ring-offset-0 focus-visible:ring-transparent focus:outline-none focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 shadow-none",
-        false: "",
-      },
+        false: ""
+      }
     },
     defaultVariants: {
       size: "md",
       isInvalid: false,
-      borderless: false,
-    },
+      borderless: false
+    }
   }
 );
 
@@ -153,7 +153,7 @@ const CommandInputTextField = forwardRef<
           isInvalid,
           isDisabled,
           isReadOnly,
-          borderless,
+          borderless
         }),
         className
       )}
@@ -269,18 +269,18 @@ const commandTriggerVariants = cva(
       size: {
         lg: "h-12 px-4 py-3 rounded-lg text-base space-x-4",
         md: "h-10 px-3 py-2 rounded-md text-sm space-x-3",
-        sm: "h-8 px-3 py-2 rounded-md text-sm space-x-2",
+        sm: "h-8 px-3 py-2 rounded-md text-sm space-x-2"
       },
       asButton: {
         false:
           "text-foreground flex w-full whitespace-nowrap rounded-md border border-input shadow-sm ring-offset-background data-[placeholder]:text-muted-foreground ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1 overflow-hidden",
-        true: "relative font-medium shrink-0 group inline-flex select-none transform-gpu initial:border-none disabled:opacity-50 focus:!outline-none focus:!ring-0 active:!outline-none active:!ring-0 after:pointer-events-none after:absolute after:-inset-[3px] after:rounded-lg after:border after:border-blue-500 after:opacity-0 after:ring-2 after:ring-blue-500/20 after:transition-opacity focus-visible:after:opacity-100 active:after:opacity-0 before:pointer-events-none before:bg-gradient-to-b before:transition-opacity before:from-white/[0.12] before:absolute before:inset-0 before:z-[1] before:rounded before:opacity-0 shadow-button-base bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 shadow-button-base hover:before:opacity-100 dark:hover:before:opacity-50",
-      },
+        true: "relative font-medium shrink-0 group inline-flex select-none transform-gpu initial:border-none disabled:opacity-50 focus:!outline-none focus:!ring-0 active:!outline-none active:!ring-0 after:pointer-events-none after:absolute after:-inset-[3px] after:rounded-lg after:border after:border-blue-500 after:opacity-0 after:ring-2 after:ring-blue-500/20 after:transition-opacity focus-visible:after:opacity-100 active:after:opacity-0 before:pointer-events-none before:bg-gradient-to-b before:transition-opacity before:from-white/[0.12] before:absolute before:inset-0 before:z-[1] before:rounded before:opacity-0 shadow-button-base bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 shadow-button-base hover:before:opacity-100 dark:hover:before:opacity-50"
+      }
     },
     defaultVariants: {
       size: "md",
-      asButton: false,
-    },
+      asButton: false
+    }
   }
 );
 
@@ -291,49 +291,49 @@ export const multiSelectTriggerVariants = cva(
       size: {
         lg: "text-base",
         md: "text-sm",
-        sm: "text-xs",
+        sm: "text-xs"
       },
       hasSelections: {
         true: "h-full",
-        false: "",
-      },
+        false: ""
+      }
     },
     compoundVariants: [
       {
         size: "lg",
         hasSelections: true,
-        class: "py-3 px-4",
+        class: "py-3 px-4"
       },
       {
         size: "lg",
         hasSelections: false,
-        class: "h-12",
+        class: "h-12"
       },
       {
         size: "md",
         hasSelections: true,
-        class: "py-2 px-3",
+        class: "py-2 px-3"
       },
       {
         size: "md",
         hasSelections: false,
-        class: "h-10",
+        class: "h-10"
       },
       {
         size: "sm",
         hasSelections: true,
-        class: "py-1 px-2",
+        class: "py-1 px-2"
       },
       {
         size: "sm",
         hasSelections: false,
-        class: "h-8",
-      },
+        class: "h-8"
+      }
     ],
     defaultVariants: {
       size: "md",
-      hasSelections: false,
-    },
+      hasSelections: false
+    }
   }
 );
 
@@ -352,7 +352,7 @@ const CommandTrigger = forwardRef<ElementRef<"button">, CommandTriggerProps>(
       className={cn(
         commandTriggerVariants({
           size,
-          asButton,
+          asButton
         }),
         className
       )}
@@ -381,5 +381,5 @@ export {
   CommandLoading,
   CommandSeparator,
   CommandShortcut,
-  CommandTrigger,
+  CommandTrigger
 };

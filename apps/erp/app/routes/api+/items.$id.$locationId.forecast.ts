@@ -10,7 +10,7 @@ import {
   getOpenJobMaterials,
   getOpenProductionOrders,
   getOpenPurchaseOrderLines,
-  getOpenSalesOrderLines,
+  getOpenSalesOrderLines
 } from "~/modules/items/items.service";
 import { getPeriods } from "~/modules/shared/shared.service";
 
@@ -23,14 +23,14 @@ const defaultResponse = {
   openSalesOrderLines: [],
   openJobMaterials: [],
   openProductionOrders: [],
-  openPurchaseOrderLines: [],
+  openPurchaseOrderLines: []
 };
 
 const WEEKS_TO_FORECAST = 12 * 4;
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    view: "parts",
+    view: "parts"
   });
 
   const { id: itemId, locationId } = params;
@@ -41,7 +41,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   const endDate = startDate.add({ weeks: WEEKS_TO_FORECAST });
   const periods = await getPeriods(client, {
     startDate: startDate.toString(),
-    endDate: endDate.toString(),
+    endDate: endDate.toString()
   });
 
   if (periods.error) {
@@ -58,25 +58,25 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     openSalesOrderLines,
     openJobMaterials,
     openProductionOrders,
-    openPurchaseOrderLines,
+    openPurchaseOrderLines
   ] = await Promise.all([
     getItemDemand(client, {
       itemId,
       locationId,
       periods: periods.data.map((p) => p.id ?? ""),
-      companyId,
+      companyId
     }),
     getItemSupply(client, {
       itemId,
       locationId,
       periods: periods.data.map((p) => p.id ?? ""),
-      companyId,
+      companyId
     }),
     getItemQuantities(client, itemId, companyId, locationId),
     getOpenSalesOrderLines(client, { itemId, companyId, locationId }),
     getOpenJobMaterials(client, { itemId, companyId, locationId }),
     getOpenProductionOrders(client, { itemId, companyId, locationId }),
-    getOpenPurchaseOrderLines(client, { itemId, companyId, locationId }),
+    getOpenPurchaseOrderLines(client, { itemId, companyId, locationId })
   ]);
 
   if (demand.actuals.length === 0 && demand.forecasts.length === 0) {
@@ -93,14 +93,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
       ...supply.actuals,
       ...supply.forecasts.map((f) => ({
         ...f,
-        actualQuantity: f.forecastQuantity,
-      })),
+        actualQuantity: f.forecastQuantity
+      }))
     ],
     periods: periods.data,
     quantityOnHand: quantities.data?.quantityOnHand ?? 0,
     openSalesOrderLines: openSalesOrderLines.data ?? [],
     openJobMaterials: openJobMaterials.data ?? [],
     openProductionOrders: openProductionOrders.data ?? [],
-    openPurchaseOrderLines: openPurchaseOrderLines.data ?? [],
+    openPurchaseOrderLines: openPurchaseOrderLines.data ?? []
   });
 }

@@ -11,7 +11,7 @@ import { stripSpecialCharacters } from "~/utils/string";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   const { client, companyId, userId } = await requirePermissions(request, {
-    update: "inventory",
+    update: "inventory"
   });
 
   const { shipmentId } = params;
@@ -20,7 +20,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   const setPendingState = await client
     .from("shipment")
     .update({
-      status: "Pending",
+      status: "Pending"
     })
     .eq("id", shipmentId);
 
@@ -62,7 +62,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
           const pdfArgs = {
             request,
             params: { id: shipmentId },
-            context: {},
+            context: {}
           };
 
           const pdf = await pdfLoader(pdfArgs);
@@ -83,7 +83,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
               .upload(documentFilePath, file, {
                 cacheControl: `${12 * 60 * 60}`,
                 contentType: "application/pdf",
-                upsert: true,
+                upsert: true
               });
 
             if (!documentFileUpload.error) {
@@ -97,7 +97,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
                 readGroups: [userId],
                 writeGroups: [userId],
                 createdBy: userId,
-                companyId,
+                companyId
               });
             }
           }
@@ -113,16 +113,16 @@ export async function action({ request, params }: ActionFunctionArgs) {
         type: "post",
         shipmentId: shipmentId,
         userId: userId,
-        companyId: companyId,
+        companyId: companyId
       },
-      region: FunctionRegion.UsEast1,
+      region: FunctionRegion.UsEast1
     });
 
     if (postShipment.error) {
       await client
         .from("shipment")
         .update({
-          status: "Draft",
+          status: "Draft"
         })
         .eq("id", shipmentId);
 
@@ -138,7 +138,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     await client
       .from("shipment")
       .update({
-        status: "Draft",
+        status: "Draft"
       })
       .eq("id", shipmentId);
   }

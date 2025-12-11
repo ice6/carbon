@@ -17,12 +17,12 @@ import { getGenericQueryFilters } from "~/utils/query";
 
 export const handle: Handle = {
   breadcrumb: "Sales Groups",
-  to: path.to.accountingGroupsSales,
+  to: path.to.accountingGroupsSales
 };
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    view: ["accounting", "sales"],
+    view: ["accounting", "sales"]
   });
 
   const url = new URL(request.url);
@@ -35,10 +35,10 @@ export async function loader({ request }: LoaderFunctionArgs) {
       limit,
       offset,
       sorts,
-      filters,
+      filters
     }),
     getItemPostingGroupsList(client, companyId),
-    getCustomerTypesList(client, companyId),
+    getCustomerTypesList(client, companyId)
   ]);
   if (salesGroups.error) {
     throw redirect(
@@ -54,7 +54,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
     data: salesGroups.data ?? [],
     count: salesGroups.count ?? 0,
     itemPostingGroups: itemPostingGroups.data ?? [],
-    customerTypes: customerTypes.data ?? [],
+    customerTypes: customerTypes.data ?? []
   });
 }
 

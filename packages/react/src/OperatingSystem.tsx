@@ -16,7 +16,7 @@ const Context = createContext<OperatingSystemContext | null>(null);
 
 export const OperatingSystemContextProvider = ({
   platform,
-  children,
+  children
 }: OperatingSystemContextProviderProps) => {
   return <Context.Provider value={{ platform }}>{children}</Context.Provider>;
 };

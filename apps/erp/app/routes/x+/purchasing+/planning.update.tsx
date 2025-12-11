@@ -6,14 +6,14 @@ import {
   plannedOrderValidator,
   updatePurchaseOrder,
   upsertPurchaseOrder,
-  upsertPurchaseOrderLine,
+  upsertPurchaseOrderLine
 } from "~/modules/purchasing";
 import { getNextSequence } from "~/modules/settings/settings.service";
 
 const itemsValidator = z
   .object({
     id: z.string(),
-    orders: z.array(plannedOrderValidator),
+    orders: z.array(plannedOrderValidator)
   })
   .array();
 
@@ -21,7 +21,7 @@ export async function action({ request }: ActionFunctionArgs) {
   const { client, companyId, userId } = await requirePermissions(request, {
     create: "purchasing",
     role: "employee",
-    bypassRls: true,
+    bypassRls: true
   });
 
   const { items, action, locationId } = await request.json();
@@ -30,7 +30,7 @@ export async function action({ request }: ActionFunctionArgs) {
     return json(
       {
         success: false,
-        message: "Location ID is required and must be a valid string",
+        message: "Location ID is required and must be a valid string"
       },
       { status: 500 }
     );
@@ -40,7 +40,7 @@ export async function action({ request }: ActionFunctionArgs) {
     return json(
       {
         success: false,
-        message: "Action parameter is required and must be a valid string",
+        message: "Action parameter is required and must be a valid string"
       },
       { status: 500 }
     );
@@ -83,7 +83,7 @@ export async function action({ request }: ActionFunctionArgs) {
           {
             success: false,
             message: `Validation failed: ${errorMessages.join(", ")}`,
-            errors: errorMessages,
+            errors: errorMessages
           },
           { status: 500 }
         );
@@ -94,7 +94,7 @@ export async function action({ request }: ActionFunctionArgs) {
         return json(
           {
             success: false,
-            message: "No items were provided to create purchase orders",
+            message: "No items were provided to create purchase orders"
           },
           { status: 500 }
         );
@@ -134,7 +134,7 @@ export async function action({ request }: ActionFunctionArgs) {
               }
               ordersBySupplier.get(order.supplierId)!.push({
                 itemId: item.id,
-                order,
+                order
               });
             }
             if (order.periodId) {
@@ -157,7 +157,7 @@ export async function action({ request }: ActionFunctionArgs) {
             .from("company")
             .select("id, baseCurrencyCode")
             .eq("id", companyId)
-            .single(),
+            .single()
         ]);
 
         if (suppliers.error) {
@@ -165,7 +165,7 @@ export async function action({ request }: ActionFunctionArgs) {
           return json(
             {
               success: false,
-              message: "Failed to retrieve supplier information from database",
+              message: "Failed to retrieve supplier information from database"
             },
             { status: 500 }
           );
@@ -177,7 +177,7 @@ export async function action({ request }: ActionFunctionArgs) {
             {
               success: false,
               message:
-                "Failed to retrieve supplier part information from database",
+                "Failed to retrieve supplier part information from database"
             },
             { status: 500 }
           );
@@ -188,7 +188,7 @@ export async function action({ request }: ActionFunctionArgs) {
           return json(
             {
               success: false,
-              message: "Failed to retrieve period information from database",
+              message: "Failed to retrieve period information from database"
             },
             { status: 500 }
           );
@@ -199,7 +199,7 @@ export async function action({ request }: ActionFunctionArgs) {
           return json(
             {
               success: false,
-              message: "Failed to retrieve company information from database",
+              message: "Failed to retrieve company information from database"
             },
             { status: 500 }
           );
@@ -293,7 +293,7 @@ export async function action({ request }: ActionFunctionArgs) {
                 currencyCode: supplier.currencyCode ?? baseCurrencyCode,
                 exchangeRate: exchangeRate,
                 companyId,
-                createdBy: userId,
+                createdBy: userId
               },
               undefined
             );
@@ -332,7 +332,7 @@ export async function action({ request }: ActionFunctionArgs) {
             }
             ordersByItem.get(itemId)!.push({
               order,
-              periodId: order.periodId,
+              periodId: order.periodId
             });
           }
 
@@ -414,7 +414,7 @@ export async function action({ request }: ActionFunctionArgs) {
                 promisedDate: earliestDueDate ?? undefined,
                 locationId,
                 companyId,
-                createdBy: userId,
+                createdBy: userId
               }
             );
 
@@ -447,7 +447,7 @@ export async function action({ request }: ActionFunctionArgs) {
                 periodId,
                 companyId,
                 createdBy: userId,
-                updatedBy: userId,
+                updatedBy: userId
               });
             }
           }
@@ -457,7 +457,7 @@ export async function action({ request }: ActionFunctionArgs) {
             const updateResult = await updatePurchaseOrder(client, {
               id: purchaseOrderId,
               status: "Planned" as const,
-              updatedBy: userId,
+              updatedBy: userId
             });
 
             if (updateResult.error) {
@@ -490,7 +490,7 @@ export async function action({ request }: ActionFunctionArgs) {
             .from("supplyForecast")
             .upsert(uniqueSupplyForecasts, {
               onConflict: "itemId,locationId,periodId",
-              ignoreDuplicates: false,
+              ignoreDuplicates: false
             });
 
           if (insertForecasts.error) {
@@ -509,7 +509,7 @@ export async function action({ request }: ActionFunctionArgs) {
                 .join("; ")}${
                 errors.length > 3 ? ` and ${errors.length - 3} more...` : ""
               }`,
-              errors: errors,
+              errors: errors
             },
             { status: 500 }
           );
@@ -529,7 +529,7 @@ export async function action({ request }: ActionFunctionArgs) {
           message,
           processedItems,
           totalItems: itemsToOrder.length,
-          errors: errors.length > 0 ? errors : undefined,
+          errors: errors.length > 0 ? errors : undefined
         });
       } catch (error) {
         console.error("Unexpected error processing purchase orders:", error);
@@ -538,7 +538,7 @@ export async function action({ request }: ActionFunctionArgs) {
             success: false,
             message: `Unexpected error occurred while processing purchase orders: ${
               error instanceof Error ? error.message : "Unknown error"
-            }`,
+            }`
           },
           { status: 500 }
         );
@@ -548,7 +548,7 @@ export async function action({ request }: ActionFunctionArgs) {
       return json(
         {
           success: false,
-          message: `Unknown action '${action}'. Expected action: 'order'`,
+          message: `Unknown action '${action}'. Expected action: 'order'`
         },
         { status: 500 }
       );

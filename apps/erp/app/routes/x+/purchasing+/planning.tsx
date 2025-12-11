@@ -20,13 +20,13 @@ const WEEKS_TO_PLAN = 12 * 4;
 
 export const handle: Handle = {
   breadcrumb: "Planning",
-  to: path.to.purchasingPlanning,
+  to: path.to.purchasingPlanning
 };
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId, userId } = await requirePermissions(request, {
     view: "purchasing",
-    bypassRls: true,
+    bypassRls: true
   });
 
   const url = new URL(request.url);
@@ -71,7 +71,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const endDate = startDate.add({ weeks: WEEKS_TO_PLAN });
   const periods = await getPeriods(client, {
     startDate: startDate.toString(),
-    endDate: endDate.toString(),
+    endDate: endDate.toString()
   });
 
   if (periods.error) {
@@ -92,9 +92,9 @@ export async function loader({ request }: LoaderFunctionArgs) {
         limit,
         offset,
         sorts,
-        filters,
+        filters
       }
-    ),
+    )
   ]);
 
   if (items.error) {
@@ -108,7 +108,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
     items: (items.data ?? []) as PurchasingPlanningItem[],
     count: items.count ?? 0,
     periods: periods.data ?? [],
-    locationId,
+    locationId
   });
 }
 

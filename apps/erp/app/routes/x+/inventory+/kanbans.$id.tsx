@@ -9,14 +9,14 @@ import {
   KanbanForm,
   getKanban,
   kanbanValidator,
-  upsertKanban,
+  upsertKanban
 } from "~/modules/inventory";
 import { getParams, path } from "~/utils/path";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
     view: "inventory",
-    role: "employee",
+    role: "employee"
   });
 
   const { id } = params;
@@ -25,14 +25,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   const kanban = await getKanban(client, id);
 
   return json({
-    kanban: kanban?.data ?? null,
+    kanban: kanban?.data ?? null
   });
 }
 
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    update: "inventory",
+    update: "inventory"
   });
 
   const formData = await request.formData();
@@ -48,7 +48,7 @@ export async function action({ request }: ActionFunctionArgs) {
   const updateKanban = await upsertKanban(client, {
     id,
     ...data,
-    updatedBy: userId,
+    updatedBy: userId
   });
 
   if (updateKanban.error) {
@@ -80,7 +80,7 @@ export default function EditKanbanRoute() {
     conversionFactor: kanban?.conversionFactor ?? 1,
     autoRelease: kanban?.autoRelease ?? false,
     autoStartJob: kanban?.autoStartJob ?? false,
-    completedBarcodeOverride: kanban?.completedBarcodeOverride ?? "",
+    completedBarcodeOverride: kanban?.completedBarcodeOverride ?? ""
   };
 
   return (

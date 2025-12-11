@@ -18,16 +18,16 @@ interface StockTransferPDFProps extends PDF {
 const tw = createTw({
   theme: {
     fontFamily: {
-      sans: ["Helvetica", "Arial", "sans-serif"],
+      sans: ["Helvetica", "Arial", "sans-serif"]
     },
     extend: {
       colors: {
         gray: {
-          500: "#7d7d7d",
-        },
-      },
-    },
-  },
+          500: "#7d7d7d"
+        }
+      }
+    }
+  }
 });
 
 const StockTransferPDF = ({
@@ -36,29 +36,29 @@ const StockTransferPDF = ({
   stockTransferLines,
   location,
   title = "Stock Transfer",
-  thumbnails,
+  thumbnails
 }: StockTransferPDFProps) => {
   const details = [
     {
       label: "Date",
       value: stockTransfer?.createdAt
         ? new Date(stockTransfer.createdAt).toLocaleDateString()
-        : "",
+        : ""
     },
     {
       label: "Stock Transfer",
-      value: stockTransfer?.stockTransferId,
+      value: stockTransfer?.stockTransferId
     },
     {
       label: "Location",
-      value: location?.name,
-    },
+      value: location?.name
+    }
   ];
 
   if (stockTransfer?.assignee) {
     details.push({
       label: "Assignee",
-      value: stockTransfer.assignee,
+      value: stockTransfer.assignee
     });
   }
 
@@ -68,7 +68,7 @@ const StockTransferPDF = ({
       meta={{
         author: "Carbon",
         keywords: "stock transfer",
-        subject: "Stock Transfer",
+        subject: "Stock Transfer"
       }}
     >
       <View style={tw("flex flex-col")}>
@@ -185,7 +185,7 @@ async function generateBarcode(text: string): Promise<string> {
     scale: 3, // 3x scaling factor
     height: 5, // Bar height, in millimeters
     includetext: true, // Show human-readable text
-    textxalign: "center", // Always good to set this
+    textxalign: "center" // Always good to set this
   });
   return `data:image/png;base64,${buffer.toString("base64")}`;
 }

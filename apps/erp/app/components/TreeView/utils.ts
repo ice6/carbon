@@ -10,7 +10,7 @@ export function concreteStateFromInput({
   tree,
   filter,
   selectedId,
-  collapsedIds,
+  collapsedIds
 }: {
   tree: FlatTree<any>;
   filter: Filter<any, any> | undefined;
@@ -45,7 +45,7 @@ export function concreteStateFromInput({
     changes: { selectedId },
     filter,
     filteredNodes: nodes,
-    visibleNodeIds: visibleNodes(tree, nodes).map((node) => node.id),
+    visibleNodeIds: visibleNodes(tree, nodes).map((node) => node.id)
   };
 }
 
@@ -53,14 +53,17 @@ export function concreteStateFromPartialState<TData>(
   tree: FlatTree<TData>,
   state: PartialNodeState
 ): NodesState {
-  const concreteState = tree.reduce((acc, node) => {
-    acc[node.id] = {
-      selected: acc[node.id]?.selected ?? defaultSelected,
-      expanded: acc[node.id]?.expanded ?? defaultExpanded,
-      visible: acc[node.id]?.visible ?? true,
-    };
-    return acc;
-  }, state as Record<string, NodeState>);
+  const concreteState = tree.reduce(
+    (acc, node) => {
+      acc[node.id] = {
+        selected: acc[node.id]?.selected ?? defaultSelected,
+        expanded: acc[node.id]?.expanded ?? defaultExpanded,
+        visible: acc[node.id]?.visible ?? true
+      };
+      return acc;
+    },
+    state as Record<string, NodeState>
+  );
 
   return applyVisibility(tree, concreteState);
 }
@@ -73,7 +76,7 @@ export function applyVisibility<TData>(
     //groups are open by default
     const nodeState = state[node.id] ?? {
       selected: defaultSelected,
-      expanded: node.hasChildren ? defaultExpanded : !defaultExpanded,
+      expanded: node.hasChildren ? defaultExpanded : !defaultExpanded
     };
     const parent = node.parentId
       ? acc[node.parentId]
@@ -97,7 +100,7 @@ export function applyFilterToState<TData>({
   nodes,
   filter,
   visibleNodeIds,
-  changes,
+  changes
 }: TreeState): TreeState {
   if (!filter || !filter.value) {
     return {
@@ -106,7 +109,7 @@ export function applyFilterToState<TData>({
       filteredNodes: nodes,
       changes,
       filter,
-      visibleNodeIds: visibleNodes(tree, nodes).map((node) => node.id),
+      visibleNodeIds: visibleNodes(tree, nodes).map((node) => node.id)
     };
   }
 
@@ -126,7 +129,7 @@ export function applyFilterToState<TData>({
       filteredNodes: nodes,
       changes,
       filter,
-      visibleNodeIds: visibleNodes(tree, nodes).map((node) => node.id),
+      visibleNodeIds: visibleNodes(tree, nodes).map((node) => node.id)
     };
   }
 
@@ -205,7 +208,7 @@ export function applyFilterToState<TData>({
     filteredNodes,
     changes,
     filter,
-    visibleNodeIds: visibleNodes(tree, filteredNodes).map((node) => node.id),
+    visibleNodeIds: visibleNodes(tree, filteredNodes).map((node) => node.id)
   };
 }
 
@@ -251,6 +254,6 @@ export function generateChanges(a: NodesState, b: NodesState): Changes {
   const collapsedChanges = [...difference(collapsedIdsA, collapsedIdsB)];
 
   return {
-    selectedId: selectedIdA !== selectedIdB ? selectedIdB : undefined,
+    selectedId: selectedIdA !== selectedIdB ? selectedIdB : undefined
   };
 }

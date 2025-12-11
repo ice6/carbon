@@ -29,10 +29,10 @@ import {
   TooltipTrigger,
   Tr,
   useDisclosure,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { Link, useParams } from "@remix-run/react";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import { MethodIcon, TimeTypeIcon } from "~/components/Icons";
 
 import { useCarbon } from "@carbon/auth";
@@ -41,7 +41,7 @@ import {
   getLocalTimeZone,
   now,
   parseAbsolute,
-  toZoned,
+  toZoned
 } from "@internationalized/date";
 import { useEffect, useState } from "react";
 import { LuCircleChevronRight, LuNotebook } from "react-icons/lu";
@@ -55,7 +55,7 @@ import type { getJobMaterialsByMethodId } from "../../production.service";
 import type {
   JobOperation,
   ProductionEvent,
-  ProductionQuantity,
+  ProductionQuantity
 } from "../../types";
 import { JobOperationStatus } from "./JobOperationStatus";
 
@@ -86,7 +86,7 @@ const JobEstimatesVsActuals = ({
   materials,
   productionEvents,
   productionQuantities,
-  notes,
+  notes
 }: {
   operations: Operation[];
   materials: Material[];
@@ -120,10 +120,13 @@ const JobEstimatesVsActuals = ({
     }
 
     setCurrentUnitCosts(
-      itemCosts?.data?.reduce((acc, itemCost) => {
-        acc[itemCost.itemId] = itemCost.unitCost;
-        return acc;
-      }, {} as Record<string, number>)
+      itemCosts?.data?.reduce(
+        (acc, itemCost) => {
+          acc[itemCost.itemId] = itemCost.unitCost;
+          return acc;
+        },
+        {} as Record<string, number>
+      )
     );
   };
 
@@ -139,7 +142,7 @@ const JobEstimatesVsActuals = ({
       total: op.duration,
       setup: op.setupDuration,
       labor: op.laborDuration,
-      machine: op.machineDuration,
+      machine: op.machineDuration
     };
   };
 
@@ -170,13 +173,13 @@ const JobEstimatesVsActuals = ({
       {
         setup: 0,
         labor: 0,
-        machine: 0,
+        machine: 0
       }
     );
 
     return {
       total: actualTimes.setup + actualTimes.labor + actualTimes.machine,
-      ...actualTimes,
+      ...actualTimes
     };
   };
 
@@ -230,7 +233,7 @@ const JobEstimatesVsActuals = ({
         employeeId: pe.employeeId,
         notes: pe.notes,
         createdAt: pe.createdAt,
-        productionEventId: pe.id,
+        productionEventId: pe.id
       }));
 
     const quantityNotes = productionQuantities
@@ -242,7 +245,7 @@ const JobEstimatesVsActuals = ({
         productionEventId:
           pq.setupProductionEventId ??
           pq.laborProductionEventId ??
-          pq.machineProductionEventId,
+          pq.machineProductionEventId
       }));
 
     const notes = [...eventNotes, ...quantityNotes].filter((n) => n.notes);

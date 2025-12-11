@@ -6,7 +6,7 @@ import {
   HoverCardTrigger,
   MenuIcon,
   MenuItem,
-  useDisclosure,
+  useDisclosure
 } from "@carbon/react";
 import { useNavigate } from "@remix-run/react";
 import type { ColumnDef } from "@tanstack/react-table";
@@ -19,7 +19,7 @@ import {
   LuPencil,
   LuTag,
   LuTrash,
-  LuUser,
+  LuUser
 } from "react-icons/lu";
 import { EmployeeAvatar, Hyperlink, New, Table } from "~/components";
 
@@ -64,8 +64,8 @@ const ProceduresTable = memo(({ data, tags, count }: ProceduresTableProps) => {
           </div>
         ),
         meta: {
-          icon: <LuBookMarked />,
-        },
+          icon: <LuBookMarked />
+        }
       },
       {
         accessorKey: "processId",
@@ -82,17 +82,17 @@ const ProceduresTable = memo(({ data, tags, count }: ProceduresTableProps) => {
           icon: <TbRoute />,
           filter: {
             type: "static",
-            options: processes,
-          },
-        },
+            options: processes
+          }
+        }
       },
       {
         accessorKey: "status",
         header: "Status",
         cell: ({ row }) => <ProcedureStatus status={row.original.status} />,
         meta: {
-          icon: <LuCalendar />,
-        },
+          icon: <LuCalendar />
+        }
       },
       {
         accessorKey: "assignee",
@@ -101,8 +101,8 @@ const ProceduresTable = memo(({ data, tags, count }: ProceduresTableProps) => {
           <EmployeeAvatar employeeId={row.original.assignee} />
         ),
         meta: {
-          icon: <LuUser />,
-        },
+          icon: <LuUser />
+        }
       },
       {
         accessorKey: "tags",
@@ -121,12 +121,12 @@ const ProceduresTable = memo(({ data, tags, count }: ProceduresTableProps) => {
             type: "static",
             options: tags?.map((tag) => ({
               value: tag.name,
-              label: <Badge variant="secondary">{tag.name}</Badge>,
+              label: <Badge variant="secondary">{tag.name}</Badge>
             })),
-            isArray: true,
+            isArray: true
           },
-          icon: <LuTag />,
-        },
+          icon: <LuTag />
+        }
       },
       {
         id: "versions",
@@ -173,9 +173,9 @@ const ProceduresTable = memo(({ data, tags, count }: ProceduresTableProps) => {
           );
         },
         meta: {
-          icon: <LuGitPullRequest />,
-        },
-      },
+          icon: <LuGitPullRequest />
+        }
+      }
     ];
     return [...defaultColumns];
   }, [processes, tags]);

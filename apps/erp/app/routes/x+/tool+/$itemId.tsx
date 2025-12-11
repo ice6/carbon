@@ -9,7 +9,7 @@ import {
   getMakeMethods,
   getPickMethods,
   getSupplierParts,
-  getTool,
+  getTool
 } from "~/modules/items";
 import { ToolHeader } from "~/modules/items/ui/Tools";
 import { getTagsList } from "~/modules/shared";
@@ -19,12 +19,12 @@ import { path } from "~/utils/path";
 export const handle: Handle = {
   breadcrumb: "Tools",
   to: path.to.tools,
-  module: "items",
+  module: "items"
 };
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { companyId } = await requirePermissions(request, {
-    view: "parts",
+    view: "parts"
   });
 
   const { itemId } = params;
@@ -35,7 +35,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     getTool(serviceRole, itemId, companyId),
     getSupplierParts(serviceRole, itemId, companyId),
     getPickMethods(serviceRole, itemId, companyId),
-    getTagsList(serviceRole, companyId, "tool"),
+    getTagsList(serviceRole, companyId, "tool")
   ]);
 
   if (toolSummary.error) {
@@ -54,7 +54,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     supplierParts: supplierParts.data ?? [],
     pickMethods: pickMethods.data ?? [],
     makeMethods: getMakeMethods(serviceRole, itemId, companyId),
-    tags: tags.data ?? [],
+    tags: tags.data ?? []
   });
 }
 

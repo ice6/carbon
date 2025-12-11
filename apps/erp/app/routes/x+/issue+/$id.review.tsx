@@ -5,13 +5,13 @@ import { validator } from "@carbon/form";
 import { json, type ActionFunctionArgs } from "@vercel/remix";
 import {
   insertIssueReviewer,
-  nonConformanceReviewerValidator,
+  nonConformanceReviewerValidator
 } from "~/modules/quality";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    update: "quality",
+    update: "quality"
   });
 
   const { id } = params;
@@ -25,7 +25,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   if (validation.error) {
     return json(
       {
-        success: false,
+        success: false
       },
       await flash(request, error(validation.error, "Invalid reviewer"))
     );
@@ -35,13 +35,13 @@ export async function action({ request, params }: ActionFunctionArgs) {
     ...validation.data,
     nonConformanceId: id,
     companyId,
-    createdBy: userId,
+    createdBy: userId
   });
 
   if (updateCurrency.error) {
     return json(
       {
-        success: false,
+        success: false
       },
       await flash(
         request,
@@ -51,6 +51,6 @@ export async function action({ request, params }: ActionFunctionArgs) {
   }
 
   return json({
-    success: true,
+    success: true
   });
 }

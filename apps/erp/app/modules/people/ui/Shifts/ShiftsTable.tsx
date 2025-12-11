@@ -8,7 +8,7 @@ import {
   LuClock,
   LuMapPin,
   LuPencil,
-  LuTrash,
+  LuTrash
 } from "react-icons/lu";
 import { Hyperlink, New, Table } from "~/components";
 import { Enumerable } from "~/components/Enumerable";
@@ -37,7 +37,7 @@ const ShiftsTable = memo(({ data, count, locations }: ShiftsTableProps) => {
       row.thursday && "Th",
       row.friday && "F",
       row.saturday && "Sa",
-      row.sunday && "Su",
+      row.sunday && "Su"
     ].filter(Boolean);
 
     return days.map((day) => (
@@ -58,24 +58,24 @@ const ShiftsTable = memo(({ data, count, locations }: ShiftsTableProps) => {
           <Hyperlink to={row.original.id!}>{row.original.name}</Hyperlink>
         ),
         meta: {
-          icon: <LuCalendarRange />,
-        },
+          icon: <LuCalendarRange />
+        }
       },
       {
         accessorKey: "startTime",
         header: "Start Time",
         cell: (item) => item.getValue(),
         meta: {
-          icon: <LuClock />,
-        },
+          icon: <LuClock />
+        }
       },
       {
         accessorKey: "endTime",
         header: "End Time",
         cell: (item) => item.getValue(),
         meta: {
-          icon: <LuClock />,
-        },
+          icon: <LuClock />
+        }
       },
       {
         accessorKey: "locationName",
@@ -87,10 +87,10 @@ const ShiftsTable = memo(({ data, count, locations }: ShiftsTableProps) => {
             type: "static",
             options: locations.map((location) => ({
               value: location.name!,
-              label: <Enumerable value={location.name!} />,
-            })),
-          },
-        },
+              label: <Enumerable value={location.name!} />
+            }))
+          }
+        }
       },
       {
         id: "days",
@@ -98,9 +98,9 @@ const ShiftsTable = memo(({ data, count, locations }: ShiftsTableProps) => {
         // @ts-ignore
         cell: ({ row }) => renderDays(row.original),
         meta: {
-          icon: <LuCalendarDays />,
-        },
-      },
+          icon: <LuCalendarDays />
+        }
+      }
     ];
 
     return [...defaultColumns, ...customColumns];

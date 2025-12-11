@@ -34,7 +34,7 @@ export const useAbilities = () => {
       abilityFetcher.data?.data
         ? abilityFetcher.data?.data.map((c) => ({
             value: c.id,
-            label: c.name,
+            label: c.name
           }))
         : [],
     [abilityFetcher.data]

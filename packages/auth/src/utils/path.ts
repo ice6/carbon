@@ -3,6 +3,6 @@ export const path = {
   to: {
     authenticatedRoot: x,
     login: "/login",
-    refreshSession: "/refresh-session",
-  },
+    refreshSession: "/refresh-session"
+  }
 };

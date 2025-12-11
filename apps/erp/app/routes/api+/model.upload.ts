@@ -6,7 +6,7 @@ import { json, type ActionFunctionArgs } from "@vercel/remix";
 
 export async function action({ request }: ActionFunctionArgs) {
   const { client, companyId, userId } = await requirePermissions(request, {
-    update: "parts",
+    update: "parts"
   });
 
   const formData = await request.formData();
@@ -37,7 +37,7 @@ export async function action({ request }: ActionFunctionArgs) {
     name,
     size,
     companyId,
-    createdBy: userId,
+    createdBy: userId
   });
 
   if (modelRecord.error) {
@@ -74,10 +74,10 @@ export async function action({ request }: ActionFunctionArgs) {
 
   await tasks.trigger<typeof modelThumbnailTask>("model-thumbnail", {
     companyId,
-    modelId,
+    modelId
   });
 
   return json({
-    success: true,
+    success: true
   });
 }

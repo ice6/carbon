@@ -14,7 +14,7 @@ import {
   TooltipTrigger,
   useDisclosure,
   useKeyboardShortcuts,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { getItemReadableId, prettifyKeyboardShortcut } from "@carbon/utils";
 import { Link, useParams } from "@remix-run/react";
@@ -25,7 +25,7 @@ import {
   useOptimisticLocation,
   usePermissions,
   useRouteData,
-  useUser,
+  useUser
 } from "~/hooks";
 import { getLinkToItemDetails } from "~/modules/items/ui/Item/ItemForm";
 import type { Supplier } from "~/modules/purchasing/types";
@@ -60,7 +60,7 @@ export default function SalesInvoiceExplorer() {
     shippingCost: 0,
     addOnCost: 0,
     taxAmount: 0,
-    exchangeRate: salesInvoiceData?.salesInvoice?.exchangeRate ?? 1,
+    exchangeRate: salesInvoiceData?.salesInvoice?.exchangeRate ?? 1
   };
 
   const newSalesInvoiceLineDisclosure = useDisclosure();
@@ -83,7 +83,7 @@ export default function SalesInvoiceExplorer() {
     "Command+Shift+l": (event: KeyboardEvent) => {
       event.stopPropagation();
       newButtonRef.current?.click();
-    },
+    }
   });
 
   return (
@@ -164,7 +164,7 @@ type SalesInvoiceLineItemProps = {
 function SalesInvoiceLineItem({
   line,
   isDisabled,
-  onDelete,
+  onDelete
 }: SalesInvoiceLineItemProps) {
   const [items] = useItems();
   const { invoiceId } = useParams();

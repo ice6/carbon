@@ -7,7 +7,7 @@ import { getCompanySettings } from "~/modules/settings";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   const { client, companyId, userId } = await requirePermissions(request, {
-    update: "invoicing",
+    update: "invoicing"
   });
 
   const { invoiceId } = params;
@@ -16,14 +16,14 @@ export async function action({ request, params }: ActionFunctionArgs) {
   const setPendingState = await client
     .from("purchaseInvoice")
     .update({
-      status: "Pending",
+      status: "Pending"
     })
     .eq("id", invoiceId);
 
   if (setPendingState.error) {
     return json({
       success: false,
-      message: "Failed to post purchase invoice",
+      message: "Failed to post purchase invoice"
     });
   }
 
@@ -35,9 +35,9 @@ export async function action({ request, params }: ActionFunctionArgs) {
         body: {
           invoiceId: invoiceId,
           userId: userId,
-          companyId: companyId,
+          companyId: companyId
         },
-        region: FunctionRegion.UsEast1,
+        region: FunctionRegion.UsEast1
       }
     );
 
@@ -45,13 +45,13 @@ export async function action({ request, params }: ActionFunctionArgs) {
       await client
         .from("purchaseInvoice")
         .update({
-          status: "Draft",
+          status: "Draft"
         })
         .eq("id", invoiceId);
 
       return json({
         success: false,
-        message: "Failed to post purchase invoice",
+        message: "Failed to post purchase invoice"
       });
     }
 
@@ -67,9 +67,9 @@ export async function action({ request, params }: ActionFunctionArgs) {
           body: {
             invoiceId: invoiceId,
             companyId: companyId,
-            source: "purchaseInvoice",
+            source: "purchaseInvoice"
           },
-          region: FunctionRegion.UsEast1,
+          region: FunctionRegion.UsEast1
         }
       );
 
@@ -77,13 +77,13 @@ export async function action({ request, params }: ActionFunctionArgs) {
         await client
           .from("purchaseInvoice")
           .update({
-            status: "Draft",
+            status: "Draft"
           })
           .eq("id", invoiceId);
 
         return json({
           success: false,
-          message: "Failed to update prices",
+          message: "Failed to update prices"
         });
       }
     }
@@ -91,18 +91,18 @@ export async function action({ request, params }: ActionFunctionArgs) {
     await client
       .from("purchaseInvoice")
       .update({
-        status: "Draft",
+        status: "Draft"
       })
       .eq("id", invoiceId);
 
     return json({
       success: false,
-      message: "Failed to post purchase invoice",
+      message: "Failed to post purchase invoice"
     });
   }
 
   return json({
     success: true,
-    message: "Purchase invoice posted successfully",
+    message: "Purchase invoice posted successfully"
   });
 }

@@ -4,7 +4,7 @@ import { flash, requireAuthSession } from "@carbon/auth/session.server";
 import {
   deactivateCustomer,
   deactivateEmployee,
-  deactivateSupplier,
+  deactivateSupplier
 } from "@carbon/auth/users.server";
 import type { Database, Json } from "@carbon/database";
 import { redis } from "@carbon/kv";
@@ -20,7 +20,7 @@ import type {
   InviteInsert,
   Module,
   Permission,
-  User,
+  User
 } from "~/modules/users";
 import { getPermissionsByEmployeeType } from "~/modules/users";
 import type { Result } from "~/types";
@@ -54,42 +54,42 @@ export async function acceptInvite(
     invite.data.role === "employee"
       ? activateEmployee
       : invite.data.role === "customer"
-      ? activateCustomer
-      : invite.data.role === "supplier"
-      ? activateSupplier
-      : null;
+        ? activateCustomer
+        : invite.data.role === "supplier"
+          ? activateSupplier
+          : null;
 
   if (!activationFunction) {
     return {
       data: null,
       error: {
-        message: "Invalid invite role",
-      },
+        message: "Invalid invite role"
+      }
     };
   }
 
   const [activate, addUser, setPermissions] = await Promise.all([
     activationFunction(serviceRole, {
       userId: user.data.id,
-      companyId: invite.data.companyId,
+      companyId: invite.data.companyId
     }),
     addUserToCompany(serviceRole, {
       userId: user.data.id,
       companyId: invite.data.companyId,
-      role: invite.data.role,
+      role: invite.data.role
     }),
     setUserPermissions(
       serviceRole,
       user.data.id,
       invite.data.permissions as Record<string, string[]>
-    ),
+    )
   ]);
 
   if (activate.error) {
     console.error(activate.error);
     await rollbackInvite(serviceRole, {
       userId: user.data.id,
-      companyId: invite.data.companyId,
+      companyId: invite.data.companyId
     });
     return activate;
   }
@@ -98,7 +98,7 @@ export async function acceptInvite(
     console.error(addUser.error);
     await rollbackInvite(serviceRole, {
       userId: user.data.id,
-      companyId: invite.data.companyId,
+      companyId: invite.data.companyId
     });
     return addUser;
   }
@@ -107,7 +107,7 @@ export async function acceptInvite(
     console.error(setPermissions.error);
     await rollbackInvite(serviceRole, {
       userId: user.data.id,
-      companyId: invite.data.companyId,
+      companyId: invite.data.companyId
     });
     return setPermissions;
   }
@@ -124,7 +124,7 @@ async function activateCustomer(
   client: SupabaseClient<Database>,
   {
     userId,
-    companyId,
+    companyId
   }: {
     userId: string;
     companyId: string;
@@ -141,7 +141,7 @@ async function activateEmployee(
   client: SupabaseClient<Database>,
   {
     userId,
-    companyId,
+    companyId
   }: {
     userId: string;
     companyId: string;
@@ -158,7 +158,7 @@ async function activateSupplier(
   client: SupabaseClient<Database>,
   {
     userId,
-    companyId,
+    companyId
   }: {
     userId: string;
     companyId: string;
@@ -188,7 +188,7 @@ export async function createCustomerAccount(
     id,
     customerId,
     companyId,
-    createdBy,
+    createdBy
   }: {
     id: string;
     customerId: string;
@@ -223,7 +223,7 @@ export async function createCustomerAccount(
     const createSupabaseUser = await serviceRole.auth.admin.createUser({
       email: email.toLowerCase(),
       password: crypto.randomUUID(),
-      email_confirm: true,
+      email_confirm: true
     });
 
     if (createSupabaseUser.error) {
@@ -236,7 +236,7 @@ export async function createCustomerAccount(
       email: email.toLowerCase(),
       firstName: firstName ?? "",
       lastName: lastName ?? "",
-      avatarUrl: null,
+      avatarUrl: null
     });
 
     if (createCarbonUser.error) {
@@ -252,7 +252,7 @@ export async function createCustomerAccount(
       insertCustomerAccount(client, {
         id: userId,
         customerId,
-        companyId,
+        companyId
       }),
       insertInvite(serviceRole, {
         role: "customer",
@@ -260,8 +260,8 @@ export async function createCustomerAccount(
         email,
         companyId,
         createdBy,
-        code,
-      }),
+        code
+      })
     ]);
 
   if (contactUpdate.error) {
@@ -303,7 +303,7 @@ export async function createEmployeeAccount(
     employeeType,
     locationId,
     companyId,
-    createdBy,
+    createdBy
   }: {
     email: string;
     firstName: string;
@@ -338,7 +338,7 @@ export async function createEmployeeAccount(
     const createSupabaseUser = await serviceRole.auth.admin.createUser({
       email: email.toLowerCase(),
       password: crypto.randomUUID(),
-      email_confirm: true,
+      email_confirm: true
     });
 
     if (createSupabaseUser.error) {
@@ -351,7 +351,7 @@ export async function createEmployeeAccount(
       email: email.toLowerCase(),
       firstName,
       lastName,
-      avatarUrl: null,
+      avatarUrl: null
     });
 
     if (createCarbonUser.error) {
@@ -366,12 +366,12 @@ export async function createEmployeeAccount(
       id: userId,
       employeeTypeId: employeeType,
       active: false,
-      companyId,
+      companyId
     }),
     insertEmployeeJob(client, {
       id: userId,
       companyId,
-      locationId,
+      locationId
     }),
     insertInvite(serviceRole, {
       role: "employee",
@@ -379,8 +379,8 @@ export async function createEmployeeAccount(
       email,
       companyId,
       createdBy,
-      code,
-    }),
+      code
+    })
   ]);
 
   if (employeeInsert.error) {
@@ -419,7 +419,7 @@ export async function createSupplierAccount(
     id,
     supplierId,
     companyId,
-    createdBy,
+    createdBy
   }: {
     id: string;
     supplierId: string;
@@ -454,7 +454,7 @@ export async function createSupplierAccount(
     const createSupabaseUser = await serviceRole.auth.admin.createUser({
       email: email.toLowerCase(),
       password: crypto.randomUUID(),
-      email_confirm: true,
+      email_confirm: true
     });
 
     if (createSupabaseUser.error) {
@@ -467,7 +467,7 @@ export async function createSupplierAccount(
       email: email.toLowerCase(),
       firstName: firstName ?? "",
       lastName: lastName ?? "",
-      avatarUrl: null,
+      avatarUrl: null
     });
 
     if (createCarbonUser.error) {
@@ -483,7 +483,7 @@ export async function createSupplierAccount(
       insertSupplierAccount(client, {
         id: userId,
         supplierId,
-        companyId,
+        companyId
       }),
       insertInvite(serviceRole, {
         role: "supplier",
@@ -491,8 +491,8 @@ export async function createSupplierAccount(
         email,
         companyId,
         createdBy,
-        code,
-      }),
+        code
+      })
     ]);
 
   if (contactUpdate.error) {
@@ -673,7 +673,7 @@ export async function insertInvite(
     .from("invite")
     .upsert([{ ...invite, acceptedAt: null }], {
       onConflict: "email, companyId",
-      ignoreDuplicates: false,
+      ignoreDuplicates: false
     })
     .select("*")
     .single();
@@ -702,7 +702,7 @@ async function insertUser(
 }
 
 function makePermissionsFromEmployeeType({
-  data,
+  data
 }: {
   data: {
     view: string[];
@@ -750,7 +750,7 @@ function makeCustomerPermissions(companyId: string) {
     documents_delete: [companyId],
     jobs_view: [companyId],
     sales_view: [companyId],
-    parts_view: [companyId],
+    parts_view: [companyId]
   };
 
   return permissions;
@@ -767,8 +767,8 @@ export function makeEmptyPermissionsFromModules(data: Module[]) {
           view: false,
           create: false,
           update: false,
-          delete: false,
-        },
+          delete: false
+        }
       };
     }
     return acc;
@@ -791,7 +791,7 @@ export function makeCompanyPermissionsFromClaims(
           view: false,
           create: false,
           update: false,
-          delete: false,
+          delete: false
         };
       }
 
@@ -800,7 +800,7 @@ export function makeCompanyPermissionsFromClaims(
           view: false,
           create: false,
           update: false,
-          delete: false,
+          delete: false
         };
       } else {
         switch (action) {
@@ -849,7 +849,7 @@ export function makePermissionsFromClaims(claims: Json[] | null) {
           view: [],
           create: [],
           update: [],
-          delete: [],
+          delete: []
         };
       }
 
@@ -910,8 +910,8 @@ export function makeCompanyPermissionsFromEmployeeType(
             permission.update.includes(companyId),
           delete:
             permission.delete.includes("0") ||
-            permission.delete.includes(companyId),
-        },
+            permission.delete.includes(companyId)
+        }
       };
     }
   });
@@ -931,7 +931,7 @@ function makeSupplierPermissions(companyId: string) {
     documents_udpate: [companyId],
     documents_delete: [companyId],
     purchasing_view: [companyId],
-    parts_view: [companyId],
+    parts_view: [companyId]
   };
 
   return permissions;
@@ -952,7 +952,7 @@ export async function getInvite(
 
 export async function resetPassword(userId: string, password: string) {
   return getCarbonServiceRole().auth.admin.updateUserById(userId, {
-    password,
+    password
   });
 }
 
@@ -980,7 +980,7 @@ async function rollbackInvite(
       .from("supplierAccount")
       .delete()
       .eq("userId", userId)
-      .eq("companyId", companyId),
+      .eq("companyId", companyId)
   ]);
 }
 
@@ -1020,7 +1020,7 @@ export async function updateEmployee(
     id,
     employeeType,
     permissions,
-    companyId,
+    companyId
   }: {
     id: string;
     employeeType: string;
@@ -1044,7 +1044,7 @@ export async function updatePermissions(
     id,
     permissions,
     companyId,
-    addOnly = false,
+    addOnly = false
   }: {
     id: string;
     permissions: Record<string, CompanyPermission>;
@@ -1118,7 +1118,7 @@ export async function updatePermissions(
           if (!updatedPermissions[`${module}_view`]?.includes(companyId)) {
             updatedPermissions[`${module}_view`] = [
               ...updatedPermissions[`${module}_view`],
-              companyId,
+              companyId
             ];
           }
         } else {
@@ -1131,7 +1131,7 @@ export async function updatePermissions(
           if (!updatedPermissions[`${module}_create`]?.includes(companyId)) {
             updatedPermissions[`${module}_create`] = [
               ...updatedPermissions[`${module}_create`],
-              companyId,
+              companyId
             ];
           }
         } else {
@@ -1144,7 +1144,7 @@ export async function updatePermissions(
           if (!updatedPermissions[`${module}_update`]?.includes(companyId)) {
             updatedPermissions[`${module}_update`] = [
               ...updatedPermissions[`${module}_update`],
-              companyId,
+              companyId
             ];
           }
         } else {
@@ -1157,7 +1157,7 @@ export async function updatePermissions(
           if (!updatedPermissions[`${module}_delete`]?.includes(companyId)) {
             updatedPermissions[`${module}_delete`] = [
               ...updatedPermissions[`${module}_delete`],
-              companyId,
+              companyId
             ];
           }
         } else {

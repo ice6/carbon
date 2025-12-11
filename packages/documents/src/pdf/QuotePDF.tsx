@@ -27,16 +27,16 @@ interface QuotePDFProps extends PDF {
 const tw = createTw({
   theme: {
     fontFamily: {
-      sans: ["Helvetica", "Arial", "sans-serif"],
+      sans: ["Helvetica", "Arial", "sans-serif"]
     },
     extend: {
       colors: {
         gray: {
-          500: "#7d7d7d",
-        },
-      },
-    },
-  },
+          500: "#7d7d7d"
+        }
+      }
+    }
+  }
 });
 
 const QuotePDF = ({
@@ -54,7 +54,7 @@ const QuotePDF = ({
   shippingMethods,
   terms,
   thumbnails,
-  title = "Quote",
+  title = "Quote"
 }: QuotePDFProps) => {
   const {
     customerName,
@@ -63,7 +63,7 @@ const QuotePDF = ({
     customerCity,
     customerStateProvince,
     customerPostalCode,
-    customerCountryName,
+    customerCountryName
   } = quoteCustomerDetails;
 
   const currencyCode = quote.currencyCode ?? company.baseCurrencyCode;
@@ -98,35 +98,40 @@ const QuotePDF = ({
   );
 
   const getTotal = () => {
-    return quoteLines.reduce((total, line) => {
-      if (line.status === "No Quote") return total;
+    return quoteLines.reduce(
+      (total, line) => {
+        if (line.status === "No Quote") return total;
 
-      const prices = pricesByLine[line.id] ?? [];
-      const price = prices.find((price) => price.quantity === line.quantity[0]);
-
-      const netExtendedPrice = price?.convertedNetExtendedPrice ?? 0;
-      const additionalCharges = line.additionalCharges ?? {};
-      const additionalChargesByQuantity = line.quantity.map((quantity) => {
-        const charges = Object.values(additionalCharges).reduce(
-          (acc, charge) => {
-            let amount = charge.amounts?.[quantity] ?? 0;
-            if (shouldConvertCurrency) {
-              amount *= exchangeRate;
-            }
-            return acc + amount;
-          },
-          0
+        const prices = pricesByLine[line.id] ?? [];
+        const price = prices.find(
+          (price) => price.quantity === line.quantity[0]
         );
-        return charges;
-      });
-      const additionalChargePlusShipping =
-        additionalChargesByQuantity[0] + (price?.convertedShippingCost ?? 0);
-      const totalPrice =
-        (netExtendedPrice + additionalChargePlusShipping) *
-        (1 + line.taxPercent);
 
-      return total + totalPrice;
-    }, (shipment?.shippingCost ?? 0) * (exchangeRate ?? 1));
+        const netExtendedPrice = price?.convertedNetExtendedPrice ?? 0;
+        const additionalCharges = line.additionalCharges ?? {};
+        const additionalChargesByQuantity = line.quantity.map((quantity) => {
+          const charges = Object.values(additionalCharges).reduce(
+            (acc, charge) => {
+              let amount = charge.amounts?.[quantity] ?? 0;
+              if (shouldConvertCurrency) {
+                amount *= exchangeRate;
+              }
+              return acc + amount;
+            },
+            0
+          );
+          return charges;
+        });
+        const additionalChargePlusShipping =
+          additionalChargesByQuantity[0] + (price?.convertedShippingCost ?? 0);
+        const totalPrice =
+          (netExtendedPrice + additionalChargePlusShipping) *
+          (1 + line.taxPercent);
+
+        return total + totalPrice;
+      },
+      (shipment?.shippingCost ?? 0) * (exchangeRate ?? 1)
+    );
   };
 
   return (
@@ -135,7 +140,7 @@ const QuotePDF = ({
       meta={{
         author: meta?.author ?? "Carbon",
         keywords: meta?.keywords ?? "quote",
-        subject: meta?.subject ?? "Quote",
+        subject: meta?.subject ?? "Quote"
       }}
     >
       <View>
@@ -145,40 +150,40 @@ const QuotePDF = ({
           items={[
             {
               label: "Ref #",
-              value: quote?.customerReference,
+              value: quote?.customerReference
             },
             {
               label: "Date",
-              value: today(getLocalTimeZone()).toString(),
+              value: today(getLocalTimeZone()).toString()
             },
             ...(shippingMethod
               ? [
                   {
                     label: "Shipping Method",
-                    value: shippingMethod.name,
-                  },
+                    value: shippingMethod.name
+                  }
                 ]
               : []),
             ...(paymentTerm
               ? [
                   {
                     label: "Payment Term",
-                    value: paymentTerm.name,
-                  },
+                    value: paymentTerm.name
+                  }
                 ]
               : []),
             ...(quote.expirationDate
               ? [
                   {
                     label: "Expires",
-                    value: quote.expirationDate,
-                  },
+                    value: quote.expirationDate
+                  }
                 ]
               : []),
             {
               label: "Quote #",
-              value: quote?.quoteId,
-            },
+              value: quote?.quoteId
+            }
           ]}
         />
         <View style={tw("flex flex-row mb-5")}>

@@ -7,7 +7,7 @@ import { deleteProcedureParameter } from "~/modules/production/production.servic
 
 export async function action({ request, params }: ActionFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    delete: "production",
+    delete: "production"
   });
 
   const { parameterId } = params;
@@ -22,7 +22,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   if (deleteParameter.error) {
     return json(
       {
-        success: false,
+        success: false
       },
       await flash(
         request,
@@ -33,7 +33,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
   return json(
     {
-      success: true,
+      success: true
     },
     await flash(request, success("Successfully deleted parameter"))
   );

@@ -6,7 +6,7 @@ import {
   TooltipContent,
   TooltipTrigger,
   VStack,
-  useKeyboardShortcuts,
+  useKeyboardShortcuts
 } from "@carbon/react";
 import { prettifyKeyboardShortcut } from "@carbon/utils";
 import { Link, useNavigate } from "@remix-run/react";

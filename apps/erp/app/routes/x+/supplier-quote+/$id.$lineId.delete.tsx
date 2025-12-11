@@ -10,7 +10,7 @@ import { path } from "~/utils/path";
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client } = await requirePermissions(request, {
-    delete: "sales",
+    delete: "sales"
   });
 
   const { id, lineId } = params;

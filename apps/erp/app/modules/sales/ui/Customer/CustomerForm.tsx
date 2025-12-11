@@ -10,12 +10,12 @@ import {
   ModalCardProvider,
   ModalCardTitle,
   cn,
-  toast,
+  toast
 } from "@carbon/react";
 import { useFetcher } from "@remix-run/react";
 import type { PostgrestResponse } from "@supabase/supabase-js";
 import { useEffect } from "react";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import {
   Currency,
   CustomFormFields,
@@ -25,7 +25,7 @@ import {
   Hidden,
   Input,
   Number,
-  Submit,
+  Submit
 } from "~/components/Form";
 import { usePermissions } from "~/hooks";
 import { path } from "~/utils/path";
@@ -41,7 +41,7 @@ type CustomerFormProps = {
 const CustomerForm = ({
   initialValues,
   type = "card",
-  onClose,
+  onClose
 }: CustomerFormProps) => {
   const permissions = usePermissions();
   const fetcher = useFetcher<PostgrestResponse<Customer>>();
@@ -95,8 +95,8 @@ const CustomerForm = ({
                     type === "modal"
                       ? "grid-cols-1"
                       : isEditing
-                      ? "grid-cols-1 lg:grid-cols-3"
-                      : "grid-cols-1 md:grid-cols-2"
+                        ? "grid-cols-1 lg:grid-cols-3"
+                        : "grid-cols-1 md:grid-cols-2"
                   )}
                 >
                   <Input name="name" label="Name" autoFocus={!isEditing} />
@@ -124,7 +124,7 @@ const CustomerForm = ({
                     formatOptions={{
                       style: "percent",
                       minimumFractionDigits: 0,
-                      maximumFractionDigits: 2,
+                      maximumFractionDigits: 2
                     }}
                   />
 

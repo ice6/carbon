@@ -3,7 +3,7 @@ import {
   FormErrorMessage,
   FormLabel,
   RadioGroup,
-  RadioGroupItem,
+  RadioGroupItem
 } from "@carbon/react";
 import { useId } from "react";
 import { useField } from "../hooks";
@@ -19,7 +19,7 @@ const Radios = ({
   name,
   label,
   options,
-  orientation = "vertical",
+  orientation = "vertical"
 }: RadiosProps) => {
   const { getInputProps, error } = useField(name);
   const id = useId();
@@ -30,7 +30,7 @@ const Radios = ({
       <RadioGroup
         {...getInputProps({
           // @ts-ignore
-          id: name,
+          id: name
         })}
         name={name}
         orientation={orientation}

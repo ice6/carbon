@@ -42,13 +42,13 @@ const ItemPostingGroupsTable = memo(
               }
               className="cursor-pointer"
             />
-          ),
+          )
         },
         {
           accessorKey: "description",
           header: "Description",
-          cell: (item) => item.getValue(),
-        },
+          cell: (item) => item.getValue()
+        }
       ];
       return [...defaultColumns, ...customColumns];
     }, [navigate, params, customColumns]);

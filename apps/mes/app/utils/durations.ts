@@ -206,6 +206,6 @@ export function makeDurations<
     duration: totalDuration,
     setupDuration,
     laborDuration,
-    machineDuration,
+    machineDuration
   };
 }

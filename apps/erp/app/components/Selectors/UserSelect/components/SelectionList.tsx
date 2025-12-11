@@ -4,7 +4,7 @@ import {
   IconButton,
   Tooltip,
   TooltipContent,
-  TooltipTrigger,
+  TooltipTrigger
 } from "@carbon/react";
 import { useMemo } from "react";
 import { LuListPlus, LuX } from "react-icons/lu";
@@ -19,13 +19,13 @@ const SelectionList = () => {
       checkedSelections,
       readOnly,
       selectionsMaxHeight,
-      width,
+      width
     },
     instanceId,
     selectionItemsById,
     onDeselect,
     onExplode,
-    onToggleChecked,
+    onToggleChecked
   } = useUserSelectContext();
 
   const selected = useMemo(
@@ -42,7 +42,7 @@ const SelectionList = () => {
       style={{
         maxWidth: width,
         maxHeight: selectionsMaxHeight,
-        overflowY: selectionsMaxHeight ? "auto" : undefined,
+        overflowY: selectionsMaxHeight ? "auto" : undefined
       }}
     >
       {selected.map((item) => {

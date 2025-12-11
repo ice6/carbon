@@ -35,7 +35,7 @@ const UserSelect = (props: UserSelectProps) => {
     dropdown,
     innerProps: { hideSelections, isMulti, label, readOnly, width },
     refs: { containerRef },
-    selectionItemsById,
+    selectionItemsById
   } = state;
 
   return (

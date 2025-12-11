@@ -10,7 +10,7 @@ import { getCompanyId, workCentersQuery } from "~/utils/react-query";
 
 export async function action({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
-    delete: "resources",
+    delete: "resources"
   });
 
   const { id } = params;

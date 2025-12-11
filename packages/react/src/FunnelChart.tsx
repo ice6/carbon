@@ -55,7 +55,7 @@ function FunnelChartContent({
   steps,
   currencyFormatter,
   numberFormatter,
-  defaultTooltipStepId,
+  defaultTooltipStepId
 }: FunnelChartContentProps) {
   const isMobile = useIsMobile();
 
@@ -71,7 +71,7 @@ function FunnelChartContent({
         generateCurvePoints(
           value,
           steps[idx + 1]?.value ?? steps[steps.length - 1].value
-        ),
+        )
       ])
     );
   }, [steps]);
@@ -85,12 +85,12 @@ function FunnelChartContent({
 
   const xScale = scaleLinear({
     domain: [0, steps.length],
-    range: [0, width],
+    range: [0, width]
   });
 
   const yScale = scaleLinear({
     domain: [highestValue, -highestValue],
-    range: [height - verticalPadding, verticalPadding],
+    range: [height - verticalPadding, verticalPadding]
   });
 
   return (
@@ -165,7 +165,7 @@ function FunnelChartContent({
           className="pointer-events-none absolute flex items-center justify-center px-1 pb-4 animate-slide-up-fade top-1/2 -translate-y-1/2"
           style={{
             left: xScale(steps.findIndex(({ id }) => id === activeStep.id)),
-            width: width / steps.length,
+            width: width / steps.length
           }}
         >
           <div
@@ -256,6 +256,6 @@ function generateCurvePoints(from: number, to: number) {
     { x: 0.3, y: from },
     { x: 0.5, y: (from + to) / 2 },
     { x: 0.7, y: to },
-    { x: 1, y: to },
+    { x: 1, y: to }
   ];
 }

@@ -11,7 +11,7 @@ import { path } from "~/utils/path";
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    update: "sales",
+    update: "sales"
   });
 
   const { quoteId } = params;
@@ -28,7 +28,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     ...validation.data,
     id: quoteId,
     updatedBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
   if (updateQuotePayment.error) {
     throw redirect(

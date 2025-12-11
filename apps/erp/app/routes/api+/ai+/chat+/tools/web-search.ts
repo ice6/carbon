@@ -10,7 +10,7 @@ export const config: ToolConfig = {
   name: "webSearch",
   icon: LuGlobe,
   displayText: "Searching the Web",
-  message: "Searching the web...",
+  message: "Searching the web..."
 };
 
 // Static tool that uses context at execution time via experimental_context
@@ -20,7 +20,7 @@ export const webSearchTool = tool({
   inputSchema: z.object({
     query: z
       .string()
-      .describe("Search query (2-4 words max for faster results)"),
+      .describe("Search query (2-4 words max for faster results)")
   }),
   execute: async ({ query }, executionOptions) => {
     const appContext = executionOptions.experimental_context as ChatContext;
@@ -40,11 +40,11 @@ export const webSearchTool = tool({
             userLocation: {
               type: "approximate" as const,
               country: appContext.country,
-              timezone: appContext.timezone,
-            },
-          }) as Tool,
+              timezone: appContext.timezone
+            }
+          }) as Tool
         },
-        temperature: 0,
+        temperature: 0
       });
 
       const rawSources: Array<{ url: string; title?: string }> = [];
@@ -56,7 +56,7 @@ export const webSearchTool = tool({
             if (item.type === "source" && item.sourceType === "url") {
               rawSources.push({
                 url: item.url,
-                title: item.title || item.url,
+                title: item.title || item.url
               });
             }
           }
@@ -67,7 +67,7 @@ export const webSearchTool = tool({
         .slice(0, 3)
         .map((source) => ({
           url: source.url,
-          title: source.title || source.url,
+          title: source.title || source.url
         }));
 
       const contextData = result.text || "";
@@ -76,7 +76,7 @@ export const webSearchTool = tool({
         query,
         found: formattedSources.length,
         context: contextData,
-        sources: formattedSources,
+        sources: formattedSources
       };
     } catch (error) {
       return {
@@ -84,10 +84,10 @@ export const webSearchTool = tool({
         found: 0,
         context: null,
         sources: [],
-        error: error instanceof Error ? error.message : "Search failed",
+        error: error instanceof Error ? error.message : "Search failed"
       };
     }
-  },
+  }
 });
 
 export interface SourceItem {

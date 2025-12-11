@@ -10,7 +10,7 @@ import {
   getJobOperations,
   getProductionEvent,
   productionEventValidator,
-  upsertProductionEvent,
+  upsertProductionEvent
 } from "~/modules/production";
 import { ProductionEventForm } from "~/modules/production/ui/Jobs";
 import { getWorkCentersList } from "~/modules/resources";
@@ -18,7 +18,7 @@ import { getParams, path } from "~/utils/path";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    create: "production",
+    create: "production"
   });
 
   const { id, jobId } = params;
@@ -28,7 +28,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   const [jobOperations, workCenters, productionEvent] = await Promise.all([
     getJobOperations(client, jobId),
     getWorkCentersList(client, companyId),
-    getProductionEvent(client, id),
+    getProductionEvent(client, id)
   ]);
 
   const operationOptions = jobOperations.data?.map((operation) => ({
@@ -36,7 +36,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
       workCenters.data?.find((center) => center.id === operation.workCenterId)
         ?.name
     }`,
-    value: operation.id,
+    value: operation.id
   }));
 
   if (productionEvent.error) {
@@ -49,7 +49,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    update: "production",
+    update: "production"
   });
 
   const { jobId } = params;
@@ -71,7 +71,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     id,
     ...data,
     companyId,
-    updatedBy: userId,
+    updatedBy: userId
   });
 
   if (update.error) {
@@ -101,7 +101,7 @@ export default function EditProductionEventRoute() {
     employeeId: productionEvent?.employeeId ?? "",
     workCenterId: productionEvent?.workCenterId ?? "",
     endTime: productionEvent?.endTime ?? "",
-    notes: productionEvent?.notes ?? "",
+    notes: productionEvent?.notes ?? ""
   };
 
   return (

@@ -9,14 +9,14 @@ import {
   ContractorForm,
   contractorValidator,
   getContractor,
-  upsertContractor,
+  upsertContractor
 } from "~/modules/resources";
 import { getCustomFields, setCustomFields } from "~/utils/form";
 import { path } from "~/utils/path";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
-    view: "resources",
+    view: "resources"
   });
 
   const { supplierContactId } = params;
@@ -32,14 +32,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   }
 
   return json({
-    contractor: contractor.data,
+    contractor: contractor.data
   });
 }
 
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    create: "resources",
+    create: "resources"
   });
 
   const formData = await request.formData();
@@ -57,7 +57,7 @@ export async function action({ request }: ActionFunctionArgs) {
     ...data,
     abilities: data.abilities ?? [],
     customFields: setCustomFields(formData),
-    updatedBy: userId,
+    updatedBy: userId
   });
 
   if (updateContractor.error) {
@@ -84,7 +84,7 @@ export default function ContractorRoute() {
     supplierId: contractor.supplierId ?? "",
     hoursPerWeek: contractor.hoursPerWeek ?? 0,
     abilities: contractor.abilityIds ?? ([] as string[]),
-    ...getCustomFields(contractor.customFields),
+    ...getCustomFields(contractor.customFields)
   };
 
   return (

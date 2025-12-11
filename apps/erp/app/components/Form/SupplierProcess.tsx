@@ -21,14 +21,14 @@ const SupplierProcess = ({
 
   const [suppliers] = useSuppliers();
   const options = useSupplierProcesses({
-    processId,
+    processId
   }).map((supplierProcess) => {
     const supplier = suppliers.find(
       (supplier) => supplier.id === supplierProcess.supplierId
     );
     return {
       label: supplier?.name ?? "Unknown Supplier",
-      value: supplierProcess.id!,
+      value: supplierProcess.id!
     };
   });
 
@@ -55,7 +55,7 @@ const SupplierProcess = ({
             processId,
             supplierId: "",
             minimumCost: 0,
-            leadTime: 0,
+            leadTime: 0
           }}
         />
       )}
@@ -86,7 +86,7 @@ export const useSupplierProcesses = (args: { processId?: string }) => {
 
 export const SupplierProcessPreview = ({
   processId,
-  supplierProcessId,
+  supplierProcessId
 }: {
   processId: string;
   supplierProcessId?: string;

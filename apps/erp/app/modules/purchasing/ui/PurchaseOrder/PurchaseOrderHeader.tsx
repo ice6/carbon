@@ -12,7 +12,7 @@ import {
   Heading,
   IconButton,
   SplitButton,
-  useDisclosure,
+  useDisclosure
 } from "@carbon/react";
 
 import { Link, useFetcher, useParams } from "@remix-run/react";
@@ -30,7 +30,7 @@ import {
   LuPanelLeft,
   LuPanelRight,
   LuTrash,
-  LuTruck,
+  LuTruck
 } from "react-icons/lu";
 
 import { usePanels } from "~/components/Layout";
@@ -46,7 +46,7 @@ import PurchaseOrderFinalizeModal from "./PurchaseOrderFinalizeModal";
 import PurchasingStatus from "./PurchasingStatus";
 import {
   usePurchaseOrder,
-  usePurchaseOrderRelatedDocuments,
+  usePurchaseOrderRelatedDocuments
 } from "./usePurchaseOrder";
 
 const PurchaseOrderHeader = () => {
@@ -183,8 +183,8 @@ const PurchaseOrderHeader = () => {
                 {
                   label: "Mark as Planned",
                   icon: <LuCheckCheck />,
-                  onClick: markAsPlanned,
-                },
+                  onClick: markAsPlanned
+                }
               ]}
             >
               Finalize
@@ -208,7 +208,7 @@ const PurchaseOrderHeader = () => {
                         ![
                           "To Receive",
                           "To Receive and Invoice",
-                          "To Invoice",
+                          "To Invoice"
                         ].includes(routeData?.purchaseOrder?.status ?? "")
                       }
                       onClick={() => {
@@ -277,7 +277,7 @@ const PurchaseOrderHeader = () => {
                       ![
                         "To Receive",
                         "To Receive and Invoice",
-                        "To Invoice",
+                        "To Invoice"
                       ].includes(routeData?.purchaseOrder?.status ?? "")
                     }
                     onClick={() => {

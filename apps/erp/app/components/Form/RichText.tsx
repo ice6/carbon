@@ -52,7 +52,7 @@ const RichText = ({ name, output = "html", ...props }: RichTextProps) => {
       <input
         {...getInputProps({
           // @ts-ignore
-          id: name,
+          id: name
         })}
         value={value}
         type="hidden"

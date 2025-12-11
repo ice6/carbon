@@ -4,18 +4,18 @@ import { getLocalTimeZone, parseDate, today } from "@internationalized/date";
 import { z } from "zod/v3";
 import type {
   ProductionOrder,
-  ProductionPlanningItem,
+  ProductionPlanningItem
 } from "~/modules/production";
 import type {
   PlannedOrder,
-  PurchasingPlanningItem,
+  PurchasingPlanningItem
 } from "~/modules/purchasing";
 import type { Item } from "~/stores";
 import type { ItemReorderingPolicy } from "../../types";
 
 export function ItemReorderPolicy({
   reorderingPolicy,
-  className,
+  className
 }: {
   reorderingPolicy: Database["public"]["Enums"]["itemReorderingPolicy"];
   className?: string;
@@ -147,7 +147,7 @@ function calculateOrders({ itemPlanning, periods }: BaseOrderParams): {
     minimumOrderQuantity,
     orderMultiple,
     reorderPoint,
-    reorderQuantity,
+    reorderQuantity
   } = itemPlanning;
 
   const todaysDate = today(getLocalTimeZone());
@@ -209,7 +209,7 @@ function calculateOrders({ itemPlanning, periods }: BaseOrderParams): {
                 (batch * daysInPeriod) / numberOfBatches
               );
               const dueDate = parseDate(currentPeriod.startDate).add({
-                days: dueDateOffset,
+                days: dueDateOffset
               });
               const startDate = dueDate.subtract({ days: leadTime });
 
@@ -218,7 +218,7 @@ function calculateOrders({ itemPlanning, periods }: BaseOrderParams): {
                 dueDate: dueDate.toString(),
                 quantity: batchQuantity,
                 periodId: currentPeriod.id,
-                isASAP: startDate.compare(todaysDate) < 0,
+                isASAP: startDate.compare(todaysDate) < 0
               });
             }
           } else {
@@ -236,7 +236,7 @@ function calculateOrders({ itemPlanning, periods }: BaseOrderParams): {
               dueDate: dueDate.toString(),
               quantity: orderQuantity,
               periodId: currentPeriod.id,
-              isASAP: startDate.compare(todaysDate) < 0,
+              isASAP: startDate.compare(todaysDate) < 0
             });
           }
 
@@ -261,7 +261,7 @@ function calculateOrders({ itemPlanning, periods }: BaseOrderParams): {
         while (remainingQuantityNeeded > 0 && day < 5 && maxIterations-- > 0) {
           const dueDate = parseDate(period.startDate).add({ days: day });
           const startDate = dueDate.subtract({
-            days: leadTime,
+            days: leadTime
           });
 
           // If reorder quantity is 0, order the same quantity as the reorder point
@@ -273,7 +273,7 @@ function calculateOrders({ itemPlanning, periods }: BaseOrderParams): {
             dueDate: dueDate.toString(),
             quantity: orderQuantity,
             periodId: period.id,
-            isASAP: startDate.compare(todaysDate) < 0,
+            isASAP: startDate.compare(todaysDate) < 0
           });
           day++;
           orderedQuantity += orderQuantity;
@@ -299,7 +299,7 @@ function calculateOrders({ itemPlanning, periods }: BaseOrderParams): {
         while (remainingQuantityNeeded > 0 && day < 5 && maxIterations-- > 0) {
           const dueDate = parseDate(period.startDate).add({ days: day });
           const startDate = dueDate.subtract({
-            days: leadTime,
+            days: leadTime
           });
 
           // Calculate required quantity up to maximum inventory
@@ -340,7 +340,7 @@ function calculateOrders({ itemPlanning, periods }: BaseOrderParams): {
             periodId: period.id,
             isASAP:
               startDate.compare(todaysDate) < 0 &&
-              projectedQuantity + orderedQuantity < 0,
+              projectedQuantity + orderedQuantity < 0
           });
           day++;
           orderedQuantity += orderQuantity;
@@ -374,7 +374,7 @@ const supplierPartValidator = z.array(
     supplierId: z.string(),
     supplierUnitOfMeasureCode: z.string(),
     conversionFactor: z.number(),
-    unitPrice: z.number(),
+    unitPrice: z.number()
   })
 );
 
@@ -404,6 +404,6 @@ export function getPurchaseOrdersFromPlanning(
     supplierId: supplier?.supplierId ?? itemPlanning.preferredSupplierId,
     itemReadableId: item?.readableIdWithRevision,
     description: item?.name,
-    unitOfMeasureCode: item?.unitOfMeasureCode,
+    unitOfMeasureCode: item?.unitOfMeasureCode
   }));
 }

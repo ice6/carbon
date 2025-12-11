@@ -8,7 +8,7 @@ const Button = motion(_Button);
 
 const fade = {
   initial: { opacity: 0 },
-  animate: { opacity: 1 },
+  animate: { opacity: 1 }
 };
 
 export default function GetStarted() {

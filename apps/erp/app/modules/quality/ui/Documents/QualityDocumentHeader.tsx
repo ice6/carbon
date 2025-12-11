@@ -13,7 +13,7 @@ import {
   Heading,
   IconButton,
   VStack,
-  useDisclosure,
+  useDisclosure
 } from "@carbon/react";
 
 import { Await, Link, useParams } from "@remix-run/react";
@@ -26,7 +26,7 @@ import {
   LuGitPullRequestArrow,
   LuPanelLeft,
   LuPanelRight,
-  LuTrash,
+  LuTrash
 } from "react-icons/lu";
 import { usePanels } from "~/components/Layout";
 import ConfirmDelete from "~/components/Modals/ConfirmDelete";
@@ -153,7 +153,7 @@ const QualityDocumentHeader = () => {
             name: routeData?.document?.name ?? "",
             version: (routeData?.document?.version ?? 0) + 1,
             content: JSON.stringify(routeData?.document?.content) ?? "",
-            copyFromId: routeData?.document?.id ?? "",
+            copyFromId: routeData?.document?.id ?? ""
           }}
           open={newVersionDisclosure.isOpen}
           onClose={newVersionDisclosure.onClose}

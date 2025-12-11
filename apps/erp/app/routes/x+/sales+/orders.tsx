@@ -13,13 +13,13 @@ import { getGenericQueryFilters } from "~/utils/query";
 
 export const handle: Handle = {
   breadcrumb: "Orders",
-  to: path.to.salesOrders,
+  to: path.to.salesOrders
 };
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
     view: "sales",
-    bypassRls: true,
+    bypassRls: true
   });
 
   const url = new URL(request.url);
@@ -39,8 +39,8 @@ export async function loader({ request }: LoaderFunctionArgs) {
       limit,
       offset,
       sorts,
-      filters,
-    }),
+      filters
+    })
   ]);
 
   if (salesOrders.error) {
@@ -55,7 +55,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
   return json({
     count: salesOrders.count ?? 0,
-    salesOrders: salesOrders.data ?? [],
+    salesOrders: salesOrders.data ?? []
   });
 }
 

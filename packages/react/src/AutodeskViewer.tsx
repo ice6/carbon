@@ -4,7 +4,7 @@ import {
   useContext,
   useEffect,
   useRef,
-  useState,
+  useState
 } from "react";
 import { useMount } from "./hooks";
 import { cn } from "./utils/cn";
@@ -79,7 +79,7 @@ const AutodeskViewer: React.FC<AutodeskViewerProps> = ({
   loadCustomExtensions,
   theme,
   showDefaultToolbar,
-  className,
+  className
 }) => {
   const [viewer, setViewer] = useState<Autodesk.Viewing.GuiViewer3D | null>(
     null
@@ -103,15 +103,15 @@ const AutodeskViewer: React.FC<AutodeskViewerProps> = ({
         getToken().then((token) => {
           callback(token, 3600);
         });
-      },
+      }
     };
 
     Autodesk.Viewing.Initializer(options, () => {
       const viewerOptions = {
         extensions: loadAutodeskExtensions || [
           "Autodesk.DocumentBrowser",
-          "Autodesk.VisualClusters",
-        ],
+          "Autodesk.VisualClusters"
+        ]
       };
 
       const viewer = new Autodesk.Viewing.GuiViewer3D(
@@ -141,7 +141,7 @@ const AutodeskViewer: React.FC<AutodeskViewerProps> = ({
         console.error({
           code: errorCode,
           message: errorMessage,
-          errors: errorDetails,
+          errors: errorDetails
         });
       };
 
@@ -169,7 +169,7 @@ const AutodeskViewer: React.FC<AutodeskViewerProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     token,
-    urn,
+    urn
     // showDefaultToolbar,
     // theme,
     // getToken,
@@ -191,8 +191,8 @@ export async function getAccessToken(endpoint: string): Promise<string> {
     const response = await fetch(endpoint, {
       method: "GET",
       headers: {
-        "Content-Type": "application/json",
-      },
+        "Content-Type": "application/json"
+      }
     });
 
     if (!response.ok) {

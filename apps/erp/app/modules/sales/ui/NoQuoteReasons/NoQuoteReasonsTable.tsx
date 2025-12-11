@@ -33,9 +33,9 @@ const NoQuoteReasonsTable = memo(
             </Hyperlink>
           ),
           meta: {
-            icon: <LuBookMarked />,
-          },
-        },
+            icon: <LuBookMarked />
+          }
+        }
       ];
       return [...defaultColumns, ...customColumns];
     }, [customColumns]);

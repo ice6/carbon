@@ -14,7 +14,7 @@ const headingVariants = cva(
         h1: "md:text-3xl text-2xl",
         h2: "md:text-2xl text-xl",
         h3: "md:text-xl text-base",
-        h4: "md:text-base text-sm",
+        h4: "md:text-base text-sm"
       },
       noOfLines: {
         1: "line-clamp-1",
@@ -26,12 +26,12 @@ const headingVariants = cva(
         7: "line-clamp-7",
         8: "line-clamp-8",
         9: "line-clamp-9",
-        10: "line-clamp-10",
-      },
+        10: "line-clamp-10"
+      }
     },
     defaultVariants: {
-      size: "h2",
-    },
+      size: "h2"
+    }
   }
 );
 
@@ -50,7 +50,7 @@ const Heading = forwardRef<HTMLHeadingElement, HeadingProps>(
           headingVariants({
             size,
             noOfLines,
-            className,
+            className
           })
         )}
         ref={ref}

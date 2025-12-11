@@ -13,7 +13,7 @@ export function usePermissions() {
 
   const {
     id: userId,
-    company: { id: companyId, ownerId },
+    company: { id: companyId, ownerId }
   } = useUser();
 
   if (!isPermissions(data?.permissions) || !isRole(data?.role)) {
@@ -55,7 +55,7 @@ export function usePermissions() {
     can,
     has,
     is,
-    isOwner,
+    isOwner
   };
 }
 

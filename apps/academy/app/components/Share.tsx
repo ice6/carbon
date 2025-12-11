@@ -4,7 +4,7 @@ import {
   copyToClipboard,
   Tooltip,
   TooltipContent,
-  TooltipTrigger,
+  TooltipTrigger
 } from "@carbon/react";
 import { useState } from "react";
 import { LuCheck, LuCopy } from "react-icons/lu";
@@ -12,7 +12,7 @@ import { LuCheck, LuCopy } from "react-icons/lu";
 const Share = ({
   text,
   className,
-  withTextInTooltip = false,
+  withTextInTooltip = false
 }: {
   text: string;
   className?: string;
@@ -54,8 +54,8 @@ const Share = ({
           {isCopied
             ? "Copied!"
             : withTextInTooltip
-            ? text
-            : "Copy link to clipboard"}
+              ? text
+              : "Copy link to clipboard"}
         </span>
       </TooltipContent>
     </Tooltip>

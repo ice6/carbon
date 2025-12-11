@@ -7,7 +7,7 @@ import { getCompanyId, supplierTypesQuery } from "~/utils/react-query";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    view: "purchasing",
+    view: "purchasing"
   });
 
   return json(await getSupplierTypesList(client, companyId));

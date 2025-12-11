@@ -13,7 +13,7 @@ import { getParams, path } from "~/utils/path";
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client } = await requirePermissions(request, {
-    update: "users",
+    update: "users"
   });
 
   const { id } = params;
@@ -28,7 +28,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
   const updateApiKey = await upsertApiKey(client, {
     id,
-    ...validation.data,
+    ...validation.data
   });
 
   if (updateApiKey.error) {
@@ -57,7 +57,7 @@ export default function EditApiKeyRoute() {
 
   const initialValues = {
     id: apiKey?.id ?? undefined,
-    name: apiKey?.name ?? "",
+    name: apiKey?.name ?? ""
   };
 
   return (

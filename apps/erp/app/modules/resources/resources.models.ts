@@ -15,10 +15,10 @@ export const abilityValidator = z
     employees: z
       .array(z.string().min(1, { message: "Invalid selection" }))
       .min(1, { message: "Group members are required" })
-      .optional(),
+      .optional()
   })
   .refine((schema) => schema.shadowWeeks <= schema.weeks, {
-    message: "name is required when you send color on request",
+    message: "name is required when you send color on request"
   });
 
 export const abilityCurveValidator = z.object({
@@ -28,11 +28,11 @@ export const abilityCurveValidator = z.object({
     .endsWith("]", { message: "Invalid JSON" }),
   shadowWeeks: zfd.numeric(
     z.number().min(0, { message: "Time shadowing is required" })
-  ),
+  )
 });
 
 export const abilityNameValidator = z.object({
-  name: z.string().min(1, { message: "Name is required" }),
+  name: z.string().min(1, { message: "Name is required" })
 });
 
 export const contractorValidator = z.object({
@@ -44,14 +44,14 @@ export const contractorValidator = z.object({
   // abilities: z
   //   .array(z.string().min(1, { message: "Invalid ability" }))
   //   .optional(),
-  assignee: zfd.text(z.string().optional()),
+  assignee: zfd.text(z.string().optional())
 });
 
 export const employeeAbilityValidator = z.object({
   employeeId: z.string().min(1, { message: "Employee is required" }),
   trainingStatus: z.string().min(1, { message: "Status is required" }),
   trainingPercent: zfd.numeric(z.number().optional()),
-  trainingDays: zfd.numeric(z.number().optional()),
+  trainingDays: zfd.numeric(z.number().optional())
 });
 
 export const locationValidator = z
@@ -68,13 +68,13 @@ export const locationValidator = z
     countryCode: z.string().min(1, { message: "Country is required" }),
     timezone: z.string().min(1, { message: "Timezone is required" }),
     latitude: zfd.numeric(z.number().optional()),
-    longitude: zfd.numeric(z.number().optional()),
+    longitude: zfd.numeric(z.number().optional())
   })
   .superRefine(({ latitude, longitude }, ctx) => {
     if ((latitude && !longitude) || (!latitude && longitude)) {
       ctx.addIssue({
         code: "custom",
-        message: "Both latitude and longitude are required",
+        message: "Both latitude and longitude are required"
       });
     }
   });
@@ -84,7 +84,7 @@ export const partnerValidator = z.object({
   supplierId: zfd.text(z.string().optional()),
   hoursPerWeek: zfd.numeric(
     z.number().min(0, { message: "Hours are required" })
-  ),
+  )
   // abilityId: z.string().min(1, { message: "Invalid ability" }),
 });
 
@@ -93,17 +93,17 @@ export const processValidator = z
     id: zfd.text(z.string().optional()),
     name: z.string().min(1, { message: "Process name is required" }),
     processType: z.enum(processTypes, {
-      errorMap: () => ({ message: "Process type is required" }),
+      errorMap: () => ({ message: "Process type is required" })
     }),
     defaultStandardFactor: z
       .enum(standardFactorType, {
-        errorMap: () => ({ message: "Standard factor is required" }),
+        errorMap: () => ({ message: "Standard factor is required" })
       })
       .optional(),
     workCenters: z
       .array(z.string().min(1, { message: "Invalid work center" }))
       .optional(),
-    completeAllOnScan: zfd.checkbox(),
+    completeAllOnScan: zfd.checkbox()
   })
   .refine((data) => {
     if (data.processType !== "Outside" && !data.workCenters) {
@@ -123,7 +123,7 @@ export const workCenterValidator = z.object({
   name: z.string().min(1, { message: "Name is required" }),
   description: z.string(),
   defaultStandardFactor: z.enum(standardFactorType, {
-    errorMap: (issue, ctx) => ({ message: "Standard factor is required" }),
+    errorMap: (issue, ctx) => ({ message: "Standard factor is required" })
   }),
   laborRate: zfd.numeric(z.number().min(0)),
   locationId: z.string().min(1, { message: "Location is required" }),
@@ -131,7 +131,7 @@ export const workCenterValidator = z.object({
   overheadRate: zfd.numeric(z.number().min(0)),
   processes: z
     .array(z.string().min(1, { message: "Invalid process" }))
-    .optional(),
+    .optional()
   // requiredAbilityId: zfd.text(z.string().optional()),
 });
 
@@ -143,13 +143,13 @@ export const trainingQuestionType = [
   "TrueFalse",
   "MultipleAnswers",
   "MatchingPairs",
-  "Numerical",
+  "Numerical"
 ] as const;
 
 export const trainingValidator = z.object({
   id: zfd.text(z.string().optional()),
   name: z.string().min(1, { message: "Name is required" }),
-  content: zfd.text(z.string().optional()),
+  content: zfd.text(z.string().optional())
 });
 
 export const trainingQuestionValidator = z
@@ -158,7 +158,7 @@ export const trainingQuestionValidator = z
     trainingId: z.string().min(1, { message: "Training is required" }),
     question: z.string().min(1, { message: "Question is required" }),
     type: z.enum(trainingQuestionType, {
-      errorMap: () => ({ message: "Type is required" }),
+      errorMap: () => ({ message: "Type is required" })
     }),
     sortOrder: zfd.numeric(z.number().min(0).optional()),
     required: zfd.checkbox().optional(),
@@ -190,7 +190,7 @@ export const trainingQuestionValidator = z
 
     // For Numerical
     correctNumber: zfd.numeric(z.number().optional()),
-    tolerance: zfd.numeric(z.number().min(0).optional()),
+    tolerance: zfd.numeric(z.number().min(0).optional())
   })
   .refine(
     (data) => {
@@ -205,7 +205,7 @@ export const trainingQuestionValidator = z
     },
     {
       message: "At least 2 options are required",
-      path: ["options"],
+      path: ["options"]
     }
   )
   .refine(
@@ -217,7 +217,7 @@ export const trainingQuestionValidator = z
     },
     {
       message: "Exactly one correct answer is required for multiple choice",
-      path: ["correctAnswers"],
+      path: ["correctAnswers"]
     }
   )
   .refine(
@@ -229,7 +229,7 @@ export const trainingQuestionValidator = z
     },
     {
       message: "At least one correct answer is required",
-      path: ["correctAnswers"],
+      path: ["correctAnswers"]
     }
   )
   .refine(
@@ -254,7 +254,7 @@ export const trainingQuestionValidator = z
     },
     {
       message: "At least 2 matching pairs are required",
-      path: ["matchingPairs"],
+      path: ["matchingPairs"]
     }
   )
   .refine(
@@ -266,7 +266,7 @@ export const trainingQuestionValidator = z
     },
     {
       message: "Correct number is required",
-      path: ["correctNumber"],
+      path: ["correctNumber"]
     }
   );
 
@@ -275,7 +275,7 @@ export const trainingAssignmentValidator = z.object({
   trainingId: z.string().min(1, { message: "Training is required" }),
   groupIds: z
     .array(z.string())
-    .min(1, { message: "At least one group is required" }),
+    .min(1, { message: "At least one group is required" })
 });
 
 export const trainingCompletionValidator = z.object({
@@ -283,12 +283,12 @@ export const trainingCompletionValidator = z.object({
     .string()
     .min(1, { message: "Training assignment is required" }),
   employeeId: z.string().min(1, { message: "Employee is required" }),
-  period: zfd.text(z.string().optional()),
+  period: zfd.text(z.string().optional())
 });
 
 export const trainingAssignmentStatusOptions = [
   "Completed",
   "Pending",
   "Overdue",
-  "Not Required",
+  "Not Required"
 ] as const;

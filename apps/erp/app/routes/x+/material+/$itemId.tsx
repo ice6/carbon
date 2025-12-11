@@ -9,7 +9,7 @@ import {
   getMakeMethods,
   getMaterial,
   getPickMethods,
-  getSupplierParts,
+  getSupplierParts
 } from "~/modules/items";
 import { MaterialHeader } from "~/modules/items/ui/Materials";
 import { getTagsList } from "~/modules/shared";
@@ -19,12 +19,12 @@ import { path } from "~/utils/path";
 export const handle: Handle = {
   breadcrumb: "Materials",
   to: path.to.materials,
-  module: "items",
+  module: "items"
 };
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { companyId } = await requirePermissions(request, {
-    view: "parts",
+    view: "parts"
   });
 
   const { itemId } = params;
@@ -36,7 +36,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
       getMaterial(serviceRole, itemId, companyId),
       getSupplierParts(serviceRole, itemId, companyId),
       getPickMethods(serviceRole, itemId, companyId),
-      getTagsList(serviceRole, companyId, "material"),
+      getTagsList(serviceRole, companyId, "material")
     ]
   );
 
@@ -56,7 +56,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     supplierParts: supplierParts.data ?? [],
     pickMethods: pickMethods.data ?? [],
     makeMethods: getMakeMethods(serviceRole, itemId, companyId),
-    tags: tags.data ?? [],
+    tags: tags.data ?? []
   });
 }
 

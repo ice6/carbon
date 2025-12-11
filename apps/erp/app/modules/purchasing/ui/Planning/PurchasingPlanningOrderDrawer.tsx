@@ -31,7 +31,7 @@ import {
   Tr,
   useDisclosure,
   useMount,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { getLocalTimeZone, parseDate, today } from "@internationalized/date";
 import { Link, useFetcher } from "@remix-run/react";
@@ -47,7 +47,7 @@ import {
   LuPackage,
   LuPlus,
   LuStar,
-  LuTrash2,
+  LuTrash2
 } from "react-icons/lu";
 import { SupplierAvatar } from "~/components";
 import { useUnitOfMeasure } from "~/components/Form/UnitOfMeasure";
@@ -87,7 +87,7 @@ export const PurchasingPlanningOrderDrawer = memo(
     selectedSupplier,
     isOpen,
     onClose,
-    onSupplierChange,
+    onSupplierChange
   }: PurchasingPlanningOrderDrawerProps) => {
     const fetcher = useFetcher<typeof bulkUpdateAction>();
     const { carbon } = useCarbon();
@@ -124,13 +124,15 @@ export const PurchasingPlanningOrderDrawer = memo(
                 existingLineId: order.id ?? undefined,
                 existingReadableId: order.purchaseOrderReadableId ?? undefined,
                 existingQuantity:
-                  order.status === "Draft" ? 0 : order?.quantityToReceive ?? 0,
+                  order.status === "Draft"
+                    ? 0
+                    : (order?.quantityToReceive ?? 0),
                 existingStatus: order.status ?? undefined,
                 startDate: order.orderDate ?? null,
                 dueDate: null,
                 quantity: order.quantityToReceive ?? 0,
                 periodId: periods[0].id,
-                supplierId: order.supplierId ?? undefined,
+                supplierId: order.supplierId ?? undefined
               };
             }
 
@@ -146,14 +148,14 @@ export const PurchasingPlanningOrderDrawer = memo(
               existingLineId: order.id ?? undefined,
               existingReadableId: order.purchaseOrderReadableId ?? undefined,
               existingQuantity:
-                order.status === "Draft" ? 0 : order?.quantityToReceive ?? 0,
+                order.status === "Draft" ? 0 : (order?.quantityToReceive ?? 0),
               existingStatus: order.status ?? undefined,
               startDate: order.orderDate ?? null,
               dueDate: dueDate ?? null,
               quantity: order.quantityToReceive ?? 0,
               isASAP: false,
               periodId: period?.id ?? periods[periods.length - 1].id,
-              supplierId: order.supplierId ?? undefined,
+              supplierId: order.supplierId ?? undefined
             };
           });
 
@@ -206,7 +208,7 @@ export const PurchasingPlanningOrderDrawer = memo(
           supplierId: selectedItem.preferredSupplierId,
           itemReadableId: selectedItem.readableIdWithRevision,
           description: selectedItem.name,
-          periodId: periods[0].id,
+          periodId: periods[0].id
         };
         setOrders(selectedItem, [...orders, newOrder]);
       }
@@ -231,7 +233,7 @@ export const PurchasingPlanningOrderDrawer = memo(
           ) {
             return {
               ...order,
-              periodId: periods[0].id,
+              periodId: periods[0].id
             };
           }
 
@@ -244,7 +246,7 @@ export const PurchasingPlanningOrderDrawer = memo(
 
           return {
             ...order,
-            periodId: period?.id ?? periods[periods.length - 1].id,
+            periodId: period?.id ?? periods[periods.length - 1].id
           };
         });
 
@@ -253,15 +255,15 @@ export const PurchasingPlanningOrderDrawer = memo(
           items: [
             {
               id: id,
-              orders: ordersWithPeriods,
-            },
+              orders: ordersWithPeriods
+            }
           ],
-          action: "order" as const,
+          action: "order" as const
         };
         fetcher.submit(payload, {
           method: "post",
           action: path.to.bulkUpdatePurchasingPlanning,
-          encType: "application/json",
+          encType: "application/json"
         });
       },
       [fetcher, locationId, periods]
@@ -273,7 +275,7 @@ export const PurchasingPlanningOrderDrawer = memo(
           const newOrders = [...orders];
           newOrders[index] = {
             ...orders[index],
-            ...updates,
+            ...updates
           };
           setOrders(selectedItem, newOrders);
         }
@@ -367,7 +369,7 @@ export const PurchasingPlanningOrderDrawer = memo(
                                     const updatedOrders = orders.map(
                                       (order) => ({
                                         ...order,
-                                        supplierId: part.supplierId,
+                                        supplierId: part.supplierId
                                       })
                                     );
                                     setOrders(selectedItem, updatedOrders);
@@ -403,7 +405,7 @@ export const PurchasingPlanningOrderDrawer = memo(
                           unitPrice: 0,
                           supplierUnitOfMeasureCode: "EA",
                           minimumOrderQuantity: 1,
-                          conversionFactor: 1,
+                          conversionFactor: 1
                         }}
                         unitOfMeasureCode={selectedItem.unitOfMeasureCode ?? ""}
                         onClose={() => {
@@ -419,7 +421,7 @@ export const PurchasingPlanningOrderDrawer = memo(
                                     (prev: PurchasingPlanningItem) => {
                                       return {
                                         ...prev,
-                                        suppliers: data as SupplierPart[],
+                                        suppliers: data as SupplierPart[]
                                       };
                                     }
                                   );
@@ -434,7 +436,7 @@ export const PurchasingPlanningOrderDrawer = memo(
                                     const updatedOrders = orders.map(
                                       (order) => ({
                                         ...order,
-                                        supplierId: data[0].supplierId,
+                                        supplierId: data[0].supplierId
                                       })
                                     );
                                     setOrders(selectedItem, updatedOrders);
@@ -647,7 +649,7 @@ export const PurchasingPlanningOrderDrawer = memo(
                                 onChange={(value) => {
                                   if (value) {
                                     onOrderUpdate(index, {
-                                      quantity: value,
+                                      quantity: value
                                     });
                                   }
                                 }}
@@ -678,7 +680,7 @@ export const PurchasingPlanningOrderDrawer = memo(
                                   }
                                   onChange={(date) => {
                                     onOrderUpdate(index, {
-                                      dueDate: date ? date.toString() : null,
+                                      dueDate: date ? date.toString() : null
                                     });
                                   }}
                                 />

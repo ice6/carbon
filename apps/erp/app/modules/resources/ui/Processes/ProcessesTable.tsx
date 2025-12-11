@@ -7,7 +7,7 @@ import {
   Checkbox,
   HStack,
   MenuIcon,
-  MenuItem,
+  MenuItem
 } from "@carbon/react";
 import { useNavigate } from "@remix-run/react";
 import type { ColumnDef } from "@tanstack/react-table";
@@ -22,7 +22,7 @@ import {
   LuTrash,
   LuTriangleAlert,
   LuUser,
-  LuUsers,
+  LuUsers
 } from "react-icons/lu";
 import { EmployeeAvatar, Hyperlink, New, Table } from "~/components";
 import { Enumerable } from "~/components/Enumerable";
@@ -43,7 +43,7 @@ const defaultColumnVisibility = {
   createdAt: false,
   createdBy: false,
   updatedAt: false,
-  updatedBy: false,
+  updatedBy: false
 };
 
 const ProcessesTable = memo(({ data, count }: ProcessesTableProps) => {
@@ -77,8 +77,8 @@ const ProcessesTable = memo(({ data, count }: ProcessesTableProps) => {
             </Hyperlink>
           ),
         meta: {
-          icon: <LuCog />,
-        },
+          icon: <LuCog />
+        }
       },
       {
         accessorKey: "processType",
@@ -90,8 +90,8 @@ const ProcessesTable = memo(({ data, count }: ProcessesTableProps) => {
             <Badge variant="secondary">{item.getValue<string>()}</Badge>
           ),
         meta: {
-          icon: <LuFactory />,
-        },
+          icon: <LuFactory />
+        }
       },
       {
         id: "workCenters",
@@ -119,11 +119,11 @@ const ProcessesTable = memo(({ data, count }: ProcessesTableProps) => {
             type: "static",
             options: workCenters.map((w) => ({
               value: w.value,
-              label: <Enumerable value={w.label} />,
+              label: <Enumerable value={w.label} />
             })),
-            isArray: true,
-          },
-        },
+            isArray: true
+          }
+        }
       },
       {
         accessorKey: "defaultStandardFactor",
@@ -135,10 +135,10 @@ const ProcessesTable = memo(({ data, count }: ProcessesTableProps) => {
             type: "static",
             options: standardFactorType.map((type) => ({
               value: type,
-              label: type,
-            })),
-          },
-        },
+              label: type
+            }))
+          }
+        }
       },
       {
         id: "suppliers",
@@ -156,8 +156,8 @@ const ProcessesTable = memo(({ data, count }: ProcessesTableProps) => {
           </AvatarGroup>
         ),
         meta: {
-          icon: <LuUsers />,
-        },
+          icon: <LuUsers />
+        }
       },
       {
         accessorKey: "completeAllOnScan",
@@ -173,10 +173,10 @@ const ProcessesTable = memo(({ data, count }: ProcessesTableProps) => {
             type: "static",
             options: [
               { value: "true", label: "Yes" },
-              { value: "false", label: "No" },
-            ],
-          },
-        },
+              { value: "false", label: "No" }
+            ]
+          }
+        }
       },
       {
         id: "createdBy",
@@ -190,10 +190,10 @@ const ProcessesTable = memo(({ data, count }: ProcessesTableProps) => {
             type: "static",
             options: people.map((employee) => ({
               value: employee.id,
-              label: employee.name,
-            })),
-          },
-        },
+              label: employee.name
+            }))
+          }
+        }
       },
       {
         id: "updatedBy",
@@ -207,11 +207,11 @@ const ProcessesTable = memo(({ data, count }: ProcessesTableProps) => {
             type: "static",
             options: people.map((employee) => ({
               value: employee.id,
-              label: employee.name,
-            })),
-          },
-        },
-      },
+              label: employee.name
+            }))
+          }
+        }
+      }
     ];
     return [...defaultColumns, ...customColumns];
   }, [workCenters, people, customColumns, navigate]);

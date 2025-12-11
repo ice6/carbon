@@ -14,7 +14,7 @@ import {
   TooltipTrigger,
   useDisclosure,
   useKeyboardShortcuts,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { getItemReadableId, prettifyKeyboardShortcut } from "@carbon/utils";
 import { Link, useParams } from "@remix-run/react";
@@ -25,7 +25,7 @@ import {
   useOptimisticLocation,
   usePermissions,
   useRouteData,
-  useUser,
+  useUser
 } from "~/hooks";
 import { getLinkToItemDetails } from "~/modules/items/ui/Item/ItemForm";
 import type { Supplier } from "~/modules/purchasing/types";
@@ -59,7 +59,7 @@ export default function PurchaseInvoiceExplorer() {
     supplierUnitPrice: 0,
     supplierShippingCost: 0,
     supplierTaxAmount: 0,
-    exchangeRate: purchaseInvoiceData?.purchaseInvoice?.exchangeRate ?? 1,
+    exchangeRate: purchaseInvoiceData?.purchaseInvoice?.exchangeRate ?? 1
   };
 
   const newPurchaseInvoiceLineDisclosure = useDisclosure();
@@ -84,7 +84,7 @@ export default function PurchaseInvoiceExplorer() {
     "Command+Shift+l": (event: KeyboardEvent) => {
       event.stopPropagation();
       newButtonRef.current?.click();
-    },
+    }
   });
 
   return (
@@ -167,7 +167,7 @@ type PurchaseInvoiceLineItemProps = {
 function PurchaseInvoiceLineItem({
   line,
   isDisabled,
-  onDelete,
+  onDelete
 }: PurchaseInvoiceLineItemProps) {
   const { invoiceId } = useParams();
   if (!invoiceId) throw new Error("Could not find invoiceId");

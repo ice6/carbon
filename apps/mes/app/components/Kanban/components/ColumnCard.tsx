@@ -3,7 +3,7 @@ import {
   IconButton,
   PulsingDot,
   ScrollArea,
-  ScrollBar,
+  ScrollBar
 } from "@carbon/react";
 import { formatDurationMilliseconds } from "@carbon/utils";
 import { useDndContext } from "@dnd-kit/core";
@@ -53,21 +53,21 @@ export function ColumnCard({
     listeners,
     transform,
     transition,
-    isDragging,
+    isDragging
   } = useSortable({
     id: column.id,
     data: {
       type: "column",
-      column,
+      column
     } satisfies ColumnDragData,
     attributes: {
-      roleDescription: `Column: ${column.title}`,
-    },
+      roleDescription: `Column: ${column.title}`
+    }
   });
 
   const style = {
     transition,
-    transform: CSS.Translate.toString(transform),
+    transform: CSS.Translate.toString(transform)
   };
 
   const variants = cva(
@@ -77,9 +77,9 @@ export function ColumnCard({
         dragging: {
           default: "",
           over: "ring-2 opacity-30",
-          overlay: "ring-2 ring-primary",
-        },
-      },
+          overlay: "ring-2 ring-primary"
+        }
+      }
     }
   );
 
@@ -89,7 +89,7 @@ export function ColumnCard({
       style={style}
       className={cn(
         `${variants({
-          dragging: isOverlay ? "overlay" : isDragging ? "over" : undefined,
+          dragging: isOverlay ? "overlay" : isDragging ? "over" : undefined
         })} flex flex-col p-[1px] pt-0`,
         currentFilters.length > 0
           ? `h-[calc(100dvh-var(--header-height)*2-var(--filters-height))]`
@@ -148,15 +148,15 @@ export function BoardContainer({ children }: { children: React.ReactNode }) {
     variants: {
       dragging: {
         default: "snap-x snap-mandatory",
-        active: "snap-none",
-      },
-    },
+        active: "snap-none"
+      }
+    }
   });
 
   return (
     <ScrollArea
       className={variations({
-        dragging: dndContext.active ? "active" : "default",
+        dragging: dndContext.active ? "active" : "default"
       })}
     >
       <div className="flex gap-0 items-start flex-row justify-start p-0">

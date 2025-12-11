@@ -10,7 +10,7 @@ import {
   LuOctagonX,
   LuPencil,
   LuSquareStack,
-  LuUser,
+  LuUser
 } from "react-icons/lu";
 import { EmployeeAvatar, Hyperlink, Table } from "~/components";
 
@@ -60,8 +60,8 @@ const ActionsTable = memo(
             </Hyperlink>
           ),
           meta: {
-            icon: <LuBookMarked />,
-          },
+            icon: <LuBookMarked />
+          }
         },
         {
           accessorKey: "actionType",
@@ -73,10 +73,10 @@ const ActionsTable = memo(
               type: "static",
               options: requiredActions.map((action) => ({
                 label: action.name,
-                value: action.name,
-              })),
-            },
-          },
+                value: action.name
+              }))
+            }
+          }
         },
         {
           accessorKey: "status",
@@ -88,10 +88,10 @@ const ActionsTable = memo(
               type: "static",
               options: nonConformanceTaskStatus.map((status) => ({
                 label: <ActionStatus status={status} />,
-                value: status,
-              })),
-            },
-          },
+                value: status
+              }))
+            }
+          }
         },
         {
           accessorKey: "assignee",
@@ -104,11 +104,11 @@ const ActionsTable = memo(
               type: "static",
               options: people.map((employee) => ({
                 value: employee.id,
-                label: employee.name,
-              })),
+                label: employee.name
+              }))
             },
-            icon: <LuUser />,
-          },
+            icon: <LuUser />
+          }
         },
         {
           id: "items",
@@ -134,19 +134,19 @@ const ActionsTable = memo(
                 value: item.id,
                 label: (
                   <Badge variant="outline">{item.readableIdWithRevision}</Badge>
-                ),
+                )
               })),
-              isArray: true,
-            },
-          },
+              isArray: true
+            }
+          }
         },
         {
           accessorKey: "dueDate",
           header: "Due Date",
           cell: ({ row }) => formatDate(row.original.dueDate),
           meta: {
-            icon: <LuCalendar />,
-          },
+            icon: <LuCalendar />
+          }
         },
         {
           accessorKey: "nonConformanceStatus",
@@ -156,8 +156,8 @@ const ActionsTable = memo(
               <IssueStatus status={row.original.nonConformanceStatus as any} />
             ),
           meta: {
-            icon: <LuOctagonX />,
-          },
+            icon: <LuOctagonX />
+          }
         },
         {
           accessorKey: "nonConformanceTypeName",
@@ -171,10 +171,10 @@ const ActionsTable = memo(
               type: "static",
               options: issueTypes.map((type) => ({
                 label: type.name,
-                value: type.name,
-              })),
-            },
-          },
+                value: type.name
+              }))
+            }
+          }
         },
 
         {
@@ -182,25 +182,25 @@ const ActionsTable = memo(
           header: "Due Date",
           cell: ({ row }) => formatDate(row.original.dueDate),
           meta: {
-            icon: <LuCalendar />,
-          },
+            icon: <LuCalendar />
+          }
         },
         {
           accessorKey: "completedDate",
           header: "Completed Date",
           cell: ({ row }) => formatDate(row.original.completedDate),
           meta: {
-            icon: <LuCalendar />,
-          },
+            icon: <LuCalendar />
+          }
         },
         {
           accessorKey: "createdAt",
           header: "Created",
           cell: ({ row }) => formatDate(row.original.createdAt),
           meta: {
-            icon: <LuCalendar />,
-          },
-        },
+            icon: <LuCalendar />
+          }
+        }
       ];
       return defaultColumns;
     }, [requiredActions, people, items, issueTypes]);

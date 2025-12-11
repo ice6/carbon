@@ -8,24 +8,24 @@ import {
   DrawerHeader,
   DrawerTitle,
   HStack,
-  VStack,
+  VStack
 } from "@carbon/react";
 import type { CalendarDateTime } from "@internationalized/date";
 import {
   getLocalTimeZone,
   parseAbsolute,
-  toCalendarDateTime,
+  toCalendarDateTime
 } from "@internationalized/date";
 import { useNavigate } from "@remix-run/react";
 import { useState } from "react";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import {
   DateTimePicker,
   Employee,
   Hidden,
   Select,
   Submit,
-  WorkCenter,
+  WorkCenter
 } from "~/components/Form";
 import { usePermissions } from "~/hooks";
 import { productionEventValidator } from "../../production.models";
@@ -41,7 +41,7 @@ type ProductionEventFormProps = {
 
 const ProductionEventForm = ({
   initialValues,
-  operationOptions,
+  operationOptions
 }: ProductionEventFormProps) => {
   const permissions = usePermissions();
   const navigate = useNavigate();
@@ -103,7 +103,7 @@ const ProductionEventForm = ({
                 options={[
                   { label: "Labor", value: "Labor" },
                   { label: "Machine", value: "Machine" },
-                  { label: "Setup", value: "Setup" },
+                  { label: "Setup", value: "Setup" }
                 ]}
               />
               <DateTimePicker

@@ -25,7 +25,7 @@ import {
   Thead,
   toast,
   Tr,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { formatDate } from "@carbon/utils";
 import { Form, useNavigation, useParams } from "@remix-run/react";
@@ -41,9 +41,9 @@ import {
   LuSquareUser,
   LuTrash,
   LuTruck,
-  LuUpload,
+  LuUpload
 } from "react-icons/lu";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import { CustomerAvatar } from "~/components";
 import { Enumerable } from "~/components/Enumerable";
 import { usePaymentTerm } from "~/components/Form/PaymentTerm";
@@ -58,7 +58,7 @@ import type {
   QuotationLine,
   QuotationPayment,
   QuotationPrice,
-  QuotationShipment,
+  QuotationShipment
 } from "../../types";
 import { useOpportunityDocuments } from "../Opportunity/OpportunityDocuments";
 
@@ -77,7 +77,7 @@ const QuoteToOrderDrawer = ({
   quote,
   lines,
   pricing,
-  onClose,
+  onClose
 }: QuoteToOrderDrawerProps) => {
   const [step, setStep] = useState(0);
   const [selectedLines, setSelectedLines] = useState<
@@ -95,7 +95,7 @@ const QuoteToOrderDrawer = ({
   const { deleteAttachment, getPath, upload } = useOpportunityDocuments({
     opportunityId: quoteData?.opportunity.id!,
     type: "Quote",
-    id: quoteId,
+    id: quoteId
   });
   const [purchaseOrder, setPurchaseOrder] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
@@ -129,7 +129,7 @@ const QuoteToOrderDrawer = ({
       const { error } = await carbon
         .from("opportunity")
         .update({
-          purchaseOrderDocumentPath,
+          purchaseOrderDocumentPath
         })
         .eq("id", quoteData?.opportunity?.id!);
 
@@ -158,11 +158,11 @@ const QuoteToOrderDrawer = ({
       carbon
         .from("opportunity")
         .update({
-          purchaseOrderDocumentPath: null,
+          purchaseOrderDocumentPath: null
         })
         .eq("id", quoteData?.opportunity.id!),
       // @ts-expect-error
-      deleteAttachment(purchaseOrder!),
+      deleteAttachment(purchaseOrder!)
     ]);
 
     if (opportunityDelete.error) {
@@ -179,13 +179,13 @@ const QuoteToOrderDrawer = ({
     onDrop,
     accept: { "application/pdf": [".pdf"] },
     maxFiles: 1,
-    disabled: uploading,
+    disabled: uploading
   });
 
   const titles = [
     "Upload Customer Purchase Order",
     "Select Quantities",
-    "Confirm Details",
+    "Confirm Details"
   ];
   const hasPdf = purchaseOrder && getDocumentType(purchaseOrder.name) === "PDF";
   const renderStep = () => {
@@ -370,7 +370,7 @@ const LinePricingForm = ({
   quote,
   lines,
   pricing,
-  setSelectedLines,
+  setSelectedLines
 }: LinePricingFormProps) => {
   const pricingByLine = useMemo(
     () =>
@@ -387,7 +387,7 @@ const LinePricingForm = ({
   const shouldConvertCurrency = quoteCurrency !== baseCurrency;
   const quoteExchangeRate = quote.exchangeRate ?? 1;
   const formatter = useCurrencyFormatter({
-    currency: quoteCurrency,
+    currency: quoteCurrency
   });
 
   return (
@@ -446,7 +446,7 @@ const LinePricingOptions = ({
   shouldConvertCurrency,
   quoteExchangeRate,
   formatter,
-  setSelectedLines,
+  setSelectedLines
 }: LinePricingOptionsProps) => {
   const [selectedValue, setSelectedValue] = useState("");
   const [showOverride, setShowOverride] = useState(false);
@@ -458,7 +458,7 @@ const LinePricingOptions = ({
     netUnitPrice: 0,
     convertedNetUnitPrice: 0,
     shippingCost: 0,
-    convertedShippingCost: 0,
+    convertedShippingCost: 0
   });
 
   useEffect(() => {
@@ -473,8 +473,8 @@ const LinePricingOptions = ({
           convertedAddOn: overridePricing.convertedAddOn,
           shippingCost: overridePricing.shippingCost,
           convertedShippingCost: overridePricing.convertedShippingCost,
-          leadTime: overridePricing.leadTime,
-        },
+          leadTime: overridePricing.leadTime
+        }
       }));
     }
   }, [
@@ -482,21 +482,24 @@ const LinePricingOptions = ({
     overridePricing,
     selectedValue,
     setSelectedLines,
-    quoteExchangeRate,
+    quoteExchangeRate
   ]);
 
   const additionalChargesByQuantity =
-    line.quantity?.reduce((acc, quantity) => {
-      const charges = Object.values(line.additionalCharges ?? {}).reduce(
-        (chargeAcc, charge) => {
-          const amount = charge.amounts?.[quantity];
-          return chargeAcc + amount;
-        },
-        0
-      );
-      acc[quantity] = charges;
-      return acc;
-    }, {} as Record<number, number>) ?? {};
+    line.quantity?.reduce(
+      (acc, quantity) => {
+        const charges = Object.values(line.additionalCharges ?? {}).reduce(
+          (chargeAcc, charge) => {
+            const amount = charge.amounts?.[quantity];
+            return chargeAcc + amount;
+          },
+          0
+        );
+        acc[quantity] = charges;
+        return acc;
+      },
+      {} as Record<number, number>
+    ) ?? {};
 
   const convertedAdditionalChargesByQuantity = Object.entries(
     additionalChargesByQuantity
@@ -536,8 +539,8 @@ const LinePricingOptions = ({
                 shippingCost: selectedOption.shippingCost ?? 0,
                 convertedShippingCost:
                   selectedOption.convertedShippingCost ?? 0,
-                leadTime: selectedOption.leadTime,
-              },
+                leadTime: selectedOption.leadTime
+              }
             }));
             setSelectedValue(value);
           }
@@ -621,7 +624,7 @@ const LinePricingOptions = ({
                     onChange={(quantity) =>
                       setOverridePricing((v) => ({
                         ...v,
-                        quantity,
+                        quantity
                       }))
                     }
                   >
@@ -641,7 +644,7 @@ const LinePricingOptions = ({
                     }
                     formatOptions={{
                       style: "currency",
-                      currency: quoteCurrency,
+                      currency: quoteCurrency
                     }}
                     onChange={(netUnitPrice) =>
                       setOverridePricing((v) => ({
@@ -651,7 +654,7 @@ const LinePricingOptions = ({
                           : netUnitPrice,
                         convertedNetUnitPrice: shouldConvertCurrency
                           ? netUnitPrice
-                          : netUnitPrice * quoteExchangeRate,
+                          : netUnitPrice * quoteExchangeRate
                       }))
                     }
                   >
@@ -671,7 +674,7 @@ const LinePricingOptions = ({
                     }
                     formatOptions={{
                       style: "currency",
-                      currency: quoteCurrency,
+                      currency: quoteCurrency
                     }}
                     onChange={(shippingCost) =>
                       setOverridePricing((v) => ({
@@ -681,7 +684,7 @@ const LinePricingOptions = ({
                           : shippingCost,
                         convertedShippingCost: shouldConvertCurrency
                           ? shippingCost
-                          : shippingCost * quoteExchangeRate,
+                          : shippingCost * quoteExchangeRate
                       }))
                     }
                   >
@@ -701,7 +704,7 @@ const LinePricingOptions = ({
                     }
                     formatOptions={{
                       style: "currency",
-                      currency: quoteCurrency,
+                      currency: quoteCurrency
                     }}
                     onChange={(addOn) =>
                       setOverridePricing((v) => ({
@@ -711,7 +714,7 @@ const LinePricingOptions = ({
                           : addOn,
                         convertedAddOn: shouldConvertCurrency
                           ? addOn
-                          : addOn * quoteExchangeRate,
+                          : addOn * quoteExchangeRate
                       }))
                     }
                   >
@@ -727,13 +730,13 @@ const LinePricingOptions = ({
                     formatOptions={{
                       style: "unit",
                       unit: "day",
-                      unitDisplay: "long",
+                      unitDisplay: "long"
                     }}
                     value={overridePricing.leadTime}
                     onChange={(leadTime) =>
                       setOverridePricing((v) => ({
                         ...v,
-                        leadTime,
+                        leadTime
                       }))
                     }
                   >

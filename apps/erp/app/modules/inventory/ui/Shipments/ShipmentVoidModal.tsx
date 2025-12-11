@@ -11,7 +11,7 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
-  ModalTitle,
+  ModalTitle
 } from "@carbon/react";
 import { useFetcher, useNavigation, useParams } from "@remix-run/react";
 import { useEffect, useRef } from "react";
@@ -25,7 +25,7 @@ const ShipmentVoidModal = ({ onClose }: { onClose: () => void }) => {
   const navigation = useNavigation();
   const fetcher = useFetcher<{}>();
   const submitted = useRef(false);
-  
+
   useEffect(() => {
     if (fetcher.state === "idle" && submitted.current) {
       onClose();
@@ -45,7 +45,8 @@ const ShipmentVoidModal = ({ onClose }: { onClose: () => void }) => {
         <ModalHeader>
           <ModalTitle>Void Shipment</ModalTitle>
           <ModalDescription>
-            Are you sure you want to void this shipment? This action will reverse all inventory transactions and cannot be undone.
+            Are you sure you want to void this shipment? This action will
+            reverse all inventory transactions and cannot be undone.
           </ModalDescription>
         </ModalHeader>
         <ModalBody>
@@ -79,8 +80,7 @@ const ShipmentVoidModal = ({ onClose }: { onClose: () => void }) => {
                 variant="destructive"
                 isLoading={fetcher.state !== "idle"}
                 isDisabled={
-                  fetcher.state !== "idle" ||
-                  navigation.state !== "idle"
+                  fetcher.state !== "idle" || navigation.state !== "idle"
                 }
                 type="submit"
               >

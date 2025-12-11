@@ -17,7 +17,7 @@ const EditableText =
     row,
     accessorKey,
     onError,
-    onUpdate,
+    onUpdate
   }: EditableTableCellComponentProps<T>) => {
     const updateText = async (newValue: string) => {
       // this is the optimistic update on the FE

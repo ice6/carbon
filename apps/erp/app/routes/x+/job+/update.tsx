@@ -6,12 +6,12 @@ import { json, type ActionFunctionArgs } from "@vercel/remix";
 import {
   calculateJobPriority,
   recalculateJobRequirements,
-  upsertJobMethod,
+  upsertJobMethod
 } from "~/modules/production";
 
 export async function action({ request }: ActionFunctionArgs) {
   const { client, companyId, userId } = await requirePermissions(request, {
-    update: "production",
+    update: "production"
   });
 
   const formData = await request.formData();
@@ -57,7 +57,7 @@ export async function action({ request }: ActionFunctionArgs) {
           .from("itemReplenishment")
           .select("lotSize, scrapPercentage")
           .eq("itemId", value)
-          .single(),
+          .single()
       ]);
 
       const [itemUpdate, makeMethodUpdate] = await Promise.all([
@@ -69,14 +69,14 @@ export async function action({ request }: ActionFunctionArgs) {
             quantity:
               (manufacturing?.data?.lotSize ?? 0) === 0
                 ? undefined
-                : manufacturing?.data?.lotSize ?? 0,
+                : (manufacturing?.data?.lotSize ?? 0),
             modelUploadId: item.data?.modelUploadId ?? null,
             scrapQuantity: Math.ceil(
               (manufacturing?.data?.lotSize ?? 0) *
                 ((manufacturing?.data?.scrapPercentage ?? 0) / 100)
             ),
             updatedBy: userId,
-            updatedAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString()
           })
           .in("id", ids as string[])
           .eq("companyId", companyId),
@@ -86,11 +86,11 @@ export async function action({ request }: ActionFunctionArgs) {
           .update({
             itemId: value,
             updatedBy: userId,
-            updatedAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString()
           })
           .in("jobId", ids as string[])
           .is("parentMaterialId", null)
-          .eq("companyId", companyId),
+          .eq("companyId", companyId)
       ]);
 
       if (itemUpdate.error) {
@@ -106,7 +106,7 @@ export async function action({ request }: ActionFunctionArgs) {
           sourceId: value,
           targetId: id as string,
           companyId,
-          userId,
+          userId
         });
 
         if (upsertMethod.error) {
@@ -117,7 +117,7 @@ export async function action({ request }: ActionFunctionArgs) {
           type: "jobRequirements",
           id: id as string,
           companyId,
-          userId,
+          userId
         });
       }
 
@@ -139,20 +139,29 @@ export async function action({ request }: ActionFunctionArgs) {
         }
 
         // Determine the new dueDate and deadlineType after this update
-        const newDueDate = field === "dueDate" ? (value ?? null) : currentJob.data.dueDate;
-        const newDeadlineType = field === "deadlineType" ? value : currentJob.data.deadlineType;
+        const newDueDate =
+          field === "dueDate" ? (value ?? null) : currentJob.data.dueDate;
+        const newDeadlineType =
+          field === "deadlineType" ? value : currentJob.data.deadlineType;
 
         if (!newDeadlineType) {
-          return json({ error: { message: "Invalid deadline type" }, data: null });
+          return json({
+            error: { message: "Invalid deadline type" },
+            data: null
+          });
         }
 
         // Calculate new priority
         const priority = await calculateJobPriority(client, {
           jobId: id as string,
           dueDate: newDueDate,
-          deadlineType: newDeadlineType as "ASAP" | "Hard Deadline" | "Soft Deadline" | "No Deadline",
+          deadlineType: newDeadlineType as
+            | "ASAP"
+            | "Hard Deadline"
+            | "Soft Deadline"
+            | "No Deadline",
           companyId,
-          locationId: currentJob.data.locationId,
+          locationId: currentJob.data.locationId
         });
 
         // Update the job with new field value and priority
@@ -162,7 +171,7 @@ export async function action({ request }: ActionFunctionArgs) {
             [field]: value ? value : null,
             priority,
             updatedBy: userId,
-            updatedAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString()
           })
           .eq("id", id as string)
           .eq("companyId", companyId);
@@ -185,7 +194,7 @@ export async function action({ request }: ActionFunctionArgs) {
           .update({
             [field]: value ? value : null,
             updatedBy: userId,
-            updatedAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString()
           })
           .in("id", ids as string[])
           .eq("companyId", companyId)
@@ -197,7 +206,7 @@ export async function action({ request }: ActionFunctionArgs) {
         .update({
           [field]: value ? value : null,
           updatedBy: userId,
-          updatedAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString()
         })
         .in("id", ids as string[])
         .eq("companyId", companyId);
@@ -210,7 +219,7 @@ export async function action({ request }: ActionFunctionArgs) {
         const recalculate = await recalculateJobRequirements(serviceRole, {
           id: id as string,
           companyId,
-          userId,
+          userId
         });
         if (recalculate.error) {
           console.error(recalculate.error);
@@ -232,13 +241,13 @@ export async function action({ request }: ActionFunctionArgs) {
       } else {
         return json({
           error: { message: `Invalid value: ${value} for field: ${field}` },
-          data: null,
+          data: null
         });
       }
     default:
       return json({
         error: { message: `Invalid field: ${field}` },
-        data: null,
+        data: null
       });
   }
 }

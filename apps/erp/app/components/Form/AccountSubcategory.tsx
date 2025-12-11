@@ -4,7 +4,7 @@ import { useFetcher } from "@remix-run/react";
 import { useEffect, useMemo } from "react";
 import type {
   AccountSubcategory as AccountSubcategoryType,
-  getAccountSubcategoriesByCategory,
+  getAccountSubcategoriesByCategory
 } from "~/modules/accounting";
 import { path } from "~/utils/path";
 
@@ -33,7 +33,7 @@ const AccountSubcategory = (props: AccountSubcategorySelectProps) => {
     () =>
       accountSubcategoriesFetcher.data?.data?.map((c) => ({
         value: c.id,
-        label: c.name,
+        label: c.name
       })) ?? [],
 
     [accountSubcategoriesFetcher.data]

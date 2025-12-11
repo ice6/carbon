@@ -21,7 +21,7 @@ export function ModelViewer({
   className,
   withProperties = true,
   onDataUrl,
-  resetZoomButton = true,
+  resetZoomButton = true
 }: {
   file: File | null;
   url: string | null;
@@ -119,19 +119,19 @@ export function ModelViewer({
                 const dimensions = {
                   x: boundingBox.max.x - boundingBox.min.x,
                   y: boundingBox.max.y - boundingBox.min.y,
-                  z: boundingBox.max.z - boundingBox.min.z,
+                  z: boundingBox.max.z - boundingBox.min.z
                 };
 
                 setModelInfo({
                   surfaceArea,
                   volume,
-                  dimensions,
+                  dimensions
                 });
               }
             }
 
             setIsLoading(false);
-          },
+          }
         });
 
         viewerRef.current = viewer;
@@ -269,7 +269,7 @@ export function ModelViewer({
     return new Intl.NumberFormat(locale, {
       style: "decimal",
       minimumFractionDigits: 0,
-      maximumFractionDigits: decimals,
+      maximumFractionDigits: decimals
     });
   }, [locale, unitSystem]);
 

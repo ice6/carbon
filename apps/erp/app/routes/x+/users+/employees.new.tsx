@@ -3,7 +3,7 @@ import {
   error,
   getAppUrl,
   RESEND_DOMAIN,
-  success,
+  success
 } from "@carbon/auth";
 import { requirePermissions } from "@carbon/auth/auth.server";
 import { flash } from "@carbon/auth/session.server";
@@ -18,14 +18,14 @@ import { nanoid } from "nanoid";
 import {
   CreateEmployeeModal,
   createEmployeeValidator,
-  getInvitable,
+  getInvitable
 } from "~/modules/users";
 import { createEmployeeAccount } from "~/modules/users/users.server";
 import { path } from "~/utils/path";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    create: "users",
+    create: "users"
   });
 
   const invitable = await getInvitable(client, companyId);
@@ -40,14 +40,14 @@ export async function loader({ request }: LoaderFunctionArgs) {
   }
 
   return json({
-    invitable: invitable.data ?? [],
+    invitable: invitable.data ?? []
   });
 }
 
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    create: "users",
+    create: "users"
   });
 
   const validation = await validator(createEmployeeValidator).validate(
@@ -68,7 +68,7 @@ export async function action({ request }: ActionFunctionArgs) {
     employeeType,
     locationId,
     companyId,
-    createdBy: userId,
+    createdBy: userId
   });
 
   if (!result.success) {
@@ -80,7 +80,7 @@ export async function action({ request }: ActionFunctionArgs) {
   const ip = request.headers.get("x-forwarded-for") ?? "127.0.0.1";
   const [company, user] = await Promise.all([
     client.from("company").select("name").eq("id", companyId).single(),
-    client.from("user").select("email, fullName").eq("id", userId).single(),
+    client.from("user").select("email, fullName").eq("id", userId).single()
   ]);
 
   if (!company.data || !user.data) {
@@ -92,7 +92,7 @@ export async function action({ request }: ActionFunctionArgs) {
     to: email,
     subject: `You have been invited to join ${company.data?.name} on Carbon`,
     headers: {
-      "X-Entity-Ref-ID": nanoid(),
+      "X-Entity-Ref-ID": nanoid()
     },
     html: await render(
       InviteEmail({
@@ -102,9 +102,9 @@ export async function action({ request }: ActionFunctionArgs) {
         companyName: company.data.name,
         inviteLink: `${getAppUrl()}/invite/${result.code}`,
         ip,
-        location,
+        location
       })
-    ),
+    )
   });
 
   console.log(invitationEmail);

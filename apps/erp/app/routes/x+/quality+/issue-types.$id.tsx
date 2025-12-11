@@ -8,7 +8,7 @@ import { json, redirect } from "@vercel/remix";
 import {
   getIssueType,
   issueTypeValidator,
-  upsertIssueType,
+  upsertIssueType
 } from "~/modules/quality";
 import IssueTypeForm from "~/modules/quality/ui/IssueTypes/IssueTypeForm";
 import { getCustomFields, setCustomFields } from "~/utils/form";
@@ -17,7 +17,7 @@ import { path } from "~/utils/path";
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
     view: "quality",
-    role: "employee",
+    role: "employee"
   });
 
   const { id } = params;
@@ -36,14 +36,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   }
 
   return json({
-    nonConformanceType: nonConformanceType.data,
+    nonConformanceType: nonConformanceType.data
   });
 }
 
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    update: "quality",
+    update: "quality"
   });
 
   const formData = await request.formData();
@@ -60,7 +60,7 @@ export async function action({ request }: ActionFunctionArgs) {
     id,
     ...data,
     customFields: setCustomFields(formData),
-    updatedBy: userId,
+    updatedBy: userId
   });
 
   if (updateIssueType.error) {
@@ -86,7 +86,7 @@ export default function EditIssueTypeRoute() {
   const initialValues = {
     id: nonConformanceType.id ?? undefined,
     name: nonConformanceType.name ?? "",
-    ...getCustomFields(nonConformanceType.customFields),
+    ...getCustomFields(nonConformanceType.customFields)
   };
 
   return (

@@ -3,7 +3,7 @@ import type { FORM_DEFAULTS_FIELD } from "./internal/constants";
 import { formDefaultValuesKey } from "./internal/constants";
 import type {
   ValidationErrorResponseData,
-  ValidatorError,
+  ValidatorError
 } from "./validation/types";
 
 /**
@@ -30,7 +30,7 @@ export function validationError(
       fieldErrors: error.fieldErrors,
       subaction: error.subaction,
       repopulateFields,
-      formId: error.formId,
+      formId: error.formId
     },
     { status: 422, ...init }
   );
@@ -47,5 +47,5 @@ export const setFormDefaults = <DataType = any>(
   formId: string,
   defaultValues: Partial<DataType>
 ): FormDefaults => ({
-  [formDefaultValuesKey(formId)]: defaultValues,
+  [formDefaultValuesKey(formId)]: defaultValues
 });

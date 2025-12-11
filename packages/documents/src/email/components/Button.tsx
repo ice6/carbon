@@ -13,7 +13,7 @@ export function Button({
   href,
   children,
   variant = "primary",
-  className = "",
+  className = ""
 }: ButtonProps) {
   const themeClasses = getEmailThemeClasses();
   const lightStyles = getEmailInlineStyles("light");
@@ -30,11 +30,11 @@ export function Button({
     variant === "primary"
       ? {
           color: lightStyles.button.color,
-          borderColor: lightStyles.button.borderColor,
+          borderColor: lightStyles.button.borderColor
         }
       : {
           color: "#6b7280",
-          borderColor: "#d1d5db",
+          borderColor: "#d1d5db"
         };
 
   return (

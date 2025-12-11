@@ -9,7 +9,7 @@ import {
   getLineDescription,
   getLineDescriptionDetails,
   getLineTotal,
-  getTotal,
+  getTotal
 } from "../utils/purchase-order";
 import { getCurrencyFormatter } from "../utils/shared";
 import { Header, Note, Summary, Template } from "./components";
@@ -25,16 +25,16 @@ interface PurchaseOrderPDFProps extends PDF {
 const tw = createTw({
   theme: {
     fontFamily: {
-      sans: ["Helvetica", "Arial", "sans-serif"],
+      sans: ["Helvetica", "Arial", "sans-serif"]
     },
     extend: {
       colors: {
         gray: {
-          500: "#7d7d7d",
-        },
-      },
-    },
-  },
+          500: "#7d7d7d"
+        }
+      }
+    }
+  }
 });
 
 const PurchaseOrderPDF = ({
@@ -45,7 +45,7 @@ const PurchaseOrderPDF = ({
   purchaseOrderLines,
   purchaseOrderLocations,
   terms,
-  title = "Purchase Order",
+  title = "Purchase Order"
 }: PurchaseOrderPDFProps) => {
   const {
     supplierName,
@@ -69,7 +69,7 @@ const PurchaseOrderPDF = ({
     customerCity,
     customerStateProvince,
     customerPostalCode,
-    customerCountryName,
+    customerCountryName
   } = purchaseOrderLocations;
 
   const formatter = getCurrencyFormatter(
@@ -89,7 +89,7 @@ const PurchaseOrderPDF = ({
       meta={{
         author: meta?.author ?? "Carbon",
         keywords: meta?.keywords ?? "purchase order",
-        subject: meta?.subject ?? "Purchase Order",
+        subject: meta?.subject ?? "Purchase Order"
       }}
     >
       <View>
@@ -99,12 +99,12 @@ const PurchaseOrderPDF = ({
           items={[
             {
               label: "Date",
-              value: purchaseOrder?.orderDate,
+              value: purchaseOrder?.orderDate
             },
             {
               label: "PO #",
-              value: purchaseOrder?.purchaseOrderId,
-            },
+              value: purchaseOrder?.purchaseOrderId
+            }
           ]}
         />
         <View style={tw("flex flex-row justify-between mb-5")}>

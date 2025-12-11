@@ -12,7 +12,7 @@ import {
   HStack,
   Heading,
   IconButton,
-  useDisclosure,
+  useDisclosure
 } from "@carbon/react";
 import { getItemReadableId } from "@carbon/utils";
 import { Link, useFetcher, useParams } from "@remix-run/react";
@@ -27,7 +27,7 @@ import {
   LuPanelLeft,
   LuPanelRight,
   LuTicketX,
-  LuTruck,
+  LuTruck
 } from "react-icons/lu";
 import { RiProgress8Line } from "react-icons/ri";
 import { usePanels } from "~/components/Layout/Panels";
@@ -93,7 +93,7 @@ const SalesInvoiceHeader = () => {
         carbon
           .from("shipment")
           .select("id, shipmentId, status")
-          .eq("opportunityId", salesInvoice.opportunityId),
+          .eq("opportunityId", salesInvoice.opportunityId)
       ]);
 
       if (salesOrdersResult.error)
@@ -104,14 +104,14 @@ const SalesInvoiceHeader = () => {
         salesOrders:
           salesOrdersResult.data?.map((po) => ({
             id: po.id,
-            readableId: po.salesOrderId,
+            readableId: po.salesOrderId
           })) ?? [],
         shipments:
           shipmentsResult.data?.map((r) => ({
             id: r.id,
             readableId: r.shipmentId,
-            status: r.status,
-          })) ?? [],
+            status: r.status
+          })) ?? []
       });
     }
 
@@ -138,7 +138,7 @@ const SalesInvoiceHeader = () => {
           ...d,
           itemReadableId: getItemReadableId(items, d.itemId) ?? null,
           description: d.description ?? "",
-          quantity: d.quantity,
+          quantity: d.quantity
         })) ?? []
       )
     );

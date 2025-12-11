@@ -7,7 +7,7 @@ import { json } from "@vercel/remix";
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    create: "inventory",
+    create: "inventory"
   });
 
   const { id } = params;
@@ -23,7 +23,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   if (!lineId || !Number.isFinite(pickedQuantity)) {
     return json(
       {
-        success: false,
+        success: false
       },
       await flash(request, error("Invalid form data", "Invalid form data"))
     );
@@ -38,7 +38,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   if (!stockTransferLine.data) {
     return json(
       {
-        success: false,
+        success: false
       },
       await flash(
         request,
@@ -65,7 +65,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   ) {
     return json(
       {
-        success: false,
+        success: false
       },
       await flash(
         request,
@@ -86,15 +86,15 @@ export async function action({ request, params }: ActionFunctionArgs) {
         locationId: locationId,
         trackedEntityId: trackedEntityId,
         userId,
-        companyId,
-      }),
+        companyId
+      })
     }
   );
 
   if (functionError) {
     return json(
       {
-        success: false,
+        success: false
       },
       await flash(
         request,
@@ -108,7 +108,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
   return json(
     {
-      success: true,
+      success: true
     },
     await flash(
       request,

@@ -8,7 +8,7 @@ import { json } from "@vercel/remix";
 import { productionEventValidator } from "~/services/models";
 import {
   endProductionEvent,
-  startProductionEvent,
+  startProductionEvent
 } from "~/services/operations.service";
 
 export async function action({ request }: ActionFunctionArgs) {
@@ -40,7 +40,7 @@ export async function action({ request }: ActionFunctionArgs) {
         startTime: now(timezone ?? getLocalTimeZone()).toAbsoluteString(),
         employeeId: userId,
         companyId,
-        createdBy: userId,
+        createdBy: userId
       },
       trackedEntityId
     );
@@ -66,7 +66,7 @@ export async function action({ request }: ActionFunctionArgs) {
     const endEvent = await endProductionEvent(client, {
       id,
       endTime: now(timezone ?? getLocalTimeZone()).toAbsoluteString(),
-      employeeId: userId,
+      employeeId: userId
     });
     if (endEvent.error) {
       return json(

@@ -9,13 +9,13 @@ import {
   ModalCardProvider,
   ModalCardTitle,
   cn,
-  toast,
+  toast
 } from "@carbon/react";
 import { getMaterialDescription, getMaterialId } from "@carbon/utils";
 import { useFetcher } from "@remix-run/react";
 import type { PostgrestResponse } from "@supabase/supabase-js";
 import { useEffect, useState } from "react";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import { TrackingTypeIcon } from "~/components";
 import {
   CustomFormFields,
@@ -25,7 +25,7 @@ import {
   Number,
   Select,
   Submit,
-  UnitOfMeasure,
+  UnitOfMeasure
 } from "~/components/Form";
 import MaterialDimension from "~/components/Form/MaterialDimension";
 import MaterialFinish from "~/components/Form/MaterialFinish";
@@ -39,7 +39,7 @@ import { path } from "~/utils/path";
 import {
   itemTrackingTypes,
   materialValidator,
-  materialValidatorWithGeneratedIds,
+  materialValidatorWithGeneratedIds
 } from "../../items.models";
 
 type MaterialFormProps = {
@@ -55,7 +55,7 @@ function startsWithLetter(value: string) {
 const MaterialForm = ({
   initialValues,
   type = "card",
-  onClose,
+  onClose
 }: MaterialFormProps) => {
   const [materialId, setMaterialId] = useState(initialValues.id ?? "");
   const [description, setDescription] = useState(
@@ -123,7 +123,7 @@ const MaterialForm = ({
         {itemTrackingType}
       </span>
     ),
-    value: itemTrackingType,
+    value: itemTrackingType
   }));
 
   return (
@@ -200,7 +200,7 @@ const MaterialForm = ({
                       substance: (value?.label as string) ?? "",
                       substanceCode:
                         substance.find((s) => s.value === value?.value)?.code ??
-                        "",
+                        ""
                     }));
                   }}
                 />
@@ -211,7 +211,7 @@ const MaterialForm = ({
                   onChange={(value) => {
                     setProperties((prev) => ({
                       ...prev,
-                      grade: value?.name ?? "",
+                      grade: value?.name ?? ""
                     }));
                   }}
                 />
@@ -224,7 +224,7 @@ const MaterialForm = ({
                       ...prev,
                       shape: (value?.label as string) ?? "",
                       shapeCode:
-                        shape.find((s) => s.value === value?.value)?.code ?? "",
+                        shape.find((s) => s.value === value?.value)?.code ?? ""
                     }));
                   }}
                 />
@@ -240,7 +240,7 @@ const MaterialForm = ({
                     setProperties((prev) => ({
                       ...prev,
                       materialType: value?.label ?? "",
-                      materialTypeCode: code,
+                      materialTypeCode: code
                     }));
                   }}
                 />
@@ -251,7 +251,7 @@ const MaterialForm = ({
                   onChange={(value) => {
                     setProperties((prev) => ({
                       ...prev,
-                      finish: value?.name ?? "",
+                      finish: value?.name ?? ""
                     }));
                   }}
                 />
@@ -262,7 +262,7 @@ const MaterialForm = ({
                   onChange={(value) => {
                     setProperties((prev) => ({
                       ...prev,
-                      dimensions: value?.name ?? "",
+                      dimensions: value?.name ?? ""
                     }));
                   }}
                 />
@@ -292,7 +292,7 @@ const MaterialForm = ({
                   label="Unit Cost"
                   formatOptions={{
                     style: "currency",
-                    currency: baseCurrency,
+                    currency: baseCurrency
                   }}
                   minValue={0}
                 />

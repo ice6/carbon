@@ -20,8 +20,8 @@ export const path = {
     onboarding: `${ERP_URL}/onboarding`,
     refreshSession: "/refresh-session",
     requestAccess: "/request-access",
-    root: "/",
-  },
+    root: "/"
+  }
 } as const;
 
 export const removeSubdomain = (url?: string): string => {

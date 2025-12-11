@@ -21,7 +21,9 @@ export const EditorRoot: FC<EditorRootProps> = ({ children }) => {
 
   return (
     <Provider store={novelStore}>
-      <EditorCommandTunnelContext.Provider value={tunnelInstance}>{children}</EditorCommandTunnelContext.Provider>
+      <EditorCommandTunnelContext.Provider value={tunnelInstance}>
+        {children}
+      </EditorCommandTunnelContext.Provider>
     </Provider>
   );
 };
@@ -39,7 +41,7 @@ export const EditorContent = forwardRef<HTMLDivElement, EditorContentProps>(
         {children}
       </EditorProvider>
     </div>
-  ),
+  )
 );
 
 EditorContent.displayName = "EditorContent";

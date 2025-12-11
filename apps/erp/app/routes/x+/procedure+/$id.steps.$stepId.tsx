@@ -11,7 +11,7 @@ import { upsertProcedureStep } from "~/modules/production/production.service";
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    update: "production",
+    update: "production"
   });
 
   const { stepId } = params;
@@ -31,7 +31,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   const update = await upsertProcedureStep(client, {
     id: stepId,
     ...validation.data,
-    updatedBy: userId,
+    updatedBy: userId
   });
   if (update.error) {
     return json(

@@ -8,11 +8,11 @@ import {
   getAppUrl,
   getCarbon,
   getCompanies,
-  getUser,
+  getUser
 } from "@carbon/auth";
 import {
   destroyAuthSession,
-  requireAuthSession,
+  requireAuthSession
 } from "@carbon/auth/session.server";
 import { useNProgress } from "@carbon/remix";
 
@@ -26,7 +26,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   // parallelize the requests
   const [companies, user] = await Promise.all([
     getCompanies(client, userId),
-    getUser(client, userId),
+    getUser(client, userId)
   ]);
 
   if (user.error || !user.data) {
@@ -42,11 +42,11 @@ export async function loader({ request }: LoaderFunctionArgs) {
     session: {
       accessToken,
       expiresIn,
-      expiresAt,
+      expiresAt
     },
     company,
     companies: companies.data ?? [],
-    user: user.data,
+    user: user.data
   });
 }
 

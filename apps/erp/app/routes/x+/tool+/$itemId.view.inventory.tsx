@@ -15,7 +15,7 @@ import {
   getItemShelfQuantities,
   getPickMethod,
   pickMethodValidator,
-  upsertPickMethod,
+  upsertPickMethod
 } from "~/modules/items";
 import { PickMethodForm } from "~/modules/items/ui/Item";
 import { getLocationsList } from "~/modules/resources";
@@ -27,7 +27,7 @@ import { path } from "~/utils/path";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId, userId } = await requirePermissions(request, {
-    view: "parts",
+    view: "parts"
   });
 
   const { itemId } = params;
@@ -67,7 +67,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   }
 
   let [toolInventory] = await Promise.all([
-    getPickMethod(client, itemId, companyId, locationId),
+    getPickMethod(client, itemId, companyId, locationId)
   ]);
 
   if (toolInventory.error || !toolInventory.data) {
@@ -76,7 +76,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
       companyId,
       locationId,
       customFields: {},
-      createdBy: userId,
+      createdBy: userId
     });
 
     if (insertPickMethod.error) {
@@ -135,14 +135,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     itemShelfQuantities: itemShelfQuantities.data,
     quantities: quantities.data,
     itemId,
-    locationId,
+    locationId
   });
 }
 
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    update: "parts",
+    update: "parts"
   });
 
   const { itemId } = params;
@@ -162,7 +162,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     ...update,
     itemId,
     customFields: setCustomFields(formData),
-    updatedBy: userId,
+    updatedBy: userId
   });
   if (updatePickMethod.error) {
     throw redirect(
@@ -198,7 +198,7 @@ export default function ToolInventoryRoute() {
   const initialValues = {
     ...toolInventory,
     defaultShelfId: toolInventory.defaultShelfId ?? undefined,
-    ...getCustomFields(toolInventory.customFields ?? {}),
+    ...getCustomFields(toolInventory.customFields ?? {})
   };
 
   const [items] = useItems();

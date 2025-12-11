@@ -9,14 +9,14 @@ import { supplierLocationsQuery } from "~/utils/react-query";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const authorized = await requirePermissions(request, {
-    view: "purchasing",
+    view: "purchasing"
   });
 
   const { supplierId } = params;
 
   if (!supplierId)
     return json({
-      data: [],
+      data: []
     });
 
   const locations = await getSupplierLocations(authorized.client, supplierId);
@@ -35,7 +35,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
 export async function clientLoader({
   serverLoader,
-  params,
+  params
 }: ClientLoaderFunctionArgs) {
   const { supplierId } = params;
 

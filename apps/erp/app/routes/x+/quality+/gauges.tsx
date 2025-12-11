@@ -11,13 +11,13 @@ import { getGenericQueryFilters } from "~/utils/query";
 
 export const handle: Handle = {
   breadcrumb: "Gauges",
-  to: path.to.gauges,
+  to: path.to.gauges
 };
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
     view: "quality",
-    role: "employee",
+    role: "employee"
   });
 
   const url = new URL(request.url);
@@ -32,15 +32,15 @@ export async function loader({ request }: LoaderFunctionArgs) {
       limit,
       offset,
       sorts,
-      filters,
+      filters
     }),
-    getGaugeTypesList(client, companyId),
+    getGaugeTypesList(client, companyId)
   ]);
 
   return json({
     gauges: gauges.data ?? [],
     count: gauges.count ?? 0,
-    gaugeTypes: gaugeTypes.data ?? [],
+    gaugeTypes: gaugeTypes.data ?? []
   });
 }
 

@@ -23,5 +23,5 @@ export {
   SalesOrdersTable,
   SalesOrderSummary,
   SalesStatus,
-  useSalesOrderTotals,
+  useSalesOrderTotals
 };

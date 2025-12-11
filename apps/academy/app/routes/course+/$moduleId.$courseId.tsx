@@ -5,7 +5,7 @@ import {
   LuCircleCheck,
   LuCirclePlay,
   LuFlag,
-  LuRotateCcw,
+  LuRotateCcw
 } from "react-icons/lu";
 import { modules } from "~/config";
 import { useProgress } from "~/hooks";
@@ -77,7 +77,7 @@ export default function CourseRoute() {
           className="border rounded-lg rounded-b-none px-8 py-3"
           style={{
             backgroundColor: module?.background,
-            color: module?.foreground,
+            color: module?.foreground
           }}
         >
           <div className="flex flex-col items-start">
@@ -96,7 +96,7 @@ export default function CourseRoute() {
                 className="flex-shrink-0 size-12 text-2xl p-3 rounded-lg"
                 style={{
                   backgroundColor: module?.background,
-                  color: module?.foreground,
+                  color: module?.foreground
                 }}
               >
                 {course.icon}

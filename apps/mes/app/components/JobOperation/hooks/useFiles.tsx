@@ -82,6 +82,6 @@ export function useFiles(job: Job) {
   return {
     downloadFile,
     downloadModel,
-    getFilePath,
+    getFilePath
   };
 }

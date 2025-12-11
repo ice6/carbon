@@ -42,7 +42,7 @@ export function getMaterialDescription(material: {
     material.materialType,
     material.shape,
     material.dimensions,
-    material.finish,
+    material.finish
   ]
     .filter((p) => !!p)
     .join(" ");
@@ -62,7 +62,7 @@ export function getMaterialId(material: {
     material.materialTypeCode,
     material.shapeCode,
     material.dimensions,
-    material.finish,
+    material.finish
   ]
     .filter((p) => !!p)
     .join("-");

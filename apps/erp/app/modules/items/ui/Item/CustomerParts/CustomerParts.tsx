@@ -10,7 +10,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
   HStack,
-  IconButton,
+  IconButton
 } from "@carbon/react";
 import { Outlet, useNavigate } from "@remix-run/react";
 import type { ColumnDef } from "@tanstack/react-table";
@@ -78,18 +78,18 @@ const CustomerParts = ({ customerParts, itemId }: CustomerPartsProps) => {
               </DropdownMenu>
             </div>
           </HStack>
-        ),
+        )
       },
       {
         accessorKey: "customerPartId",
         header: "Customer ID",
-        cell: (item) => item.getValue(),
+        cell: (item) => item.getValue()
       },
       {
         accessorKey: "customerPartRevision",
         header: "Customer Revision",
-        cell: (item) => item.getValue(),
-      },
+        cell: (item) => item.getValue()
+      }
     ];
     return [...defaultColumns];
   }, [canDelete, canEdit, itemId, navigate]);
@@ -97,7 +97,7 @@ const CustomerParts = ({ customerParts, itemId }: CustomerPartsProps) => {
   const editableComponents = useMemo(
     () => ({
       customerPartId: EditableText(onCellEdit),
-      customerPartRevision: EditableText(onCellEdit),
+      customerPartRevision: EditableText(onCellEdit)
     }),
     [onCellEdit]
   );

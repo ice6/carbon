@@ -11,7 +11,7 @@ import {
   LuChevronLeft,
   LuChevronRight,
   LuChevronsLeft,
-  LuChevronsRight,
+  LuChevronsRight
 } from "react-icons/lu";
 import { CalendarButton } from "./Button";
 import { CalendarGrid } from "./CalendarGrid";
@@ -29,7 +29,7 @@ export function RangeCalendar({
     ...props,
     visibleDuration: { months: 2 },
     locale,
-    createCalendar,
+    createCalendar
   });
 
   useEffect(() => {
@@ -76,7 +76,7 @@ export function RangeCalendar({
     <div {...calendarProps} ref={ref} className="flex">
       <div
         className={clsx("p-4 border-r border-border", {
-          "rounded-md border shadow": bordered,
+          "rounded-md border shadow": bordered
         })}
       >
         <div className="flex items-center pb-4">
@@ -106,7 +106,7 @@ export function RangeCalendar({
       </div>
       <div
         className={clsx("p-4 ", {
-          "rounded-md border shadow": bordered,
+          "rounded-md border shadow": bordered
         })}
       >
         <div className="flex items-center pb-4">
@@ -146,7 +146,7 @@ function useLocalizedTitle(
   const dateFormatter = useMemo(() => {
     return new Intl.DateTimeFormat(locale, {
       month: "long",
-      year: "numeric",
+      year: "numeric"
     });
   }, [locale]);
 

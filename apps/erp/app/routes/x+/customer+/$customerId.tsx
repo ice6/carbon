@@ -9,7 +9,7 @@ import { usePermissions } from "~/hooks";
 import {
   getCustomer,
   getCustomerContacts,
-  getCustomerLocations,
+  getCustomerLocations
 } from "~/modules/sales";
 import { CustomerHeader, CustomerSidebar } from "~/modules/sales/ui/Customer";
 import { getTagsList } from "~/modules/shared";
@@ -18,12 +18,12 @@ import { path } from "~/utils/path";
 
 export const handle: Handle = {
   breadcrumb: "Customers",
-  to: path.to.customers,
+  to: path.to.customers
 };
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    view: "sales",
+    view: "sales"
   });
 
   const { customerId } = params;
@@ -33,7 +33,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     getCustomer(client, customerId),
     getCustomerContacts(client, customerId),
     getCustomerLocations(client, customerId),
-    getTagsList(client, companyId, "customer"),
+    getTagsList(client, companyId, "customer")
   ]);
 
   if (customer.error) {
@@ -50,7 +50,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     customer: customer.data,
     contacts: contacts.data ?? [],
     locations: locations.data ?? [],
-    tags: tags.data ?? [],
+    tags: tags.data ?? []
   });
 }
 
@@ -62,7 +62,7 @@ export default function CustomerRoute() {
       <CustomerHeader />
       <div
         className={cn("grid grid-cols-1 h-full w-full gap-4", {
-          "md:grid-cols-[1fr_4fr]": isEmployee,
+          "md:grid-cols-[1fr_4fr]": isEmployee
         })}
       >
         {isEmployee && <CustomerSidebar />}

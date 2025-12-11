@@ -23,7 +23,7 @@ const Sequence = (props: SequenceSelectProps) => {
       sequenceFetcher.data?.data
         ? sequenceFetcher.data?.data.map((c) => ({
             value: c.id,
-            label: c.id,
+            label: c.id
           }))
         : [],
     [sequenceFetcher.data]

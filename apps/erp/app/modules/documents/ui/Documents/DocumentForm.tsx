@@ -8,10 +8,10 @@ import {
   DrawerHeader,
   DrawerTitle,
   HStack,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { useNavigate } from "@remix-run/react";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import { Hidden, Input, Submit, TextArea, Users } from "~/components/Form";
 import { usePermissions } from "~/hooks";
 import { documentValidator } from "~/modules/documents";

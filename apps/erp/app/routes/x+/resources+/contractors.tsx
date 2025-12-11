@@ -8,7 +8,7 @@ import { json, redirect } from "@vercel/remix";
 import {
   ContractorsTable,
   getAbilitiesList,
-  getContractors,
+  getContractors
 } from "~/modules/resources";
 import type { Handle } from "~/utils/handle";
 import { path } from "~/utils/path";
@@ -16,14 +16,14 @@ import { getGenericQueryFilters } from "~/utils/query";
 
 export const handle: Handle = {
   breadcrumb: "Contractors",
-  to: path.to.contractors,
+  to: path.to.contractors
 };
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
     view: "resources",
     role: "employee",
-    bypassRls: true,
+    bypassRls: true
   });
 
   const url = new URL(request.url);
@@ -38,9 +38,9 @@ export async function loader({ request }: LoaderFunctionArgs) {
       limit,
       offset,
       sorts,
-      filters,
+      filters
     }),
-    getAbilitiesList(client, companyId),
+    getAbilitiesList(client, companyId)
   ]);
 
   if (contractors.error) {
@@ -56,7 +56,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   return json({
     contractors: contractors.data ?? [],
     abilities: abilities.data ?? [],
-    count: contractors.count ?? 0,
+    count: contractors.count ?? 0
   });
 }
 

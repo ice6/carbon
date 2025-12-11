@@ -4,7 +4,7 @@ import { getCurrencyByCode } from "~/modules/accounting";
 
 export async function action({ request }: ActionFunctionArgs) {
   const { client, companyId, userId } = await requirePermissions(request, {
-    update: "purchasing",
+    update: "purchasing"
   });
 
   const formData = await request.formData();
@@ -55,7 +55,7 @@ export async function action({ request }: ActionFunctionArgs) {
                 currencyCode: currencyCode ?? undefined,
                 exchangeRate: currency.data?.exchangeRate ?? 1,
                 updatedBy: userId,
-                updatedAt: new Date().toISOString(),
+                updatedAt: new Date().toISOString()
               })
               .in("id", ids as string[])
           );
@@ -68,7 +68,7 @@ export async function action({ request }: ActionFunctionArgs) {
           .update({
             supplierId: value ?? undefined,
             updatedBy: userId,
-            updatedAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString()
           })
           .in("id", ids as string[])
       );
@@ -81,7 +81,7 @@ export async function action({ request }: ActionFunctionArgs) {
           .update({
             [field]: value ?? undefined,
             updatedBy: userId,
-            updatedAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString()
           })
           .in("id", ids as string[])
       );
@@ -91,7 +91,7 @@ export async function action({ request }: ActionFunctionArgs) {
         .update({
           promisedDate: value ?? undefined,
           updatedBy: userId,
-          updatedAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString()
         })
         .in("purchaseOrderId", ids as string[])
         .is("promisedDate", null);
@@ -106,7 +106,7 @@ export async function action({ request }: ActionFunctionArgs) {
           .update({
             [field]: value ?? undefined,
             updatedBy: userId,
-            updatedAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString()
           })
           .in("id", ids as string[])
       );
@@ -125,7 +125,7 @@ export async function action({ request }: ActionFunctionArgs) {
                 currencyCode: value as string,
                 exchangeRate: currency.data.exchangeRate,
                 updatedBy: userId,
-                updatedAt: new Date().toISOString(),
+                updatedAt: new Date().toISOString()
               })
               .in("id", ids as string[])
           );
@@ -143,7 +143,7 @@ export async function action({ request }: ActionFunctionArgs) {
           .update({
             [field]: value ? value : null,
             updatedBy: userId,
-            updatedAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString()
           })
           .in("id", ids as string[])
       );

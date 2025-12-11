@@ -38,7 +38,7 @@ const SupplierType = (props: SupplierTypeSelectProps) => {
             triggerRef.current?.click();
           }}
           initialValues={{
-            name: created,
+            name: created
           }}
         />
       )}
@@ -63,7 +63,7 @@ export const useSupplierTypes = () => {
 
     return dataSource.map((c) => ({
       value: c.id,
-      label: c.name,
+      label: c.name
     }));
   }, [supplierTypeFetcher.data?.data]);
 

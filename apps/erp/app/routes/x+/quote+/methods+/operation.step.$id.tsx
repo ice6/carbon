@@ -9,7 +9,7 @@ import { operationStepValidator } from "~/modules/shared";
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    update: "parts",
+    update: "parts"
   });
 
   const { id } = params;
@@ -33,12 +33,12 @@ export async function action({ request, params }: ActionFunctionArgs) {
     maxValue: data.maxValue ?? null,
     companyId,
     updatedBy: userId,
-    updatedAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString()
   });
   if (update.error) {
     return json(
       {
-        id: null,
+        id: null
       },
       await flash(
         request,
@@ -51,7 +51,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   if (!operationAttributeId) {
     return json(
       {
-        id: null,
+        id: null
       },
       await flash(
         request,

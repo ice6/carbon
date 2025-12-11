@@ -14,7 +14,7 @@ import { PanelProvider, ResizablePanels } from "~/components/Layout/Panels";
 import { usePermissions, useUser } from "~/hooks";
 import {
   getQualityDocument,
-  getQualityDocumentVersions,
+  getQualityDocumentVersions
 } from "~/modules/quality";
 import QualityDocumentExplorer from "~/modules/quality/ui/Documents/QualityDocumentExplorer";
 import QualityDocumentHeader from "~/modules/quality/ui/Documents/QualityDocumentHeader";
@@ -27,13 +27,13 @@ import { getPrivateUrl, path } from "~/utils/path";
 export const handle: Handle = {
   breadcrumb: "Documents",
   to: path.to.qualityDocuments,
-  module: "quality",
+  module: "quality"
 };
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
     view: "quality",
-    bypassRls: true,
+    bypassRls: true
   });
 
   const { id } = params;
@@ -41,7 +41,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
   const [document, tags] = await Promise.all([
     getQualityDocument(client, id),
-    getTagsList(client, companyId, "qualityDocument"),
+    getTagsList(client, companyId, "qualityDocument")
   ]);
 
   if (document.error) {
@@ -54,7 +54,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   return defer({
     document: document.data,
     versions: getQualityDocumentVersions(client, document.data, companyId),
-    tags: tags.data ?? [],
+    tags: tags.data ?? []
   });
 }
 
@@ -114,7 +114,7 @@ function QualityDocumentEditor() {
   const { carbon } = useCarbon();
   const {
     id: userId,
-    company: { id: companyId },
+    company: { id: companyId }
   } = useUser();
 
   const updateQualityDocument = useDebounce(
@@ -124,7 +124,7 @@ function QualityDocumentEditor() {
         .update({
           content: content ?? {},
           updatedAt: today(getLocalTimeZone()).toString(),
-          updatedBy: userId,
+          updatedBy: userId
         })
         .eq("id", id!);
     },
@@ -150,7 +150,7 @@ function QualityDocumentEditor() {
 
     fetcher.submit(formData, {
       method: "post",
-      action: path.to.bulkUpdateQualityDocument,
+      action: path.to.bulkUpdateQualityDocument
     });
   };
 
@@ -204,7 +204,7 @@ function QualityDocumentEditor() {
         <div
           className="prose dark:prose-invert"
           dangerouslySetInnerHTML={{
-            __html: generateHTML(content),
+            __html: generateHTML(content)
           }}
         />
       )}

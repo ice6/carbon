@@ -6,7 +6,7 @@ import {
   TooltipContent,
   TooltipTrigger,
   VStack,
-  toast,
+  toast
 } from "@carbon/react";
 import { useFetcher, useParams } from "@remix-run/react";
 import { useCallback, useEffect } from "react";
@@ -49,7 +49,7 @@ const QualityDocumentProperties = () => {
 
       fetcher.submit(formData, {
         method: "post",
-        action: path.to.bulkUpdateQualityDocument,
+        action: path.to.bulkUpdateQualityDocument
       });
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -58,7 +58,7 @@ const QualityDocumentProperties = () => {
 
   const optimisticAssignment = useOptimisticAssignment({
     id: id,
-    table: "qualityDocument",
+    table: "qualityDocument"
   });
   const assignee =
     optimisticAssignment !== undefined
@@ -151,10 +151,10 @@ const QualityDocumentProperties = () => {
 
       <ValidatedForm
         defaultValues={{
-          status: routeData?.document?.status ?? undefined,
+          status: routeData?.document?.status ?? undefined
         }}
         validator={z.object({
-          status: z.string().min(1, { message: "Status is required" }),
+          status: z.string().min(1, { message: "Status is required" })
         })}
         className="w-full"
       >
@@ -169,7 +169,7 @@ const QualityDocumentProperties = () => {
             )}
             options={qualityDocumentStatus.map((status) => ({
               value: status,
-              label: <QualityDocumentStatus status={status} />,
+              label: <QualityDocumentStatus status={status} />
             }))}
             value={routeData?.document?.status ?? ""}
             onChange={(value) => {
@@ -180,10 +180,10 @@ const QualityDocumentProperties = () => {
       </ValidatedForm>
       <ValidatedForm
         defaultValues={{
-          tags: routeData?.document?.tags ?? [],
+          tags: routeData?.document?.tags ?? []
         }}
         validator={z.object({
-          tags: z.array(z.string()).optional(),
+          tags: z.array(z.string()).optional()
         })}
         className="w-full"
       >

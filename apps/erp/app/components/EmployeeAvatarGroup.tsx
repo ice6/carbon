@@ -2,7 +2,7 @@ import {
   AvatarGroup,
   AvatarGroupList,
   AvatarOverflowIndicator,
-  type AvatarProps,
+  type AvatarProps
 } from "@carbon/react";
 import { usePeople } from "~/stores";
 import Avatar from "./Avatar";

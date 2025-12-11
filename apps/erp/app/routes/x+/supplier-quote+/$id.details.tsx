@@ -13,15 +13,15 @@ import { useRouteData } from "~/hooks";
 import {
   getSupplierQuote,
   supplierQuoteValidator,
-  upsertSupplierQuote,
+  upsertSupplierQuote
 } from "~/modules/purchasing";
 import type {
   SupplierInteraction,
-  SupplierQuote,
+  SupplierQuote
 } from "~/modules/purchasing/types";
 import {
   SupplierInteractionDocuments,
-  SupplierInteractionNotes,
+  SupplierInteractionNotes
 } from "~/modules/purchasing/ui/SupplierInteraction";
 import SupplierInteractionState from "~/modules/purchasing/ui/SupplierInteraction/SupplierInteractionState";
 import SupplierQuoteSummary from "~/modules/purchasing/ui/SupplierQuote/SupplierQuoteSummary";
@@ -35,7 +35,7 @@ type LoaderData = {
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
-    view: "purchasing",
+    view: "purchasing"
   });
 
   const { id } = params;
@@ -51,14 +51,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
   return json<LoaderData>({
     internalNotes: (quote.data?.internalNotes ?? {}) as JSONContent,
-    externalNotes: (quote.data?.externalNotes ?? {}) as JSONContent,
+    externalNotes: (quote.data?.externalNotes ?? {}) as JSONContent
   });
 }
 
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    update: "purchasing",
+    update: "purchasing"
   });
 
   const { id } = params;
@@ -79,7 +79,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     supplierQuoteId,
     ...data,
     customFields: setCustomFields(formData),
-    updatedBy: userId,
+    updatedBy: userId
   });
   if (update.error) {
     throw redirect(
@@ -118,7 +118,7 @@ export default function SupplierQuoteDetailsRoute() {
     status: routeData?.quote?.status ?? "Active",
     currencyCode: routeData?.quote?.currencyCode ?? undefined,
     exchangeRate: routeData?.quote?.exchangeRate ?? undefined,
-    exchangeRateUpdatedAt: routeData?.quote?.exchangeRateUpdatedAt ?? "",
+    exchangeRateUpdatedAt: routeData?.quote?.exchangeRateUpdatedAt ?? ""
   };
 
   return (

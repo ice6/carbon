@@ -7,7 +7,7 @@ import {
   DropdownMenuTrigger,
   HStack,
   IconButton,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { useUrlParams } from "@carbon/remix";
 import { getLocalTimeZone, parseDate } from "@internationalized/date";
@@ -18,7 +18,7 @@ import {
   LuBookMarked,
   LuEllipsisVertical,
   LuPencil,
-  LuTrash2,
+  LuTrash2
 } from "react-icons/lu";
 import { Hyperlink, New, Table } from "~/components";
 
@@ -39,7 +39,7 @@ type DemandProjectionsTableProps = {
 
 const defaultColumnPinning = {
   left: ["readableIdWithRevision"],
-  right: ["actions"],
+  right: ["actions"]
 };
 
 const DemandProjectionsTable = memo(
@@ -47,7 +47,7 @@ const DemandProjectionsTable = memo(
     const numberFormatter = useNumberFormatter();
     const dateFormatter = useDateFormatter({
       month: "short",
-      day: "numeric",
+      day: "numeric"
     });
     const [params] = useUrlParams();
     const permissions = usePermissions();
@@ -85,7 +85,7 @@ const DemandProjectionsTable = memo(
               if (value === undefined || value === null || value === 0)
                 return "-";
               return <span>{numberFormatter.format(value)}</span>;
-            },
+            }
           };
         }
       );
@@ -116,8 +116,8 @@ const DemandProjectionsTable = memo(
             </Hyperlink>
           ),
           meta: {
-            icon: <LuBookMarked />,
-          },
+            icon: <LuBookMarked />
+          }
         },
         ...periodColumns,
         {
@@ -160,8 +160,8 @@ const DemandProjectionsTable = memo(
                 </DropdownMenu>
               </div>
             );
-          },
-        },
+          }
+        }
       ];
     }, [periods, dateFormatter, numberFormatter, locationId, permissions]);
 

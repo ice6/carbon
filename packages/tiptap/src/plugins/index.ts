@@ -4,5 +4,5 @@ export {
   type ImageUploadOptions,
   createImageUpload,
   handleImageDrop,
-  handleImagePaste,
+  handleImagePaste
 } from "./upload-images";

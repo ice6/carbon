@@ -34,7 +34,7 @@ const Supplier = ({ allowedSuppliers, ...props }: SupplierSelectProps) => {
         .filter((s) => !allowedSuppliers || allowedSuppliers.includes(s.id))
         .map((c) => ({
           value: c.id,
-          label: c.name,
+          label: c.name
         })) ?? [],
     [suppliers, allowedSuppliers]
   );
@@ -64,7 +64,7 @@ const Supplier = ({ allowedSuppliers, ...props }: SupplierSelectProps) => {
           }}
           initialValues={{
             name: created,
-            currencyCode: company.baseCurrencyCode,
+            currencyCode: company.baseCurrencyCode
           }}
         />
       )}

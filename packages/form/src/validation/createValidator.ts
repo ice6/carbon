@@ -33,10 +33,10 @@ export function createValidator<T>(
           error: {
             fieldErrors: result.error,
             subaction: data.subaction,
-            formId: data[FORM_ID_FIELD],
+            formId: data[FORM_ID_FIELD]
           },
           submittedData: data,
-          formId: data[FORM_ID_FIELD],
+          formId: data[FORM_ID_FIELD]
         };
       }
 
@@ -44,10 +44,10 @@ export function createValidator<T>(
         data: result.data,
         error: undefined,
         submittedData: data,
-        formId: data[FORM_ID_FIELD],
+        formId: data[FORM_ID_FIELD]
       };
     },
     validateField: (data: GenericObject | FormData, field: string) =>
-      validator.validateField(preprocessFormData(data), field),
+      validator.validateField(preprocessFormData(data), field)
   };
 }

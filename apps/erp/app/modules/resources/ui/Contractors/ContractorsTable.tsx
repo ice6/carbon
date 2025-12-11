@@ -42,7 +42,7 @@ const ContractorsTable = memo(({ data, count }: ContractorsTableProps) => {
               {row.original.fullName ?? row.original.email ?? "Unknown"}
             </Hyperlink>
           </HStack>
-        ),
+        )
       },
       {
         id: "supplierId",
@@ -55,10 +55,10 @@ const ContractorsTable = memo(({ data, count }: ContractorsTableProps) => {
             type: "static",
             options: suppliers.map((supplier) => ({
               value: supplier.id,
-              label: supplier.name,
-            })),
-          },
-        },
+              label: supplier.name
+            }))
+          }
+        }
       },
 
       // {
@@ -97,8 +97,8 @@ const ContractorsTable = memo(({ data, count }: ContractorsTableProps) => {
       {
         accessorKey: "hoursPerWeek",
         header: "Hours per Week",
-        cell: (item) => item.getValue(),
-      },
+        cell: (item) => item.getValue()
+      }
     ];
 
     return [...defaultColumns, ...customColumns];

@@ -11,7 +11,7 @@ import {
   LuSquareUser,
   LuStar,
   LuTrash,
-  LuUser,
+  LuUser
 } from "react-icons/lu";
 import {
   EmployeeAvatar,
@@ -19,7 +19,7 @@ import {
   ItemThumbnail,
   New,
   SupplierAvatar,
-  Table,
+  Table
 } from "~/components";
 import { ConfirmDelete } from "~/components/Modals";
 import { usePermissions } from "~/hooks";
@@ -30,7 +30,7 @@ import { supplierQuoteStatusType } from "../../purchasing.models";
 import type { SupplierQuote } from "../../types";
 import {
   default as QuoteStatus,
-  default as SupplierQuoteStatus,
+  default as SupplierQuoteStatus
 } from "./SupplierQuoteStatus";
 
 type SupplierQuotesTableProps = {
@@ -56,7 +56,7 @@ const SupplierQuotesTable = memo(
     const columns = useMemo<ColumnDef<SupplierQuote>[]>(() => {
       const employeeOptions = people.map((employee) => ({
         value: employee.id,
-        label: employee.name,
+        label: employee.name
       }));
 
       const defaultColumns: ColumnDef<SupplierQuote>[] = [
@@ -77,8 +77,8 @@ const SupplierQuotesTable = memo(
             </HStack>
           ),
           meta: {
-            icon: <LuBookMarked />,
-          },
+            icon: <LuBookMarked />
+          }
         },
         {
           id: "supplierId",
@@ -91,11 +91,11 @@ const SupplierQuotesTable = memo(
               type: "static",
               options: suppliers?.map((supplier) => ({
                 value: supplier.id,
-                label: supplier.name,
-              })),
+                label: supplier.name
+              }))
             },
-            icon: <LuSquareUser />,
-          },
+            icon: <LuSquareUser />
+          }
         },
 
         {
@@ -109,20 +109,20 @@ const SupplierQuotesTable = memo(
               type: "static",
               options: supplierQuoteStatusType.map((status) => ({
                 value: status,
-                label: <QuoteStatus status={status} />,
-              })),
+                label: <QuoteStatus status={status} />
+              }))
             },
             pluralHeader: "Statuses",
-            icon: <LuStar />,
-          },
+            icon: <LuStar />
+          }
         },
         {
           accessorKey: "supplierReference",
           header: "Supplier Reference",
           cell: (item) => item.getValue(),
           meta: {
-            icon: <LuQrCode />,
-          },
+            icon: <LuQrCode />
+          }
         },
 
         {
@@ -134,26 +134,26 @@ const SupplierQuotesTable = memo(
           meta: {
             filter: {
               type: "static",
-              options: employeeOptions,
+              options: employeeOptions
             },
-            icon: <LuUser />,
-          },
+            icon: <LuUser />
+          }
         },
         {
           accessorKey: "quotedDate",
           header: "Quoted Date",
           cell: (item) => formatDate(item.getValue<string>()),
           meta: {
-            icon: <LuCalendar />,
-          },
+            icon: <LuCalendar />
+          }
         },
         {
           accessorKey: "expirationDate",
           header: "Expiration Date",
           cell: (item) => formatDate(item.getValue<string>()),
           meta: {
-            icon: <LuCalendar />,
-          },
+            icon: <LuCalendar />
+          }
         },
 
         {
@@ -167,19 +167,19 @@ const SupplierQuotesTable = memo(
               type: "static",
               options: people.map((employee) => ({
                 value: employee.id,
-                label: employee.name,
-              })),
+                label: employee.name
+              }))
             },
-            icon: <LuUser />,
-          },
+            icon: <LuUser />
+          }
         },
         {
           accessorKey: "createdAt",
           header: "Created At",
           cell: (item) => formatDate(item.getValue<string>()),
           meta: {
-            icon: <LuCalendar />,
-          },
+            icon: <LuCalendar />
+          }
         },
         {
           id: "updatedBy",
@@ -192,20 +192,20 @@ const SupplierQuotesTable = memo(
               type: "static",
               options: people.map((employee) => ({
                 value: employee.id,
-                label: employee.name,
-              })),
+                label: employee.name
+              }))
             },
-            icon: <LuUser />,
-          },
+            icon: <LuUser />
+          }
         },
         {
           accessorKey: "updatedAt",
           header: "Updated At",
           cell: (item) => formatDate(item.getValue<string>()),
           meta: {
-            icon: <LuCalendar />,
-          },
-        },
+            icon: <LuCalendar />
+          }
+        }
       ];
 
       return [...defaultColumns, ...customColumns];
@@ -243,13 +243,13 @@ const SupplierQuotesTable = memo(
           columns={columns}
           data={data}
           defaultColumnPinning={{
-            left: ["supplierQuoteId"],
+            left: ["supplierQuoteId"]
           }}
           defaultColumnVisibility={{
             createdAt: false,
             createdBy: false,
             updatedAt: false,
-            updatedBy: false,
+            updatedBy: false
           }}
           primaryAction={
             permissions.can("create", "purchasing") && (

@@ -8,7 +8,7 @@ import { json, redirect } from "@vercel/remix";
 import {
   getMaterialFinish,
   materialFinishValidator,
-  upsertMaterialFinish,
+  upsertMaterialFinish
 } from "~/modules/items";
 import MaterialFinishForm from "~/modules/items/ui/MaterialFinishes/MaterialFinishForm";
 import { getParams, path } from "~/utils/path";
@@ -16,7 +16,7 @@ import { getParams, path } from "~/utils/path";
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
     view: "parts",
-    role: "employee",
+    role: "employee"
   });
 
   const { id } = params;
@@ -35,14 +35,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   }
 
   return json({
-    materialFinish: materialFinish?.data ?? null,
+    materialFinish: materialFinish?.data ?? null
   });
 }
 
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client } = await requirePermissions(request, {
-    update: "parts",
+    update: "parts"
   });
 
   const { id } = params;
@@ -59,7 +59,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
   const updateMaterialFinish = await upsertMaterialFinish(client, {
     id: id,
-    ...validation.data,
+    ...validation.data
   });
 
   if (updateMaterialFinish.error) {
@@ -85,7 +85,7 @@ export default function EditMaterialFinishsRoute() {
   const initialValues = {
     id: materialFinish?.id ?? undefined,
     name: materialFinish?.name ?? "",
-    materialSubstanceId: materialFinish?.materialSubstanceId ?? "",
+    materialSubstanceId: materialFinish?.materialSubstanceId ?? ""
   };
 
   return (

@@ -40,7 +40,7 @@ export type GetInputProps = <T extends MinimalInputProps>(
 const defaultValidationBehavior: ValidationBehaviorOptions = {
   initial: "onBlur",
   whenTouched: "onChange",
-  whenSubmitted: "onChange",
+  whenSubmitted: "onChange"
 };
 
 export const createGetInputProps = ({
@@ -51,19 +51,19 @@ export const createGetInputProps = ({
   setTouched,
   hasBeenSubmitted,
   validationBehavior,
-  name,
+  name
 }: CreateGetInputPropsOptions): GetInputProps => {
   const validationBehaviors = {
     ...defaultValidationBehavior,
-    ...validationBehavior,
+    ...validationBehavior
   };
 
   return <T extends MinimalInputProps>(props = {} as any) => {
     const behavior = hasBeenSubmitted
       ? validationBehaviors.whenSubmitted
       : touched
-      ? validationBehaviors.whenTouched
-      : validationBehaviors.initial;
+        ? validationBehaviors.whenTouched
+        : validationBehaviors.initial;
 
     const inputProps: MinimalInputProps = {
       ...props,
@@ -78,7 +78,7 @@ export const createGetInputProps = ({
 
         return props?.onBlur?.(...args);
       },
-      name,
+      name
     };
 
     if (props.type === "checkbox") {

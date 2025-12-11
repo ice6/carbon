@@ -11,7 +11,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-  Textarea,
+  Textarea
 } from "@carbon/react";
 import type { ChatStatus, FileUIPart } from "ai";
 import { nanoid } from "nanoid";
@@ -32,7 +32,7 @@ import {
   useLayoutEffect,
   useMemo,
   useRef,
-  useState,
+  useState
 } from "react";
 import { LuPaperclip, LuPlus, LuSend, LuSquare, LuX } from "react-icons/lu";
 
@@ -252,7 +252,7 @@ export const PromptInput = ({
       if (accepted.length === 0) {
         onError?.({
           code: "accept",
-          message: "No files match the accepted types.",
+          message: "No files match the accepted types."
         });
         return;
       }
@@ -262,7 +262,7 @@ export const PromptInput = ({
       if (sized.length === 0 && accepted.length > 0) {
         onError?.({
           code: "max_file_size",
-          message: "All files exceed the maximum size.",
+          message: "All files exceed the maximum size."
         });
         return;
       }
@@ -276,7 +276,7 @@ export const PromptInput = ({
         if (typeof capacity === "number" && sized.length > capacity) {
           onError?.({
             code: "max_files",
-            message: "Too many files. Some were not added.",
+            message: "Too many files. Some were not added."
           });
         }
         const next: (FileUIPart & { id: string })[] = [];
@@ -286,7 +286,7 @@ export const PromptInput = ({
             type: "file",
             url: URL.createObjectURL(file),
             mediaType: file.type,
-            filename: file.name,
+            filename: file.name
           });
         }
         return prev.concat(next);
@@ -389,7 +389,7 @@ export const PromptInput = ({
     event.preventDefault();
 
     const files: FileUIPart[] = items.map(({ ...item }) => ({
-      ...item,
+      ...item
     }));
 
     onSubmit({ text: event.currentTarget.message.value, files }, event);
@@ -402,7 +402,7 @@ export const PromptInput = ({
       remove,
       clear,
       openFileDialog,
-      fileInputRef: inputRef,
+      fileInputRef: inputRef
     }),
     [items, add, remove, clear, openFileDialog]
   );
@@ -522,7 +522,7 @@ export const PromptInputButton = ({
   ...props
 }: PromptInputButtonProps) => {
   const newSize =
-    size ?? Children.count(props.children) > 1 ? "default" : "icon";
+    (size ?? Children.count(props.children) > 1) ? "default" : "icon";
 
   return (
     <Button

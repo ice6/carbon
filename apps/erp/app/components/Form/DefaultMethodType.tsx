@@ -14,8 +14,8 @@ const DefaultMethodType = ({
     replenishmentSystem === "Buy"
       ? ["Buy", "Pick"]
       : replenishmentSystem === "Make"
-      ? ["Make", "Pick"]
-      : ["Buy", "Make", "Pick"]
+        ? ["Make", "Pick"]
+        : ["Buy", "Make", "Pick"]
   ).map((t) => ({
     value: t,
     label: (
@@ -23,7 +23,7 @@ const DefaultMethodType = ({
         <MethodIcon type={t} />
         {t}
       </span>
-    ),
+    )
   }));
 
   return <SelectControlled {...props} options={options} />;

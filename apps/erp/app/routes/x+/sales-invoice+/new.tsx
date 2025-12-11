@@ -11,7 +11,7 @@ import {
   createSalesInvoiceFromSalesOrder,
   createSalesInvoiceFromShipment,
   salesInvoiceValidator,
-  upsertSalesInvoice,
+  upsertSalesInvoice
 } from "~/modules/invoicing";
 import SalesInvoiceForm from "~/modules/invoicing/ui/SalesInvoice/SalesInvoiceForm";
 import { getNextSequence } from "~/modules/settings";
@@ -22,13 +22,13 @@ import { path } from "~/utils/path";
 export const handle: Handle = {
   breadcrumb: "Sales",
   to: path.to.sales,
-  module: "sales",
+  module: "sales"
 };
 
 export async function loader({ request }: LoaderFunctionArgs) {
   // we don't use the client here -- if they have this permission, we'll upgrade to a service role if needed
   const { companyId, userId } = await requirePermissions(request, {
-    create: "invoicing",
+    create: "invoicing"
   });
 
   const url = new URL(request.url);
@@ -89,7 +89,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    create: "invoicing",
+    create: "invoicing"
   });
 
   const formData = await request.formData();
@@ -128,7 +128,7 @@ export async function action({ request }: ActionFunctionArgs) {
     invoiceId,
     companyId,
     createdBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
 
   if (createSalesInvoice.error || !createSalesInvoice.data?.[0]) {
@@ -157,7 +157,7 @@ export default function SalesInvoiceNewRoute() {
     invoiceId: undefined,
     customerId: customerId ?? "",
     locationId: defaults?.locationId ?? "",
-    dateIssued: today(getLocalTimeZone()).toString(),
+    dateIssued: today(getLocalTimeZone()).toString()
   };
 
   return (

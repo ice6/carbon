@@ -8,7 +8,7 @@ import { json, redirect } from "@vercel/remix";
 import {
   getNoQuoteReason,
   noQuoteReasonValidator,
-  upsertNoQuoteReason,
+  upsertNoQuoteReason
 } from "~/modules/sales";
 import NoQuoteReasonForm from "~/modules/sales/ui/NoQuoteReasons/NoQuoteReasonForm";
 
@@ -18,7 +18,7 @@ import { path } from "~/utils/path";
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
     view: "sales",
-    role: "employee",
+    role: "employee"
   });
 
   const { id } = params;
@@ -37,14 +37,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   }
 
   return json({
-    noQuoteReason: noQuoteReason.data,
+    noQuoteReason: noQuoteReason.data
   });
 }
 
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    update: "sales",
+    update: "sales"
   });
 
   const formData = await request.formData();
@@ -61,7 +61,7 @@ export async function action({ request }: ActionFunctionArgs) {
     id,
     ...data,
     updatedBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
 
   if (updateNoQuoteReason.error) {
@@ -87,7 +87,7 @@ export default function EditNoQuoteReasonRoute() {
   const initialValues = {
     id: noQuoteReason.id ?? undefined,
     name: noQuoteReason.name ?? "",
-    ...getCustomFields(noQuoteReason.customFields),
+    ...getCustomFields(noQuoteReason.customFields)
   };
 
   return (

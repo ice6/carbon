@@ -19,7 +19,7 @@ import { getGenericQueryFilters } from "~/utils/query";
 
 export const handle: Handle = {
   breadcrumb: "Projections",
-  to: path.to.demandProjections,
+  to: path.to.demandProjections
 };
 
 export const WEEKS_TO_PROJECT = 12 * 4;
@@ -28,7 +28,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId, userId } = await requirePermissions(request, {
     view: "production",
     role: "employee",
-    bypassRls: true,
+    bypassRls: true
   });
 
   const url = new URL(request.url);
@@ -72,7 +72,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const endDate = startDate.add({ weeks: WEEKS_TO_PROJECT });
   const periods = await getPeriods(client, {
     startDate: startDate.toString(),
-    endDate: endDate.toString(),
+    endDate: endDate.toString()
   });
 
   if (periods.error) {
@@ -92,7 +92,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
       limit,
       offset,
       sorts,
-      filters,
+      filters
     }
   );
 
@@ -110,7 +110,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
     projections: projections.data ?? [],
     count: projections.data?.length ?? 0,
     locationId,
-    periods: periods.data ?? [],
+    periods: periods.data ?? []
   });
 }
 

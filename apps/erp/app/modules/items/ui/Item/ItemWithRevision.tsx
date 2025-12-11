@@ -1,7 +1,7 @@
 import { Badge } from "@carbon/react";
 
 export function ItemWithRevision({
-  item,
+  item
 }: {
   item?: {
     readableId?: string | null;

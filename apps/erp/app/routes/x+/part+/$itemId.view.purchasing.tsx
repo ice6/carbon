@@ -15,7 +15,7 @@ import {
   getItemCostHistory,
   getItemReplenishment,
   itemPurchasingValidator,
-  upsertItemPurchasing,
+  upsertItemPurchasing
 } from "~/modules/items";
 import { ItemPurchasingForm, SupplierParts } from "~/modules/items/ui/Item";
 import { ItemCostHistoryChart } from "~/modules/items/ui/Item/ItemCostHistoryChart";
@@ -23,7 +23,7 @@ import { path } from "~/utils/path";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    view: "parts",
+    view: "parts"
   });
 
   const { itemId } = params;
@@ -31,7 +31,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
   const [partPurchasingResult, itemCostHistory] = await Promise.all([
     getItemReplenishment(client, itemId, companyId),
-    getItemCostHistory(client, itemId, companyId),
+    getItemCostHistory(client, itemId, companyId)
   ]);
 
   if (partPurchasingResult.error) {
@@ -47,14 +47,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   return defer({
     partPurchasing: partPurchasingResult.data,
     batchProperties: getBatchProperties(client, [itemId], companyId),
-    itemCostHistory: itemCostHistory.data ?? [],
+    itemCostHistory: itemCostHistory.data ?? []
   });
 }
 
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    update: "parts",
+    update: "parts"
   });
 
   const { itemId } = params;
@@ -72,7 +72,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   const updatePartPurchasing = await upsertItemPurchasing(client, {
     ...validation.data,
     itemId,
-    updatedBy: userId,
+    updatedBy: userId
   });
   if (updatePartPurchasing.error) {
     throw redirect(
@@ -112,7 +112,7 @@ export default function PartPurchasingRoute() {
     purchasingBlocked: partPurchasing?.purchasingBlocked ?? false,
     purchasingUnitOfMeasureCode:
       partPurchasing?.purchasingUnitOfMeasureCode ?? "",
-    conversionFactor: partPurchasing?.conversionFactor ?? 1,
+    conversionFactor: partPurchasing?.conversionFactor ?? 1
   };
 
   return (

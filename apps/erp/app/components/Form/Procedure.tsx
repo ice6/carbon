@@ -15,7 +15,7 @@ type ProcedureSelectProps = Omit<ComboboxProps, "options"> & {
 
 const Procedure = (props: ProcedureSelectProps) => {
   const { options, loading } = useProcedures({
-    processId: props?.processId,
+    processId: props?.processId
   });
 
   return (
@@ -71,7 +71,7 @@ export const useProcedures = (args: { processId?: string }) => {
                     status={c.status as "Active" | "Draft" | "Archived"}
                   />
                 </div>
-              ),
+              )
             }))
         : [],
     [procedureFetcher.data, processId]

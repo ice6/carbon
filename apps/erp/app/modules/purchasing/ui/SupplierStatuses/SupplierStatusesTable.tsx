@@ -34,9 +34,9 @@ const SupplierStatusesTable = memo(
             </Hyperlink>
           ),
           meta: {
-            icon: <LuStar />,
-          },
-        },
+            icon: <LuStar />
+          }
+        }
       ];
       return [...defaultColumns, ...customColumns];
     }, [params, customColumns]);

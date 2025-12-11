@@ -12,14 +12,14 @@ import {
   LuSquareUser,
   LuStar,
   LuTrash,
-  LuUser,
+  LuUser
 } from "react-icons/lu";
 import {
   CustomerAvatar,
   EmployeeAvatar,
   Hyperlink,
   New,
-  Table,
+  Table
 } from "~/components";
 import { Enumerable } from "~/components/Enumerable";
 import { ConfirmDelete } from "~/components/Modals";
@@ -62,8 +62,8 @@ const SalesRFQsTable = memo(({ data, count }: SalesRFQsTableProps) => {
           </HStack>
         ),
         meta: {
-          icon: <LuBookMarked />,
-        },
+          icon: <LuBookMarked />
+        }
       },
 
       {
@@ -77,11 +77,11 @@ const SalesRFQsTable = memo(({ data, count }: SalesRFQsTableProps) => {
             type: "static",
             options: customers?.map((customer) => ({
               value: customer.id,
-              label: customer.name,
-            })),
+              label: customer.name
+            }))
           },
-          icon: <LuSquareUser />,
-        },
+          icon: <LuSquareUser />
+        }
       },
       {
         accessorKey: "status",
@@ -95,36 +95,36 @@ const SalesRFQsTable = memo(({ data, count }: SalesRFQsTableProps) => {
             type: "static",
             options: salesRFQStatusType.map((status) => ({
               value: status,
-              label: <SalesRFQStatus status={status} />,
-            })),
+              label: <SalesRFQStatus status={status} />
+            }))
           },
           pluralHeader: "Statuses",
-          icon: <LuStar />,
-        },
+          icon: <LuStar />
+        }
       },
       {
         accessorKey: "customerReference",
         header: "Customer RFQ",
         cell: (item) => item.getValue(),
         meta: {
-          icon: <LuQrCode />,
-        },
+          icon: <LuQrCode />
+        }
       },
       {
         accessorKey: "rfqDate",
         header: "RFQ Date",
         cell: (item) => formatDate(item.getValue<string>()),
         meta: {
-          icon: <LuCalendar />,
-        },
+          icon: <LuCalendar />
+        }
       },
       {
         accessorKey: "expirationDate",
         header: "Due Date",
         cell: (item) => formatDate(item.getValue<string>()),
         meta: {
-          icon: <LuCalendar />,
-        },
+          icon: <LuCalendar />
+        }
       },
 
       {
@@ -138,11 +138,11 @@ const SalesRFQsTable = memo(({ data, count }: SalesRFQsTableProps) => {
             type: "static",
             options: people.map((employee) => ({
               value: employee.id,
-              label: employee.name,
-            })),
+              label: employee.name
+            }))
           },
-          icon: <LuUser />,
-        },
+          icon: <LuUser />
+        }
       },
       {
         id: "createdBy",
@@ -155,11 +155,11 @@ const SalesRFQsTable = memo(({ data, count }: SalesRFQsTableProps) => {
             type: "static",
             options: people.map((employee) => ({
               value: employee.id,
-              label: employee.name,
-            })),
+              label: employee.name
+            }))
           },
-          icon: <LuUser />,
-        },
+          icon: <LuUser />
+        }
       },
       {
         accessorKey: "locationName",
@@ -172,19 +172,19 @@ const SalesRFQsTable = memo(({ data, count }: SalesRFQsTableProps) => {
             transform: (data: { id: string; name: string }[] | null) =>
               data?.map(({ name }) => ({
                 value: name,
-                label: <Enumerable value={name} />,
-              })) ?? [],
+                label: <Enumerable value={name} />
+              })) ?? []
           },
-          icon: <LuMap />,
-        },
+          icon: <LuMap />
+        }
       },
       {
         accessorKey: "createdAt",
         header: "Created At",
         cell: (item) => formatDate(item.getValue<string>()),
         meta: {
-          icon: <LuCalendar />,
-        },
+          icon: <LuCalendar />
+        }
       },
       {
         id: "updatedBy",
@@ -197,20 +197,20 @@ const SalesRFQsTable = memo(({ data, count }: SalesRFQsTableProps) => {
             type: "static",
             options: people.map((employee) => ({
               value: employee.id,
-              label: employee.name,
-            })),
+              label: employee.name
+            }))
           },
-          icon: <LuUser />,
-        },
+          icon: <LuUser />
+        }
       },
       {
         accessorKey: "updatedAt",
         header: "Updated At",
         cell: (item) => formatDate(item.getValue<string>()),
         meta: {
-          icon: <LuCalendar />,
-        },
-      },
+          icon: <LuCalendar />
+        }
+      }
     ];
 
     return [...defaultColumns, ...customColumns];
@@ -246,12 +246,12 @@ const SalesRFQsTable = memo(({ data, count }: SalesRFQsTableProps) => {
         columns={columns}
         data={data}
         defaultColumnPinning={{
-          left: ["rfqId"],
+          left: ["rfqId"]
         }}
         defaultColumnVisibility={{
           createdAt: false,
           updatedAt: false,
-          updatedBy: false,
+          updatedBy: false
         }}
         primaryAction={
           permissions.can("create", "sales") && (

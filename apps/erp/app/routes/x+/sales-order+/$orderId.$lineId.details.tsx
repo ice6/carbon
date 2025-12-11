@@ -2,7 +2,7 @@ import {
   assertIsPost,
   error,
   getCarbonServiceRole,
-  notFound,
+  notFound
 } from "@carbon/auth";
 import { requirePermissions } from "@carbon/auth/auth.server";
 import { flash } from "@carbon/auth/session.server";
@@ -20,22 +20,22 @@ import { getJobsBySalesOrderLine } from "~/modules/production";
 import type {
   Opportunity,
   SalesOrder,
-  SalesOrderLineType,
+  SalesOrderLineType
 } from "~/modules/sales";
 import {
   getOpportunityLineDocuments,
   getSalesOrderLine,
   getSalesOrderLineShipments,
   salesOrderLineValidator,
-  upsertSalesOrderLine,
+  upsertSalesOrderLine
 } from "~/modules/sales";
 import {
   OpportunityLineDocuments,
-  OpportunityLineNotes,
+  OpportunityLineNotes
 } from "~/modules/sales/ui/Opportunity";
 import {
   SalesOrderLineForm,
-  SalesOrderLineJobs,
+  SalesOrderLineJobs
 } from "~/modules/sales/ui/SalesOrder";
 import { SalesOrderLineShipments } from "~/modules/sales/ui/SalesOrder/SalesOrderLineShipments";
 import { getCustomFields, setCustomFields } from "~/utils/form";
@@ -44,7 +44,7 @@ import { path } from "~/utils/path";
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { companyId } = await requirePermissions(request, {
     view: "sales",
-    bypassRls: true,
+    bypassRls: true
   });
 
   const { orderId, lineId } = params;
@@ -56,7 +56,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   const [line, jobs, shipments] = await Promise.all([
     getSalesOrderLine(serviceRole, lineId),
     getJobsBySalesOrderLine(serviceRole, lineId),
-    getSalesOrderLineShipments(serviceRole, lineId),
+    getSalesOrderLineShipments(serviceRole, lineId)
   ]);
 
   if (line.error) {
@@ -76,14 +76,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
         : Promise.resolve({ data: null }),
     files: getOpportunityLineDocuments(serviceRole, companyId, lineId, itemId),
     jobs: jobs?.data ?? [],
-    shipments: shipments?.data ?? [],
+    shipments: shipments?.data ?? []
   });
 }
 
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    create: "sales",
+    create: "sales"
   });
 
   const { orderId, lineId } = params;
@@ -117,7 +117,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     id: lineId,
     ...data,
     updatedBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
 
   if (updateSalesOrderLine.error) {
@@ -169,7 +169,7 @@ export default function EditSalesOrderLineRoute() {
     unitPrice: line?.unitPrice ?? 0,
     taxPercent: line?.taxPercent ?? 0,
     shippingCost: line?.shippingCost ?? 0,
-    ...getCustomFields(line?.customFields),
+    ...getCustomFields(line?.customFields)
   };
 
   return (
@@ -203,7 +203,7 @@ export default function EditSalesOrderLineRoute() {
                 itemReplenishment={
                   resolvedItemReplenishment.data ?? {
                     lotSize: 0,
-                    scrapPercentage: 0,
+                    scrapPercentage: 0
                   }
                 }
               />
@@ -252,7 +252,7 @@ export default function EditSalesOrderLineRoute() {
         isReadOnly={!permissions.can("update", "sales")}
         metadata={{
           salesOrderLineId: line?.id ?? undefined,
-          itemId: line?.itemId ?? undefined,
+          itemId: line?.itemId ?? undefined
         }}
         modelPath={line?.modelPath ?? null}
         title="CAD Model"

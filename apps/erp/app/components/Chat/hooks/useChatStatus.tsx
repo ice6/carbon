@@ -1,4 +1,3 @@
-
 import { useDataPart } from "@ai-sdk-tools/store";
 import type { ChatStatus, ToolUIPart, UIMessage } from "ai";
 import { useMemo } from "react";
@@ -20,7 +19,7 @@ interface ChatStatusResult {
  */
 export function useChatStatus(
   messages: UIMessage[],
-  status: ChatStatus,
+  status: ChatStatus
 ): ChatStatusResult {
   const [agentStatusData] = useDataPart<AgentStatus>("agent-status");
 
@@ -29,7 +28,7 @@ export function useChatStatus(
       return {
         agentStatus: agentStatusData,
         currentToolCall: null,
-        hasTextContent: false,
+        hasTextContent: false
       };
     }
 
@@ -38,7 +37,7 @@ export function useChatStatus(
       return {
         agentStatus: agentStatusData,
         currentToolCall: null,
-        hasTextContent: false,
+        hasTextContent: false
       };
     }
 
@@ -111,7 +110,7 @@ export function useChatStatus(
     return {
       agentStatus,
       currentToolCall,
-      hasTextContent,
+      hasTextContent
     };
   }, [messages, status, agentStatusData]);
 

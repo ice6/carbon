@@ -6,7 +6,7 @@ import {
   LuFlaskConical,
   LuHand,
   LuInfo,
-  LuSquare,
+  LuSquare
 } from "react-icons/lu";
 import { AttemptIcon } from "~/assets/icons/AttemptIcon";
 import { TaskIcon } from "~/assets/icons/TaskIcon";

@@ -5,7 +5,7 @@ import {
   Link,
   useActionData,
   useParams,
-  useSubmit,
+  useSubmit
 } from "@remix-run/react";
 import type { ActionFunctionArgs } from "@vercel/remix";
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -15,7 +15,7 @@ import {
   LuCircleCheck,
   LuFlag,
   LuRefreshCcw,
-  LuTriangleAlert,
+  LuTriangleAlert
 } from "react-icons/lu";
 import { useOptionalUser } from "~/hooks/useUser";
 import { path } from "~/utils/path";
@@ -71,7 +71,7 @@ export async function action({ request }: ActionFunctionArgs) {
     userId,
     courseId: course.id,
     topicId,
-    passed,
+    passed
   });
 
   if (error) {
@@ -84,7 +84,7 @@ export async function action({ request }: ActionFunctionArgs) {
     totalQuestions,
     userAnswers: answers,
     incorrectQuestions,
-    shuffledIndices,
+    shuffledIndices
   };
 }
 
@@ -218,7 +218,7 @@ export default function ChallengeRoute() {
           className="border rounded-lg rounded-b-none p-4"
           style={{
             backgroundColor: module?.background,
-            color: module?.foreground,
+            color: module?.foreground
           }}
         >
           <div className="flex flex-col gap-4">
@@ -228,7 +228,7 @@ export default function ChallengeRoute() {
                 style={{
                   backgroundColor: module?.background,
                   borderColor: module?.foreground,
-                  color: module?.foreground,
+                  color: module?.foreground
                 }}
               >
                 <LuFlag />

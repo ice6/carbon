@@ -23,8 +23,8 @@ export const path = {
     logout: "/logout",
     refreshSession: "/refresh-session",
     root: "/",
-    lesson: (id: string) => generatePath(`${lesson}/${id}`),
-  },
+    lesson: (id: string) => generatePath(`${lesson}/${id}`)
+  }
 } as const;
 
 export const removeSubdomain = (url?: string): string => {

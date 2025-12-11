@@ -16,7 +16,7 @@ import {
   InputLeftElement,
   Spinner,
   VStack,
-  cn,
+  cn
 } from "@carbon/react";
 import { Link, useFetchers, useNavigate, useParams } from "@remix-run/react";
 import { useEffect, useRef, useState } from "react";
@@ -27,7 +27,7 @@ import {
   LuEllipsisVertical,
   LuExternalLink,
   LuSearch,
-  LuTable,
+  LuTable
 } from "react-icons/lu";
 import { MethodIcon, MethodItemTypeIcon } from "~/components";
 import { OnshapeStatus } from "~/components/Icons";
@@ -67,7 +67,7 @@ const JobBoMExplorer = ({ method }: JobBoMExplorerProps) => {
     selectNode,
     collapseAllBelowDepth,
     scrollToNode,
-    virtualizer,
+    virtualizer
   } = useTree({
     tree: method,
     onSelectedIdChanged: () => {},
@@ -83,9 +83,9 @@ const JobBoMExplorer = ({ method }: JobBoMExplorerProps) => {
           return true;
         }
         return false;
-      },
+      }
     },
-    isEager: true,
+    isEager: true
   });
 
   const [selectedMaterialId, setSelectedMaterialId] = useBom();
@@ -434,6 +434,9 @@ function getNodePath(node: FlatTreeItem<JobMethod>) {
   return node.data.isRoot
     ? path.to.jobMethod(node.data.jobId, node.data.jobMaterialMakeMethodId)
     : node.data.methodType === "Make"
-    ? path.to.jobMakeMethod(node.data.jobId, node.data.jobMaterialMakeMethodId)
-    : path.to.jobMakeMethod(node.data.jobId, node.data.jobMakeMethodId);
+      ? path.to.jobMakeMethod(
+          node.data.jobId,
+          node.data.jobMaterialMakeMethodId
+        )
+      : path.to.jobMakeMethod(node.data.jobId, node.data.jobMakeMethodId);
 }

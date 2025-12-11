@@ -5,7 +5,7 @@ import {
   defer,
   redirect,
   useLoaderData,
-  useParams,
+  useParams
 } from "@remix-run/react";
 
 import { error } from "@carbon/auth";
@@ -18,19 +18,19 @@ import { usePermissions } from "~/hooks";
 import {
   getQuoteMakeMethod,
   getQuoteMaterialsByMethodId,
-  getQuoteOperationsByMethodId,
+  getQuoteOperationsByMethodId
 } from "~/modules/sales";
 import {
   QuoteBillOfMaterial,
   QuoteBillOfProcess,
-  QuoteMakeMethodTools,
+  QuoteMakeMethodTools
 } from "~/modules/sales/ui/Quotes";
 import { getModelByItemId, getTagsList } from "~/modules/shared";
 import { path } from "~/utils/path";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    view: "sales",
+    view: "sales"
   });
 
   const { quoteId, lineId, methodId } = params;
@@ -42,7 +42,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     getQuoteMakeMethod(client, methodId),
     getQuoteMaterialsByMethodId(client, methodId),
     getQuoteOperationsByMethodId(client, methodId),
-    getTagsList(client, companyId, "operation"),
+    getTagsList(client, companyId, "operation")
   ]);
 
   if (makeMethod.error) {
@@ -82,7 +82,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
         description: m.description ?? "",
         itemType: m.itemType as "Part",
         unitOfMeasureCode: m.unitOfMeasureCode ?? "",
-        quoteOperationId: m.quoteOperationId ?? undefined,
+        quoteOperationId: m.quoteOperationId ?? undefined
       })) ?? [],
     operations:
       operations.data?.map((o) => ({
@@ -95,10 +95,10 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
         operationSupplierProcessId: o.operationSupplierProcessId ?? undefined,
         quoteMakeMethodId: o.quoteMakeMethodId ?? methodId,
         workInstruction: o.workInstruction as JSONContent | null,
-        tags: o.tags ?? [],
+        tags: o.tags ?? []
       })) ?? [],
     tags: tags.data ?? [],
-    model: getModelByItemId(client, makeMethod.data.itemId!),
+    model: getModelByItemId(client, makeMethod.data.itemId!)
   });
 }
 
@@ -135,7 +135,7 @@ export default function QuoteMakeMethodRoute() {
               key={`cad:${model.itemId}`}
               isReadOnly={!permissions.can("update", "sales")}
               metadata={{
-                itemId: model?.itemId ?? undefined,
+                itemId: model?.itemId ?? undefined
               }}
               modelPath={model?.modelPath ?? null}
               title="CAD Model"

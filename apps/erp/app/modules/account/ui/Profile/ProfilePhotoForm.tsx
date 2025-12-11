@@ -29,7 +29,7 @@ const ProfilePhotoForm = ({ user }: ProfilePhotoFormProps) => {
           `${SUPABASE_URL}/functions/v1/image-resizer`,
           {
             method: "POST",
-            body: formData,
+            body: formData
           }
         );
 
@@ -44,7 +44,7 @@ const ProfilePhotoForm = ({ user }: ProfilePhotoFormProps) => {
 
         const blob = await response.blob();
         const resizedFile = new File([blob], `${user.id}.${outputExtension}`, {
-          type: contentType,
+          type: contentType
         });
 
         avatarFile = resizedFile;
@@ -58,7 +58,7 @@ const ProfilePhotoForm = ({ user }: ProfilePhotoFormProps) => {
         .from("avatars")
         .upload(`${user.id}.${fileExtension}`, avatarFile, {
           cacheControl: "0",
-          upsert: true,
+          upsert: true
         });
 
       if (imageUpload.error) {
@@ -93,7 +93,7 @@ const ProfilePhotoForm = ({ user }: ProfilePhotoFormProps) => {
     submit(formData, {
       method: "post",
       action: path.to.profile,
-      replace: true,
+      replace: true
     });
   };
 

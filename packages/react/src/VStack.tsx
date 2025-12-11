@@ -12,12 +12,12 @@ const vStackVariants = cva("flex flex-col w-full items-start", {
       2: "space-y-2",
       3: "space-y-3",
       4: "space-y-4",
-      8: "space-y-8",
-    },
+      8: "space-y-8"
+    }
   },
   defaultVariants: {
-    spacing: 2,
-  },
+    spacing: 2
+  }
 });
 
 export interface VStackProps
@@ -31,7 +31,7 @@ const VStack = forwardRef<HTMLDivElement, VStackProps>(
         className={cn(
           vStackVariants({
             spacing,
-            className,
+            className
           })
         )}
         ref={ref}

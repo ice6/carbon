@@ -14,7 +14,7 @@ import {
   TabsTrigger,
   generateHTML,
   toast,
-  useDebounce,
+  useDebounce
 } from "@carbon/react";
 import { Editor } from "@carbon/react/Editor";
 import { getLocalTimeZone, today } from "@internationalized/date";
@@ -26,7 +26,7 @@ import { getPrivateUrl } from "~/utils/path";
 const ShipmentNotes = ({
   id,
   internalNotes: initialInternalNotes,
-  externalNotes: initialExternalNotes,
+  externalNotes: initialExternalNotes
 }: {
   id: string | null;
   internalNotes?: JSONContent;
@@ -34,7 +34,7 @@ const ShipmentNotes = ({
 }) => {
   const {
     id: userId,
-    company: { id: companyId },
+    company: { id: companyId }
   } = useUser();
   const { carbon } = useCarbon();
   const permissions = usePermissions();
@@ -71,7 +71,7 @@ const ShipmentNotes = ({
         .update({
           externalNotes: content,
           updatedAt: today(getLocalTimeZone()).toString(),
-          updatedBy: userId,
+          updatedBy: userId
         })
         .eq("id", id!);
     },
@@ -86,7 +86,7 @@ const ShipmentNotes = ({
         .update({
           internalNotes: content,
           updatedAt: today(getLocalTimeZone()).toString(),
-          updatedBy: userId,
+          updatedBy: userId
         })
         .eq("id", id!);
     },
@@ -129,7 +129,7 @@ const ShipmentNotes = ({
                 <div
                   className="prose dark:prose-invert"
                   dangerouslySetInnerHTML={{
-                    __html: generateHTML(internalNotes as JSONContent),
+                    __html: generateHTML(internalNotes as JSONContent)
                   }}
                 />
               )}
@@ -148,7 +148,7 @@ const ShipmentNotes = ({
                 <div
                   className="prose dark:prose-invert"
                   dangerouslySetInnerHTML={{
-                    __html: generateHTML(externalNotes as JSONContent),
+                    __html: generateHTML(externalNotes as JSONContent)
                   }}
                 />
               )}

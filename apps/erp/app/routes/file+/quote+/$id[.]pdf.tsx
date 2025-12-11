@@ -12,7 +12,7 @@ import {
   getQuoteLines,
   getQuotePayment,
   getQuoteShipment,
-  getSalesTerms,
+  getSalesTerms
 } from "~/modules/sales";
 import { getCompany } from "~/modules/settings";
 import { getBase64ImageFromSupabase } from "~/modules/shared";
@@ -20,7 +20,7 @@ import { getLocale } from "~/utils/request";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    view: "sales",
+    view: "sales"
   });
 
   const { id } = params;
@@ -38,7 +38,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     quoteShipment,
     paymentTerms,
     terms,
-    shippingMethods,
+    shippingMethods
   ] = await Promise.all([
     getCompany(client, companyId),
     getQuote(client, id),
@@ -49,7 +49,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     getQuoteShipment(client, id),
     getPaymentTermsList(client, companyId),
     getSalesTerms(client, companyId),
-    getShippingMethodsList(client, companyId),
+    getShippingMethodsList(client, companyId)
   ]);
 
   if (company.error) {
@@ -95,7 +95,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
             }
             return getBase64ImageFromSupabase(client, path).then((data) => ({
               id,
-              data,
+              data
             }));
           })
         )
@@ -150,7 +150,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
   const headers = new Headers({
     "Content-Type": "application/pdf",
-    "Content-Disposition": `inline; filename="${quote.data.quoteId}.pdf"`,
+    "Content-Disposition": `inline; filename="${quote.data.quoteId}.pdf"`
   });
   return new Response(body, { status: 200, headers });
 }

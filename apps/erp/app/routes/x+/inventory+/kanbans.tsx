@@ -17,13 +17,13 @@ import { getGenericQueryFilters } from "~/utils/query";
 export const handle: Handle = {
   breadcrumb: "Kanbans",
   to: path.to.kanbans,
-  module: "inventory",
+  module: "inventory"
 };
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId, userId } = await requirePermissions(request, {
     view: "inventory",
-    bypassRls: true,
+    bypassRls: true
   });
 
   const url = new URL(request.url);
@@ -70,9 +70,9 @@ export async function loader({ request }: LoaderFunctionArgs) {
       limit,
       offset,
       sorts,
-      filters,
+      filters
     }),
-    getKanbanOutputSetting(client, companyId),
+    getKanbanOutputSetting(client, companyId)
   ]);
 
   if (kanbans.error) {
@@ -86,7 +86,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
     count: kanbans.count ?? 0,
     kanbans: kanbans.data ?? [],
     kanbanOutput: kanbanOutput.data?.kanbanOutput ?? "qrcode",
-    locationId,
+    locationId
   });
 }
 

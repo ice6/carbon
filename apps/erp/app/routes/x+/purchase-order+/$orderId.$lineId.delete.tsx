@@ -5,13 +5,13 @@ import type { ActionFunctionArgs, LoaderFunctionArgs } from "@vercel/remix";
 import { json, redirect } from "@vercel/remix";
 import {
   deletePurchaseOrderLine,
-  getPurchaseOrderLine,
+  getPurchaseOrderLine
 } from "~/modules/purchasing";
 import { path } from "~/utils/path";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
-    delete: "purchasing",
+    delete: "purchasing"
   });
   const { lineId, orderId } = params;
   if (!lineId) throw notFound("lineId not found");
@@ -33,7 +33,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
 export async function action({ request, params }: ActionFunctionArgs) {
   const { client } = await requirePermissions(request, {
-    delete: "purchasing",
+    delete: "purchasing"
   });
 
   const { lineId, orderId } = params;

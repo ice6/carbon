@@ -8,7 +8,7 @@ import { useUrlParams } from "~/hooks";
 import {
   ContractorForm,
   contractorValidator,
-  upsertContractor,
+  upsertContractor
 } from "~/modules/resources";
 import { setCustomFields } from "~/utils/form";
 import { path } from "~/utils/path";
@@ -16,7 +16,7 @@ import { path } from "~/utils/path";
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    create: "resources",
+    create: "resources"
   });
 
   const formData = await request.formData();
@@ -34,7 +34,7 @@ export async function action({ request }: ActionFunctionArgs) {
     abilities: abilities ?? [],
     customFields: setCustomFields(formData),
     companyId,
-    createdBy: userId,
+    createdBy: userId
   });
 
   if (createContractor.error) {
@@ -59,7 +59,7 @@ export default function NewContractorRoute() {
     id: params.get("id") ?? "",
     supplierId: params.get("supplierId") ?? "",
     hoursPerWeek: 0,
-    abilities: [] as string[],
+    abilities: [] as string[]
   };
 
   return <ContractorForm initialValues={initialValues} />;

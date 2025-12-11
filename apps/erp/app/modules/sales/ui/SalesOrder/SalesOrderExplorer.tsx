@@ -19,7 +19,7 @@ import {
   useDisclosure,
   useKeyboardShortcuts,
   useMount,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { getItemReadableId, prettifyKeyboardShortcut } from "@carbon/utils";
 import { Await, Link, useNavigate, useParams } from "@remix-run/react";
@@ -31,14 +31,14 @@ import {
   LuEllipsisVertical,
   LuSearch,
   LuTrash,
-  LuTruck,
+  LuTruck
 } from "react-icons/lu";
 import {
   Empty,
   Hyperlink,
   ItemThumbnail,
   MethodIcon,
-  MethodItemTypeIcon,
+  MethodItemTypeIcon
 } from "~/components";
 import { LevelLine } from "~/components/TreeView";
 import {
@@ -46,7 +46,7 @@ import {
   usePermissions,
   useRealtime,
   useRouteData,
-  useUser,
+  useUser
 } from "~/hooks";
 import { getLinkToItemDetails } from "~/modules/items/ui/Item/ItemForm";
 import type { MethodItemType } from "~/modules/shared";
@@ -57,7 +57,7 @@ import type {
   Customer,
   SalesOrder,
   SalesOrderLine,
-  SalesOrderRelatedItems,
+  SalesOrderRelatedItems
 } from "../../types";
 import DeleteSalesOrderLine from "./DeleteSalesOrderLine";
 import SalesOrderLineForm from "./SalesOrderLineForm";
@@ -90,8 +90,8 @@ function getRelatedItems(
         .map((job) => ({
           id: job.id ?? "",
           documentReadableId: job.jobId ?? "",
-          documentId: job.id ?? "",
-        })),
+          documentId: job.id ?? ""
+        }))
     },
     {
       key: "shipments",
@@ -106,9 +106,9 @@ function getRelatedItems(
         .map((shipment) => ({
           id: shipment.id ?? "",
           documentReadableId: shipment.shipmentId ?? "",
-          documentId: shipment.id ?? "",
-        })),
-    },
+          documentId: shipment.id ?? ""
+        }))
+    }
   ];
 }
 
@@ -136,7 +136,7 @@ export default function SalesOrderExplorer() {
       salesOrderData?.salesOrder?.receiptPromisedDate ??
       salesOrderData?.salesOrder?.receiptRequestedDate ??
       "",
-    shippingCost: 0,
+    shippingCost: 0
   };
 
   const newSalesOrderLineDisclosure = useDisclosure();
@@ -164,7 +164,7 @@ export default function SalesOrderExplorer() {
     "Command+Shift+l": (event: KeyboardEvent) => {
       event.stopPropagation();
       newButtonRef.current?.click();
-    },
+    }
   });
 
   return (
@@ -244,7 +244,7 @@ type SalesOrderLineItemProps = {
 function SalesOrderLineItem({
   line,
   isDisabled,
-  onDelete,
+  onDelete
 }: SalesOrderLineItemProps) {
   const { orderId, lineId } = useParams();
   if (!orderId) throw new Error("Could not find orderId");
@@ -376,7 +376,7 @@ function SalesOrderLineItem({
 
 function RelatedItems({
   lineId,
-  isSearchExpanded,
+  isSearchExpanded
 }: {
   lineId: string;
   isSearchExpanded: boolean;
@@ -422,7 +422,7 @@ type SalesOrderLineRelatedItemsProps = {
 // Component to display related items tree for a sales order line
 function SalesOrderLineRelatedItems({
   relatedItems,
-  isSearchExpanded,
+  isSearchExpanded
 }: SalesOrderLineRelatedItemsProps) {
   const [filterText, setFilterText] = useState("");
 
@@ -458,7 +458,7 @@ function SalesOrderLineRelatedItems({
 // Component to display a node in the related items tree
 function RelatedItemTreeNode({
   node,
-  filterText,
+  filterText
 }: {
   node: RelatedItemNode;
   filterText: string;
@@ -515,7 +515,7 @@ function RelatedItemTreeNode({
 // Component to display a link to a related item
 function RelatedItemLink({
   item,
-  nodeType,
+  nodeType
 }: {
   item: RelatedItem;
   nodeType: "jobs" | "shipments";

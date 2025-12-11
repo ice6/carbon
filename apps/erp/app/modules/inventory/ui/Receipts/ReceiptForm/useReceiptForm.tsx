@@ -1,7 +1,7 @@
 import { useCarbon } from "@carbon/auth";
 import { useParams } from "@remix-run/react";
 import { useCallback, useEffect, useState } from "react";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import { useUser } from "~/hooks";
 import type { receiptStatusType } from "~/modules/inventory";
 import type { receiptValidator } from "~/modules/inventory/inventory.models";
@@ -10,7 +10,7 @@ import type { ListItem } from "~/types";
 
 export default function useReceiptForm({
   status,
-  initialValues,
+  initialValues
 }: {
   initialValues: z.infer<typeof receiptValidator>;
   status: (typeof receiptStatusType)[number];
@@ -34,8 +34,8 @@ export default function useReceiptForm({
       ? [
           {
             id: initialValues.sourceDocumentId!,
-            name: initialValues.sourceDocumentReadableId!,
-          },
+            name: initialValues.sourceDocumentReadableId!
+          }
         ]
       : [];
   });
@@ -60,7 +60,7 @@ export default function useReceiptForm({
               setSourceDocuments(
                 response.data.map((d) => ({
                   name: d.purchaseOrderId,
-                  id: d.id,
+                  id: d.id
                 }))
               );
             }
@@ -82,7 +82,7 @@ export default function useReceiptForm({
               setSourceDocuments(
                 response.data.map((d) => ({
                   name: d.transferId,
-                  id: d.id,
+                  id: d.id
                 }))
               );
             }
@@ -108,6 +108,6 @@ export default function useReceiptForm({
     sourceDocuments,
     setLocationId,
     setSourceDocument,
-    setSupplierId,
+    setSupplierId
   };
 }

@@ -13,7 +13,7 @@ import {
   ModalHeader,
   ModalTitle,
   useMount,
-  VStack,
+  VStack
 } from "@carbon/react";
 import type { FetcherWithComponents } from "@remix-run/react";
 import { useParams } from "@remix-run/react";
@@ -25,13 +25,13 @@ import { path } from "~/utils/path";
 import { quoteFinalizeValidator } from "../../sales.models";
 import {
   getQuoteLinePricesByQuoteId,
-  getQuoteLines,
+  getQuoteLines
 } from "../../sales.service";
 import type {
   Quotation,
   QuotationLine,
   QuotationPrice,
-  QuotationShipment,
+  QuotationShipment
 } from "../../types";
 
 type QuotationFinalizeModalProps = {
@@ -48,7 +48,7 @@ const QuotationFinalizeModal = ({
   onClose,
   fetcher,
   shipment,
-  pricing,
+  pricing
 }: QuotationFinalizeModalProps) => {
   const { quoteId } = useParams();
   if (!quoteId) throw new Error("quoteId not found");
@@ -66,7 +66,7 @@ const QuotationFinalizeModal = ({
 
     const [lines, prices] = await Promise.all([
       getQuoteLines(carbon, quoteId),
-      getQuoteLinePricesByQuoteId(carbon, quoteId),
+      getQuoteLinePricesByQuoteId(carbon, quoteId)
     ]);
     setLines(lines.data ?? []);
     setPrices(prices.data ?? []);
@@ -106,8 +106,8 @@ const QuotationFinalizeModal = ({
   const warningLineReadableIds = [
     ...new Set([
       ...linesMissingQuoteLinePrices,
-      ...linesWithZeroPriceOrLeadTime,
-    ]),
+      ...linesWithZeroPriceOrLeadTime
+    ])
   ];
 
   const hasShippingCost = shipment?.shippingCost && shipment.shippingCost > 0;
@@ -136,7 +136,7 @@ const QuotationFinalizeModal = ({
           onSubmit={onClose}
           defaultValues={{
             notification: notificationType as "Email" | "None",
-            customerContact: quote?.customerContactId ?? undefined,
+            customerContact: quote?.customerContactId ?? undefined
           }}
           fetcher={fetcher}
         >
@@ -180,12 +180,12 @@ const QuotationFinalizeModal = ({
                   options={[
                     {
                       label: "None",
-                      value: "None",
+                      value: "None"
                     },
                     {
                       label: "Email",
-                      value: "Email",
-                    },
+                      value: "Email"
+                    }
                   ]}
                   value={notificationType}
                   onChange={(t) => {

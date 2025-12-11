@@ -8,14 +8,14 @@ import { json, redirect } from "@vercel/remix";
 import {
   getSupplierShipping,
   supplierShippingValidator,
-  updateSupplierShipping,
+  updateSupplierShipping
 } from "~/modules/purchasing";
 import SupplierShippingForm from "~/modules/purchasing/ui/Supplier/SupplierShippingForm";
 import { getCustomFields, setCustomFields } from "~/utils/form";
 import { path } from "~/utils/path";
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
-    view: "purchasing",
+    view: "purchasing"
   });
 
   const { supplierId } = params;
@@ -34,14 +34,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   }
 
   return json({
-    supplierShipping: supplierShipping.data,
+    supplierShipping: supplierShipping.data
   });
 }
 
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    update: "purchasing",
+    update: "purchasing"
   });
 
   const { supplierId } = params;
@@ -60,7 +60,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     ...validation.data,
     supplierId,
     updatedBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
   if (update.error) {
     throw redirect(
@@ -89,7 +89,7 @@ export default function SupplierShippingRoute() {
       supplierShipping?.shippingSupplierLocationId ?? "",
     shippingMethodId: supplierShipping?.shippingMethodId ?? "",
     shippingTermId: supplierShipping?.shippingTermId ?? "",
-    ...getCustomFields(supplierShipping?.customFields),
+    ...getCustomFields(supplierShipping?.customFields)
   };
 
   return (

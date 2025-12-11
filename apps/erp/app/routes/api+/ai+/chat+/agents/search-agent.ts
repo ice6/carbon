@@ -9,7 +9,7 @@ export const config: AgentConfig = {
   name: "general",
   displayName: "General Agent",
   description: "Handles general questions and web searches",
-  executingMessage: "Searching the web...",
+  executingMessage: "Searching the web..."
 };
 
 export const searchAgent = createAgent({
@@ -32,8 +32,8 @@ ${COMMON_AGENT_RULES}
 - Route to specialists for business-specific data
 </capabilities>`,
   tools: {
-    webSearch: webSearchTool,
+    webSearch: webSearchTool
   },
   handoffs: [purchasingAgent],
-  maxTurns: 5,
+  maxTurns: 5
 });

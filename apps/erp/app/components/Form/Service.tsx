@@ -15,7 +15,7 @@ const Service = ({ serviceType, ...props }: ServiceSelectProps) => {
       services.map((service) => ({
         value: service.id,
         label: service.id,
-        helper: service.name,
+        helper: service.name
       })) ?? [],
     [services]
   );

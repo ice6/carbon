@@ -11,7 +11,7 @@ export async function generateQRCode(
     scale: 2,
     height: size,
     width: size,
-    ...(color && { barcolor: color }),
+    ...(color && { barcolor: color })
   });
   return `data:image/png;base64,${buffer.toString("base64")}`;
 }
@@ -27,7 +27,7 @@ export async function generateQRCodeBuffer(
     scale: 2,
     height: size,
     width: size,
-    ...(color && { barcolor: color }),
+    ...(color && { barcolor: color })
   });
   return buffer;
 }

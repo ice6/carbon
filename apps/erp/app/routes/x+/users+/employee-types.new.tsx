@@ -12,14 +12,14 @@ import {
   employeeTypeValidator,
   getModules,
   insertEmployeeType,
-  upsertEmployeeTypePermissions,
+  upsertEmployeeTypePermissions
 } from "~/modules/users";
 import { makeEmptyPermissionsFromModules } from "~/modules/users/users.server";
 import { path } from "~/utils/path";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
-    create: "users",
+    create: "users"
   });
 
   const modules = await getModules(client);
@@ -31,14 +31,14 @@ export async function loader({ request }: LoaderFunctionArgs) {
   }
 
   return json({
-    permissions: makeEmptyPermissionsFromModules(modules.data),
+    permissions: makeEmptyPermissionsFromModules(modules.data)
   });
 }
 
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId } = await requirePermissions(request, {
-    create: "users",
+    create: "users"
   });
 
   const validation = await validator(employeeTypeValidator).validate(
@@ -69,7 +69,7 @@ export async function action({ request }: ActionFunctionArgs) {
 
   const createEmployeeType = await insertEmployeeType(client, {
     name,
-    companyId,
+    companyId
   });
   if (createEmployeeType.error) {
     return json(
@@ -123,7 +123,7 @@ export default function NewEmployeeTypesRoute() {
   const initialValues = {
     name: "",
     data: "",
-    permissions,
+    permissions
   };
 
   return <EmployeeTypeForm initialValues={initialValues} />;

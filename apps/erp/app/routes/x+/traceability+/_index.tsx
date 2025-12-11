@@ -1,8 +1,8 @@
 import { useCarbon } from "@carbon/auth";
 import { Button, cn, toast, useMount } from "@carbon/react";
 import { useNavigate } from "@remix-run/react";
-import type { ComponentProps} from "react";
-import { useState , forwardRef } from "react";
+import type { ComponentProps } from "react";
+import { useState, forwardRef } from "react";
 import { LuBarcode, LuQrCode } from "react-icons/lu";
 import type { Handle } from "~/utils/handle";
 import { path } from "~/utils/path";
@@ -10,7 +10,7 @@ import { path } from "~/utils/path";
 export const handle: Handle = {
   breadcrumb: "Traceability",
   to: path.to.traceability,
-  module: "inventory",
+  module: "inventory"
 };
 
 const RECENT_SEARCHES_KEY = "traceability-searches";
@@ -47,7 +47,7 @@ export default function TraceabilityRoute() {
     // Save to localStorage
     const updatedSearches = [
       value,
-      ...recentSearches.filter((search) => search !== value),
+      ...recentSearches.filter((search) => search !== value)
     ].slice(0, 3);
 
     navigate(

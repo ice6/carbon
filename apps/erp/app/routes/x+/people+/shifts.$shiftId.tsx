@@ -12,7 +12,7 @@ import { path } from "~/utils/path";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
-    view: "people",
+    view: "people"
   });
 
   const { shiftId } = params;
@@ -28,14 +28,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   }
 
   return json({
-    shift: shift.data,
+    shift: shift.data
   });
 }
 
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    create: "people",
+    create: "people"
   });
 
   const formData = await request.formData();
@@ -52,7 +52,7 @@ export async function action({ request }: ActionFunctionArgs) {
     id,
     ...data,
     updatedBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
 
   if (createShift.error) {
@@ -84,7 +84,7 @@ export default function ShiftRoute() {
     friday: shift.friday ?? false,
     saturday: shift.saturday ?? false,
     sunday: shift.sunday ?? false,
-    ...getCustomFields(shift.customFields),
+    ...getCustomFields(shift.customFields)
   };
 
   return <ShiftForm key={initialValues.id} initialValues={initialValues} />;

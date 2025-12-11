@@ -10,7 +10,7 @@ import { path } from "~/utils/path";
 export async function action({ request }: ActionFunctionArgs) {
   const { client, companyId, userId } = await requirePermissions(request, {
     update: "resources",
-    role: "employee",
+    role: "employee"
   });
 
   const formData = await request.formData();
@@ -23,7 +23,7 @@ export async function action({ request }: ActionFunctionArgs) {
       { error: "Missing required fields" },
       {
         status: 400,
-        headers: await flash(request, error(null, "Missing required fields")),
+        headers: await flash(request, error(null, "Missing required fields"))
       }
     );
   }
@@ -34,7 +34,7 @@ export async function action({ request }: ActionFunctionArgs) {
     period: period?.toString() || null,
     companyId,
     completedBy: userId,
-    createdBy: userId,
+    createdBy: userId
   });
 
   if (result.error) {
@@ -45,7 +45,7 @@ export async function action({ request }: ActionFunctionArgs) {
         headers: await flash(
           request,
           error(result.error, "Failed to mark training complete")
-        ),
+        )
       }
     );
   }
@@ -53,7 +53,7 @@ export async function action({ request }: ActionFunctionArgs) {
   return json(
     { success: true },
     {
-      headers: await flash(request, success("Training marked as complete")),
+      headers: await flash(request, success("Training marked as complete"))
     }
   );
 }

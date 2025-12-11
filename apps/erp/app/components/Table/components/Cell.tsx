@@ -34,7 +34,7 @@ const Cell = <T extends object>({
   getPinnedStyles,
   onClick,
   onUpdate,
-  table,
+  table
 }: CellProps<T>) => {
   const { ref, tabIndex, onFocus } = useMovingCellRef(isSelected);
   const [hasError, setHasError] = useState(false);
@@ -72,7 +72,7 @@ const Cell = <T extends object>({
         ...getPinnedStyles(cell.column),
         width: cell.column.getSize(),
         margin: 0,
-        borderSpacing: 0,
+        borderSpacing: 0
       }}
       data-row={cell.row.index}
       data-column={columnIndex}
@@ -92,7 +92,7 @@ const Cell = <T extends object>({
                   : () => console.error("No update function provided"),
                 onError: () => {
                   setHasError(true);
-                },
+                }
               })
             : null}
         </div>

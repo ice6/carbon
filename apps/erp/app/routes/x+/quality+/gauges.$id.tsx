@@ -2,7 +2,7 @@ import {
   assertIsPost,
   error,
   getCarbonServiceRole,
-  success,
+  success
 } from "@carbon/auth";
 import { requirePermissions } from "@carbon/auth/auth.server";
 import { flash } from "@carbon/auth/session.server";
@@ -17,7 +17,7 @@ import {
   gaugeValidator,
   getGauge,
   getGaugeCalibrationRecordsByGaugeId,
-  upsertGauge,
+  upsertGauge
 } from "~/modules/quality";
 import GaugeForm from "~/modules/quality/ui/Gauge/GaugeForm";
 import { getCustomFields, setCustomFields } from "~/utils/form";
@@ -25,12 +25,12 @@ import type { Handle } from "~/utils/handle";
 import { getParams, path } from "~/utils/path";
 export const handle: Handle = {
   breadcrumb: "Gauges",
-  to: path.to.gauges,
+  to: path.to.gauges
 };
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { companyId } = await requirePermissions(request, {
-    view: "quality",
+    view: "quality"
   });
 
   const serviceRole = await getCarbonServiceRole();
@@ -53,14 +53,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
   return defer({
     gauge: gauge.data,
-    records: getGaugeCalibrationRecordsByGaugeId(serviceRole, id),
+    records: getGaugeCalibrationRecordsByGaugeId(serviceRole, id)
   });
 }
 
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    update: "quality",
+    update: "quality"
   });
 
   const { id } = params;
@@ -80,8 +80,8 @@ export async function action({ request, params }: ActionFunctionArgs) {
     ? parseDate(data.nextCalibrationDate) < today(getLocalTimeZone())
       ? "Out-of-Calibration"
       : data.lastCalibrationDate
-      ? "In-Calibration"
-      : "Pending"
+        ? "In-Calibration"
+        : "Pending"
     : "Pending";
 
   const update = await upsertGauge(client, {
@@ -90,7 +90,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     gaugeCalibrationStatus,
     ...data,
     customFields: setCustomFields(formData),
-    updatedBy: userId,
+    updatedBy: userId
   });
   if (update.error) {
     throw redirect(
@@ -132,7 +132,7 @@ export default function GaugeRoute() {
     locationId: gauge.locationId ?? "",
     shelfId: gauge.shelfId ?? "",
     calibrationIntervalInMonths: gauge.calibrationIntervalInMonths ?? 6,
-    ...getCustomFields(gauge.customFields),
+    ...getCustomFields(gauge.customFields)
   };
 
   const navigate = useNavigate();

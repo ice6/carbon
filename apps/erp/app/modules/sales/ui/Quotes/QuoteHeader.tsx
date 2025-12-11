@@ -23,7 +23,7 @@ import {
   TooltipContent,
   TooltipTrigger,
   toast,
-  useDisclosure,
+  useDisclosure
 } from "@carbon/react";
 
 import { Link, useFetcher, useParams } from "@remix-run/react";
@@ -44,7 +44,7 @@ import {
   LuPanelRight,
   LuShare,
   LuTrash,
-  LuTrophy,
+  LuTrophy
 } from "react-icons/lu";
 import { usePanels } from "~/components/Layout";
 import ConfirmDelete from "~/components/Modals/ConfirmDelete";
@@ -57,7 +57,7 @@ import type {
   Quotation,
   QuotationLine,
   QuotationPrice,
-  QuotationShipment,
+  QuotationShipment
 } from "../../types";
 import QuoteFinalizeModal from "./QuoteFinalizeModal";
 import QuoteStatus from "./QuoteStatus";
@@ -403,7 +403,7 @@ export default QuoteHeader;
 function CreateRevisionModal({
   quote,
   asRevision,
-  onClose,
+  onClose
 }: {
   quote?: Quotation;
   asRevision: boolean;
@@ -498,7 +498,7 @@ function CreateRevisionModal({
 function ShareQuoteModal({
   id,
   externalLinkId,
-  onClose,
+  onClose
 }: {
   id?: string;
   externalLinkId?: string;

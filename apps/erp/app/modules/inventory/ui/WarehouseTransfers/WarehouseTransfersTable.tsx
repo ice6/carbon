@@ -11,7 +11,7 @@ import {
   LuMapPin,
   LuPencil,
   LuTrash,
-  LuUser,
+  LuUser
 } from "react-icons/lu";
 import { EmployeeAvatar, Hyperlink, New, Table } from "~/components";
 import { ConfirmDelete } from "~/components/Modals";
@@ -55,8 +55,8 @@ const WarehouseTransfersTable = memo(
             </Hyperlink>
           ),
           meta: {
-            icon: <LuBookMarked />,
-          },
+            icon: <LuBookMarked />
+          }
         },
         {
           accessorKey: "status",
@@ -71,36 +71,36 @@ const WarehouseTransfersTable = memo(
               type: "static",
               options: warehouseTransferStatusType.map((type) => ({
                 value: type,
-                label: <WarehouseTransferStatus status={type} />,
-              })),
+                label: <WarehouseTransferStatus status={type} />
+              }))
             },
             pluralHeader: "Statuses",
-            icon: <LuClock />,
-          },
+            icon: <LuClock />
+          }
         },
         {
           id: "fromLocation",
           header: "From Location",
           cell: ({ row }) => row.original.fromLocation?.name || "N/A",
           meta: {
-            icon: <LuMapPin />,
-          },
+            icon: <LuMapPin />
+          }
         },
         {
           id: "toLocation",
           header: "To Location",
           cell: ({ row }) => row.original.toLocation?.name || "N/A",
           meta: {
-            icon: <LuMapPin />,
-          },
+            icon: <LuMapPin />
+          }
         },
         {
           accessorKey: "reference",
           header: "Reference",
           cell: (item) => item.getValue(),
           meta: {
-            icon: <LuHash />,
-          },
+            icon: <LuHash />
+          }
         },
         {
           accessorKey: "transferDate",
@@ -110,8 +110,8 @@ const WarehouseTransfersTable = memo(
             return date ? formatDate(date) : "N/A";
           },
           meta: {
-            icon: <LuCalendar />,
-          },
+            icon: <LuCalendar />
+          }
         },
         {
           accessorKey: "expectedReceiptDate",
@@ -121,8 +121,8 @@ const WarehouseTransfersTable = memo(
             return date ? formatDate(date) : "N/A";
           },
           meta: {
-            icon: <LuCalendar />,
-          },
+            icon: <LuCalendar />
+          }
         },
         {
           id: "createdBy",
@@ -135,19 +135,19 @@ const WarehouseTransfersTable = memo(
               type: "static",
               options: people.map((employee) => ({
                 value: employee.id,
-                label: employee.name,
-              })),
+                label: employee.name
+              }))
             },
-            icon: <LuUser />,
-          },
+            icon: <LuUser />
+          }
         },
         {
           accessorKey: "createdAt",
           header: "Created At",
           cell: (item) => formatDate(item.getValue<string>()),
           meta: {
-            icon: <LuCalendar />,
-          },
+            icon: <LuCalendar />
+          }
         },
         {
           id: "updatedBy",
@@ -160,20 +160,20 @@ const WarehouseTransfersTable = memo(
               type: "static",
               options: people.map((employee) => ({
                 value: employee.id,
-                label: employee.name,
-              })),
+                label: employee.name
+              }))
             },
-            icon: <LuUser />,
-          },
+            icon: <LuUser />
+          }
         },
         {
           accessorKey: "updatedAt",
           header: "Updated At",
           cell: (item) => formatDate(item.getValue<string>()),
           meta: {
-            icon: <LuCalendar />,
-          },
-        },
+            icon: <LuCalendar />
+          }
+        }
       ];
 
       return [...result, ...customColumns];
@@ -227,13 +227,13 @@ const WarehouseTransfersTable = memo(
           columns={columns}
           count={count}
           defaultColumnPinning={{
-            left: ["transferId"],
+            left: ["transferId"]
           }}
           defaultColumnVisibility={{
             createdAt: false,
             createdBy: false,
             updatedAt: false,
-            updatedBy: false,
+            updatedBy: false
           }}
           primaryAction={
             permissions.can("create", "inventory") && (

@@ -13,7 +13,7 @@ import { supplierTypesQuery, getCompanyId } from "~/utils/react-query";
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
     view: "purchasing",
-    role: "employee",
+    role: "employee"
   });
   const { supplierTypeId } = params;
   if (!supplierTypeId) throw notFound("supplierTypeId not found");
@@ -34,7 +34,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
 export async function action({ request, params }: ActionFunctionArgs) {
   const { client } = await requirePermissions(request, {
-    delete: "purchasing",
+    delete: "purchasing"
   });
 
   const { supplierTypeId } = params;

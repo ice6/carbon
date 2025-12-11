@@ -12,7 +12,7 @@ import {
   ModalContent,
   ModalTitle,
   toast,
-  useDisclosure,
+  useDisclosure
 } from "@carbon/react";
 import { useMode } from "@carbon/remix";
 import type { OnMount } from "@monaco-editor/react";
@@ -25,7 +25,7 @@ import {
   LuPlay,
   LuSave,
   LuSquareFunction,
-  LuTrash2,
+  LuTrash2
 } from "react-icons/lu";
 import type { action } from "~/routes/x+/part+/$itemId.rule";
 import { path } from "~/utils/path";
@@ -37,7 +37,7 @@ import {
   convertTypescriptToJavaScript,
   generateDefaultCode,
   generateTypeDefinitions,
-  getDefaultValue,
+  getDefaultValue
 } from "../utils";
 import ParameterPanel from "./ParameterPanel.ee";
 
@@ -52,7 +52,7 @@ export default function Configurator({
   configuration,
   open,
   parameters: defaultParameters,
-  onClose,
+  onClose
 }: ConfiguratorProps) {
   const { code: defaultCode, defaultValue, label, returnType } = configuration;
   const isActive = !!defaultCode;
@@ -69,7 +69,7 @@ export default function Configurator({
       config:
         param.dataType === "list"
           ? { options: param.listOptions ?? [] }
-          : undefined,
+          : undefined
     }))
   );
 
@@ -84,7 +84,7 @@ export default function Configurator({
         config:
           param.dataType === "list"
             ? { options: param.listOptions ?? [] }
-            : undefined,
+            : undefined
       }))
     );
   }, [defaultParameters]);
@@ -115,7 +115,7 @@ export default function Configurator({
           });
         editor.updateOptions({
           readOnly: selectionInLockedRange,
-          readOnlyMessage: { value: "Cannot edit locked lines." },
+          readOnlyMessage: { value: "Cannot edit locked lines." }
         });
       });
     }
@@ -146,7 +146,7 @@ export default function Configurator({
 
       editor.updateOptions({
         readOnly: selectionInLockedRange,
-        readOnlyMessage: { value: "Cannot edit locked lines." },
+        readOnlyMessage: { value: "Cannot edit locked lines." }
       });
     });
   };
@@ -199,7 +199,7 @@ export default function Configurator({
     formData.append("field", configuration.field);
     fetcher.submit(formData, {
       method: "post",
-      action: path.to.configurationRule(itemId),
+      action: path.to.configurationRule(itemId)
     });
   };
 
@@ -240,19 +240,22 @@ export default function Configurator({
 
     try {
       // Create parameters object from the panel
-      const parametersObj = parameters.reduce((acc, v) => {
-        if (v.type === "material") {
-          acc[v.name] = v.value;
-        } else {
-          acc[v.name] =
-            v.type === "numeric"
-              ? Number(v.value)
-              : v.type === "boolean"
-              ? v.value === "true"
-              : v.value;
-        }
-        return acc;
-      }, {} as Record<string, any>);
+      const parametersObj = parameters.reduce(
+        (acc, v) => {
+          if (v.type === "material") {
+            acc[v.name] = v.value;
+          } else {
+            acc[v.name] =
+              v.type === "numeric"
+                ? Number(v.value)
+                : v.type === "boolean"
+                  ? v.value === "true"
+                  : v.value;
+          }
+          return acc;
+        },
+        {} as Record<string, any>
+      );
 
       // Execute the code
       const fn = new Function(
@@ -375,12 +378,12 @@ export default function Configurator({
                     suggest: {
                       showProperties: true,
                       showValues: true,
-                      preview: true,
+                      preview: true
                     },
                     quickSuggestions: true,
                     snippetSuggestions: "inline",
                     formatOnType: true,
-                    formatOnPaste: true,
+                    formatOnPaste: true
                   }}
                 />
               </div>
@@ -441,7 +444,7 @@ function isUnsafeCode(code: string) {
     /setTimeout|setInterval/, // timeouts
     /\bimport\b/, // dynamic imports
     /new Promise/, // promise construction
-    /Function\(/, // Function constructor
+    /Function\(/ // Function constructor
   ];
 
   return disallowedPatterns.some((pattern) => pattern.test(code));

@@ -7,7 +7,7 @@ import {
   ModalContent,
   ModalFooter,
   ModalHeader,
-  ModalTitle,
+  ModalTitle
 } from "@carbon/react";
 import { useBlocker, useNavigation } from "@remix-run/react";
 import { forwardRef } from "react";
@@ -22,7 +22,7 @@ type SubmitProps = ButtonProps & {
 export function DefaultDisabledSubmit({
   children,
   formId,
-  isDisabled,
+  isDisabled
 }: {
   children: React.ReactNode;
   formId: string;

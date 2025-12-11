@@ -9,11 +9,11 @@ import {
   CardTitle,
   VStack,
   cn,
-  toast,
+  toast
 } from "@carbon/react";
 import { useState } from "react";
 import { flushSync } from "react-dom";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import {
   Currency,
   CustomFormFields,
@@ -25,7 +25,7 @@ import {
   Submit,
   Supplier,
   SupplierContact,
-  SupplierLocation,
+  SupplierLocation
 } from "~/components/Form";
 import PaymentTerm from "~/components/Form/PaymentTerm";
 import { usePermissions } from "~/hooks";
@@ -53,13 +53,13 @@ const PurchaseInvoiceForm = ({ initialValues }: PurchaseInvoiceFormProps) => {
     invoiceSupplierContactId: initialValues.invoiceSupplierContactId,
     invoiceSupplierLocationId: initialValues.invoiceSupplierLocationId,
     currencyCode: initialValues.currencyCode,
-    paymentTermId: initialValues.paymentTermId,
+    paymentTermId: initialValues.paymentTermId
   });
 
   const [supplier, setSupplier] = useState<{
     id: string | undefined;
   }>({
-    id: initialValues.supplierId,
+    id: initialValues.supplierId
   });
 
   const onSupplierChange = async (
@@ -93,7 +93,7 @@ const PurchaseInvoiceForm = ({ initialValues }: PurchaseInvoiceFormProps) => {
           currencyCode: undefined,
           paymentTermId: undefined,
           invoiceSupplierContactId: undefined,
-          invoiceSupplierLocationId: undefined,
+          invoiceSupplierLocationId: undefined
         });
       });
 
@@ -107,7 +107,7 @@ const PurchaseInvoiceForm = ({ initialValues }: PurchaseInvoiceFormProps) => {
           ?.from("supplierPayment")
           .select("*")
           .eq("supplierId", newValue.value)
-          .single(),
+          .single()
       ]);
 
       if (supplierData.error || paymentTermData.error) {
@@ -121,7 +121,7 @@ const PurchaseInvoiceForm = ({ initialValues }: PurchaseInvoiceFormProps) => {
           invoiceSupplierLocationId:
             paymentTermData.data.invoiceSupplierLocationId ?? undefined,
           currencyCode: supplierData.data.currencyCode ?? undefined,
-          paymentTermId: paymentTermData.data.paymentTermId ?? undefined,
+          paymentTermId: paymentTermData.data.paymentTermId ?? undefined
         }));
       }
     } else {
@@ -130,7 +130,7 @@ const PurchaseInvoiceForm = ({ initialValues }: PurchaseInvoiceFormProps) => {
         currencyCode: undefined,
         paymentTermId: undefined,
         invoiceSupplierContactId: undefined,
-        invoiceSupplierLocationId: undefined,
+        invoiceSupplierLocationId: undefined
       });
     }
   };
@@ -194,7 +194,7 @@ const PurchaseInvoiceForm = ({ initialValues }: PurchaseInvoiceFormProps) => {
                   if (newValue?.id) {
                     setInvoiceSupplier((prevSupplier) => ({
                       ...prevSupplier,
-                      invoiceSupplierLocationId: newValue.id,
+                      invoiceSupplierLocationId: newValue.id
                     }));
                   }
                 }}
@@ -208,7 +208,7 @@ const PurchaseInvoiceForm = ({ initialValues }: PurchaseInvoiceFormProps) => {
                   if (newValue?.id) {
                     setInvoiceSupplier((prevSupplier) => ({
                       ...prevSupplier,
-                      invoiceSupplierContactId: newValue.id,
+                      invoiceSupplierContactId: newValue.id
                     }));
                   }
                 }}
@@ -225,7 +225,7 @@ const PurchaseInvoiceForm = ({ initialValues }: PurchaseInvoiceFormProps) => {
                   if (newValue?.value) {
                     setInvoiceSupplier((prevSupplier) => ({
                       ...prevSupplier,
-                      paymentTermId: newValue.value,
+                      paymentTermId: newValue.value
                     }));
                   }
                 }}
@@ -238,7 +238,7 @@ const PurchaseInvoiceForm = ({ initialValues }: PurchaseInvoiceFormProps) => {
                   if (newValue?.value) {
                     setInvoiceSupplier((prevSupplier) => ({
                       ...prevSupplier,
-                      currencyCode: newValue.value,
+                      currencyCode: newValue.value
                     }));
                   }
                 }}

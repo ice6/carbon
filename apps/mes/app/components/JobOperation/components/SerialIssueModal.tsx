@@ -20,7 +20,7 @@ import {
   TabsContent,
   TabsList,
   TabsTrigger,
-  toast,
+  toast
 } from "@carbon/react";
 import { useFetcher } from "@remix-run/react";
 import { useCallback, useEffect, useMemo, useState } from "react";
@@ -35,7 +35,7 @@ import {
   LuList,
   LuQrCode,
   LuUndo2,
-  LuX,
+  LuX
 } from "react-icons/lu";
 import type { getSerialNumbersForItem } from "~/services/inventory.service";
 import { useItems } from "~/stores";
@@ -46,7 +46,7 @@ export function SerialIssueModal({
   parentId,
   parentIdIsSerialized,
   trackedInputs,
-  onClose,
+  onClose
 }: {
   parentId: string;
   parentIdIsSerialized: boolean;
@@ -73,16 +73,16 @@ export function SerialIssueModal({
             helper: attributes["Serial Number"]
               ? `Serial ${attributes["Serial Number"]}`
               : attributes["Batch Number"]
-              ? `Batch ${attributes["Batch Number"]}`
-              : undefined,
+                ? `Batch ${attributes["Batch Number"]}`
+                : undefined
           };
         }) ?? []
     );
   }, [serialNumbers]);
 
   const initialQuantity = parentIdIsSerialized
-    ? material?.quantity ?? 1
-    : material?.estimatedQuantity ?? 1;
+    ? (material?.quantity ?? 1)
+    : (material?.estimatedQuantity ?? 1);
 
   const [selectedSerialNumbers, setSelectedSerialNumbers] = useState<
     Array<{
@@ -191,14 +191,14 @@ export function SerialIssueModal({
         parentTrackedEntityId: parentId,
         children: selectedSerialNumbers.map((sn) => ({
           trackedEntityId: sn.id,
-          quantity: 1,
-        })),
+          quantity: 1
+        }))
       };
 
       fetcher.submit(JSON.stringify(payload), {
         method: "post",
         action: path.to.issueTrackedEntity,
-        encType: "application/json",
+        encType: "application/json"
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -208,7 +208,7 @@ export function SerialIssueModal({
     operationId,
     parentId,
     onClose,
-    material?.id,
+    material?.id
   ]);
 
   const handleUnconsume = useCallback(() => {
@@ -222,14 +222,14 @@ export function SerialIssueModal({
       parentTrackedEntityId: parentId,
       children: selectedTrackedInputs.map((id) => ({
         trackedEntityId: id,
-        quantity: 1,
-      })),
+        quantity: 1
+      }))
     };
 
     unconsumeFetcher.submit(JSON.stringify(payload), {
       method: "post",
       action: path.to.unconsume,
-      encType: "application/json",
+      encType: "application/json"
     });
   }, [selectedTrackedInputs, material?.id, parentId, unconsumeFetcher]);
 
@@ -315,11 +315,11 @@ export function SerialIssueModal({
                             onChange={(e) => {
                               const newValue = e.target.value;
                               const newSerialNumbers = [
-                                ...selectedSerialNumbers,
+                                ...selectedSerialNumbers
                               ];
                               newSerialNumbers[index] = {
                                 index,
-                                id: newValue,
+                                id: newValue
                               };
                               setSelectedSerialNumbers(newSerialNumbers);
                             }}
@@ -343,16 +343,16 @@ export function SerialIssueModal({
                               if (!error) {
                                 updateSerialNumber({
                                   index,
-                                  id: newValue,
+                                  id: newValue
                                 });
                               } else {
                                 // Clear the input value but keep the error message
                                 const newSerialNumbers = [
-                                  ...selectedSerialNumbers,
+                                  ...selectedSerialNumbers
                                 ];
                                 newSerialNumbers[index] = {
                                   index,
-                                  id: "",
+                                  id: ""
                                 };
                                 setSelectedSerialNumbers(newSerialNumbers);
                               }
@@ -415,7 +415,7 @@ export function SerialIssueModal({
                             const newSerialNumbers = [...selectedSerialNumbers];
                             newSerialNumbers[index] = {
                               index,
-                              id: value,
+                              id: value
                             };
                             setSelectedSerialNumbers(newSerialNumbers);
 

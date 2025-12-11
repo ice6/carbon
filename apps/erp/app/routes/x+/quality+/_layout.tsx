@@ -14,7 +14,7 @@ export const meta: MetaFunction = () => {
 export const handle: Handle = {
   breadcrumb: "Quality",
   to: path.to.quality,
-  module: "quality",
+  module: "quality"
 };
 
 export default function QualityRoute() {

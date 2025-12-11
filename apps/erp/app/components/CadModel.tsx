@@ -6,7 +6,7 @@ import {
   cn,
   ModelViewer,
   Spinner,
-  toast,
+  toast
 } from "@carbon/react";
 import { useMode } from "@carbon/remix";
 import { convertKbToString, supportedModelTypes } from "@carbon/utils";
@@ -41,10 +41,10 @@ const CadModel = ({
   modelPath,
   title,
   uploadClassName,
-  viewerClassName,
+  viewerClassName
 }: CadModelProps) => {
   const {
-    company: { id: companyId },
+    company: { id: companyId }
   } = useUser();
   const mode = useMode();
   const { carbon } = useCarbon();
@@ -70,7 +70,7 @@ const CadModel = ({
       const modelUpload = await carbon.storage
         .from("private")
         .upload(fileName, file, {
-          upsert: true,
+          upsert: true
         });
 
       if (modelUpload.error) {
@@ -102,7 +102,7 @@ const CadModel = ({
 
       fetcher.submit(formData, {
         method: "post",
-        action: path.to.api.modelUpload,
+        action: path.to.api.modelUpload
       });
     }
   };
@@ -152,7 +152,7 @@ const CadModelUpload = ({
   file,
   isReadOnly,
   className,
-  onFileChange,
+  onFileChange
 }: CadModelUploadProps) => {
   const hasFile = !!file;
 
@@ -189,7 +189,7 @@ const CadModelUpload = ({
         message = errors[0].message;
       }
       toast.error(message);
-    },
+    }
   });
 
   if (isReadOnly) {

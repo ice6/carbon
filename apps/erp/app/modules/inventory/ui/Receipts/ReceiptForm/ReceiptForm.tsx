@@ -15,28 +15,28 @@ import {
   HStack,
   IconButton,
   useDisclosure,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { LuEllipsisVertical, LuTrash } from "react-icons/lu";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import {
   Combobox,
   CustomFormFields,
   Hidden,
   Input,
   Location,
-  Select,
+  Select
 } from "~/components/Form";
 import { ConfirmDelete } from "~/components/Modals";
 import { usePermissions } from "~/hooks";
 import type {
   ReceiptLine,
   ReceiptSourceDocument,
-  receiptStatusType,
+  receiptStatusType
 } from "~/modules/inventory";
 import {
   receiptSourceDocumentType,
-  receiptValidator,
+  receiptValidator
 } from "~/modules/inventory";
 import { path } from "~/utils/path";
 import useReceiptForm from "./useReceiptForm";
@@ -56,7 +56,7 @@ const ReceiptForm = ({ initialValues, status }: ReceiptFormProps) => {
     sourceDocuments,
     supplierId,
     setLocationId,
-    setSourceDocument,
+    setSourceDocument
   } = useReceiptForm({ status, initialValues });
 
   const isPosted = status === "Posted";
@@ -130,7 +130,7 @@ const ReceiptForm = ({ initialValues, status }: ReceiptFormProps) => {
                   label="Source Document"
                   options={receiptSourceDocumentType.map((v) => ({
                     label: v,
-                    value: v,
+                    value: v
                   }))}
                   onChange={(newValue) => {
                     if (newValue) {
@@ -146,7 +146,7 @@ const ReceiptForm = ({ initialValues, status }: ReceiptFormProps) => {
                   label="Source Document ID"
                   options={sourceDocuments.map((d) => ({
                     label: d.name,
-                    value: d.id,
+                    value: d.id
                   }))}
                   isReadOnly={isPosted}
                 />

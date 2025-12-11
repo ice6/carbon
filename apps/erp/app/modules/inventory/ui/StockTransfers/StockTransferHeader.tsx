@@ -9,7 +9,7 @@ import {
   HStack,
   Heading,
   IconButton,
-  useDisclosure,
+  useDisclosure
 } from "@carbon/react";
 import { useFetcher, useParams } from "@remix-run/react";
 import {
@@ -18,7 +18,7 @@ import {
   LuCirclePlay,
   LuEllipsisVertical,
   LuLoaderCircle,
-  LuTrash,
+  LuTrash
 } from "react-icons/lu";
 import ConfirmDelete from "~/components/Modals/ConfirmDelete";
 import { usePermissions, useRouteData } from "~/hooks";
@@ -59,7 +59,7 @@ const StockTransferHeader = () => {
 
   const optimisticAssignment = useOptimisticAssignment({
     id,
-    table: "stockTransfer",
+    table: "stockTransfer"
   });
   const assignee =
     optimisticAssignment !== undefined

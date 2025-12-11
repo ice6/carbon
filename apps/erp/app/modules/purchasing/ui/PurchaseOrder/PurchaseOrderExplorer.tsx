@@ -15,7 +15,7 @@ import {
   useDisclosure,
   useKeyboardShortcuts,
   useMount,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { getItemReadableId, prettifyKeyboardShortcut } from "@carbon/utils";
 import { Link, useParams } from "@remix-run/react";
@@ -26,7 +26,7 @@ import {
   useOptimisticLocation,
   usePermissions,
   useRouteData,
-  useUser,
+  useUser
 } from "~/hooks";
 import { getLinkToItemDetails } from "~/modules/items/ui/Item/ItemForm";
 import type { MethodItemType } from "~/modules/shared";
@@ -57,7 +57,7 @@ export default function PurchaseOrderExplorer() {
       purchaseOrderData?.purchaseOrder?.locationId ?? defaults.locationId ?? "",
     supplierTaxAmount: 0,
     supplierShippingCost: 0,
-    exchangeRate: purchaseOrderData?.purchaseOrder?.exchangeRate ?? 1,
+    exchangeRate: purchaseOrderData?.purchaseOrder?.exchangeRate ?? 1
   };
 
   const newPurchaseOrderLineDisclosure = useDisclosure();
@@ -80,7 +80,7 @@ export default function PurchaseOrderExplorer() {
     "Command+Shift+l": (event: KeyboardEvent) => {
       event.stopPropagation();
       newButtonRef.current?.click();
-    },
+    }
   });
 
   return (
@@ -160,7 +160,7 @@ type PurchaseOrderLineItemProps = {
 function PurchaseOrderLineItem({
   line,
   isDisabled,
-  onDelete,
+  onDelete
 }: PurchaseOrderLineItemProps) {
   const [items] = useItems();
   const { orderId, lineId } = useParams();

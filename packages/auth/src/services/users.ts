@@ -43,9 +43,9 @@ export async function getCompanies(
         : null,
       logoDark: company.logoDark
         ? `${SUPABASE_URL}/storage/v1/object/public/public/${company.logoDark}`
-        : null,
+        : null
     })),
-    error: null,
+    error: null
   };
 }
 
@@ -97,7 +97,7 @@ export function makePermissionsFromClaims(claims: Json[] | null) {
           view: [],
           create: [],
           update: [],
-          delete: [],
+          delete: []
         };
       }
 

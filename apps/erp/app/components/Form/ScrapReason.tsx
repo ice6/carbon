@@ -6,7 +6,7 @@ import { useMemo } from "react";
 import { useRouteData } from "~/hooks";
 import type {
   getScrapReasonsList,
-  ScrapReason as ScrapReasonType,
+  ScrapReason as ScrapReasonType
 } from "~/modules/production";
 import { path } from "~/utils/path";
 type ScrapReasonSelectProps = Omit<ComboboxProps, "options">;
@@ -49,12 +49,12 @@ export const useScrapReasons = () => {
 
     return dataSource.map((c) => ({
       value: c.id,
-      label: c.name,
+      label: c.name
     }));
   }, [
     scrapReasonFetcher.data?.data,
     hasScrapReasonData,
-    sharedProductionData?.scrapReasons,
+    sharedProductionData?.scrapReasons
   ]);
 
   return options;

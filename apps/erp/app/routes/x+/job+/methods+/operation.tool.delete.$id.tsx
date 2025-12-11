@@ -7,7 +7,7 @@ import { deleteJobOperationTool } from "~/modules/production";
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client } = await requirePermissions(request, {
-    delete: "production",
+    delete: "production"
   });
 
   const { id } = params;
@@ -19,7 +19,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   if (deleteOperationTool.error) {
     return json(
       {
-        id: null,
+        id: null
       },
       await flash(
         request,

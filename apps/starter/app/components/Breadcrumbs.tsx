@@ -12,7 +12,7 @@ import {
   DropdownMenuTrigger,
   getValidChildren,
   HStack,
-  useIsMobile,
+  useIsMobile
 } from "@carbon/react";
 import type { LinkProps } from "@remix-run/react";
 import { Form, Link, useMatches } from "@remix-run/react";
@@ -21,7 +21,7 @@ import { cloneElement, forwardRef } from "react";
 
 import type { Company } from "@carbon/auth";
 import { LuChevronsUpDown } from "react-icons/lu";
-import { z } from 'zod/v3';
+import { z } from "zod/v3";
 
 import { useMode } from "@carbon/remix";
 import { useRouteData } from "~/hooks";
@@ -38,7 +38,7 @@ const BreadcrumbsBase = forwardRef<
   const clones = validChildren.map((child, index) =>
     cloneElement(child, {
       isFirstChild: index === 0,
-      isLastChild: index === count - 1,
+      isLastChild: index === count - 1
     })
   );
   return (
@@ -103,12 +103,12 @@ BreadcrumbLink.displayName = "BreadcrumbLink";
 
 export const BreadcrumbHandle = z.object({
   breadcrumb: z.any(),
-  to: z.string().optional(),
+  to: z.string().optional()
 });
 export type BreadcrumbHandleType = z.infer<typeof BreadcrumbHandle>;
 
 const BreadcrumbHandleMatch = z.object({
-  handle: BreadcrumbHandle,
+  handle: BreadcrumbHandle
 });
 
 const Breadcrumbs = () => {
@@ -121,7 +121,7 @@ const Breadcrumbs = () => {
 
       return {
         breadcrumb: result.data.handle.breadcrumb,
-        to: result.data.handle?.to ?? m.pathname,
+        to: result.data.handle?.to ?? m.pathname
       };
     })
     .filter(Boolean);

@@ -11,12 +11,12 @@ import { getGenericQueryFilters } from "~/utils/query";
 
 export const handle: Handle = {
   breadcrumb: "Webhooks",
-  to: path.to.webhooks,
+  to: path.to.webhooks
 };
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    view: "settings",
+    view: "settings"
   });
 
   const url = new URL(request.url);
@@ -31,9 +31,9 @@ export async function loader({ request }: LoaderFunctionArgs) {
       offset,
       sorts,
       search,
-      filters,
+      filters
     }),
-    getConfig(client),
+    getConfig(client)
   ]);
 
   if (webhooks.error) {
@@ -59,7 +59,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   return json({
     webhooks: webhooks.data ?? [],
     count: webhooks.count ?? 0,
-    config: config.data,
+    config: config.data
   });
 }
 

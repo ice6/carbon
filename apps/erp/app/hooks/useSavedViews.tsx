@@ -32,8 +32,8 @@ export function useSavedViews(): {
         ...view,
         to: `${route.to}?view=${view.id}${
           view.filters?.length ? `&filter=${view.filters.join("&filter=")}` : ""
-        }${view.sorts?.length ? `&sort=${view.sorts.join("&sort=")}` : ""}`,
-      })),
+        }${view.sorts?.length ? `&sort=${view.sorts.join("&sort=")}` : ""}`
+      }))
   });
 
   return {
@@ -41,7 +41,7 @@ export function useSavedViews(): {
     hasView: currentView !== null,
     savedViews,
     view,
-    addSavedViewsToRoutes,
+    addSavedViewsToRoutes
   };
 }
 

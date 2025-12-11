@@ -23,13 +23,13 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-  VStack,
+  VStack
 } from "@carbon/react";
 import {
   Link,
   useActionData,
   useLoaderData,
-  useSubmit,
+  useSubmit
 } from "@remix-run/react";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@vercel/remix";
 import { json } from "@vercel/remix";
@@ -44,11 +44,11 @@ import {
   LuClock,
   LuFlag,
   LuHouse,
-  LuRefreshCcw,
+  LuRefreshCcw
 } from "react-icons/lu";
 import {
   getTrainingAssignmentForCompletion,
-  insertTrainingCompletion,
+  insertTrainingCompletion
 } from "~/modules/resources";
 import type { TrainingQuestion } from "~/modules/resources/types";
 
@@ -70,7 +70,7 @@ type UserAnswer = {
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   const { client, userId, companyId } = await requirePermissions(request, {
-    role: "employee",
+    role: "employee"
   });
 
   const { id } = params;
@@ -91,7 +91,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 
   if (training.status !== "Active") {
     throw new Response("This training is not currently active", {
-      status: 400,
+      status: 400
     });
   }
 
@@ -107,17 +107,17 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
       content: training.content,
       frequency: training.frequency,
       type: training.type,
-      estimatedDuration: training.estimatedDuration,
+      estimatedDuration: training.estimatedDuration
     },
     questions: sortedQuestions,
     userId,
-    companyId,
+    companyId
   });
 }
 
 export async function action({ request, params }: ActionFunctionArgs) {
   const { client, userId, companyId } = await requirePermissions(request, {
-    role: "employee",
+    role: "employee"
   });
 
   const { id } = params;
@@ -153,7 +153,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
       gradedAnswers[question.id] = {
         type: question.type,
         value: "",
-        correct: false,
+        correct: false
       };
       continue;
     }
@@ -185,7 +185,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
         const correctPairs = (
           typeof question.matchingPairs === "string"
             ? JSON.parse(question.matchingPairs)
-            : question.matchingPairs ?? []
+            : (question.matchingPairs ?? [])
         ) as { left: string; right: string }[];
         isCorrect = correctPairs.every(
           (pair) => userPairs[pair.left] === pair.right
@@ -208,7 +208,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
     gradedAnswers[question.id] = {
       ...userAnswer,
-      correct: isCorrect,
+      correct: isCorrect
     };
   }
 
@@ -222,7 +222,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
       period: null,
       companyId,
       completedBy: userId,
-      createdBy: userId,
+      createdBy: userId
     });
   }
 
@@ -231,7 +231,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     score,
     totalQuestions,
     userAnswers: gradedAnswers,
-    correctAnswers,
+    correctAnswers
   });
 }
 
@@ -304,7 +304,7 @@ export default function TrainingWizard() {
   ) => {
     setAnswers((prev) => ({
       ...prev,
-      [questionId]: { type, value, correct: false },
+      [questionId]: { type, value, correct: false }
     }));
   };
 
@@ -323,7 +323,7 @@ export default function TrainingWizard() {
         const matchPairs =
           typeof currentQuestion.matchingPairs === "string"
             ? JSON.parse(currentQuestion.matchingPairs)
-            : currentQuestion.matchingPairs ?? [];
+            : (currentQuestion.matchingPairs ?? []);
         const matchUserPairs = answer.value as Record<string, string>;
         return matchPairs.every(
           (pair: { left: string }) =>
@@ -453,7 +453,7 @@ export default function TrainingWizard() {
 }
 
 function ContentStep({
-  training,
+  training
 }: {
   training: {
     name: string;
@@ -492,7 +492,7 @@ function ContentStep({
         <div
           className="prose dark:prose-invert max-w-none w-full"
           dangerouslySetInnerHTML={{
-            __html: htmlContent,
+            __html: htmlContent
           }}
         />
       ) : (
@@ -509,7 +509,7 @@ function QuestionStep({
   questionIndex,
   totalQuestions,
   answer,
-  onAnswerChange,
+  onAnswerChange
 }: {
   question: TrainingQuestion;
   questionIndex: number;
@@ -592,7 +592,7 @@ function QuestionStep({
         const pairs =
           typeof question.matchingPairs === "string"
             ? JSON.parse(question.matchingPairs)
-            : question.matchingPairs ?? [];
+            : (question.matchingPairs ?? []);
         const userPairs = (answer?.value as Record<string, string>) ?? {};
         const rightOptions = pairs.map((pair: { right: string }) => pair.right);
 
@@ -613,7 +613,7 @@ function QuestionStep({
                     onValueChange={(value) => {
                       const newPairs = {
                         ...userPairs,
-                        [pair.left]: value,
+                        [pair.left]: value
                       };
                       onAnswerChange(question.id, question.type, newPairs);
                     }}
@@ -683,7 +683,7 @@ function ResultsView({
   training,
   questions,
   onRetry,
-  audioRef,
+  audioRef
 }: {
   actionData: ActionData;
   training: { name: string };
@@ -922,7 +922,7 @@ function formatCorrectAnswer(question: TrainingQuestion): string {
       const displayPairs =
         typeof question.matchingPairs === "string"
           ? JSON.parse(question.matchingPairs)
-          : question.matchingPairs ?? [];
+          : (question.matchingPairs ?? []);
       return displayPairs
         .map(
           (pair: { left: string; right: string }) =>

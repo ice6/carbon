@@ -8,7 +8,7 @@ import { json, redirect } from "@vercel/remix";
 import {
   customerPartValidator,
   getItem,
-  upsertItemCustomerPart,
+  upsertItemCustomerPart
 } from "~/modules/items";
 import CustomerPartForm from "~/modules/items/ui/Item/CustomerPartForm";
 import { path } from "~/utils/path";
@@ -16,7 +16,7 @@ import { path } from "~/utils/path";
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
     view: "parts",
-    role: "employee",
+    role: "employee"
   });
 
   const { itemId } = params;
@@ -26,14 +26,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   const readableId = itemData?.data?.readableIdWithRevision;
 
   return json({
-    readableId,
+    readableId
   });
 }
 
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId } = await requirePermissions(request, {
-    create: "parts",
+    create: "parts"
   });
 
   const { itemId } = params;
@@ -50,7 +50,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
   const createCustomerPart = await upsertItemCustomerPart(client, {
     ...data,
-    companyId,
+    companyId
   });
 
   if (createCustomerPart.error) {
@@ -80,7 +80,7 @@ export default function NewCustomerPartRoute() {
     customerId: "",
     customerPartId: "",
     customerPartRevision: "",
-    readableId: readableId ?? "",
+    readableId: readableId ?? ""
   };
 
   return <CustomerPartForm initialValues={initialValues} />;

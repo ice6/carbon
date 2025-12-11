@@ -1,6 +1,6 @@
 import type {
   AgentDataParts,
-  AgentUIMessage as BaseAgentUIMessage,
+  AgentUIMessage as BaseAgentUIMessage
 } from "@ai-sdk-tools/agents";
 import type { UIMessage } from "ai";
 

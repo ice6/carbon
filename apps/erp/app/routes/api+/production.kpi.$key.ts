@@ -2,7 +2,7 @@ import { requirePermissions } from "@carbon/auth/auth.server";
 import {
   now,
   parseDateTime,
-  toCalendarDateTime,
+  toCalendarDateTime
 } from "@internationalized/date";
 import { json, type LoaderFunctionArgs } from "@vercel/remix";
 import { KPIs } from "~/modules/production/production.models";
@@ -16,7 +16,7 @@ type ProductionEvent = {
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    view: "production",
+    view: "production"
   });
   const url = new URL(request.url);
   const searchParams = new URLSearchParams(url.search);
@@ -48,14 +48,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   )
     return json({
       data: [],
-      previousPeriodData: [],
+      previousPeriodData: []
     });
 
   const kpi = KPIs.find((k) => k.key === key);
   if (!kpi)
     return json({
       data: [],
-      previousPeriodData: [],
+      previousPeriodData: []
     });
 
   switch (kpi.key) {
@@ -82,12 +82,12 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
             .gte("startTime", previousStart.toString())
             .or(`endTime.lte.${previousEnd.toString()},endTime.is.null`)
             .order("startTime", { ascending: false })
-            .order("endTime", { ascending: false }),
+            .order("endTime", { ascending: false })
         ]);
 
       const [groupedEvents, previousGroupedEvents] = [
         productionEvents.data ?? [],
-        previousProductionEvents.data ?? [],
+        previousProductionEvents.data ?? []
       ].map((events) =>
         events.reduce<Record<string, ProductionEvent[]>>((acc, event) => {
           if (!event.workCenterId) return acc;
@@ -100,7 +100,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
             ...event,
             workCenterId: event.workCenterId!,
             endTime:
-              event.endTime === null ? currentDate.toString() : event.endTime,
+              event.endTime === null ? currentDate.toString() : event.endTime
           });
           return acc;
         }, {})
@@ -108,7 +108,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
       const [data, previousPeriodData] = [
         groupedEvents,
-        previousGroupedEvents,
+        previousGroupedEvents
       ].map((events) =>
         Object.entries(events)
           .map(([workCenterId, events]) => {
@@ -157,7 +157,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
             return {
               key: workCenter.name,
-              value: totalTime,
+              value: totalTime
             };
           })
           .sort((a, b) => b.value - a.value)
@@ -165,7 +165,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
       return json({
         data,
-        previousPeriodData,
+        previousPeriodData
       });
     }
     case "estimatesVsActuals": {
@@ -182,7 +182,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
       if (jobs.error || !jobs.data || jobs.data.length === 0) {
         return json({
           data: [],
-          previousPeriodData: [],
+          previousPeriodData: []
         });
       }
 
@@ -195,7 +195,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
           .from("productionEvent")
           .select("*, ...jobOperation(jobId)")
           .eq("companyId", companyId)
-          .in("jobOperation.jobId", jobs.data?.map((job) => job.id) ?? []),
+          .in("jobOperation.jobId", jobs.data?.map((job) => job.id) ?? [])
       ]);
 
       const jobOperationsByJobId = jobOperations.data?.reduce(
@@ -255,13 +255,13 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
           difference:
             estimatedTime === 0
               ? 0
-              : (actualTime - estimatedTime) / estimatedTime,
+              : (actualTime - estimatedTime) / estimatedTime
         });
       }
 
       return json({
         data: data.sort((a, b) => a.difference - b.difference),
-        previousPeriodData: [],
+        previousPeriodData: []
       });
     }
 
@@ -282,24 +282,24 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
           .gte("completedDate", previousStart.toString())
           .lte("completedDate", previousEnd.toString())
           .not("completedDate", "is", null)
-          .not("releasedDate", "is", null),
+          .not("releasedDate", "is", null)
       ]);
 
       const [data, previousPeriodData] = [
         jobs.data ?? [],
-        previousJobs.data ?? [],
+        previousJobs.data ?? []
       ].map((jobs) =>
         jobs
           .map((job) => ({
             key: job.jobId,
-            value: (job.secondsToComplete ?? 0) * 1000,
+            value: (job.secondsToComplete ?? 0) * 1000
           }))
           .sort((a, b) => b.value - a.value)
       );
 
       return json({
         data,
-        previousPeriodData,
+        previousPeriodData
       });
     }
     default:

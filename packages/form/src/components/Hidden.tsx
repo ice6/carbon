@@ -2,7 +2,7 @@ import type { InputProps } from "@carbon/react";
 import {
   FormControl,
   FormErrorMessage,
-  Input as InputBase,
+  Input as InputBase
 } from "@carbon/react";
 import { forwardRef } from "react";
 import { useField } from "../hooks";
@@ -22,7 +22,7 @@ const Hidden = forwardRef<HTMLInputElement, HiddenProps>(
           ref={ref}
           {...getInputProps({
             id: name,
-            ...rest,
+            ...rest
           })}
           value={value}
           type="hidden"

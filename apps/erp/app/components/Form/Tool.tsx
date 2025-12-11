@@ -8,7 +8,7 @@ import {
   FormHelperText,
   FormLabel,
   useDisclosure,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import ToolForm from "~/modules/items/ui/Tools/ToolForm";
@@ -46,7 +46,7 @@ const Tool = ({ name, label, helperText, ...props }: ToolSelectProps) => {
       tools.map((item) => ({
         value: item.id,
         label: item.readableIdWithRevision,
-        helper: item.name,
+        helper: item.name
       })) ?? [],
     [tools]
   );
@@ -77,7 +77,7 @@ const Tool = ({ name, label, helperText, ...props }: ToolSelectProps) => {
         {label && <FormLabel>{label}</FormLabel>}
         <input
           {...getInputProps({
-            id: name,
+            id: name
           })}
           type="hidden"
           name={name}
@@ -132,7 +132,7 @@ const Tool = ({ name, label, helperText, ...props }: ToolSelectProps) => {
             defaultMethodType: "Buy",
             active: true,
             unitCost: 0,
-            tags: [],
+            tags: []
           }}
         />
       )}

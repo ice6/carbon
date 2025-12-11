@@ -10,7 +10,7 @@ import {
   WorkCenterForm,
   getWorkCenter,
   upsertWorkCenter,
-  workCenterValidator,
+  workCenterValidator
 } from "~/modules/resources";
 import { getCustomFields, setCustomFields } from "~/utils/form";
 import { path } from "~/utils/path";
@@ -19,7 +19,7 @@ import { getCompanyId, workCentersQuery } from "~/utils/react-query";
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
     view: "resources",
-    role: "employee",
+    role: "employee"
   });
 
   const { id } = params;
@@ -42,7 +42,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    update: "resources",
+    update: "resources"
   });
 
   const formData = await request.formData();
@@ -60,7 +60,7 @@ export async function action({ request }: ActionFunctionArgs) {
     ...data,
     companyId,
     updatedBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
   if (updateWorkCenter.error) {
     throw redirect(
@@ -102,7 +102,7 @@ export default function WorkCenterRoute() {
     overheadRate: workCenter?.overheadRate ?? 0,
     processes: workCenter?.processes ?? [],
     requiredAbilityId: workCenter?.requiredAbilityId ?? undefined,
-    ...getCustomFields(workCenter?.customFields),
+    ...getCustomFields(workCenter?.customFields)
   };
 
   return (

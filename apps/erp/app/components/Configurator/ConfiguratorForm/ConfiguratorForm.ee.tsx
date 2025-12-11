@@ -23,16 +23,16 @@ import {
   SelectTrigger,
   SelectValue,
   Switch,
-  toast,
+  toast
 } from "@carbon/react";
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { LuChevronDown, LuChevronUp, LuTriangleAlert } from "react-icons/lu";
 import { zfd } from "zod-form-data";
-import { z } from 'zod/v3';
+import { z } from "zod/v3";
 import type {
   ConfigurationParameter,
   ConfigurationParameterGroup,
-  MaterialConfigurationData,
+  MaterialConfigurationData
 } from "~/modules/items/types";
 import { useMaterials } from "~/stores/items";
 
@@ -49,22 +49,22 @@ function getParameterSchema(parameter: ConfigurationParameter) {
     case "numeric":
       return zfd.numeric(
         z.number({
-          required_error: `${parameter.label} is required`,
+          required_error: `${parameter.label} is required`
         })
       );
     case "text":
       return z.string({
-        required_error: `${parameter.label} is required`,
+        required_error: `${parameter.label} is required`
       });
     case "list":
       return z.enum(parameter.listOptions as [string, ...string[]], {
-        required_error: `${parameter.label} is required`,
+        required_error: `${parameter.label} is required`
       });
     case "boolean":
       return z.boolean();
     case "material":
       return z.string({
-        required_error: `${parameter.label} is required`,
+        required_error: `${parameter.label} is required`
       });
     default:
       return z.any();
@@ -72,10 +72,13 @@ function getParameterSchema(parameter: ConfigurationParameter) {
 }
 
 function generateConfigurationSchema(parameters: ConfigurationParameter[]) {
-  const schemaFields = parameters.reduce((acc, parameter) => {
-    acc[parameter.key] = getParameterSchema(parameter);
-    return acc;
-  }, {} as Record<string, z.ZodType>);
+  const schemaFields = parameters.reduce(
+    (acc, parameter) => {
+      acc[parameter.key] = getParameterSchema(parameter);
+      return acc;
+    },
+    {} as Record<string, z.ZodType>
+  );
 
   return z.object(schemaFields);
 }
@@ -194,7 +197,7 @@ function ParameterField({ parameter }: ParameterFieldProps) {
             options={materials.map((material) => ({
               label: material.name,
               value: material.id,
-              helper: material.readableIdWithRevision,
+              helper: material.readableIdWithRevision
             }))}
             value={formData[parameter.key] as string}
             onChange={(value) => handleChange(value)}
@@ -233,7 +236,7 @@ function ConfiguratorProvider({
   children,
   totalSteps,
   initialValues = {},
-  destructive = false,
+  destructive = false
 }: ConfiguratorProviderProps) {
   const [currentStep, setCurrentStep] = useState(0);
   const [formData, setFormData] = useState<FormData>(initialValues);
@@ -266,7 +269,7 @@ function ConfiguratorProvider({
         nextStep,
         previousStep,
         goToStep,
-        destructive,
+        destructive
       }}
     >
       {children}
@@ -297,7 +300,7 @@ function ConfiguratorFormContent({
   groups,
   parameters,
   onSubmit,
-  onGroupChange,
+  onGroupChange
 }: ConfiguratorFormProps) {
   const {
     currentStep,
@@ -305,7 +308,7 @@ function ConfiguratorFormContent({
     formData,
     nextStep,
     previousStep,
-    destructive,
+    destructive
   } = useConfigurator();
 
   const groupedParameters = useMemo(() => {
@@ -319,7 +322,7 @@ function ConfiguratorFormContent({
       group,
       parameters: parameters
         .filter((p) => p.configurationParameterGroupId === group.id)
-        .sort((a, b) => a.sortOrder - b.sortOrder),
+        .sort((a, b) => a.sortOrder - b.sortOrder)
     }));
   }, [groups, parameters]);
 
@@ -455,7 +458,7 @@ function ConfiguratorModal({
   onClose,
   onSubmit,
   initialValues,
-  destructive,
+  destructive
 }: ConfiguratorModalProps) {
   const validGroups = useMemo(
     () =>

@@ -4,7 +4,7 @@ import { disposition } from "~/modules/quality/quality.models";
 
 export async function action({ request }: ActionFunctionArgs) {
   const { client, userId } = await requirePermissions(request, {
-    update: "quality",
+    update: "quality"
   });
 
   const formData = await request.formData();
@@ -15,7 +15,7 @@ export async function action({ request }: ActionFunctionArgs) {
   if (typeof id !== "string") {
     return json({
       error: { message: "Invalid nonConformanceItem id" },
-      data: null,
+      data: null
     });
   }
 
@@ -34,7 +34,7 @@ export async function action({ request }: ActionFunctionArgs) {
       ) {
         return json({
           error: { message: "Invalid disposition" },
-          data: null,
+          data: null
         });
       }
       return json(
@@ -43,7 +43,7 @@ export async function action({ request }: ActionFunctionArgs) {
           .update({
             [field]: value ? (value as (typeof disposition)[number]) : null,
             updatedBy: userId,
-            updatedAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString()
           })
           .eq("id", id)
       );
@@ -52,7 +52,7 @@ export async function action({ request }: ActionFunctionArgs) {
       if (isNaN(quantity) || quantity < 0) {
         return json({
           error: { message: "Invalid quantity" },
-          data: null,
+          data: null
         });
       }
       return json(
@@ -61,14 +61,14 @@ export async function action({ request }: ActionFunctionArgs) {
           .update({
             quantity,
             updatedBy: userId,
-            updatedAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString()
           })
           .eq("id", id)
       );
     default:
       return json({
         error: { message: `Invalid field: ${field}` },
-        data: null,
+        data: null
       });
   }
 }

@@ -12,13 +12,13 @@ import {
   Scripts,
   ScrollRestoration,
   useLoaderData,
-  useRouteError,
+  useRouteError
 } from "@remix-run/react";
 import { Analytics } from "@vercel/analytics/react";
 import type {
   ActionFunctionArgs,
   LoaderFunctionArgs,
-  MetaFunction,
+  MetaFunction
 } from "@vercel/remix";
 import { json } from "@vercel/remix";
 import React, { useEffect } from "react";
@@ -33,15 +33,15 @@ export function links() {
   return [
     { rel: "stylesheet", href: Tailwind },
     { rel: "stylesheet", href: Background },
-    { rel: "stylesheet", href: NProgress },
+    { rel: "stylesheet", href: NProgress }
   ];
 }
 
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "Carbon | Starter",
-    },
+      title: "Carbon | Starter"
+    }
   ];
 };
 
@@ -51,7 +51,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
     POSTHOG_API_HOST,
     POSTHOG_PROJECT_PUBLIC_KEY,
     SUPABASE_URL,
-    SUPABASE_ANON_KEY,
+    SUPABASE_ANON_KEY
   } = getBrowserEnv();
 
   const sessionFlash = await getSessionFlash(request);
@@ -63,14 +63,14 @@ export async function loader({ request }: LoaderFunctionArgs) {
         POSTHOG_API_HOST,
         POSTHOG_PROJECT_PUBLIC_KEY,
         SUPABASE_URL,
-        SUPABASE_ANON_KEY,
+        SUPABASE_ANON_KEY
       },
       mode: getMode(request),
       theme: getTheme(request),
-      result: sessionFlash?.result,
+      result: sessionFlash?.result
     },
     {
-      headers: sessionFlash?.headers,
+      headers: sessionFlash?.headers
     }
   );
 }
@@ -82,14 +82,14 @@ export async function action({ request }: ActionFunctionArgs) {
 
   if (validation.error) {
     return json(error(validation.error, "Invalid mode"), {
-      status: 400,
+      status: 400
     });
   }
 
   return json(
     {},
     {
-      headers: { "Set-Cookie": setMode(validation.data.mode) },
+      headers: { "Set-Cookie": setMode(validation.data.mode) }
     }
   );
 }
@@ -98,7 +98,7 @@ function Document({
   children,
   title = "Carbon",
   mode = "light",
-  theme = "blue",
+  theme = "blue"
 }: {
   children: React.ReactNode;
   title?: string;
@@ -130,7 +130,7 @@ function Document({
   // Combine the styles with proper selectors
   const themeStyle = {
     ...(mode === "dark" ? darkVars : lightVars),
-    "--radius": "0.5rem",
+    "--radius": "0.5rem"
   } as React.CSSProperties;
 
   return (
@@ -180,7 +180,7 @@ export default function App() {
       <Outlet />
       <script
         dangerouslySetInnerHTML={{
-          __html: `window.env = ${JSON.stringify(env)}`,
+          __html: `window.env = ${JSON.stringify(env)}`
         }}
       />
     </Document>
@@ -191,10 +191,10 @@ export function ErrorBoundary() {
   const error = useRouteError();
 
   const message = isRouteErrorResponse(error)
-    ? error.data.message ?? error.data
+    ? (error.data.message ?? error.data)
     : error instanceof Error
-    ? error.message
-    : String(error);
+      ? error.message
+      : String(error);
 
   return (
     <Document title="Error!">

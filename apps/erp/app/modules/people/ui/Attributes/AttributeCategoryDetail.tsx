@@ -14,7 +14,7 @@ import {
   MenuIcon,
   MenuItem,
   useDebounce,
-  useDisclosure,
+  useDisclosure
 } from "@carbon/react";
 import { Link, useFetcher } from "@remix-run/react";
 import { Reorder } from "framer-motion";
@@ -38,7 +38,7 @@ type AttributeCategoryDetailProps = {
 
 const AttributeCategoryDetail = ({
   attributeCategory,
-  onClose,
+  onClose
 }: AttributeCategoryDetailProps) => {
   const [params] = useUrlParams();
   const sortOrderFetcher = useFetcher<{}>();
@@ -52,7 +52,7 @@ const AttributeCategoryDetail = ({
               if (!attribute) return acc;
               return {
                 ...acc,
-                [attribute.id]: attribute,
+                [attribute.id]: attribute
               };
             },
             {}
@@ -231,7 +231,7 @@ function getIcon({
   isDate,
   isNumeric,
   isText,
-  isUser,
+  isUser
 }: {
   isBoolean: boolean;
   isDate: boolean;

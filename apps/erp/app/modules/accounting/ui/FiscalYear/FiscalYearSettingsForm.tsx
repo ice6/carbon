@@ -5,9 +5,9 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-  VStack,
+  VStack
 } from "@carbon/react";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import { Select, Submit } from "~/components/Form";
 import { usePermissions } from "~/hooks";
 import { months } from "~/modules/shared";
@@ -19,7 +19,7 @@ type FiscalYearSettingsFormProps = {
 };
 
 const FiscalYearSettingsForm = ({
-  initialValues,
+  initialValues
 }: FiscalYearSettingsFormProps) => {
   const permissions = usePermissions();
   return (

@@ -1,6 +1,6 @@
 import type { Database } from "@carbon/database";
 import type { SupabaseClient } from "@supabase/supabase-js";
-import { z } from 'zod/v3';
+import { z } from "zod/v3";
 // to avoid a circular dependency
 const methodType = ["Buy", "Make", "Pick"] as const;
 const itemReplenishmentSystems = ["Buy", "Make", "Buy and Make"] as const;
@@ -8,7 +8,7 @@ const itemTrackingTypes = [
   "Inventory",
   "Non-Inventory",
   "Serial",
-  "Batch",
+  "Batch"
 ] as const;
 
 export const fieldMappings = {
@@ -16,12 +16,12 @@ export const fieldMappings = {
     id: {
       label: "Unique ID",
       required: true,
-      type: "string",
+      type: "string"
     },
     name: {
       label: "Name",
       required: true,
-      type: "string",
+      type: "string"
     },
     accountManagerId: {
       label: "Account Manager",
@@ -38,97 +38,97 @@ export const fieldMappings = {
             .select("id, name, avatarUrl")
             .eq("companyId", companyId)
             .order("name");
-        },
-      },
+        }
+      }
     },
     fax: {
       label: "Fax",
       required: false,
-      type: "string",
+      type: "string"
     },
     taxId: {
       label: "Tax ID",
       required: false,
-      type: "string",
+      type: "string"
     },
     currencyCode: {
       label: "Currency Code",
       required: false,
-      type: "string",
+      type: "string"
     },
     website: {
       label: "Website",
       required: false,
-      type: "string",
-    },
+      type: "string"
+    }
   },
   customerContact: {
     id: {
       label: "Unique ID",
       required: true,
-      type: "string",
+      type: "string"
     },
     companyId: {
       label: "External Company ID",
       required: true,
-      type: "string",
+      type: "string"
     },
     firstName: {
       label: "First Name",
       required: true,
-      type: "string",
+      type: "string"
     },
     lastName: {
       label: "Last Name",
       required: true,
-      type: "string",
+      type: "string"
     },
     email: {
       label: "Email",
       type: "string",
-      required: true,
+      required: true
     },
     title: {
       label: "Title",
       type: "string",
-      required: false,
+      required: false
     },
     mobilePhone: {
       label: "Mobile Phone",
       type: "string",
-      required: false,
+      required: false
     },
     workPhone: {
       label: "Work Phone",
       type: "string",
-      required: false,
+      required: false
     },
     homePhone: {
       label: "Home Phone",
       type: "string",
-      required: false,
+      required: false
     },
     fax: {
       label: "Fax",
       type: "string",
-      required: false,
+      required: false
     },
     notes: {
       label: "Notes",
       type: "string",
-      required: false,
-    },
+      required: false
+    }
   },
   supplier: {
     id: {
       label: "Unique ID",
       required: true,
-      type: "string",
+      type: "string"
     },
     name: {
       label: "Name",
       required: true,
-      type: "string",
+      type: "string"
     },
     accountManagerId: {
       label: "Account Manager",
@@ -145,123 +145,123 @@ export const fieldMappings = {
             .select("id, name, avatarUrl")
             .eq("companyId", companyId)
             .order("name");
-        },
-      },
+        }
+      }
     },
     phone: {
       label: "Phone",
       required: false,
-      type: "string",
+      type: "string"
     },
     fax: {
       label: "Fax",
       required: false,
-      type: "string",
+      type: "string"
     },
     taxId: {
       label: "Tax ID",
       required: false,
-      type: "string",
+      type: "string"
     },
     currencyCode: {
       label: "Currency Code",
       required: false,
-      type: "string",
+      type: "string"
     },
     website: {
       label: "Website",
       required: false,
-      type: "string",
-    },
+      type: "string"
+    }
   },
   supplierContact: {
     id: {
       label: "Unique ID",
       required: true,
-      type: "string",
+      type: "string"
     },
     companyId: {
       label: "External Company ID",
       required: true,
-      type: "string",
+      type: "string"
     },
     firstName: {
       label: "First Name",
       required: true,
-      type: "string",
+      type: "string"
     },
     lastName: {
       label: "Last Name",
       required: true,
-      type: "string",
+      type: "string"
     },
     email: {
       label: "Email",
       type: "string",
-      required: true,
+      required: true
     },
     title: {
       label: "Title",
       type: "string",
-      required: false,
+      required: false
     },
     mobilePhone: {
       label: "Mobile Phone",
       type: "string",
-      required: false,
+      required: false
     },
     workPhone: {
       label: "Work Phone",
       type: "string",
-      required: false,
+      required: false
     },
     homePhone: {
       label: "Home Phone",
       type: "string",
-      required: false,
+      required: false
     },
     fax: {
       label: "Fax",
       type: "string",
-      required: false,
+      required: false
     },
     notes: {
       label: "Notes",
       type: "string",
-      required: false,
-    },
+      required: false
+    }
   },
   part: {
     id: {
       label: "Unique ID",
       required: true,
-      type: "string",
+      type: "string"
     },
     readableId: {
       label: "Part Number",
       required: true,
-      type: "string",
+      type: "string"
     },
     revision: {
       label: "Revision",
       required: true,
       type: "string",
-      default: "0",
+      default: "0"
     },
     name: {
       label: "Short Description",
       required: true,
-      type: "string",
+      type: "string"
     },
     description: {
       label: "Long Description",
       required: false,
-      type: "string",
+      type: "string"
     },
     active: {
       label: "Active",
       required: false,
-      type: "boolean",
+      type: "boolean"
     },
     replenishmentSystem: {
       label: "Replenishment System",
@@ -271,8 +271,8 @@ export const fieldMappings = {
         description:
           "Whether demand for a part should be fulfilled by buying or making",
         options: itemReplenishmentSystems,
-        default: "Buy and Make",
-      },
+        default: "Buy and Make"
+      }
     },
     defaultMethodType: {
       label: "Default Method",
@@ -282,8 +282,8 @@ export const fieldMappings = {
         description:
           "How a part should be produced when it is required in production",
         options: methodType,
-        default: "Make",
-      },
+        default: "Make"
+      }
     },
     itemTrackingType: {
       label: "Tracking Type",
@@ -292,8 +292,8 @@ export const fieldMappings = {
       enumData: {
         description: "Whether a part is tracked as inventory or not",
         options: itemTrackingTypes,
-        default: "Inventory",
-      },
+        default: "Inventory"
+      }
     },
     unitOfMeasureCode: {
       label: "Unit of Measure",
@@ -317,45 +317,45 @@ export const fieldMappings = {
           return {
             data: data.map((item) => ({
               name: item.name,
-              id: item.code,
-            })),
+              id: item.code
+            }))
           };
         },
-        default: "EA",
-      },
-    },
+        default: "EA"
+      }
+    }
   },
   tool: {
     id: {
       label: "Unique ID",
       required: true,
-      type: "string",
+      type: "string"
     },
     readableId: {
       label: "Part Number",
       required: true,
-      type: "string",
+      type: "string"
     },
     revision: {
       label: "Revision",
       required: true,
       type: "string",
-      default: "0",
+      default: "0"
     },
     name: {
       label: "Short Description",
       required: true,
-      type: "string",
+      type: "string"
     },
     description: {
       label: "Long Description",
       required: false,
-      type: "string",
+      type: "string"
     },
     active: {
       label: "Active",
       required: false,
-      type: "boolean",
+      type: "boolean"
     },
     replenishmentSystem: {
       label: "Replenishment System",
@@ -365,8 +365,8 @@ export const fieldMappings = {
         description:
           "Whether demand for a part should be fulfilled by buying or making",
         options: itemReplenishmentSystems,
-        default: "Buy and Make",
-      },
+        default: "Buy and Make"
+      }
     },
     defaultMethodType: {
       label: "Default Method",
@@ -376,8 +376,8 @@ export const fieldMappings = {
         description:
           "How a part should be produced when it is required in production",
         options: methodType,
-        default: "Make",
-      },
+        default: "Make"
+      }
     },
     itemTrackingType: {
       label: "Tracking Type",
@@ -386,8 +386,8 @@ export const fieldMappings = {
       enumData: {
         description: "Whether a part is tracked as inventory or not",
         options: itemTrackingTypes,
-        default: "Inventory",
-      },
+        default: "Inventory"
+      }
     },
     unitOfMeasureCode: {
       label: "Unit of Measure",
@@ -411,45 +411,45 @@ export const fieldMappings = {
           return {
             data: data.map((item) => ({
               name: item.name,
-              id: item.code,
-            })),
+              id: item.code
+            }))
           };
         },
-        default: "EA",
-      },
-    },
+        default: "EA"
+      }
+    }
   },
   fixture: {
     id: {
       label: "Unique ID",
       required: true,
-      type: "string",
+      type: "string"
     },
     readableId: {
       label: "Part Number",
       required: true,
-      type: "string",
+      type: "string"
     },
     revision: {
       label: "Revision",
       required: true,
       type: "string",
-      default: "0",
+      default: "0"
     },
     name: {
       label: "Short Description",
       required: true,
-      type: "string",
+      type: "string"
     },
     description: {
       label: "Long Description",
       required: false,
-      type: "string",
+      type: "string"
     },
     active: {
       label: "Active",
       required: false,
-      type: "boolean",
+      type: "boolean"
     },
     replenishmentSystem: {
       label: "Replenishment System",
@@ -459,8 +459,8 @@ export const fieldMappings = {
         description:
           "Whether demand for a part should be fulfilled by buying or making",
         options: itemReplenishmentSystems,
-        default: "Buy and Make",
-      },
+        default: "Buy and Make"
+      }
     },
     defaultMethodType: {
       label: "Default Method",
@@ -470,8 +470,8 @@ export const fieldMappings = {
         description:
           "How a part should be produced when it is required in production",
         options: methodType,
-        default: "Make",
-      },
+        default: "Make"
+      }
     },
     itemTrackingType: {
       label: "Tracking Type",
@@ -480,8 +480,8 @@ export const fieldMappings = {
       enumData: {
         description: "Whether a part is tracked as inventory or not",
         options: itemTrackingTypes,
-        default: "Inventory",
-      },
+        default: "Inventory"
+      }
     },
     unitOfMeasureCode: {
       label: "Unit of Measure",
@@ -505,45 +505,45 @@ export const fieldMappings = {
           return {
             data: data.map((item) => ({
               name: item.name,
-              id: item.code,
-            })),
+              id: item.code
+            }))
           };
         },
-        default: "EA",
-      },
-    },
+        default: "EA"
+      }
+    }
   },
   consumable: {
     id: {
       label: "Unique ID",
       required: true,
-      type: "string",
+      type: "string"
     },
     readableId: {
       label: "Part Number",
       required: true,
-      type: "string",
+      type: "string"
     },
     revision: {
       label: "Revision",
       required: true,
       type: "string",
-      default: "0",
+      default: "0"
     },
     name: {
       label: "Short Description",
       required: true,
-      type: "string",
+      type: "string"
     },
     description: {
       label: "Long Description",
       required: false,
-      type: "string",
+      type: "string"
     },
     active: {
       label: "Active",
       required: false,
-      type: "boolean",
+      type: "boolean"
     },
     replenishmentSystem: {
       label: "Replenishment System",
@@ -553,8 +553,8 @@ export const fieldMappings = {
         description:
           "Whether demand for a part should be fulfilled by buying or making",
         options: itemReplenishmentSystems,
-        default: "Buy and Make",
-      },
+        default: "Buy and Make"
+      }
     },
     defaultMethodType: {
       label: "Default Method",
@@ -564,8 +564,8 @@ export const fieldMappings = {
         description:
           "How a part should be produced when it is required in production",
         options: methodType,
-        default: "Make",
-      },
+        default: "Make"
+      }
     },
     itemTrackingType: {
       label: "Tracking Type",
@@ -574,8 +574,8 @@ export const fieldMappings = {
       enumData: {
         description: "Whether a part is tracked as inventory or not",
         options: itemTrackingTypes,
-        default: "Inventory",
-      },
+        default: "Inventory"
+      }
     },
     unitOfMeasureCode: {
       label: "Unit of Measure",
@@ -599,45 +599,45 @@ export const fieldMappings = {
           return {
             data: data.map((item) => ({
               name: item.name,
-              id: item.code,
-            })),
+              id: item.code
+            }))
           };
         },
-        default: "EA",
-      },
-    },
+        default: "EA"
+      }
+    }
   },
   material: {
     id: {
       label: "Unique ID",
       required: true,
-      type: "string",
+      type: "string"
     },
     readableId: {
       label: "Part Number",
       required: true,
-      type: "string",
+      type: "string"
     },
     revision: {
       label: "Revision",
       required: true,
       type: "string",
-      default: "0",
+      default: "0"
     },
     name: {
       label: "Short Description",
       required: true,
-      type: "string",
+      type: "string"
     },
     description: {
       label: "Long Description",
       required: false,
-      type: "string",
+      type: "string"
     },
     active: {
       label: "Active",
       required: false,
-      type: "boolean",
+      type: "boolean"
     },
     materialSubstanceId: {
       label: "Substance",
@@ -655,8 +655,8 @@ export const fieldMappings = {
             .or(`companyId.eq.${companyId},companyId.is.null`)
             .order("name");
         },
-        default: "",
-      },
+        default: ""
+      }
     },
     materialFormId: {
       label: "Form",
@@ -674,8 +674,8 @@ export const fieldMappings = {
             .or(`companyId.eq.${companyId},companyId.is.null`)
             .order("name");
         },
-        default: "",
-      },
+        default: ""
+      }
     },
     defaultMethodType: {
       label: "Default Method",
@@ -685,8 +685,8 @@ export const fieldMappings = {
         description:
           "How a part should be produced when it is required in production",
         options: ["Buy", "Pick"],
-        default: "Buy",
-      },
+        default: "Buy"
+      }
     },
     itemTrackingType: {
       label: "Tracking Type",
@@ -695,23 +695,23 @@ export const fieldMappings = {
       enumData: {
         description: "Whether a part is tracked as inventory or not",
         options: itemTrackingTypes,
-        default: "Inventory",
-      },
+        default: "Inventory"
+      }
     },
     finish: {
       label: "Finish",
       type: "string",
-      required: false,
+      required: false
     },
     grade: {
       label: "Grade",
       type: "string",
-      required: false,
+      required: false
     },
     dimensions: {
       label: "Dimensions",
       type: "string",
-      required: false,
+      required: false
     },
     unitOfMeasureCode: {
       label: "Unit of Measure",
@@ -735,29 +735,29 @@ export const fieldMappings = {
           return {
             data: data.map((item) => ({
               name: item.name,
-              id: item.code,
-            })),
+              id: item.code
+            }))
           };
         },
-        default: "EA",
-      },
-    },
+        default: "EA"
+      }
+    }
   },
   methodMaterial: {
     level: {
       label: "Level",
       required: false,
-      type: "string",
+      type: "string"
     },
     partId: {
       label: "Part ID",
       required: true,
-      type: "string",
+      type: "string"
     },
     description: {
       label: "Description",
       required: false,
-      type: "string",
+      type: "string"
     },
     methodType: {
       label: "Method Type",
@@ -767,13 +767,13 @@ export const fieldMappings = {
         description:
           "The method type of the part, which describes whether it is bought or made",
         options: methodType,
-        default: "Pick",
-      },
+        default: "Pick"
+      }
     },
     quantity: {
       label: "Quantity",
       required: true,
-      type: "number",
+      type: "number"
     },
     unitOfMeasureCode: {
       label: "Unit of Measure",
@@ -797,14 +797,14 @@ export const fieldMappings = {
           return {
             data: data.map((item) => ({
               name: item.name,
-              id: item.code,
-            })),
+              id: item.code
+            }))
           };
         },
-        default: "EA",
-      },
-    },
-  },
+        default: "EA"
+      }
+    }
+  }
 } as const;
 
 export const importPermissions: Record<keyof typeof fieldMappings, string> = {
@@ -817,7 +817,7 @@ export const importPermissions: Record<keyof typeof fieldMappings, string> = {
   methodMaterial: "parts",
   tool: "parts",
   fixture: "parts",
-  consumable: "parts",
+  consumable: "parts"
 };
 
 export const importSchemas: Record<
@@ -859,7 +859,7 @@ export const importSchemas: Record<
       .string()
       .optional()
       .describe("The website url. Usually begins with http:// or https://")
-      .nullable(),
+      .nullable()
   }),
   customerContact: z.object({
     id: z
@@ -892,7 +892,7 @@ export const importSchemas: Record<
       .optional()
       .describe("The home phone of the customer contact"),
     fax: z.string().optional().describe("The fax of the customer contact"),
-    notes: z.string().optional().describe("The notes of the customer contact"),
+    notes: z.string().optional().describe("The notes of the customer contact")
   }),
   supplier: z.object({
     id: z
@@ -929,7 +929,7 @@ export const importSchemas: Record<
       .string()
       .optional()
       .describe("The website url. Usually begins with http:// or https://")
-      .nullable(),
+      .nullable()
   }),
   supplierContact: z.object({
     id: z
@@ -968,7 +968,7 @@ export const importSchemas: Record<
       .optional()
       .describe("The home phone of the supplier contact"),
     fax: z.string().optional().describe("The fax of the supplier contact"),
-    notes: z.string().optional().describe("The notes of the supplier contact"),
+    notes: z.string().optional().describe("The notes of the supplier contact")
   }),
   part: z.object({
     id: z
@@ -1007,7 +1007,7 @@ export const importSchemas: Record<
     itemTrackingType: z
       .string()
       .optional()
-      .describe("The item tracking type of the part"),
+      .describe("The item tracking type of the part")
   }),
   tool: z.object({
     id: z
@@ -1046,7 +1046,7 @@ export const importSchemas: Record<
     itemTrackingType: z
       .string()
       .optional()
-      .describe("The item tracking type of the tool"),
+      .describe("The item tracking type of the tool")
   }),
   fixture: z.object({
     id: z
@@ -1085,7 +1085,7 @@ export const importSchemas: Record<
     itemTrackingType: z
       .string()
       .optional()
-      .describe("The item tracking type of the fixture"),
+      .describe("The item tracking type of the fixture")
   }),
   consumable: z.object({
     id: z
@@ -1124,7 +1124,7 @@ export const importSchemas: Record<
     itemTrackingType: z
       .string()
       .optional()
-      .describe("The item tracking type of the part"),
+      .describe("The item tracking type of the part")
   }),
   material: z.object({
     id: z
@@ -1170,7 +1170,7 @@ export const importSchemas: Record<
     unitOfMeasureCode: z
       .string()
       .optional()
-      .describe("The unit of measure of the material"),
+      .describe("The unit of measure of the material")
   }),
   methodMaterial: z.object({
     level: z.string().optional().describe("The level of the material"),
@@ -1189,6 +1189,6 @@ export const importSchemas: Record<
     unitOfMeasureCode: z
       .string()
       .optional()
-      .describe("The unit of measure of the part"),
-  }),
+      .describe("The unit of measure of the part")
+  })
 } as const;

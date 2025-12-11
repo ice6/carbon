@@ -7,11 +7,10 @@
 // } from "@internationalized/date";
 import { create } from "zustand";
 
-
 // const getDateValues = () => {
 //   const todayValue = today(getLocalTimeZone());
 //   const localTimeZone = getLocalTimeZone();
-  
+
 //   return {
 //     todayISO: todayValue.toDate(localTimeZone).toISOString(),
 //     startOfMonthISO: startOfMonth(todayValue).toDate(localTimeZone).toISOString(),
@@ -21,7 +20,6 @@ import { create } from "zustand";
 //     monthAgoISO: todayValue.subtract({ months: 1 }).toDate(localTimeZone).toISOString(),
 //   };
 // };
-
 
 // const dateValues = getDateValues();
 
@@ -137,8 +135,6 @@ const COMMAND_SUGGESTIONS: CommandSuggestion[] = [
   // },
 ];
 
-
-
 interface ChatState {
   // Input state
   input: string;
@@ -228,7 +224,7 @@ export const useChatStore = create<ChatState>()((set, get) => ({
         const matchesCommand = command.command.toLowerCase().includes(query);
         const matchesTitle = command.title.toLowerCase().includes(query);
         const matchesKeywords = command.keywords.some((keyword) =>
-          keyword.toLowerCase().includes(query),
+          keyword.toLowerCase().includes(query)
         );
         return matchesCommand || matchesTitle || matchesKeywords;
       });
@@ -238,7 +234,7 @@ export const useChatStore = create<ChatState>()((set, get) => ({
         commandQuery: textAfterSlash,
         showCommands: true,
         selectedCommandIndex: 0,
-        filteredCommands: filtered,
+        filteredCommands: filtered
       });
       return;
     }
@@ -246,7 +242,7 @@ export const useChatStore = create<ChatState>()((set, get) => ({
     set({
       showCommands: false,
       commandQuery: "",
-      filteredCommands: COMMAND_SUGGESTIONS,
+      filteredCommands: COMMAND_SUGGESTIONS
     });
   },
 
@@ -263,7 +259,7 @@ export const useChatStore = create<ChatState>()((set, get) => ({
     set({
       input: newText,
       showCommands: false,
-      commandQuery: "",
+      commandQuery: ""
     });
   },
 
@@ -279,14 +275,14 @@ export const useChatStore = create<ChatState>()((set, get) => ({
         set({
           selectedCommandIndex: Math.min(
             selectedCommandIndex + 1,
-            filteredCommands.length - 1,
-          ),
+            filteredCommands.length - 1
+          )
         });
         break;
       case "ArrowUp":
         e.preventDefault();
         set({
-          selectedCommandIndex: Math.max(selectedCommandIndex - 1, 0),
+          selectedCommandIndex: Math.max(selectedCommandIndex - 1, 0)
         });
         break;
       case "Enter": {
@@ -308,14 +304,14 @@ export const useChatStore = create<ChatState>()((set, get) => ({
     set({
       showCommands: false,
       commandQuery: "",
-      selectedCommandIndex: 0,
+      selectedCommandIndex: 0
     });
   },
 
   navigateCommandUp: () => {
     const { selectedCommandIndex, filteredCommands } = get();
     set({
-      selectedCommandIndex: Math.max(selectedCommandIndex - 1, 0),
+      selectedCommandIndex: Math.max(selectedCommandIndex - 1, 0)
     });
   },
 
@@ -324,13 +320,13 @@ export const useChatStore = create<ChatState>()((set, get) => ({
     set({
       selectedCommandIndex: Math.min(
         selectedCommandIndex + 1,
-        filteredCommands.length - 1,
-      ),
+        filteredCommands.length - 1
+      )
     });
   },
 
   selectCurrentCommand: () => {
     const { filteredCommands, selectedCommandIndex } = get();
     return filteredCommands[selectedCommandIndex] || null;
-  },
+  }
 }));

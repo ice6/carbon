@@ -8,7 +8,7 @@ import {
   LuClock,
   LuLoaderCircle,
   LuStar,
-  LuCircleDashed,
+  LuCircleDashed
 } from "react-icons/lu";
 type StatusProps = ComponentProps<"div"> & {
   color?: "green" | "orange" | "red" | "yellow" | "blue" | "gray" | "purple";

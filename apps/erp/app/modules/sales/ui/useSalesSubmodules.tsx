@@ -4,12 +4,12 @@ import {
   LuGlobe,
   LuShapes,
   LuSquareUser,
-  LuStar,
+  LuStar
 } from "react-icons/lu";
 import {
   RiProgress2Line,
   RiProgress4Line,
-  RiProgress8Line,
+  RiProgress8Line
 } from "react-icons/ri";
 import { usePermissions } from "~/hooks";
 import { useSavedViews } from "~/hooks/useSavedViews";
@@ -24,40 +24,40 @@ const salesRoutes: AuthenticatedRouteGroup[] = [
         name: "Customers",
         to: path.to.customers,
         icon: <LuSquareUser />,
-        table: "customer",
+        table: "customer"
       },
       {
         name: "RFQs",
         to: path.to.salesRfqs,
         icon: <RiProgress2Line />,
-        table: "salesRfq",
+        table: "salesRfq"
       },
       {
         name: "Quotes",
         to: path.to.quotes,
         icon: <RiProgress4Line />,
-        table: "quote",
+        table: "quote"
       },
       {
         name: "Orders",
         to: path.to.salesOrders,
         icon: <RiProgress8Line />,
-        table: "salesOrder",
+        table: "salesOrder"
       },
       {
         name: "Invoices",
         to: path.to.salesInvoices,
         icon: <LuCreditCard />,
         permission: "invoicing",
-        table: "salesInvoice",
+        table: "salesInvoice"
       },
       {
         name: "Portals",
         to: path.to.customerPortals,
         role: "employee",
-        icon: <LuGlobe />,
-      },
-    ],
+        icon: <LuGlobe />
+      }
+    ]
   },
   {
     name: "Configure",
@@ -66,23 +66,23 @@ const salesRoutes: AuthenticatedRouteGroup[] = [
         name: "No Quotes",
         to: path.to.noQuoteReasons,
         role: "employee",
-        icon: <LuBan />,
+        icon: <LuBan />
       },
 
       {
         name: "Statuses",
         to: path.to.customerStatuses,
         role: "employee",
-        icon: <LuStar />,
+        icon: <LuStar />
       },
       {
         name: "Types",
         to: path.to.customerTypes,
         role: "employee",
-        icon: <LuShapes />,
-      },
-    ],
-  },
+        icon: <LuShapes />
+      }
+    ]
+  }
 ];
 
 export default function useSalesSubmodules() {
@@ -114,7 +114,7 @@ export default function useSalesSubmodules() {
               return true;
             }
           })
-          .map(addSavedViewsToRoutes),
-      })),
+          .map(addSavedViewsToRoutes)
+      }))
   };
 }

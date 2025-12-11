@@ -14,7 +14,7 @@ import { getCompanyId, materialTypesQuery } from "~/utils/react-query";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   await requirePermissions(request, {
-    create: "parts",
+    create: "parts"
   });
 
   return null;
@@ -23,7 +23,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId } = await requirePermissions(request, {
-    create: "parts",
+    create: "parts"
   });
 
   const formData = await request.formData();
@@ -39,7 +39,7 @@ export async function action({ request }: ActionFunctionArgs) {
 
   const insertMaterialType = await upsertMaterialType(client, {
     ...data,
-    companyId,
+    companyId
   });
   if (insertMaterialType.error) {
     return json(
@@ -72,7 +72,7 @@ export async function action({ request }: ActionFunctionArgs) {
 
 export async function clientAction({
   request,
-  serverAction,
+  serverAction
 }: ClientActionFunctionArgs) {
   const formData = await request.clone().formData();
   const validation = await validator(materialTypeValidator).validate(formData);
@@ -100,7 +100,7 @@ export default function NewMaterialTypesRoute() {
     name: "",
     code: "",
     materialSubstanceId: "",
-    materialFormId: "",
+    materialFormId: ""
   };
 
   return (

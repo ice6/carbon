@@ -2,7 +2,7 @@ import { z } from "zod/v3";
 import {
   deadlineTypes,
   jobOperationStatus,
-  jobStatus,
+  jobStatus
 } from "../../../production.models";
 import type { ProductionEvent } from "../../../types";
 
@@ -10,7 +10,7 @@ export const columnValidator = z.object({
   id: z.string(),
   title: z.string(),
   active: z.boolean().optional(),
-  type: z.array(z.string()),
+  type: z.array(z.string())
 });
 
 export type Column = z.infer<typeof columnValidator>;
@@ -67,7 +67,7 @@ const baseItemValidator = z.object({
   subtitle: z.string().optional(),
   tags: z.array(z.string()).optional(),
   thumbnailPath: z.string().optional(),
-  title: z.string(),
+  title: z.string()
 });
 
 // Operation item with operation-level status
@@ -76,14 +76,14 @@ const operationItemValidator = baseItemValidator.extend({
   laborDuration: z.number().optional(),
   machineDuration: z.number().optional(),
   setupDuration: z.number().optional(),
-  status: z.enum(jobOperationStatus).optional(),
+  status: z.enum(jobOperationStatus).optional()
 });
 
 // Job item with job-level status
 const jobItemValidator = baseItemValidator.extend({
   status: z.enum(jobStatus).optional(),
   completedDate: z.string().optional(),
-  hasConflict: z.boolean().optional(),
+  hasConflict: z.boolean().optional()
 });
 
 export type OperationItem = z.infer<typeof operationItemValidator>;

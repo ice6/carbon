@@ -11,13 +11,13 @@ import { getGenericQueryFilters } from "~/utils/query";
 
 export const handle: Handle = {
   breadcrumb: "Customer Portals",
-  to: path.to.customerPortals,
+  to: path.to.customerPortals
 };
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
     view: "sales",
-    role: "employee",
+    role: "employee"
   });
 
   const url = new URL(request.url);
@@ -33,8 +33,8 @@ export async function loader({ request }: LoaderFunctionArgs) {
       limit,
       offset,
       sorts,
-      filters,
-    })),
+      filters
+    }))
   });
 }
 

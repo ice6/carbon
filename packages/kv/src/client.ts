@@ -22,13 +22,13 @@ if (!UPSTASH_REDIS_REST_TOKEN) {
 if (process.env.VERCEL_ENV === "production") {
   redis = new Redis({
     url: UPSTASH_REDIS_REST_URL,
-    token: UPSTASH_REDIS_REST_TOKEN,
+    token: UPSTASH_REDIS_REST_TOKEN
   });
 } else {
   if (!global.__redis) {
     global.__redis = new Redis({
       url: UPSTASH_REDIS_REST_URL,
-      token: UPSTASH_REDIS_REST_TOKEN,
+      token: UPSTASH_REDIS_REST_TOKEN
     });
   }
   redis = global.__redis;

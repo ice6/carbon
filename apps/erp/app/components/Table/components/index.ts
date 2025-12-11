@@ -12,5 +12,5 @@ export {
   Row,
   TableHeader,
   usePagination,
-  useSort,
+  useSort
 };

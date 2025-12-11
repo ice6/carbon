@@ -76,7 +76,7 @@ const MaterialType = (props: MaterialTypeSelectProps) => {
             name: created,
             materialSubstanceId: props.substanceId!,
             materialFormId: props.formId!,
-            code: created,
+            code: created
           }}
         />
       )}
@@ -106,7 +106,7 @@ export const useMaterialTypes = (substanceId?: string, formId?: string) => {
       value: c.id,
       label: c.name,
       helper: c.companyId === null ? "Standard" : undefined,
-      code: c.code,
+      code: c.code
     }));
   }, [materialTypes.data?.data]);
 

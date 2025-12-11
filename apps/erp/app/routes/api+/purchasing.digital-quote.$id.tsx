@@ -5,7 +5,7 @@ import { json } from "@vercel/remix";
 import { z } from "zod/v3";
 import {
   externalSupplierQuoteValidator,
-  selectedLineSchema,
+  selectedLineSchema
 } from "~/modules/purchasing/purchasing.models";
 import { getSupplierQuoteByExternalId } from "~/modules/purchasing/purchasing.service";
 import { getCompanySettings } from "~/modules/settings";
@@ -26,7 +26,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     console.error("Quote not found", quote.error);
     return json({
       success: false,
-      message: "Quote not found",
+      message: "Quote not found"
     });
   }
 
@@ -48,7 +48,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
       const {
         digitalSupplierQuoteSubmittedBy,
         digitalSupplierQuoteSubmittedByEmail,
-        note,
+        note
       } = validation.data;
       const now = new Date().toISOString();
 
@@ -63,8 +63,8 @@ export async function action({ request, params }: ActionFunctionArgs) {
             declineNote: note ?? null,
             declinedBy: digitalSupplierQuoteSubmittedBy,
             declinedByEmail: digitalSupplierQuoteSubmittedByEmail,
-            declinedAt: now,
-          },
+            declinedAt: now
+          }
         })
         .eq("id", quote.data.id);
 
@@ -76,14 +76,14 @@ export async function action({ request, params }: ActionFunctionArgs) {
             declinedAt: now,
             declinedBy: digitalSupplierQuoteSubmittedBy,
             declinedByEmail: digitalSupplierQuoteSubmittedByEmail,
-            declineNote: note ?? null,
+            declineNote: note ?? null
           } as any)
           .eq("id", quote.data.externalLinkId);
       }
 
       return json({
         success: true,
-        message: "Quote declined successfully",
+        message: "Quote declined successfully"
       });
     }
 
@@ -98,7 +98,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
       const {
         digitalSupplierQuoteSubmittedBy,
-        digitalSupplierQuoteSubmittedByEmail,
+        digitalSupplierQuoteSubmittedByEmail
       } = validation.data;
 
       const selectedLinesRaw = formData.get("selectedLines") ?? "{}";
@@ -113,7 +113,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
       } catch (e) {
         return json({
           success: false,
-          message: "Invalid JSON in selected lines data",
+          message: "Invalid JSON in selected lines data"
         });
       }
 
@@ -154,7 +154,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
             priceRecordsToProcess.push({
               lineId,
               quantity,
-              selectedLine,
+              selectedLine
             });
           }
         }
@@ -191,7 +191,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
                 supplierShippingCost: selectedLine.supplierShippingCost ?? 0,
                 supplierTaxAmount: selectedLine.supplierTaxAmount ?? 0,
                 updatedAt: new Date().toISOString(),
-                updatedBy: quote.data.createdBy,
+                updatedBy: quote.data.createdBy
               })
               .eq("supplierQuoteLineId", lineId)
               .eq("quantity", quantity)
@@ -207,7 +207,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
             supplierShippingCost: selectedLine.supplierShippingCost ?? 0,
             supplierTaxAmount: selectedLine.supplierTaxAmount ?? 0,
             exchangeRate: quote.data.exchangeRate ?? 1,
-            createdBy: quote.data.createdBy,
+            createdBy: quote.data.createdBy
           });
         }
       }
@@ -217,7 +217,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
         ...priceUpdates,
         priceInserts.length > 0
           ? serviceRole.from("supplierQuoteLinePrice").insert(priceInserts)
-          : Promise.resolve({ data: null, error: null }),
+          : Promise.resolve({ data: null, error: null })
       ]);
 
       const now = new Date().toISOString();
@@ -232,8 +232,8 @@ export async function action({ request, params }: ActionFunctionArgs) {
             ...((quote.data.externalNotes as Record<string, unknown>) || {}),
             lastSubmittedBy: digitalSupplierQuoteSubmittedBy,
             lastSubmittedByEmail: digitalSupplierQuoteSubmittedByEmail,
-            lastSubmittedAt: now,
-          },
+            lastSubmittedAt: now
+          }
         })
         .eq("id", quote.data.id);
 
@@ -244,7 +244,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
           .update({
             submittedAt: now,
             submittedBy: digitalSupplierQuoteSubmittedBy,
-            submittedByEmail: digitalSupplierQuoteSubmittedByEmail,
+            submittedByEmail: digitalSupplierQuoteSubmittedByEmail
           } as any)
           .eq("id", quote.data.externalLinkId);
       }
@@ -255,7 +255,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
       return json({
         success: true,
-        message: "Quote submitted successfully",
+        message: "Quote submitted successfully"
       });
     }
 

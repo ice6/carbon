@@ -18,7 +18,7 @@ import {
   cn,
   toast,
   useDisclosure,
-  useMount,
+  useMount
 } from "@carbon/react";
 import { formatDateTime } from "@carbon/utils";
 import { useFetcher } from "@remix-run/react";
@@ -53,7 +53,7 @@ interface TreeData {
 export const OnshapeSync = ({
   itemId,
   makeMethodId,
-  isDisabled,
+  isDisabled
 }: {
   itemId: string;
   makeMethodId: string;
@@ -112,7 +112,7 @@ export const OnshapeSync = ({
         documentsFetcher.data?.data?.items
           ?.map((c) => ({
             value: c.id,
-            label: c.name,
+            label: c.name
           }))
           .sort((a, b) => a.label.localeCompare(b.label)) ?? []
       );
@@ -136,7 +136,7 @@ export const OnshapeSync = ({
         versionsFetcher.data?.data
           ?.map((c) => ({
             value: c.id,
-            label: c.name,
+            label: c.name
           }))
           .sort((a, b) => a.label.localeCompare(b.label)) ?? []
       );
@@ -159,7 +159,7 @@ export const OnshapeSync = ({
       return (
         elementsFetcher.data?.data?.map((c) => ({
           value: c.id,
-          label: c.name,
+          label: c.name
         })) ?? []
       );
     }, [elementsFetcher.data]) ?? [];
@@ -212,7 +212,7 @@ export const OnshapeSync = ({
     formData.append("rows", JSON.stringify(bomRows));
     upsertBomFetcher.submit(formData, {
       method: "post",
-      action: path.to.api.onShapeSync,
+      action: path.to.api.onShapeSync
     });
   };
 
@@ -405,7 +405,7 @@ export const OnshapeSync = ({
                     "flex min-h-8 cursor-pointer items-center overflow-hidden rounded-sm pr-2 w-full gap-1 hover:bg-muted/90"
                   )}
                   style={{
-                    paddingLeft: `${row.level * 12}px`,
+                    paddingLeft: `${row.level * 12}px`
                   }}
                 >
                   <div

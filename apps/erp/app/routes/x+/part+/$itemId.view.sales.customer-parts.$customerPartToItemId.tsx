@@ -9,7 +9,7 @@ import {
   customerPartValidator,
   getItem,
   getItemCustomerPart,
-  upsertItemCustomerPart,
+  upsertItemCustomerPart
 } from "~/modules/items";
 import CustomerPartForm from "~/modules/items/ui/Item/CustomerPartForm";
 import { path } from "~/utils/path";
@@ -17,7 +17,7 @@ import { path } from "~/utils/path";
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
     view: "parts",
-    role: "employee",
+    role: "employee"
   });
 
   const { customerPartToItemId } = params;
@@ -37,7 +37,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
   return json({
     customerPart: customerPart?.data ?? null,
-    readableId,
+    readableId
   });
 }
 
@@ -45,7 +45,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client } = await requirePermissions(request, {
     create: "parts",
-    role: "employee",
+    role: "employee"
   });
 
   const { itemId, customerPartToItemId } = params;
@@ -64,7 +64,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
   const updatedCustomerPart = await upsertItemCustomerPart(client, {
     id: customerPartToItemId,
-    ...data,
+    ...data
   });
 
   if (updatedCustomerPart.error) {
@@ -89,7 +89,7 @@ export default function EditCustomerPartRoute() {
     readableId: readableId ?? "",
     customerId: customerPart?.customerId ?? "",
     customerPartId: customerPart?.customerPartId ?? "",
-    customerPartRevision: customerPart?.customerPartRevision ?? "",
+    customerPartRevision: customerPart?.customerPartRevision ?? ""
   };
 
   return <CustomerPartForm initialValues={initialValues} />;

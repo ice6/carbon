@@ -2,7 +2,7 @@ import {
   assertIsPost,
   error,
   getCarbonServiceRole,
-  success,
+  success
 } from "@carbon/auth";
 import { requirePermissions } from "@carbon/auth/auth.server";
 import { flash } from "@carbon/auth/session.server";
@@ -22,7 +22,7 @@ import { getParams, path } from "~/utils/path";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   await requirePermissions(request, {
-    create: "quality",
+    create: "quality"
   });
 
   return null;
@@ -31,7 +31,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    create: "quality",
+    create: "quality"
   });
 
   const formData = await request.formData();
@@ -68,8 +68,8 @@ export async function action({ request }: ActionFunctionArgs) {
     ? parseDate(data.nextCalibrationDate) < today(getLocalTimeZone())
       ? "Out-of-Calibration"
       : data.lastCalibrationDate
-      ? "In-Calibration"
-      : "Pending"
+        ? "In-Calibration"
+        : "Pending"
     : "Pending";
 
   const createGauge = await upsertGauge(client, {
@@ -78,7 +78,7 @@ export async function action({ request }: ActionFunctionArgs) {
     gaugeCalibrationStatus,
     companyId,
     createdBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
 
   if (createGauge.error || !createGauge.data) {
@@ -126,7 +126,7 @@ export default function GaugeNewRoute() {
     nextCalibrationDate: "",
     locationId: defaults.locationId ?? "",
     shelfId: "",
-    calibrationIntervalInMonths: 6,
+    calibrationIntervalInMonths: 6
   };
 
   return (

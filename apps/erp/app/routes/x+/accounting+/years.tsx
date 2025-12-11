@@ -9,7 +9,7 @@ import { json, redirect } from "@vercel/remix";
 import {
   fiscalYearSettingsValidator,
   getFiscalYearSettings,
-  updateFiscalYearSettings,
+  updateFiscalYearSettings
 } from "~/modules/accounting";
 import { FiscalYearSettingsForm } from "~/modules/accounting/ui/FiscalYear";
 import type { Handle } from "~/utils/handle";
@@ -17,12 +17,12 @@ import { path } from "~/utils/path";
 
 export const handle: Handle = {
   breadcrumb: "Fiscal Years",
-  to: path.to.fiscalYears,
+  to: path.to.fiscalYears
 };
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    view: "accounting",
+    view: "accounting"
   });
 
   const settings = await getFiscalYearSettings(client, companyId);
@@ -42,7 +42,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    update: "accounting",
+    update: "accounting"
   });
 
   const validation = await validator(fiscalYearSettingsValidator).validate(
@@ -56,7 +56,7 @@ export async function action({ request }: ActionFunctionArgs) {
   const update = await updateFiscalYearSettings(client, {
     ...validation.data,
     companyId,
-    updatedBy: userId,
+    updatedBy: userId
   });
   if (update.error) {
     throw redirect(
@@ -79,7 +79,7 @@ export default function FiscalYearSettingsRoute() {
 
   const initialValues = {
     startMonth: settings?.startMonth || "January",
-    taxStartMonth: settings?.taxStartMonth || "January",
+    taxStartMonth: settings?.taxStartMonth || "January"
   };
 
   return (

@@ -7,7 +7,7 @@ import {
   CommandGroup,
   CommandInput,
   CommandItem,
-  CommandTrigger,
+  CommandTrigger
 } from "./Command";
 import { HStack } from "./HStack";
 import { IconButton } from "./IconButton";
@@ -154,7 +154,7 @@ function VirtualizedCommand({
   value,
   onChange,
   itemHeight,
-  setOpen,
+  setOpen
 }: VirtualizedCommandProps) {
   const [search, setSearch] = useState("");
   const parentRef = useRef<HTMLDivElement>(null);
@@ -176,7 +176,7 @@ function VirtualizedCommand({
     count: filteredOptions.length,
     getScrollElement: () => parentRef.current,
     estimateSize: () => itemHeight,
-    overscan: 5,
+    overscan: 5
   });
 
   const items = virtualizer.getVirtualItems();
@@ -193,14 +193,14 @@ function VirtualizedCommand({
         ref={parentRef}
         className="overflow-auto scrollbar-thin scrollbar-track-transparent scrollbar-thumb-accent pt-1"
         style={{
-          height: `${Math.min(filteredOptions.length, 6) * itemHeight + 4}px`,
+          height: `${Math.min(filteredOptions.length, 6) * itemHeight + 4}px`
         }}
       >
         <CommandGroup
           style={{
             height: `${virtualizer.getTotalSize()}px`,
             width: "100%",
-            position: "relative",
+            position: "relative"
           }}
         >
           {items.map((virtualRow) => {
@@ -229,7 +229,7 @@ function VirtualizedCommand({
                   left: 0,
                   width: "100%",
                   height: `${itemHeight}px`,
-                  transform: `translateY(${virtualRow.start}px)`,
+                  transform: `translateY(${virtualRow.start}px)`
                 }}
               >
                 {item.helper ? (

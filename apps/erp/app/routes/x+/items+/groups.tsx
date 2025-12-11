@@ -14,13 +14,13 @@ import { getGenericQueryFilters } from "~/utils/query";
 
 export const handle: Handle = {
   breadcrumb: "Posting Groups",
-  to: path.to.itemPostingGroups,
+  to: path.to.itemPostingGroups
 };
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
     view: "parts",
-    role: "employee",
+    role: "employee"
   });
 
   const url = new URL(request.url);
@@ -35,9 +35,9 @@ export async function loader({ request }: LoaderFunctionArgs) {
       offset,
       sorts,
       search,
-      filters,
+      filters
     }),
-    getAccountsList(client, companyId),
+    getAccountsList(client, companyId)
   ]);
 
   if (itemPostingGroups.error) {
@@ -57,7 +57,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   return json({
     itemPostingGroups: itemPostingGroups.data ?? [],
     count: itemPostingGroups.count ?? 0,
-    accounts: accounts.data ?? [],
+    accounts: accounts.data ?? []
   });
 }
 

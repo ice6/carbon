@@ -5,7 +5,7 @@ import {
   expirationWorkflow,
   gaugeCalibrationExpiredWorkflow,
   jobCompletedWorkflow,
-  messageWorkflow,
+  messageWorkflow
 } from "~/novu/workflows";
 
 const handler = serve({
@@ -15,8 +15,8 @@ const handler = serve({
     digitalQuoteResponseWorkflow,
     gaugeCalibrationExpiredWorkflow,
     expirationWorkflow,
-    messageWorkflow,
-  ],
+    messageWorkflow
+  ]
 });
 
 export { handler as action, handler as loader };

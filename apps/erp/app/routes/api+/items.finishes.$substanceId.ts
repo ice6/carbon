@@ -6,7 +6,7 @@ import { getMaterialFinishList } from "~/modules/items";
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
     view: "parts",
-    role: "employee",
+    role: "employee"
   });
 
   if (!params.substanceId) {

@@ -5,7 +5,7 @@ import { getCompanyId, proceduresQuery } from "~/utils/react-query";
 
 export async function action({ request }: ActionFunctionArgs) {
   const { client, userId } = await requirePermissions(request, {
-    update: "production",
+    update: "production"
   });
 
   const formData = await request.formData();
@@ -28,7 +28,7 @@ export async function action({ request }: ActionFunctionArgs) {
           .update({
             [field]: value,
             updatedBy: userId,
-            updatedAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString()
           })
           .in("id", ids as string[])
       );
@@ -39,7 +39,7 @@ export async function action({ request }: ActionFunctionArgs) {
           .update({
             [field]: formData.getAll("value") as string[],
             updatedBy: userId,
-            updatedAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString()
           })
           .in("id", ids as string[])
       );

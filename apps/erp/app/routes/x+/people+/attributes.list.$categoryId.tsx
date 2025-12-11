@@ -7,7 +7,7 @@ import { json, redirect } from "@vercel/remix";
 import { useUrlParams } from "~/hooks";
 import {
   getAttributeCategory,
-  updateAttributeSortOrder,
+  updateAttributeSortOrder
 } from "~/modules/people";
 import { AttributeCategoryDetail } from "~/modules/people/ui/Attributes";
 import { path } from "~/utils/path";
@@ -15,7 +15,7 @@ import { path } from "~/utils/path";
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
     view: "people",
-    role: "employee",
+    role: "employee"
   });
 
   const { categoryId } = params;
@@ -38,7 +38,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    update: "people",
+    update: "people"
   });
 
   const updateMap = (await request.formData()).get("updates") as string;
@@ -53,7 +53,7 @@ export async function action({ request }: ActionFunctionArgs) {
     ([id, sortOrderString]) => ({
       id,
       sortOrder: Number(sortOrderString),
-      updatedBy: userId,
+      updatedBy: userId
     })
   );
 

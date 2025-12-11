@@ -14,7 +14,7 @@ import {
   ModalOverlay,
   ModalTitle,
   toast,
-  useMount,
+  useMount
 } from "@carbon/react";
 import { useRouteData } from "@carbon/remix";
 import type { TrackedEntityAttributes } from "@carbon/utils";
@@ -50,7 +50,7 @@ const ReceiptPostModal = ({ onClose }: { onClose: () => void }) => {
 
   const { carbon } = useCarbon();
   const {
-    company: { id: companyId },
+    company: { id: companyId }
   } = useUser();
 
   const validateReceiptTracking = async () => {
@@ -79,8 +79,8 @@ const ReceiptPostModal = ({ onClose }: { onClose: () => void }) => {
         {
           itemReadableId: null,
           receivedQuantity: 0,
-          receivedQuantityError: "Receipt is empty",
-        },
+          receivedQuantityError: "Receipt is empty"
+        }
       ]);
     }
 
@@ -99,7 +99,7 @@ const ReceiptPostModal = ({ onClose }: { onClose: () => void }) => {
           errors.push({
             itemReadableId: getItemReadableId(items, line.itemId) ?? null,
             receivedQuantity: line.receivedQuantity ?? 0,
-            receivedQuantityError: "Batch number is required",
+            receivedQuantityError: "Batch number is required"
           });
         }
       }
@@ -122,7 +122,7 @@ const ReceiptPostModal = ({ onClose }: { onClose: () => void }) => {
           errors.push({
             itemReadableId: getItemReadableId(items, line.itemId) ?? null,
             receivedQuantity: line.receivedQuantity ?? 0,
-            receivedQuantityError: "Serial numbers are missing",
+            receivedQuantityError: "Serial numbers are missing"
           });
         }
       }

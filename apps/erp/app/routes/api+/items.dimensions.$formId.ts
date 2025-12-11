@@ -7,7 +7,7 @@ import { getCompanySettings } from "~/modules/settings";
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
     view: "parts",
-    role: "employee",
+    role: "employee"
   });
 
   if (!params.formId) {

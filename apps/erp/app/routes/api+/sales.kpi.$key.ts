@@ -8,7 +8,7 @@ import { groupDataByDay, groupDataByMonth } from "~/utils/chart";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    view: "sales",
+    view: "sales"
   });
   const url = new URL(request.url);
   const searchParams = new URLSearchParams(url.search);
@@ -39,14 +39,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   )
     return json({
       data: [],
-      previousPeriodData: [],
+      previousPeriodData: []
     });
 
   const kpi = KPIs.find((k) => k.key === key);
   if (!kpi)
     return json({
       data: [],
-      previousPeriodData: [],
+      previousPeriodData: []
     });
 
   switch (kpi.key) {
@@ -57,40 +57,40 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
             companyId,
             customerId,
             start,
-            end,
+            end
           }),
           getQuotesQuery(client, {
             companyId,
             customerId,
             start,
-            end,
+            end
           }),
           getRfqQuery(client, {
             companyId,
             customerId,
             start,
-            end,
+            end
           }),
           getSalesOrdersQuery(client, {
             companyId,
             customerId,
             start: previousStartDate.toString(),
-            end: previousEndDate.toString(),
-          }),
+            end: previousEndDate.toString()
+          })
         ]);
 
       const data = [
         {
           name: "RFQs",
-          value: rfqs.count ?? 0,
+          value: rfqs.count ?? 0
         },
         {
           name: "Quotes",
-          value: quotes.count ?? 0,
+          value: quotes.count ?? 0
         },
         {
           name: "Sales Orders",
-          value: salesOrders.count ?? 0,
+          value: salesOrders.count ?? 0
         },
         {
           name: "Revenue",
@@ -98,8 +98,8 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
             salesOrders.data?.reduce(
               (sum, order) => sum + (order.orderTotal ?? 0),
               0
-            ) ?? 0,
-        },
+            ) ?? 0
+        }
       ];
 
       const previousPeriodData = [
@@ -109,13 +109,13 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
             previousSalesOrders.data?.reduce(
               (sum, order) => sum + (order.orderTotal ?? 0),
               0
-            ) ?? 0,
-        },
+            ) ?? 0
+        }
       ];
 
       return json({
         data,
-        previousPeriodData,
+        previousPeriodData
       });
     }
 
@@ -126,14 +126,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
           companyId,
           customerId,
           start,
-          end,
+          end
         }),
         getSalesOrdersQuery(client, {
           companyId,
           customerId,
           start: previousStartDate.toString(),
-          end: previousEndDate.toString(),
-        }),
+          end: previousEndDate.toString()
+        })
       ]);
 
       if (daysBetween < 60) {
@@ -141,18 +141,18 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
           groupDataByDay(salesOrders.data ?? [], {
             start,
             end,
-            groupBy: "orderDate",
+            groupBy: "orderDate"
           }),
           groupDataByDay(previousSalesOrders.data ?? [], {
             start: previousStartDate.toString(),
             end: previousEndDate.toString(),
-            groupBy: "orderDate",
-          }),
+            groupBy: "orderDate"
+          })
         ];
 
         const [data, previousPeriodData] = [
           groupedData,
-          previousGroupedData,
+          previousGroupedData
         ].map((data: Record<string, any[]>) =>
           Object.entries(data)
             .map(([date, d]) => ({
@@ -160,32 +160,32 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
               value:
                 kpi.key === "salesOrderRevenue"
                   ? d.reduce((sum, i) => sum + (i.orderTotal ?? 0), 0)
-                  : d.length,
+                  : d.length
             }))
             .sort((a, b) => a.date.localeCompare(b.date))
         );
 
         return json({
           data,
-          previousPeriodData,
+          previousPeriodData
         });
       } else {
         const [groupedData, previousGroupedData] = [
           groupDataByMonth(salesOrders.data ?? [], {
             start,
             end,
-            groupBy: "orderDate",
+            groupBy: "orderDate"
           }),
           groupDataByMonth(previousSalesOrders.data ?? [], {
             start: previousStartDate.toString(),
             end: previousEndDate.toString(),
-            groupBy: "orderDate",
-          }),
+            groupBy: "orderDate"
+          })
         ];
 
         const [data, previousPeriodData] = [
           groupedData,
-          previousGroupedData,
+          previousGroupedData
         ].map((data) =>
           Object.entries(data)
             .map(([date, d]) => ({
@@ -194,14 +194,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
               value:
                 kpi.key === "salesOrderRevenue"
                   ? d.reduce((sum, i) => sum + (i.orderTotal ?? 0), 0)
-                  : d.length,
+                  : d.length
             }))
             .sort((a, b) => a.monthKey.localeCompare(b.monthKey))
         );
 
         return json({
           data,
-          previousPeriodData,
+          previousPeriodData
         });
       }
     }
@@ -212,48 +212,48 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
           companyId,
           customerId,
           start,
-          end,
+          end
         }),
         getQuotesQuery(client, {
           companyId,
           customerId,
           start: previousStartDate.toString(),
-          end: previousEndDate.toString(),
-        }),
+          end: previousEndDate.toString()
+        })
       ]);
 
       if (daysBetween < 60) {
         const [groupedData, previousGroupedData] = [
           groupDataByDay(
             quotes.data?.map((q) => ({
-              createdAt: q.createdAt,
+              createdAt: q.createdAt
             })) ?? [],
             {
               start,
               end,
-              groupBy: "createdAt",
+              groupBy: "createdAt"
             }
           ),
           groupDataByDay(
             previousQuotes.data?.map((q) => ({
-              createdAt: q.createdAt,
+              createdAt: q.createdAt
             })) ?? [],
             {
               start: previousStartDate.toString(),
               end: previousEndDate.toString(),
-              groupBy: "createdAt",
+              groupBy: "createdAt"
             }
-          ),
+          )
         ];
 
         const [data, previousPeriodData] = [
           groupedData,
-          previousGroupedData,
+          previousGroupedData
         ].map((data) =>
           Object.entries(data)
             .map(([date, d]) => ({
               date,
-              value: d.length,
+              value: d.length
             }))
             .sort((a, b) => a.date.localeCompare(b.date))
         );
@@ -263,35 +263,35 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
         const [groupedData, previousGroupedData] = [
           groupDataByMonth(
             quotes.data?.map((q) => ({
-              createdAt: q.createdAt,
+              createdAt: q.createdAt
             })) ?? [],
             {
               start,
               end,
-              groupBy: "createdAt",
+              groupBy: "createdAt"
             }
           ),
           groupDataByMonth(
             previousQuotes.data?.map((q) => ({
-              createdAt: q.createdAt,
+              createdAt: q.createdAt
             })) ?? [],
             {
               start: previousStartDate.toString(),
               end: previousEndDate.toString(),
-              groupBy: "createdAt",
+              groupBy: "createdAt"
             }
-          ),
+          )
         ];
 
         const [data, previousPeriodData] = [
           groupedData,
-          previousGroupedData,
+          previousGroupedData
         ].map((data) =>
           Object.entries(data)
             .map(([date, d]) => ({
               month: months[Number(date.split("-")[1]) - 1],
               monthKey: date,
-              value: d.length,
+              value: d.length
             }))
             .sort((a, b) => a.monthKey.localeCompare(b.monthKey))
         );
@@ -306,48 +306,48 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
           companyId,
           customerId,
           start,
-          end,
+          end
         }),
         getRfqQuery(client, {
           companyId,
           customerId,
           start: previousStartDate.toString(),
-          end: previousEndDate.toString(),
-        }),
+          end: previousEndDate.toString()
+        })
       ]);
 
       if (daysBetween < 60) {
         const [groupedData, previousGroupedData] = [
           groupDataByDay(
             rfqs.data?.map((r) => ({
-              createdAt: r.createdAt,
+              createdAt: r.createdAt
             })) ?? [],
             {
               start,
               end,
-              groupBy: "createdAt",
+              groupBy: "createdAt"
             }
           ),
           groupDataByDay(
             previousRfqs.data?.map((r) => ({
-              createdAt: r.createdAt,
+              createdAt: r.createdAt
             })) ?? [],
             {
               start: previousStartDate.toString(),
               end: previousEndDate.toString(),
-              groupBy: "createdAt",
+              groupBy: "createdAt"
             }
-          ),
+          )
         ];
 
         const [data, previousPeriodData] = [
           groupedData,
-          previousGroupedData,
+          previousGroupedData
         ].map((data) =>
           Object.entries(data)
             .map(([date, d]) => ({
               date,
-              value: d.length,
+              value: d.length
             }))
             .sort((a, b) => a.date.localeCompare(b.date))
         );
@@ -357,35 +357,35 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
         const [groupedData, previousGroupedData] = [
           groupDataByMonth(
             rfqs.data?.map((r) => ({
-              createdAt: r.createdAt,
+              createdAt: r.createdAt
             })) ?? [],
             {
               start,
               end,
-              groupBy: "createdAt",
+              groupBy: "createdAt"
             }
           ),
           groupDataByMonth(
             previousRfqs.data?.map((r) => ({
-              createdAt: r.createdAt,
+              createdAt: r.createdAt
             })) ?? [],
             {
               start: previousStartDate.toString(),
               end: previousEndDate.toString(),
-              groupBy: "createdAt",
+              groupBy: "createdAt"
             }
-          ),
+          )
         ];
 
         const [data, previousPeriodData] = [
           groupedData,
-          previousGroupedData,
+          previousGroupedData
         ].map((data) =>
           Object.entries(data)
             .map(([date, d]) => ({
               month: months[Number(date.split("-")[1]) - 1],
               monthKey: date,
-              value: d.length,
+              value: d.length
             }))
             .sort((a, b) => a.monthKey.localeCompare(b.monthKey))
         );
@@ -405,7 +405,7 @@ async function getSalesOrdersQuery(
     companyId,
     customerId,
     start,
-    end,
+    end
   }: {
     companyId: string;
     customerId: string | null;
@@ -418,7 +418,7 @@ async function getSalesOrdersQuery(
   let query = client
     .from("salesOrders")
     .select("orderTotal, orderDate", {
-      count: "exact",
+      count: "exact"
     })
     .eq("companyId", companyId)
     .in("status", [
@@ -429,7 +429,7 @@ async function getSalesOrdersQuery(
       "To Invoice",
       "Confirmed",
       "Completed",
-      "Invoiced",
+      "Invoiced"
     ])
     .gte("orderDate", start)
     .lte("orderDate", endWithTime);
@@ -449,7 +449,7 @@ async function getQuotesQuery(
     companyId,
     customerId,
     start,
-    end,
+    end
   }: {
     companyId: string;
     customerId: string | null;
@@ -463,7 +463,7 @@ async function getQuotesQuery(
   let query = client
     .from("quote")
     .select("createdAt", {
-      count: "exact",
+      count: "exact"
     })
     .eq("companyId", companyId)
     .in("status", ["Sent", "Ordered", "Partial", "Lost", "Expired"])
@@ -485,7 +485,7 @@ async function getRfqQuery(
     companyId,
     customerId,
     start,
-    end,
+    end
   }: {
     companyId: string;
     customerId: string | null;
@@ -499,7 +499,7 @@ async function getRfqQuery(
   let query = client
     .from("salesRfq")
     .select("createdAt", {
-      count: "exact",
+      count: "exact"
     })
     .eq("companyId", companyId)
     .in("status", ["Ready for Quote", "Quoted", "Closed"])

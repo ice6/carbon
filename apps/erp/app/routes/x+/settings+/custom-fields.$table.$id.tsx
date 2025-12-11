@@ -3,14 +3,14 @@ import {
   redirect,
   useLoaderData,
   useNavigate,
-  useParams,
+  useParams
 } from "@remix-run/react";
 import { useRouteData } from "~/hooks";
 import type { AttributeDataType } from "~/modules/people";
 import {
   CustomFieldForm,
   customFieldValidator,
-  getCustomField,
+  getCustomField
 } from "~/modules/settings";
 import { DataType } from "~/modules/shared";
 import { getParams, path } from "~/utils/path";
@@ -25,7 +25,7 @@ import { upsertCustomField } from "~/modules/settings/settings.server";
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client } = await requirePermissions(request, {
     view: "settings",
-    role: "employee",
+    role: "employee"
   });
 
   const { table, id } = params;
@@ -49,7 +49,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    create: "settings",
+    create: "settings"
   });
 
   const { table } = params;
@@ -69,7 +69,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   const update = await upsertCustomField(client, {
     id,
     ...data,
-    updatedBy: userId,
+    updatedBy: userId
   });
   if (update.error) {
     return json(
@@ -101,7 +101,7 @@ export default function UpdateCustomFieldRoute() {
         dataTypeId: (customField.dataTypeId || DataType.Text).toString(),
         table: table,
         listOptions: customField.listOptions ?? [],
-        tags: customField.tags ?? [],
+        tags: customField.tags ?? []
       }}
       dataTypes={routeData?.dataTypes ?? []}
       onClose={onClose}

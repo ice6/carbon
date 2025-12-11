@@ -10,7 +10,7 @@ import {
   LuPencil,
   LuTag,
   LuTrash,
-  LuUser,
+  LuUser
 } from "react-icons/lu";
 import { EmployeeAvatar, Hyperlink, New, Table } from "~/components";
 import { usePermissions, useUrlParams } from "~/hooks";
@@ -38,8 +38,8 @@ const ApiKeysTable = memo(({ data, count }: ApiKeysTableProps) => {
           <Hyperlink to={row.original.id!}>{row.original.name}</Hyperlink>
         ),
         meta: {
-          icon: <LuTag />,
-        },
+          icon: <LuTag />
+        }
       },
       {
         accessorKey: "key",
@@ -48,8 +48,8 @@ const ApiKeysTable = memo(({ data, count }: ApiKeysTableProps) => {
           <Badge variant="secondary">{item.getValue<string>()}</Badge>
         ),
         meta: {
-          icon: <LuKey />,
-        },
+          icon: <LuKey />
+        }
       },
       {
         id: "createdBy",
@@ -63,19 +63,19 @@ const ApiKeysTable = memo(({ data, count }: ApiKeysTableProps) => {
             type: "static",
             options: people.map((employee) => ({
               value: employee.id,
-              label: employee.name,
-            })),
-          },
-        },
+              label: employee.name
+            }))
+          }
+        }
       },
       {
         accessorKey: "createdAt",
         header: "Created At",
         cell: (item) => formatDate(item.getValue<string>()),
         meta: {
-          icon: <LuCalendar />,
-        },
-      },
+          icon: <LuCalendar />
+        }
+      }
     ];
   }, [people]);
 

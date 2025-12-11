@@ -7,5 +7,5 @@ export {
   BulkEditPermissionsForm,
   CreateEmployeeModal,
   EmployeePermissionsForm,
-  EmployeesTable,
+  EmployeesTable
 };

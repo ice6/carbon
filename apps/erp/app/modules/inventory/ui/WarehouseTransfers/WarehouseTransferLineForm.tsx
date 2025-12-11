@@ -9,11 +9,11 @@ import {
   DrawerTitle,
   HStack,
   toast,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { useFetcher, useParams } from "@remix-run/react";
 import { useEffect, useState } from "react";
-import { z } from 'zod/v3';
+import { z } from "zod/v3";
 import { zfd } from "zod-form-data";
 import {
   CustomFormFields,
@@ -22,7 +22,7 @@ import {
   Number,
   Shelf,
   Submit,
-  TextArea,
+  TextArea
 } from "~/components/Form";
 import { usePermissions } from "~/hooks";
 import type { MethodItemType } from "~/modules/shared/types";
@@ -41,7 +41,7 @@ const warehouseTransferLineFormValidator = z.discriminatedUnion("type", [
     quantity: zfd.numeric(z.number().min(0.0001)),
     fromShelfId: zfd.text(z.string().optional()),
     toShelfId: zfd.text(z.string().optional()),
-    notes: zfd.text(z.string().optional()),
+    notes: zfd.text(z.string().optional())
   }),
   z.object({
     type: z.literal("update"),
@@ -53,8 +53,8 @@ const warehouseTransferLineFormValidator = z.discriminatedUnion("type", [
     quantity: zfd.numeric(z.number().min(0.0001)),
     fromShelfId: zfd.text(z.string().optional()),
     toShelfId: zfd.text(z.string().optional()),
-    notes: zfd.text(z.string().optional()),
-  }),
+    notes: zfd.text(z.string().optional())
+  })
 ]);
 
 type WarehouseTransferLineFormProps = {
@@ -66,7 +66,7 @@ type WarehouseTransferLineFormProps = {
 const WarehouseTransferLineForm = ({
   initialValues,
   warehouseTransfer,
-  onClose,
+  onClose
 }: WarehouseTransferLineFormProps) => {
   const permissions = usePermissions();
   const { transferId } = useParams();

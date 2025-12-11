@@ -11,7 +11,7 @@ export const meta: MetaFunction = () => {
 export const handle: Handle = {
   breadcrumb: "Production",
   to: path.to.production,
-  module: "production",
+  module: "production"
 };
 
 export default function SchedulingRoute() {

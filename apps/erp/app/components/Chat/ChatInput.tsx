@@ -2,7 +2,7 @@ import {
   useChatActions,
   useChatId,
   useChatStatus,
-  useDataPart,
+  useDataPart
 } from "@ai-sdk-tools/store";
 import { cn } from "@carbon/react";
 import { forwardRef, useRef } from "react";
@@ -18,7 +18,7 @@ import {
   PromptInputSubmit,
   PromptInputTextarea,
   PromptInputToolbar,
-  PromptInputTools,
+  PromptInputTools
 } from "./PromptInput";
 import { RecordButton, type RecordButtonRef } from "./RecordButton";
 import { SuggestedActionsButton } from "./SuggestedActions";
@@ -65,7 +65,7 @@ export const ChatInput = forwardRef<RecordButtonRef, ChatInputProps>(
       setInput,
       handleInputChange,
       handleKeyDown,
-      resetCommandState,
+      resetCommandState
     } = useChatStore();
 
     const handleSubmit = (message: ChatInputMessage) => {
@@ -87,8 +87,8 @@ export const ChatInput = forwardRef<RecordButtonRef, ChatInputProps>(
         files: message.files,
         metadata: {
           agentChoice: message.metadata?.agentChoice,
-          toolChoice: message.metadata?.toolChoice,
-        },
+          toolChoice: message.metadata?.toolChoice
+        }
       });
       setInput("");
     };
@@ -131,14 +131,14 @@ export const ChatInput = forwardRef<RecordButtonRef, ChatInputProps>(
                         sendMessage({
                           role: "user",
                           parts: [
-                            { type: "text", text: selectedCommand.title },
+                            { type: "text", text: selectedCommand.title }
                           ],
                           metadata: {
                             toolCall: {
                               toolName: selectedCommand.toolName,
-                              toolParams: selectedCommand.toolParams,
-                            },
-                          },
+                              toolParams: selectedCommand.toolParams
+                            }
+                          }
                         });
 
                         setInput("");
@@ -163,8 +163,8 @@ export const ChatInput = forwardRef<RecordButtonRef, ChatInputProps>(
                           text: input,
                           files: [],
                           metadata: {
-                            webSearch: isWebSearch,
-                          },
+                            webSearch: isWebSearch
+                          }
                         });
 
                         setInput("");

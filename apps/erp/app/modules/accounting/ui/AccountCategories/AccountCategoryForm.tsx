@@ -8,22 +8,22 @@ import {
   DrawerHeader,
   DrawerTitle,
   HStack,
-  VStack,
+  VStack
 } from "@carbon/react";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import {
   CustomFormFields,
   Hidden,
   Input,
   Select,
-  Submit,
+  Submit
 } from "~/components/Form";
 import { usePermissions } from "~/hooks";
 import { path } from "~/utils/path";
 import {
   accountCategoryValidator,
   accountClassTypes,
-  incomeBalanceTypes,
+  incomeBalanceTypes
 } from "../../accounting.models";
 type AccountCategoryFormProps = {
   initialValues: z.infer<typeof accountCategoryValidator>;
@@ -32,7 +32,7 @@ type AccountCategoryFormProps = {
 
 const AccountCategoryForm = ({
   initialValues,
-  onClose,
+  onClose
 }: AccountCategoryFormProps) => {
   const permissions = usePermissions();
 
@@ -74,7 +74,7 @@ const AccountCategoryForm = ({
                 label="Income Balance"
                 options={incomeBalanceTypes.map((incomeBalance) => ({
                   value: incomeBalance,
-                  label: incomeBalance,
+                  label: incomeBalance
                 }))}
               />
               <Select
@@ -82,7 +82,7 @@ const AccountCategoryForm = ({
                 label="Class"
                 options={accountClassTypes.map((accountClass) => ({
                   value: accountClass,
-                  label: accountClass,
+                  label: accountClass
                 }))}
               />
               <CustomFormFields table="accountCategory" />

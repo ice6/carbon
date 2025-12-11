@@ -14,12 +14,12 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
   HStack,
-  IconButton,
+  IconButton
 } from "@carbon/react";
 import { Link, useFetcher } from "@remix-run/react";
 import { useState } from "react";
 import { LuEllipsisVertical } from "react-icons/lu";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import { TrackingTypeIcon } from "~/components";
 import {
   Boolean,
@@ -29,7 +29,7 @@ import {
   Select,
   Submit,
   TextArea,
-  UnitOfMeasure,
+  UnitOfMeasure
 } from "~/components/Form";
 import { ReplenishmentSystemIcon } from "~/components/Icons";
 import { usePermissions } from "~/hooks";
@@ -39,7 +39,7 @@ import { capitalize } from "~/utils/string";
 import {
   itemReplenishmentSystems,
   itemTrackingTypes,
-  itemValidator,
+  itemValidator
 } from "../../items.models";
 
 type ItemFormProps = {
@@ -62,7 +62,7 @@ const ItemForm = ({ initialValues, type }: ItemFormProps) => {
         {itemTrackingType}
       </span>
     ),
-    value: itemTrackingType,
+    value: itemTrackingType
   }));
 
   const [replenishmentSystem, setReplenishmentSystem] = useState<string>(
@@ -79,7 +79,7 @@ const ItemForm = ({ initialValues, type }: ItemFormProps) => {
           {itemReplenishmentSystem}
         </span>
       ),
-      value: itemReplenishmentSystem,
+      value: itemReplenishmentSystem
     })) ?? [];
 
   return (

@@ -20,7 +20,7 @@ import {
   TabsContent,
   TabsList,
   TabsTrigger,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { formatRelativeTime } from "@carbon/utils";
 import { parseDate } from "@internationalized/date";
@@ -31,7 +31,7 @@ import {
   LuCalendar,
   LuCircleGauge,
   LuCirclePlus,
-  LuEllipsisVertical,
+  LuEllipsisVertical
 } from "react-icons/lu";
 import type { z } from "zod/v3";
 import { EmployeeAvatar, Empty } from "~/components";
@@ -45,7 +45,7 @@ import {
   SequenceOrCustomId,
   Shelf,
   Submit,
-  Supplier,
+  Supplier
 } from "~/components/Form";
 import { usePermissions } from "~/hooks";
 import type { ListItem } from "~/types";
@@ -71,7 +71,7 @@ const GaugeForm = ({
   records,
   open = true,
   type = "drawer",
-  onClose,
+  onClose
 }: GaugeFormProps) => {
   const permissions = usePermissions();
   const fetcher = useFetcher<{}>();
@@ -85,7 +85,7 @@ const GaugeForm = ({
   const [calibrationInterval, setCalibrationInterval] = useState({
     lastCalibrationDate: initialValues.lastCalibrationDate,
     nextCalibrationDate: initialValues.nextCalibrationDate,
-    calibrationIntervalInMonths: initialValues.calibrationIntervalInMonths ?? 6,
+    calibrationIntervalInMonths: initialValues.calibrationIntervalInMonths ?? 6
   });
 
   const [activeTab, setActiveTab] = useState<string>("gauge");
@@ -328,7 +328,7 @@ function GaugeFormContent({
   gaugeTypes,
   initialValues,
   calibrationInterval,
-  setCalibrationInterval,
+  setCalibrationInterval
 }: {
   isEditing: boolean;
   gaugeTypes: ListItem[];
@@ -360,7 +360,7 @@ function GaugeFormContent({
           label="Gauge Type"
           options={gaugeTypes.map((type) => ({
             label: <Enumerable value={type.name} />,
-            value: type.id,
+            value: type.id
           }))}
         />
         <Supplier name="supplierId" label="Manufacturer" />
@@ -379,7 +379,7 @@ function GaugeFormContent({
           label="Role"
           options={gaugeRole.map((role) => ({
             label: <GaugeRole role={role} />,
-            value: role,
+            value: role
           }))}
         />
         <DatePicker name="dateAcquired" label="Date Acquired" />
@@ -402,10 +402,10 @@ function GaugeFormContent({
               nextCalibrationDate: value
                 ? parseDate(value?.toString())
                     .add({
-                      months: calibrationInterval.calibrationIntervalInMonths,
+                      months: calibrationInterval.calibrationIntervalInMonths
                     })
                     .toString()
-                : undefined,
+                : undefined
             });
           }}
         />
@@ -416,7 +416,7 @@ function GaugeFormContent({
           onChange={(value) => {
             setCalibrationInterval({
               ...calibrationInterval,
-              nextCalibrationDate: value?.toString(),
+              nextCalibrationDate: value?.toString()
             });
           }}
         />
@@ -441,10 +441,10 @@ function GaugeFormContent({
               nextCalibrationDate: calibrationInterval.lastCalibrationDate
                 ? parseDate(calibrationInterval.lastCalibrationDate)
                     .add({
-                      months: value,
+                      months: value
                     })
                     .toString()
-                : undefined,
+                : undefined
             });
           }}
         />

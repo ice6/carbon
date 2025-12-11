@@ -15,14 +15,14 @@ import {
   TooltipTrigger,
   useDisclosure,
   useKeyboardShortcuts,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { prettifyKeyboardShortcut } from "@carbon/utils";
 import { useDroppable } from "@dnd-kit/core";
 import { Link, useFetchers, useParams } from "@remix-run/react";
 import { useRef, useState } from "react";
 import { LuCirclePlus, LuEllipsisVertical, LuTrash } from "react-icons/lu";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import { Empty, ItemThumbnail } from "~/components";
 import { usePermissions, useRealtime, useRouteData } from "~/hooks";
 import type { MethodItemType } from "~/modules/shared";
@@ -66,7 +66,7 @@ export default function SalesRFQExplorer() {
     "Command+Shift+l": (event: KeyboardEvent) => {
       event.stopPropagation();
       newButtonRef.current?.click();
-    },
+    }
   });
 
   const salesRfqLineInitialValues = {
@@ -77,7 +77,7 @@ export default function SalesRFQExplorer() {
     itemId: "",
     quantity: [1],
     order: 1,
-    unitOfMeasureCode: "EA",
+    unitOfMeasureCode: "EA"
   };
 
   const isDisabled = ["Ready for Quote"].includes(
@@ -85,7 +85,7 @@ export default function SalesRFQExplorer() {
   );
 
   const { setNodeRef: setExplorerRef, isOver: isOverExplorer } = useDroppable({
-    id: "sales-rfq-explorer",
+    id: "sales-rfq-explorer"
   });
 
   const linesByCustomerPartId = new Map<
@@ -201,7 +201,7 @@ type DroppableSalesRFQLineItemProps = {
 };
 
 function OptimisticSalesRFQLineItem({
-  line,
+  line
 }: {
   line: z.infer<typeof salesRfqDragValidator>;
 }) {
@@ -228,11 +228,11 @@ function OptimisticSalesRFQLineItem({
 function DroppableSalesRFQLineItem({
   line,
   isDisabled,
-  onDelete,
+  onDelete
 }: DroppableSalesRFQLineItemProps) {
   const { setNodeRef, isOver } = useDroppable({
     id: `sales-rfq-line-${line.id}`,
-    data: { lineId: line.id },
+    data: { lineId: line.id }
   });
 
   return (
@@ -261,7 +261,7 @@ type SalesRFQLineItemProps = {
 function SalesRFQLineItem({
   line,
   isDisabled,
-  onDelete,
+  onDelete
 }: SalesRFQLineItemProps) {
   const { rfqId, lineId } = useParams();
   if (!rfqId) throw new Error("Could not find rfqId");

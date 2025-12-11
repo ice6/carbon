@@ -5,7 +5,7 @@ import {
   Select,
   Submit,
   TextArea,
-  ValidatedForm,
+  ValidatedForm
 } from "@carbon/form";
 import { Button, ModalFooter, VStack } from "@carbon/react";
 import { useEffect, useId, useMemo, useState } from "react";
@@ -23,7 +23,7 @@ const createIssueValidator = z.object({
   actionId: z.string(),
   teamId: z.string(),
   title: z.string().min(1, "Title is required"),
-  description: z.string().min(1, "Description is required"),
+  description: z.string().min(1, "Description is required")
 });
 
 export const CreateIssue = (props: Props) => {
@@ -112,6 +112,6 @@ const useLinearTeams = (teamId?: string) => {
   return {
     teams: fetcher.data?.teams || [],
     members: fetcher.data?.members || [],
-    fetcher,
+    fetcher
   };
 };

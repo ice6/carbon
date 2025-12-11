@@ -10,13 +10,19 @@ import {
   ModalDrawerProvider,
   ModalDrawerTitle,
   VStack,
-  toast,
+  toast
 } from "@carbon/react";
 import { useFetcher } from "@remix-run/react";
 import type { PostgrestResponse } from "@supabase/supabase-js";
 import { useEffect } from "react";
-import type { z } from 'zod/v3';
-import { Boolean, CustomFormFields, Hidden, Input, Submit } from "~/components/Form";
+import type { z } from "zod/v3";
+import {
+  Boolean,
+  CustomFormFields,
+  Hidden,
+  Input,
+  Submit
+} from "~/components/Form";
 import { usePermissions } from "~/hooks";
 import { path } from "~/utils/path";
 import { requiredActionValidator } from "../../quality.models";
@@ -32,7 +38,7 @@ const RequiredActionForm = ({
   initialValues,
   open = true,
   type = "drawer",
-  onClose,
+  onClose
 }: RequiredActionFormProps) => {
   const permissions = usePermissions();
   const fetcher = useFetcher<PostgrestResponse<{ id: string }>>();

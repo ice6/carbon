@@ -4,7 +4,7 @@ import {
   CardContent,
   CardFooter,
   CardHeader,
-  CardTitle,
+  CardTitle
 } from "@carbon/react";
 import { useState } from "react";
 import type { z } from "zod/v3";
@@ -16,7 +16,7 @@ import {
   Input,
   Location,
   Shift,
-  Submit,
+  Submit
 } from "~/components/Form";
 import { employeeJobValidator } from "../../people.models";
 

@@ -37,7 +37,7 @@ const Department = (props: DepartmentSelectProps) => {
             triggerRef.current?.click();
           }}
           initialValues={{
-            name: created,
+            name: created
           }}
         />
       )}
@@ -62,7 +62,7 @@ export const useDepartments = () => {
       departmentFetcher.data?.data
         ? departmentFetcher.data?.data.map((c) => ({
             value: c.id,
-            label: c.name,
+            label: c.name
           }))
         : [],
     [departmentFetcher.data]

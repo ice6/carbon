@@ -2,7 +2,7 @@ import { useFetcher } from "@remix-run/react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type {
   MaterialFinish as MaterialFinishType,
-  getMaterialFinishList,
+  getMaterialFinishList
 } from "~/modules/items";
 import { path } from "~/utils/path";
 
@@ -58,7 +58,7 @@ const MaterialFinish = (props: MaterialFinishSelectProps) => {
     return (materialFinishesLoader.data?.data ?? []).map((c) => ({
       value: c.id,
       label: c.name,
-      helper: c.companyId === null ? "Standard" : undefined,
+      helper: c.companyId === null ? "Standard" : undefined
     }));
   }, [materialFinishesLoader.data?.data]);
 
@@ -97,7 +97,7 @@ const MaterialFinish = (props: MaterialFinishSelectProps) => {
           }}
           initialValues={{
             name: created,
-            materialSubstanceId: props.substanceId!,
+            materialSubstanceId: props.substanceId!
           }}
         />
       )}

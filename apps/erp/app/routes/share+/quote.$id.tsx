@@ -31,7 +31,7 @@ import {
   toast,
   Tr,
   useDisclosure,
-  VStack,
+  VStack
 } from "@carbon/react";
 
 import { useMode } from "@carbon/remix";
@@ -52,7 +52,7 @@ import {
   LuCreditCard,
   LuImage,
   LuTruck,
-  LuUpload,
+  LuUpload
 } from "react-icons/lu";
 import { usePercentFormatter } from "~/hooks";
 import { getPaymentTermsList } from "~/modules/accounting";
@@ -60,7 +60,7 @@ import { getShippingMethodsList } from "~/modules/inventory";
 import type {
   QuotationLine,
   QuotationPrice,
-  SalesOrderLine,
+  SalesOrderLine
 } from "~/modules/sales";
 import {
   externalQuoteValidator,
@@ -72,7 +72,7 @@ import {
   getQuotePayment,
   getQuoteShipment,
   getSalesOrderLines,
-  getSalesTerms,
+  getSalesTerms
 } from "~/modules/sales";
 import QuoteStatus from "~/modules/sales/ui/Quotes/QuoteStatus";
 import { getCompany, getCompanySettings } from "~/modules/settings";
@@ -87,7 +87,7 @@ export const meta = () => {
 enum QuoteState {
   Valid,
   Expired,
-  NotFound,
+  NotFound
 }
 
 const translations = {
@@ -129,7 +129,7 @@ const translations = {
     Total: "Total",
     "Unit Price": "Unit Price",
     "Yes, Accept": "Yes, Accept",
-    "Yes, Reject": "Yes, Reject",
+    "Yes, Reject": "Yes, Reject"
   },
   es: {
     "Accept Quote": "Aceptar Cotización",
@@ -172,7 +172,7 @@ const translations = {
     Total: "Total",
     "Unit Price": "Precio Unitario",
     "Yes, Accept": "Sí, Aceptar",
-    "Yes, Reject": "Sí, Rechazar",
+    "Yes, Reject": "Sí, Rechazar"
   },
   de: {
     "Accept Quote": "Angebot Annehmen",
@@ -214,8 +214,8 @@ const translations = {
     Total: "Gesamt",
     "Unit Price": "Stückpreis",
     "Yes, Accept": "Ja, Annehmen",
-    "Yes, Reject": "Ja, Ablehnen",
-  },
+    "Yes, Reject": "Ja, Ablehnen"
+  }
 };
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
@@ -224,7 +224,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     return json({
       state: QuoteState.NotFound,
       data: null,
-      strings: translations.en,
+      strings: translations.en
     });
   }
   const locale = (request.headers.get("Accept-Language") || "en-US").substring(
@@ -241,7 +241,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     return json({
       state: QuoteState.NotFound,
       data: null,
-      strings,
+      strings
     });
   }
 
@@ -253,7 +253,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     return json({
       state: QuoteState.Expired,
       data: null,
-      strings,
+      strings
     });
   }
 
@@ -268,7 +268,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     paymentTerms,
     terms,
     shippingMethods,
-    opportunity,
+    opportunity
   ] = await Promise.all([
     getCompany(serviceRole, quote.data.companyId),
     getCompanySettings(serviceRole, quote.data.companyId),
@@ -280,7 +280,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     getPaymentTermsList(serviceRole, quote.data.companyId),
     getSalesTerms(serviceRole, quote.data.companyId),
     getShippingMethodsList(serviceRole, quote.data.companyId),
-    getOpportunity(serviceRole, quote.data.opportunityId),
+    getOpportunity(serviceRole, quote.data.opportunityId)
   ]);
 
   let salesOrderLines: PostgrestResponse<SalesOrderLine> | null = null;
@@ -314,7 +314,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
             return getBase64ImageFromSupabase(serviceRole, path).then(
               (data) => ({
                 id,
-                data,
+                data
               })
             );
           })
@@ -335,7 +335,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
       companySettings: companySettings.data,
       quoteLines:
         quoteLines.data?.map(({ internalNotes, ...line }) => ({
-          ...line,
+          ...line
         })) ?? [],
       thumbnails: thumbnails,
       quoteLinePrices: quoteLinePrices.data,
@@ -349,9 +349,9 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
       shippingMethod: shippingMethods.data?.find(
         (method) => method.id === quoteShipment.data?.shippingMethodId
       )?.name,
-      salesOrderLines: salesOrderLines?.data ?? null,
+      salesOrderLines: salesOrderLines?.data ?? null
     },
-    strings,
+    strings
   });
 }
 
@@ -359,7 +359,7 @@ const Header = ({
   company,
   quote,
   customer,
-  strings,
+  strings
 }: {
   company: QuoteData["company"];
   quote: QuoteData["quote"];
@@ -441,7 +441,7 @@ const deselectedLine: SelectedLine = {
   taxPercent: 0,
   discountPercent: 0,
   unitPrice: 0,
-  convertedUnitPrice: 0,
+  convertedUnitPrice: 0
 };
 
 const LineItems = ({
@@ -450,7 +450,7 @@ const LineItems = ({
   locale,
   selectedLines,
   setSelectedLines,
-  strings,
+  strings
 }: {
   currencyCode: string;
   formatter: Intl.NumberFormat;
@@ -552,13 +552,13 @@ const LineItems = ({
                         }
                         format={{
                           style: "currency",
-                          currency: currencyCode,
+                          currency: currencyCode
                         }}
                         locales={locale}
                       />
                       <motion.div
                         animate={{
-                          rotate: openItems.includes(line.id) ? 90 : 0,
+                          rotate: openItems.includes(line.id) ? 90 : 0
                         }}
                         transition={{ duration: 0.3 }}
                       >
@@ -573,7 +573,7 @@ const LineItems = ({
                     <div
                       className="prose dark:prose-invert prose mt-2 text-muted-foreground"
                       dangerouslySetInnerHTML={{
-                        __html: generateHTML(line.externalNotes as JSONContent),
+                        __html: generateHTML(line.externalNotes as JSONContent)
                       }}
                     />
                   )}
@@ -586,7 +586,7 @@ const LineItems = ({
               animate={openItems.includes(line.id) ? "open" : "collapsed"}
               variants={{
                 open: { opacity: 1, height: "auto", marginTop: 16 },
-                collapsed: { opacity: 0, height: 0, marginTop: 0 },
+                collapsed: { opacity: 0, height: 0, marginTop: 0 }
               }}
               transition={{ duration: 0.3 }}
               className="w-full overflow-hidden"
@@ -634,7 +634,7 @@ const LinePricingOptions = ({
   formatter,
   selectedLine,
   setSelectedLines,
-  strings,
+  strings
 }: LinePricingOptionsProps) => {
   const percentFormatter = usePercentFormatter();
   const { quote, salesOrderLines } = useLoaderData<typeof loader>().data!;
@@ -675,13 +675,13 @@ const LinePricingOptions = ({
   if (selectedLine.convertedShippingCost) {
     additionalCharges.push({
       name: "Shipping",
-      amount: selectedLine.convertedShippingCost,
+      amount: selectedLine.convertedShippingCost
     });
   }
   Object.entries(line.additionalCharges ?? {}).forEach(([name, charge]) => {
     additionalCharges.push({
       name: charge.description,
-      amount: charge.amounts?.[selectedLine.quantity] * quoteExchangeRate,
+      amount: charge.amounts?.[selectedLine.quantity] * quoteExchangeRate
     });
   });
 
@@ -690,7 +690,7 @@ const LinePricingOptions = ({
       new Intl.NumberFormat(locale, {
         style: "currency",
         currency: quote.currencyCode ?? "USD",
-        maximumFractionDigits: line.unitPricePrecision ?? 2,
+        maximumFractionDigits: line.unitPricePrecision ?? 2
       }),
     [locale, quote.currencyCode, line.unitPricePrecision]
   );
@@ -730,8 +730,8 @@ const LinePricingOptions = ({
                 taxPercent: line.taxPercent ?? 0,
                 discountPercent: selectedOption.discountPercent ?? 0,
                 unitPrice: selectedOption.unitPrice ?? 0,
-                convertedUnitPrice: selectedOption.convertedUnitPrice ?? 0,
-              },
+                convertedUnitPrice: selectedOption.convertedUnitPrice ?? 0
+              }
             }));
             setSelectedValue(value);
           }
@@ -795,7 +795,7 @@ const LinePricingOptions = ({
                       <Td>
                         {new Intl.NumberFormat(locale, {
                           style: "unit",
-                          unit: "day",
+                          unit: "day"
                         }).format(option.leadTime)}
                       </Td>
                       <Td>
@@ -888,7 +888,7 @@ const LinePricingOptions = ({
                     }
                     format={{
                       style: "currency",
-                      currency: quoteCurrency,
+                      currency: quoteCurrency
                     }}
                     locales={locale}
                   />
@@ -911,7 +911,7 @@ const LinePricingOptions = ({
                     }
                     format={{
                       style: "currency",
-                      currency: quoteCurrency,
+                      currency: quoteCurrency
                     }}
                     locales={locale}
                   />
@@ -931,7 +931,7 @@ const LinePricingOptions = ({
                     }
                     format={{
                       style: "currency",
-                      currency: quoteCurrency,
+                      currency: quoteCurrency
                     }}
                     locales={locale}
                   />
@@ -950,7 +950,7 @@ const LinePricingOptions = ({
               setSelectedValue("0");
               setSelectedLines((prev) => ({
                 ...prev,
-                [line.id!]: deselectedLine,
+                [line.id!]: deselectedLine
               }));
             }}
           >
@@ -964,7 +964,7 @@ const LinePricingOptions = ({
 
 const Quote = ({
   data,
-  strings,
+  strings
 }: {
   data: QuoteData;
   strings: (typeof translations)["en"];
@@ -980,14 +980,14 @@ const Quote = ({
     quoteShipment,
     salesOrderLines,
     shippingMethod,
-    terms,
+    terms
   } = data;
   const { locale } = useLocale();
   const formatter = useMemo(
     () =>
       new Intl.NumberFormat(locale, {
         style: "currency",
-        currency: quote.currencyCode ?? "USD",
+        currency: quote.currencyCode ?? "USD"
       }),
     [locale, quote.currencyCode]
   );
@@ -1062,25 +1062,30 @@ const Quote = ({
         }
 
         const additionalChargesByQuantity =
-          line.quantity?.reduce((acc, quantity) => {
-            const charges = Object.values(line.additionalCharges ?? {}).reduce(
-              (chargeAcc, charge) => {
+          line.quantity?.reduce(
+            (acc, quantity) => {
+              const charges = Object.values(
+                line.additionalCharges ?? {}
+              ).reduce((chargeAcc, charge) => {
                 const amount = charge.amounts?.[quantity];
                 return chargeAcc + amount;
-              },
-              0
-            );
-            acc[quantity] = charges;
-            return acc;
-          }, {} as Record<number, number>) ?? {};
+              }, 0);
+              acc[quantity] = charges;
+              return acc;
+            },
+            {} as Record<number, number>
+          ) ?? {};
 
         const convertedAdditionalChargesByQuantity =
           Object.entries(additionalChargesByQuantity).reduce<
             Record<number, number>
-          >((acc, [quantity, amount]) => {
-            acc[Number(quantity)] = amount * (quote.exchangeRate ?? 1);
-            return acc;
-          }, {} as Record<number, number>) ?? {};
+          >(
+            (acc, [quantity, amount]) => {
+              acc[Number(quantity)] = amount * (quote.exchangeRate ?? 1);
+              return acc;
+            },
+            {} as Record<number, number>
+          ) ?? {};
 
         acc[line.id] = {
           quantity: price.quantity ?? 0,
@@ -1095,7 +1100,7 @@ const Quote = ({
           taxPercent: line.taxPercent ?? 0,
           discountPercent: price.discountPercent ?? 0,
           unitPrice: price.unitPrice ?? 0,
-          convertedUnitPrice: price.convertedUnitPrice ?? 0,
+          convertedUnitPrice: price.convertedUnitPrice ?? 0
         };
         return acc;
       }, {}) ?? {}
@@ -1141,7 +1146,7 @@ const Quote = ({
     onDrop,
     accept: { "application/pdf": [".pdf"] },
     maxFiles: 1,
-    maxSize: 25 * 1024 * 1024, // 25MB limit
+    maxSize: 25 * 1024 * 1024 // 25MB limit
   });
 
   return (
@@ -1204,7 +1209,7 @@ const Quote = ({
                 value={subtotal + totalDiscount}
                 format={{
                   style: "currency",
-                  currency: quote.currencyCode ?? "USD",
+                  currency: quote.currencyCode ?? "USD"
                 }}
                 locales={locale}
               />
@@ -1218,7 +1223,7 @@ const Quote = ({
                     value={totalDiscount}
                     format={{
                       style: "currency",
-                      currency: quote.currencyCode ?? "USD",
+                      currency: quote.currencyCode ?? "USD"
                     }}
                     locales={locale}
                   />
@@ -1231,7 +1236,7 @@ const Quote = ({
                 value={tax}
                 format={{
                   style: "currency",
-                  currency: quote.currencyCode ?? "USD",
+                  currency: quote.currencyCode ?? "USD"
                 }}
                 locales={locale}
               />
@@ -1243,7 +1248,7 @@ const Quote = ({
                   value={convertedShippingCost}
                   format={{
                     style: "currency",
-                    currency: quote.currencyCode ?? "USD",
+                    currency: quote.currencyCode ?? "USD"
                   }}
                   locales={locale}
                 />
@@ -1256,7 +1261,7 @@ const Quote = ({
                 value={total}
                 format={{
                   style: "currency",
-                  currency: quote.currencyCode ?? "USD",
+                  currency: quote.currencyCode ?? "USD"
                 }}
                 locales={locale}
               />
@@ -1291,7 +1296,7 @@ const Quote = ({
         <div
           className="prose dark:prose-invert text-muted-foreground max-w-5xl mx-auto"
           dangerouslySetInnerHTML={{
-            __html: termsHTML,
+            __html: termsHTML
           }}
         />
       )}
@@ -1454,7 +1459,7 @@ const Quote = ({
 
 export const ErrorMessage = ({
   title,
-  message,
+  message
 }: {
   title: string;
   message: string;
@@ -1466,17 +1471,17 @@ export const ErrorMessage = ({
       transition: {
         delay: 0.3,
         when: "beforeChildren",
-        staggerChildren: 0.2,
-      },
-    },
+        staggerChildren: 0.2
+      }
+    }
   };
 
   const itemVariants = {
     hidden: { y: 20, opacity: 0 },
     visible: {
       y: 0,
-      opacity: 1,
-    },
+      opacity: 1
+    }
   };
 
   return (
@@ -1519,7 +1524,7 @@ export const ErrorMessage = ({
               animate={{ pathLength: 1 }}
               transition={{
                 duration: 2,
-                ease: "easeInOut",
+                ease: "easeInOut"
               }}
             />
           </svg>
@@ -1531,7 +1536,7 @@ export const ErrorMessage = ({
               delay: 0.5,
               type: "spring",
               stiffness: 200,
-              damping: 10,
+              damping: 10
             }}
           >
             <span className="text-2xl font-bold text-muted-foreground">!</span>

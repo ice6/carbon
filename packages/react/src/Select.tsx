@@ -9,7 +9,7 @@ import {
   LuCheck,
   LuChevronDown,
   LuChevronsUpDown,
-  LuChevronUp,
+  LuChevronUp
 } from "react-icons/lu";
 
 import { cn } from "./utils/cn";
@@ -27,12 +27,12 @@ const selectTriggerVariants = cva(
       size: {
         lg: "h-12 px-4 py-3 rounded-lg text-base space-x-4",
         md: "h-10 px-3 py-2 rounded-md text-sm space-x-3",
-        sm: "h-8  px-3 py-2 rounded text-sm text-xs space-x-2",
-      },
+        sm: "h-8  px-3 py-2 rounded text-sm text-xs space-x-2"
+      }
     },
     defaultVariants: {
-      size: "md",
-    },
+      size: "md"
+    }
   }
 );
 
@@ -52,7 +52,7 @@ const SelectTrigger = forwardRef<
     className={cn(
       !inline &&
         selectTriggerVariants({
-          size,
+          size
         }),
       className
     )}
@@ -194,5 +194,5 @@ export {
   SelectScrollUpButton,
   SelectSeparator,
   SelectTrigger,
-  SelectValue,
+  SelectValue
 };

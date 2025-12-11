@@ -16,13 +16,13 @@ export function useRealtime(table: string, filter?: string) {
           event: "*",
           schema: "public",
           table: table,
-          filter: filter ?? `companyId=eq.${company.id}`,
+          filter: filter ?? `companyId=eq.${company.id}`
         },
         () => {
           revalidator.revalidate();
         }
       );
-    },
+    }
   });
 
   return channel;

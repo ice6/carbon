@@ -15,7 +15,7 @@ export async function action({ request }: ActionFunctionArgs) {
     .update({
       tags: value,
       updatedBy: userId,
-      updatedAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
     })
     .in(getIdField(table as string), ids as string[]);
 

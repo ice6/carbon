@@ -17,5 +17,5 @@ export {
   CustomerLocations,
   CustomerPaymentForm,
   CustomerShippingForm,
-  CustomerSidebar,
+  CustomerSidebar
 };

@@ -15,7 +15,7 @@ import {
   SidebarMenuButton,
   Spinner,
   toast,
-  useDisclosure,
+  useDisclosure
 } from "@carbon/react";
 import { getLocalTimeZone } from "@internationalized/date";
 import { useFetcher } from "@remix-run/react";
@@ -56,7 +56,7 @@ export function EndShift() {
     if (!carbon) return;
     const { data, error } = await getActiveJobOperationsByEmployee(carbon, {
       employeeId: user.id,
-      companyId: user.company.id,
+      companyId: user.company.id
     });
     if (error) {
       toast.error("Failed to fetch active operations");

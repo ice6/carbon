@@ -5,7 +5,7 @@ import {
   ResizableHandle,
   ResizablePanel,
   ScrollArea,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { Outlet, useLoaderData } from "@remix-run/react";
 import type { LoaderFunctionArgs } from "@vercel/remix";
@@ -18,7 +18,7 @@ import { path } from "~/utils/path";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId, userId } = await requirePermissions(request, {
-    view: "inventory",
+    view: "inventory"
   });
 
   const { itemId } = params;
@@ -63,7 +63,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     companyId,
     locationId,
     customFields: {},
-    createdBy: userId,
+    createdBy: userId
   });
 
   if (ensurePickMethod.error) {
@@ -98,7 +98,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
   return json({
     pickMethod: pickMethod.data,
-    item: item.data,
+    item: item.data
   });
 }
 

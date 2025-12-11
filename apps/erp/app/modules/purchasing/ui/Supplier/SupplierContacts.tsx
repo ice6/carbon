@@ -5,7 +5,7 @@ import {
   CardHeader,
   CardTitle,
   HStack,
-  useDisclosure,
+  useDisclosure
 } from "@carbon/react";
 import { Outlet, useNavigate, useParams } from "@remix-run/react";
 import { useCallback, useState } from "react";
@@ -42,7 +42,7 @@ const SupplierContacts = ({ contacts }: SupplierContactsProps) => {
         icon: <LuPencil />,
         onClick: () => {
           navigate(contact.id);
-        },
+        }
       });
 
       if (permissions.can("delete", "purchasing")) {
@@ -53,7 +53,7 @@ const SupplierContacts = ({ contacts }: SupplierContactsProps) => {
           onClick: () => {
             setSelectedContact(contact);
             deleteContactModal.onOpen();
-          },
+          }
         });
       }
 
@@ -65,7 +65,7 @@ const SupplierContacts = ({ contacts }: SupplierContactsProps) => {
             navigate(
               `${path.to.newSupplierAccount}?id=${contact.id}&supplier=${supplierId}`
             );
-          },
+          }
         });
       }
 
@@ -77,7 +77,7 @@ const SupplierContacts = ({ contacts }: SupplierContactsProps) => {
             navigate(
               `${path.to.newContractor}?id=${contact.id}&supplierId=${supplierId}`
             );
-          },
+          }
         });
       }
 

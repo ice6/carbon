@@ -65,8 +65,5 @@ export type CreateValidatorArg<DataType> = {
   ) => Promise<ValidateFieldResult>;
 };
 
-export type ValidatorData<T extends Validator<any>> = T extends Validator<
-  infer U
->
-  ? U
-  : never;
+export type ValidatorData<T extends Validator<any>> =
+  T extends Validator<infer U> ? U : never;

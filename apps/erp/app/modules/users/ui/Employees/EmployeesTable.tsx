@@ -4,7 +4,7 @@ import {
   DropdownMenuItem,
   MenuIcon,
   MenuItem,
-  useDisclosure,
+  useDisclosure
 } from "@carbon/react";
 import { useNavigate } from "@remix-run/react";
 import type { ColumnDef } from "@tanstack/react-table";
@@ -18,7 +18,7 @@ import {
   LuShield,
   LuToggleRight,
   LuUser,
-  LuUserCheck,
+  LuUserCheck
 } from "react-icons/lu";
 import { EmployeeAvatar, Hyperlink, New, Table } from "~/components";
 import { Enumerable } from "~/components/Enumerable";
@@ -28,7 +28,7 @@ import {
   BulkEditPermissionsForm,
   DeactivateUsersModal,
   ResendInviteModal,
-  RevokeInviteModal,
+  RevokeInviteModal
 } from "~/modules/users";
 import type { ListItem } from "~/types";
 import { path } from "~/utils/path";
@@ -41,7 +41,7 @@ type EmployeesTableProps = {
 
 const defaultColumnVisibility = {
   user_firstName: false,
-  user_lastName: false,
+  user_lastName: false
 };
 
 const EmployeesTable = memo(
@@ -84,8 +84,8 @@ const EmployeesTable = memo(
           ),
 
           meta: {
-            icon: <LuUser />,
-          },
+            icon: <LuUser />
+          }
         },
 
         {
@@ -93,24 +93,24 @@ const EmployeesTable = memo(
           header: "First Name",
           cell: (item) => item.getValue(),
           meta: {
-            icon: <LuUserCheck />,
-          },
+            icon: <LuUserCheck />
+          }
         },
         {
           accessorKey: "lastName",
           header: "Last Name",
           cell: (item) => item.getValue(),
           meta: {
-            icon: <LuUserCheck />,
-          },
+            icon: <LuUserCheck />
+          }
         },
         {
           accessorKey: "email",
           header: "Email",
           cell: (item) => item.getValue(),
           meta: {
-            icon: <LuMail />,
-          },
+            icon: <LuMail />
+          }
         },
         {
           id: "employeeTypeId",
@@ -127,11 +127,11 @@ const EmployeesTable = memo(
               type: "static",
               options: employeeTypes.map((type) => ({
                 value: type.id,
-                label: <Enumerable value={type.name} />,
-              })),
+                label: <Enumerable value={type.name} />
+              }))
             },
-            icon: <LuBriefcase />,
-          },
+            icon: <LuBriefcase />
+          }
         },
         {
           accessorKey: "active",
@@ -143,17 +143,17 @@ const EmployeesTable = memo(
               options: [
                 {
                   value: "true",
-                  label: "Active",
+                  label: "Active"
                 },
                 {
                   value: "false",
-                  label: "Inactive",
-                },
-              ],
+                  label: "Inactive"
+                }
+              ]
             },
-            icon: <LuToggleRight />,
-          },
-        },
+            icon: <LuToggleRight />
+          }
+        }
       ];
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [params]);
@@ -280,7 +280,7 @@ const EmployeesTable = memo(
         params,
         permissions,
         resendInviteModal,
-        revokeInviteModal,
+        revokeInviteModal
       ]
     );
 

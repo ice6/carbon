@@ -9,7 +9,7 @@ import {
   MenuItem,
   ScrollArea,
   useMount,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { useNumberFormatter } from "@react-aria/i18n";
 import { useFetcher, useParams } from "@remix-run/react";
@@ -29,14 +29,14 @@ import {
   LuShoppingCart,
   LuTrash2,
   LuTruck,
-  LuX,
+  LuX
 } from "react-icons/lu";
 import {
   Hyperlink,
   ItemThumbnail,
   MethodIcon,
   Table,
-  TrackingTypeIcon,
+  TrackingTypeIcon
 } from "~/components";
 import { usePermissions, useRouteData } from "~/hooks";
 import { useBom, useItems } from "~/stores";
@@ -46,7 +46,7 @@ import {
   useOrderItems,
   useStockTransferSession,
   useStockTransferSessionItemsCount,
-  useTransferItems,
+  useTransferItems
 } from "~/stores/stock-transfer";
 import { path } from "~/utils/path";
 import type { Job, JobMaterial } from "../../types";
@@ -119,7 +119,7 @@ const JobMaterialsTable = memo(({ data, count }: JobMaterialsTableProps) => {
           quantity: quantityRequiredByShelf - quantityOnHandInShelf,
           requiresSerialTracking: material.itemTrackingType === "Serial",
           requiresBatchTracking: material.itemTrackingType === "Batch",
-          shelfId: material.shelfId,
+          shelfId: material.shelfId
         });
       }
 
@@ -149,7 +149,7 @@ const JobMaterialsTable = memo(({ data, count }: JobMaterialsTableProps) => {
             (quantityOnHand + incoming - required),
           requiresSerialTracking: material.itemTrackingType === "Serial",
           requiresBatchTracking: material.itemTrackingType === "Batch",
-          shelfId: material.shelfId,
+          shelfId: material.shelfId
         });
       }
     });
@@ -194,18 +194,18 @@ const JobMaterialsTable = memo(({ data, count }: JobMaterialsTableProps) => {
             type: "static",
             options: items.map((item) => ({
               value: item.readableIdWithRevision,
-              label: item.readableIdWithRevision,
-            })),
-          },
-        },
+              label: item.readableIdWithRevision
+            }))
+          }
+        }
       },
       {
         accessorKey: "estimatedQuantity",
         header: "Required",
         cell: ({ row }) => formatter.format(row.original.estimatedQuantity),
         meta: {
-          icon: <LuHash />,
-        },
+          icon: <LuHash />
+        }
       },
       {
         id: "method",
@@ -221,7 +221,7 @@ const JobMaterialsTable = memo(({ data, count }: JobMaterialsTableProps) => {
                 (row.original.methodType === "Make" ? "WIP" : "Default Shelf")}
             </Badge>
           </HStack>
-        ),
+        )
       },
 
       {
@@ -270,8 +270,8 @@ const JobMaterialsTable = memo(({ data, count }: JobMaterialsTableProps) => {
           );
         },
         meta: {
-          icon: <LuHash />,
-        },
+          icon: <LuHash />
+        }
       },
       {
         id: "quantityOnHand",
@@ -314,8 +314,8 @@ const JobMaterialsTable = memo(({ data, count }: JobMaterialsTableProps) => {
           );
         },
         meta: {
-          icon: <LuHash />,
-        },
+          icon: <LuHash />
+        }
       },
       {
         id: "required",
@@ -327,8 +327,8 @@ const JobMaterialsTable = memo(({ data, count }: JobMaterialsTableProps) => {
               row.original.quantityOnSalesOrder
           ),
         meta: {
-          icon: <LuArrowDown className="text-red-600" />,
-        },
+          icon: <LuArrowDown className="text-red-600" />
+        }
       },
       {
         id: "incoming",
@@ -339,8 +339,8 @@ const JobMaterialsTable = memo(({ data, count }: JobMaterialsTableProps) => {
               row.original.quantityOnProductionOrder
           ),
         meta: {
-          icon: <LuArrowUp className="text-emerald-600" />,
-        },
+          icon: <LuArrowUp className="text-emerald-600" />
+        }
       },
       {
         id: "transfer",
@@ -348,9 +348,9 @@ const JobMaterialsTable = memo(({ data, count }: JobMaterialsTableProps) => {
         cell: ({ row }) =>
           formatter.format(row.original.quantityInTransitToShelf),
         meta: {
-          icon: <LuArrowLeftRight className="text-blue-600" />,
-        },
-      },
+          icon: <LuArrowLeftRight className="text-blue-600" />
+        }
+      }
     ];
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
@@ -359,7 +359,7 @@ const JobMaterialsTable = memo(({ data, count }: JobMaterialsTableProps) => {
     setSelectedMaterialId,
     isRequired,
     formatter,
-    sessionItemsCount,
+    sessionItemsCount
   ]);
 
   const renderContextMenu = useMemo(() => {
@@ -414,7 +414,7 @@ const JobMaterialsTable = memo(({ data, count }: JobMaterialsTableProps) => {
                   quantity: quantityRequiredByShelf - quantityOnHandInShelf,
                   requiresSerialTracking: row.itemTrackingType === "Serial",
                   requiresBatchTracking: row.itemTrackingType === "Batch",
-                  shelfId: row.shelfId,
+                  shelfId: row.shelfId
                 });
               }
             }}
@@ -439,7 +439,7 @@ const JobMaterialsTable = memo(({ data, count }: JobMaterialsTableProps) => {
                     (quantityOnHand + incoming - required),
                   requiresSerialTracking: row.itemTrackingType === "Serial",
                   requiresBatchTracking: row.itemTrackingType === "Batch",
-                  shelfId: row.shelfId,
+                  shelfId: row.shelfId
                 });
               }
             }}

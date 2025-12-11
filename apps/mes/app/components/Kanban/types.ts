@@ -1,11 +1,11 @@
-import { z } from 'zod/v3';
+import { z } from "zod/v3";
 import { deadlineTypes, jobOperationStatus } from "~/services/models";
 
 export const columnValidator = z.object({
   id: z.string(),
   title: z.string(),
   active: z.boolean().optional(),
-  type: z.array(z.string()),
+  type: z.array(z.string())
 });
 
 export type Column = z.infer<typeof columnValidator>;
@@ -60,7 +60,7 @@ const itemValidator = z.object({
   salesOrderId: z.string().optional(),
   salesOrderLineId: z.string().optional(),
   tags: z.array(z.string()).optional(),
-  thumbnailPath: z.string().optional(),
+  thumbnailPath: z.string().optional()
 });
 
 export type Item = z.infer<typeof itemValidator>;
@@ -77,19 +77,19 @@ export enum ItemStatus {
   Paused = "PAUSED",
   Ready = "READY",
   Todo = "TODO",
-  Waiting = "WAITING",
+  Waiting = "WAITING"
 }
 
 export enum ItemDeadline {
   ASAP = "ASAP",
   HardDeadline = "Hard Deadline",
   SoftDeadline = "Soft Deadline",
-  NoDeadline = "No Deadline",
+  NoDeadline = "No Deadline"
 }
 
 export enum ItemPriority {
   ASAP = "ASAP",
   High = "HIGH",
   Average = "AVERAGE",
-  Low = "LOW",
+  Low = "LOW"
 }

@@ -6,7 +6,7 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { useNumberFormatter } from "@react-aria/i18n";
 import { useFetcher } from "@remix-run/react";
@@ -30,14 +30,14 @@ import {
   LuPuzzle,
   LuRuler,
   LuShapes,
-  LuStar,
+  LuStar
 } from "react-icons/lu";
 import {
   Hyperlink,
   ItemThumbnail,
   MethodItemTypeIcon,
   Table,
-  TrackingTypeIcon,
+  TrackingTypeIcon
 } from "~/components";
 import { Enumerable } from "~/components/Enumerable";
 import { useLocations } from "~/components/Form/Location";
@@ -46,11 +46,11 @@ import { useFilters } from "~/components/Table/components/Filter/useFilters";
 import { useUrlParams } from "~/hooks";
 import {
   itemReorderingPolicies,
-  itemReplenishmentSystems,
+  itemReplenishmentSystems
 } from "~/modules/items";
 import {
   ItemReorderPolicy,
-  getReorderPolicyDescription,
+  getReorderPolicyDescription
 } from "~/modules/items/ui/Item/ItemReorderPolicy";
 import type { action as mrpAction } from "~/routes/api+/mrp";
 import type { ListItem } from "~/types";
@@ -105,8 +105,8 @@ const InventoryTable = memo(
             </HStack>
           ),
           meta: {
-            icon: <LuBookMarked />,
-          },
+            icon: <LuBookMarked />
+          }
         },
 
         {
@@ -120,7 +120,8 @@ const InventoryTable = memo(
             ),
           meta: {
             icon: <LuPackage />,
-            renderTotal: true,          },
+            renderTotal: true
+          }
         },
 
         {
@@ -129,8 +130,8 @@ const InventoryTable = memo(
           cell: ({ row }) => numberFormatter.format(row.original.daysRemaining),
           meta: {
             icon: <LuClock />,
-            renderTotal: true,
-          },
+            renderTotal: true
+          }
         },
         {
           accessorKey: "leadTime",
@@ -138,8 +139,8 @@ const InventoryTable = memo(
           cell: ({ row }) => numberFormatter.format(row.original.leadTime),
           meta: {
             icon: <LuClock />,
-            renderTotal: true,
-          },
+            renderTotal: true
+          }
         },
         {
           accessorKey: "reorderingPolicy",
@@ -165,11 +166,11 @@ const InventoryTable = memo(
               type: "static",
               options: itemReorderingPolicies.map((policy) => ({
                 label: <ItemReorderPolicy reorderingPolicy={policy} />,
-                value: policy,
-              })),
+                value: policy
+              }))
             },
-            icon: <LuCircleCheck />,
-          },
+            icon: <LuCircleCheck />
+          }
         },
         {
           accessorKey: "replenishmentSystem",
@@ -180,11 +181,11 @@ const InventoryTable = memo(
               type: "static",
               options: itemReplenishmentSystems.map((type) => ({
                 value: type,
-                label: <Enumerable value={type} />,
-              })),
+                label: <Enumerable value={type} />
+              }))
             },
-            icon: <LuLoaderCircle />,
-          },
+            icon: <LuLoaderCircle />
+          }
         },
 
         {
@@ -194,8 +195,8 @@ const InventoryTable = memo(
             numberFormatter.format(row.original.usageLast30Days),
           meta: {
             icon: <LuCalculator />,
-            renderTotal: true,
-          },
+            renderTotal: true
+          }
         },
         {
           accessorKey: "usageLast90Days",
@@ -204,8 +205,8 @@ const InventoryTable = memo(
             numberFormatter.format(row.original.usageLast90Days),
           meta: {
             icon: <LuCalculator />,
-            renderTotal: true,
-          },
+            renderTotal: true
+          }
         },
         {
           accessorKey: "quantityOnPurchaseOrder",
@@ -214,8 +215,8 @@ const InventoryTable = memo(
             numberFormatter.format(row.original.quantityOnPurchaseOrder),
           meta: {
             icon: <LuMoveUp className="text-emerald-500" />,
-            renderTotal: true,
-          },
+            renderTotal: true
+          }
         },
         {
           accessorKey: "quantityOnProductionOrder",
@@ -224,8 +225,8 @@ const InventoryTable = memo(
             numberFormatter.format(row.original.quantityOnProductionOrder),
           meta: {
             icon: <LuMoveUp className="text-emerald-500" />,
-            renderTotal: true,
-          },
+            renderTotal: true
+          }
         },
         {
           accessorKey: "quantityOnProductionDemand",
@@ -234,8 +235,8 @@ const InventoryTable = memo(
             numberFormatter.format(row.original.quantityOnProductionDemand),
           meta: {
             icon: <LuMoveDown className="text-red-500" />,
-            renderTotal: true,
-          },
+            renderTotal: true
+          }
         },
         {
           accessorKey: "quantityOnSalesOrder",
@@ -244,8 +245,8 @@ const InventoryTable = memo(
             numberFormatter.format(row.original.quantityOnSalesOrder),
           meta: {
             icon: <LuMoveDown className="text-red-500" />,
-            renderTotal: true,
-          },
+            renderTotal: true
+          }
         },
         {
           accessorKey: "unitOfMeasureCode",
@@ -261,8 +262,8 @@ const InventoryTable = memo(
             );
           },
           meta: {
-            icon: <LuRuler />,
-          },
+            icon: <LuRuler />
+          }
         },
         {
           accessorKey: "materialFormId",
@@ -278,11 +279,11 @@ const InventoryTable = memo(
               type: "static",
               options: forms.map((form) => ({
                 label: <Enumerable value={form.name} />,
-                value: form.id,
-              })),
+                value: form.id
+              }))
             },
-            icon: <LuShapes />,
-          },
+            icon: <LuShapes />
+          }
         },
         {
           accessorKey: "materialSubstanceId",
@@ -298,11 +299,11 @@ const InventoryTable = memo(
               type: "static",
               options: substances.map((substance) => ({
                 label: <Enumerable value={substance.name ?? null} />,
-                value: substance.id,
-              })),
+                value: substance.id
+              }))
             },
-            icon: <LuGlassWater />,
-          },
+            icon: <LuGlassWater />
+          }
         },
         {
           accessorKey: "finish",
@@ -316,10 +317,10 @@ const InventoryTable = memo(
               transform: (data: { id: string; name: string }[] | null) =>
                 data?.map(({ name }) => ({
                   value: name,
-                  label: name,
-                })) ?? [],
-            },
-          },
+                  label: name
+                })) ?? []
+            }
+          }
         },
         {
           accessorKey: "grade",
@@ -333,10 +334,10 @@ const InventoryTable = memo(
               transform: (data: { id: string; name: string }[] | null) =>
                 data?.map(({ name }) => ({
                   value: name,
-                  label: name,
-                })) ?? [],
-            },
-          },
+                  label: name
+                })) ?? []
+            }
+          }
         },
         {
           accessorKey: "dimension",
@@ -350,10 +351,10 @@ const InventoryTable = memo(
               transform: (data: { id: string; name: string }[] | null) =>
                 data?.map(({ name }) => ({
                   value: name,
-                  label: name,
-                })) ?? [],
-            },
-          },
+                  label: name
+                })) ?? []
+            }
+          }
         },
         {
           accessorKey: "materialType",
@@ -370,10 +371,10 @@ const InventoryTable = memo(
               transform: (data: { id: string; name: string }[] | null) =>
                 data?.map(({ id, name }) => ({
                   value: id,
-                  label: name,
-                })) ?? [],
-            },
-          },
+                  label: name
+                })) ?? []
+            }
+          }
         },
         {
           accessorKey: "type",
@@ -395,11 +396,11 @@ const InventoryTable = memo(
                     <span>{type}</span>
                   </HStack>
                 ),
-                value: type,
-              })),
+                value: type
+              }))
             },
-            icon: <LuBox />,
-          },
+            icon: <LuBox />
+          }
         },
         {
           accessorKey: "active",
@@ -410,13 +411,13 @@ const InventoryTable = memo(
               type: "static",
               options: [
                 { value: "true", label: "Active" },
-                { value: "false", label: "Inactive" },
-              ],
+                { value: "false", label: "Inactive" }
+              ]
             },
             pluralHeader: "Active Statuses",
-            icon: <LuCheck />,
-          },
-        },
+            icon: <LuCheck />
+          }
+        }
       ];
     }, [
       forms,
@@ -425,7 +426,7 @@ const InventoryTable = memo(
       numberFormatter,
       params,
       substances,
-      unitOfMeasures,
+      unitOfMeasures
     ]);
 
     const defaultColumnVisibility = {
@@ -434,11 +435,11 @@ const InventoryTable = memo(
       finish: false,
       grade: false,
       dimension: false,
-      materialType: false,
+      materialType: false
     };
 
     const defaultColumnPinning = {
-      left: ["readableIdWithRevision"],
+      left: ["readableIdWithRevision"]
     };
 
     const mrpFetcher = useFetcher<typeof mrpAction>();

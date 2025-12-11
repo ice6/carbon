@@ -12,7 +12,7 @@ import {
   attributeSupplierValidator,
   attributeTextValidator,
   attributeUserValidator,
-  upsertUserAttributeValue,
+  upsertUserAttributeValue
 } from "~/modules/account";
 import { getAttribute } from "~/modules/people";
 import { getUserClaims } from "~/modules/users/users.server";
@@ -78,7 +78,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   const upsertAttributeValue = await upsertUserAttributeValue(client, {
     ...validation.data,
     userId: targetUserId,
-    updatedBy: userId,
+    updatedBy: userId
   });
   if (upsertAttributeValue.error) {
     return json(

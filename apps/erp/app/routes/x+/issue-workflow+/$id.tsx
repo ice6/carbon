@@ -11,7 +11,7 @@ import {
   getIssueWorkflow,
   getRequiredActionsList,
   issueWorkflowValidator,
-  upsertIssueWorkflow,
+  upsertIssueWorkflow
 } from "~/modules/quality";
 import IssueWorkflowForm from "~/modules/quality/ui/IssueWorkflows/IssueWorkflowForm";
 import type { Handle } from "~/utils/handle";
@@ -20,14 +20,14 @@ import { path } from "~/utils/path";
 export const handle: Handle = {
   breadcrumb: "Issue Workflows",
   to: path.to.issueWorkflows,
-  module: "quality",
+  module: "quality"
 };
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
     view: "quality",
     role: "employee",
-    bypassRls: true,
+    bypassRls: true
   });
 
   const { id } = params;
@@ -35,7 +35,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
   const [workflow, requiredActions] = await Promise.all([
     getIssueWorkflow(client, id),
-    getRequiredActionsList(client, companyId),
+    getRequiredActionsList(client, companyId)
   ]);
 
   if (workflow.error) {
@@ -50,14 +50,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
   return json({
     workflow: workflow.data,
-    requiredActions: requiredActions.data ?? [],
+    requiredActions: requiredActions.data ?? []
   });
 }
 
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    create: "quality",
+    create: "quality"
   });
   const formData = await request.formData();
   const validation = await validator(issueWorkflowValidator).validate(formData);
@@ -73,7 +73,7 @@ export async function action({ request }: ActionFunctionArgs) {
     id,
     ...data,
     companyId,
-    updatedBy: userId,
+    updatedBy: userId
   });
 
   if (updateIssueWorkflow.error) {
@@ -110,7 +110,7 @@ export default function IssueWorkflowRoute() {
     priority: (workflow?.priority ?? "Medium") as "Medium",
     source: (workflow?.source ?? "Internal") as "Internal",
     requiredActionIds: workflow?.requiredActionIds ?? [],
-    approvalRequirements: workflow?.approvalRequirements ?? [],
+    approvalRequirements: workflow?.approvalRequirements ?? []
   };
 
   return (

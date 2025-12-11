@@ -3,14 +3,14 @@ import { fetchAllFromTable } from "@carbon/database";
 import { getLocalTimeZone, today } from "@internationalized/date";
 import { FunctionRegion, type SupabaseClient } from "@supabase/supabase-js";
 import { nanoid } from "nanoid";
-import { type z } from 'zod/v3';
+import { type z } from "zod/v3";
 import type { GenericQueryFilters } from "~/utils/query";
 import { setGenericQueryFilters } from "~/utils/query";
 import { sanitize } from "~/utils/supabase";
 import type {
   operationParameterValidator,
   operationStepValidator,
-  operationToolValidator,
+  operationToolValidator
 } from "../shared";
 import type {
   configurationParameterGroupOrderValidator,
@@ -43,7 +43,7 @@ import type {
   serviceValidator,
   supplierPartValidator,
   toolValidator,
-  unitOfMeasureValidator,
+  unitOfMeasureValidator
 } from "./items.models";
 
 export async function activateMethodVersion(
@@ -57,9 +57,9 @@ export async function activateMethodVersion(
   return client.functions.invoke<{ convertedId: string }>("convert", {
     body: {
       type: "methodVersionToActive",
-      ...payload,
+      ...payload
     },
-    region: FunctionRegion.UsEast1,
+    region: FunctionRegion.UsEast1
   });
 }
 
@@ -76,9 +76,9 @@ export async function copyItem(
       sourceId: args.sourceId,
       targetId: args.targetId,
       companyId: args.companyId,
-      userId: args.userId,
+      userId: args.userId
     },
-    region: FunctionRegion.UsEast1,
+    region: FunctionRegion.UsEast1
   });
 }
 
@@ -95,9 +95,9 @@ export async function copyMakeMethod(
       sourceId: args.sourceId,
       targetId: args.targetId,
       companyId: args.companyId,
-      userId: args.userId,
+      userId: args.userId
     },
-    region: FunctionRegion.UsEast1,
+    region: FunctionRegion.UsEast1
   });
 }
 
@@ -124,7 +124,7 @@ export async function createRevision(
       active: true,
       modelUploadId: item.modelUploadId,
       companyId: item.companyId,
-      createdBy: createdBy,
+      createdBy: createdBy
     })
     .select("id")
     .single();
@@ -140,9 +140,9 @@ export async function createRevision(
         sourceId: item.id,
         targetId: itemInsert.data.id,
         companyId: item.companyId,
-        userId: createdBy,
+        userId: createdBy
       },
-      region: FunctionRegion.UsEast1,
+      region: FunctionRegion.UsEast1
     });
   }
 
@@ -212,7 +212,7 @@ export async function deleteConfigurationParameterGroup(
 export async function deleteItem(client: SupabaseClient<Database>, id: string) {
   const [itemDelete, searchDelete] = await Promise.all([
     client.from("item").delete().eq("id", id),
-    client.from("search").delete().eq("uuid", id),
+    client.from("search").delete().eq("uuid", id)
   ]);
 
   if (searchDelete.error) {
@@ -314,7 +314,7 @@ export async function getConfigurationParameters(
       .from("configurationParameterGroup")
       .select("*")
       .eq("itemId", itemId)
-      .eq("companyId", companyId),
+      .eq("companyId", companyId)
   ]);
 
   if (parameters.error) {
@@ -354,7 +354,7 @@ export async function getConsumable(
 ) {
   return client
     .rpc("get_consumable_details", {
-      item_id: itemId,
+      item_id: itemId
     })
     .single();
 }
@@ -370,7 +370,7 @@ export async function getConsumables(
   let query = client
     .from("consumables")
     .select("*", {
-      count: "exact",
+      count: "exact"
     })
     .eq("companyId", companyId);
 
@@ -385,7 +385,7 @@ export async function getConsumables(
   }
 
   query = setGenericQueryFilters(query, args, [
-    { column: "readableIdWithRevision", ascending: true },
+    { column: "readableIdWithRevision", ascending: true }
   ]);
   return query;
 }
@@ -472,7 +472,7 @@ export async function getItemDemand(
     itemId,
     locationId,
     periods,
-    companyId,
+    companyId
   }: {
     itemId: string;
     locationId: string;
@@ -495,12 +495,12 @@ export async function getItemDemand(
       .eq("locationId", locationId)
       .eq("companyId", companyId)
       .in("periodId", periods)
-      .order("periodId"),
+      .order("periodId")
   ]);
 
   return {
     actuals: actuals.data ?? [],
-    forecasts: forecasts.data ?? [],
+    forecasts: forecasts.data ?? []
   };
 }
 
@@ -530,7 +530,7 @@ export async function getItemPostingGroups(
   let query = client
     .from("itemPostingGroup")
     .select("*", {
-      count: "exact",
+      count: "exact"
     })
     .eq("companyId", companyId);
 
@@ -540,7 +540,7 @@ export async function getItemPostingGroups(
 
   if (args) {
     query = setGenericQueryFilters(query, args, [
-      { column: "name", ascending: true },
+      { column: "name", ascending: true }
     ]);
   }
 
@@ -595,7 +595,7 @@ export async function getItemQuantities(
   return client
     .rpc("get_inventory_quantities", {
       location_id: locationId,
-      company_id: companyId,
+      company_id: companyId
     })
     .eq("id", itemId)
     .maybeSingle();
@@ -623,7 +623,7 @@ export async function getItemShelfQuantities(
   return client.rpc("get_item_quantities_by_tracking_id", {
     item_id: itemId,
     company_id: companyId,
-    location_id: locationId,
+    location_id: locationId
   });
 }
 
@@ -633,7 +633,7 @@ export async function getItemSupply(
     itemId,
     locationId,
     periods,
-    companyId,
+    companyId
   }: {
     itemId: string;
     locationId: string;
@@ -657,12 +657,12 @@ export async function getItemSupply(
       .eq("locationId", locationId)
       .eq("companyId", companyId)
       .in("periodId", periods)
-      .order("periodId"),
+      .order("periodId")
   ]);
 
   return {
     actuals: actuals.data ?? [],
-    forecasts: forecasts.data ?? [],
+    forecasts: forecasts.data ?? []
   };
 }
 
@@ -693,7 +693,7 @@ export async function getMaterialUsedIn(
     quoteMaterials,
     salesOrderLines,
     shipmentLines,
-    supplierQuotes,
+    supplierQuotes
   ] = await Promise.all([
     client
       .from("nonConformanceItem")
@@ -766,7 +766,7 @@ export async function getMaterialUsedIn(
       )
       .eq("itemId", itemId)
       .eq("companyId", companyId)
-      .limit(100),
+      .limit(100)
   ]);
 
   return {
@@ -778,7 +778,7 @@ export async function getMaterialUsedIn(
     quoteMaterials: quoteMaterials.data ?? [],
     salesOrderLines: salesOrderLines.data ?? [],
     shipmentLines: shipmentLines.data ?? [],
-    supplierQuotes: supplierQuotes.data ?? [],
+    supplierQuotes: supplierQuotes.data ?? []
   };
 }
 
@@ -814,7 +814,7 @@ export async function getMaterial(
 ) {
   return client
     .rpc("get_material_details", {
-      item_id: itemId,
+      item_id: itemId
     })
     .single();
 }
@@ -830,7 +830,7 @@ export async function getMaterials(
   let query = client
     .from("materials")
     .select("*", {
-      count: "exact",
+      count: "exact"
     })
     .or(`companyId.eq.${companyId},companyId.is.null`);
 
@@ -845,7 +845,7 @@ export async function getMaterials(
   }
 
   query = setGenericQueryFilters(query, args, [
-    { column: "readableIdWithRevision", ascending: true },
+    { column: "readableIdWithRevision", ascending: true }
   ]);
   return query;
 }
@@ -882,7 +882,7 @@ export async function getMaterialDimensions(
   let query = client
     .from("materialDimensions")
     .select("*", {
-      count: "exact",
+      count: "exact"
     })
     .eq("isMetric", args?.isMetric ?? false)
     .or(`companyId.eq.${companyId},companyId.is.null`);
@@ -894,7 +894,7 @@ export async function getMaterialDimensions(
   if (args) {
     query = setGenericQueryFilters(query, args, [
       { column: "formName", ascending: true },
-      { column: "name", ascending: true },
+      { column: "name", ascending: true }
     ]);
   }
 
@@ -930,7 +930,7 @@ export async function getMaterialFinishes(
   let query = client
     .from("materialFinishes")
     .select("*", {
-      count: "exact",
+      count: "exact"
     })
     .or(`companyId.eq.${companyId},companyId.is.null`);
 
@@ -941,7 +941,7 @@ export async function getMaterialFinishes(
   if (args) {
     query = setGenericQueryFilters(query, args, [
       { column: "substanceName", ascending: true },
-      { column: "name", ascending: true },
+      { column: "name", ascending: true }
     ]);
   }
 
@@ -975,7 +975,7 @@ export async function getMaterialForms(
   let query = client
     .from("materialForm")
     .select("*", {
-      count: "exact",
+      count: "exact"
     })
     .or(`companyId.eq.${companyId},companyId.is.null`);
 
@@ -985,7 +985,7 @@ export async function getMaterialForms(
 
   if (args) {
     query = setGenericQueryFilters(query, args, [
-      { column: "name", ascending: true },
+      { column: "name", ascending: true }
     ]);
   }
 
@@ -1011,7 +1011,7 @@ export async function getMaterialGrades(
   let query = client
     .from("materialGrades")
     .select("*", {
-      count: "exact",
+      count: "exact"
     })
     .or(`companyId.eq.${companyId},companyId.is.null`);
 
@@ -1022,7 +1022,7 @@ export async function getMaterialGrades(
   if (args) {
     query = setGenericQueryFilters(query, args, [
       { column: "substanceName", ascending: true },
-      { column: "name", ascending: true },
+      { column: "name", ascending: true }
     ]);
   }
 
@@ -1063,7 +1063,7 @@ export async function getMaterialSubstances(
   let query = client
     .from("materialSubstance")
     .select("*", {
-      count: "exact",
+      count: "exact"
     })
     .or(`companyId.eq.${companyId},companyId.is.null`);
 
@@ -1073,7 +1073,7 @@ export async function getMaterialSubstances(
 
   if (args) {
     query = setGenericQueryFilters(query, args, [
-      { column: "name", ascending: true },
+      { column: "name", ascending: true }
     ]);
   }
 
@@ -1112,7 +1112,7 @@ export async function getMethodMaterials(
     .select(
       "*, item(name, readableIdWithRevision), makeMethod!makeMethodId(item(id, type, name, readableIdWithRevision))",
       {
-        count: "exact",
+        count: "exact"
       }
     )
     .eq("companyId", companyId);
@@ -1149,7 +1149,7 @@ export async function getMethodOperations(
     .select(
       "*, makeMethod!makeMethodId(item(id, type, name, readableIdWithRevision))",
       {
-        count: "exact",
+        count: "exact"
       }
     )
     .eq("companyId", companyId);
@@ -1160,7 +1160,7 @@ export async function getMethodOperations(
 
   if (args) {
     query = setGenericQueryFilters(query, args, [
-      { column: "order", ascending: true },
+      { column: "order", ascending: true }
     ]);
   }
 
@@ -1200,7 +1200,7 @@ export async function getMethodTree(
 
   return {
     data: tree,
-    error: null,
+    error: null
   };
 }
 
@@ -1209,7 +1209,7 @@ export async function getMethodTreeArray(
   makeMethodId: string
 ) {
   return client.rpc("get_method_tree", {
-    uid: makeMethodId,
+    uid: makeMethodId
   });
 }
 
@@ -1257,7 +1257,7 @@ export async function getOpenJobMaterials(
   {
     itemId,
     companyId,
-    locationId,
+    locationId
   }: { itemId: string; companyId: string; locationId: string }
 ) {
   return client
@@ -1275,7 +1275,7 @@ export async function getOpenProductionOrders(
   {
     itemId,
     companyId,
-    locationId,
+    locationId
   }: { itemId: string; companyId: string; locationId: string }
 ) {
   return client
@@ -1293,7 +1293,7 @@ export async function getOpenPurchaseOrderLines(
   {
     itemId,
     companyId,
-    locationId,
+    locationId
   }: { itemId: string; companyId: string; locationId: string }
 ) {
   return client
@@ -1311,7 +1311,7 @@ export async function getOpenSalesOrderLines(
   {
     itemId,
     companyId,
-    locationId,
+    locationId
   }: { itemId: string; companyId: string; locationId: string }
 ) {
   return client
@@ -1331,7 +1331,7 @@ export async function getPart(
 ) {
   return client
     .rpc("get_part_details", {
-      item_id: itemId,
+      item_id: itemId
     })
     .single();
 }
@@ -1347,7 +1347,7 @@ export async function getParts(
   let query = client
     .from("parts")
     .select("*", {
-      count: "exact",
+      count: "exact"
     })
     .eq("companyId", companyId);
 
@@ -1362,7 +1362,7 @@ export async function getParts(
   }
 
   query = setGenericQueryFilters(query, args, [
-    { column: "readableIdWithRevision", ascending: true },
+    { column: "readableIdWithRevision", ascending: true }
   ]);
   return query;
 }
@@ -1400,7 +1400,7 @@ export async function getPartUsedIn(
     quoteMaterials,
     salesOrderLines,
     shipmentLines,
-    supplierQuotes,
+    supplierQuotes
   ] = await Promise.all([
     client
       .from("nonConformanceItem")
@@ -1491,7 +1491,7 @@ export async function getPartUsedIn(
       )
       .eq("itemId", itemId)
       .eq("companyId", companyId)
-      .limit(100),
+      .limit(100)
   ]);
 
   return {
@@ -1505,7 +1505,7 @@ export async function getPartUsedIn(
     quoteMaterials: quoteMaterials.data ?? [],
     salesOrderLines: salesOrderLines.data ?? [],
     shipmentLines: shipmentLines.data ?? [],
-    supplierQuotes: supplierQuotes.data ?? [],
+    supplierQuotes: supplierQuotes.data ?? []
   };
 }
 
@@ -1549,7 +1549,7 @@ export async function getServices(
   let query = client
     .from("service")
     .select("*", {
-      count: "exact",
+      count: "exact"
     })
     .eq("companyId", companyId);
 
@@ -1575,7 +1575,7 @@ export async function getServices(
   }
 
   query = setGenericQueryFilters(query, args, [
-    { column: "readableIdWithRevision", ascending: true },
+    { column: "readableIdWithRevision", ascending: true }
   ]);
   return query;
 }
@@ -1629,7 +1629,7 @@ export async function getTool(
 ) {
   return client
     .rpc("get_tool_details", {
-      item_id: itemId,
+      item_id: itemId
     })
     .single();
 }
@@ -1645,7 +1645,7 @@ export async function getTools(
   let query = client
     .from("tools")
     .select("*", {
-      count: "exact",
+      count: "exact"
     })
     .eq("companyId", companyId);
 
@@ -1660,7 +1660,7 @@ export async function getTools(
   }
 
   query = setGenericQueryFilters(query, args, [
-    { column: "readableIdWithRevision", ascending: true },
+    { column: "readableIdWithRevision", ascending: true }
   ]);
   return query;
 }
@@ -1703,7 +1703,7 @@ export async function getUnitOfMeasures(
   let query = client
     .from("unitOfMeasure")
     .select("*", {
-      count: "exact",
+      count: "exact"
     })
     .eq("companyId", companyId);
 
@@ -1712,7 +1712,7 @@ export async function getUnitOfMeasures(
   }
 
   query = setGenericQueryFilters(query, args, [
-    { column: "name", ascending: true },
+    { column: "name", ascending: true }
   ]);
   return query;
 }
@@ -1755,7 +1755,7 @@ export async function updateDefaultRevision(
       .from("activeMakeMethods")
       .select("id, version")
       .eq("itemId", data.id)
-      .maybeSingle(),
+      .maybeSingle()
   ]);
   if (item.error) return item;
   const readableId = item.data.readableId;
@@ -1770,7 +1770,7 @@ export async function updateDefaultRevision(
     .from("methodMaterial")
     .update({
       itemId: item.data.id,
-      materialMakeMethodId: makeMethod.data?.id,
+      materialMakeMethodId: makeMethod.data?.id
     })
     .in("itemId", itemIds);
 }
@@ -1804,7 +1804,7 @@ export async function updateItemCost(
     .update({
       ...cost,
       costIsAdjusted: true,
-      updatedAt: today(getLocalTimeZone()).toString(),
+      updatedAt: today(getLocalTimeZone()).toString()
     })
     .eq("itemId", itemId)
     .single();
@@ -1850,7 +1850,7 @@ export async function updateRevision(
     .from("item")
     .update({
       ...revision,
-      updatedAt: today(getLocalTimeZone()).toString(),
+      updatedAt: today(getLocalTimeZone()).toString()
     })
     .eq("id", revision.id);
 }
@@ -1870,7 +1870,7 @@ export async function upsertConfigurationParameter(
         sanitize({
           ...data,
           updatedBy: userId,
-          updatedAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString()
         })
       )
       .eq("id", configurationParameter.id);
@@ -1901,7 +1901,7 @@ export async function upsertConfigurationParameter(
         name: "Ungrouped",
         isUngrouped: true,
         sortOrder: maxSortOrder + 1,
-        companyId: data.companyId,
+        companyId: data.companyId
       })
       .select("id")
       .single();
@@ -1913,7 +1913,7 @@ export async function upsertConfigurationParameter(
     ...data,
     key: data.key ?? "",
     createdBy: userId,
-    configurationParameterGroupId: ungroupedGroupId,
+    configurationParameterGroupId: ungroupedGroupId
   });
 }
 
@@ -1931,7 +1931,7 @@ export async function upsertConfigurationParameterGroup(
     return client
       .from("configurationParameterGroup")
       .update({
-        name: data.name,
+        name: data.name
       })
       .eq("id", configurationParameterGroup.id);
   }
@@ -1951,7 +1951,7 @@ export async function upsertConfigurationParameterGroup(
     ...data,
     itemId,
     name: data.name,
-    sortOrder: maxSortOrder + 1,
+    sortOrder: maxSortOrder + 1
   });
 }
 
@@ -1964,7 +1964,7 @@ export async function upsertConfigurationRule(
   }
 ) {
   return client.from("configurationRule").upsert(configurationRule, {
-    onConflict: "itemId,field",
+    onConflict: "itemId,field"
   });
 }
 
@@ -1994,7 +1994,7 @@ export async function upsertConsumable(
         unitOfMeasureCode: consumable.unitOfMeasureCode,
         active: true,
         companyId: consumable.companyId,
-        createdBy: consumable.createdBy,
+        createdBy: consumable.createdBy
       })
       .select("id")
       .single();
@@ -2005,7 +2005,7 @@ export async function upsertConsumable(
       id: consumable.id,
       companyId: consumable.companyId,
       createdBy: consumable.createdBy,
-      customFields: consumable.customFields,
+      customFields: consumable.customFields
     });
 
     if (consumableInsert.error) return consumableInsert;
@@ -2037,11 +2037,11 @@ export async function upsertConsumable(
     defaultMethodType: consumable.defaultMethodType,
     itemTrackingType: consumable.itemTrackingType,
     unitOfMeasureCode: consumable.unitOfMeasureCode,
-    active: true,
+    active: true
   };
 
   const consumableUpdate = {
-    customFields: consumable.customFields,
+    customFields: consumable.customFields
   };
 
   const [updateItem, updateConsumable] = await Promise.all([
@@ -2049,16 +2049,16 @@ export async function upsertConsumable(
       .from("item")
       .update({
         ...sanitize(itemUpdate),
-        updatedAt: today(getLocalTimeZone()).toString(),
+        updatedAt: today(getLocalTimeZone()).toString()
       })
       .eq("id", consumable.id),
     client
       .from("consumable")
       .update({
         ...sanitize(consumableUpdate),
-        updatedAt: today(getLocalTimeZone()).toString(),
+        updatedAt: today(getLocalTimeZone()).toString()
       })
-      .eq("itemId", consumable.id),
+      .eq("itemId", consumable.id)
   ]);
 
   if (updateItem.error) return updateItem;
@@ -2093,7 +2093,7 @@ export async function upsertPart(
         active: true,
         modelUploadId: part.modelUploadId,
         companyId: part.companyId,
-        createdBy: part.createdBy,
+        createdBy: part.createdBy
       })
       .select("id")
       .single();
@@ -2104,7 +2104,7 @@ export async function upsertPart(
       id: part.id,
       companyId: part.companyId,
       createdBy: part.createdBy,
-      customFields: part.customFields,
+      customFields: part.customFields
     });
 
     if (partInsert.error) return partInsert;
@@ -2145,11 +2145,11 @@ export async function upsertPart(
     defaultMethodType: part.defaultMethodType,
     itemTrackingType: part.itemTrackingType,
     unitOfMeasureCode: part.unitOfMeasureCode,
-    active: true,
+    active: true
   };
 
   const partUpdate = {
-    customFields: part.customFields,
+    customFields: part.customFields
   };
 
   const [updateItem, updatePart] = await Promise.all([
@@ -2157,16 +2157,16 @@ export async function upsertPart(
       .from("item")
       .update({
         ...sanitize(itemUpdate),
-        updatedAt: today(getLocalTimeZone()).toString(),
+        updatedAt: today(getLocalTimeZone()).toString()
       })
       .eq("id", part.id),
     client
       .from("part")
       .update({
         ...sanitize(partUpdate),
-        updatedAt: today(getLocalTimeZone()).toString(),
+        updatedAt: today(getLocalTimeZone()).toString()
       })
-      .eq("itemId", part.id),
+      .eq("itemId", part.id)
   ]);
 
   if (updateItem.error) return updateItem;
@@ -2215,7 +2215,7 @@ export async function upsertPickMethod(
 ) {
   if ("createdBy" in pickMethod) {
     return client.from("pickMethod").upsert(pickMethod, {
-      onConflict: "itemId,locationId",
+      onConflict: "itemId,locationId"
     });
   }
 
@@ -2398,7 +2398,7 @@ export async function upsertMakeMethodVersion(
       ...data,
       status: "Draft",
       version: makeMethodVersion.version,
-      createdBy: makeMethodVersion.createdBy,
+      createdBy: makeMethodVersion.createdBy
     })
     .select("id, ...item(itemId:id, type)")
     .single();
@@ -2449,8 +2449,8 @@ export async function upsertMethodMaterial(
         {
           ...methodMaterial,
           itemId: methodMaterial.itemId!,
-          materialMakeMethodId,
-        },
+          materialMakeMethodId
+        }
       ])
       .select("id")
       .single();
@@ -2621,7 +2621,7 @@ export async function upsertMaterial(
               active: true,
               revision: size,
               companyId: material.companyId,
-              createdBy: material.createdBy,
+              createdBy: material.createdBy
             })
             .select("id")
             .single()
@@ -2639,7 +2639,7 @@ export async function upsertMaterial(
       await client
         .from("itemCost")
         .update({
-          unitCost: material.unitCost,
+          unitCost: material.unitCost
         })
         .in("itemId", itemIds);
     } else {
@@ -2655,7 +2655,7 @@ export async function upsertMaterial(
           unitOfMeasureCode: material.unitOfMeasureCode,
           active: true,
           companyId: material.companyId,
-          createdBy: material.createdBy,
+          createdBy: material.createdBy
         })
         .select("id")
         .single();
@@ -2664,7 +2664,7 @@ export async function upsertMaterial(
       await client
         .from("itemCost")
         .update({
-          unitCost: material.unitCost,
+          unitCost: material.unitCost
         })
         .eq("itemId", itemInsert.data!.id);
     }
@@ -2679,7 +2679,7 @@ export async function upsertMaterial(
       materialTypeId: material.materialTypeId,
       companyId: material.companyId,
       createdBy: material.createdBy,
-      customFields: material.customFields,
+      customFields: material.customFields
     });
 
     if (materialInsert.error) return materialInsert;
@@ -2692,7 +2692,7 @@ export async function upsertMaterial(
 
     return {
       data: newMaterial.data?.[0] ?? null,
-      error: newMaterial.error,
+      error: newMaterial.error
     };
   }
 
@@ -2705,7 +2705,7 @@ export async function upsertMaterial(
     itemTrackingType: material.itemTrackingType,
     unitOfMeasureCode: material.unitOfMeasureCode,
     unitCost: material.unitCost,
-    active: true,
+    active: true
   };
 
   const materialUpdate = {
@@ -2715,7 +2715,7 @@ export async function upsertMaterial(
     gradeId: material.gradeId,
     dimensionId: material.dimensionId,
     materialTypeId: material.materialTypeId,
-    customFields: material.customFields,
+    customFields: material.customFields
   };
 
   const [updateItem, updateMaterial] = await Promise.all([
@@ -2723,16 +2723,16 @@ export async function upsertMaterial(
       .from("item")
       .update({
         ...sanitize(itemUpdate),
-        updatedAt: today(getLocalTimeZone()).toString(),
+        updatedAt: today(getLocalTimeZone()).toString()
       })
       .eq("id", material.id),
     client
       .from("material")
       .update({
         ...sanitize(materialUpdate),
-        updatedAt: today(getLocalTimeZone()).toString(),
+        updatedAt: today(getLocalTimeZone()).toString()
       })
-      .eq("itemId", material.id),
+      .eq("itemId", material.id)
   ]);
 
   if (updateItem.error) return updateItem;
@@ -2995,7 +2995,7 @@ export async function upsertService(
         unitOfMeasureCode: "EA",
         active: true,
         companyId: service.companyId,
-        createdBy: service.createdBy,
+        createdBy: service.createdBy
       })
       .select("id")
       .single();
@@ -3009,7 +3009,7 @@ export async function upsertService(
         serviceType: service.serviceType,
         companyId: service.companyId,
         createdBy: service.createdBy,
-        customFields: service.customFields,
+        customFields: service.customFields
       })
       .select("*")
       .single();
@@ -3043,11 +3043,11 @@ export async function upsertService(
       service.serviceType === "External" ? "Buy" : ("Make" as "Buy"),
     itemTrackingType: service.itemTrackingType,
     unitOfMeasureCode: null,
-    active: true,
+    active: true
   };
 
   const serviceUpdate = {
-    serviceType: service.serviceType,
+    serviceType: service.serviceType
   };
 
   const [updateItem, updateService] = await Promise.all([
@@ -3055,16 +3055,16 @@ export async function upsertService(
       .from("item")
       .update({
         ...sanitize(itemUpdate),
-        updatedAt: today(getLocalTimeZone()).toString(),
+        updatedAt: today(getLocalTimeZone()).toString()
       })
       .eq("id", service.id),
     client
       .from("service")
       .update({
         ...sanitize(serviceUpdate),
-        updatedAt: today(getLocalTimeZone()).toString(),
+        updatedAt: today(getLocalTimeZone()).toString()
       })
-      .eq("itemId", service.id),
+      .eq("itemId", service.id)
   ]);
 
   if (updateItem.error) return updateItem;
@@ -3129,7 +3129,7 @@ export async function upsertTool(
         active: true,
         modelUploadId: tool.modelUploadId,
         companyId: tool.companyId,
-        createdBy: tool.createdBy,
+        createdBy: tool.createdBy
       })
       .select("id")
       .single();
@@ -3140,7 +3140,7 @@ export async function upsertTool(
       id: tool.id,
       companyId: tool.companyId,
       createdBy: tool.createdBy,
-      customFields: tool.customFields,
+      customFields: tool.customFields
     });
 
     if (toolInsert.error) return toolInsert;
@@ -3172,11 +3172,11 @@ export async function upsertTool(
     defaultMethodType: tool.defaultMethodType,
     itemTrackingType: tool.itemTrackingType,
     unitOfMeasureCode: tool.unitOfMeasureCode,
-    active: true,
+    active: true
   };
 
   const toolUpdate = {
-    customFields: tool.customFields,
+    customFields: tool.customFields
   };
 
   const [updateItem, updateTool] = await Promise.all([
@@ -3184,16 +3184,16 @@ export async function upsertTool(
       .from("item")
       .update({
         ...sanitize(itemUpdate),
-        updatedAt: today(getLocalTimeZone()).toString(),
+        updatedAt: today(getLocalTimeZone()).toString()
       })
       .eq("id", tool.id),
     client
       .from("tool")
       .update({
         ...sanitize(toolUpdate),
-        updatedAt: today(getLocalTimeZone()).toString(),
+        updatedAt: today(getLocalTimeZone()).toString()
       })
-      .eq("itemId", tool.id),
+      .eq("itemId", tool.id)
   ]);
 
   if (updateItem.error) return updateItem;

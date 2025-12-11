@@ -9,14 +9,14 @@ import { path } from "~/utils/path";
 
 export const handle: Handle = {
   breadcrumb: "Theme",
-  to: path.to.theme,
+  to: path.to.theme
 };
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const theme = getTheme(request);
 
   return json({
-    theme: theme ?? "zinc",
+    theme: theme ?? "zinc"
   });
 }
 
@@ -33,7 +33,7 @@ export async function action({ request }: ActionFunctionArgs) {
   return json(
     {},
     {
-      headers: { "Set-Cookie": setTheme(validation.data.theme) },
+      headers: { "Set-Cookie": setTheme(validation.data.theme) }
     }
   );
 }

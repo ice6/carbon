@@ -41,7 +41,7 @@ export function QuoteLineMethodForm() {
             )}
           </div>
         ),
-        value: quote.id,
+        value: quote.id
       })) ?? [],
     [quoteFetcher.data]
   );
@@ -50,7 +50,7 @@ export function QuoteLineMethodForm() {
     () =>
       quoteLineFetcher.data?.data?.map((quoteLine) => ({
         label: quoteLine.readableIdWithRevision ?? "",
-        value: quoteLine.id,
+        value: quoteLine.id
       })) ?? [],
     [quoteLineFetcher.data]
   );

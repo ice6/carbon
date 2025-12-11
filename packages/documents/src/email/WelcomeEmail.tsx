@@ -5,14 +5,14 @@ import {
   Link,
   Preview,
   Section,
-  Text,
+  Text
 } from "@react-email/components";
 import { Logo } from "./components/Logo";
 import {
   Button,
   EmailThemeProvider,
   getEmailInlineStyles,
-  getEmailThemeClasses,
+  getEmailThemeClasses
 } from "./components/Theme";
 
 interface Props {
@@ -35,7 +35,7 @@ export const WelcomeEmail = ({ firstName = "Huckleberry" }: Props) => {
           style={{
             borderStyle: "solid",
             borderWidth: 1,
-            borderColor: lightStyles.container.borderColor,
+            borderColor: lightStyles.container.borderColor
           }}
         >
           <Logo />

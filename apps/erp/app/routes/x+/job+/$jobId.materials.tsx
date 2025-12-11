@@ -8,7 +8,7 @@ import { json, redirect } from "@vercel/remix";
 import { usePanels } from "~/components/Layout";
 import {
   getJob,
-  getJobMaterialsWithQuantityOnHand,
+  getJobMaterialsWithQuantityOnHand
 } from "~/modules/production";
 import { JobMaterialsTable } from "~/modules/production/ui/Jobs";
 import { path } from "~/utils/path";
@@ -17,7 +17,7 @@ import { getGenericQueryFilters } from "~/utils/query";
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
     view: "production",
-    role: "employee",
+    role: "employee"
   });
 
   const { jobId } = params;
@@ -47,7 +47,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
       limit,
       offset,
       sorts,
-      filters,
+      filters
     }
   );
 
@@ -63,7 +63,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
   return json({
     count: materials.count ?? 0,
-    materials: materials.data ?? [],
+    materials: materials.data ?? []
   });
 }
 

@@ -15,7 +15,7 @@ export const getStatusMessage = (status?: AgentStatus | null) => {
       general: "Searching the web...",
       purchasing: "Calling the purchasing agent...",
       parts: "Calling the parts agent...",
-      suppliers: "Calling the suppliers agent...",
+      suppliers: "Calling the suppliers agent..."
     };
 
     return messages[agent];

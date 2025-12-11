@@ -6,7 +6,7 @@ import type { ActionFunctionArgs } from "@vercel/remix";
 import { redirect } from "@vercel/remix";
 import {
   salesInvoiceShipmentValidator,
-  upsertSalesInvoiceShipment,
+  upsertSalesInvoiceShipment
 } from "~/modules/invoicing";
 import { setCustomFields } from "~/utils/form";
 import { path } from "~/utils/path";
@@ -14,7 +14,7 @@ import { path } from "~/utils/path";
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    update: "invoicing",
+    update: "invoicing"
   });
 
   const { invoiceId } = params;
@@ -33,7 +33,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     ...validation.data,
     id: invoiceId,
     updatedBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
   if (updateSalesInvoiceShipment.error) {
     throw redirect(

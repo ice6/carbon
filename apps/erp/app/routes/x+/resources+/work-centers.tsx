@@ -8,7 +8,7 @@ import { json, redirect } from "@vercel/remix";
 import {
   WorkCentersTable,
   getLocationsList,
-  getWorkCenters,
+  getWorkCenters
 } from "~/modules/resources";
 import type { Handle } from "~/utils/handle";
 import { path } from "~/utils/path";
@@ -16,14 +16,14 @@ import { getGenericQueryFilters } from "~/utils/query";
 
 export const handle: Handle = {
   breadcrumb: "Work Centers",
-  to: path.to.workCenters,
+  to: path.to.workCenters
 };
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
     view: "resources",
     role: "employee",
-    bypassRls: true,
+    bypassRls: true
   });
 
   const url = new URL(request.url);
@@ -38,9 +38,9 @@ export async function loader({ request }: LoaderFunctionArgs) {
       limit,
       offset,
       sorts,
-      filters,
+      filters
     }),
-    getLocationsList(client, companyId),
+    getLocationsList(client, companyId)
   ]);
 
   if (workCenters.error) {
@@ -56,7 +56,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   return json({
     count: workCenters.count ?? 0,
     workCenters: workCenters.data ?? [],
-    locations: locations.data ?? [],
+    locations: locations.data ?? []
   });
 }
 

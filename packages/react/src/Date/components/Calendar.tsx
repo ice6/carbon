@@ -15,7 +15,7 @@ export const Calendar = (props: CalendarProps<DateValue>) => {
   const state = useCalendarState({
     ...props,
     locale,
-    createCalendar,
+    createCalendar
   });
 
   const ref = useRef<HTMLDivElement>(null);
@@ -63,7 +63,7 @@ function useLocalizedTitle(
   const dateFormatter = useMemo(() => {
     return new Intl.DateTimeFormat(locale, {
       month: "long",
-      year: "numeric",
+      year: "numeric"
     });
   }, [locale]);
 

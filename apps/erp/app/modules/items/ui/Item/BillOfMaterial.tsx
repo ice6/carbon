@@ -24,14 +24,14 @@ import {
   TooltipTrigger,
   useDisclosure,
   useThrottle,
-  VStack,
+  VStack
 } from "@carbon/react";
 import {
   Link,
   useFetcher,
   useFetchers,
   useParams,
-  useSearchParams,
+  useSearchParams
 } from "@remix-run/react";
 import { AnimatePresence, LayoutGroup, motion } from "framer-motion";
 import { nanoid } from "nanoid";
@@ -50,7 +50,7 @@ import {
   LuLock,
   LuSettings2,
   LuSquareFunction,
-  LuX,
+  LuX
 } from "react-icons/lu";
 import type { z } from "zod/v3";
 import { MethodIcon, MethodItemTypeIcon, TrackingTypeIcon } from "~/components";
@@ -64,11 +64,11 @@ import {
   Select,
   Shelf,
   Submit,
-  UnitOfMeasure,
+  UnitOfMeasure
 } from "~/components/Form";
 import type {
   Item as SortableItem,
-  SortableItemRenderProps,
+  SortableItemRenderProps
 } from "~/components/SortableList";
 import { SortableList, SortableListItem } from "~/components/SortableList";
 import { usePermissions, useUser } from "~/hooks";
@@ -81,7 +81,7 @@ import { useUnitOfMeasure } from "~/components/Form/UnitOfMeasure";
 import {
   methodType,
   type MethodItemType,
-  type MethodType,
+  type MethodType
 } from "~/modules/shared";
 import { useBom, useItems, type Item as ItemType } from "~/stores";
 import { path } from "~/utils/path";
@@ -90,7 +90,7 @@ import { methodMaterialValidator } from "../../items.models";
 import type {
   ConfigurationParameter,
   ConfigurationRule,
-  MakeMethod,
+  MakeMethod
 } from "../../types";
 import { getLinkToItemDetails } from "./ItemForm";
 
@@ -139,7 +139,7 @@ const initialMethodMaterial: Omit<Material, "makeMethodId" | "order"> & {
   description: "",
   quantity: 1,
   unitOfMeasureCode: "EA",
-  shelfIds: {},
+  shelfIds: {}
 };
 
 const BillOfMaterial = ({
@@ -148,7 +148,7 @@ const BillOfMaterial = ({
   makeMethod,
   materials: initialMaterials,
   operations,
-  parameters,
+  parameters
 }: BillOfMaterialProps) => {
   const permissions = usePermissions();
   const isReadOnly =
@@ -192,13 +192,13 @@ const BillOfMaterial = ({
         description: "",
         item: {
           name: "",
-          itemTrackingType: "Inventory",
-        },
+          itemTrackingType: "Inventory"
+        }
       });
     } else {
       materialsById.set(pendingMaterial.id, {
         ...materialsById.get(pendingMaterial.id)!,
-        ...pendingMaterial,
+        ...pendingMaterial
       });
     }
   });
@@ -219,7 +219,7 @@ const BillOfMaterial = ({
     if (isReadOnly) return;
     setCheckedState((prev) => ({
       ...prev,
-      [id]: !prev[id],
+      [id]: !prev[id]
     }));
   };
 
@@ -238,17 +238,17 @@ const BillOfMaterial = ({
       ...initialMethodMaterial,
       id: materialId,
       order: newOrder,
-      makeMethodId,
+      makeMethodId
     };
 
     setTemporaryItems((prev) => ({
       ...prev,
-      [materialId]: newMaterial,
+      [materialId]: newMaterial
     }));
 
     setOrderState((prev) => ({
       ...prev,
-      [materialId]: newOrder,
+      [materialId]: newOrder
     }));
   };
 
@@ -264,7 +264,7 @@ const BillOfMaterial = ({
     } else {
       fetcher.submit(new FormData(), {
         method: "post",
-        action: path.to.deleteMethodMaterial(id),
+        action: path.to.deleteMethodMaterial(id)
       });
     }
 
@@ -280,7 +280,7 @@ const BillOfMaterial = ({
     formData.append("updates", JSON.stringify(updates));
     fetcher.submit(formData, {
       method: "post",
-      action: path.to.methodMaterialsOrder,
+      action: path.to.methodMaterialsOrder
     });
   }, 1000);
 
@@ -334,7 +334,7 @@ const BillOfMaterial = ({
     items,
     order,
     onToggleItem,
-    onRemoveItem,
+    onRemoveItem
   }: SortableItemRenderProps<ItemWithData>) => {
     const isOpen = item.id === selectedItemId;
     const onSelectItem = (id: string | null) => {
@@ -379,7 +379,7 @@ const BillOfMaterial = ({
                   exit={{ opacity: 1, filter: "blur(0px)" }}
                   transition={{
                     type: "spring",
-                    duration: 1.95,
+                    duration: 1.95
                   }}
                 >
                   <LuX className="h-5 w-5 text-foreground" />
@@ -391,7 +391,7 @@ const BillOfMaterial = ({
                   exit={{ opacity: 1, filter: "blur(0px)" }}
                   transition={{
                     type: "spring",
-                    duration: 0.95,
+                    duration: 0.95
                   }}
                 >
                   <LuSettings2 className="stroke-1 mt-3.5 h-5 w-5 text-foreground/80  hover:stroke-primary/70 " />
@@ -408,16 +408,16 @@ const BillOfMaterial = ({
                         initial={{
                           y: 0,
                           opacity: 0,
-                          filter: "blur(4px)",
+                          filter: "blur(4px)"
                         }}
                         animate={{
                           y: 0,
                           opacity: 1,
-                          filter: "blur(0px)",
+                          filter: "blur(0px)"
                         }}
                         transition={{
                           type: "spring",
-                          duration: 0.15,
+                          duration: 0.15
                         }}
                         layout
                         className="w-full "
@@ -429,7 +429,7 @@ const BillOfMaterial = ({
                             type: "spring",
                             bounce: 0.2,
                             duration: 0.75,
-                            delay: 0.15,
+                            delay: 0.15
                           }}
                         >
                           <MaterialForm
@@ -449,7 +449,7 @@ const BillOfMaterial = ({
                               addItemButtonRef.current?.scrollIntoView({
                                 behavior: "smooth",
                                 block: "nearest",
-                                inline: "center",
+                                inline: "center"
                               });
                             }}
                           />
@@ -524,8 +524,8 @@ const BillOfMaterial = ({
                         .map(
                           (m) => getItemReadableId(items, m.data.itemId) ?? ""
                         )
-                        .filter((i) => !!i),
-                    },
+                        .filter((i) => !!i)
+                    }
                   })
                 }
               />
@@ -568,7 +568,7 @@ function MaterialForm({
   setOrderState,
   setSelectedItemId,
   setTemporaryItems,
-  onSubmit,
+  onSubmit
 }: {
   configurable: boolean;
   isReadOnly: boolean;
@@ -606,7 +606,7 @@ function MaterialForm({
   const unitOfMeasures = useUnitOfMeasure();
 
   const sourceDisclosure = useDisclosure({
-    defaultIsOpen: true,
+    defaultIsOpen: true
   });
   const backflushDisclosure = useDisclosure();
 
@@ -644,7 +644,7 @@ function MaterialForm({
     methodOperationId: item.data.methodOperationId ?? undefined,
     quantity: item.data.quantity ?? 1,
     kit: item.data.kit ?? false,
-    shelfIds: item.data.shelfIds ?? {},
+    shelfIds: item.data.shelfIds ?? {}
   });
 
   const onTypeChange = (value: MethodItemType | "Item") => {
@@ -659,7 +659,7 @@ function MaterialForm({
       unitOfMeasureCode: "EA",
       kit: false,
       shelfIds: {},
-      methodOperationId: undefined,
+      methodOperationId: undefined
     });
   };
 
@@ -690,7 +690,7 @@ function MaterialForm({
       description: item.data?.name ?? "",
       unitOfMeasureCode: item.data?.unitOfMeasureCode ?? "EA",
       methodType: item.data?.defaultMethodType ?? "Buy",
-      kit: false,
+      kit: false
     }));
     if (item.data?.type) {
       setItemType(item.data.type as MethodItemType);
@@ -708,7 +708,7 @@ function MaterialForm({
       }
       method="post"
       defaultValues={{
-        ...item.data,
+        ...item.data
       }}
       validator={methodMaterialValidator}
       className="w-full flex flex-col gap-y-4"
@@ -745,8 +745,8 @@ function MaterialForm({
                     returnType: {
                       type: "text",
                       helperText:
-                        "the unique item identifier of the item (not the part number). you can get the item id from the key icon in the properties panel.",
-                    },
+                        "the unique item identifier of the item (not the part number). you can get the item id from the key icon in the properties panel."
+                    }
                   })
               : undefined
           }
@@ -764,7 +764,7 @@ function MaterialForm({
                     field: key("quantity"),
                     code: rulesByField.get(key("quantity"))?.code,
                     defaultValue: itemData.quantity,
-                    returnType: { type: "numeric" },
+                    returnType: { type: "numeric" }
                   })
               : undefined
           }
@@ -775,7 +775,7 @@ function MaterialForm({
           onChange={(newValue) =>
             setItemData((d) => ({
               ...d,
-              unitOfMeasureCode: newValue?.value ?? "EA",
+              unitOfMeasureCode: newValue?.value ?? "EA"
             }))
           }
           isReadOnly={true}
@@ -790,8 +790,8 @@ function MaterialForm({
                     defaultValue: itemData.unitOfMeasureCode,
                     returnType: {
                       type: "enum",
-                      listOptions: unitOfMeasures.map((u) => u.value),
-                    },
+                      listOptions: unitOfMeasures.map((u) => u.value)
+                    }
                   })
               : undefined
           }
@@ -858,7 +858,7 @@ function MaterialForm({
             onChange={(value) => {
               setItemData((d) => ({
                 ...d,
-                methodType: value?.value as MethodType,
+                methodType: value?.value as MethodType
               }));
             }}
             isConfigured={rulesByField.has(key("methodType"))}
@@ -872,8 +872,8 @@ function MaterialForm({
                       defaultValue: itemData.methodType,
                       returnType: {
                         type: "enum",
-                        listOptions: methodType,
-                      },
+                        listOptions: methodType
+                      }
                     })
                 : undefined
             }
@@ -897,8 +897,8 @@ function MaterialForm({
                 ...d,
                 shelfIds: {
                   ...d.shelfIds,
-                  [locationId ?? ""]: value?.id ?? "",
-                },
+                  [locationId ?? ""]: value?.id ?? ""
+                }
               }));
             }}
             isOptional
@@ -958,12 +958,12 @@ function MaterialForm({
             isOptional
             options={methodOperations.map((o) => ({
               value: o.id!,
-              label: o.description,
+              label: o.description
             }))}
             onChange={(value) => {
               setItemData((d) => ({
                 ...d,
-                methodOperationId: value?.value,
+                methodOperationId: value?.value
               }));
             }}
           />
@@ -977,7 +977,7 @@ function MaterialForm({
         transition={{
           type: "spring",
           bounce: 0,
-          duration: 0.55,
+          duration: 0.55
         }}
       >
         <motion.div
@@ -1002,7 +1002,7 @@ function MaterialForm({
                   onValueChange={(value) => {
                     setItemData((d) => ({
                       ...d,
-                      kit: value === "Kit",
+                      kit: value === "Kit"
                     }));
                   }}
                 >
@@ -1039,9 +1039,9 @@ function makeItems(
 ): ItemWithData[] {
   return materials.map((material) => {
     const order = material.id
-      ? orderState[material.id] ?? material.order
+      ? (orderState[material.id] ?? material.order)
       : material.order;
-    const checked = material.id ? checkedState[material.id] ?? false : false;
+    const checked = material.id ? (checkedState[material.id] ?? false) : false;
     return makeItem(items, material, order, checked);
   });
 }
@@ -1116,8 +1116,8 @@ function makeItem(
     ),
     data: {
       ...material,
-      order,
-    },
+      order
+    }
   };
 }
 

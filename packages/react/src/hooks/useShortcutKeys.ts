@@ -27,7 +27,7 @@ export function useShortcutKeys({
   shortcut,
   action,
   disabled = false,
-  enabledOnInputElements,
+  enabledOnInputElements
 }: useShortcutKeysProps) {
   const { platform } = useOperatingSystem();
   const isMac = platform === "mac";
@@ -49,7 +49,7 @@ export function useShortcutKeys({
       enableOnFormTags:
         enabledOnInputElements ?? relevantShortcut?.enabledOnInputElements,
       enableOnContentEditable:
-        enabledOnInputElements ?? relevantShortcut?.enabledOnInputElements,
+        enabledOnInputElements ?? relevantShortcut?.enabledOnInputElements
     }
   );
 }

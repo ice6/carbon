@@ -13,12 +13,12 @@ import {
   getQuote,
   getSalesOrder,
   getSalesOrderLines,
-  getSalesOrderRelatedItems,
+  getSalesOrderRelatedItems
 } from "~/modules/sales";
 import {
   SalesOrderExplorer,
   SalesOrderHeader,
-  SalesOrderProperties,
+  SalesOrderProperties
 } from "~/modules/sales/ui/SalesOrder";
 import type { Handle } from "~/utils/handle";
 import { path } from "~/utils/path";
@@ -26,13 +26,13 @@ import { path } from "~/utils/path";
 export const handle: Handle = {
   breadcrumb: "Orders",
   to: path.to.salesOrders,
-  module: "sales",
+  module: "sales"
 };
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
     view: "sales",
-    bypassRls: true,
+    bypassRls: true
   });
 
   const { orderId } = params;
@@ -40,7 +40,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
   const [salesOrder, lines] = await Promise.all([
     getSalesOrder(client, orderId),
-    getSalesOrderLines(client, orderId),
+    getSalesOrderLines(client, orderId)
   ]);
 
   const opportunity = await getOpportunity(
@@ -67,7 +67,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
       : Promise.resolve(null),
     salesOrder.data?.customerId
       ? getCustomer(client, salesOrder.data.customerId)
-      : Promise.resolve(null),
+      : Promise.resolve(null)
   ]);
 
   return defer({
@@ -82,7 +82,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     opportunity: opportunity.data,
     customer: customer?.data ?? null,
     quote: quote?.data ?? null,
-    originatedFromQuote: !!opportunity.data.quotes[0]?.id,
+    originatedFromQuote: !!opportunity.data.quotes[0]?.id
   });
 }
 

@@ -8,7 +8,7 @@ import type { MutableRefObject } from "react";
 import {
   SUPABASE_ANON_KEY,
   SUPABASE_SERVICE_ROLE_KEY,
-  SUPABASE_URL,
+  SUPABASE_URL
 } from "../../config/env";
 
 const getCarbonClient = (
@@ -19,18 +19,18 @@ const getCarbonClient = (
     ? {
         global: {
           headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        },
+            Authorization: `Bearer ${accessToken}`
+          }
+        }
       }
     : {};
 
   const client = createClient<Database, "public">(SUPABASE_URL, supabaseKey, {
     auth: {
       autoRefreshToken: false,
-      persistSession: false,
+      persistSession: false
     },
-    ...global,
+    ...global
   });
 
   return client;
@@ -43,9 +43,9 @@ export const getCarbonAPIKeyClient = (apiKey: string) => {
     {
       global: {
         headers: {
-          "carbon-key": apiKey,
-        },
-      },
+          "carbon-key": apiKey
+        }
+      }
     }
   );
 
@@ -58,12 +58,12 @@ export const createCarbonWithAuthGetter = (
   return createClient<Database, "public">(SUPABASE_URL, SUPABASE_ANON_KEY, {
     auth: {
       autoRefreshToken: false,
-      persistSession: false,
+      persistSession: false
     },
     async accessToken() {
       const state = store.current.getState();
       return state.accessToken;
-    },
+    }
   });
 };
 

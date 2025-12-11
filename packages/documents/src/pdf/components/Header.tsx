@@ -15,31 +15,31 @@ const styles = StyleSheet.create({
     flexDirection: "row-reverse",
     justifyContent: "space-between",
     alignItems: "flex-start",
-    marginBottom: 20,
+    marginBottom: 20
   },
   logo: {
-    height: 70,
+    height: 70
   },
   titleWithoutSubtitle: {
     height: 70,
     fontSize: 26,
     letterSpacing: -1,
-    fontWeight: 700,
+    fontWeight: 700
   },
   title: {
     fontSize: 26,
     letterSpacing: -1,
-    fontWeight: 700,
+    fontWeight: 700
   },
   subtitle: {
     fontSize: 18,
     fontWeight: 500,
-    color: "gray",
+    color: "gray"
   },
   tertiaryTitle: {
     fontSize: 12,
     fontWeight: 400,
-    color: "gray",
+    color: "gray"
   },
   jobHeader: {
     fontSize: 10,
@@ -48,29 +48,29 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "flex-start",
     marginBottom: 20,
-    gap: 20,
+    gap: 20
   },
   leftSection: {
-    flex: 1,
+    flex: 1
   },
   rightSection: {
-    flex: 1,
+    flex: 1
   },
   infoRow: {
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
-    marginBottom: 4,
+    marginBottom: 4
   },
   label: {
     fontSize: 9,
     fontWeight: 600,
-    color: "#374151",
+    color: "#374151"
   },
   value: {
     fontSize: 9,
     fontWeight: 400,
-    color: "#111827",
+    color: "#111827"
   },
   sectionTitle: {
     fontSize: 11,
@@ -78,8 +78,8 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     color: "#111827",
     borderBottom: "1px solid #d1d5db",
-    paddingBottom: 2,
-  },
+    paddingBottom: 2
+  }
 });
 
 const Header = ({ title, subtitle, tertiaryTitle, company }: HeaderProps) => {

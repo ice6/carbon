@@ -10,7 +10,7 @@ import type {
   nonScrapQuantityValidator,
   productionEventValidator,
   scrapQuantityValidator,
-  stepRecordValidator,
+  stepRecordValidator
 } from "./models";
 import type { BaseOperationWithDetails, Job, StorageItem } from "./types";
 
@@ -37,7 +37,7 @@ export async function finishJobOperation(
     .from("jobOperation")
     .update({
       status: "Done",
-      updatedBy: args.userId,
+      updatedBy: args.userId
     })
     .eq("id", args.jobOperationId);
 }
@@ -51,7 +51,7 @@ export async function getActiveJobOperationsByEmployee(
 ) {
   return client.rpc("get_active_job_operations_by_employee", {
     employee_id: args.employeeId,
-    company_id: args.companyId,
+    company_id: args.companyId
   });
 }
 
@@ -62,7 +62,7 @@ export async function getActiveJobOperationsByLocation(
 ) {
   return client.rpc("get_active_job_operations_by_location", {
     location_id: locationId,
-    work_center_ids: workCenterIds,
+    work_center_ids: workCenterIds
   });
 }
 
@@ -75,7 +75,7 @@ export async function getActiveJobCount(
 ) {
   return client.rpc("get_active_job_count", {
     employee_id: args.employeeId,
-    company_id: args.companyId,
+    company_id: args.companyId
   });
 }
 
@@ -144,12 +144,12 @@ export async function getJobOperationProcedure(
     client
       .from("jobOperationParameter")
       .select("*")
-      .eq("operationId", operationId),
+      .eq("operationId", operationId)
   ]);
 
   return {
     attributes: attributes.data ?? [],
-    parameters: parameters.data ?? [],
+    parameters: parameters.data ?? []
   };
 }
 
@@ -194,27 +194,27 @@ export async function getJobFiles(
         .from("private")
         .list(`${companyId}/opportunity-line/${opportunityLine}`),
       client.storage.from("private").list(`${companyId}/job/${job.id}`),
-      client.storage.from("private").list(`${companyId}/parts/${itemId}`),
+      client.storage.from("private").list(`${companyId}/parts/${itemId}`)
     ]);
 
     // Combine and return both sets of files
     return [
       ...(opportunityLineFiles.data?.map((f) => ({
         ...f,
-        bucket: "opportunity-line",
+        bucket: "opportunity-line"
       })) || []),
       ...(jobFiles.data?.map((f) => ({ ...f, bucket: "job" })) || []),
-      ...(itemFiles.data?.map((f) => ({ ...f, bucket: "parts" })) || []),
+      ...(itemFiles.data?.map((f) => ({ ...f, bucket: "parts" })) || [])
     ];
   } else {
     const [jobFiles, itemFiles] = await Promise.all([
       client.storage.from("private").list(`${companyId}/job/${job.id}`),
-      client.storage.from("private").list(`${companyId}/parts/${itemId}`),
+      client.storage.from("private").list(`${companyId}/parts/${itemId}`)
     ]);
 
     return [
       ...(jobFiles.data?.map((f) => ({ ...f, bucket: "job" })) || []),
-      ...(itemFiles.data?.map((f) => ({ ...f, bucket: "parts" })) || []),
+      ...(itemFiles.data?.map((f) => ({ ...f, bucket: "parts" })) || [])
     ];
   }
 }
@@ -243,7 +243,7 @@ export async function getJobMaterialsByOperationId(
       .eq("jobMakeMethodId", operation.jobMakeMethodId)
       .order("itemReadableId", { ascending: true })
       .order("id", { ascending: true }),
-    getTrackedInputs(client, trackedEntityId),
+    getTrackedInputs(client, trackedEntityId)
   ]);
 
   const kittedMakeMethodIds = new Set(
@@ -273,7 +273,7 @@ export async function getJobMaterialsByOperationId(
         isKitComponent: true,
         kitParentId: Array.from(kitParentMap.entries()).find(
           ([makeMethodId]) => makeMethodId === material.jobMakeMethodId
-        )?.[1]?.id,
+        )?.[1]?.id
       })
     );
 
@@ -303,15 +303,15 @@ export async function getJobMaterialsByOperationId(
 
           return {
             ...material,
-            quantityIssued: issuedForTrackedParent,
+            quantityIssued: issuedForTrackedParent
           };
         }) ?? [],
-      trackedInputs: trackedInputs.data ?? [],
+      trackedInputs: trackedInputs.data ?? []
     };
   } else {
     return {
       materials: materials.data ?? [],
-      trackedInputs: trackedInputs.data ?? [],
+      trackedInputs: trackedInputs.data ?? []
     };
   }
 }
@@ -323,7 +323,7 @@ export async function getJobOperationsAssignedToEmployee(
 ) {
   return client.rpc("get_assigned_job_operations", {
     user_id: employeeId,
-    company_id: companyId,
+    company_id: companyId
   });
 }
 
@@ -332,7 +332,7 @@ export async function getJobOperationById(
   operationId: string
 ) {
   return client.rpc("get_job_operation_by_id", {
-    operation_id: operationId,
+    operation_id: operationId
   });
 }
 
@@ -342,7 +342,7 @@ export async function getJobOperationsByWorkCenter(
 ) {
   return client.rpc("get_job_operations_by_work_center", {
     location_id: locationId,
-    work_center_id: workCenterId,
+    work_center_id: workCenterId
   });
 }
 
@@ -386,7 +386,7 @@ export async function getNonConformanceActions(
   const result = await client.rpc("get_action_tasks_by_item_and_process", {
     p_item_id: args.itemId,
     p_process_id: args.processId,
-    p_company_id: args.companyId,
+    p_company_id: args.companyId
   });
 
   return (result.data ?? []) as {
@@ -441,7 +441,7 @@ export async function getRecentJobOperationsByEmployee(
 ) {
   return client.rpc("get_recent_job_operations_by_employee", {
     employee_id: args.employeeId,
-    company_id: args.companyId,
+    company_id: args.companyId
   });
 }
 
@@ -487,7 +487,7 @@ export async function getTrackedEntitiesByOperationId(
   if (jobOperation.error || !jobOperation.data.jobMakeMethodId)
     return {
       data: null,
-      error: jobOperation.error,
+      error: jobOperation.error
     };
 
   return getTrackedEntitiesByMakeMethodId(
@@ -503,11 +503,11 @@ export async function getTrackedInputs(
   if (!trackedEntityId) return { data: [] };
   const [inputs, outputs] = await Promise.all([
     client.rpc("get_direct_descendants_of_tracked_entity_strict", {
-      p_tracked_entity_id: trackedEntityId,
+      p_tracked_entity_id: trackedEntityId
     }),
     client.rpc("get_direct_ancestors_of_tracked_entity_strict", {
-      p_tracked_entity_id: trackedEntityId,
-    }),
+      p_tracked_entity_id: trackedEntityId
+    })
   ]);
 
   if (outputs.error || outputs.data.length === 0) return inputs;
@@ -543,7 +543,7 @@ export async function getTrackedInputs(
 
   return {
     data: inputsWithoutCircularReferences,
-    error: inputs.error,
+    error: inputs.error
   };
 }
 
@@ -616,7 +616,7 @@ export async function insertAttributeRecord(
 ) {
   return client.from("jobOperationStepRecord").upsert(data, {
     onConflict: "jobOperationStepId, index",
-    ignoreDuplicates: false,
+    ignoreDuplicates: false
   });
 }
 
@@ -632,7 +632,7 @@ export async function insertReworkQuantity(
     .insert(
       sanitize({
         ...data,
-        type: "Rework",
+        type: "Rework"
       })
     )
     .select("*");
@@ -650,7 +650,7 @@ export async function insertProductionQuantity(
     .insert(
       sanitize({
         ...data,
-        type: "Production",
+        type: "Production"
       })
     )
     .select("*");
@@ -668,7 +668,7 @@ export async function insertScrapQuantity(
     .insert(
       sanitize({
         ...data,
-        type: "Scrap",
+        type: "Scrap"
       })
     )
     .select("*");
@@ -713,7 +713,7 @@ export async function endProductionEvents(
   return client
     .from("productionEvent")
     .update({
-      endTime: args.endTime,
+      endTime: args.endTime
     })
     .is("endTime", null)
     .eq("employeeId", args.employeeId)
@@ -742,7 +742,7 @@ export async function startProductionEvent(
         .from("jobOperation")
         .select("*")
         .eq("id", data.jobOperationId)
-        .single(),
+        .single()
     ]);
 
     if (eventInsert.error) return eventInsert;
@@ -760,10 +760,10 @@ export async function startProductionEvent(
           "Job Operation": data.jobOperationId,
           "Production Event": eventInsert.data?.id,
           "Work Center": data.workCenterId,
-          Employee: data.employeeId,
+          Employee: data.employeeId
         },
         companyId: data.companyId,
-        createdBy: data.createdBy,
+        createdBy: data.createdBy
       })
       .select("id")
       .single();
@@ -780,7 +780,7 @@ export async function startProductionEvent(
         trackedEntityId,
         quantity: 1,
         companyId: data.companyId,
-        createdBy: data.createdBy,
+        createdBy: data.createdBy
       });
 
     if (trackedActivityOutputInsert.error) {

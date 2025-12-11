@@ -4,7 +4,7 @@ import { getLocalTimeZone, today } from "@internationalized/date";
 import {
   FunctionRegion,
   type PostgrestSingleResponse,
-  type SupabaseClient,
+  type SupabaseClient
 } from "@supabase/supabase-js";
 import type { z } from "zod/v3";
 import { getEmployeeJob } from "~/modules/people";
@@ -31,7 +31,7 @@ import type {
   supplierShippingValidator,
   supplierStatusValidator,
   supplierTypeValidator,
-  supplierValidator,
+  supplierValidator
 } from "./purchasing.models";
 import type { PurchaseOrder, SupplierQuote } from "./types";
 
@@ -45,7 +45,7 @@ export async function closePurchaseOrder(
     .update({
       closed: true,
       closedAt: today(getLocalTimeZone()).toString(),
-      closedBy: userId,
+      closedBy: userId
     })
     .eq("id", purchaseOrderId)
     .select("id")
@@ -64,9 +64,9 @@ export async function convertSupplierQuoteToOrder(
   return client.functions.invoke<{ convertedId: string }>("convert", {
     body: {
       type: "supplierQuoteToPurchaseOrder",
-      ...payload,
+      ...payload
     },
-    region: FunctionRegion.UsEast1,
+    region: FunctionRegion.UsEast1
   });
 }
 
@@ -195,7 +195,7 @@ export async function finalizeSupplierQuote(
     .update({
       status: "Active",
       updatedAt: today(getLocalTimeZone()).toString(),
-      updatedBy: userId,
+      updatedBy: userId
     })
     .eq("id", supplierQuoteId);
 
@@ -231,7 +231,7 @@ export async function getPurchaseOrders(
   }
 
   query = setGenericQueryFilters(query, args, [
-    { column: "purchaseOrderId", ascending: false },
+    { column: "purchaseOrderId", ascending: false }
   ]);
 
   return query;
@@ -323,22 +323,22 @@ export async function getPurchasingDocumentsAssignedToMe(
       .from("purchaseInvoice")
       .select("*")
       .eq("assignee", userId)
-      .eq("companyId", companyId),
+      .eq("companyId", companyId)
   ]);
 
   const merged = [
     ...(purchaseOrders.data?.map((doc) => ({
       ...doc,
-      type: "purchaseOrder",
+      type: "purchaseOrder"
     })) ?? []),
     ...(supplierQuotes.data?.map((doc) => ({
       ...doc,
-      type: "supplierQuote",
+      type: "supplierQuote"
     })) ?? []),
     ...(purchaseInvoices.data?.map((doc) => ({
       ...doc,
-      type: "purchaseInvoice",
-    })) ?? []),
+      type: "purchaseInvoice"
+    })) ?? [])
   ].sort((a, b) => (a.createdAt ?? "").localeCompare(b.createdAt ?? ""));
 
   return merged;
@@ -358,10 +358,10 @@ export async function getPurchasingPlanning(
     {
       location_id: locationId,
       company_id: companyId,
-      periods,
+      periods
     },
     {
-      count: "exact",
+      count: "exact"
     }
   );
 
@@ -372,7 +372,7 @@ export async function getPurchasingPlanning(
   }
 
   query = setGenericQueryFilters(query, args, [
-    { column: "readableIdWithRevision", ascending: true },
+    { column: "readableIdWithRevision", ascending: true }
   ]);
 
   return query;
@@ -437,20 +437,20 @@ export async function getSupplierInteraction(
     // @ts-expect-error
     return {
       data: null,
-      error: null,
+      error: null
     };
   }
 
   const response = await client.rpc(
     "get_supplier_interaction_with_related_records",
     {
-      supplier_interaction_id: opportunityId,
+      supplier_interaction_id: opportunityId
     }
   );
 
   return {
     data: response.data?.[0],
-    error: response.error,
+    error: response.error
   } as unknown as PostgrestSingleResponse<{
     id: string;
     companyId: string;
@@ -608,7 +608,7 @@ export async function getSupplierQuotes(
   }
 
   query = setGenericQueryFilters(query, args, [
-    { column: "supplierQuoteId", ascending: false },
+    { column: "supplierQuoteId", ascending: false }
   ]);
   return query;
 }
@@ -690,7 +690,7 @@ export async function getSuppliers(
   let query = client
     .from("suppliers")
     .select("*", {
-      count: "exact",
+      count: "exact"
     })
     .eq("companyId", companyId);
 
@@ -707,7 +707,7 @@ export async function getSuppliers(
   }
 
   query = setGenericQueryFilters(query, args, [
-    { column: "name", ascending: true },
+    { column: "name", ascending: true }
   ]);
   return query;
 }
@@ -751,7 +751,7 @@ export async function getSupplierStatuses(
 
   if (args) {
     query = setGenericQueryFilters(query, args, [
-      { column: "name", ascending: true },
+      { column: "name", ascending: true }
     ]);
   }
 
@@ -796,7 +796,7 @@ export async function getSupplierTypes(
 
   if (args) {
     query = setGenericQueryFilters(query, args, [
-      { column: "name", ascending: true },
+      { column: "name", ascending: true }
     ]);
   }
 
@@ -841,8 +841,8 @@ export async function insertSupplierContact(
       {
         ...supplierContact.contact,
         companyId: supplierContact.companyId,
-        isCustomer: false,
-      },
+        isCustomer: false
+      }
     ])
     .select("id")
     .single();
@@ -863,8 +863,8 @@ export async function insertSupplierContact(
         supplierId: supplierContact.supplierId,
         contactId,
         supplierLocationId: supplierContact.supplierLocationId,
-        customFields: supplierContact.customFields,
-      },
+        customFields: supplierContact.customFields
+      }
     ])
     .select("id")
     .single();
@@ -902,7 +902,7 @@ export async function insertSupplierLocation(
   const insertAddress = await client
     .from("address")
     .insert([
-      { ...supplierLocation.address, companyId: supplierLocation.companyId },
+      { ...supplierLocation.address, companyId: supplierLocation.companyId }
     ])
     .select("id")
     .single();
@@ -922,8 +922,8 @@ export async function insertSupplierLocation(
         supplierId: supplierLocation.supplierId,
         addressId,
         name: supplierLocation.name,
-        customFields: supplierLocation.customFields,
-      },
+        customFields: supplierLocation.customFields
+      }
     ])
     .select("id")
     .single();
@@ -943,7 +943,7 @@ export async function finalizePurchaseOrder(
       status,
       orderDate: today(getLocalTimeZone()).toString(),
       updatedAt: today(getLocalTimeZone()).toString(),
-      updatedBy: userId,
+      updatedBy: userId
     })
     .eq("id", purchaseOrderId);
 }
@@ -958,7 +958,7 @@ export async function sendSupplierQuote(
     .from("supplierQuote")
     .update({
       updatedAt: today(getLocalTimeZone()).toString(),
-      updatedBy: userId,
+      updatedBy: userId
     })
     .eq("id", supplierQuoteId);
 
@@ -993,7 +993,7 @@ export async function updatePurchaseOrderExchangeRate(
   const update = {
     id: data.id,
     exchangeRate: data.exchangeRate,
-    exchangeRateUpdatedAt: new Date().toISOString(),
+    exchangeRateUpdatedAt: new Date().toISOString()
   };
 
   return client.from("purchaseOrder").update(update).eq("id", update.id);
@@ -1059,7 +1059,7 @@ export async function updateSupplierContact(
       .from("supplierContact")
       .update({
         customFields: supplierContact.customFields,
-        supplierLocationId: supplierContact.supplierLocationId,
+        supplierLocationId: supplierContact.supplierLocationId
       })
       .eq("contactId", supplierContact.contactId);
 
@@ -1096,7 +1096,7 @@ export async function updateSupplierLocation(
       .from("supplierLocation")
       .update({
         name: supplierLocation.name,
-        customFields: supplierLocation.customFields,
+        customFields: supplierLocation.customFields
       })
       .eq("addressId", supplierLocation.addressId);
 
@@ -1135,7 +1135,7 @@ export async function updateSupplierQuoteExchangeRate(
   const update = {
     id: data.id,
     exchangeRate: data.exchangeRate,
-    exchangeRateUpdatedAt: new Date().toISOString(),
+    exchangeRateUpdatedAt: new Date().toISOString()
   };
 
   return client.from("supplierQuote").update(update).eq("id", update.id);
@@ -1229,7 +1229,7 @@ export async function upsertPurchaseOrder(
       ),
       getSupplierPayment(client, purchaseOrder.supplierId),
       getSupplierShipping(client, purchaseOrder.supplierId),
-      getEmployeeJob(client, purchaseOrder.createdBy, purchaseOrder.companyId),
+      getEmployeeJob(client, purchaseOrder.createdBy, purchaseOrder.companyId)
     ]);
 
   if (supplierInteraction.error) return supplierInteraction;
@@ -1240,7 +1240,7 @@ export async function upsertPurchaseOrder(
     paymentTermId,
     invoiceSupplierId,
     invoiceSupplierContactId,
-    invoiceSupplierLocationId,
+    invoiceSupplierLocationId
   } = supplierPayment.data;
 
   const { shippingMethodId, shippingTermId } = supplierShipping.data;
@@ -1268,8 +1268,8 @@ export async function upsertPurchaseOrder(
       {
         ...purchaseOrder,
         supplierInteractionId: supplierInteraction.data?.id,
-        status: purchaseOrder.status ?? "Draft",
-      },
+        status: purchaseOrder.status ?? "Draft"
+      }
     ])
     .select("id, purchaseOrderId");
 
@@ -1285,8 +1285,8 @@ export async function upsertPurchaseOrder(
         locationId: locationId,
         shippingMethodId: shippingMethodId,
         shippingTermId: shippingTermId,
-        companyId: purchaseOrder.companyId,
-      },
+        companyId: purchaseOrder.companyId
+      }
     ]),
     client.from("purchaseOrderPayment").insert([
       {
@@ -1295,9 +1295,9 @@ export async function upsertPurchaseOrder(
         invoiceSupplierContactId: invoiceSupplierContactId,
         invoiceSupplierLocationId: invoiceSupplierLocationId,
         paymentTermId: paymentTermId,
-        companyId: purchaseOrder.companyId,
-      },
-    ]),
+        companyId: purchaseOrder.companyId
+      }
+    ])
   ]);
 
   if (delivery.error) {
@@ -1419,7 +1419,7 @@ export async function upsertSupplier(
     .from("supplier")
     .update({
       ...sanitize(supplier),
-      updatedAt: today(getLocalTimeZone()).toString(),
+      updatedAt: today(getLocalTimeZone()).toString()
     })
     .eq("id", supplier.id)
     .select("id")
@@ -1507,8 +1507,8 @@ export async function upsertSupplierQuote(
         {
           ...supplierQuote,
           status: supplierQuote.status ?? "Draft",
-          supplierInteractionId: supplierInteraction.data?.id,
-        },
+          supplierInteractionId: supplierInteraction.data?.id
+        }
       ])
       .select("id, supplierQuoteId, externalLinkId")
       .single();
@@ -1527,7 +1527,7 @@ export async function upsertSupplierQuote(
         documentId: supplierQuoteId,
         supplierId: supplierQuote.supplierId,
         expiresAt: supplierQuote.expirationDate,
-        companyId: supplierQuote.companyId,
+        companyId: supplierQuote.companyId
       });
 
       if (externalLink.data) {
@@ -1556,7 +1556,7 @@ export async function upsertSupplierQuote(
     const {
       companyId,
       currencyCode,
-      status: existingStatus,
+      status: existingStatus
     } = existingQuote.data;
 
     if (
@@ -1581,8 +1581,8 @@ export async function upsertSupplierQuote(
           supplierQuote.expirationDate &&
           today(getLocalTimeZone()).toString() > supplierQuote.expirationDate
             ? "Expired"
-            : supplierQuote.status ?? existingStatus ?? "Draft",
-        updatedAt: today(getLocalTimeZone()).toString(),
+            : (supplierQuote.status ?? existingStatus ?? "Draft"),
+        updatedAt: today(getLocalTimeZone()).toString()
       })
       .eq("id", supplierQuote.id);
   }

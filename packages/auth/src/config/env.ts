@@ -77,7 +77,7 @@ export function getEnv(
 
 const CARBON_EDITION = getEnv("CARBON_EDITION", {
   isRequired: false,
-  isSecret: false,
+  isSecret: false
 });
 
 const getEdition = () => {
@@ -95,50 +95,50 @@ export const CarbonEdition = getEdition();
 export const DOMAIN = getEnv("DOMAIN", { isRequired: false }); // preview environments need no domain
 export const EXCHANGE_RATES_API_KEY = getEnv("EXCHANGE_RATES_API_KEY", {
   isRequired: false,
-  isSecret: true,
+  isSecret: true
 });
 
 export const GOOGLE_PLACES_API_KEY = getEnv("GOOGLE_PLACES_API_KEY", {
-  isRequired: false,
+  isRequired: false
 });
 
 const itarEnvironment = getEnv("CONTROLLED_ENVIRONMENT", {
   isRequired: false,
-  isSecret: false,
+  isSecret: false
 });
 
 export const CONTROLLED_ENVIRONMENT = parseBoolean(itarEnvironment, false);
 
 export const NOVU_APPLICATION_ID = getEnv("NOVU_APPLICATION_ID", {
   isRequired: false,
-  isSecret: false,
+  isSecret: false
 });
 export const NOVU_SECRET_KEY = getEnv("NOVU_SECRET_KEY");
 export const RESEND_DOMAIN =
   getEnv("RESEND_DOMAIN", {
-    isRequired: false,
+    isRequired: false
   }) ?? "carbon.ms";
 
 export const SLACK_BOT_TOKEN = getEnv("SLACK_BOT_TOKEN", {
-  isRequired: false,
+  isRequired: false
 });
 export const SLACK_CLIENT_ID = getEnv("SLACK_CLIENT_ID", {
-  isRequired: false,
+  isRequired: false
 });
 export const SLACK_CLIENT_SECRET = getEnv("SLACK_CLIENT_SECRET", {
   isRequired: false,
-  isSecret: true,
+  isSecret: true
 });
 export const SLACK_OAUTH_REDIRECT_URL = getEnv("SLACK_OAUTH_REDIRECT_URL", {
-  isRequired: false,
+  isRequired: false
 });
 export const SLACK_SIGNING_SECRET = getEnv("SLACK_SIGNING_SECRET", {
   isRequired: false,
-  isSecret: true,
+  isSecret: true
 });
 export const SLACK_STATE_SECRET = getEnv("SLACK_STATE_SECRET", {
   isRequired: false,
-  isSecret: true,
+  isSecret: true
 });
 
 export const SUPABASE_SERVICE_ROLE_KEY = getEnv("SUPABASE_SERVICE_ROLE_KEY");
@@ -146,22 +146,22 @@ export const SESSION_SECRET = getEnv("SESSION_SECRET");
 export const SESSION_KEY = "auth";
 export const SESSION_ERROR_KEY = "error";
 export const STRIPE_SECRET_KEY = getEnv("STRIPE_SECRET_KEY", {
-  isRequired: false,
+  isRequired: false
 });
 export const STRIPE_WEBHOOK_SECRET = getEnv("STRIPE_WEBHOOK_SECRET", {
-  isRequired: false,
+  isRequired: false
 });
 export const STRIPE_BYPASS_COMPANY_IDS = getEnv("STRIPE_BYPASS_COMPANY_IDS", {
-  isRequired: false,
+  isRequired: false
 });
 export const STRIPE_BYPASS_USER_IDS = getEnv("STRIPE_BYPASS_USER_IDS", {
-  isRequired: false,
+  isRequired: false
 });
 export const UPSTASH_REDIS_REST_URL = getEnv("UPSTASH_REDIS_REST_URL", {
-  isRequired: false,
+  isRequired: false
 });
 export const UPSTASH_REDIS_REST_TOKEN = getEnv("UPSTASH_REDIS_REST_TOKEN", {
-  isRequired: false,
+  isRequired: false
 });
 export const SESSION_MAX_AGE = 60 * 60 * 24 * 7; // 7 days;
 export const REFRESH_ACCESS_TOKEN_THRESHOLD = 60 * 10; // 10 minutes left before token expires
@@ -172,21 +172,21 @@ export const VERCEL_URL = getEnv("VERCEL_URL", { isSecret: false });
  */
 export const VERCEL_ENV = getEnv("VERCEL_ENV", {
   isSecret: false,
-  isRequired: false,
+  isRequired: false
 });
 export const NODE_ENV = getEnv("NODE_ENV", {
   isSecret: false,
-  isRequired: false,
+  isRequired: false
 });
 export const POSTHOG_API_HOST = getEnv("POSTHOG_API_HOST", {
-  isSecret: false,
+  isSecret: false
 });
 export const POSTHOG_PROJECT_PUBLIC_KEY = getEnv("POSTHOG_PROJECT_PUBLIC_KEY", {
-  isSecret: false,
+  isSecret: false
 });
 export const SUPABASE_URL = getEnv("SUPABASE_URL", { isSecret: false });
 export const SUPABASE_ANON_KEY = getEnv("SUPABASE_ANON_KEY", {
-  isSecret: false,
+  isSecret: false
 });
 export const CLOUDFLARE_TURNSTILE_SITE_KEY = getEnv(
   "CLOUDFLARE_TURNSTILE_SITE_KEY",
@@ -242,7 +242,7 @@ export function getBrowserEnv() {
     VERCEL_URL,
     NODE_ENV,
     CLOUDFLARE_TURNSTILE_SITE_KEY,
-    GOOGLE_PLACES_API_KEY,
+    GOOGLE_PLACES_API_KEY
   };
 }
 

@@ -20,7 +20,7 @@ import {
   Th,
   Thead,
   Tr,
-  toast,
+  toast
 } from "@carbon/react";
 import { convertKbToString } from "@carbon/utils";
 import { useDndContext, useDraggable } from "@dnd-kit/core";
@@ -28,7 +28,7 @@ import {
   Outlet,
   useFetchers,
   useRevalidator,
-  useSubmit,
+  useSubmit
 } from "@remix-run/react";
 import type { FileObject } from "@supabase/storage-js";
 import type { ChangeEvent } from "react";
@@ -38,7 +38,7 @@ import {
   LuGripVertical,
   LuRadioTower,
   LuShoppingCart,
-  LuUpload,
+  LuUpload
 } from "react-icons/lu";
 import { DocumentPreview, FileDropzone } from "~/components";
 import DocumentIcon from "~/components/DocumentIcon";
@@ -60,13 +60,13 @@ const OpportunityDocuments = ({
   attachments,
   opportunity,
   id,
-  type,
+  type
 }: OpportunityDocumentsProps) => {
   const { canDelete, download, deleteAttachment, getPath, upload } =
     useOpportunityDocuments({
       opportunityId: opportunity.id,
       id,
-      type,
+      type
     });
 
   const onDrop = useCallback(
@@ -186,7 +186,7 @@ const DraggableCell = ({
   attachment,
   opportunity,
   download,
-  getPath,
+  getPath
 }: {
   attachment: FileObject;
   opportunity: Opportunity;
@@ -201,14 +201,14 @@ const DraggableCell = ({
       name: attachment.name,
       size: attachment.metadata?.size || 0,
       path: getPath(attachment),
-      type: "opportunityDocument",
-    },
+      type: "opportunityDocument"
+    }
   });
 
   const style = transform
     ? {
         transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
-        zIndex: 1000,
+        zIndex: 1000
       }
     : undefined;
 
@@ -273,7 +273,7 @@ type OpportunityDocumentFormProps = {
 export const useOpportunityDocuments = ({
   id,
   opportunityId,
-  type,
+  type
 }: OpportunityDocumentFormProps) => {
   const permissions = usePermissions();
   const { company } = useUser();
@@ -337,7 +337,7 @@ export const useOpportunityDocuments = ({
     ({
       path: filePath,
       name,
-      size,
+      size
     }: {
       path: string;
       name: string;
@@ -354,7 +354,7 @@ export const useOpportunityDocuments = ({
         method: "post",
         action: path.to.newDocument,
         navigate: false,
-        fetcherKey: `opportunity:${name}`,
+        fetcherKey: `opportunity:${name}`
       });
     },
     [id, submit, type]
@@ -375,7 +375,7 @@ export const useOpportunityDocuments = ({
           .from("private")
           .upload(fileName, file, {
             cacheControl: `${12 * 60 * 60}`,
-            upsert: true,
+            upsert: true
           });
 
         if (fileUpload.error) {
@@ -385,7 +385,7 @@ export const useOpportunityDocuments = ({
           createDocumentRecord({
             path: fileUpload.data.path,
             name: file.name,
-            size: file.size,
+            size: file.size
           });
         }
       }
@@ -399,7 +399,7 @@ export const useOpportunityDocuments = ({
     deleteAttachment,
     download,
     upload,
-    getPath,
+    getPath
   };
 };
 
@@ -455,8 +455,8 @@ export const usePendingItems = () => {
           bucket_id: "private",
           metadata: {
             size,
-            mimetype: getDocumentType(name),
-          },
+            mimetype: getDocumentType(name)
+          }
         };
         return [...acc, newItem];
       }

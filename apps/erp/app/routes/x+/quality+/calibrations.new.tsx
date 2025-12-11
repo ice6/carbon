@@ -13,7 +13,7 @@ import { useEffect } from "react";
 import {
   gaugeCalibrationRecordValidator,
   getQualityFiles,
-  upsertGaugeCalibrationRecord,
+  upsertGaugeCalibrationRecord
 } from "~/modules/quality";
 import GaugeCalibrationRecordForm from "~/modules/quality/ui/Calibrations/GaugeCalibrationRecordForm";
 
@@ -22,7 +22,7 @@ import { getParams, path } from "~/utils/path";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    create: "quality",
+    create: "quality"
   });
 
   const url = new URL(request.url);
@@ -33,21 +33,21 @@ export async function loader({ request }: LoaderFunctionArgs) {
     return json({
       id,
       gaugeId,
-      files: await getQualityFiles(client, id, companyId),
+      files: await getQualityFiles(client, id, companyId)
     });
   }
 
   return json({
     id: nanoid(),
     gaugeId,
-    files: [] as FileObject[],
+    files: [] as FileObject[]
   });
 }
 
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    create: "quality",
+    create: "quality"
   });
 
   const formData = await request.formData();
@@ -73,7 +73,7 @@ export async function action({ request }: ActionFunctionArgs) {
     inspectionStatus,
     companyId,
     createdBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
 
   if (createGauge.error || !createGauge.data) {
@@ -101,7 +101,7 @@ export default function GaugeCalibrationRecordNewRoute() {
     if (params.get("id") !== id) {
       setParams({
         id,
-        ...(gaugeId ? { gaugeId } : {}),
+        ...(gaugeId ? { gaugeId } : {})
       });
     }
   }, [id, gaugeId, params, setParams]);
@@ -117,7 +117,7 @@ export default function GaugeCalibrationRecordNewRoute() {
     humidity: undefined,
     approvedBy: undefined,
     notes: "{}",
-    calibrationAttempts: [],
+    calibrationAttempts: []
   };
 
   return (

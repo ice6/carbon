@@ -3,7 +3,7 @@ import {
   carbonClient,
   error,
   magicLinkValidator,
-  RATE_LIMIT,
+  RATE_LIMIT
 } from "@carbon/auth";
 import { sendMagicLink, verifyAuthSession } from "@carbon/auth/auth.server";
 import { flash, getAuthSession } from "@carbon/auth/session.server";
@@ -17,14 +17,14 @@ import {
   Button,
   Heading,
   toast,
-  VStack,
+  VStack
 } from "@carbon/react";
 import { useFetcher, useSearchParams } from "@remix-run/react";
 import { Ratelimit } from "@upstash/ratelimit";
 import type {
   ActionFunctionArgs,
   LoaderFunctionArgs,
-  MetaFunction,
+  MetaFunction
 } from "@vercel/remix";
 import { json, redirect } from "@vercel/remix";
 import { LuCircleAlert } from "react-icons/lu";
@@ -47,7 +47,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 const ratelimit = new Ratelimit({
   redis,
   limiter: Ratelimit.slidingWindow(RATE_LIMIT, "1 h"),
-  analytics: true,
+  analytics: true
 });
 
 export async function action({ request }: ActionFunctionArgs) {
@@ -106,8 +106,8 @@ export default function LoginRoute() {
       options: {
         redirectTo: `${window.location.origin}/callback${
           redirectTo ? `?redirectTo=${redirectTo}` : ""
-        }`,
-      },
+        }`
+      }
     });
 
     if (error) {
@@ -122,8 +122,8 @@ export default function LoginRoute() {
         scopes: "email",
         redirectTo: `${window.location.origin}/callback${
           redirectTo ? `?redirectTo=${redirectTo}` : ""
-        }`,
-      },
+        }`
+      }
     });
 
     if (error) {

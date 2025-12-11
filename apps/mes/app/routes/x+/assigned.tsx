@@ -5,7 +5,7 @@ import {
   Heading,
   Input,
   SidebarTrigger,
-  useIsMobile,
+  useIsMobile
 } from "@carbon/react";
 import { json, useLoaderData, useParams } from "@remix-run/react";
 import type { LoaderFunctionArgs } from "@vercel/remix";
@@ -16,7 +16,7 @@ import { OperationsList } from "~/components";
 import { getLocation } from "~/services/location.server";
 import {
   getJobOperationsAssignedToEmployee,
-  getWorkCentersByLocation,
+  getWorkCentersByLocation
 } from "~/services/operations.service";
 import type { Operation } from "~/services/types";
 import { makeDurations } from "~/utils/durations";
@@ -28,17 +28,17 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
   const { location } = await getLocation(request, serviceRole, {
     companyId,
-    userId,
+    userId
   });
 
   const [operations, workCenters] = await Promise.all([
     getJobOperationsAssignedToEmployee(serviceRole, userId, companyId),
-    getWorkCentersByLocation(serviceRole, location),
+    getWorkCentersByLocation(serviceRole, location)
   ]);
 
   return json({
     operations: operations?.data?.map(makeDurations) ?? [],
-    workCenters: workCenters?.data ?? [],
+    workCenters: workCenters?.data ?? []
   });
 }
 

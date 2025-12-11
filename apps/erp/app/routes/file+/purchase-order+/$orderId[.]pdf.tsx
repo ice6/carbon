@@ -7,14 +7,14 @@ import {
   getPurchaseOrder,
   getPurchaseOrderLines,
   getPurchaseOrderLocations,
-  getPurchasingTerms,
+  getPurchasingTerms
 } from "~/modules/purchasing";
 import { getCompany } from "~/modules/settings";
 import { getLocale } from "~/utils/request";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    view: "purchasing",
+    view: "purchasing"
   });
 
   const { orderId } = params;
@@ -25,13 +25,13 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     purchaseOrder,
     purchaseOrderLines,
     purchaseOrderLocations,
-    terms,
+    terms
   ] = await Promise.all([
     getCompany(client, companyId),
     getPurchaseOrder(client, orderId),
     getPurchaseOrderLines(client, orderId),
     getPurchaseOrderLocations(client, orderId),
-    getPurchasingTerms(client, companyId),
+    getPurchasingTerms(client, companyId)
   ]);
 
   if (company.error) {
@@ -90,7 +90,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
   const headers = new Headers({
     "Content-Type": "application/pdf",
-    "Content-Disposition": `inline; filename="${purchaseOrder.data.purchaseOrderId}.pdf"`,
+    "Content-Disposition": `inline; filename="${purchaseOrder.data.purchaseOrderId}.pdf"`
   });
   return new Response(body, { status: 200, headers });
 }

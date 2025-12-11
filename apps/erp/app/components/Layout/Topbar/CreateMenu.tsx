@@ -3,7 +3,7 @@ import {
   DropdownMenuContent,
   DropdownMenuIcon,
   DropdownMenuItem,
-  DropdownMenuTrigger,
+  DropdownMenuTrigger
 } from "@carbon/react";
 import { Link } from "@remix-run/react";
 
@@ -14,14 +14,14 @@ import {
   LuShoppingCart,
   LuSquareStack,
   LuSquareUser,
-  LuUsers,
+  LuUsers
 } from "react-icons/lu";
 
 import { useMemo } from "react";
 import {
   RiProgress2Line,
   RiProgress4Line,
-  RiProgress8Line,
+  RiProgress8Line
 } from "react-icons/ri";
 import { usePermissions } from "~/hooks";
 
@@ -37,7 +37,7 @@ function useCreate(): Route[] {
       links.push({
         name: "Part",
         to: path.to.newPart,
-        icon: <LuSquareStack />,
+        icon: <LuSquareStack />
       });
     }
 
@@ -45,7 +45,7 @@ function useCreate(): Route[] {
       links.push({
         name: "Issue",
         to: path.to.newIssue,
-        icon: <LuShieldX />,
+        icon: <LuShieldX />
       });
     }
 
@@ -53,7 +53,7 @@ function useCreate(): Route[] {
       links.push({
         name: "Job",
         to: path.to.newJob,
-        icon: <LuHardHat />,
+        icon: <LuHardHat />
       });
     }
 
@@ -61,7 +61,7 @@ function useCreate(): Route[] {
       links.push({
         name: "Purchase Order",
         to: path.to.newPurchaseOrder,
-        icon: <LuShoppingCart />,
+        icon: <LuShoppingCart />
       });
     }
 
@@ -69,7 +69,7 @@ function useCreate(): Route[] {
       links.push({
         name: "Supplier",
         to: path.to.newSupplier,
-        icon: <LuContainer />,
+        icon: <LuContainer />
       });
     }
 
@@ -77,22 +77,22 @@ function useCreate(): Route[] {
       links.push({
         name: "Customer",
         to: path.to.newCustomer,
-        icon: <LuSquareUser />,
+        icon: <LuSquareUser />
       });
       links.push({
         name: "RFQ",
         to: path.to.newSalesRFQ,
-        icon: <RiProgress2Line />,
+        icon: <RiProgress2Line />
       });
       links.push({
         name: "Quote",
         to: path.to.newQuote,
-        icon: <RiProgress4Line />,
+        icon: <RiProgress4Line />
       });
       links.push({
         name: "Sales Order",
         to: path.to.newSalesOrder,
-        icon: <RiProgress8Line />,
+        icon: <RiProgress8Line />
       });
     }
 
@@ -100,7 +100,7 @@ function useCreate(): Route[] {
       links.push({
         name: "Employee",
         to: path.to.newEmployee,
-        icon: <LuUsers />,
+        icon: <LuUsers />
       });
     }
 

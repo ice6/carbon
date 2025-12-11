@@ -6,7 +6,7 @@ import {
   getSupplier as getSupplierById,
   getSupplierPayment,
   getSupplierShipping,
-  insertSupplierInteraction,
+  insertSupplierInteraction
 } from "~/modules/purchasing/purchasing.service";
 
 import { getAppUrl, getCarbonServiceRole } from "@carbon/auth";
@@ -21,7 +21,7 @@ export const config: ToolConfig = {
   name: "createPurchaseOrder",
   icon: LuShoppingCart,
   displayText: "Creating a Purchase Order",
-  message: "Creating a purchase order...",
+  message: "Creating a purchase order..."
 };
 
 export const createPurchaseOrderSchema = z.object({
@@ -29,9 +29,9 @@ export const createPurchaseOrderSchema = z.object({
   parts: z.array(
     z.object({
       partId: z.string(),
-      quantity: z.number().positive().default(1),
+      quantity: z.number().positive().default(1)
     })
-  ),
+  )
 });
 
 export const createPurchaseOrderTool = tool({
@@ -51,7 +51,7 @@ export const createPurchaseOrderTool = tool({
       supplier,
       supplierPayment,
       supplierShipping,
-      employeeJob,
+      employeeJob
       // purchaser
     ] = await Promise.all([
       getNextSequence(
@@ -67,28 +67,28 @@ export const createPurchaseOrderTool = tool({
       getSupplierById(context.client, args.supplierId),
       getSupplierPayment(context.client, args.supplierId),
       getSupplierShipping(context.client, args.supplierId),
-      getEmployeeJob(context.client, context.userId, context.companyId),
+      getEmployeeJob(context.client, context.userId, context.companyId)
     ]);
 
     if (!supplierInteraction.data) {
       return {
-        error: "Failed to create supplier interaction",
+        error: "Failed to create supplier interaction"
       };
     }
 
     if (!supplier.data) {
       return {
-        error: "Supplier not found",
+        error: "Supplier not found"
       };
     }
     if (!supplierPayment.data) {
       return {
-        error: "Supplier payment not found",
+        error: "Supplier payment not found"
       };
     }
     if (!supplierShipping.data) {
       return {
-        error: "Supplier shipping not found",
+        error: "Supplier shipping not found"
       };
     }
 
@@ -99,14 +99,14 @@ export const createPurchaseOrderTool = tool({
       exchangeRate: 1,
       exchangeRateUpdatedAt: new Date().toISOString(),
       companyId: context.companyId,
-      createdBy: context.userId,
+      createdBy: context.userId
     };
 
     const {
       paymentTermId,
       invoiceSupplierId,
       invoiceSupplierContactId,
-      invoiceSupplierLocationId,
+      invoiceSupplierLocationId
     } = supplierPayment.data;
 
     const { shippingMethodId, shippingTermId } = supplierShipping.data;
@@ -130,7 +130,7 @@ export const createPurchaseOrderTool = tool({
 
     if (!order) {
       return {
-        error: "Failed to create purchase order",
+        error: "Failed to create purchase order"
       };
     }
 
@@ -139,7 +139,7 @@ export const createPurchaseOrderTool = tool({
 
     if (!purchaseOrderId) {
       return {
-        error: "Failed to create purchase order",
+        error: "Failed to create purchase order"
       };
     }
 
@@ -152,7 +152,7 @@ export const createPurchaseOrderTool = tool({
             locationId: locationId,
             shippingMethodId: shippingMethodId ?? null,
             shippingTermId: shippingTermId ?? null,
-            companyId: context.companyId,
+            companyId: context.companyId
           })
           .select("id")
           .single(),
@@ -164,10 +164,10 @@ export const createPurchaseOrderTool = tool({
             invoiceSupplierContactId: invoiceSupplierContactId,
             invoiceSupplierLocationId: invoiceSupplierLocationId,
             paymentTermId: paymentTermId,
-            companyId: context.companyId,
+            companyId: context.companyId
           })
           .select("id")
-          .single(),
+          .single()
       ]);
 
       // Create purchase order lines for each part
@@ -187,7 +187,7 @@ export const createPurchaseOrderTool = tool({
               .eq("itemId", part.partId)
               .eq("companyId", context.companyId)
               .eq("supplierId", args.supplierId)
-              .single(),
+              .single()
           ]);
 
           if (!item.data) {
@@ -207,7 +207,7 @@ export const createPurchaseOrderTool = tool({
               .select("*")
               .eq("itemId", part.partId)
               .eq("companyId", context.companyId)
-              .single(),
+              .single()
           ]);
 
           const lineData = {
@@ -234,7 +234,7 @@ export const createPurchaseOrderTool = tool({
             shelfId: null,
             supplierTaxAmount: 0,
             companyId: context.companyId,
-            createdBy: context.userId,
+            createdBy: context.userId
           };
 
           // Create the purchase order line
@@ -248,7 +248,7 @@ export const createPurchaseOrderTool = tool({
 
       return {
         ...order.data,
-        link: `${getAppUrl()}${path.to.purchaseOrder(purchaseOrderId)}`,
+        link: `${getAppUrl()}${path.to.purchaseOrder(purchaseOrderId)}`
       };
     } catch (error) {
       if (purchaseOrderId) {
@@ -257,8 +257,8 @@ export const createPurchaseOrderTool = tool({
       return {
         error: `Failed to create purchase order details: ${
           error instanceof Error ? error.message : String(error)
-        }`,
+        }`
       };
     }
-  },
+  }
 });

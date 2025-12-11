@@ -116,7 +116,7 @@ export function setGenericQueryFilters<
       if (sort.sortBy.includes(".")) {
         const [table, column] = sort.sortBy.split(".");
         query = query.order(`${table}(${column})`, {
-          ascending: sort.sortAsc,
+          ascending: sort.sortAsc
         });
       } else {
         query = query.order(sort.sortBy, { ascending: sort.sortAsc });
@@ -126,7 +126,7 @@ export function setGenericQueryFilters<
     defaultSorts.forEach((sort) => {
       query = query.order(sort.column, {
         ascending: sort.ascending,
-        foreignTable: sort.foreignTable,
+        foreignTable: sort.foreignTable
       });
     });
   }
@@ -151,12 +151,12 @@ const filterOperators = {
   lt: "less than",
   lte: "less than or equal to",
   contains: "contains",
-  startsWith: "starts with",
+  startsWith: "starts with"
 };
 
 export const filterOperatorLabels = Object.entries(filterOperators).map(
   ([key, value]) => ({
     operator: key,
-    label: value,
+    label: value
   })
 );

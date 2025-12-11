@@ -9,7 +9,7 @@ import { operationParameterValidator } from "~/modules/shared";
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    create: "parts",
+    create: "parts"
   });
 
   const formData = await request.formData();
@@ -24,12 +24,12 @@ export async function action({ request }: ActionFunctionArgs) {
   const insert = await upsertMethodOperationParameter(client, {
     ...validation.data,
     companyId,
-    createdBy: userId,
+    createdBy: userId
   });
   if (insert.error) {
     return json(
       {
-        id: null,
+        id: null
       },
       await flash(
         request,
@@ -42,7 +42,7 @@ export async function action({ request }: ActionFunctionArgs) {
   if (!methodOperationParameterId) {
     return json(
       {
-        id: null,
+        id: null
       },
       await flash(
         request,

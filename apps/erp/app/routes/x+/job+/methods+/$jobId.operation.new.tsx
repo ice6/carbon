@@ -7,14 +7,14 @@ import {
   jobOperationValidator,
   recalculateJobMakeMethodRequirements,
   recalculateJobOperationDependencies,
-  upsertJobOperation,
+  upsertJobOperation
 } from "~/modules/production";
 import { setCustomFields } from "~/utils/form";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { companyId, userId } = await requirePermissions(request, {
-    create: "production",
+    create: "production"
   });
 
   const serviceRole = getCarbonServiceRole();
@@ -35,12 +35,12 @@ export async function action({ request, params }: ActionFunctionArgs) {
     jobId,
     companyId,
     createdBy: userId,
-    customFields: setCustomFields(formData),
+    customFields: setCustomFields(formData)
   });
   if (insertJobOperation.error) {
     return json(
       {
-        id: null,
+        id: null
       },
       await flash(
         request,
@@ -53,7 +53,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   if (!jobOperationId) {
     return json(
       {
-        id: null,
+        id: null
       },
       await flash(
         request,
@@ -66,13 +66,13 @@ export async function action({ request, params }: ActionFunctionArgs) {
     recalculateJobMakeMethodRequirements(serviceRole, {
       id: validation.data.jobMakeMethodId,
       companyId,
-      userId,
+      userId
     }),
     recalculateJobOperationDependencies(serviceRole, {
       jobId,
       companyId,
-      userId,
-    }),
+      userId
+    })
   ]);
 
   if (recalculateResult.error) {
@@ -104,6 +104,6 @@ export async function action({ request, params }: ActionFunctionArgs) {
   return json({
     id: jobOperationId,
     success: true,
-    message: "Operation created",
+    message: "Operation created"
   });
 }

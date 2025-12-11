@@ -13,13 +13,13 @@ import { getGenericQueryFilters } from "~/utils/query";
 
 export const handle: Handle = {
   breadcrumb: "Tracked Entities",
-  to: path.to.trackedEntities,
+  to: path.to.trackedEntities
 };
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
     view: "inventory",
-    role: "employee",
+    role: "employee"
   });
 
   const url = new URL(request.url);
@@ -34,8 +34,8 @@ export async function loader({ request }: LoaderFunctionArgs) {
       limit,
       offset,
       sorts,
-      filters,
-    }),
+      filters
+    })
   ]);
 
   if (trackedEntities.error) {
@@ -47,7 +47,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
   return json({
     trackedEntities: trackedEntities.data ?? [],
-    count: trackedEntities.count ?? 0,
+    count: trackedEntities.count ?? 0
   });
 }
 

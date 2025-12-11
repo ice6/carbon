@@ -11,5 +11,5 @@ export {
   ReceiptLines,
   ReceiptPostModal,
   ReceiptsTable,
-  ReceiptStatus,
+  ReceiptStatus
 };

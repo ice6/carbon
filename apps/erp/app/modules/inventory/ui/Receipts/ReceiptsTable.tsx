@@ -12,14 +12,14 @@ import {
   LuHash,
   LuPencil,
   LuTrash,
-  LuUser,
+  LuUser
 } from "react-icons/lu";
 import {
   EmployeeAvatar,
   Hyperlink,
   New,
   SupplierAvatar,
-  Table,
+  Table
 } from "~/components";
 import { Enumerable } from "~/components/Enumerable";
 import { ConfirmDelete } from "~/components/Modals";
@@ -29,7 +29,7 @@ import type { Receipt } from "~/modules/inventory";
 import {
   ReceiptStatus,
   receiptSourceDocumentType,
-  receiptStatusType,
+  receiptStatusType
 } from "~/modules/inventory";
 import { usePeople, useSuppliers } from "~/stores";
 import { path } from "~/utils/path";
@@ -62,8 +62,8 @@ const ReceiptsTable = memo(({ data, count }: ReceiptsTableProps) => {
           </Hyperlink>
         ),
         meta: {
-          icon: <LuBookMarked />,
-        },
+          icon: <LuBookMarked />
+        }
       },
       {
         accessorKey: "sourceDocument",
@@ -74,11 +74,11 @@ const ReceiptsTable = memo(({ data, count }: ReceiptsTableProps) => {
             type: "static",
             options: receiptSourceDocumentType.map((type) => ({
               value: type,
-              label: <Enumerable value={type} />,
-            })),
+              label: <Enumerable value={type} />
+            }))
           },
-          icon: <LuFileText />,
-        },
+          icon: <LuFileText />
+        }
       },
       {
         accessorKey: "sourceDocumentReadableId",
@@ -119,8 +119,8 @@ const ReceiptsTable = memo(({ data, count }: ReceiptsTableProps) => {
           }
         },
         meta: {
-          icon: <LuHash />,
-        },
+          icon: <LuHash />
+        }
       },
 
       {
@@ -135,12 +135,12 @@ const ReceiptsTable = memo(({ data, count }: ReceiptsTableProps) => {
             type: "static",
             options: receiptStatusType.map((type) => ({
               value: type,
-              label: <ReceiptStatus status={type} />,
-            })),
+              label: <ReceiptStatus status={type} />
+            }))
           },
           pluralHeader: "Statuses",
-          icon: <LuClock />,
-        },
+          icon: <LuClock />
+        }
       },
       {
         id: "postedBy",
@@ -153,19 +153,19 @@ const ReceiptsTable = memo(({ data, count }: ReceiptsTableProps) => {
             type: "static",
             options: people.map((employee) => ({
               value: employee.id,
-              label: employee.name,
-            })),
+              label: employee.name
+            }))
           },
-          icon: <LuUser />,
-        },
+          icon: <LuUser />
+        }
       },
       {
         accessorKey: "postingDate",
         header: "Posting Date",
         cell: (item) => formatDate(item.getValue<string>()),
         meta: {
-          icon: <LuCalendar />,
-        },
+          icon: <LuCalendar />
+        }
       },
       {
         accessorKey: "assignee",
@@ -178,11 +178,11 @@ const ReceiptsTable = memo(({ data, count }: ReceiptsTableProps) => {
             type: "static",
             options: people.map((employee) => ({
               value: employee.id,
-              label: employee.name,
-            })),
+              label: employee.name
+            }))
           },
-          icon: <LuUser />,
-        },
+          icon: <LuUser />
+        }
       },
       {
         id: "supplierId",
@@ -195,11 +195,11 @@ const ReceiptsTable = memo(({ data, count }: ReceiptsTableProps) => {
             type: "static",
             options: suppliers?.map((supplier) => ({
               value: supplier.id,
-              label: supplier.name,
-            })),
+              label: supplier.name
+            }))
           },
-          icon: <LuUser />,
-        },
+          icon: <LuUser />
+        }
       },
 
       {
@@ -211,20 +211,20 @@ const ReceiptsTable = memo(({ data, count }: ReceiptsTableProps) => {
             type: "static",
             options: [
               { value: "true", label: "Yes" },
-              { value: "false", label: "No" },
-            ],
+              { value: "false", label: "No" }
+            ]
           },
           pluralHeader: "Invoiced Statuses",
-          icon: <LuCheck />,
-        },
+          icon: <LuCheck />
+        }
       },
       {
         accessorKey: "externalDocumentId",
         header: "External Ref.",
         cell: (item) => item.getValue(),
         meta: {
-          icon: <LuHash />,
-        },
+          icon: <LuHash />
+        }
       },
       {
         id: "createdBy",
@@ -237,19 +237,19 @@ const ReceiptsTable = memo(({ data, count }: ReceiptsTableProps) => {
             type: "static",
             options: people.map((employee) => ({
               value: employee.id,
-              label: employee.name,
-            })),
+              label: employee.name
+            }))
           },
-          icon: <LuUser />,
-        },
+          icon: <LuUser />
+        }
       },
       {
         accessorKey: "createdAt",
         header: "Created At",
         cell: (item) => formatDate(item.getValue<string>()),
         meta: {
-          icon: <LuCalendar />,
-        },
+          icon: <LuCalendar />
+        }
       },
       {
         id: "updatedBy",
@@ -262,20 +262,20 @@ const ReceiptsTable = memo(({ data, count }: ReceiptsTableProps) => {
             type: "static",
             options: people.map((employee) => ({
               value: employee.id,
-              label: employee.name,
-            })),
+              label: employee.name
+            }))
           },
-          icon: <LuUser />,
-        },
+          icon: <LuUser />
+        }
       },
       {
         accessorKey: "updatedAt",
         header: "Updated At",
         cell: (item) => formatDate(item.getValue<string>()),
         meta: {
-          icon: <LuCalendar />,
-        },
-      },
+          icon: <LuCalendar />
+        }
+      }
     ];
 
     return [...result, ...customColumns];
@@ -327,13 +327,13 @@ const ReceiptsTable = memo(({ data, count }: ReceiptsTableProps) => {
         columns={columns}
         count={count}
         defaultColumnPinning={{
-          left: ["receiptId"],
+          left: ["receiptId"]
         }}
         defaultColumnVisibility={{
           createdAt: false,
           createdBy: false,
           updatedAt: false,
-          updatedBy: false,
+          updatedBy: false
         }}
         primaryAction={
           permissions.can("create", "inventory") && (

@@ -9,11 +9,11 @@ import {
   CardTitle,
   VStack,
   cn,
-  toast,
+  toast
 } from "@carbon/react";
 import { useState } from "react";
 import { flushSync } from "react-dom";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import {
   Currency,
   CustomFormFields,
@@ -25,7 +25,7 @@ import {
   Input,
   Location,
   SequenceOrCustomId,
-  Submit,
+  Submit
 } from "~/components/Form";
 import PaymentTerm from "~/components/Form/PaymentTerm";
 import { usePermissions } from "~/hooks";
@@ -53,13 +53,13 @@ const SalesInvoiceForm = ({ initialValues }: SalesInvoiceFormProps) => {
     invoiceCustomerContactId: initialValues.invoiceCustomerContactId,
     invoiceCustomerLocationId: initialValues.invoiceCustomerLocationId,
     currencyCode: initialValues.currencyCode,
-    paymentTermId: initialValues.paymentTermId,
+    paymentTermId: initialValues.paymentTermId
   });
 
   const [customer, setCustomer] = useState<{
     id: string | undefined;
   }>({
-    id: initialValues.customerId,
+    id: initialValues.customerId
   });
 
   const onCustomerChange = async (
@@ -93,7 +93,7 @@ const SalesInvoiceForm = ({ initialValues }: SalesInvoiceFormProps) => {
           currencyCode: undefined,
           paymentTermId: undefined,
           invoiceCustomerContactId: undefined,
-          invoiceCustomerLocationId: undefined,
+          invoiceCustomerLocationId: undefined
         });
       });
 
@@ -107,7 +107,7 @@ const SalesInvoiceForm = ({ initialValues }: SalesInvoiceFormProps) => {
           ?.from("customerPayment")
           .select("*")
           .eq("customerId", newValue.value)
-          .single(),
+          .single()
       ]);
 
       if (customerData.error || paymentTermData.error) {
@@ -121,7 +121,7 @@ const SalesInvoiceForm = ({ initialValues }: SalesInvoiceFormProps) => {
           invoiceCustomerLocationId:
             paymentTermData.data.invoiceCustomerLocationId ?? undefined,
           currencyCode: customerData.data.currencyCode ?? undefined,
-          paymentTermId: paymentTermData.data.paymentTermId ?? undefined,
+          paymentTermId: paymentTermData.data.paymentTermId ?? undefined
         }));
       }
     } else {
@@ -130,7 +130,7 @@ const SalesInvoiceForm = ({ initialValues }: SalesInvoiceFormProps) => {
         currencyCode: undefined,
         paymentTermId: undefined,
         invoiceCustomerContactId: undefined,
-        invoiceCustomerLocationId: undefined,
+        invoiceCustomerLocationId: undefined
       });
     }
   };
@@ -194,7 +194,7 @@ const SalesInvoiceForm = ({ initialValues }: SalesInvoiceFormProps) => {
                   if (newValue?.id) {
                     setInvoiceCustomer((prevCustomer) => ({
                       ...prevCustomer,
-                      invoiceCustomerLocationId: newValue.id,
+                      invoiceCustomerLocationId: newValue.id
                     }));
                   }
                 }}
@@ -208,7 +208,7 @@ const SalesInvoiceForm = ({ initialValues }: SalesInvoiceFormProps) => {
                   if (newValue?.id) {
                     setInvoiceCustomer((prevCustomer) => ({
                       ...prevCustomer,
-                      invoiceCustomerContactId: newValue.id,
+                      invoiceCustomerContactId: newValue.id
                     }));
                   }
                 }}
@@ -225,7 +225,7 @@ const SalesInvoiceForm = ({ initialValues }: SalesInvoiceFormProps) => {
                   if (newValue?.value) {
                     setInvoiceCustomer((prevCustomer) => ({
                       ...prevCustomer,
-                      paymentTermId: newValue.value,
+                      paymentTermId: newValue.value
                     }));
                   }
                 }}
@@ -238,7 +238,7 @@ const SalesInvoiceForm = ({ initialValues }: SalesInvoiceFormProps) => {
                   if (newValue?.value) {
                     setInvoiceCustomer((prevCustomer) => ({
                       ...prevCustomer,
-                      currencyCode: newValue.value,
+                      currencyCode: newValue.value
                     }));
                   }
                 }}

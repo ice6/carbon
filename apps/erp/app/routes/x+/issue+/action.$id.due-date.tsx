@@ -1,17 +1,17 @@
 import { requirePermissions } from "@carbon/auth/auth.server";
 import { validator } from "@carbon/form";
 import { json, type ActionFunctionArgs } from "@vercel/remix";
-import { z } from 'zod/v3';
+import { z } from "zod/v3";
 import { zfd } from "zod-form-data";
 
 const updateDueDateSchema = zfd.formData({
   id: z.string(),
-  dueDate: z.string().optional(),
+  dueDate: z.string().optional()
 });
 
 export async function action({ request }: ActionFunctionArgs) {
   const { client } = await requirePermissions(request, {
-    update: "quality",
+    update: "quality"
   });
 
   const formData = await request.formData();
@@ -23,7 +23,7 @@ export async function action({ request }: ActionFunctionArgs) {
   const { error } = await client
     .from("nonConformanceActionTask")
     .update({
-      dueDate: validated.data.dueDate || null,
+      dueDate: validated.data.dueDate || null
     })
     .eq("id", validated.data.id);
 

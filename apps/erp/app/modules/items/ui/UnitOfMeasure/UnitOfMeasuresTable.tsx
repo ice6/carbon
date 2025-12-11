@@ -33,17 +33,17 @@ const UnitOfMeasuresTable = memo(
             </Hyperlink>
           ),
           meta: {
-            icon: <LuBookMarked />,
-          },
+            icon: <LuBookMarked />
+          }
         },
         {
           accessorKey: "code",
           header: "Code",
           cell: (item) => item.getValue(),
           meta: {
-            icon: <LuCode />,
-          },
-        },
+            icon: <LuCode />
+          }
+        }
       ];
       return [...defaultColumns, ...customColumns];
     }, [customColumns]);

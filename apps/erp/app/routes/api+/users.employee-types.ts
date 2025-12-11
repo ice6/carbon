@@ -6,7 +6,7 @@ import { getEmployeeTypes } from "~/modules/users";
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
     view: "users",
-    role: "employee",
+    role: "employee"
   });
 
   return json(await getEmployeeTypes(client, companyId));

@@ -7,7 +7,7 @@ import {
   ModalContent,
   ModalFooter,
   ModalHeader,
-  ModalTitle,
+  ModalTitle
 } from "@carbon/react";
 import { useFetcher } from "@remix-run/react";
 import { UserSelect } from "~/components/Selectors";
@@ -23,7 +23,7 @@ type RevokeInviteModalProps = {
 const RevokeInviteModal = ({
   userIds,
   isOpen,
-  onClose,
+  onClose
 }: RevokeInviteModalProps) => {
   const fetcher = useFetcher<{}>();
   const isSingleUser = userIds.length === 1;

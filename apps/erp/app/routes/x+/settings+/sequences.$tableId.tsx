@@ -9,14 +9,14 @@ import {
   SequenceForm,
   getSequence,
   sequenceValidator,
-  updateSequence,
+  updateSequence
 } from "~/modules/settings";
 import { path } from "~/utils/path";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
     view: "settings",
-    role: "employee",
+    role: "employee"
   });
 
   const { tableId } = params;
@@ -31,14 +31,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   }
 
   return json({
-    sequence: sequence?.data ?? null,
+    sequence: sequence?.data ?? null
   });
 }
 
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    update: "settings",
+    update: "settings"
   });
 
   const validation = await validator(sequenceValidator).validate(
@@ -53,7 +53,7 @@ export async function action({ request }: ActionFunctionArgs) {
 
   const update = await updateSequence(client, table, companyId, {
     ...data,
-    updatedBy: userId,
+    updatedBy: userId
   });
 
   if (update.error) {
@@ -79,7 +79,7 @@ export default function EditSequenceRoute() {
     next: sequence?.next ?? 1,
     size: sequence?.size ?? 5,
     step: sequence?.step ?? 1,
-    suffix: sequence?.suffix ?? "",
+    suffix: sequence?.suffix ?? ""
   };
 
   return (

@@ -13,5 +13,5 @@ export {
   ShipmentNotes,
   // ShipmentPostModal,
   ShipmentStatus,
-  ShipmentsTable,
+  ShipmentsTable
 };

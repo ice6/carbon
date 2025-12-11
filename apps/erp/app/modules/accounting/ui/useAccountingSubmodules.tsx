@@ -61,7 +61,7 @@ const accountingRoutes: AuthenticatedRouteGroup[] = [
         name: "Currencies",
         to: path.to.currencies,
         role: "employee",
-        icon: <LuDollarSign />,
+        icon: <LuDollarSign />
       },
       // {
       //   name: "Default Accounts",
@@ -77,10 +77,10 @@ const accountingRoutes: AuthenticatedRouteGroup[] = [
         name: "Payment Terms",
         to: path.to.paymentTerms,
         role: "employee",
-        icon: <LuList />,
-      },
-    ],
-  },
+        icon: <LuList />
+      }
+    ]
+  }
 ];
 
 export default function useAccountingSubmodules() {
@@ -106,7 +106,7 @@ export default function useAccountingSubmodules() {
           } else {
             return true;
           }
-        }),
-      })),
+        })
+      }))
   };
 }

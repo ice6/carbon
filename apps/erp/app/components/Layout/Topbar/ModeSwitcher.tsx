@@ -11,7 +11,7 @@ const ModeSwitcher = () => {
   const modeLabel = {
     light: <BiSun />,
     dark: <BiMoon />,
-    system: <BiLaptop />,
+    system: <BiLaptop />
   };
 
   const fetcher = useFetcher<typeof action>();
