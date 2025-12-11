@@ -5,13 +5,16 @@ import { validationError, validator } from "@carbon/form";
 import { useNavigate } from "@remix-run/react";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@vercel/remix";
 import { json, redirect } from "@vercel/remix";
-import { trainingValidator, upsertTraining } from "~/modules/people";
-import { TrainingForm } from "~/modules/people/ui/Training";
+import {
+  trainingValidator,
+  upsertTraining,
+  TrainingForm,
+} from "~/modules/resources";
 import { path } from "~/utils/path";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   await requirePermissions(request, {
-    create: "people",
+    create: "resources",
   });
 
   return null;
@@ -20,7 +23,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 export async function action({ request }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    create: "people",
+    create: "resources",
   });
   const formData = await request.formData();
   const validation = await validator(trainingValidator).validate(formData);
@@ -39,7 +42,10 @@ export async function action({ request }: ActionFunctionArgs) {
       {},
       await flash(
         request,
-        error("Invalid training content format", "Failed to parse training content")
+        error(
+          "Invalid training content format",
+          "Failed to parse training content"
+        )
       )
     );
   }
@@ -54,7 +60,10 @@ export async function action({ request }: ActionFunctionArgs) {
   if (insertTraining.error || !insertTraining.data?.id) {
     return json(
       {},
-      await flash(request, error(insertTraining.error, "Failed to create training"))
+      await flash(
+        request,
+        error(insertTraining.error, "Failed to create training")
+      )
     );
   }
 
@@ -70,5 +79,7 @@ export default function NewTrainingRoute() {
     name: "",
   };
 
-  return <TrainingForm initialValues={initialValues} onClose={() => navigate(-1)} />;
+  return (
+    <TrainingForm initialValues={initialValues} onClose={() => navigate(-1)} />
+  );
 }

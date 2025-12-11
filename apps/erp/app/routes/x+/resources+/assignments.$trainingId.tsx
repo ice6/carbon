@@ -35,8 +35,8 @@ import {
 } from "react-icons/lu";
 import { EmployeeAvatar, Empty } from "~/components";
 import { usePermissions } from "~/hooks";
-import { getTraining, getTrainingAssignmentStatus } from "~/modules/people";
-import type { TrainingAssignmentStatusItem } from "~/modules/people/types";
+import { getTraining, getTrainingAssignmentStatus } from "~/modules/resources";
+import type { TrainingAssignmentStatusItem } from "~/modules/resources/types";
 import type { Handle } from "~/utils/handle";
 import { path } from "~/utils/path";
 
@@ -47,7 +47,7 @@ export const handle: Handle = {
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    view: "people",
+    view: "resources",
     role: "employee",
   });
 
@@ -320,7 +320,7 @@ export default function TrainingAssignmentDetailRoute() {
                       key={`${assignment.employeeId}-${assignment.trainingAssignmentId}`}
                       assignment={assignment}
                       currentPeriod={currentPeriod}
-                      disabled={!permissions.can("update", "people")}
+                      disabled={!permissions.can("update", "resources")}
                       isLast={index === filteredAssignments.length - 1}
                     />
                   ))}

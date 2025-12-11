@@ -4,12 +4,12 @@ import { flash } from "@carbon/auth/session.server";
 import { redirect } from "@remix-run/react";
 import type { ActionFunctionArgs } from "@vercel/remix";
 import { json } from "@vercel/remix";
-import { insertTrainingCompletion } from "~/modules/people";
+import { insertTrainingCompletion } from "~/modules/resources";
 import { path } from "~/utils/path";
 
 export async function action({ request }: ActionFunctionArgs) {
   const { client, companyId, userId } = await requirePermissions(request, {
-    update: "people",
+    update: "resources",
     role: "employee",
   });
 
@@ -23,10 +23,7 @@ export async function action({ request }: ActionFunctionArgs) {
       { error: "Missing required fields" },
       {
         status: 400,
-        headers: await flash(
-          request,
-          error(null, "Missing required fields")
-        ),
+        headers: await flash(request, error(null, "Missing required fields")),
       }
     );
   }
@@ -56,10 +53,7 @@ export async function action({ request }: ActionFunctionArgs) {
   return json(
     { success: true },
     {
-      headers: await flash(
-        request,
-        success("Training marked as complete")
-      ),
+      headers: await flash(request, success("Training marked as complete")),
     }
   );
 }

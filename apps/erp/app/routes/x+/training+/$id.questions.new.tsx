@@ -8,12 +8,12 @@ import type { ActionFunctionArgs } from "@vercel/remix";
 import {
   trainingQuestionValidator,
   upsertTrainingQuestion,
-} from "~/modules/people";
+} from "~/modules/resources";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, companyId, userId } = await requirePermissions(request, {
-    create: "people",
+    create: "resources",
   });
 
   const { id: trainingId } = params;
@@ -51,7 +51,8 @@ export async function action({ request, params }: ActionFunctionArgs) {
   const create = await upsertTrainingQuestion(client, {
     ...data,
     options: options.length > 0 ? options : data.options,
-    correctAnswers: correctAnswers.length > 0 ? correctAnswers : data.correctAnswers,
+    correctAnswers:
+      correctAnswers.length > 0 ? correctAnswers : data.correctAnswers,
     matchingPairs: parsedMatchingPairs,
     correctBoolean: correctBoolean === true || correctBoolean === "true",
     companyId,

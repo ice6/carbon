@@ -5,8 +5,7 @@ import { VStack } from "@carbon/react";
 import { Outlet, redirect, useLoaderData } from "@remix-run/react";
 import type { LoaderFunctionArgs } from "@vercel/remix";
 import { json } from "@vercel/remix";
-import { getTrainings } from "~/modules/people";
-import { TrainingsTable } from "~/modules/people/ui/Training";
+import { getTrainings, TrainingsTable } from "~/modules/resources";
 import { getTagsList } from "~/modules/shared";
 import type { Handle } from "~/utils/handle";
 import { path } from "~/utils/path";
@@ -19,7 +18,7 @@ export const handle: Handle = {
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    view: "people",
+    view: "resources",
     role: "employee",
   });
 

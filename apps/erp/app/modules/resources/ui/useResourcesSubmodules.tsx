@@ -1,4 +1,10 @@
-import { LuMapPin, LuWrench, LuCog } from "react-icons/lu";
+import {
+  LuClipboardCheck,
+  LuCog,
+  LuGraduationCap,
+  LuMapPin,
+  LuWrench,
+} from "react-icons/lu";
 import { useSavedViews } from "~/hooks/useSavedViews";
 import type { RouteGroup } from "~/types";
 import { path } from "~/utils/path";
@@ -24,6 +30,22 @@ const resourcesRoutes: RouteGroup[] = [
         to: path.to.workCenters,
         icon: <LuWrench />,
         table: "workCenter",
+      },
+    ],
+  },
+  {
+    name: "Training",
+    routes: [
+      {
+        name: "Training",
+        to: path.to.trainings,
+        icon: <LuGraduationCap />,
+        table: "training",
+      },
+      {
+        name: "Assignments",
+        to: path.to.trainingAssignments,
+        icon: <LuClipboardCheck />,
       },
     ],
   },

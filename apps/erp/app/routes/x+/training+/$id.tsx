@@ -12,12 +12,12 @@ import { nanoid } from "nanoid";
 import { useState } from "react";
 import { PanelProvider, ResizablePanels } from "~/components/Layout/Panels";
 import { usePermissions, useUser } from "~/hooks";
-import { getTraining } from "~/modules/people";
 import {
+  getTraining,
   TrainingExplorer,
   TrainingHeader,
   TrainingProperties,
-} from "~/modules/people/ui/Training";
+} from "~/modules/resources";
 import { getTagsList } from "~/modules/shared";
 import type { action } from "~/routes/x+/training+/update";
 import type { Handle } from "~/utils/handle";
@@ -26,12 +26,12 @@ import { getPrivateUrl, path } from "~/utils/path";
 export const handle: Handle = {
   breadcrumb: "Training",
   to: path.to.trainings,
-  module: "people",
+  module: "resources",
 };
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    view: "people",
+    view: "resources",
     bypassRls: true,
   });
 

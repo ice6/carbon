@@ -34,11 +34,11 @@ import type { z } from "zod/v3";
 import { EmployeeAvatar, Empty } from "~/components";
 import { Hidden, Submit, Users } from "~/components/Form";
 import { usePermissions } from "~/hooks";
-import { trainingAssignmentValidator } from "~/modules/people";
+import { trainingAssignmentValidator } from "~/modules/resources";
 import type {
   TrainingAssignmentStatusItem,
   TrainingListItem,
-} from "~/modules/people/types";
+} from "~/modules/resources/types";
 import { path } from "~/utils/path";
 
 type TrainingAssignmentFormProps = {
@@ -260,7 +260,7 @@ const StatusList = memo(
                   key={`${assignment.employeeId}-${assignment.trainingAssignmentId}`}
                   assignment={assignment}
                   currentPeriod={currentPeriod}
-                  disabled={!permissions.can("update", "people")}
+                  disabled={!permissions.can("update", "resources")}
                   isLast={index === filteredAssignments.length - 1}
                 />
               ))}
@@ -305,8 +305,8 @@ const TrainingAssignmentForm = ({
 
   const isEditing = initialValues.id !== undefined;
   const isDisabled = isEditing
-    ? !permissions.can("update", "people")
-    : !permissions.can("create", "people");
+    ? !permissions.can("update", "resources")
+    : !permissions.can("create", "resources");
 
   const [activeTab, setActiveTab] = useState<string>("details");
 

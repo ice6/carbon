@@ -49,8 +49,8 @@ import {
 import {
   getTrainingAssignmentForCompletion,
   insertTrainingCompletion,
-} from "~/modules/people";
-import type { TrainingQuestion } from "~/modules/people/types";
+} from "~/modules/resources";
+import type { TrainingQuestion } from "~/modules/resources/types";
 
 const PASSING_THRESHOLD = 0.8;
 

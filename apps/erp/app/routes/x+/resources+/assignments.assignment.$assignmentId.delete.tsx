@@ -3,7 +3,7 @@ import { requirePermissions } from "@carbon/auth/auth.server";
 import { flash } from "@carbon/auth/session.server";
 import { redirect } from "@remix-run/react";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@vercel/remix";
-import { deleteTrainingAssignment } from "~/modules/people";
+import { deleteTrainingAssignment } from "~/modules/resources";
 import { path } from "~/utils/path";
 
 export async function loader({ request }: LoaderFunctionArgs) {
@@ -12,7 +12,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
 export async function action({ request, params }: ActionFunctionArgs) {
   const { client } = await requirePermissions(request, {
-    delete: "people",
+    delete: "resources",
     role: "employee",
   });
 
@@ -29,10 +29,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   if (result.error) {
     throw redirect(
       path.to.trainingAssignments,
-      await flash(
-        request,
-        error(result.error, "Failed to delete assignment")
-      )
+      await flash(request, error(result.error, "Failed to delete assignment"))
     );
   }
 

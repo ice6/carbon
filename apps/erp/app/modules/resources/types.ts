@@ -6,8 +6,16 @@ import type {
   getLocations,
   getPartners,
   getProcesses,
+  getTraining,
+  getTrainingAssignment,
+  getTrainingQuestions,
+  getTrainings,
   getWorkCenters,
 } from "./resources.service";
+import type {
+  trainingAssignmentStatusOptions,
+  trainingFrequency,
+} from "./resources.models";
 
 export type Ability = NonNullable<
   Awaited<ReturnType<typeof getAbility>>["data"]
@@ -72,3 +80,48 @@ export type ShiftLocation = NonNullable<
 export type WorkCenter = NonNullable<
   Awaited<ReturnType<typeof getWorkCenters>>["data"]
 >[number];
+
+export type Training = NonNullable<
+  Awaited<ReturnType<typeof getTraining>>["data"]
+>;
+
+export type TrainingListItem = NonNullable<
+  Awaited<ReturnType<typeof getTrainings>>["data"]
+>[number];
+
+export type TrainingQuestion = NonNullable<
+  Awaited<ReturnType<typeof getTrainingQuestions>>["data"]
+>[number];
+
+export type TrainingAssignmentStatusItem = {
+  trainingAssignmentId: string;
+  trainingId: string;
+  trainingName: string;
+  frequency: (typeof trainingFrequency)[number];
+  trainingType: "Mandatory" | "Optional";
+  employeeId: string;
+  employeeName: string | null;
+  avatarUrl: string | null;
+  employeeStartDate: string | null;
+  companyId: string;
+  currentPeriod: string | null;
+  completionId: number | null;
+  completedAt: string | null;
+  status: (typeof trainingAssignmentStatusOptions)[number];
+};
+
+export type TrainingAssignmentSummaryItem = {
+  trainingId: string;
+  trainingName: string;
+  frequency: (typeof trainingFrequency)[number];
+  currentPeriod: string | null;
+  totalAssigned: number;
+  completed: number;
+  pending: number;
+  overdue: number;
+  completionPercent: number;
+};
+
+export type TrainingAssignment = NonNullable<
+  Awaited<ReturnType<typeof getTrainingAssignment>>["data"]
+>;

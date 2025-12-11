@@ -1,6 +1,6 @@
 import type { Database, Json } from "@carbon/database";
 import type { SupabaseClient } from "@supabase/supabase-js";
-import type { z } from 'zod/v3';
+import type { z } from "zod/v3";
 import type { GenericQueryFilters } from "~/utils/query";
 import { setGenericQueryFilters } from "~/utils/query";
 import { sanitize } from "~/utils/supabase";
@@ -8,6 +8,8 @@ import type {
   locationValidator,
   partnerValidator,
   processValidator,
+  trainingQuestionValidator,
+  trainingValidator,
   workCenterValidator,
 } from "./resources.models";
 
@@ -72,6 +74,32 @@ export async function deleteShift(
 ) {
   // TODO: Set all employeeShifts to null
   return client.from("shift").update({ active: false }).eq("id", shiftId);
+}
+
+export async function deleteTraining(
+  client: SupabaseClient<Database>,
+  trainingId: string
+) {
+  return client.from("training").delete().eq("id", trainingId);
+}
+
+export async function deleteTrainingAssignment(
+  client: SupabaseClient<Database>,
+  assignmentId: string
+) {
+  return client.from("trainingAssignment").delete().eq("id", assignmentId);
+}
+
+export async function deleteTrainingQuestion(
+  client: SupabaseClient<Database>,
+  trainingQuestionId: string,
+  companyId: string
+) {
+  return client
+    .from("trainingQuestion")
+    .delete()
+    .eq("id", trainingQuestionId)
+    .eq("companyId", companyId);
 }
 
 export async function deleteWorkCenter(
@@ -171,20 +199,6 @@ export async function getContractors(
   return query;
 }
 
-// export async function getEmployeeAbility(
-//   client: SupabaseClient<Database>,
-//   abilityId: string,
-//   employeeAbilityId: string
-// ) {
-//   return client
-//     .from("employeeAbility")
-//     .select(`*, user(id, fullName, avatarUrl)`)
-//     .eq("abilityId", abilityId)
-//     .eq("id", employeeAbilityId)
-//     .eq("active", true)
-//     .single();
-// }
-
 export async function getEmployeeAbilities(
   client: SupabaseClient<Database>,
   employeeId: string
@@ -237,15 +251,32 @@ export async function getLocationsList(
     .order("name");
 }
 
-export async function getPartnerBySupplierId(
+export async function getOutstandingTrainingsForUser(
   client: SupabaseClient<Database>,
-  partnerId: string
+  companyId: string,
+  employeeId: string
 ) {
-  return client
-    .from("partners")
-    .select("*")
-    .eq("supplierLocationId", partnerId)
-    .single();
+  const { data, error } = await client.rpc("get_training_assignment_status", {
+    p_company_id: companyId,
+  });
+
+  if (error) return { data: null, error };
+
+  // Filter to this employee's pending/overdue trainings
+  const filteredData = (data ?? [])
+    .filter(
+      (d) =>
+        d.employeeId === employeeId &&
+        (d.status === "Pending" || d.status === "Overdue")
+    )
+    .sort((a, b) => {
+      // Overdue first
+      if (a.status === "Overdue" && b.status !== "Overdue") return -1;
+      if (a.status !== "Overdue" && b.status === "Overdue") return 1;
+      return 0;
+    });
+
+  return { data: filteredData, error: null };
 }
 
 export async function getPartner(
@@ -258,6 +289,17 @@ export async function getPartner(
     .select("*")
     .eq("supplierLocationId", partnerId)
     .eq("abilityId", abilityId)
+    .single();
+}
+
+export async function getPartnerBySupplierId(
+  client: SupabaseClient<Database>,
+  partnerId: string
+) {
+  return client
+    .from("partners")
+    .select("*")
+    .eq("supplierLocationId", partnerId)
     .single();
 }
 
@@ -324,6 +366,180 @@ export async function getProcessesList(
     .select(`id, name`)
     .eq("companyId", companyId)
     .order("name");
+}
+
+export async function getTraining(
+  client: SupabaseClient<Database>,
+  id: string
+) {
+  return client
+    .from("training")
+    .select("*, trainingQuestion(*)")
+    .eq("id", id)
+    .single();
+}
+
+export async function getTrainingAssignment(
+  client: SupabaseClient<Database>,
+  assignmentId: string
+) {
+  return client
+    .from("trainingAssignment")
+    .select("*, training(id, name, frequency, type, status)")
+    .eq("id", assignmentId)
+    .single();
+}
+
+export async function getTrainingAssignmentForCompletion(
+  client: SupabaseClient<Database>,
+  assignmentId: string
+) {
+  return client
+    .from("trainingAssignment")
+    .select(
+      `*,
+      training(
+        id,
+        name,
+        description,
+        content,
+        frequency,
+        type,
+        status,
+        estimatedDuration,
+        trainingQuestion(*)
+      )`
+    )
+    .eq("id", assignmentId)
+    .single();
+}
+
+export async function getTrainingAssignments(
+  client: SupabaseClient<Database>,
+  companyId: string,
+  trainingId?: string
+) {
+  let query = client
+    .from("trainingAssignment")
+    .select("*, training(id, name, frequency)")
+    .eq("companyId", companyId);
+
+  if (trainingId) {
+    query = query.eq("trainingId", trainingId);
+  }
+
+  return query;
+}
+
+export async function getTrainingAssignmentStatus(
+  client: SupabaseClient<Database>,
+  companyId: string,
+  args?: {
+    trainingId?: string;
+    status?: "Completed" | "Pending" | "Overdue" | "Not Required";
+    search?: string;
+  } & GenericQueryFilters
+) {
+  const { data, error } = await client.rpc("get_training_assignment_status", {
+    p_company_id: companyId,
+  });
+
+  if (error) return { data: null, error, count: null };
+
+  let filteredData = data ?? [];
+
+  // Apply filters in memory since we're using an RPC function
+  if (args?.trainingId) {
+    filteredData = filteredData.filter((d) => d.trainingId === args.trainingId);
+  }
+  if (args?.status) {
+    filteredData = filteredData.filter((d) => d.status === args.status);
+  }
+  if (args?.search) {
+    const searchLower = args.search.toLowerCase();
+    filteredData = filteredData.filter(
+      (d) =>
+        d.trainingName?.toLowerCase().includes(searchLower) ||
+        d.employeeName?.toLowerCase().includes(searchLower)
+    );
+  }
+
+  // Apply sorting
+  const sortColumn = args?.sorts?.[0]?.sortBy ?? "employeeName";
+  const sortAsc = args?.sorts?.[0]?.sortAsc ?? true;
+  filteredData.sort((a, b) => {
+    const aVal = a[sortColumn as keyof typeof a] ?? "";
+    const bVal = b[sortColumn as keyof typeof b] ?? "";
+    if (aVal < bVal) return sortAsc ? -1 : 1;
+    if (aVal > bVal) return sortAsc ? 1 : -1;
+    return 0;
+  });
+
+  // Apply pagination
+  const count = filteredData.length;
+  if (args?.limit) {
+    const offset = args.offset ?? 0;
+    filteredData = filteredData.slice(offset, offset + args.limit);
+  }
+
+  return { data: filteredData, error: null, count };
+}
+
+export async function getTrainingAssignmentSummary(
+  client: SupabaseClient<Database>,
+  companyId: string
+) {
+  return client.rpc("get_training_assignment_summary", {
+    p_company_id: companyId,
+  });
+}
+
+export async function getTrainingQuestions(
+  client: SupabaseClient<Database>,
+  trainingId: string
+) {
+  return client
+    .from("trainingQuestion")
+    .select("*")
+    .eq("trainingId", trainingId)
+    .order("sortOrder", { ascending: true });
+}
+
+export async function getTrainings(
+  client: SupabaseClient<Database>,
+  companyId: string,
+  args?: { search: string | null } & GenericQueryFilters
+) {
+  let query = client
+    .from("trainings")
+    .select("*", {
+      count: "exact",
+    })
+    .eq("companyId", companyId);
+
+  if (args?.search) {
+    query = query.ilike("name", `%${args.search}%`);
+  }
+
+  if (args) {
+    query = setGenericQueryFilters(query, args, [
+      { column: "name", ascending: true },
+    ]);
+  }
+
+  return query;
+}
+
+export async function getTrainingsList(
+  client: SupabaseClient<Database>,
+  companyId: string
+) {
+  return client
+    .from("training")
+    .select("id, name, status")
+    .eq("companyId", companyId)
+    .eq("status", "Active")
+    .order("name", { ascending: true });
 }
 
 export async function getWorkCenter(
@@ -424,6 +640,27 @@ export async function insertEmployeeAbilities(
     .single();
 }
 
+export async function insertTrainingCompletion(
+  client: SupabaseClient<Database>,
+  completion: {
+    trainingAssignmentId: string;
+    employeeId: string;
+    period: string | null;
+    companyId: string;
+    completedBy: string;
+    createdBy: string;
+  }
+) {
+  return client
+    .from("trainingCompletion")
+    .insert({
+      ...completion,
+      completedAt: new Date().toISOString(),
+    })
+    .select("id")
+    .single();
+}
+
 export async function updateAbility(
   client: SupabaseClient<Database>,
   id: string,
@@ -439,6 +676,23 @@ export async function updateAbility(
   }>
 ) {
   return client.from("ability").update(sanitize(ability)).eq("id", id);
+}
+
+export async function updateTrainingQuestionOrder(
+  client: SupabaseClient<Database>,
+  updates: {
+    id: string;
+    sortOrder: number;
+    updatedBy: string;
+  }[]
+) {
+  const updatePromises = updates.map(({ id, sortOrder, updatedBy }) =>
+    client
+      .from("trainingQuestion")
+      .update({ sortOrder, updatedBy })
+      .eq("id", id)
+  );
+  return Promise.all(updatePromises);
 }
 
 export async function upsertContractor(
@@ -558,6 +812,30 @@ export async function upsertLocation(
   return client.from("location").insert([location]).select("*").single();
 }
 
+export async function upsertPartner(
+  client: SupabaseClient<Database>,
+  partner:
+    | (Omit<z.infer<typeof partnerValidator>, "supplierId"> & {
+        companyId: string;
+        createdBy: string;
+        customFields?: Json;
+      })
+    | (Omit<z.infer<typeof partnerValidator>, "supplierId"> & {
+        updatedBy: string;
+        customFields?: Json;
+      })
+) {
+  if ("updatedBy" in partner) {
+    return client
+      .from("partner")
+      .update(sanitize(partner))
+      .eq("id", partner.id)
+      .eq("abilityId", partner.abilityId);
+  } else {
+    return await client.from("partner").insert([partner]);
+  }
+}
+
 export async function upsertProcess(
   client: SupabaseClient<Database>,
   process:
@@ -646,28 +924,89 @@ export async function upsertProcess(
   return processUpdate;
 }
 
-export async function upsertPartner(
+export async function upsertTraining(
   client: SupabaseClient<Database>,
-  partner:
-    | (Omit<z.infer<typeof partnerValidator>, "supplierId"> & {
+  training:
+    | (Omit<z.infer<typeof trainingValidator>, "id"> & {
         companyId: string;
         createdBy: string;
-        customFields?: Json;
       })
-    | (Omit<z.infer<typeof partnerValidator>, "supplierId"> & {
+    | (Omit<z.infer<typeof trainingValidator>, "id"> & {
+        id: string;
         updatedBy: string;
-        customFields?: Json;
       })
 ) {
-  if ("updatedBy" in partner) {
+  if ("id" in training) {
     return client
-      .from("partner")
-      .update(sanitize(partner))
-      .eq("id", partner.id)
-      .eq("abilityId", partner.abilityId);
-  } else {
-    return await client.from("partner").insert([partner]);
+      .from("training")
+      .update(sanitize(training))
+      .eq("id", training.id)
+      .select("id")
+      .single();
   }
+
+  return client.from("training").insert([training]).select("id").single();
+}
+
+export async function upsertTrainingAssignment(
+  client: SupabaseClient<Database>,
+  assignment: {
+    id?: string;
+    trainingId: string;
+    groupIds: string[];
+    companyId: string;
+    createdBy?: string;
+    updatedBy?: string;
+  }
+) {
+  if (assignment.id) {
+    return client
+      .from("trainingAssignment")
+      .update({
+        groupIds: assignment.groupIds,
+        updatedBy: assignment.updatedBy,
+      })
+      .eq("id", assignment.id)
+      .select("id")
+      .single();
+  }
+  return client
+    .from("trainingAssignment")
+    .insert({
+      trainingId: assignment.trainingId,
+      groupIds: assignment.groupIds,
+      companyId: assignment.companyId,
+      createdBy: assignment.createdBy!,
+    })
+    .select("id")
+    .single();
+}
+
+export async function upsertTrainingQuestion(
+  client: SupabaseClient<Database>,
+  trainingQuestion:
+    | (Omit<z.infer<typeof trainingQuestionValidator>, "id"> & {
+        companyId: string;
+        createdBy: string;
+      })
+    | (Omit<z.infer<typeof trainingQuestionValidator>, "id"> & {
+        id: string;
+        updatedBy: string;
+      })
+) {
+  if ("id" in trainingQuestion) {
+    return client
+      .from("trainingQuestion")
+      .update(sanitize(trainingQuestion))
+      .eq("id", trainingQuestion.id)
+      .select("id")
+      .single();
+  }
+  return client
+    .from("trainingQuestion")
+    .insert([trainingQuestion])
+    .select("id")
+    .single();
 }
 
 export async function upsertWorkCenter(

@@ -15,7 +15,7 @@ import type { PostgrestResponse } from "@supabase/supabase-js";
 import type { z } from "zod/v3";
 import { Hidden, Input, Submit } from "~/components/Form";
 import { usePermissions } from "~/hooks";
-import { trainingValidator } from "~/modules/people";
+import { trainingValidator } from "~/modules/resources";
 import { path } from "~/utils/path";
 
 type TrainingFormProps = {
@@ -34,8 +34,8 @@ const TrainingForm = ({
 
   const isEditing = initialValues.id !== undefined;
   const isDisabled = isEditing
-    ? !permissions.can("update", "people")
-    : !permissions.can("create", "people");
+    ? !permissions.can("update", "resources")
+    : !permissions.can("create", "resources");
 
   return (
     <ModalDrawerProvider type="modal">

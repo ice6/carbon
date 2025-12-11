@@ -1,5 +1,5 @@
 import { Status } from "@carbon/react";
-import type { trainingStatus } from "~/modules/people";
+import type { trainingStatus } from "~/modules/resources";
 
 type TrainingStatusProps = {
   status: (typeof trainingStatus)[number] | null;

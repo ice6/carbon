@@ -61,8 +61,8 @@ import { usePermissions, useRouteData } from "~/hooks";
 import {
   trainingQuestionType,
   trainingQuestionValidator,
-} from "~/modules/people";
-import type { Training, TrainingQuestion } from "~/modules/people";
+} from "~/modules/resources";
+import type { Training, TrainingQuestion } from "~/modules/resources";
 import { path } from "~/utils/path";
 
 export default function TrainingExplorer() {
@@ -219,7 +219,7 @@ export default function TrainingExplorer() {
             </Reorder.Group>
           ) : (
             <Empty>
-              {permissions.can("update", "people") && (
+              {permissions.can("update", "resources") && (
                 <Button
                   isDisabled={isDisabled}
                   leftIcon={<LuCirclePlus />}
@@ -243,7 +243,9 @@ export default function TrainingExplorer() {
               <Button
                 ref={newQuestionRef}
                 className="w-full"
-                isDisabled={isDisabled || !permissions.can("update", "people")}
+                isDisabled={
+                  isDisabled || !permissions.can("update", "resources")
+                }
                 leftIcon={<LuCirclePlus />}
                 variant="secondary"
                 onClick={() => {
@@ -393,7 +395,7 @@ function TrainingQuestionItem({
               </DropdownMenuItem>
               <DropdownMenuItem
                 destructive
-                disabled={!permissions.can("update", "people")}
+                disabled={!permissions.can("update", "resources")}
                 onClick={(e) => {
                   e.stopPropagation();
                   onDelete(question);

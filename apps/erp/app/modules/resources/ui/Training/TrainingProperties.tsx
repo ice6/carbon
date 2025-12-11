@@ -22,7 +22,7 @@ import {
   trainingStatus,
   trainingType,
   type Training,
-} from "~/modules/people";
+} from "~/modules/resources";
 import type { action } from "~/routes/x+/items+/update";
 import { path } from "~/utils/path";
 import { copyToClipboard } from "~/utils/string";
@@ -160,7 +160,7 @@ const TrainingProperties = () => {
         table="training"
         value={assignee ?? ""}
         variant="inline"
-        isReadOnly={!permissions.can("update", "people")}
+        isReadOnly={!permissions.can("update", "resources")}
       />
 
       <ValidatedForm

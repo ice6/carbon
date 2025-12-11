@@ -5,12 +5,12 @@ import { assertIsPost, error } from "@carbon/auth";
 import { requirePermissions } from "@carbon/auth/auth.server";
 import { flash } from "@carbon/auth/session.server";
 
-import { updateTrainingQuestionOrder } from "~/modules/people";
+import { updateTrainingQuestionOrder } from "~/modules/resources";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   assertIsPost(request);
   const { client, userId } = await requirePermissions(request, {
-    update: "people",
+    update: "resources",
   });
 
   const updateMap = (await request.formData()).get("updates") as string;
@@ -33,7 +33,10 @@ export async function action({ request, params }: ActionFunctionArgs) {
   if (updateSortOrders.some((update) => update.error))
     return json(
       {},
-      await flash(request, error(updateSortOrders, "Failed to update sort order"))
+      await flash(
+        request,
+        error(updateSortOrders, "Failed to update sort order")
+      )
     );
 
   return null;

@@ -23,7 +23,7 @@ import {
 import { EmployeeAvatar, Hyperlink, New, Table } from "~/components";
 import { ConfirmDelete } from "~/components/Modals";
 import { usePermissions } from "~/hooks";
-import type { TrainingListItem } from "~/modules/people";
+import type { TrainingListItem } from "~/modules/resources";
 import { path } from "~/utils/path";
 import TrainingStatus from "./TrainingStatus";
 
@@ -176,7 +176,7 @@ const TrainingsTable = memo(({ data, count, tags }: TrainingsTableProps) => {
       return (
         <>
           <MenuItem
-            disabled={!permissions.can("update", "people")}
+            disabled={!permissions.can("update", "resources")}
             onClick={() => {
               navigate(`${path.to.training(row.id!)}`);
             }}
@@ -186,7 +186,7 @@ const TrainingsTable = memo(({ data, count, tags }: TrainingsTableProps) => {
           </MenuItem>
           <MenuItem
             destructive
-            disabled={!permissions.can("delete", "people")}
+            disabled={!permissions.can("delete", "resources")}
             onClick={() => {
               flushSync(() => {
                 setSelectedTraining(row);
@@ -210,7 +210,7 @@ const TrainingsTable = memo(({ data, count, tags }: TrainingsTableProps) => {
         columns={columns}
         count={count}
         primaryAction={
-          permissions.can("create", "people") && (
+          permissions.can("create", "resources") && (
             <New label="Training" to={path.to.newTraining} />
           )
         }

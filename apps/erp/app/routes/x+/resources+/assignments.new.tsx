@@ -11,9 +11,9 @@ import {
   getTrainingsList,
   trainingAssignmentValidator,
   upsertTrainingAssignment,
-} from "~/modules/people";
-import type { TrainingListItem } from "~/modules/people/types";
-import TrainingAssignmentForm from "~/modules/people/ui/Training/TrainingAssignmentForm";
+  TrainingAssignmentForm,
+} from "~/modules/resources";
+import type { TrainingListItem } from "~/modules/resources/types";
 import type { Handle } from "~/utils/handle";
 import { path } from "~/utils/path";
 
@@ -24,7 +24,7 @@ export const handle: Handle = {
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    create: "people",
+    create: "resources",
     role: "employee",
   });
 
@@ -44,7 +44,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
 export async function action({ request }: ActionFunctionArgs) {
   const { client, companyId, userId } = await requirePermissions(request, {
-    create: "people",
+    create: "resources",
     role: "employee",
   });
 

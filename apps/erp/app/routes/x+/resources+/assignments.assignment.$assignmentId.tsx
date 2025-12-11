@@ -3,7 +3,12 @@ import { error, success } from "@carbon/auth";
 import { requirePermissions } from "@carbon/auth/auth.server";
 import { flash } from "@carbon/auth/session.server";
 import { NotificationEvent } from "@carbon/notifications";
-import { redirect, useLoaderData, useNavigate, useParams } from "@remix-run/react";
+import {
+  redirect,
+  useLoaderData,
+  useNavigate,
+  useParams,
+} from "@remix-run/react";
 import { tasks } from "@trigger.dev/sdk";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@vercel/remix";
 import { json } from "@vercel/remix";
@@ -13,9 +18,12 @@ import {
   getTrainingsList,
   trainingAssignmentValidator,
   upsertTrainingAssignment,
-} from "~/modules/people";
-import type { TrainingAssignmentStatusItem, TrainingListItem } from "~/modules/people/types";
-import TrainingAssignmentForm from "~/modules/people/ui/Training/TrainingAssignmentForm";
+  TrainingAssignmentForm,
+} from "~/modules/resources";
+import type {
+  TrainingAssignmentStatusItem,
+  TrainingListItem,
+} from "~/modules/resources/types";
 import type { Handle } from "~/utils/handle";
 import { path } from "~/utils/path";
 
@@ -26,7 +34,7 @@ export const handle: Handle = {
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    view: "people",
+    view: "resources",
     role: "employee",
   });
 
@@ -78,16 +86,13 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
 export async function action({ request, params }: ActionFunctionArgs) {
   const { client, companyId, userId } = await requirePermissions(request, {
-    update: "people",
+    update: "resources",
     role: "employee",
   });
 
   const { assignmentId } = params;
   if (!assignmentId) {
-    return json(
-      { error: "Assignment ID is required" },
-      { status: 400 }
-    );
+    return json({ error: "Assignment ID is required" }, { status: 400 });
   }
 
   const formData = await request.formData();

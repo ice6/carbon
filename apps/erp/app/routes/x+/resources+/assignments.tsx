@@ -36,8 +36,8 @@ import { Hyperlink, New, Table } from "~/components";
 import {
   getTrainingAssignmentSummary,
   getTrainingAssignments,
-} from "~/modules/people";
-import type { TrainingAssignmentSummaryItem } from "~/modules/people/types";
+} from "~/modules/resources";
+import type { TrainingAssignmentSummaryItem } from "~/modules/resources/types";
 import { usePermissions } from "~/hooks";
 import type { Handle } from "~/utils/handle";
 import { path } from "~/utils/path";
@@ -49,7 +49,7 @@ export const handle: Handle = {
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { client, companyId } = await requirePermissions(request, {
-    view: "people",
+    view: "resources",
     role: "employee",
   });
 
@@ -229,7 +229,7 @@ const TrainingAssignmentsTable = memo(
                 View Status
               </Link>
             </MenuItem>
-            {permissions.can("update", "people") && (
+            {permissions.can("update", "resources") && (
               <MenuItem asChild>
                 <Link to={path.to.trainingAssignment(assignmentId)}>
                   <MenuIcon icon={<LuPencil />} />
@@ -237,7 +237,7 @@ const TrainingAssignmentsTable = memo(
                 </Link>
               </MenuItem>
             )}
-            {permissions.can("delete", "people") && (
+            {permissions.can("delete", "resources") && (
               <MenuItem
                 onClick={() => {
                   fetcher.submit(null, {
@@ -261,7 +261,7 @@ const TrainingAssignmentsTable = memo(
         columns={columns}
         count={data.length}
         primaryAction={
-          permissions.can("create", "people") && (
+          permissions.can("create", "resources") && (
             <New label="Assignment" to={path.to.newTrainingAssignment} />
           )
         }

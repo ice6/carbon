@@ -21,7 +21,7 @@ import {
 import { usePanels } from "~/components/Layout";
 import ConfirmDelete from "~/components/Modals/ConfirmDelete";
 import { usePermissions, useRouteData } from "~/hooks";
-import type { Training } from "~/modules/people";
+import type { Training } from "~/modules/resources";
 import { path } from "~/utils/path";
 import TrainingStatus from "./TrainingStatus";
 
@@ -64,7 +64,7 @@ const TrainingHeader = () => {
             <DropdownMenuContent>
               <DropdownMenuItem
                 disabled={
-                  !permissions.can("delete", "people") ||
+                  !permissions.can("delete", "resources") ||
                   !permissions.is("employee")
                 }
                 destructive

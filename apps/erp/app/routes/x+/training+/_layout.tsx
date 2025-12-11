@@ -8,11 +8,11 @@ export const meta: MetaFunction = () => {
 };
 
 export const handle: Handle = {
-  breadcrumb: "People",
-  to: path.to.people,
-  module: "purchasing",
+  breadcrumb: "Resources",
+  to: path.to.resources,
+  module: "resources",
 };
 
-export default function SupplierRoute() {
+export default function ResourcesRoute() {
   return <Outlet />;
 }

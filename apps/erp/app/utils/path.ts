@@ -41,7 +41,7 @@ export const path = {
       customFieldOptions: (table: string, fieldId: string) =>
         generatePath(`${api}/settings/custom-fields/${table}/${fieldId}`),
       departments: `${api}/people/departments`,
-      outstandingTrainings: `${api}/people/trainings`,
+      outstandingTrainings: `${api}/resources/trainings`,
       digitalQuote: (id: string) =>
         generatePath(`${api}/sales/digital-quote/${id}`),
       digitalSupplierQuote: (id: string) =>
@@ -838,7 +838,7 @@ export const path = {
     logos: `${x}/settings/logos`,
     makeMethodGet: `${x}/items/methods/get`,
     makeMethodSave: `${x}/items/methods/save`,
-    markTrainingComplete: `${x}/people/assignments/complete`,
+    markTrainingComplete: `${x}/resources/assignments/complete`,
     material: (id: string) => generatePath(`${x}/material/${id}`),
     materialCosting: (id: string) =>
       generatePath(`${x}/material/${id}/view/costing`),
@@ -1047,7 +1047,7 @@ export const path = {
     newTool: `${x}/tool/new`,
     newToolSupplier: (id: string) =>
       generatePath(`${x}/tool/${id}/view/purchasing/new`),
-    newTraining: `${x}/people/training/new`,
+    newTraining: `${x}/resources/training/new`,
     newTrainingQuestion: (id: string) =>
       generatePath(`${x}/training/${id}/questions/new`),
     newUom: `${x}/items/uom/new`,
@@ -1184,19 +1184,21 @@ export const path = {
       generatePath(`${x}/quality-document/${id}/steps/order`),
 
     training: (id: string) => generatePath(`${x}/training/${id}`),
-    trainings: `${x}/people/training`,
+    trainings: `${x}/resources/training`,
     trainingQuestion: (id: string, questionId: string) =>
       generatePath(`${x}/training/${id}/questions/${questionId}`),
     trainingQuestionOrder: (id: string) =>
       generatePath(`${x}/training/${id}/questions/order`),
-    trainingAssignments: `${x}/people/assignments`,
+    trainingAssignments: `${x}/resources/assignments`,
     trainingAssignmentDetail: (trainingId: string) =>
-      generatePath(`${x}/people/assignments/${trainingId}`),
-    newTrainingAssignment: `${x}/people/assignments/new`,
+      generatePath(`${x}/resources/assignments/${trainingId}`),
+    newTrainingAssignment: `${x}/resources/assignments/new`,
     trainingAssignment: (assignmentId: string) =>
-      generatePath(`${x}/people/assignments/assignment/${assignmentId}`),
+      generatePath(`${x}/resources/assignments/assignment/${assignmentId}`),
     deleteTrainingAssignment: (assignmentId: string) =>
-      generatePath(`${x}/people/assignments/assignment/${assignmentId}/delete`),
+      generatePath(
+        `${x}/resources/assignments/assignment/${assignmentId}/delete`
+      ),
 
     quote: (id: string) => generatePath(`${x}/quote/${id}`),
     quoteAssembly: (quoteId: string, lineId: string, assemblyId: string) =>

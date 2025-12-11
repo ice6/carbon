@@ -3,12 +3,12 @@ import { requirePermissions } from "@carbon/auth/auth.server";
 import { flash } from "@carbon/auth/session.server";
 import type { ActionFunctionArgs } from "@vercel/remix";
 import { json, redirect } from "@vercel/remix";
-import { deleteTraining } from "~/modules/people";
+import { deleteTraining } from "~/modules/resources";
 import { path } from "~/utils/path";
 
 export async function action({ request, params }: ActionFunctionArgs) {
   const { client } = await requirePermissions(request, {
-    delete: "people",
+    delete: "resources",
   });
 
   const { id } = params;
