@@ -385,7 +385,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
       columnType: "", // Jobs don't have a specific process type
       priority: job.priority ?? 0,
       title: job.jobId,
-      link: path.to.job(job.id),
+      link: path.to.jobMethod(job.id, job.jobMakeMethodId),
       subtitle: job.itemReadableId ?? "",
       assignee: job.assignee,
       tags: job.tags,
@@ -394,6 +394,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
       completedDate: job.completedDate,
       duration: 0, // Jobs don't have duration, only operations do
       jobId: job.id,
+      jobMakeMethodId: job.jobMakeMethodId,
       jobReadableId: job.jobId,
       itemReadableId: job.itemReadableId ?? "",
       itemDescription: job.itemDescription,
@@ -422,7 +423,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
     columnType: "",
     priority: job.priority ?? 0,
     title: job.jobId,
-    link: path.to.job(job.id),
+    link: path.to.jobMethod(job.id, job.jobMakeMethodId),
     subtitle: job.itemReadableId ?? "",
     assignee: job.assignee,
     tags: job.tags,
@@ -432,6 +433,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
     duration: 0,
     jobId: job.id,
     jobReadableId: job.jobId,
+    jobMakeMethodId: job.jobMakeMethodId,
     itemReadableId: job.itemReadableId ?? "",
     itemDescription: job.itemDescription,
     progress: job.completedOperationCount / Math.max(job.operationCount, 1),

@@ -187,7 +187,10 @@ export function JobCard({ item, isOverlay, progressByItemId }: JobCardProps) {
             )}
             <HStack spacing={1} className="items-center">
               <Link
-                to={item.link ?? path.to.job(item.jobId)}
+                to={
+                  item.link ??
+                  path.to.jobMethod(item.jobId, item.jobMakeMethodId)
+                }
                 className="mr-auto font-semibold line-clamp-2 leading-tight"
               >
                 {item.jobReadableId}

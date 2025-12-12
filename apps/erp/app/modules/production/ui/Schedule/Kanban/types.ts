@@ -83,7 +83,8 @@ const operationItemValidator = baseItemValidator.extend({
 const jobItemValidator = baseItemValidator.extend({
   status: z.enum(jobStatus).optional(),
   completedDate: z.string().optional(),
-  hasConflict: z.boolean().optional()
+  hasConflict: z.boolean().optional(),
+  jobMakeMethodId: z.string()
 });
 
 export type OperationItem = z.infer<typeof operationItemValidator>;
