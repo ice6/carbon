@@ -1,9 +1,8 @@
-import type { Color } from "@carbon/utils";
-import { getColor, getColorByValue } from "@carbon/utils";
-
 import type { BadgeProps } from "@carbon/react";
 import { Badge } from "@carbon/react";
 import { useMode } from "@carbon/remix";
+import type { Color } from "@carbon/utils";
+import { getColor, getColorByValue } from "@carbon/utils";
 
 type EnumerableProps = BadgeProps & {
   value: string | null;

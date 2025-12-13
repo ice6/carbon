@@ -7,7 +7,7 @@ import type {
   ClientActionFunctionArgs,
   LoaderFunctionArgs
 } from "react-router";
-import { redirect, useNavigate } from "react-router";
+import { data, redirect, useNavigate } from "react-router";
 import { procedureValidator } from "~/modules/production/production.models";
 import { upsertProcedure } from "~/modules/production/production.service";
 import ProcedureForm from "~/modules/production/ui/Procedures/ProcedureForm";
@@ -35,7 +35,7 @@ export async function action({ request }: ActionFunctionArgs) {
   }
 
   // biome-ignore lint/correctness/noUnusedVariables: suppressed due to migration
-  const { id, content, ...data } = validation.data;
+  const { id, content, ...d } = validation.data;
 
   let contentJSON;
   try {
@@ -55,7 +55,7 @@ export async function action({ request }: ActionFunctionArgs) {
   }
 
   const insertProcedure = await upsertProcedure(client, {
-    ...data,
+    ...d,
     content: contentJSON,
     companyId,
     createdBy: userId

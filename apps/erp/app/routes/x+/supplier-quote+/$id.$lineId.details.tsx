@@ -92,11 +92,11 @@ export async function action({ request, params }: ActionFunctionArgs) {
     return validationError(validation.error);
   }
 
-  const { id: _id, ...data } = validation.data;
+  const { id: _id, ...d } = validation.data;
 
   const updateSupplierQuoteLine = await upsertSupplierQuoteLine(client, {
     id: lineId,
-    ...data,
+    ...d,
     updatedBy: userId,
     customFields: setCustomFields(formData)
   });

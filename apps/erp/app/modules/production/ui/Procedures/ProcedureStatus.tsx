@@ -1,6 +1,6 @@
 import { Status } from "@carbon/react";
-import type { procedureStatus } from "../../production.models";
 import { LuLock } from "react-icons/lu";
+import type { procedureStatus } from "../../production.models";
 
 type ProcedureStatusProps = {
   status?: (typeof procedureStatus)[number] | null;

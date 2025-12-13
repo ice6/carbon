@@ -1,11 +1,10 @@
 import type { Database, Json } from "@carbon/database";
 import { redis } from "@carbon/kv";
 import { updateSubscriptionQuantityForCompany } from "@carbon/stripe/stripe.server";
-import type { SupabaseClient } from "@supabase/supabase-js";
-import { getCarbonServiceRole } from "../lib/supabase";
-
 import { Edition } from "@carbon/utils";
+import type { SupabaseClient } from "@supabase/supabase-js";
 import { CarbonEdition } from "../config/env";
+import { getCarbonServiceRole } from "../lib/supabase";
 import type { Permission, Result } from "../types";
 import { error, success } from "../utils/result";
 import {

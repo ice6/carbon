@@ -19,9 +19,8 @@ import {
   VStack
 } from "@carbon/react";
 import { useState } from "react";
-import type { TrackedEntity } from "~/services/types";
-
 import { LuCheck, LuList, LuQrCode, LuX } from "react-icons/lu";
+import type { TrackedEntity } from "~/services/types";
 
 export function SerialSelectorModal({
   availableEntities,

@@ -84,13 +84,13 @@ export async function action({ request, params }: ActionFunctionArgs) {
     return validationError(validation.error);
   }
 
-  const { purchaseOrderId, ...data } = validation.data;
+  const { purchaseOrderId, ...d } = validation.data;
   if (!purchaseOrderId) throw new Error("Could not find purchaseOrderId");
 
   const updatePurchaseOrder = await upsertPurchaseOrder(client, {
     id: orderId,
     purchaseOrderId,
-    ...data,
+    ...d,
     updatedBy: userId,
     customFields: setCustomFields(formData)
   });

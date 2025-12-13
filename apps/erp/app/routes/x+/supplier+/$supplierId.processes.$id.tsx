@@ -37,12 +37,12 @@ export async function action({ request, params }: ActionFunctionArgs) {
     return validationError(validation.error);
   }
 
-  const { id, ...data } = validation.data;
+  const { id, ...d } = validation.data;
   if (!id) throw new Error("Could not find id");
 
   const createSupplierProcess = await upsertSupplierProcess(client, {
     id,
-    ...data,
+    ...d,
     updatedBy: userId,
     customFields: setCustomFields(formData)
   });

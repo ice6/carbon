@@ -2,8 +2,8 @@ import type { Database } from "@carbon/database";
 import type {
   getAccount,
   getAccountCategories,
-  getAccountsList,
   getAccountSubcategories,
+  getAccountsList,
   getCurrencies,
   getInventoryPostingGroups,
   getPaymentTerms,

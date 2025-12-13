@@ -3,7 +3,7 @@ import { requirePermissions } from "@carbon/auth/auth.server";
 import { flash } from "@carbon/auth/session.server";
 import { validationError, validator } from "@carbon/form";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "react-router";
-import { redirect, useNavigate } from "react-router";
+import { data, redirect, useNavigate } from "react-router";
 import {
   TrainingForm,
   trainingValidator,
@@ -32,7 +32,7 @@ export async function action({ request }: ActionFunctionArgs) {
   }
 
   // biome-ignore lint/correctness/noUnusedVariables: suppressed due to migration
-  const { id, content, ...data } = validation.data;
+  const { id, content, ...d } = validation.data;
 
   let contentJSON;
   try {
@@ -52,7 +52,7 @@ export async function action({ request }: ActionFunctionArgs) {
   }
 
   const insertTraining = await upsertTraining(client, {
-    ...data,
+    ...d,
     content: contentJSON,
     companyId,
     createdBy: userId

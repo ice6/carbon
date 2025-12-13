@@ -73,12 +73,12 @@ export async function action({ request }: ActionFunctionArgs) {
   }
 
   if (!jobId) throw new Error("jobId is not defined");
-  const { id: _id, ...data } = validation.data;
+  const { id: _id, ...d } = validation.data;
 
   let configuration = undefined;
-  if (data.configuration) {
+  if (d.configuration) {
     try {
-      configuration = JSON.parse(data.configuration);
+      configuration = JSON.parse(d.configuration);
     } catch (error) {
       console.error(error);
     }
@@ -93,20 +93,20 @@ export async function action({ request }: ActionFunctionArgs) {
 
   // Calculate priority based on due date and deadline type
   const priority = await calculateJobPriority(client, {
-    dueDate: data.dueDate ?? null,
-    deadlineType: data.deadlineType,
+    dueDate: d.dueDate ?? null,
+    deadlineType: d.deadlineType,
     companyId,
     locationId: validation.data.locationId
   });
 
   const createJob = await upsertJob(client, {
-    ...data,
+    ...d,
     jobId,
     configuration,
     priority,
     shelfId: shelfId ?? undefined,
-    startDate: data.dueDate
-      ? parseDate(data.dueDate).subtract({ days: leadTime }).toString()
+    startDate: d.dueDate
+      ? parseDate(d.dueDate).subtract({ days: leadTime }).toString()
       : undefined,
     companyId,
     createdBy: userId,
@@ -125,7 +125,7 @@ export async function action({ request }: ActionFunctionArgs) {
     getCarbonServiceRole(),
     "itemToJob",
     {
-      sourceId: data.itemId,
+      sourceId: d.itemId,
       targetId: id,
       companyId,
       userId,

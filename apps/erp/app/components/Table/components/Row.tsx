@@ -1,6 +1,6 @@
-import { Tr, cn } from "@carbon/react";
+import { cn, Tr } from "@carbon/react";
 import type { Column, Row as RowType } from "@tanstack/react-table";
-import type { CSSProperties, ComponentProps } from "react";
+import type { ComponentProps, CSSProperties } from "react";
 import { memo } from "react";
 import type {
   EditableTableCellComponent,

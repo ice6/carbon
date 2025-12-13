@@ -13,8 +13,8 @@ import type {
   getSupplierQuoteLinePricesByQuoteId,
   getSupplierQuoteLines,
   getSupplierQuotes,
-  getSuppliers,
   getSupplierStatuses,
+  getSuppliers,
   getSupplierTypes
 } from "./purchasing.service";
 

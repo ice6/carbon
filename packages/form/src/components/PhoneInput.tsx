@@ -7,14 +7,14 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
+  cn,
   FormControl,
   FormErrorMessage,
   FormLabel,
   Input,
   Popover,
   PopoverContent,
-  PopoverTrigger,
-  cn
+  PopoverTrigger
 } from "@carbon/react";
 import type {
   ElementRef,

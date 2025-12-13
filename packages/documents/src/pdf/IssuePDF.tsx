@@ -1,8 +1,7 @@
 import type { Database } from "@carbon/database";
+import type { JSONContent } from "@carbon/react";
 import { Text, View } from "@react-pdf/renderer";
 import { createTw } from "react-pdf-tailwind";
-
-import type { JSONContent } from "@carbon/react";
 import type { PDF } from "../types";
 import { Footer, Header, Note, Summary, Template } from "./components";
 

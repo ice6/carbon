@@ -27,9 +27,8 @@ export const integrations = [
   Zapier
 ];
 
-export { Onshape, Logo as OnshapeLogo } from "./onshape/config";
-export { Slack } from "./slack/config";
-export * from "./slack/lib/messages";
-
+export { Logo as OnshapeLogo, Onshape } from "./onshape/config";
 // TODO: export as @carbon/ee/paperless
 export { PaperlessPartsClient } from "./paperless-parts/lib/client";
+export { Slack } from "./slack/config";
+export * from "./slack/lib/messages";

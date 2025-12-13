@@ -68,13 +68,13 @@ export async function action({ request, params }: ActionFunctionArgs) {
     return validationError(validation.error);
   }
 
-  const { quoteId, ...data } = validation.data;
+  const { quoteId, ...d } = validation.data;
   if (!quoteId) throw new Error("Could not find quoteId");
 
   const update = await upsertQuote(client, {
     id,
     quoteId,
-    ...data,
+    ...d,
     customFields: setCustomFields(formData),
     updatedBy: userId
   });

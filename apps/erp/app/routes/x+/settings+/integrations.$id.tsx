@@ -61,13 +61,13 @@ export async function action({ request, params }: ActionFunctionArgs) {
   }
 
   // biome-ignore lint/correctness/noUnusedVariables: suppressed due to migration
-  const { active, ...data } = validation.data;
+  const { active, ...d } = validation.data;
 
   const update = await upsertCompanyIntegration(client, {
     id: integrationId,
     active: true,
     metadata: {
-      ...data
+      ...d
     },
     companyId,
     updatedBy: userId

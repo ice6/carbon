@@ -2,9 +2,8 @@ import type { Database } from "@carbon/database";
 import { isBrowser } from "@carbon/utils";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { createClient } from "@supabase/supabase-js";
-import type { StoreApi } from "zustand";
-
 import type { MutableRefObject } from "react";
+import type { StoreApi } from "zustand";
 import {
   SUPABASE_ANON_KEY,
   SUPABASE_SERVICE_ROLE_KEY,

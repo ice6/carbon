@@ -65,13 +65,13 @@ export async function action({ request, params }: ActionFunctionArgs) {
     return validationError(validation.error);
   }
 
-  const { supplierQuoteId, ...data } = validation.data;
+  const { supplierQuoteId, ...d } = validation.data;
   if (!supplierQuoteId) throw new Error("Could not find supplierQuoteId");
 
   const update = await upsertSupplierQuote(client, {
     id,
     supplierQuoteId,
-    ...data,
+    ...d,
     customFields: setCustomFields(formData),
     updatedBy: userId
   });

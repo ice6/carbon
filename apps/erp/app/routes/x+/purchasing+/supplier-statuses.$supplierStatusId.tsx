@@ -3,7 +3,7 @@ import { requirePermissions } from "@carbon/auth/auth.server";
 import { flash } from "@carbon/auth/session.server";
 import { validationError, validator } from "@carbon/form";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "react-router";
-import { redirect, useLoaderData, useNavigate } from "react-router";
+import { data, redirect, useLoaderData, useNavigate } from "react-router";
 import {
   getSupplierStatus,
   supplierStatusValidator,
@@ -54,12 +54,12 @@ export async function action({ request }: ActionFunctionArgs) {
     return validationError(validation.error);
   }
 
-  const { id, ...data } = validation.data;
+  const { id, ...d } = validation.data;
   if (!id) throw new Error("id not found");
 
   const updateSupplierStatus = await upsertSupplierStatus(client, {
     id,
-    ...data,
+    ...d,
     updatedBy: userId,
     customFields: setCustomFields(formData)
   });

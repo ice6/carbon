@@ -26,11 +26,11 @@ export async function action({ request, params }: ActionFunctionArgs) {
     };
   }
 
-  const { listOptions, ...data } = validation.data;
+  const { listOptions, ...d } = validation.data;
 
   const upsert = await upsertBatchProperty(client, {
-    ...data,
-    listOptions: data.dataType === "list" ? listOptions : undefined,
+    ...d,
+    listOptions: d.dataType === "list" ? listOptions : undefined,
     companyId,
     userId
   });

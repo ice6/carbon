@@ -1,5 +1,5 @@
 import { getCarbonServiceRole } from "@carbon/auth";
-import axios, { isAxiosError, type AxiosInstance } from "axios";
+import axios, { type AxiosInstance, isAxiosError } from "axios";
 import type z from "zod";
 import type { LinearIssueSchema } from "./service";
 import { getLinearIntegration } from "./service";

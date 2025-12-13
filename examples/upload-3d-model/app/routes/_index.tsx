@@ -4,15 +4,13 @@ import {
   Input,
   InputGroup,
   InputLeftAddon,
-  toast,
-  TooltipProvider
+  TooltipProvider,
+  toast
 } from "@carbon/react";
 import { useEffect, useState } from "react";
-import { data, useFetcher } from "react-router";
-
-import { ModelUpload } from "~/components/ModelUpload";
-
 import type { ActionFunctionArgs } from "react-router";
+import { data, useFetcher } from "react-router";
+import { ModelUpload } from "~/components/ModelUpload";
 import { carbon } from "~/lib/carbon.server";
 
 export async function action({ request }: ActionFunctionArgs) {

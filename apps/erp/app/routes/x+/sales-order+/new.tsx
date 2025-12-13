@@ -32,8 +32,8 @@ export async function action({ request }: ActionFunctionArgs) {
   }
 
   // biome-ignore lint/correctness/noUnusedVariables: suppressed due to migration
-  const { id, ...data } = validation.data;
-  let salesOrderId = data.salesOrderId;
+  const { id, ...d } = validation.data;
+  let salesOrderId = d.salesOrderId;
   const useNextSequence = !salesOrderId;
 
   if (useNextSequence) {
@@ -53,7 +53,7 @@ export async function action({ request }: ActionFunctionArgs) {
   if (!salesOrderId) throw new Error("salesOrderId is not defined");
 
   const createSalesOrder = await upsertSalesOrder(client, {
-    ...data,
+    ...d,
     salesOrderId,
     companyId,
     createdBy: userId,

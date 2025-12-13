@@ -1,9 +1,8 @@
 import type { ComponentPropsWithoutRef, ElementRef } from "react";
 import { forwardRef } from "react";
-import { useFormControlContext } from "./FormControl";
-
 import { LuSquareFunction } from "react-icons/lu";
 import { cn } from "../utils/cn";
+import { useFormControlContext } from "./FormControl";
 
 export const FormLabel = forwardRef<
   ElementRef<"label">,

@@ -1,7 +1,6 @@
+import { forwardRef } from "react";
 import * as ReactAria from "react-aria-components";
 import { Input, type InputProps } from "./Input";
-
-import { forwardRef } from "react";
 import { cn } from "./utils/cn";
 
 export type NumberFieldProps = ReactAria.NumberFieldProps;

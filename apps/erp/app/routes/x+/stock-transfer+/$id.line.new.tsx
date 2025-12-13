@@ -4,7 +4,7 @@ import { flash } from "@carbon/auth/session.server";
 import { validationError, validator } from "@carbon/form";
 import { useRouteData } from "@carbon/remix";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "react-router";
-import { redirect, useNavigate, useParams } from "react-router";
+import { data, redirect, useNavigate, useParams } from "react-router";
 import {
   stockTransferLineValidator,
   upsertStockTransferLine
@@ -42,10 +42,10 @@ export async function action({ request, params }: ActionFunctionArgs) {
   }
 
   // biome-ignore lint/correctness/noUnusedVariables: suppressed due to migration
-  const { id: lineId, ...data } = validation.data;
+  const { id: lineId, ...d } = validation.data;
 
   const insertStockTransferLine = await upsertStockTransferLine(client, {
-    ...data,
+    ...d,
     companyId,
     createdBy: userId
   });

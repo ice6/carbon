@@ -3,7 +3,7 @@ import { requirePermissions } from "@carbon/auth/auth.server";
 import { flash } from "@carbon/auth/session.server";
 import { validationError, validator } from "@carbon/form";
 import type { ActionFunctionArgs } from "react-router";
-import { redirect, useNavigate, useParams } from "react-router";
+import { data, redirect, useNavigate, useParams } from "react-router";
 import {
   accountSubcategoryValidator,
   upsertAccountSubcategory
@@ -29,10 +29,10 @@ export async function action({ request }: ActionFunctionArgs) {
   }
 
   // biome-ignore lint/correctness/noUnusedVariables: suppressed due to migration
-  const { id, ...data } = validation.data;
+  const { id, ...d } = validation.data;
 
   const createSubcategory = await upsertAccountSubcategory(client, {
-    ...data,
+    ...d,
     customFields: setCustomFields(formData),
     createdBy: userId
   });

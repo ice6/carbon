@@ -66,17 +66,17 @@ export async function action({ request }: ActionFunctionArgs) {
     return validationError(validation.error);
   }
 
-  const { id, ...data } = validation.data;
+  const { id, ...d } = validation.data;
   if (!id) throw new Error("Could not find id");
 
   const inspectionStatus =
-    data.requiresAction || data.requiresAdjustment || data.requiresRepair
+    d.requiresAction || d.requiresAdjustment || d.requiresRepair
       ? "Fail"
       : "Pass";
 
   const updateGauge = await upsertGaugeCalibrationRecord(client, {
     id,
-    ...data,
+    ...d,
     inspectionStatus,
     companyId,
     updatedBy: userId,

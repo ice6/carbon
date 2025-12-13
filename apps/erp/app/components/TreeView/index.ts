@@ -1,4 +1,4 @@
-import type { NodesState, NodeState } from "./reducer";
+import type { NodeState, NodesState } from "./reducer";
 import type {
   FlatTree,
   FlatTreeItem,

@@ -1,9 +1,4 @@
-import Bolt from "@slack/bolt";
-import { InstallProvider } from "@slack/oauth";
-import { WebClient } from "@slack/web-api";
 import { createHmac } from "node:crypto";
-import { z } from "zod/v3";
-
 import {
   SLACK_CLIENT_ID,
   SLACK_CLIENT_SECRET,
@@ -11,6 +6,10 @@ import {
   SLACK_SIGNING_SECRET,
   SLACK_STATE_SECRET
 } from "@carbon/auth";
+import Bolt from "@slack/bolt";
+import { InstallProvider } from "@slack/oauth";
+import { WebClient } from "@slack/web-api";
+import { z } from "zod/v3";
 
 const { App } = Bolt;
 

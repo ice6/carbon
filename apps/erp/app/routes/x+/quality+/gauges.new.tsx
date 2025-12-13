@@ -61,18 +61,18 @@ export async function action({ request }: ActionFunctionArgs) {
   }
 
   if (!gaugeId) throw new Error("gaugeId is not defined");
-  const { id: _id, ...data } = validation.data;
+  const { id: _id, ...d } = validation.data;
 
-  const gaugeCalibrationStatus = data.nextCalibrationDate
-    ? parseDate(data.nextCalibrationDate) < today(getLocalTimeZone())
+  const gaugeCalibrationStatus = d.nextCalibrationDate
+    ? parseDate(d.nextCalibrationDate) < today(getLocalTimeZone())
       ? "Out-of-Calibration"
-      : data.lastCalibrationDate
+      : d.lastCalibrationDate
         ? "In-Calibration"
         : "Pending"
     : "Pending";
 
   const createGauge = await upsertGauge(client, {
-    ...data,
+    ...d,
     gaugeId,
     gaugeCalibrationStatus,
     companyId,

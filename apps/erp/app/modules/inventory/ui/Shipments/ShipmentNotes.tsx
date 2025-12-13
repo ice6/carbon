@@ -7,12 +7,12 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
+  generateHTML,
   HStack,
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
-  generateHTML,
   toast,
   useDebounce
 } from "@carbon/react";

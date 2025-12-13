@@ -1,4 +1,8 @@
 import type {
+  trainingAssignmentStatusOptions,
+  trainingFrequency
+} from "./resources.models";
+import type {
   getAbilities,
   getAbility,
   getContractors,
@@ -12,10 +16,6 @@ import type {
   getTrainings,
   getWorkCenters
 } from "./resources.service";
-import type {
-  trainingAssignmentStatusOptions,
-  trainingFrequency
-} from "./resources.models";
 
 export type Ability = NonNullable<
   Awaited<ReturnType<typeof getAbility>>["data"]

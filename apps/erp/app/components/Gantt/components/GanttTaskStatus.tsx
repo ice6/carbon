@@ -1,4 +1,4 @@
-import { Spinner, cn } from "@carbon/react";
+import { cn, Spinner } from "@carbon/react";
 import assertNever from "assert-never";
 import {
   LuBan,

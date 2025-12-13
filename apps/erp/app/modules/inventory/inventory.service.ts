@@ -1,4 +1,4 @@
-import { fetchAllFromTable, type Database, type Json } from "@carbon/database";
+import { type Database, fetchAllFromTable, type Json } from "@carbon/database";
 import { getLocalTimeZone, today } from "@internationalized/date";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { nanoid } from "nanoid";

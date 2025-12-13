@@ -1,5 +1,5 @@
-import type { PublicAttributes } from "~/modules/account";
 import { DetailSidebar } from "~/components/Layout";
+import type { PublicAttributes } from "~/modules/account";
 import { usePersonSidebar } from "./usePersonSidebar";
 
 type PersonSidebarProps = {

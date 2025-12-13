@@ -13,7 +13,7 @@ import {
   useSensor,
   useSensors
 } from "@dnd-kit/core";
-import { SortableContext, arrayMove } from "@dnd-kit/sortable";
+import { arrayMove, SortableContext } from "@dnd-kit/sortable";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { BoardContainer, ColumnCard } from "./components/ColumnCard";

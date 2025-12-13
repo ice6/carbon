@@ -61,13 +61,13 @@ export async function action({ request, params }: ActionFunctionArgs) {
     return validationError(validation.error);
   }
 
-  const { rfqId, ...data } = validation.data;
+  const { rfqId, ...d } = validation.data;
   if (!rfqId) throw new Error("Could not find rfqId");
 
   const update = await upsertSalesRFQ(client, {
     id,
     rfqId,
-    ...data,
+    ...d,
     customFields: setCustomFields(formData),
     updatedBy: userId
   });

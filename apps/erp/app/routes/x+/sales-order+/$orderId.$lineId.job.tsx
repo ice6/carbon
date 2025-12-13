@@ -69,7 +69,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   }
 
   if (!jobId) throw new Error("jobId is not defined");
-  const { id: _id, ...data } = validation.data;
+  const { id: _id, ...d } = validation.data;
 
   const shelfId = await getDefaultShelfForJob(
     serviceRole,
@@ -79,11 +79,11 @@ export async function action({ request, params }: ActionFunctionArgs) {
   );
 
   const createJob = await upsertJob(serviceRole, {
-    ...data,
+    ...d,
     jobId,
     shelfId: shelfId ?? undefined,
-    startDate: data.dueDate
-      ? parseDate(data.dueDate).subtract({ days: leadTime }).toString()
+    startDate: d.dueDate
+      ? parseDate(d.dueDate).subtract({ days: leadTime }).toString()
       : undefined,
     companyId,
     createdBy: userId,
@@ -101,7 +101,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
   if (validation.data.quoteId && validation.data.quoteLineId) {
     const upsertMethod = await upsertJobMethod(serviceRole, "quoteLineToJob", {
-      sourceId: `${data.quoteId}:${data.quoteLineId}`,
+      sourceId: `${d.quoteId}:${d.quoteLineId}`,
       targetId: id,
       companyId,
       userId
@@ -119,7 +119,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     }
   } else {
     const upsertMethod = await upsertJobMethod(serviceRole, "itemToJob", {
-      sourceId: data.itemId,
+      sourceId: d.itemId,
       targetId: id,
       companyId,
       userId

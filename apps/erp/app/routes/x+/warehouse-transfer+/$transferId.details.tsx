@@ -3,7 +3,7 @@ import { requirePermissions } from "@carbon/auth/auth.server";
 import { flash } from "@carbon/auth/session.server";
 import { validationError, validator } from "@carbon/form";
 import type { ActionFunctionArgs } from "react-router";
-import { redirect, useParams } from "react-router";
+import { data, redirect, useParams } from "react-router";
 import { useRouteData } from "~/hooks";
 import type {
   WarehouseTransfer,
@@ -35,14 +35,14 @@ export async function action({ request }: ActionFunctionArgs) {
     return validationError(validation.error);
   }
 
-  const { id, transferId, ...data } = validation.data;
+  const { id, transferId, ...d } = validation.data;
   if (!id) throw new Error("id not found");
   if (!transferId) throw new Error("transferId not found");
 
   const updateTransfer = await upsertWarehouseTransfer(client, {
     id,
     transferId,
-    ...data,
+    ...d,
     updatedBy: userId,
     customFields: setCustomFields(formData)
   });

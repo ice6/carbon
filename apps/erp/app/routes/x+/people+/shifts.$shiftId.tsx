@@ -44,12 +44,12 @@ export async function action({ request }: ActionFunctionArgs) {
     return validationError(validation.error);
   }
 
-  const { id, ...data } = validation.data;
+  const { id, ...d } = validation.data;
   if (!id) throw new Error("Shift ID is required");
 
   const createShift = await upsertShift(client, {
     id,
-    ...data,
+    ...d,
     updatedBy: userId,
     customFields: setCustomFields(formData)
   });

@@ -1,4 +1,4 @@
-import { fetchAllFromTable, type Database, type Json } from "@carbon/database";
+import { type Database, fetchAllFromTable, type Json } from "@carbon/database";
 import { getPurchaseOrderStatus } from "@carbon/utils";
 import { getLocalTimeZone, today } from "@internationalized/date";
 import {
@@ -12,8 +12,8 @@ import type { GenericQueryFilters } from "~/utils/query";
 import { setGenericQueryFilters } from "~/utils/query";
 import { sanitize } from "~/utils/supabase";
 import { getCurrencyByCode } from "../accounting/accounting.service";
-import { upsertExternalLink } from "../shared/shared.service";
 import type { PurchaseInvoice } from "../invoicing/types";
+import { upsertExternalLink } from "../shared/shared.service";
 import type {
   purchaseOrderDeliveryValidator,
   purchaseOrderLineValidator,

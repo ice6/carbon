@@ -4,8 +4,8 @@ import TextStyle from "@tiptap/extension-text-style";
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import type { ComponentProps } from "react";
-import { VStack } from "../VStack";
 import { cn } from "../utils/cn";
+import { VStack } from "../VStack";
 import { Toolbar } from "./Toolbar";
 
 export const useRichText = (content: string) => {

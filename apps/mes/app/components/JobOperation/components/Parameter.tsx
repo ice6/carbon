@@ -1,7 +1,6 @@
 import { cn, HStack } from "@carbon/react";
-import type { JobOperationParameter } from "~/services/types";
-
 import { LuActivity } from "react-icons/lu";
+import type { JobOperationParameter } from "~/services/types";
 
 export function ParametersListItem({
   parameter,

@@ -6,10 +6,9 @@ import {
 } from "@carbon/remix";
 
 import { useCurrencyFormatter } from "./useCurrencyFormatter";
+import { useGooglePlaces } from "./useGooglePlaces";
 import { useModules } from "./useModules";
 import { useMovingCellRef } from "./useMovingCellRef";
-
-import { useGooglePlaces } from "./useGooglePlaces";
 import { useNextItemId } from "./useNextItemId";
 import { useNotifications } from "./useNotifications";
 import { useOnboarding } from "./useOnboarding";

@@ -5,8 +5,8 @@ import {
   getLinearIssueFromExternalId,
   LinearClient,
   mapCarbonStatusToLinearStatus,
-  tiptapToMarkdown,
-  type TiptapDocument
+  type TiptapDocument,
+  tiptapToMarkdown
 } from "../../linear/lib";
 import type { NotificationEvent, NotificationService } from "../types";
 

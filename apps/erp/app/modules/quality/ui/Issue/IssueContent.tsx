@@ -6,9 +6,9 @@ import {
   CardHeader,
   CardTitle,
   generateHTML,
+  type JSONContent,
   toast,
-  useDebounce,
-  type JSONContent
+  useDebounce
 } from "@carbon/react";
 import { Editor } from "@carbon/react/Editor";
 import { nanoid } from "nanoid";

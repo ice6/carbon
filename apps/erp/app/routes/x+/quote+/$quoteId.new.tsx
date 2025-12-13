@@ -29,11 +29,11 @@ export async function action({ request, params }: ActionFunctionArgs) {
   }
 
   // biome-ignore lint/correctness/noUnusedVariables: suppressed due to migration
-  const { id, ...data } = validation.data;
+  const { id, ...d } = validation.data;
   let configuration = undefined;
-  if (data.configuration) {
+  if (d.configuration) {
     try {
-      configuration = JSON.parse(data.configuration);
+      configuration = JSON.parse(d.configuration);
     } catch (error) {
       console.error(error);
     }
@@ -41,7 +41,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
   const serviceRole = getCarbonServiceRole();
   const createQuotationLine = await upsertQuoteLine(serviceRole, {
-    ...data,
+    ...d,
     companyId,
     configuration,
     createdBy: userId,
@@ -59,11 +59,11 @@ export async function action({ request, params }: ActionFunctionArgs) {
   }
 
   const quoteLineId = createQuotationLine.data.id;
-  if (data.methodType === "Make") {
+  if (d.methodType === "Make") {
     const upsertMethod = await upsertQuoteLineMethod(serviceRole, {
       quoteId,
       quoteLineId,
-      itemId: data.itemId,
+      itemId: d.itemId,
       configuration,
       companyId,
       userId

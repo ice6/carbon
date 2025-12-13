@@ -1,8 +1,8 @@
-import { EditorProvider } from "@tiptap/react";
 import type { EditorProviderProps, JSONContent } from "@tiptap/react";
+import { EditorProvider } from "@tiptap/react";
 import { Provider } from "jotai";
-import { forwardRef, useRef } from "react";
 import type { FC, ReactNode } from "react";
+import { forwardRef, useRef } from "react";
 import tunnel from "tunnel-rat";
 import { novelStore } from "../utils/store";
 import { EditorCommandTunnelContext } from "./editor-command";

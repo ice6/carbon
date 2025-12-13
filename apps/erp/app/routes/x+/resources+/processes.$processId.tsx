@@ -54,12 +54,12 @@ export async function action({ request }: ActionFunctionArgs) {
     return validationError(validation.error);
   }
 
-  const { id, ...data } = validation.data;
+  const { id, ...d } = validation.data;
   if (!id) throw notFound("Process ID was not found");
 
   const createProcess = await upsertProcess(client, {
     id,
-    ...data,
+    ...d,
     companyId,
     updatedBy: userId,
     customFields: setCustomFields(formData)

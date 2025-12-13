@@ -1,6 +1,9 @@
+import { getAppUrl, getCarbonServiceRole } from "@carbon/auth";
 import { tool } from "ai";
+import { LuShoppingCart } from "react-icons/lu";
 import { z } from "zod/v3";
 import { getCurrencyByCode } from "~/modules/accounting/accounting.service";
+import { getEmployeeJob } from "~/modules/people/people.service";
 import {
   deletePurchaseOrder,
   getSupplier as getSupplierById,
@@ -8,10 +11,6 @@ import {
   getSupplierShipping,
   insertSupplierInteraction
 } from "~/modules/purchasing/purchasing.service";
-
-import { getAppUrl, getCarbonServiceRole } from "@carbon/auth";
-import { LuShoppingCart } from "react-icons/lu";
-import { getEmployeeJob } from "~/modules/people/people.service";
 import { getNextSequence } from "~/modules/settings";
 import { path } from "~/utils/path";
 import type { ChatContext } from "../agents/shared/context";

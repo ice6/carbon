@@ -100,8 +100,8 @@ export async function action({ request }: ActionFunctionArgs) {
   }
 
   // biome-ignore lint/correctness/noUnusedVariables: suppressed due to migration
-  const { id, ...data } = validation.data;
-  let invoiceId = data.invoiceId;
+  const { id, ...d } = validation.data;
+  let invoiceId = d.invoiceId;
   const useNextSequence = !invoiceId;
 
   if (useNextSequence) {
@@ -125,7 +125,7 @@ export async function action({ request }: ActionFunctionArgs) {
   if (!invoiceId) throw new Error("invoiceId is not defined");
 
   const createSalesInvoice = await upsertSalesInvoice(client, {
-    ...data,
+    ...d,
     invoiceId,
     companyId,
     createdBy: userId,

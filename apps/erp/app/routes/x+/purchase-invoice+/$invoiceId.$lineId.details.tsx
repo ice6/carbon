@@ -67,27 +67,27 @@ export async function action({ request, params }: ActionFunctionArgs) {
   }
 
   // biome-ignore lint/correctness/noUnusedVariables: suppressed due to migration
-  const { id, ...data } = validation.data;
+  const { id, ...d } = validation.data;
 
-  // if (data.invoiceLineType === "G/L Account") {
-  //   data.assetId = undefined;
-  //   data.itemId = undefined;
-  // } else if (data.invoiceLineType === "Fixed Asset") {
-  //   data.accountNumber = undefined;
-  //   data.itemId = undefined;
+  // if (d.invoiceLineType === "G/L Account") {
+  //   d.assetId = undefined;
+  //   d.itemId = undefined;
+  // } else if (d.invoiceLineType === "Fixed Asset") {
+  //   d.accountNumber = undefined;
+  //   d.itemId = undefined;
   // } else
-  // if (data.invoiceLineType === "Comment") {
-  //   data.accountNumber = undefined;
-  //   data.assetId = undefined;
-  //   data.itemId = undefined;
+  // if (d.invoiceLineType === "Comment") {
+  //   d.accountNumber = undefined;
+  //   d.assetId = undefined;
+  //   d.itemId = undefined;
   // } else {
-  //   data.accountNumber = undefined;
-  //   data.assetId = undefined;
+  //   d.accountNumber = undefined;
+  //   d.assetId = undefined;
   // }
 
   const updatePurchaseInvoiceLine = await upsertPurchaseInvoiceLine(client, {
     id: lineId,
-    ...data,
+    ...d,
     updatedBy: userId,
     customFields: setCustomFields(formData)
   });

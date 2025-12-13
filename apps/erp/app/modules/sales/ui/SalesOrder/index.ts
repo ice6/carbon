@@ -6,8 +6,8 @@ import { SalesOrderLineJobs } from "./SalesOrderLineJobs";
 import SalesOrderPaymentForm from "./SalesOrderPaymentForm";
 import SalesOrderProperties from "./SalesOrderProperties";
 import SalesOrderShipmentForm from "./SalesOrderShipmentForm";
-import SalesOrdersTable from "./SalesOrdersTable";
 import SalesOrderSummary from "./SalesOrderSummary";
+import SalesOrdersTable from "./SalesOrdersTable";
 import SalesStatus from "./SalesStatus";
 import { useSalesOrderTotals } from "./useSalesOrderTotals";
 

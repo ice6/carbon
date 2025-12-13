@@ -3,7 +3,13 @@ import { requirePermissions } from "@carbon/auth/auth.server";
 import { flash } from "@carbon/auth/session.server";
 import { validationError, validator } from "@carbon/form";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "react-router";
-import { redirect, useLoaderData, useNavigate, useParams } from "react-router";
+import {
+  data,
+  redirect,
+  useLoaderData,
+  useNavigate,
+  useParams
+} from "react-router";
 import { useRouteData } from "~/hooks";
 import type { AttributeDataType } from "~/modules/people";
 import {
@@ -56,12 +62,12 @@ export async function action({ request, params }: ActionFunctionArgs) {
     return validationError(validation.error);
   }
 
-  const { id, ...data } = validation.data;
+  const { id, ...d } = validation.data;
   if (!id) throw new Error("id is not found");
 
   const update = await upsertCustomField(client, {
     id,
-    ...data,
+    ...d,
     updatedBy: userId
   });
   if (update.error) {

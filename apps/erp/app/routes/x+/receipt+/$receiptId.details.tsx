@@ -9,7 +9,7 @@ import { flash } from "@carbon/auth/session.server";
 import { validationError, validator } from "@carbon/form";
 import type { JSONContent } from "@carbon/react";
 import type { ActionFunctionArgs } from "react-router";
-import { redirect, useParams } from "react-router";
+import { data, redirect, useParams } from "react-router";
 import { useRouteData } from "~/hooks";
 import type { Receipt, ReceiptLine } from "~/modules/inventory";
 import {
@@ -37,7 +37,7 @@ export async function action({ request }: ActionFunctionArgs) {
     return validationError(validation.error);
   }
 
-  const { id, ...data } = validation.data;
+  const { id, ...d } = validation.data;
   if (!id) throw new Error("id not found");
 
   const currentReceipt = await getReceipt(client, id);
@@ -52,13 +52,13 @@ export async function action({ request }: ActionFunctionArgs) {
   }
 
   const receiptDataHasChanged =
-    currentReceipt.data.sourceDocument !== data.sourceDocument ||
-    currentReceipt.data.sourceDocumentId !== data.sourceDocumentId ||
-    currentReceipt.data.locationId !== data.locationId;
+    currentReceipt.data.sourceDocument !== d.sourceDocument ||
+    currentReceipt.data.sourceDocumentId !== d.sourceDocumentId ||
+    currentReceipt.data.locationId !== d.locationId;
 
   if (receiptDataHasChanged) {
     const serviceRole = getCarbonServiceRole();
-    switch (data.sourceDocument) {
+    switch (d.sourceDocument) {
       case "Purchase Order":
         const purchaseOrderReceipt = await serviceRole.functions.invoke<{
           id: string;
@@ -66,8 +66,8 @@ export async function action({ request }: ActionFunctionArgs) {
           body: {
             type: "receiptFromPurchaseOrder",
             companyId,
-            locationId: data.locationId,
-            purchaseOrderId: data.sourceDocumentId,
+            locationId: d.locationId,
+            purchaseOrderId: d.sourceDocumentId,
             receiptId: id,
             userId: userId
           }
@@ -90,7 +90,7 @@ export async function action({ request }: ActionFunctionArgs) {
           body: {
             type: "receiptFromInboundTransfer",
             companyId,
-            warehouseTransferId: data.sourceDocumentId,
+            warehouseTransferId: d.sourceDocumentId,
             receiptId: id,
             userId: userId
           }
@@ -112,7 +112,7 @@ export async function action({ request }: ActionFunctionArgs) {
   } else {
     const updateReceipt = await upsertReceipt(client, {
       id,
-      ...data,
+      ...d,
       updatedBy: userId,
       customFields: setCustomFields(formData)
     });

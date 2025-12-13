@@ -1,4 +1,4 @@
-import { Tr, cn } from "@carbon/react";
+import { cn, Tr } from "@carbon/react";
 import type { Row as RowType } from "@tanstack/react-table";
 import type { MutableRefObject } from "react";
 import { memo } from "react";

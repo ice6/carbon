@@ -17,8 +17,8 @@ import type {
   getIssueWorkflow,
   getQualityActions,
   getQualityDocument,
-  getQualityDocuments,
   getQualityDocumentSteps,
+  getQualityDocuments,
   getRequiredActions
 } from "./quality.service";
 

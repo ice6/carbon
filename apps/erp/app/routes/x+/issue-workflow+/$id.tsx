@@ -5,7 +5,13 @@ import { validationError, validator } from "@carbon/form";
 
 import { ScrollArea } from "@carbon/react";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "react-router";
-import { redirect, useLoaderData, useNavigate, useParams } from "react-router";
+import {
+  data,
+  redirect,
+  useLoaderData,
+  useNavigate,
+  useParams
+} from "react-router";
 import {
   getIssueWorkflow,
   getRequiredActionsList,
@@ -65,12 +71,12 @@ export async function action({ request }: ActionFunctionArgs) {
     return validationError(validation.error);
   }
 
-  const { id, ...data } = validation.data;
+  const { id, ...d } = validation.data;
   if (!id) throw new Error("Could not find id");
 
   const updateIssueWorkflow = await upsertIssueWorkflow(client, {
     id,
-    ...data,
+    ...d,
     companyId,
     updatedBy: userId
   });

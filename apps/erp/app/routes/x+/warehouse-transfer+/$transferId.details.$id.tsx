@@ -3,7 +3,13 @@ import { requirePermissions } from "@carbon/auth/auth.server";
 import { flash } from "@carbon/auth/session.server";
 import { validationError, validator } from "@carbon/form";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "react-router";
-import { redirect, useLoaderData, useNavigate, useParams } from "react-router";
+import {
+  data,
+  redirect,
+  useLoaderData,
+  useNavigate,
+  useParams
+} from "react-router";
 import { z } from "zod/v3";
 import { zfd } from "zod-form-data";
 import {
@@ -87,13 +93,13 @@ export async function action({ request, params }: ActionFunctionArgs) {
     return validationError(validation.error);
   }
 
-  const { type, ...data } = validation.data;
+  const { type, ...d } = validation.data;
 
   switch (type) {
     case "update": {
       const result = await upsertWarehouseTransferLine(client, {
         id,
-        ...data,
+        ...d,
         transferId,
         companyId,
         updatedBy: userId

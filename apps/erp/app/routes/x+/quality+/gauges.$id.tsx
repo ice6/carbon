@@ -72,13 +72,13 @@ export async function action({ request, params }: ActionFunctionArgs) {
     return validationError(validation.error);
   }
 
-  const { gaugeId, ...data } = validation.data;
+  const { gaugeId, ...d } = validation.data;
   if (!gaugeId) throw new Error("Could not find gaugeId");
 
-  const gaugeCalibrationStatus = data.nextCalibrationDate
-    ? parseDate(data.nextCalibrationDate) < today(getLocalTimeZone())
+  const gaugeCalibrationStatus = d.nextCalibrationDate
+    ? parseDate(d.nextCalibrationDate) < today(getLocalTimeZone())
       ? "Out-of-Calibration"
-      : data.lastCalibrationDate
+      : d.lastCalibrationDate
         ? "In-Calibration"
         : "Pending"
     : "Pending";
@@ -87,7 +87,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
     id,
     gaugeId,
     gaugeCalibrationStatus,
-    ...data,
+    ...d,
     customFields: setCustomFields(formData),
     updatedBy: userId
   });

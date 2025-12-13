@@ -105,23 +105,23 @@ export async function action({ request, params }: ActionFunctionArgs) {
   }
 
   // biome-ignore lint/correctness/noUnusedVariables: suppressed due to migration
-  const { id, ...data } = validation.data;
+  const { id, ...d } = validation.data;
 
-  if (data.salesOrderLineType === "Comment") {
-    data.accountNumber = undefined;
-    data.assetId = undefined;
-    data.itemId = undefined;
-  } else if (data.salesOrderLineType === "Fixed Asset") {
-    data.accountNumber = undefined;
-    data.itemId = undefined;
+  if (d.salesOrderLineType === "Comment") {
+    d.accountNumber = undefined;
+    d.assetId = undefined;
+    d.itemId = undefined;
+  } else if (d.salesOrderLineType === "Fixed Asset") {
+    d.accountNumber = undefined;
+    d.itemId = undefined;
   } else {
-    data.accountNumber = undefined;
-    data.assetId = undefined;
+    d.accountNumber = undefined;
+    d.assetId = undefined;
   }
 
   const updateSalesOrderLine = await upsertSalesOrderLine(client, {
     id: lineId,
-    ...data,
+    ...d,
     updatedBy: userId,
     customFields: setCustomFields(formData)
   });

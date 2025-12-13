@@ -1,5 +1,6 @@
 import {
   Button,
+  cn,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuIcon,
@@ -15,8 +16,7 @@ import {
   Switch,
   Tooltip,
   TooltipContent,
-  TooltipTrigger,
-  cn
+  TooltipTrigger
 } from "@carbon/react";
 import { Reorder } from "framer-motion";
 import { BsChevronDown, BsSortUp } from "react-icons/bs";

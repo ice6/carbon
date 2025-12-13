@@ -8,8 +8,8 @@ import type {
   getPurchaseInvoiceLines,
   getPurchaseInvoices,
   getSalesInvoiceLines,
-  getSalesInvoices,
-  getSalesInvoiceShipment
+  getSalesInvoiceShipment,
+  getSalesInvoices
 } from "./invoicing.service";
 
 export type PurchaseInvoice = NonNullable<

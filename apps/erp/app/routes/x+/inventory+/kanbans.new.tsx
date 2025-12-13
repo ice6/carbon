@@ -3,7 +3,7 @@ import { requirePermissions } from "@carbon/auth/auth.server";
 import { flash } from "@carbon/auth/session.server";
 import { validationError, validator } from "@carbon/form";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "react-router";
-import { redirect, useNavigate, useSearchParams } from "react-router";
+import { data, redirect, useNavigate, useSearchParams } from "react-router";
 import { useUser } from "~/hooks";
 import { KanbanForm, kanbanValidator, upsertKanban } from "~/modules/inventory";
 import { getParams, path } from "~/utils/path";
@@ -31,10 +31,10 @@ export async function action({ request }: ActionFunctionArgs) {
   }
 
   // biome-ignore lint/correctness/noUnusedVariables: suppressed due to migration
-  const { id, ...data } = validation.data;
+  const { id, ...d } = validation.data;
 
   const createKanban = await upsertKanban(client, {
-    ...data,
+    ...d,
     companyId,
     createdBy: userId
   });

@@ -2,7 +2,7 @@ import { assertIsPost, error, success } from "@carbon/auth";
 import { requirePermissions } from "@carbon/auth/auth.server";
 import { flash } from "@carbon/auth/session.server";
 import { validator } from "@carbon/form";
-import { type ActionFunctionArgs } from "react-router";
+import { type ActionFunctionArgs, data } from "react-router";
 import { upsertJobOperationStep } from "~/modules/production";
 import { operationStepValidator } from "~/modules/shared";
 
@@ -24,13 +24,13 @@ export async function action({ request, params }: ActionFunctionArgs) {
     return { success: false, message: "Invalid form data" };
   }
 
-  const { id: _id, ...data } = validation.data;
+  const { id: _id, ...d } = validation.data;
 
   const update = await upsertJobOperationStep(client, {
     id,
-    ...data,
-    minValue: data.minValue ?? null,
-    maxValue: data.maxValue ?? null,
+    ...d,
+    minValue: d.minValue ?? null,
+    maxValue: d.maxValue ?? null,
     companyId,
     updatedBy: userId,
     updatedAt: new Date().toISOString()

@@ -1,4 +1,4 @@
-import { Badge, HStack, cn } from "@carbon/react";
+import { Badge, cn, HStack } from "@carbon/react";
 import { LuDownload } from "react-icons/lu";
 import { DocumentPreview } from "~/components";
 import DocumentIcon from "~/components/DocumentIcon";

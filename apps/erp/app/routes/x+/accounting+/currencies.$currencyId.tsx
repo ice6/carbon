@@ -7,7 +7,7 @@ import type {
   ClientActionFunctionArgs,
   LoaderFunctionArgs
 } from "react-router";
-import { redirect, useLoaderData } from "react-router";
+import { data, redirect, useLoaderData } from "react-router";
 import {
   currencyValidator,
   getCurrency,
@@ -47,12 +47,12 @@ export async function action({ request }: ActionFunctionArgs) {
     return validationError(validation.error);
   }
 
-  const { id, ...data } = validation.data;
+  const { id, ...d } = validation.data;
   if (!id) throw new Error("id not found");
 
   const updateCurrency = await upsertCurrency(client, {
     id,
-    ...data,
+    ...d,
     companyId,
     customFields: setCustomFields(formData),
     updatedBy: userId

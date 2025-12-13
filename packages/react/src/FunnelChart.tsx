@@ -1,10 +1,10 @@
-import { Fragment, useMemo, useRef, useState } from "react";
+import { curveBasis } from "@visx/curve";
 import { ParentSize } from "@visx/responsive";
 import { scaleLinear } from "@visx/scale";
 import { Area } from "@visx/shape";
 import { Text } from "@visx/text";
-import { curveBasis } from "@visx/curve";
 import { motion } from "framer-motion";
+import { Fragment, useMemo, useRef, useState } from "react";
 import { useIsMobile } from "./hooks";
 import { cn } from "./utils/cn";
 

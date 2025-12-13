@@ -30,10 +30,10 @@ export async function action({ request }: ActionFunctionArgs) {
   }
 
   // biome-ignore lint/correctness/noUnusedVariables: suppressed due to migration
-  const { id, ...data } = validation.data;
+  const { id, ...d } = validation.data;
 
   const createAccountCategory = await upsertAccountCategory(client, {
-    ...data,
+    ...d,
     companyId,
     customFields: setCustomFields(formData),
     createdBy: userId

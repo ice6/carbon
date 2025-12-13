@@ -1,5 +1,5 @@
-import { zfd } from "zod-form-data";
 import { z } from "zod/v3";
+import { zfd } from "zod-form-data";
 
 export const loginValidator = z.object({
   email: z

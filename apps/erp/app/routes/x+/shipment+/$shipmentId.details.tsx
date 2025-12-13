@@ -10,7 +10,7 @@ import { validationError, validator } from "@carbon/form";
 import type { JSONContent } from "@carbon/react";
 import { FunctionRegion } from "@supabase/supabase-js";
 import type { ActionFunctionArgs } from "react-router";
-import { redirect, useParams } from "react-router";
+import { data, redirect, useParams } from "react-router";
 import { useRouteData } from "~/hooks";
 import type { Shipment, ShipmentLine } from "~/modules/inventory";
 import {
@@ -40,7 +40,7 @@ export async function action({ request }: ActionFunctionArgs) {
     return validationError(validation.error);
   }
 
-  const { id, ...data } = validation.data;
+  const { id, ...d } = validation.data;
   if (!id) throw new Error("id not found");
 
   const currentShipment = await getShipment(client, id);
@@ -55,13 +55,13 @@ export async function action({ request }: ActionFunctionArgs) {
   }
 
   const shipmentDataHasChanged =
-    currentShipment.data.sourceDocument !== data.sourceDocument ||
-    currentShipment.data.sourceDocumentId !== data.sourceDocumentId ||
-    currentShipment.data.locationId !== data.locationId;
+    currentShipment.data.sourceDocument !== d.sourceDocument ||
+    currentShipment.data.sourceDocumentId !== d.sourceDocumentId ||
+    currentShipment.data.locationId !== d.locationId;
 
   if (shipmentDataHasChanged) {
     const serviceRole = getCarbonServiceRole();
-    switch (data.sourceDocument) {
+    switch (d.sourceDocument) {
       case "Sales Order":
         const salesOrderShipment = await serviceRole.functions.invoke<{
           id: string;
@@ -69,8 +69,8 @@ export async function action({ request }: ActionFunctionArgs) {
           body: {
             type: "shipmentFromSalesOrder",
             companyId,
-            locationId: data.locationId,
-            salesOrderId: data.sourceDocumentId,
+            locationId: d.locationId,
+            salesOrderId: d.sourceDocumentId,
             shipmentId: id,
             userId: userId
           },
@@ -94,8 +94,8 @@ export async function action({ request }: ActionFunctionArgs) {
           body: {
             type: "shipmentFromPurchaseOrder",
             companyId,
-            locationId: data.locationId,
-            purchaseOrderId: data.sourceDocumentId,
+            locationId: d.locationId,
+            purchaseOrderId: d.sourceDocumentId,
             shipmentId: id,
             userId: userId
           },
@@ -119,7 +119,7 @@ export async function action({ request }: ActionFunctionArgs) {
           body: {
             type: "shipmentFromWarehouseTransfer",
             companyId,
-            warehouseTransferId: data.sourceDocumentId,
+            warehouseTransferId: d.sourceDocumentId,
             shipmentId: id,
             userId: userId
           },
@@ -143,12 +143,12 @@ export async function action({ request }: ActionFunctionArgs) {
         }
         break;
       default:
-        throw new Error(`Unsupported source document: ${data.sourceDocument}`);
+        throw new Error(`Unsupported source document: ${d.sourceDocument}`);
     }
   } else {
     const updateShipment = await upsertShipment(client, {
       id,
-      ...data,
+      ...d,
       updatedBy: userId,
       customFields: setCustomFields(formData)
     });

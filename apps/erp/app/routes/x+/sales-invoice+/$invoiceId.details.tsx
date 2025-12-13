@@ -68,13 +68,13 @@ export async function action({ request, params }: ActionFunctionArgs) {
     return validationError(validation.error);
   }
 
-  const { invoiceId, ...data } = validation.data;
+  const { invoiceId, ...d } = validation.data;
   if (!invoiceId) throw new Error("Could not find invoiceId");
 
   const updateSalesInvoice = await upsertSalesInvoice(client, {
     id,
     invoiceId,
-    ...data,
+    ...d,
     updatedBy: userId,
     customFields: setCustomFields(formData)
   });

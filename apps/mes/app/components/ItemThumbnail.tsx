@@ -1,8 +1,8 @@
-import { cva } from "class-variance-authority";
-import { getPrivateUrl } from "~/utils/path";
 import { cn } from "@carbon/react";
-import { MethodItemTypeIcon } from "./Icons";
+import { cva } from "class-variance-authority";
 import { LuSquareStack } from "react-icons/lu";
+import { getPrivateUrl } from "~/utils/path";
+import { MethodItemTypeIcon } from "./Icons";
 
 interface ItemThumbnailProps {
   thumbnailPath?: string | null;

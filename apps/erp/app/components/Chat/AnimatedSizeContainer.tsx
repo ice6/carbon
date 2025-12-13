@@ -2,8 +2,8 @@ import { cn } from "@carbon/react";
 import { motion } from "framer-motion";
 import {
   type ComponentPropsWithoutRef,
-  type PropsWithChildren,
   forwardRef,
+  type PropsWithChildren,
   useRef
 } from "react";
 import { useResizeObserver } from "~/hooks/useResizeObserver";

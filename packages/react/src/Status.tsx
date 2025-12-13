@@ -1,15 +1,16 @@
 import type { ComponentProps } from "react";
-import { Badge } from "./Badge";
-import { cn } from "./utils/cn";
 import {
-  LuCircleCheck,
   LuCircleAlert,
+  LuCircleCheck,
+  LuCircleDashed,
   LuCircleSlash,
   LuClock,
   LuLoaderCircle,
-  LuStar,
-  LuCircleDashed
+  LuStar
 } from "react-icons/lu";
+import { Badge } from "./Badge";
+import { cn } from "./utils/cn";
+
 type StatusProps = ComponentProps<"div"> & {
   color?: "green" | "orange" | "red" | "yellow" | "blue" | "gray" | "purple";
 };

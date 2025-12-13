@@ -3,7 +3,7 @@ import { requirePermissions } from "@carbon/auth/auth.server";
 import { flash } from "@carbon/auth/session.server";
 import { validationError, validator } from "@carbon/form";
 import type { ActionFunctionArgs } from "react-router";
-import { redirect, useParams } from "react-router";
+import { data, redirect, useParams } from "react-router";
 import { useRouteData } from "~/hooks";
 import type { SupplierDetail } from "~/modules/purchasing";
 import { supplierValidator, upsertSupplier } from "~/modules/purchasing";
@@ -24,7 +24,7 @@ export async function action({ request }: ActionFunctionArgs) {
     return validationError(validation.error);
   }
 
-  const { id, ...data } = validation.data;
+  const { id, ...d } = validation.data;
 
   if (!id) {
     throw redirect(
@@ -35,7 +35,7 @@ export async function action({ request }: ActionFunctionArgs) {
 
   const update = await upsertSupplier(client, {
     id,
-    ...data,
+    ...d,
     updatedBy: userId,
     customFields: setCustomFields(formData)
   });

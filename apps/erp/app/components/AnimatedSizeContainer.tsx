@@ -2,8 +2,8 @@ import { cn } from "@carbon/react";
 import { motion } from "framer-motion";
 import {
   type ComponentPropsWithoutRef,
-  type PropsWithChildren,
-  forwardRef
+  forwardRef,
+  type PropsWithChildren
 } from "react";
 import useMeasure from "react-use-measure";
 

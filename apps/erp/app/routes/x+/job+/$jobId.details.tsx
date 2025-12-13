@@ -80,11 +80,11 @@ export async function action({ request, params }: ActionFunctionArgs) {
     return validationError(validation.error);
   }
 
-  const { jobId, ...data } = validation.data;
+  const { jobId, ...d } = validation.data;
   if (!jobId) throw new Error("Could not find jobId in payload");
 
   const updateJob = await upsertJob(client, {
-    ...data,
+    ...d,
     id: id,
     jobId,
     customFields: setCustomFields(formData),

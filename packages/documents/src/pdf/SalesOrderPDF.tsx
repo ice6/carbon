@@ -1,9 +1,8 @@
 import type { Database } from "@carbon/database";
-import { Image, Text, View } from "@react-pdf/renderer";
-import { createTw } from "react-pdf-tailwind";
-
 import type { JSONContent } from "@carbon/react";
 import { formatCityStatePostalCode } from "@carbon/utils";
+import { Image, Text, View } from "@react-pdf/renderer";
+import { createTw } from "react-pdf-tailwind";
 import type { PDF } from "../types";
 import {
   getLineDescription,

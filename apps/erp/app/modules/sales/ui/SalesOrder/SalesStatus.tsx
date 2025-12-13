@@ -1,5 +1,5 @@
-import { Status } from "@carbon/react";
 import type { Database } from "@carbon/database";
+import { Status } from "@carbon/react";
 
 type SalesOrderStatusProps = {
   status?: Database["public"]["Enums"]["salesOrderStatus"] | null;

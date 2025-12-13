@@ -33,10 +33,10 @@ export async function action({ request }: ActionFunctionArgs) {
   }
 
   // biome-ignore lint/correctness/noUnusedVariables: suppressed due to migration
-  const { id, ...data } = validation.data;
+  const { id, ...d } = validation.data;
 
   const insertGaugeType = await upsertGaugeType(client, {
-    ...data,
+    ...d,
     companyId,
     createdBy: userId,
     customFields: setCustomFields(formData)

@@ -27,10 +27,10 @@ export async function action({ request, params }: ActionFunctionArgs) {
   if (validation.error) {
     return validationError(validation.error);
   }
-  const { ...data } = validation.data;
+  const { ...d } = validation.data;
 
   const itemLedger = await insertManualInventoryAdjustment(client, {
-    ...data,
+    ...d,
     companyId,
     createdBy: userId
   });

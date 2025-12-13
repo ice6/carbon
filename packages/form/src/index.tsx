@@ -2,9 +2,9 @@ export * from "./components";
 export * from "./hooks";
 export {
   FieldArray,
-  useFieldArray,
   type FieldArrayHelpers,
-  type FieldArrayProps
+  type FieldArrayProps,
+  useFieldArray
 } from "./internal/state/fieldArray";
 export * from "./server";
 export * from "./state/formStateHooks";

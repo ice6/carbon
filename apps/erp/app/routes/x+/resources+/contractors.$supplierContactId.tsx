@@ -49,13 +49,13 @@ export async function action({ request }: ActionFunctionArgs) {
   }
 
   // biome-ignore lint/correctness/noUnusedVariables: suppressed due to migration
-  const { id, supplierId, ...data } = validation.data;
+  const { id, supplierId, ...d } = validation.data;
   if (!id) throw notFound("Contractor ID was not found");
 
   const updateContractor = await upsertContractor(client, {
     id,
-    ...data,
-    abilities: data.abilities ?? [],
+    ...d,
+    abilities: d.abilities ?? [],
     customFields: setCustomFields(formData),
     updatedBy: userId
   });

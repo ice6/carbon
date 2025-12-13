@@ -66,10 +66,10 @@ export async function action({ request }: ActionFunctionArgs) {
 
   if (!transferId) throw new Error("transferId is not defined");
   // biome-ignore lint/correctness/noUnusedVariables: suppressed due to migration
-  const { id, ...data } = validation.data;
+  const { id, ...d } = validation.data;
 
   const createTransfer = await upsertWarehouseTransfer(client, {
-    ...data,
+    ...d,
     transferId,
     companyId,
     createdBy: userId,

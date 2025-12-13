@@ -7,40 +7,44 @@ export {
   EditorCommandItem,
   EditorCommandList,
   EditorContent,
-  EditorRoot,
-  MentionList,
-  useEditor,
   type EditorContentProps,
   type EditorInstance,
+  EditorRoot,
   type JSONContent,
+  MentionList,
   type MentionListProps,
-  type MentionListRef
+  type MentionListRef,
+  useEditor
 } from "./components";
 
 // Extensions
 export {
-  addAIHighlight,
   AIHighlight,
+  addAIHighlight,
   CharacterCount,
   CodeBlockLowlight,
   Color,
   Command,
+  type CreateMentionExtensionOptions,
+  type CreateMentionSuggestionOptions,
+  CustomKeymap,
   createMentionExtension,
   createMentionSuggestion,
   createSuggestionItems,
-  CustomKeymap,
   GlobalDragHandle,
-  handleCommandNavigation,
   HighlightExtension,
   HorizontalRule,
+  handleCommandNavigation,
   ImageResizer,
   InputRule,
   MarkdownExtension,
   Mention,
+  type MentionSuggestion,
   Placeholder,
   removeAIHighlight,
   renderItems,
   StarterKit,
+  type SuggestionItem,
   TaskItem,
   TaskList,
   TextStyle,
@@ -48,11 +52,7 @@ export {
   TiptapLink,
   TiptapUnderline,
   UpdatedImage,
-  Youtube,
-  type CreateMentionExtensionOptions,
-  type CreateMentionSuggestionOptions,
-  type MentionSuggestion,
-  type SuggestionItem
+  Youtube
 } from "./extensions";
 
 // Plugins
@@ -60,9 +60,9 @@ export {
   createImageUpload,
   handleImageDrop,
   handleImagePaste,
-  UploadImagesPlugin,
   type ImageUploadOptions,
-  type UploadFn
+  type UploadFn,
+  UploadImagesPlugin
 } from "./plugins";
 
 // Utils

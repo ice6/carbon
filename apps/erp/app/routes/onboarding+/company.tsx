@@ -76,7 +76,7 @@ export async function action({ request }: ActionFunctionArgs) {
 
   const serviceRole = getCarbonServiceRole();
 
-  const { next, ...data } = validation.data;
+  const { next, ...d } = validation.data;
 
   let companyId: string | undefined;
 
@@ -89,12 +89,12 @@ export async function action({ request }: ActionFunctionArgs) {
   if (company && location) {
     const [companyUpdate, locationUpdate] = await Promise.all([
       updateCompany(serviceRole, company.id!, {
-        ...data,
+        ...d,
         updatedBy: userId
       }),
       upsertLocation(serviceRole, {
         ...location,
-        ...data,
+        ...d,
         timezone: getLocalTimeZone(),
         updatedBy: userId
       })
@@ -110,7 +110,7 @@ export async function action({ request }: ActionFunctionArgs) {
   } else {
     if (!companyId) {
       const [companyInsert] = await Promise.all([
-        insertCompany(serviceRole, data, userId)
+        insertCompany(serviceRole, d, userId)
       ]);
       if (companyInsert.error) {
         console.error(companyInsert.error);
@@ -139,7 +139,7 @@ export async function action({ request }: ActionFunctionArgs) {
     }
 
     // biome-ignore lint/correctness/noUnusedVariables: suppressed due to migration
-    const { baseCurrencyCode, website, ...locationData } = data;
+    const { baseCurrencyCode, website, ...locationData } = d;
 
     // TODO: move all of this to transaction
     const [locationInsert] = await Promise.all([

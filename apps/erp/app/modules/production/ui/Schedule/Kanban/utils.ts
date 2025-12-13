@@ -5,7 +5,7 @@ import type {
   KeyboardCoordinateGetter,
   Over
 } from "@dnd-kit/core";
-import { KeyboardCode, closestCorners, getFirstCollision } from "@dnd-kit/core";
+import { closestCorners, getFirstCollision, KeyboardCode } from "@dnd-kit/core";
 import type { DraggableData } from "./types";
 
 const directions: string[] = [

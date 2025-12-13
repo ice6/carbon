@@ -7,12 +7,11 @@ import {
   TooltipProvider,
   TooltipTrigger
 } from "@carbon/react";
-import { LuGlobe } from "react-icons/lu";
-import { useChatStore } from "./lib/store";
-
 import { AnimatePresence, motion } from "framer-motion";
 import type { ComponentProps } from "react";
 import { useEffect, useState } from "react";
+import { LuGlobe } from "react-icons/lu";
+import { useChatStore } from "./lib/store";
 
 interface WebSearchSource {
   title?: string;

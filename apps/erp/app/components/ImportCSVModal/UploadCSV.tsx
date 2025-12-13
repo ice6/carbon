@@ -1,10 +1,10 @@
 import { useCarbon } from "@carbon/auth";
 import {
+  cn,
   ModalDescription,
   ModalHeader,
   ModalTitle,
   Spinner,
-  cn,
   toast
 } from "@carbon/react";
 import { nanoid } from "nanoid";

@@ -1,9 +1,9 @@
-import Mention from "@tiptap/extension-mention";
 import type { MentionOptions } from "@tiptap/extension-mention";
+import Mention from "@tiptap/extension-mention";
 import { ReactRenderer } from "@tiptap/react";
 import type {
-  SuggestionProps,
-  SuggestionKeyDownProps
+  SuggestionKeyDownProps,
+  SuggestionProps
 } from "@tiptap/suggestion";
 import type { RefObject } from "react";
 import tippy, { type Instance, type Props } from "tippy.js";

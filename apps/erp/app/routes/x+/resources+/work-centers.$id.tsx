@@ -54,12 +54,12 @@ export async function action({ request }: ActionFunctionArgs) {
     return validationError(validation.error);
   }
 
-  const { id, ...data } = validation.data;
+  const { id, ...d } = validation.data;
   if (!id) throw new Error("ID is was not found");
 
   const updateWorkCenter = await upsertWorkCenter(client, {
     id,
-    ...data,
+    ...d,
     companyId,
     updatedBy: userId,
     customFields: setCustomFields(formData)

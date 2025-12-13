@@ -24,14 +24,14 @@ export async function action({ request }: ActionFunctionArgs) {
     };
   }
 
-  const { state, ...data } = validation.data;
+  const { state, ...d } = validation.data;
 
   try {
     const parsedState = JSON.parse(state);
     const validatedState = savedViewStateValidator.parse(parsedState);
 
     const result = await upsertSavedView(client, {
-      ...data,
+      ...d,
       ...validatedState,
       userId,
       companyId
@@ -46,10 +46,10 @@ export async function action({ request }: ActionFunctionArgs) {
       };
     }
 
-    if (data.id) {
+    if (d.id) {
       return {
         success: true,
-        id: data.id,
+        id: d.id,
         message: "View updated"
       };
     }

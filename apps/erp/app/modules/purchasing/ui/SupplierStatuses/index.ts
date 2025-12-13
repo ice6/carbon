@@ -1,4 +1,4 @@
-import SupplierStatusForm from "./SupplierStatusForm";
 import SupplierStatusesTable from "./SupplierStatusesTable";
+import SupplierStatusForm from "./SupplierStatusForm";
 
 export { SupplierStatusForm, SupplierStatusesTable };

@@ -6,7 +6,7 @@ export * from "./IssueForm";
 export * from "./IssueHeader";
 export * from "./IssueIcons";
 export * from "./IssueProperties";
-export * from "./IssuesTable";
 export * from "./IssueStatus";
+export * from "./IssuesTable";
 export * from "./IssueTask";
 export * from "./ReviewersList";

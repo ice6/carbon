@@ -25,6 +25,7 @@ import {
   accountClassTypes,
   incomeBalanceTypes
 } from "../../accounting.models";
+
 type AccountCategoryFormProps = {
   initialValues: z.infer<typeof accountCategoryValidator>;
   onClose: () => void;

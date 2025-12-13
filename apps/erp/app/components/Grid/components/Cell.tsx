@@ -1,4 +1,4 @@
-import { Td, cn } from "@carbon/react";
+import { cn, Td } from "@carbon/react";
 import type { Cell as CellType } from "@tanstack/react-table";
 import { flexRender } from "@tanstack/react-table";
 import { memo, useState } from "react";

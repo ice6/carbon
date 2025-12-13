@@ -5,10 +5,10 @@ import {
   LuChevronRight,
   LuChevronUp
 } from "react-icons/lu";
-import { cn } from "./utils/cn";
+import type { Modifier, ShortcutDefinition } from "./hooks/useShortcutKeys";
 
 import { useOperatingSystem } from "./OperatingSystem";
-import type { Modifier, ShortcutDefinition } from "./hooks/useShortcutKeys";
+import { cn } from "./utils/cn";
 
 export const shortcutKeyVariants = {
   small:

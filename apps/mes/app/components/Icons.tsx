@@ -1,6 +1,18 @@
 import type { Database } from "@carbon/database";
 import { cn } from "@carbon/react";
 import { AiOutlinePartition } from "react-icons/ai";
+import {
+  BsExclamationSquareFill,
+  BsFileEarmarkFill,
+  BsFileEarmarkPlayFill,
+  BsFileExcelFill,
+  BsFileImageFill,
+  BsFilePdfFill,
+  BsFilePptFill,
+  BsFileTextFill,
+  BsFileWordFill,
+  BsFileZipFill
+} from "react-icons/bs";
 import { FaCodePullRequest } from "react-icons/fa6";
 import {
   LuAtom,
@@ -25,19 +37,6 @@ import {
   LuToggleLeft,
   LuUser
 } from "react-icons/lu";
-
-import {
-  BsExclamationSquareFill,
-  BsFileEarmarkFill,
-  BsFileEarmarkPlayFill,
-  BsFileExcelFill,
-  BsFileImageFill,
-  BsFilePdfFill,
-  BsFilePptFill,
-  BsFileTextFill,
-  BsFileWordFill,
-  BsFileZipFill
-} from "react-icons/bs";
 import { RxCodesandboxLogo } from "react-icons/rx";
 import { TbTargetOff } from "react-icons/tb";
 import { AlmostDoneIcon } from "~/assets/icons/AlmostDoneIcon";
