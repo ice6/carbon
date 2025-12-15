@@ -542,7 +542,7 @@ const KanbansTable = memo(
             {canUpdate && (
               <MenuItem asChild>
                 <Link to={`${path.to.kanban(row.id!)}?${params}`}>
-                  <LuPencil className="mr-2 h-4 w-4" />
+                  <LuPencil className="mr-2 size-4" />
                   Edit
                 </Link>
               </MenuItem>
@@ -562,7 +562,10 @@ const KanbansTable = memo(
                 return (
                   <MenuItem asChild>
                     <Link to={getLinkToItemDetails(itemType, row.itemId)}>
-                      <MethodItemTypeIcon type={itemType} />
+                      <MethodItemTypeIcon
+                        type={itemType}
+                        className="mr-2 size-4"
+                      />
                       View Item Master
                     </Link>
                   </MenuItem>
@@ -571,7 +574,7 @@ const KanbansTable = memo(
             {canDelete && (
               <MenuItem destructive asChild>
                 <Link to={`${path.to.deleteKanban(row.id!)}?${params}`}>
-                  <LuTrash className="mr-2 h-4 w-4" />
+                  <LuTrash className="mr-2 size-4" />
                   Delete
                 </Link>
               </MenuItem>
@@ -601,7 +604,7 @@ const KanbansTable = memo(
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
             <DropdownMenuItem onClick={handlePrintLabels}>
-              <LuPrinter className="mr-2 h-4 w-4" />
+              <LuPrinter className="mr-2 size-4" />
               Print Labels ({selectedRows.length})
             </DropdownMenuItem>
           </DropdownMenuGroup>
