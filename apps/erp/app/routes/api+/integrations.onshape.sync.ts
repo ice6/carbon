@@ -38,7 +38,7 @@ export async function action({ request }: ActionFunctionArgs) {
   }
 
   try {
-    const data = onShapeDataValidator.parse(JSON.parse(rows as string));
+    const parsed = onShapeDataValidator.parse(JSON.parse(rows as string));
     const serviceRole = await getCarbonServiceRole();
 
     const [sync, item] = await Promise.all([
@@ -46,7 +46,7 @@ export async function action({ request }: ActionFunctionArgs) {
         body: {
           type: "onshape",
           makeMethodId,
-          data,
+          data: parsed,
           companyId,
           userId
         },
