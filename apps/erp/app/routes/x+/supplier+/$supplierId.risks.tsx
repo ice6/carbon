@@ -1,15 +1,13 @@
 import { requirePermissions } from "@carbon/auth/auth.server";
-import { useParams } from "@remix-run/react";
-import type { LoaderFunctionArgs } from "@vercel/remix";
-import { json } from "@vercel/remix";
+import { data, type LoaderFunctionArgs, useParams } from "react-router";
 import SupplierRiskRegister from "~/modules/purchasing/ui/Supplier/SupplierRiskRegister";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   await requirePermissions(request, {
-    view: "purchasing",
+    view: "purchasing"
   });
 
-  return json({});
+  return data({});
 }
 
 export default function SupplierRisksRoute() {

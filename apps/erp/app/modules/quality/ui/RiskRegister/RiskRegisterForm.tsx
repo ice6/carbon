@@ -9,28 +9,28 @@ import {
   ModalDrawerHeader,
   ModalDrawerProvider,
   ModalDrawerTitle,
-  VStack,
   toast,
   useDisclosure,
+  VStack
 } from "@carbon/react";
-import { useFetcher } from "@remix-run/react";
 import type { PostgrestResponse } from "@supabase/supabase-js";
 import { useEffect } from "react";
+import { useFetcher } from "react-router";
 import type { z } from "zod/v3";
 import {
   Employee,
   Hidden,
   Input,
+  Number as NumberInput,
   Select,
   Submit,
-  TextArea,
-  Number as NumberInput,
+  TextArea
 } from "~/components/Form";
 import { Confirm } from "~/components/Modals";
 import { usePermissions } from "~/hooks";
 import {
   riskRegisterValidator,
-  riskStatus,
+  riskStatus
 } from "~/modules/quality/quality.models";
 import { path } from "~/utils/path";
 
@@ -45,7 +45,7 @@ const RiskRegisterForm = ({
   initialValues,
   open = true,
   type = "drawer",
-  onClose,
+  onClose
 }: RiskRegisterFormProps) => {
   const permissions = usePermissions();
   const fetcher = useFetcher<PostgrestResponse<{ id: string }>>();
@@ -60,7 +60,7 @@ const RiskRegisterForm = ({
       toast.error(`Failed to save risk: ${fetcher.data.error.message}`);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [fetcher.data]);
+  }, [fetcher.data, onClose]);
 
   useEffect(() => {
     if (deleteFetcher.data?.success) {
@@ -71,7 +71,12 @@ const RiskRegisterForm = ({
       toast.error(deleteFetcher.data.message || "Failed to delete risk");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [deleteFetcher.data?.success]);
+  }, [
+    deleteFetcher.data?.success,
+    deleteDisclosure,
+    onClose,
+    deleteFetcher.data?.message
+  ]);
 
   const isEditing = !!initialValues.id;
   const isDisabled = isEditing
@@ -82,7 +87,7 @@ const RiskRegisterForm = ({
   const formInitialValues = {
     ...initialValues,
     severity: initialValues.severity ?? 1,
-    likelihood: initialValues.likelihood ?? 1,
+    likelihood: initialValues.likelihood ?? 1
   };
 
   return (

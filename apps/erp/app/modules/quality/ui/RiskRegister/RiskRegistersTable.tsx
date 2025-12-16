@@ -1,23 +1,23 @@
 import { MenuIcon, MenuItem, useDisclosure } from "@carbon/react";
-import { useNavigate } from "@remix-run/react";
 import type { ColumnDef } from "@tanstack/react-table";
 import { memo, useCallback, useMemo, useState } from "react";
 import {
   LuAlignLeft,
-  LuTriangleAlert,
   LuPencil,
-  LuTrash,
-  LuUser,
   LuShapes,
+  LuTrash,
+  LuTriangleAlert,
+  LuUser
 } from "react-icons/lu";
+import { useNavigate } from "react-router";
 import { EmployeeAvatar, Hyperlink, New, Table } from "~/components";
 import { Enumerable } from "~/components/Enumerable";
 import { Confirm } from "~/components/Modals";
 import { usePermissions, useUrlParams } from "~/hooks";
-import type { Risk } from "~/modules/quality/types";
 import { riskSource, riskStatus } from "~/modules/quality/quality.models";
-import { path } from "~/utils/path";
+import type { Risk } from "~/modules/quality/types";
 import { usePeople } from "~/stores";
+import { path } from "~/utils/path";
 
 type RiskRegistersTableProps = {
   data: Risk[];
@@ -27,7 +27,7 @@ type RiskRegistersTableProps = {
 const defaultColumnVisibility = {
   description: false,
   createdAt: true,
-  updatedAt: false,
+  updatedAt: false
 };
 
 const RiskRegistersTable = memo(({ data, count }: RiskRegistersTableProps) => {
@@ -40,8 +40,8 @@ const RiskRegistersTable = memo(({ data, count }: RiskRegistersTableProps) => {
   const [selectedRisk, setSelectedRisk] = useState<Risk | null>(null);
 
   const onDelete = useCallback(
-    (data: Risk) => {
-      setSelectedRisk(data);
+    (risk: Risk) => {
+      setSelectedRisk(risk);
       deleteModal.onOpen();
     },
     [deleteModal]
@@ -63,8 +63,8 @@ const RiskRegistersTable = memo(({ data, count }: RiskRegistersTableProps) => {
           </Hyperlink>
         ),
         meta: {
-          icon: <LuAlignLeft />,
-        },
+          icon: <LuAlignLeft />
+        }
       },
       {
         accessorKey: "source",
@@ -74,9 +74,9 @@ const RiskRegistersTable = memo(({ data, count }: RiskRegistersTableProps) => {
           icon: <LuShapes />,
           filter: {
             type: "static",
-            options: riskSource.map((c) => ({ value: c, label: c })),
-          },
-        },
+            options: riskSource.map((c) => ({ value: c, label: c }))
+          }
+        }
       },
       {
         accessorKey: "status",
@@ -86,19 +86,19 @@ const RiskRegistersTable = memo(({ data, count }: RiskRegistersTableProps) => {
           icon: <LuTriangleAlert />,
           filter: {
             type: "static",
-            options: riskStatus.map((s) => ({ value: s, label: s })),
-          },
-        },
+            options: riskStatus.map((s) => ({ value: s, label: s }))
+          }
+        }
       },
       {
         accessorKey: "severity",
         header: "Severity",
-        cell: (item) => item.getValue<number>(),
+        cell: (item) => item.getValue<number>()
       },
       {
         accessorKey: "likelihood",
         header: "Likelihood",
-        cell: (item) => item.getValue<number>(),
+        cell: (item) => item.getValue<number>()
       },
       {
         id: "assigneeUserId",
@@ -112,11 +112,11 @@ const RiskRegistersTable = memo(({ data, count }: RiskRegistersTableProps) => {
             type: "static",
             options: people.map((employee) => ({
               value: employee.id,
-              label: employee.name,
-            })),
-          },
-        },
-      },
+              label: employee.name
+            }))
+          }
+        }
+      }
     ];
     return defaultColumns;
   }, [people]);

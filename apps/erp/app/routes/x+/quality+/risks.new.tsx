@@ -1,17 +1,15 @@
 import { requirePermissions } from "@carbon/auth/auth.server";
-import { useNavigate } from "@remix-run/react";
-import type { ActionFunctionArgs } from "@vercel/remix";
-import { json } from "@vercel/remix";
+import { validationError, validator } from "@carbon/form";
+import { type ActionFunctionArgs, data, useNavigate } from "react-router";
 import { riskRegisterValidator } from "~/modules/quality/quality.models";
 import { upsertRisk } from "~/modules/quality/quality.service";
 import RiskRegisterForm from "~/modules/quality/ui/RiskRegister/RiskRegisterForm";
 import { path } from "~/utils/path";
-import { validationError, validator } from "@carbon/form";
 
 export const action = async ({ request }: ActionFunctionArgs) => {
   const { client, userId, companyId } = await requirePermissions(request, {
     create: "quality",
-    role: "employee",
+    role: "employee"
   });
 
   const formData = await request.formData();
@@ -21,27 +19,27 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     return validationError(validation.error);
   }
 
-  const { id: _, ...data } = validation.data;
+  const { id: _, ...d } = validation.data;
 
   const result = await upsertRisk(client, {
-    ...data,
+    ...d,
     companyId,
-    createdByUserId: userId,
+    createdByUserId: userId
   });
 
   if (result.error) {
-    return json(
+    return data(
       {
         data: null,
-        error: result.error.message,
+        error: result.error.message
       },
       { status: 500 }
     );
   }
 
-  return json({
+  return data({
     data: result.data,
-    error: null,
+    error: null
   });
 };
 
@@ -55,7 +53,7 @@ export default function NewRiskRoute() {
         title: "",
         description: "",
         source: "General",
-        status: "Open",
+        status: "Open"
       }}
       onClose={onClose}
     />
