@@ -133,6 +133,14 @@ export const maintenanceDispatchPriority = [
   "Critical"
 ] as const;
 
+export const MaintenanceKPIs = [
+  { key: "mttr", label: "Mean Time To Repair" },
+  { key: "mtbf", label: "Mean Time Between Failures" },
+  { key: "sparePartCost", label: "Spare Part Cost" },
+  { key: "worstPerformingMachines", label: "Worst Performing Machines" },
+  { key: "sparePartConsumption", label: "Spare Part Consumption" }
+] as const;
+
 export const maintenanceDispatchStatus = [
   "Open",
   "Assigned",
