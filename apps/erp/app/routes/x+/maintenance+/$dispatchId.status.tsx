@@ -3,10 +3,7 @@ import { requirePermissions } from "@carbon/auth/auth.server";
 import { flash } from "@carbon/auth/session.server";
 import type { ActionFunctionArgs } from "react-router";
 import { redirect } from "react-router";
-import {
-  maintenanceDispatchStatus,
-  upsertMaintenanceDispatch
-} from "~/modules/resources";
+import { maintenanceDispatchStatus } from "~/modules/resources";
 import { path, requestReferrer } from "~/utils/path";
 
 export async function action({ request, params }: ActionFunctionArgs) {
@@ -35,6 +32,8 @@ export async function action({ request, params }: ActionFunctionArgs) {
     .update({
       status,
       assignee: ["Completed", "Cancelled"].includes(status) ? null : undefined,
+      actualStartTime:
+        status === "In Progress" ? new Date().toISOString() : undefined,
       updatedBy: userId
     })
     .eq("id", dispatchId);
